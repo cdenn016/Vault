@@ -2,10 +2,14 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-10
+updated: 2026-10-11
 ---
 
 # Index
+
+## N1024 posterior cost admitted; finer burn precision unresolved, October 11, 2026
+
+[[multiagentelbo-2026-10-11-n1024-posterior-admission]] records Code PR276's first fresh CPU admission: 100.7268114 seconds, 1422082048-byte peak and zero dense fallbacks. Broad screens pass, while twice conditional MCSE .000487382 exceeds the finer .0004 burn allowance despite an absolute loss gap .000364849. Both reader stops and the final saved-arithmetic pass remain retained. No candidate fit or stopping-rule choice follows; the user decision and independently frozen multi-preparation/reference designs remain pending. All four RG gates stay open near 65%, the goal is active, and the available GPU is unused here.
 
 ## Fresh N512 native pilot completed and break checkpoint, October 10, 2026
 

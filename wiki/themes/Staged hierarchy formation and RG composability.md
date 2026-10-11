@@ -13,12 +13,16 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-10-10
+updated: 2026-10-11
 ---
 
 
 
 # Staged hierarchy formation and RG composability
+
+## October 11, 2026: N1024 posterior cost and unresolved burn sensitivity
+
+[[multiagentelbo-2026-10-11-n1024-posterior-admission]] completes one fresh CPU-only posterior admission with independent burn64/burn256 four-chain calls, 256 retained sweeps each and no candidate fit. Total time is 100.7268114 seconds, peak working set 1422082048 bytes, with zero dense fallbacks; the fifty-file packet retains 856625309 bytes. Broad precision, retained-half and selected-Rhat screens pass, but the finer burn screen fails on precision: long-minus-baseline loss is -.000364849 and twice conditional MCSE .000487382 exceeds the frozen .0004 allowance. The miss leaves burn sensitivity unresolved without proving excess bias or mixing. Two saved reader stops (float32 acceptance arithmetic, then correction indentation) remain alongside the final NumPy readback of 8388608 densities, 10240 trace entries and 29386819 comparisons; eight tiny tests pass in three new batches without old-suite replay. The earlier N512 section preserves its historical unadmitted-N1024 status; this source supplies the measured resource result. The user still chooses the inference stopping rule before an independently frozen multi-preparation candidate comparison, and later finer posterior precision requires a separate declared budget. No completed packet is extended or replayed. All four gates remain open near 65%, with expected native accuracy, actual-law parents, complete retained state, persistent formation, growing laws and R4/reward choices pending. The resumed goal remains active; GPU availability is confirmed but no GPU work occurs in this admission or ingest.
 
 ## October 10, 2026: first fresh N512 native prediction pilot
 
