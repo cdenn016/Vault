@@ -10,6 +10,10 @@ updated: 2026-10-11
 
 # CS-ML MOC
 
+## Native observed-parent CPU resource admission, October 11, 2026
+
+[[multiagentelbo-2026-10-11-observed-parent-admission]] completes two fresh one-sweep N512 histories on the observed episode-two fiber. Producer/sampler/reader times are .594313/.116967/.034391 seconds, peak process memory is 538697728 bytes and canonical packet parity covers 49 files/1414238 bytes. The six-color sparse kernel has zero dense fallbacks; the first NumPy/SciPy reader passes 29 comparisons over 65563 scalars. No archived posterior state initializes this sampler, but the chosen context retains its earlier 614172452-byte complete decoder and construction/readback charges. A shorter budget and different retained outputs support no matched speedup, useful compression, compact decoder or regular-filter claim.
+
 ## Complete native next-parent factor law, October 11, 2026
 
 [[multiagentelbo-2026-10-11-native-next-parent]] completes the all-4096 history, 128-parent law and its first 43298386-scalar NumPy/SciPy reader. Producer/reader times are 11.873906/10.217314 seconds; canonical packet parity covers 39 files/818278131 bytes, with a 616501759-byte decoder and earlier dense construction/readback charged separately. The complete rank-four factor correction avoids a dense covariance for every joint component while retaining cross-parent dependence. Different retained outputs preclude a matched benchmark; no compact decoder, autonomous filter or runtime advantage is established.

@@ -12,6 +12,8 @@ updated: 2026-10-11
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-11-observed-parent-admission]] distinguishes a fresh native observed-prefix conditional target from the earlier archive's context reweighting. Its fixed parent value is still archive-dependent, but initialization uses fresh Gaussian noise and sampling reads only original prefix records. Two chains retain one sweep each: all MCSE/Rhat values remain unavailable, and acceptance/support arithmetic supplies no initialization, mixing or expected-accuracy certificate. The passed saved-value reader admits arithmetic and resources only; a separately frozen conditional-reference precision study remains next.
+
 [[multiagentelbo-2026-10-11-native-next-parent]] retains the earlier archive-dependent context masses exactly and applies one original-record update across 65536 joint components. Updated joint ESS 13.994934 coexists with history ESS near one; label uncertainty supplies no extra independent histories or mixing certificate. The unchanged two-row log score and passed saved arithmetic reconstruction establish neither expected native accuracy nor independent predictive gain.
 
 [[multiagentelbo-2026-10-11-native-comparison-and-parents]] retains all eight preparation outcomes per size, separating sample SD/observed mean SE from conditional numerical mean MCSE. The .01-nat raw nominal screen is unresolved at N512 after two burn-precision misses; N1024's raw pass is not certified native accuracy, and its failed reference/unread candidate prevent complete grid readback. The all-component parent context is an archive-dependent readout, with ESS near one and no independent predictive-gain interpretation. First saved arithmetic checks and finite-MCMC initialization/mixing error remain distinct.
