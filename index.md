@@ -7,6 +7,10 @@ updated: 2026-10-11
 
 # Index
 
+## First native observed-parent CPU admission, October 11, 2026
+
+[[multiagentelbo-2026-10-11-observed-parent-admission]] records Code PR282/283's direct observed-prefix N512 kernel: complete 128-parent context, 768 free scalar fiber coordinates, two fresh one-sweep histories and zero sparse fallbacks. The first reader passes 29 comparisons over 65563 scalars. Producer/sampler/reader times are .594313/.116967/.034391 seconds, peak memory is 538697728 bytes and canonical packet parity covers 49 files/1414238 bytes. The earlier archive-dependent context and construction/decoder costs remain charged. MCSE, mixing, native accuracy, regular filtering and useful compression remain unresolved; all four gates stay open near subjective 65% and GPU work requires separate human authorization.
+
 ## Independent comparison and first native next-parent law, October 11, 2026
 
 [[multiagentelbo-2026-10-11-native-comparison-and-parents]] records Code PR278/279's sixteen fixed preparations, first all-4096 correlated posterior-parent activation/readback and sparse bridge comparison. Raw size-stratified arithmetic is reconstructed, but two N512 burn-precision misses and N1024/preparation-1's failed reference/unread candidate leave native accuracy and complete-grid readback unresolved. The dependent parent context has ESS near one; full decoder/oracle costs are charged, with no compact-message or hierarchy claim. The completed next-parent law is recorded below. All four gates stay open near subjective 65%; GPU work is forbidden without separate human authorization.
@@ -1593,6 +1597,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[multiagentelbo-2026-10-11-observed-parent-admission|MultiAgentELBO first native observed-parent CPU admission]] — fresh observed-prefix affine-fiber kernel and first saved arithmetic/resource admission; dependent context and all upstream costs retained, with precision and RG gates open.
 
 - [[multiagentelbo-2026-10-11-native-next-parent|MultiAgentELBO first paired native next-parent law]] — completed all-parent predictive/original-record-conditioned finite law and first independent arithmetic reconstruction; exact earlier log masses, correlated factor correction and full decoder costs, with RG gates open.
 
