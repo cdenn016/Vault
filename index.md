@@ -7,6 +7,8 @@ updated: 2026-10-11
 
 # Index
 
+[[multiagentelbo-2026-10-11-observed-parent-precision]] records Code PR285/286's first two fresh N512 observed-parent conditional reference calls: four chains and 1024 complete histories each, independent burn64/burn256 streams and the unchanged complete episode-two context. Local two-row per-row MCSEs .007636001/.006535563 miss precision; long-minus-baseline loss -.017329216 has twice-MCSE .020101949. Burn64 halves miss, while burn256 halves and both Rhat screens pass. The first saved-only reader passes all 8192 histories/13479778 scalar entries. CPU producer/reader times are 163.332456/36.996321 seconds, with zero dense fallbacks and a 62-file/1401199055-byte canonical packet. Full fine-state and upstream dependent-context/decoder costs remain. The ended local query is preserved; the existing all-row marginal-score estimand can be assessed separately on saved histories without another sampler, and cannot replace this joint query. Mixing, native accuracy, compact regular filtering, hierarchy and growing limits stay open; all four gates remain near subjective 65% and GPU use/probing requires separate human authorization.
+
 ## First native observed-parent CPU admission, October 11, 2026
 
 [[multiagentelbo-2026-10-11-observed-parent-admission]] records Code PR282/283's direct observed-prefix N512 kernel: complete 128-parent context, 768 free scalar fiber coordinates, two fresh one-sweep histories and zero sparse fallbacks. The first reader passes 29 comparisons over 65563 scalars. Producer/sampler/reader times are .594313/.116967/.034391 seconds, peak memory is 538697728 bytes and canonical packet parity covers 49 files/1414238 bytes. The earlier archive-dependent context and construction/decoder costs remain charged. MCSE, mixing, native accuracy, regular filtering and useful compression remain unresolved; all four gates stay open near subjective 65% and GPU work requires separate human authorization.
@@ -1598,6 +1600,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-11-observed-parent-precision|MultiAgentELBO observed-parent conditional reference precision]]: first saved arithmetic passes; local forecast precision misses, with complete costs and RG gaps retained.
 - [[multiagentelbo-2026-10-11-observed-parent-admission|MultiAgentELBO first native observed-parent CPU admission]] — fresh observed-prefix affine-fiber kernel and first saved arithmetic/resource admission; dependent context and all upstream costs retained, with precision and RG gates open.
 
 - [[multiagentelbo-2026-10-11-native-next-parent|MultiAgentELBO first paired native next-parent law]] — completed all-parent predictive/original-record-conditioned finite law and first independent arithmetic reconstruction; exact earlier log masses, correlated factor correction and full decoder costs, with RG gates open.
