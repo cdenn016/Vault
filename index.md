@@ -7,6 +7,10 @@ updated: 2026-10-11
 
 # Index
 
+## Both fresh reference-resolution screens passed, October 11, 2026
+
+[[multiagentelbo-2026-10-11-reference-resolution]] records Code PR277's first N512/N1024 conditional .0004-nat burn-sensitivity passes at 1024 retained histories per chain. Both readers pass, with the preceding admission miss preserved. One preparation per size supplies no mixing or expected-accuracy certificate. Working judgment chooses accepted time four primary/time one sensitivity for the next separately frozen candidate comparison after the user deferred the choice; all four RG gates remain open near subjective 65%. CPU-only process time is 496.282136 seconds, and the user now controls the GPU.
+
 ## N1024 posterior cost admitted; finer burn precision unresolved, October 11, 2026
 
 [[multiagentelbo-2026-10-11-n1024-posterior-admission]] records Code PR276's first fresh CPU admission: 100.7268114 seconds, 1422082048-byte peak and zero dense fallbacks. Broad screens pass, while twice conditional MCSE .000487382 exceeds the finer .0004 burn allowance despite an absolute loss gap .000364849. Both reader stops and the final saved-arithmetic pass remain retained. No candidate fit or stopping-rule choice follows; the user decision and independently frozen multi-preparation/reference designs remain pending. All four RG gates stay open near 65%, the goal is active, and the available GPU is unused here.
