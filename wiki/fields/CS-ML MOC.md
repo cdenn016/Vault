@@ -10,6 +10,10 @@ updated: 2026-10-11
 
 # CS-ML MOC
 
+## Complete native next-parent factor law, October 11, 2026
+
+[[multiagentelbo-2026-10-11-native-next-parent]] completes the all-4096 history, 128-parent law and its first 43298386-scalar NumPy/SciPy reader. Producer/reader times are 11.873906/10.217314 seconds; canonical packet parity covers 39 files/818278131 bytes, with a 616501759-byte decoder and earlier dense construction/readback charged separately. The complete rank-four factor correction avoids a dense covariance for every joint component while retaining cross-parent dependence. Different retained outputs preclude a matched benchmark; no compact decoder, autonomous filter or runtime advantage is established.
+
 ## Full correlated posterior-parent computation, October 11, 2026
 
 [[multiagentelbo-2026-10-11-native-comparison-and-parents]] reports dense/sparse CPU producer times 56.516758/29.022942 seconds and packet sizes 2842460043/626219346 bytes on the same preselected N512 archive. Sparse decoder dependencies cost 614172452 bytes, with a separate 2227670363-byte dense comparison oracle and 47555-byte provenance. The first dense reader and all-4096 sparse comparison pass; different outputs/cache histories preclude a matched speedup claim, and the full history codebook precludes a compact-message claim. Native accuracy, autonomous regular filtering, hierarchy and growing limits remain open.

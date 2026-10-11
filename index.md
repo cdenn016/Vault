@@ -7,9 +7,11 @@ updated: 2026-10-11
 
 # Index
 
-## Independent comparison complete; correlated posterior parents checked, October 11, 2026
+## Independent comparison and first native next-parent law, October 11, 2026
 
-[[multiagentelbo-2026-10-11-native-comparison-and-parents]] records Code PR278/279's sixteen fixed preparations, first all-4096 correlated posterior-parent activation/readback and sparse bridge comparison. Raw size-stratified arithmetic is reconstructed, but two N512 burn-precision misses and N1024/preparation-1's failed reference/unread candidate leave native accuracy and complete-grid readback unresolved. The dependent parent context has ESS near one; full decoder/oracle costs are charged, with no compact-message or hierarchy claim. All four gates stay open near subjective 65%; the next-parent large call is unrun and GPU work is forbidden without separate authorization.
+[[multiagentelbo-2026-10-11-native-comparison-and-parents]] records Code PR278/279's sixteen fixed preparations, first all-4096 correlated posterior-parent activation/readback and sparse bridge comparison. Raw size-stratified arithmetic is reconstructed, but two N512 burn-precision misses and N1024/preparation-1's failed reference/unread candidate leave native accuracy and complete-grid readback unresolved. The dependent parent context has ESS near one; full decoder/oracle costs are charged, with no compact-message or hierarchy claim. The completed next-parent law is recorded below. All four gates stay open near subjective 65%; GPU work is forbidden without separate human authorization.
+
+[[multiagentelbo-2026-10-11-native-next-parent]] records Code PR280/281's complete first 4096-history/128-parent predictive and conditioned law, 65536 joint masses and passed 43298386-scalar independent reader. Earlier log masses remain exact; original-record conditioning retains rank-four cross-parent covariance corrections without a future-parent likelihood. Joint ESS 13.994934 and history ESS near one remain descriptive. CPU producer/reader times are 11.873906/10.217314 seconds; the 39-file/818278131-byte canonical packet and full decoder/earlier-operation costs establish no native accuracy, regular filter, persistent hierarchy or growing limit.
 
 ## Both fresh reference-resolution screens passed, October 11, 2026
 
@@ -1591,6 +1593,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[multiagentelbo-2026-10-11-native-next-parent|MultiAgentELBO first paired native next-parent law]] — completed all-parent predictive/original-record-conditioned finite law and first independent arithmetic reconstruction; exact earlier log masses, correlated factor correction and full decoder costs, with RG gates open.
 
 - [[multiagentelbo-2026-10-11-native-comparison-and-parents|MultiAgentELBO independent native comparison and correlated posterior parents]] — completed fixed-count raw comparison with unresolved full readback/native accuracy; first correlated finite posterior parent and sparse oracle comparison, with full decoder costs.
 
