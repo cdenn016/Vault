@@ -5,11 +5,14 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-07
+updated: 2026-10-11
 ---
 
 # CS-ML MOC
 
+## Full correlated posterior-parent computation, October 11, 2026
+
+[[multiagentelbo-2026-10-11-native-comparison-and-parents]] reports dense/sparse CPU producer times 56.516758/29.022942 seconds and packet sizes 2842460043/626219346 bytes on the same preselected N512 archive. Sparse decoder dependencies cost 614172452 bytes, with a separate 2227670363-byte dense comparison oracle and 47555-byte provenance. The first dense reader and all-4096 sparse comparison pass; different outputs/cache histories preclude a matched speedup claim, and the full history codebook precludes a compact-message claim. Native accuracy, autonomous regular filtering, hierarchy and growing limits remain open.
 
 ## L5 numerical follow-up, October 7, 2026
 
