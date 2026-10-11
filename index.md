@@ -7,6 +7,10 @@ updated: 2026-10-11
 
 # Index
 
+## Independent comparison complete; correlated posterior parents checked, October 11, 2026
+
+[[multiagentelbo-2026-10-11-native-comparison-and-parents]] records Code PR278/279's sixteen fixed preparations, first all-4096 correlated posterior-parent activation/readback and sparse bridge comparison. Raw size-stratified arithmetic is reconstructed, but two N512 burn-precision misses and N1024/preparation-1's failed reference/unread candidate leave native accuracy and complete-grid readback unresolved. The dependent parent context has ESS near one; full decoder/oracle costs are charged, with no compact-message or hierarchy claim. All four gates stay open near subjective 65%; the next-parent large call is unrun and GPU work is forbidden without separate authorization.
+
 ## Both fresh reference-resolution screens passed, October 11, 2026
 
 [[multiagentelbo-2026-10-11-reference-resolution]] records Code PR277's first N512/N1024 conditional .0004-nat burn-sensitivity passes at 1024 retained histories per chain. Both readers pass, with the preceding admission miss preserved. One preparation per size supplies no mixing or expected-accuracy certificate. Working judgment chooses accepted time four primary/time one sensitivity for the next separately frozen candidate comparison after the user deferred the choice; all four RG gates remain open near subjective 65%. CPU-only process time is 496.282136 seconds, and the user now controls the GPU.
@@ -1587,6 +1591,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[multiagentelbo-2026-10-11-native-comparison-and-parents|MultiAgentELBO independent native comparison and correlated posterior parents]] — completed fixed-count raw comparison with unresolved full readback/native accuracy; first correlated finite posterior parent and sparse oracle comparison, with full decoder costs.
 
 - [[multiagentelbo-2026-10-08-filter-boundary-learning-domain|MultiAgentELBO paired score assessment, augmented-filter boundary, and reward-learning domain]] — tested saved-only assessment and scoped analytical boundaries; no network run or adopted learner completion.
 - [[multiagentelbo-2026-10-08-record-error-formation-regime|MultiAgentELBO original-record error, regular parent coordinates, and prepared formation regime]] — conditional analytical results and exact coefficient grounding; no new network experiment or full RG gate closure.

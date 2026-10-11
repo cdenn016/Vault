@@ -5,12 +5,14 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-09
+updated: 2026-10-11
 ---
 
 
 
 # Mathematics MOC
+
+[[multiagentelbo-2026-10-11-native-comparison-and-parents]] implements full correlated Gaussian parent moments and selected-child affine-fiber conditionals from the same all-row native precision and component-specific rooted GL+(2) map. The first dense reconstruction and sparse KKT comparison agree to the frozen tolerances without a fine inverse, product parent covariance, jitter or ambient singular-fiber density. Saved L/U fill is measured on all 4096 components; it supplies neither conditioning nor uniform factor-fill bounds. This is one finite-MCMC codebook operation, not a regular-filter or growing-law theorem.
 
 [[multiagentelbo-2026-10-09-relative-expectation-envelope]] instantiates same-event relative Cholesky and rotation bounds along the actual covariance-exponential path, retaining factor order, the Frobenius-radius hypothesis and symmetric-part cancellation. The completed coefficient decomposition permits replacing only moment-dependent sufficient contributions, with fixed whitening/beta terms, complete IDs/supports and unchanged physical geometry. All 257 comparisons pass; no clipping or repair occurs. Nine new tiny cases ground the changed factor/routing seam while their initial failure and separate invocation scopes remain explicit. The computational ceiling supplies neither outward-rounded arithmetic nor growing-network, regular-filter or multihorizon closure.
 
