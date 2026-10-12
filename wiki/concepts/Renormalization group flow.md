@@ -20,6 +20,10 @@ updated: 2026-09-13
 
 # Renormalization group flow
 
+## Native lattice model and Lee-Yang analyticity, October 12, 2026
+
+The native free model of the MultiAgentELBO base supplement is a nearest-neighbor ferromagnetic Ising model on the plaquette grid with a strictly negative field ([[multiagentelbo-2026-10-12-theory-review-remediation]]). [[lebowitz-1968-analytic-clustering-thermodynamic-functions]] (Section IV) proves that the infinite-volume pressure of an Ising ferromagnet is jointly analytic in temperature and field whenever the field is nonzero, by combining the Lee-Yang circle theorem with a two-variable analyticity lemma. Applied here, it would make the native pressure real-analytic on the whole parameter square, not only on the 12t < 1 domain where the supplement proves C^4; the manuscript does not yet claim this, pending a check of the bulk-field and boundary hypotheses.
+
 ## Positive-rate cyclic formation with weakest energy one, September 13
 
 [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] removes the growing weakest-energy assumption from the preceding finite-depth positive-rate construction. With J_L=1, source proposals and continuous mobility both have rate one. Exact normalized parents activate from complete actual retained laws, retain every loop and source assignment, and learn from their own actual law. For every finite L>=2, the construction has L actual formation episodes, recognition-source TV greater than one half from each activation, and fixed positive changes of the first physical and optimizing hidden kernels.
