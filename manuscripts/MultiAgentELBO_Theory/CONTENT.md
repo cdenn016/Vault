@@ -1134,7 +1134,11 @@ evidence density, attained on the maximal posterior-score set with shifted Gibbs
 the `(L-1)\times(L-1)` plaquette grid with coupling `\tfrac12\log(1/b)` and negative fields
 `\tfrac12\log t+\tfrac{n_\square}2\log b`, `n_\square` the number of edges of the plaquette in no
 other plaquette (`rem:rg-pressure-native-ising`, `eq:rg-pressure-native-ising`,
-ESTABLISHED); no analyticity consequence is claimed. Thermodynamic Fisher geometry (D9,
+ESTABLISHED). Through it, the free pressure `\lim L^{-2}\log Z_L` exists and is real-analytic on the
+whole square `0<b,t<1`, and so are `\mathsf A` and its Hessian on the quadrant `h,j>0`, agreeing with
+`thm:rg-thermo-native-cfour-pressure` on its domain (`prop:rg-pressure-native-analytic`, ESTABLISHED
+from Lebowitz and Penrose 1968, Section IV, with the Lee-Yang theorem; the boundary fields change
+`\log Z_L` by `O(L)`); the Fisher identifications stay on the constructive domain. Thermodynamic Fisher geometry (D9,
 ESTABLISHED at the stated hypotheses): native source maps are `C^4` into compact positive boxes, raw
 log-weight representatives obey `C^3` volume bounds, and every fixed blocking word precedes volume
 limits; finite free laws, exact pushes, infinite-law marginals, and independently normalized coarse
