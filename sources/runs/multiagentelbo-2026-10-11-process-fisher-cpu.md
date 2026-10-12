@@ -1,0 +1,68 @@
+---
+type: run
+title: "MultiAgentELBO CPU process Fisher construction and first full-rule cost"
+aliases: ["Gaussian process Fisher CPU cost"]
+authors: ["Codex"]
+year: 2026
+tags: [cluster/multi-agent, cluster/gauge-theory, cluster/info-geometry, cluster/spd-geometry, cluster/vfe, project/multi-agent, field/mathematics, field/statistics, field/cs-ml]
+created: 2026-10-11
+updated: 2026-10-11
+---
+
+# MultiAgentELBO CPU process Fisher construction and first full-rule cost
+
+An additive Windows-process companion preserves the existing ordered outward Fisher field and distributes independent complete link blocks over CPU workers. Its first fixed cost uses twelve original decoded blocks, each with all 6,561 original q9 nodes, p128 recognition and 256-bit Arb arithmetic. Concurrent forward/reverse wall time is 1.175240700 seconds including dispatch and transfer. The declared projection is 406.915556796 seconds, about 6.781926 minutes, below the 30-minute kernel planning screen. This passes that screen while full-field admission remains false: complete parent records, loops, caches, state and output costs remain unmeasured. No full field, proposal, fresh noise or coded update runs. All four RG completion gates remain OPEN near subjective 65% at fixed c_*.
+
+## Frozen source and publication
+
+[Code PR308](https://github.com/cdenn016/MultiAgentELBO/pull/308) publishes the construction and first outcomes. Source/first execution is 0169e3c0e4eeec890b5ff2d4a5a0ad8272f017cb. The additive resource-only completion is frozen at 310b65c81bdafa7683b7bf58e48f10c88492dace. Outcome ad5ab7fa049d98c6c6340864e30d7bf78a21454d merges as ad0539b69ad949d2fb4ff515cc453cad22c0505f. The actual canonical Desktop remains at Code PR307 during the first scientific call. After publication, actual canonical Desktop main/HEAD/origin/main and the implementation worktree agree at the new merge; the complete twenty-file packet retains exact raw parity. Source, first execution, completion, outcome and canonical publication remain separately identified.
+
+The [frozen process contract](https://github.com/cdenn016/MultiAgentELBO/blob/0169e3c0e4eeec890b5ff2d4a5a0ad8272f017cb/docs/research/2026-10-03-latent-link-rg-plan/R2-PARALLEL-FISHER-CONTRACT.md), [first results](https://github.com/cdenn016/MultiAgentELBO/blob/ad5ab7fa049d98c6c6340864e30d7bf78a21454d/docs/research/2026-10-03-latent-link-rg-plan/R2-PARALLEL-FISHER-RESULTS.md), [preserved failed reader](https://github.com/cdenn016/MultiAgentELBO/blob/ad5ab7fa049d98c6c6340864e30d7bf78a21454d/docs/research/2026-10-03-latent-link-rg-plan/evidence/r2-parallel-cost-readback-20261011.json), [remaining-resource receipt](https://github.com/cdenn016/MultiAgentELBO/blob/ad5ab7fa049d98c6c6340864e30d7bf78a21454d/docs/research/2026-10-03-latent-link-rg-plan/evidence/r2-parallel-cost-resource-completion-20261011.json) and [terminal intake](https://github.com/cdenn016/MultiAgentELBO/blob/ad5ab7fa049d98c6c6340864e30d7bf78a21454d/docs/research/2026-10-03-latent-link-rg-plan/evidence/r2-parallel-cost-terminal-intake-20261011.json) retain the exact scopes and first return codes. The original producer and failed reader remain unchanged; earlier numerical, binding and block checks are not replayed by the separate completion.
+
+The Git-ignored artifacts are retained locally in the actual canonical checkout. [result.json](<C:/Users/chris and christine/Desktop/MultiAgentELBO/artifacts/gaussian-fisher-parallel-cost/r2-n512-fisher-parallel-cost-20261011/result.json>) is 62,911 bytes / SHA256 eca62f11b42ed71dbbcff485c75623d2849e88791c097472add1aa46e6ed9b24. [kernel-enclosures.json](<C:/Users/chris and christine/Desktop/MultiAgentELBO/artifacts/gaussian-fisher-parallel-cost/r2-n512-fisher-parallel-cost-20261011/kernel-enclosures.json>) is 96,141 bytes / SHA256 fd1d05da46a1b1721e7dab2588c38a596d350449692fdf044ded42eb2dec7f26. Tracked receipts bind those local bytes; no GitHub artifact availability is implied.
+
+~~~bibtex
+@misc{codex2026processfishercpu,
+  author = {Codex},
+  title = {CPU Process Fisher Construction and First Full-Rule Cost},
+  year = {2026},
+  url = {https://github.com/cdenn016/MultiAgentELBO/pull/308},
+  note = {Fixed selected-block CPU concurrency cost; first reader failure retained with resource-only completion; full field unadmitted}
+}
+~~~
+
+## Construction and tiny grounding
+
+This continues [[multiagentelbo-2026-10-11-entire-2x2-arithmetic]] and [[multiagentelbo-2026-10-11-outward-fisher-arithmetic]]. The companion accepts the shared real GL+(2) rule without changing model, quadrature, literal weights, precision, sampling chart or scientific regime. Workers return the original inverse-transpose precision-Cholesky factor and both signed first/Kronecker moments. The parent preserves receiver and source-slot order, every sender incidence, ordered distinct-primitive loops, prior and temporal-neighbor contributions. A forward barrier precedes the complete moment cotangents; a second ordered node pass returns mean and full symmetric precision pullbacks. Independent block results write separate output slots, so asynchronous arrival does not reorder within-block nodes, signs or parent reductions. The original generic implementation remains available and unchanged.
+
+Scientific transfer uses ASCII JSON with shape, fixed precision and row-major integer dyadic midpoint/radius tuples. Arb objects are neither pickled nor converted through floating values. Decoding promises outward containment; three uncertain tiny fixtures show no radius increase at their tested points, without a universal equality claim. Windows spawn uses ordinary connection handles for startup, while explicit byte messages carry every scientific matrix and rule. There is at most one outstanding complete block per worker, one owned rule per worker and no full node-map bank. Exceptions terminate without repair or restart; all workers are joined with recorded exit codes.
+
+Eight distinct tiny checks pass: four transfer checks, three corrected block checks and one real two-process full-field fixture. The block lane initially has two passes and one failure because its membership assertion converts an exact rational to a ball and asks for strict ball containment. Exact rational midpoint/radius endpoints establish membership of the intended 1/60; the shared assertion is corrected. The two already-passing new cases are unnecessarily repeated once, and both mixed/corrected receipts are retained. This is a new-test replay, not an old published-test or scientific replay, and it is explicitly recorded.
+
+The separate first process fixture uses N3/E3/K2/D4/C2/T3/Q2/A2 and two spawned workers. In 0.498 seconds it compares all five derivative families with an independent SciPy finite objective, retaining receiver/sender incidences, hard source zeros, exactly enumerated signed closed-loop and all history covariance terms. This tiny system grounds the new process boundary; it does not direct large-network research or establish native-law accuracy. The large-network cost below does not execute that full objective.
+
+## First fixed concurrency cost
+
+The fixed profile remains N512/K2/D4/prefix3/four episodes/1,024 primitive links/four source slots, exact p128 recognition and 256-bit Arb arithmetic. The twelve selected original blocks are (0,0), (0,341), (0,682), (1,85), (1,426), (1,767), (2,170), (2,511), (2,852), (3,255), (3,596), (3,937). Each uses all 6,561 original q9 node ordinals and literal weights. All 4,096 decoded generator blocks are distinct. The dense cost cotangents are unchanged from the ended kernel assessment; they are cost inputs, not complete network record/loop cotangents. Execution uses isolated C:/anaconda/python.exe -I -B, sequential single-thread math per process and twelve CPU workers, without Torch or GPU access.
+
+Forward/reverse concurrent stage walls are 0.437062700/0.738178000 seconds, summing to 1.175240700. Startup/rule initialization is 2.148962600 seconds and shutdown is 0.029388800 seconds. The declared 344 waves correspond to four episode barriers with ceil(1,024/12)=86 waves each. The projection uses 344 times the measured stage sum plus 2.632756000 seconds of known once costs, giving 406.915556796 seconds and 1,393.084443204 seconds of headroom below 1,800. This measures concurrency including transfers; it does not divide an old serial estimate by cores. It is still a selected-workload planning estimate, not a uniform bound over heterogeneous blocks or complete-field admission.
+
+Producer full time is 3.809902300 seconds; its first wrapper is 4.012264800 seconds with exit 0. Parent lifetime peak is 77,287,424 bytes and worker lifetime peaks sum to 640,458,752 bytes. The combined 717,746,176-byte figure is an upper envelope from summed lifetime peaks, not simultaneous RSS. Every worker exits 0. Retained rule storage includes 262,440 original binary bytes, 32,805 parent ball coordinates and 393,660 worker rule ball coordinates. Initialization sends twelve copies of the 847,623-byte rule message. Actual block request/reply totals are 30,031/113,064 bytes. Encode/decode/receive/kernel component times overlap the stage walls and cannot be added as disjoint work.
+
+Both passes use 157,464 sample matrix-vector products, 314,928 scalar 0F1 calls, 157,464 scalar exponentials, 236,196 reciprocals, twelve precision factors and twelve inverse-Cholesky adjoints. Worker kernels include all 1,732,104 original-rule type/finiteness/positivity checks. Twenty-four block requests carry 960 balls and replies carry 912; initialization transfers 393,660 rule balls. The saved bundle contains 1,152 ball coordinates in 108 matrices: 240 selected input coordinates, 672 forward factor/moment coordinates and 240 nonlinear outputs. There is no generic sample matrix exponential, derivative-block exponential or retained full node-map array.
+
+## Preserved first reader failure and resource-only completion
+
+The first standard-library reader completes 3,670 recorded checks before failing in the resource phase. Its preceding scope includes source/input/runtime bindings, all 1,152 ball-width screens at 2^-128, 240 exact selected wire points, all 81,920 generator-coordinate reads, both block barriers, block/aggregate operations, transfer counts, process exits and peak sums. The scalar resource guard mistakes stage_wall_seconds, a list of two stage records, for a scalar because its name ends in _seconds. Return 1 and status failed remain preserved in the 763-byte first receipt, SHA256 20d54931c640db3fdc66789ad1b0a16c8b509671d8c73a500b8823623a5771fe. The first reader takes 0.392165000 seconds with peak 38,928,384 bytes. No replacement success is attributed to it.
+
+The additive resource completion checks only the remaining metadata tail. It treats the two positive stage values explicitly, permits negative headroom on a planning miss and reconstructs remaining resource arithmetic. Its first receipt has status passed_remaining_resources and 56 checks in 0.010422800 seconds, with peak 19,943,424 bytes. The 1,533-byte receipt has SHA256 72b568e715dae267574549f9c851f2114ebe075e6cb91cea31e1692bd31273c4. Earlier numerical, binding and block checks remain unrepeated. Both saved-output phases perform no independent exponential or gradient recalculation, whole-state arithmetic proof or native-law certification.
+
+The terminal intake binds twenty packet files / 2,008,067 bytes including the completion source, with exact canonical raw parity. The separate preterminal receipt inventory is 53,042 bytes. Twelve original source snapshots total 120,667 bytes; four complete original inputs total 1,677,217 bytes and copied inputs including intake total 1,722,090 bytes. All 185 runtime files / 24,377,754 bytes remain separately charged and unchanged. Protected settings retain 849 bytes and SHA256 925799e2b2cfac759ab38a4dd4ee1a6211fba6774101784198b12d4a004d85fd. Original reference, recognition, hierarchy and decoder costs remain charged. Literal first streams and all first return codes are retained.
+
+## Relevance to this research
+
+The live g11 eq:glink-expected-record and eq:glink-loop-moments use the same first two exponential moments and ordered products under their stated independence assumptions. The process companion preserves those ingredients and parent reduction order. The live c10 full state, cross-morphism datum and common structural channel still require complete both-channel laws, kernels and retained compatibility; a selected-block resource screen does not replace that carrier. The scientific model stays at c_*; base transport remains excluded and no manuscript/theory edit occurs.
+
+End this named cost and both first reader outcomes without retuning or replay. Next charge all original receiver/sender records and ordered loop cotangents, full episode factor/moment/cotangent caches and scheduling, Gaussian prior/history and target assembly, full state conversion, direction output/serialization/workspace and heterogeneous block timing. Freeze a complete same-field arithmetic/proposal admission only after those costs are measured. Native compact-segment/exit transfer, repeated coded continuation, decoder control, useful actual-law parent prediction, growing size/depth limits and persistent endogenous hierarchy remain open. The goal stays ACTIVE near subjective 65% with all four gates OPEN. GPU use or probing requires explicit human authorization.
+
+Related continuity: [[Staged hierarchy formation and RG composability]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[multiagentelbo-2026-10-11-recognition-code]] and [[multiagentelbo-2026-10-09-owned-storage-update-error]].
