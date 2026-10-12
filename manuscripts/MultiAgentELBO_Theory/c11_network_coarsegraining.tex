@@ -7,9 +7,10 @@ be kept so that the step closes. The effective action of a coarse agent network
 is a conditional partition function (\Cref{thm:rg-effective-action}), real
 analytic in bounded perturbations (\Cref{thm:rg-bounded-action-calculus}); in
 Hoeffding interaction coordinates the step is an exact nonlinear map between
-spaces of different dimension whose finite-step multipliers are bounded by
-$3^{\lvert V_n\rvert}-1$ at every depth
-(\Cref{prop:rg-interaction-native-growth-bound}); and exact closure keeps induced
+spaces of different dimension whose finite-step multipliers are bounded in the bounded tier by
+$3^{\lvert V_n\rvert}-1$ at every depth, and by that number times the product of the
+one-step contraction coefficients of the tilted reverse kernels, which decays with depth for
+stochastic arrows (\Cref{prop:rg-interaction-native-growth-bound}); and exact closure keeps induced
 hyperedges, bridge kernels, joint attention-event laws, gauge-retained marks, and
 path laws with their memory (\Cref{tab:rg-retained-state}). The multiscale free
 energy of \Cref{ch:full-graph-meta-agent-vfe} is built from these objects, and the
@@ -432,7 +433,11 @@ $\bar{\mathsf m}_{\ell+1}=\bar{\mathsf m}_\ell C_\ell$ to a product reference
 $\nu_{\ell+1}$ is a separate premise
 (\Cref{prop:rg-product-equivalence-not-preserved}). If $V_\ell=\varnothing$, then
 $\mathsf Y_\ell$ is a point, $\mathcal G_\ell=\{0\}$, and every map below is zero;
-estimates involving $3^{\lvert V_\ell\rvert}-1$ assume $V_\ell\ne\varnothing$.
+estimates involving $3^{\lvert V_\ell\rvert}-1$ assume $V_\ell\ne\varnothing$. The vertex sets
+are fixed and every coordinate is an agent coordinate; a state with a random vertex set or with
+edge variables, such as the tower state of \Cref{ch:full-graph-meta-agent-vfe}, is covered only
+on its agent coordinates after conditioning on the mark and the graph datum, as in
+\Cref{open:full-graph-hierarchy}.
 
 \remarkheading{The bounded tier}{rem:rg-bounded-tier-scope}
 Every interaction component below is essentially bounded. The bounded tier contains
@@ -590,7 +595,9 @@ D\mathcal T_\ell(\mathsf g)
 \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1};
 \label{eq:rg-nonlinear-interaction-derivative}
 \end{equation}
-only at $\mathsf g=0$ may the tilted operator be replaced by $\mathsf U_\ell$.
+in general only at $\mathsf g=0$ may the tilted operator be replaced by $\mathsf U_\ell$, and
+also wherever $\psi_{\mathsf g}$ is constant $C^\dagger(z,\cdot)$-almost everywhere for almost
+every $z$, as for $\psi_{\mathsf g}=f\circ\chi$ under a deterministic channel $z=\chi(y)$.
 \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
@@ -600,7 +607,11 @@ $\mathcal A_\ell(0)=-\log\mathsf U_\ell(1)=0$. A constant added to $\psi_{\maths
 multiplies numerator and denominator of $\mathsf U_\ell^{\psi_{\mathsf g}}h$ by one
 positive number, and the chain rule with part (b) of
 \Cref{thm:rg-bounded-action-calculus} gives
-\eqref{eq:rg-nonlinear-interaction-derivative}. $\square$
+\eqref{eq:rg-nonlinear-interaction-derivative}. If $\psi_{\mathsf g}$ equals a number $c(z)$
+$C^\dagger(z,\cdot)$-almost everywhere, the factor $e^{-c(z)}$ cancels in
+\eqref{eq:rg-tilted-reverse-kernel} and $\mathsf U_\ell^{\psi_{\mathsf g}}h(z)=\mathsf U_\ell h(z)$;
+for a deterministic channel $z=\chi(y)$ and $\psi_{\mathsf g}=f\circ\chi$ this holds for almost
+every $z$, since $C^\dagger(z,\cdot)$ is then carried by $\chi^{-1}(\{z\})$. $\square$
 
 \remarkheading{Two agents and one exact step}{rem:rg-two-agent-example}
 Let $V_0=\{1,2\}$ with $\mathsf Y_{0i}=\{-1,1\}$ and uniform product base
@@ -623,7 +634,7 @@ agent $2$ and the pair direction to zero, since
 $\mathsf U_0(y_2)=\mathsf U_0(y_1y_2)=0$; at a point with $\xi_2\ne0$ the pair
 direction has the nonzero image $-\tanh(\xi_2)z$. The drop from dimension $3$ to
 $1$ is the obstruction of \Cref{prop:rg-interaction-finite-network-obstruction},
-and the multipliers obey the bound $3^2-1=8$ of
+and the multipliers obey the bound $3^1-1=2$ of
 \Cref{prop:rg-interaction-native-growth-bound}. \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
@@ -722,7 +733,19 @@ D_{n\leftarrow\ell}
 \label{eq:rg-interaction-native-growth-bound}
 \end{align}
 The bound does not depend on the number of steps, and it is zero when
-$V_n=\varnothing$. \status{ESTABLISHED}
+$V_n=\varnothing$. With $\delta_k$ the coefficient \eqref{eq:rg-action-dobrushin-coefficient} of
+the tilted reverse kernel $C^\dagger_{k,\psi_{\mathsf g_k}}$ of
+\eqref{eq:rg-tilted-reverse-kernel} for the arrow $C_k$ at $\bar{\mathsf m}_k$, and $\delta^\circ_k$
+that of the untilted reverse kernel $C^\dagger_k$,
+\begin{equation}
+\lVert D_{n\leftarrow\ell}\rVert_{\mathcal G_\ell\to\mathcal G_n}
+\le\bigl(3^{\lvert V_n\rvert}-1\bigr)\prod_{k=\ell}^{n-1}\delta_k,
+\qquad
+\delta_k\le1-e^{-2\lVert[\psi_{\mathsf g_k}]\rVert_{\mathrm{osc}}}\bigl(1-\delta^\circ_k\bigr),
+\label{eq:rg-interaction-dobrushin-growth-bound}
+\end{equation}
+so the multipliers decay geometrically with depth along an orbit of bounded width whose arrows
+have $\delta^\circ_k\le\delta^\circ<1$. \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
 By \eqref{eq:rg-hoeffding-inverse-and-bounds},
@@ -735,7 +758,22 @@ f-c\rVert_\infty$ for every constant $c$, and the infimum over $c$ shows that it
 quotient has norm at most one. Multiplying by the bounds on
 $\operatorname{asm}_\ell$ and $\operatorname{hd}_n$ in
 \eqref{eq:rg-hoeffding-inverse-and-bounds} gives
-\eqref{eq:rg-interaction-native-growth-bound}. $\square$
+\eqref{eq:rg-interaction-native-growth-bound}. For the refinement, the tilted reverse kernel
+$C^\dagger_{k,\psi}$ is a reverse kernel of the normalized joint law
+$\widehat{\mathsf m}^\psi_k(dy)C_k(y,dz)$ with
+$\widehat{\mathsf m}^\psi_k=e^{-\psi}\bar{\mathsf m}_k/\bar{\mathsf m}_k(e^{-\psi})$, because that
+law equals $\bar{\mathsf m}_{k+1}(dz)C^\dagger_k(z,dy)e^{-\psi(y)}/\bar{\mathsf m}_k(e^{-\psi})$.
+For bounded $\psi$ the laws $\widehat{\mathsf m}^\psi_k$ and $\widehat{\mathsf m}^\psi_kC_k$ are
+equivalent to $\bar{\mathsf m}_k$ and $\bar{\mathsf m}_{k+1}$, so
+\Cref{thm:rg-action-lp-contraction} applied to this joint law gives
+$\lVert[\mathsf U_k^\psi h]\rVert_{\mathrm{osc}}\le\delta_k\lVert[h]\rVert_{\mathrm{osc}}$, and the
+product of these factors replaces the factor one above. For the second inequality, the
+coefficient of a kernel is one minus the essential infimum, over pairs of rows, of the mass of
+the minimum of the two rows. With $w$ the essential range of $\psi$, the tilt
+$e^{-\psi(y)}/\int e^{-\psi(u)}C^\dagger_k(z,du)$ is at least $e^{-w}$, so every tilted row
+dominates $e^{-w}$ times its untilted row, the minimum of two tilted rows has at least $e^{-w}$
+times the mass of the minimum of the untilted ones, and $w=2\lVert[\psi]\rVert_{\mathrm{osc}}$ by
+\eqref{eq:rg-action-oscillation-norm}. $\square$
 
 \propositionheading{Finite networks admit no typed interaction comparison across a reducing step}{prop:rg-interaction-finite-network-obstruction}
 Let every agent space be finite. Then $\mathcal G_\ell\cong
@@ -1602,8 +1640,8 @@ number and arrangement of the agents.
 Normalized generative law, posterior versions, recognition law & One channel pushes all three; the variational free energy decomposes by the chain rule. Derived: \Cref{thm:rg-exact-coarse-vfe}, \Cref{prop:rg-measure-pair-composition}. & Recognition-independent channel; finite positive evidence; recognition law absolutely continuous with respect to the posterior. \\
 Reference probability, evidence measure, effective action & Radon--Nikodym action by the conditional partition function, composing along towers. Derived: \Cref{thm:rg-effective-action}. & Probability reference pushed with the evidence measure; reverse conditionals from one joint tower. \\
 Bounded action calculus & Analytic action increment, tilted derivatives, contraction and oscillation bounds. Derived: \Cref{thm:rg-bounded-action-calculus}, \Cref{thm:rg-action-lp-contraction}. & Bounded perturbations; jointly measurable reverse kernel. \\
-Interaction coordinates and the exact step & Hoeffding isomorphism and exact nonlinear step with its closure residual. Derived: \Cref{thm:rg-hoeffding-action-isomorphism}, \Cref{lem:rg-interaction-step}, \Cref{prop:rg-interaction-residual}. Retained projection: declared. & Product-equivalent normalized laws at both depths (\Cref{def:rg-network-scale}). \\
-Finite-step multipliers & Ordered products of tilted reverse operators, bounded by $3^{\lvert V_n\rvert}-1$. Derived: \Cref{def:rg-interaction-modes}, \Cref{prop:rg-interaction-native-growth-bound}. & An exact orbit in the bounded tier. \\
+Interaction coordinates and the exact step & Hoeffding isomorphism and exact nonlinear step with its closure residual. Derived: \Cref{thm:rg-hoeffding-action-isomorphism}, \Cref{lem:rg-interaction-step}, \Cref{prop:rg-interaction-residual}. Retained projection: declared. & Product-equivalent normalized laws at both depths, on fixed vertex sets (\Cref{def:rg-network-scale}). \\
+Finite-step multipliers & Ordered products of tilted reverse operators, bounded by $3^{\lvert V_n\rvert}-1$ times the product of their contraction coefficients. Derived: \Cref{def:rg-interaction-modes}, \Cref{prop:rg-interaction-native-growth-bound}. & An exact orbit in the bounded tier. \\
 Induced hyperedges & Elimination cliques and M\"obius components; generically nonpairwise. Derived: \Cref{prop:rg-hyperedge-generation}. & Finite-valued coarse action, or one top-order factor. \\
 Bridge kernels & Pair-marginal disintegrations of the posterior bridge. Derived: \Cref{prop:rg-bridge-kernels}. Gauge-covariant versions: declared beyond the compact and finite cases (\Cref{open:cg-equivariant-versions}). & Regular disintegration on standard Borel spaces. \\
 Roots, based holonomy, dressed boundary marks & Raw root-framed marks and their joint law, pushed without a holonomy-blind claim. Derived: \Cref{sec:rg-gauge-cross-scale}. Trees: declared. & Rooted spanning forests of the blocks. \\
@@ -1635,8 +1673,9 @@ of the fine action over each coarse state, analytic in bounded changes of the fi
 action and never expanding the supremum norm. In Hoeffding coordinates, one
 component per set of coupled agents, the step is an exact nonlinear map whose
 finite-step multipliers telescope to one extraction, a product of tilted
-conditional expectations, and one assembly, so they are bounded by
-$3^{\lvert V_n\rvert}-1$ at every depth. Exactness costs state: eliminated agents
+conditional expectations, and one assembly, so in the bounded tier they are bounded by
+$3^{\lvert V_n\rvert}-1$ at every depth and decay with depth when the arrows are stochastic;
+the polynomial couplings of Gaussian agents lie outside that tier (\Cref{rem:rg-bounded-tier-scope}). Exactness costs state: eliminated agents
 generate hyperedges unless a symmetry forbids them, attention is carried as the
 joint event law, transported messages are moments of marked kernels, and the coarse
 path law generally has memory, with an exact memory-kernel recurrence and, for

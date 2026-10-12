@@ -166,6 +166,47 @@ Fisher density is the Hessian of the log-partition density, the Hessian
 structure of exponential families \citep[Ch.~3]{AmariNagaoka2000} and the
 thermodynamic metric of \citet{Crooks2007}.
 
+\remarkheading{The raw pressure is not convex}{rem:rg-thermo-native-raw-nonconvex}
+For every $h>0$, with $b=\tanh h$,
+\begin{equation}
+ \lim_{j\downarrow0}\partial_j^2\mathfrak p(h,j)=4b^6-5b^8,
+ \label{eq:rg-thermo-native-raw-nonconvex}
+\end{equation}
+which is negative for $b^2>4/5$. For such $h$ the raw pressure has
+$\partial_j^2\mathfrak p<0$ at every point $(h,j)$ with $j>0$ small enough,
+so $\nabla_{\mathsf g}^2\mathfrak p$ is not positive semidefinite there and is
+not a metric, whereas $\mathsf H=\nabla_{\mathsf g}^2\mathsf A$ is positive
+semidefinite on the whole domain of
+\cref{thm:rg-thermo-native-cfour-pressure}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Fix a source box of \cref{hyp:rg-thermo-native-source-box} whose enlarged
+rectangle contains $(h,0)$ in its edge $j=0$. The proof of
+\cref{thm:rg-thermo-native-cfour-pressure} gives $\partial_j\mathsf A=m_j$
+with $m_j(\mathsf g)=\E_{\mu_{\mathsf g}}P_0$, and
+\cref{lem:rg-thermo-native-local-response} with $B=1$ and $f=P_0$ shows that
+$\partial_jm_j$ is the uniform limit on $\widehat{\mathcal K}$ of the
+continuous functions $\partial_j\E_{\nu^{\mathrm f}_{L,\mathsf g}}P_0$, taken
+on squares whose inventory contains the neighborhood $A_R$ of the support of
+$P_0$ with $R\to\infty$. Hence $\partial_jm_j$ is continuous on
+$\widehat{\mathcal K}$, and its value at $(h,0)$ is the limit of the finite
+derivatives there. At $j=0$ the free law is the product law with sign means
+$b$, and in the exponential family \cref{eq:rg-thermo-native-natural-pressure}
+the finite derivative is
+$\operatorname{Cov}(P_0,\mathsf T_{j,L})=\sum_x\operatorname{Cov}(P_0,P_x)$.
+The term $x=0$ is $1-b^8$. Each of the four plaquettes that share exactly one
+edge with $P_0$ contributes $b^6-b^8$, since the shared sign squares to one and
+the remaining six signs are independent, and every other plaquette shares no
+edge with $P_0$ and contributes zero. Thus
+$\partial_jm_j(h,0)=1+4b^6-5b^8$, and the conversion
+\cref{eq:rg-thermo-native-pressure-conversion} gives
+$\partial_j^2\mathfrak p=\partial_jm_j-\operatorname{sech}^2j$ for $j>0$,
+whose limit as $j\downarrow0$ is \cref{eq:rg-thermo-native-raw-nonconvex}.
+The sign claims follow from $4b^6-5b^8=b^6(4-5b^2)$ and continuity. Finally
+$\nabla_{\mathsf g}^2\mathsf A_L=N^{-1}I(\nu^{\mathrm f}_{L,\mathsf g})$ is a
+covariance matrix by \cref{prop:rg-thermo-native-ctwo-metric}, so its limit
+$\mathsf H$ is positive semidefinite. $\square$
+
 \theoremheading{Exact pushed-free Fisher density}
 {thm:rg-thermo-native-free-push-ctwo}
 For every fixed integer $B\geq1$ and compact positive source box,

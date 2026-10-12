@@ -21,7 +21,12 @@ the Fisher-density statements in \cref{ch:thermodynamic-fisher-draft}.
 The finite ensembles, their two normalization modes, and their finite VFE
 identities are those of \cref{def:rg-geometry-ensemble,prop:rg-geometry-weights}
 in the main manuscript; this chapter adds only what the lattice and the
-volume limit require. The lattice notation of
+volume limit require. That definition types its catalog as values of the
+structural mark $R_\ell$, that is, as partitions of an agent set; here a label
+$\gamma$ is instead a coupling label, the strengths $(b_\gamma,t_\gamma)$ of a
+law on one common carrier, and the lattice ensemble uses only the
+finite-mixture data of the definition (carrier, reference, raw factor,
+weight, and likelihood). The lattice notation of
 \cref{ch:constructive-spatial-rg} is used throughout, with branch subscripts:
 $b_\gamma=\tanh h_\gamma$ and $t_\gamma=\tanh j_\gamma$ are the field and
 plaquette strengths of branch $\gamma\in\mathfrak G$, $\tau$ is the decay
@@ -145,6 +150,12 @@ measure, and a coupling $\kappa_{\mathrm g}\geq0$, the gauge action is
  \operatorname{Re}\Tr(F_{\mu\nu}F^{\mu\nu})d\operatorname{vol}_{\mathcal C}.
  \label{eq:rg-geometry-gauge-action}
 \end{equation}
+On the lattice of \cref{ch:constructive-spatial-rg}, a gauge-curvature factor
+is typed only under the base reading of \cref{open:rg-lattice-typing}. Under
+the agent reading the sites are agents at $c_*$, over which every connection
+vanishes, and a plaquette character is the link holonomy of
+\cref{eq:geo-link-holonomy}, whose triviality is graph flatness, notion (b) of
+\cref{prop:geo-four-notions}, and not a curvature $F_\omega$.
 
 \remarkheading{Sign of the gauge action}{rem:rg-geometry-gauge-action-sign}
 For anti-Hermitian represented curvature and a Riemannian contraction,
@@ -240,6 +251,68 @@ square with the conditioning exterior. The estimate of
 integrating it over the three exterior laws and letting the distance from a
 fixed cylinder to the boundary diverge proves convergence to the unique
 Gibbs law of \cref{thm:rg-spatial-source-law}. $\square$
+
+\remarkheading{The native free model is a plaquette Ising lattice gas}
+{rem:rg-pressure-native-ising}
+Let $\square_L$ be the set of the $(L-1)^2$ plaquettes of
+\cref{def:rg-pressure-native}, and for $S\subseteq\square_L$ let
+$\partial_2S$ be the set of edges that lie in an odd number of plaquettes of
+$S$. For all real strengths $b,t$, the free partition of the raw factor
+\cref{eq:rg-pressure-native-factor} relative to normalized counting is
+\begin{equation}
+ Z_L(b,t)=4^{-L^2}\sum_z\prod_{e\in\Lambda_L\times\{1,2\}}(1+bz_e)
+ \prod_{\square\in\square_L}(1+tz_{\partial\square})
+ =\sum_{S\subseteq\square_L}t^{|S|}b^{|\partial_2S|}.
+ \label{eq:rg-pressure-native-dual}
+\end{equation}
+For $0<b<1$ and $0<t<1$, in the plaquette spins
+$\sigma_\square=2\mathbf 1_{\{\square\in S\}}-1$,
+\begin{equation}
+ Z_L(b,t)=\sum_{\sigma\in\{-1,1\}^{\square_L}}
+ \exp\Bigl(\mathsf k\sum_{\{\square,\square'\}}(\sigma_\square\sigma_{\square'}-1)
+ +\sum_{\square}\mathsf u_\square(\sigma_\square+1)\Bigr),
+ \qquad
+ \mathsf k=\tfrac12\log\tfrac1b,\quad
+ \mathsf u_\square=\tfrac12\log t+\tfrac{n_\square}2\log b,
+ \label{eq:rg-pressure-native-ising}
+\end{equation}
+where the first sum runs over the unordered pairs of plaquettes that share an
+edge and $n_\square$ is the number of edges of $\square$ that lie in no other
+plaquette of $\square_L$. The coupling $\mathsf k$ is positive and every field
+$\mathsf u_\square$ is negative, so the native free model is the
+nearest-neighbor ferromagnetic Ising model on the $(L-1)\times(L-1)$ plaquette
+grid in a nonzero field of one sign, equivalently a two-dimensional lattice
+gas with attractive pair interaction and bulk activity $t$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Expanding both products gives
+$\sum_{F,S}b^{|F|}t^{|S|}\prod_{e\in F}z_e\prod_{\square\in S}z_{\partial\square}$
+over edge sets $F\subseteq\Lambda_L\times\{1,2\}$ and plaquette sets
+$S\subseteq\square_L$. The monomial is $\prod_ez_e^{m_e}$, where $m_e$ counts
+membership of $e$ in $F$ plus the number of plaquettes of $S$ that contain
+$e$, and its average under the normalized counting reference is one if every
+$m_e$ is even and zero otherwise. For fixed $S$ the only such $F$ is
+$\partial_2S$, which proves \cref{eq:rg-pressure-native-dual}. An edge lies
+in at most two plaquettes of $\square_L$. An edge shared by $\square$ and
+$\square'$ lies in $\partial_2S$ exactly when one of them lies in $S$ and the
+other does not, an event with indicator
+$(1-\sigma_\square\sigma_{\square'})/2$; an edge of $\square$ alone lies in
+$\partial_2S$ exactly when $\square\in S$, with indicator
+$(1+\sigma_\square)/2$; and an edge of no plaquette never does. Hence
+$|\partial_2S|=\sum_{\{\square,\square'\}}(1-\sigma_\square\sigma_{\square'})/2
++\sum_\square n_\square(1+\sigma_\square)/2$ and
+$|S|=\sum_\square(1+\sigma_\square)/2$, and writing
+$t^{|S|}b^{|\partial_2S|}$ as an exponential gives
+\cref{eq:rg-pressure-native-ising}. $\square$
+
+The dual sum holds for all real strengths and the Ising form on the whole
+square $0<b,t<1$; the bound $12t<1$ of \cref{def:rg-pressure-native} enters
+neither. Through the identity the
+analyticity theory of the two-dimensional Ising ferromagnet in a nonzero
+field applies to the native free pressure; this part does not use that
+theory and claims none of its consequences, and its native theorems keep the
+constructive domain.
 
 \theoremheading{Constructive pressure and surface comparison}
 {thm:rg-pressure-boundary}

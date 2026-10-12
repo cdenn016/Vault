@@ -110,9 +110,12 @@ does not preserve $T^F$.  \status{ESTABLISHED}
 The proof is in \cref{sec:proofs-fiber-geometry}.
 
 \propositionheading{Invariance characterizations of the Fisher metric}{prop:ig-fisher-characterizations}
-On the open simplex of positive laws on a finite set, the Fisher metric is, up to a
-positive factor, the unique Riemannian metric invariant under congruent Markov
-embeddings \citep[Theorem~11.1; Lemma~11.3]{Cencov1982}.  On the cone of positive finite measures on a
+On the open simplices of positive laws on all finite sets, the family of Fisher
+metrics is, up to one positive factor, the unique family of continuous Riemannian
+metrics, one on each simplex, invariant under the congruent Markov embeddings between
+simplices \citep[Theorem~11.1]{Cencov1982}, restated in
+\citet[Proposition~3.19(3)]{Ay2015}; the uniqueness is a property of the family,
+since the embeddings relate simplices of different dimensions.  On the cone of positive finite measures on a
 finite set, with coordinates $\mathsf x_i$ and total mass $|\mathsf x|=\sum_i\mathsf x_i$,
 the positive-definite metrics invariant under the same maps are exactly those with
 components $g_{\mathsf x}(\partial_i,\partial_j)=\mathrm f_2(|\mathsf x|)
@@ -124,12 +127,16 @@ sample spaces, every local continuous quadratic form field invariant under suffi
 statistics is a combination of the Fisher form and the square of the differential of
 total mass with coefficients that are functions of the total mass, and on statistical
 models, where the total mass is one, the Fisher form is the unique weakly continuous such
-field up to a constant \citep[Main Theorem~2.10]{Ay2015}; the finite case of this
-characterization is Campbell's \citep[Section~1]{Le2017}.  Uniqueness up to a constant
-also holds for strongly continuous forms that are monotone under statistics
+field up to a constant \citep[Main Theorem~2.10 and Remark~3.23]{Ay2015}; the finite
+case of this characterization is Campbell's \citep[Section~1]{Le2017}.  Uniqueness up
+to a constant also holds, on separable metrizable sample spaces with their Borel
+sigma-algebras, for strongly continuous forms that are monotone under statistics
 \citep[Theorem~1.4]{Le2017}, for diffeomorphism-invariant smooth weak Riemannian metrics
-on smooth positive densities on a closed manifold of dimension at least two
-\citep[Theorem in the introduction]{BauerBruverisMichor2016}, and, on exponential
+on smooth positive probability densities on a closed manifold of dimension at least two
+\citep[Theorem in the introduction]{BauerBruverisMichor2016}, whose invariant bilinear
+forms on all smooth positive densities are the combinations of the Fisher--Rao form and
+the product of the total masses of the two tangent densities with constant
+coefficients \citep[Main Theorem]{BauerBruverisMichor2016}, and, on exponential
 families and their derived families, for Riemannian metrics invariant under independent
 and identically distributed extensions and canonical sufficient statistics
 \citep[Theorem~1]{Dowty2018}.  \status{STANDARD}
@@ -143,7 +150,7 @@ $\mathscr D:\mathcal B\times\mathcal B\to\R$, $C^3$ near the diagonal, with
 $\mathscr D\geq0$ and, near the diagonal, $\mathscr D(p,q)=0$ exactly when $p=q$,
 invariant under the simultaneous represented action,
 $\mathscr D(\widehat\rho(g)p,\widehat\rho(g)q)=\mathscr D(p,q)$, and with
-positive-definite mixed second jet.  With $(Z,0)$ and $(0,Z)$ the lifts of
+positive-definite metric jet $g_{\mathscr D}$ of \eqref{eq:pb-divergence-metric-jet}.  With $(Z,0)$ and $(0,Z)$ the lifts of
 $Z\in T_p\mathcal B$ to the two factors, extended as constant coordinate fields in one
 chart, the jets of $\mathscr D$ are
 \begin{align}
@@ -358,8 +365,15 @@ $Q_i(t)$ has squared speed
 on $\mathcal Q_V$ the metric is either block diagonal, $\bigoplus_i\mathsf G_i$, or the
 pullback of a joint Fisher metric along an exact lift (\cref{hyp:hist-exact-vfe-lift}).
 
-These metrics are frame independent by \cref{prop:pb-statistical-tensor-descent}; their
-base-direction version is in Supplement~B.
+The channel-weighted and block-diagonal metrics are frame independent by
+\cref{prop:pb-statistical-tensor-descent}. The pullback along an exact lift is frame
+independent when the lift is equivariant in the sense of \cref{hyp:hist-exact-vfe-lift},
+since then $\widehat\rho(g)^*\iota_i^*\mathsf G_{\mathscr R_B}
+=\iota_i^*\widehat\rho_{\mathscr R}(g)^*\mathsf G_{\mathscr R_B}=\iota_i^*\mathsf G_{\mathscr R_B}$,
+and is otherwise frame relative: it depends on the choice of right inverse
+(\cref{prop:hist-general-score-residual}), and equivariant correlated lifts under a
+connected group on continuous fibers are \cref{open:hist-parity-lift-scope}. The
+base-direction version of these metrics is in Supplement~B.
 
 \theoremheading{Fisher radical and quotient of a pulled-back tensor}{thm:hist-retained-fisher-quotient}
 Let $\operatorname{ret}:\mathcal Q\to\mathcal Q'$ be a smooth map of finite-dimensional
@@ -449,7 +463,14 @@ The lifted objective is the outside-averaged local free energy
 \end{equation}
 a history of it is an exact free-energy history, and the exact recognition Fisher metric
 of $\mathcal Q_i$ is $\mathsf G_i=\iota_i^*\mathsf G_{\mathscr R_B}$ on a nondegenerate
-stratum, or its quotient as in \cref{thm:hist-retained-fisher-quotient}.
+stratum, or its quotient as in \cref{thm:hist-retained-fisher-quotient}. The lift is
+equivariant when $\mathscr R_B$ carries a declared represented action
+$\widehat\rho_{\mathscr R}$ of the structure group, per agent or diagonal and compatible
+with the frames of the outside marginal $\mathbb Q_{B^c}$, that preserves
+$\mathsf G_{\mathscr R_B}$ and satisfies
+$\operatorname{ext}_i\circ\widehat\rho_{\mathscr R}(g)=\widehat\rho(g)\circ\operatorname{ext}_i$
+and $\iota_i\circ\widehat\rho(g)=\widehat\rho_{\mathscr R}(g)\circ\iota_i$; without such
+an action, $\mathsf G_i$ is defined relative to the frames in which $\iota_i$ is written.
 
 The lift carries every correlation that the configuration does not determine, and
 $\operatorname{ext}_i\circ\iota_i=\operatorname{id}$ makes it a lift rather than a family

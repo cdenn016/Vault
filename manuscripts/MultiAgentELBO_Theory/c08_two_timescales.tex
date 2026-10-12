@@ -17,7 +17,8 @@ family of \cref{ch:finite-depth-formation} realizes one scalar slow parameter
 \eqref{eq:rg-formation-own-law-dynamics}, not slow per-agent model laws, while on
 the four-cycle of that chapter, whose link translations this chapter writes
 $\check\omega$, slow model means are a supplied rate, and the model
-channel lags the belief channel exactly when the links are slow as well
+channel lags the belief channel only when the links are slow as well, at a rate of
+order at most the model rate
 (\cref{prop:obs-slow-model-link-dichotomy}, the held-sheet instance of
 \cref{open:obs-slow-manifold}). The finite
 model of the last section uses fine states $\xi\in\Xi$, parent values $z\in\mathsf Z$,
@@ -90,6 +91,127 @@ of distinct factors of a product law are independent with mean zero, so their
 cross covariances vanish. For (iii), the Fisher metric of the location family is
 the inverse covariance matrix. $\square$
 
+\remarkheading{Simultaneous block updates}{rem:obs-simultaneous-block-updates}
+The flow above, \eqref{eq:obs-damped-block-update}, and
+\cref{cor:obs-potential-game} move one block at a time or move continuously; a
+discrete schedule that replaces several blocks at once is covered only in the
+following cases. (a) Let $B_1,\dots,B_k$ be disjoint blocks with union $U$ such
+that no record scope meets two of them and the baseline makes
+$Y_{B_1},\dots,Y_{B_k}$ conditionally independent given $Y_{-U}$, as a product
+baseline does; for singleton blocks under a product baseline this is an
+independent set of the record hypergraph. For a law
+$Q=Q_{-U}\bigotimes_lr_{B_l}(\cdot\given y_{-U})$ with
+$\Fenergy^{\mathrm{ext}}_o(Q)<\infty$, replacing every $r_{B_l}$ at once by a damped
+kernel of \cref{prop:elbo-exact-e-coordinate}(iv) gives the law reached by the
+sequential sweep in any order, so it does not increase $\Fenergy^{\mathrm{ext}}_o$;
+and under the hypotheses of \cref{cor:obs-potential-game}, changing the strategies
+of the agents of such a set at once changes $\Fenergy^{\mathrm{ext}}_o$ by the sum
+of their unilateral changes. A chromatic schedule that updates the classes of a
+partition of the agents into such sets in turn therefore descends whenever each
+unilateral change does. (b) In \cref{cor:obs-potential-game} let the strategy set of
+agent $i$ be a regular minimal exponential family
+$q_{i,\eta}(dy_i)=\exp\{\langle\eta,\mathsf T_i(y_i)\rangle-\mathsf A_i(\eta)\}\nu_i(dy_i)$,
+$\eta\in\mathsf N_i$, with mean parameter $\mu=\nabla\mathsf A_i(\eta)$, and let it
+be conditionally conjugate: with the other strategies held,
+$\overline\Fenergy_i(q_{i,\eta};r_{-i})=\KL(q_{i,\eta}\Vert q_{i,\eta^*})+\mathrm c_i$
+for some $\eta^*\in\mathsf N_i$ and $\mathrm c_i$ independent of $\eta$, so that
+$q_{i,\eta^*}$ is the best response. Damping in mean coordinates, to the member with
+mean $(1-\mathrm w)\mu+\mathrm w\mu^*$ when that mean belongs to the family, which it
+always does for Gaussian families, satisfies the two inequalities of
+\eqref{eq:obs-damped-block-update} with the best response in place of the local
+posterior. Damping in natural coordinates, to
+$\eta_{\mathrm w}=(1-\mathrm w)\eta+\mathrm w\eta^*$, does not increase
+$\Fenergy^{\mathrm{ext}}_o$ either, but it need not satisfy the first inequality:
+for one agent with a Poisson latent, posterior $\operatorname{Poi}(1)$, natural
+parameter the logarithm of the rate, $\eta=-4$, $\eta^*=0$ and $\mathrm w=1/2$, the
+relative entropy to the posterior is $1-3e^{-2}=0.594\ldots$, above
+$(1-5e^{-4})/2=0.454\ldots$. (c) In the conjugate case the natural gradient of
+$\Fenergy^{\mathrm{ext}}_o$ in $\eta_i$ for the Fisher block metric is
+$\eta_i-\eta_i^*$, so simultaneous natural-coordinate damping of all agents with
+weight $\mathrm w$ is the explicit Euler step of size $\mathrm w$ of
+\eqref{eq:obs-local-natural-gradient}, and $\mathrm w=1$ is the simultaneous best
+response. For blocks that share records it can increase the free energy. Take three
+agents with scalar latents, baseline $\mathcal N(0,5/2)$ for each, and one record
+$o_a\sim\mathcal N(y_1+y_2+y_3,5/3)$, so the posterior is Gaussian with precision
+$\Lambda=\tfrac25I+\tfrac35\mathbf 1\mathbf 1^\top$ and some mean $\bar y^\star$, and
+take product Gaussian strategies. At unit variances and means $\bar y^\star+\mathbf 1$,
+\begin{equation}
+\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X})=\frac{33}{10}+\frac12\log\frac{125}{44},
+\label{eq:obs-simultaneous-witness}
+\end{equation}
+and the simultaneous best responses keep unit variances and move the means to
+$\bar y^\star-\tfrac65\mathbf 1$, where the relative entropy is
+$\tfrac{594}{125}+\tfrac12\log\tfrac{125}{44}$; each repetition multiplies the
+first term by $36/25$, whereas the sequential sweep never increases the free energy.
+The update of weight $\mathrm w$ increases it along $\mathbf 1$ exactly when
+$\mathrm w>10/11=2/\mathrm c_{\mathsf G}$, where $\mathrm c_{\mathsf G}=11/5$ is the
+largest eigenvalue of the Hessian $\Lambda$ relative to the Fisher metric $I$ of the
+means at unit variance, which is the threshold of
+\eqref{eq:hist-discrete-descent-bound}. A simultaneous step of blocks that share
+records is therefore covered only by a step bound of that kind or by a step
+accepted on the same functional, as after
+\cref{prop:elbo-finite-step-nonmonotonicity}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For (a), the incident likelihood $L_{B_l,o}$ of \eqref{eq:obs-block-incident-likelihood}
+reads no coordinate of another $B_m$, and conditional independence gives the baseline
+conditional of $Y_{B_l}$ given $Y_{-B_l}$ a version that reads only $y_{-U}$; by
+\eqref{eq:obs-local-posterior} and \eqref{eq:obs-local-vfe} the local evidence,
+posterior, and free energy of $B_l$ then read only $y_{-U}$. Under $Q$ the conditional
+of $Y_{B_1}$ given $Y_{-B_1}$ is $r_{B_1}(\cdot\given y_{-U})$, so
+\cref{prop:elbo-exact-e-coordinate}(iv) applies with $B=B_1$, and the damped kernel
+again reads only $y_{-U}$, so the new law has the same form and finite free energy;
+induction over the blocks, in any order, ends at
+$Q_{-U}\bigotimes_lr^{\mathrm w_l}_{B_l}$. For product laws, the integrand of
+\eqref{eq:obs-outside-averaged-local-vfe} for agent $i$ does not read $y_j$ for
+another agent $j$ of the set, so $\overline\Fenergy_i$ does not depend on $r_j$;
+changing the strategies one agent at a time, \cref{cor:obs-potential-game} gives
+each change of $\Fenergy^{\mathrm{ext}}_o$ as the change of $\overline\Fenergy_i$ at
+the original strategies of the set, and the changes add. For (b), $\mathsf A_i$ is
+finite near $\eta$ and $\eta^*$, so $\mathsf T_i$ is integrable under both members,
+with means $\mu=\nabla\mathsf A_i(\eta)$ and $\mu^*$, and the Fisher metric of the
+natural chart is $\nabla^2\mathsf A_i$
+\citep[Theorems~7.1, 7.2 and~8.1]{BarndorffNielsen1978}. By
+\cref{cor:obs-potential-game}, $\Fenergy^{\mathrm{ext}}_o$ changes by the change of
+$\KL(\cdot\Vert q_{i,\eta^*})$. The mixture
+$\mathrm m=(1-\mathrm w)q_{i,\eta}+\mathrm wq_{i,\eta^*}$ has mean
+$\mu_{\mathrm w}=(1-\mathrm w)\mu+\mathrm w\mu^*$; if $q_{i,\eta'_{\mathrm w}}$ has
+that mean, $\log(q_{i,\eta'_{\mathrm w}}/q_{i,\eta^*})$ is affine in $\mathsf T_i$, so
+its expectations under $\mathrm m$ and under $q_{i,\eta'_{\mathrm w}}$ agree, and
+\[
+(1-\mathrm w)\KL(q_{i,\eta}\Vert q_{i,\eta^*})\geq\KL(\mathrm m\Vert q_{i,\eta^*})
+=\KL(\mathrm m\Vert q_{i,\eta'_{\mathrm w}})+\KL(q_{i,\eta'_{\mathrm w}}\Vert q_{i,\eta^*})
+\geq\KL(q_{i,\eta'_{\mathrm w}}\Vert q_{i,\eta^*}),
+\]
+the first inequality by convexity of relative entropy in its first argument. This is
+the first inequality of \eqref{eq:obs-damped-block-update} after adding the
+constant, and the second follows because the best response minimizes. For a
+Gaussian family the means $(\mu,\mathrm M_2)$ of $(Y,YY^\top)$ belong to the family exactly when
+$\mathrm M_2-\mu\mu^\top\succ0$, that is, when the matrix with blocks $1$, $\mu^\top$, $\mu$, $\mathrm M_2$ is
+positive definite, a convex condition. With $\Delta\eta=\eta-\eta^*$ and
+$\mathrm f(t)=\KL(q_{i,\eta^*+t\Delta\eta}\Vert q_{i,\eta^*})
+=\mathsf A_i(\eta^*)-\mathsf A_i(\eta^*+t\Delta\eta)+t\langle\nabla\mathsf A_i(\eta^*+t\Delta\eta),\Delta\eta\rangle$,
+one has $\mathrm f'(t)=t\Delta\eta^\top\nabla^2\mathsf A_i(\eta^*+t\Delta\eta)\Delta\eta\geq0$ on the segment,
+which lies in the convex domain $\mathsf N_i$, and $\eta_{\mathrm w}$ is the point
+$t=1-\mathrm w$. In the Poisson family $\mathsf A(\eta)=e^\eta$ and
+$\mathrm f$ at $\eta^*=0$ is $1-(1-\eta)e^{\eta}$ evaluated at $\eta=-2$ and
+$\eta=-4$. For (c), differentiating the Bregman form gives
+$\nabla_{\eta}\KL(q_{i,\eta}\Vert q_{i,\eta^*})=\nabla^2\mathsf A_i(\eta)(\eta-\eta^*)$,
+which by \cref{prop:obs-local-block-descent}(ii) is $\nabla_{\eta_i}\Fenergy^{\mathrm{ext}}_o$;
+multiplying by the inverse Fisher metric gives $\eta_i-\eta_i^*$, and the Euler step
+of size $\mathrm w$ is $\eta_{\mathrm w}$. In the witness the record adds precision
+$\tfrac35\mathbf 1\mathbf 1^\top$ to the baseline precision $\tfrac25I$, so
+$\Lambda$ has unit diagonal and eigenvalues $\tfrac25,\tfrac25,\tfrac{11}5$ with
+$\det\Lambda=44/125$. For a product law with variances $\mathrm v_i$ and mean error $\boldsymbol\delta$,
+$\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X})
+=\frac12[\sum_i\mathrm v_i+\boldsymbol\delta^\top\Lambda\boldsymbol\delta-3-\log\det\Lambda-\sum_i\log\mathrm v_i]$, whose
+best response for agent $i$ is $\mathrm v_i=1$ and $\delta_i=-\sum_{j\ne i}\Lambda_{ij}\delta_j$; at
+$\boldsymbol\delta=\mathbf 1$ this is $\delta_i=-\tfrac65$, and
+$\mathbf 1^\top\Lambda\mathbf 1=\tfrac{33}5$ gives both values. The weighted update
+is $\boldsymbol\delta\mapsto\boldsymbol\delta-\mathrm w\Lambda\boldsymbol\delta$, which multiplies the component along
+$\mathbf 1$ by $1-\tfrac{11}5\mathrm w$. Each sequential best response is a
+unilateral improvement of \cref{cor:obs-potential-game}. $\square$
+
 \section{Fast recognition and slow model coordinates}
 \label{sec:obs-fast-slow}
 
@@ -112,8 +234,16 @@ coordinate carries the model-channel recognition coordinates $s_{\rm m}$, which 
 a recognition law, and the generative parameter $\theta$, which moves the fixed joint
 between evaluations and never inside one, so a composite $\theta(Q)$ inside one
 evaluation of \eqref{eq:obs-fast-slow-objective} stays excluded by
-\cref{req:gen-typing-prohibition}. The assignment of coordinates to the two blocks is
-a declaration.
+\cref{req:gen-typing-prohibition}. Because \eqref{eq:obs-fast-slow-objective}
+evaluates one observation $o$ at every $\theta$ in a continuum, the coordinatization
+also declares, as model data in the sense of
+\cref{hyp:prob-regular-conditional-convention}, a version
+$(\theta,o,y)\mapsto p_{\theta,V}(o,y\given X)$ jointly measurable in its arguments,
+with evidence $0<p_{\theta,V}(o\given X)<\infty$ at the observed $o$ for every
+$\theta$ occurring in $\mathcal U_{\rm s}$ and posterior slices computed from that
+version by \eqref{eq:prob-rcp-density}; real values and differentiability of $F$
+in $\theta$ are statements about this version. The assignment of coordinates to
+the two blocks is a declaration.
 
 \lemmaheading{Envelope identity and reduced slow descent}{lem:obs-envelope-slow-flow}
 Let $F\in C^1(\mathcal U_{\rm f}\times\mathcal U_{\rm s})$, let
@@ -201,7 +331,10 @@ so the $\mathsf G_\varepsilon$-length of a reduced orbit is at least the
 $\mathsf G_{\rm s}$-length of its image. These lengths decrease to the latter as
 $\varepsilon\downarrow0$ on every compact time interval of the orbit, and on
 any interval where the lifted length is finite at some positive
-$\varepsilon_0$. \status{ESTABLISHED}
+$\varepsilon_0$. The conjugacy and the length limit are properties of the lift
+$\mathscr V^\star$ of the reduced field; they say nothing about orbits of
+\eqref{eq:obs-rate-separated-flow} off $\mathcal S^\star$, whose relation to the
+reduced orbit is \cref{open:obs-slow-manifold}. \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
 Because $\mathsf G_\varepsilon^{-1}=\varepsilon^{-1}\mathsf G_{\rm f}^{-1}\oplus\mathsf G_{\rm s}^{-1}$,
@@ -352,13 +485,27 @@ stays bounded by $\mathrm R$ and $|\mathbf x_u|\le\mathrm R'$ on $[0,t]$ has
 probability at most $2\exp[-1/(192\mathrm T\bar\varepsilon t)]$, whatever the
 assignment path, and at most $2e^{-1/(4\mathrm T)}$ at the largest such $t$.
 \end{enumerate}
-In these arms a belief-agreeing, model-disagreeing interval of order
-$1/\varepsilon_{\mathrm m}$ exists exactly when the model means and the links are
-both slow: with both slow it is the interval of (ii), whose model disagreement
-(iii) protects along every assignment path up to a time of order
-$1/\varepsilon_{\mathrm m}$ while residuals and configuration stay bounded, and a
-fast link or fast model means remove the disagreement at a rate at least
-$4-2\sqrt2$ whatever the other rate. \status{ESTABLISHED}
+Among the three arms of (ii), a belief-agreeing, model-disagreeing interval of
+order $1/\varepsilon_{\mathrm m}$ exists exactly in the arm
+$\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}\le1/2$: there it is the interval
+of (ii), whose model disagreement (iii) protects along every assignment path up to a
+time of order $1/\varepsilon_{\mathrm m}$ while residuals and configuration stay
+bounded, and a fast link or fast model means remove the disagreement at a rate at
+least $4-2\sqrt2$ whatever the other rate. Small rates alone do not suffice: for
+$\varepsilon_{\mathrm m},\varepsilon_{\check\omega}\in[0,1/2]$,
+\begin{equation}
+4\varepsilon_{\mathrm m}+2\varepsilon_{\check\omega}-2\varepsilon_{\check\omega}^2
+\le\varsigma_-\le4\varepsilon_{\mathrm m}+2\varepsilon_{\check\omega},
+\qquad
+|r^m_i(t)|\le\bigl(1+4(\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})\bigr)
+e^{-(4\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})t},
+\label{eq:obs-cycle-general-slow-rate}
+\end{equation}
+so $|r^m_i|\ge1/2$ at a time $\mathrm c_6/\varepsilon_{\mathrm m}$ with
+$\mathrm c_6>0$ requires
+$\varepsilon_{\check\omega}\le\varepsilon_{\mathrm m}\log(10)/\mathrm c_6$, and an
+interval of order $1/\varepsilon_{\mathrm m}$ needs a link rate of order at most
+$\varepsilon_{\mathrm m}$. \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
 For (i), both endpoints of $e_0$ and of $e_2$ attend them under $S^{(0)}$ and no
@@ -448,9 +595,27 @@ Doob's maximal inequality applied to the martingale $\exp(\theta B_u-\theta^2u/2
 with $\theta=\mathrm y/t$ gives $\Pr(\sup_{u\le t}B_u\ge\mathrm y)\le e^{-\mathrm y^2/(2t)}$,
 and with $\mathrm y^2=1/(96\mathrm T\bar\varepsilon)$ the two-sided bound is
 $2e^{-1/(192\mathrm T\bar\varepsilon t)}$; at the largest $t$ the exponent is
-$-(12\mathrm R+9\mathrm T\mathrm R')/(48\mathrm T)\le-1/(4\mathrm T)$. The closing
-sentence collects (ii) and (iii), the fast-means case having rate
-$4+4\varepsilon_{\check\omega}\ge4$. $\square$
+$-(12\mathrm R+9\mathrm T\mathrm R')/(48\mathrm T)\le-1/(4\mathrm T)$. The first
+closing sentence collects (ii) and (iii), the fast-means case having rate
+$4+4\varepsilon_{\check\omega}\ge4$. For \eqref{eq:obs-cycle-general-slow-rate} put
+$\mathrm c_4=\sqrt{(1-\varepsilon_{\mathrm m})^2+\varepsilon_{\check\omega}^2}$; since
+$2(1-\varepsilon_{\mathrm m})\ge1$, squaring gives
+$1-\varepsilon_{\mathrm m}\le\mathrm c_4\le1-\varepsilon_{\mathrm m}+\varepsilon_{\check\omega}^2$,
+and $\varsigma_-=2(1+\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})-2\mathrm c_4$
+gives the bracket, whose lower end is at least
+$4\varepsilon_{\mathrm m}+\varepsilon_{\check\omega}$ because
+$\varepsilon_{\check\omega}\le1/2$. At $(0,0)$ the residual is constant. Otherwise
+the coefficient of $e^{-\varsigma_+t}$ in $r^m_i$ is
+$\mathrm c_3=(\varsigma_--4\varepsilon_{\mathrm m}-4\varepsilon_{\check\omega})/(4\mathrm c_4)$,
+and $0\le\varsigma_-\le4\varepsilon_{\mathrm m}+2\varepsilon_{\check\omega}$ with
+$\mathrm c_4\ge1/2$ give
+$|\mathrm c_3|\le2(\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})$; the other
+coefficient is $-1-\mathrm c_3$, so
+$|r^m_i(t)|\le(1+2|\mathrm c_3|)e^{-\varsigma_-t}$, which is the second bound. At
+$t=\mathrm c_6/\varepsilon_{\mathrm m}$ that bound is at most
+$5e^{-\mathrm c_6\varepsilon_{\check\omega}/\varepsilon_{\mathrm m}}$, which is below
+$1/2$ when $\varepsilon_{\check\omega}>\varepsilon_{\mathrm m}\log(10)/\mathrm c_6$.
+$\square$
 
 In the latent reading of \cref{ch:links}, the link translations are generators of the translation
 instance with anchor zero and no loop term, and the supplied rate $\varepsilon_{\check\omega}$ places
@@ -580,9 +745,14 @@ $\mathsf K^*_{\xi'\xi}=p(\xi)\mathsf K_{\xi\xi'}/p(\xi')$,
 \KL\bigl(q(\cdot\given\xi')\Vert\mathsf K^*_{\xi'\cdot}\bigr),
 \label{eq:rg-memory-reverse-conditional-loss}
 \end{equation}
-where $q(\xi\given\xi')=q(\xi)\mathsf K_{\xi\xi'}/q'(\xi')$. Hence $\mathsf T$
-decreases \eqref{eq:rg-memory-fixed-vfe}, strictly unless
-$q(\xi)=q(\Xi')p(\xi\given\Xi')$ on each component $\Xi'$.
+where $q(\xi\given\xi')=q(\xi)\mathsf K_{\xi\xi'}/q'(\xi')$. Hence the marked
+sweep maps $q\otimes\psi'$ to $(q\mathsf T)\otimes\psi$ and lowers
+\eqref{eq:rg-memory-fixed-vfe} by
+$\KL(q\Vert p)-\KL(q\mathsf T\Vert p)+\E_q\KL(\psi'_\xi\Vert\psi_\xi)\geq0$,
+which vanishes exactly when $q(\xi)=q(\Xi')p(\xi\given\Xi')$ on each component
+$\Xi'$ and $\psi'_\xi=\psi_\xi$ for every $\xi$ with $q(\xi)>0$. For matched
+record conditionals, $\psi'=\psi$, this is the statement that $q\mapsto q\mathsf T$
+decreases $\KL(q\Vert p)$, strictly unless $q$ has that form.
 \item[(v)] On each component, $q\mathsf T^n$ converges geometrically to that
 conditional target.
 \end{enumerate}
@@ -607,7 +777,13 @@ over the output with \cref{lem:prob-kl-chain-rule} gives
 \eqref{eq:rg-memory-reverse-conditional-loss}. With positive holding, equality forces
 $q/p$ to be constant across every positive edge; equality for $\mathsf M$ makes $q$
 stationary under $\mathsf M$, and equality for the subsequent $\mathsf D$ makes the
-ratio constant on parent fibers, which is constancy on components. For (v), positive
+ratio constant on parent fibers, which is constancy on components. The marked sweep
+sends $q(\xi)\psi'_\xi(r)$ to
+$\sum_{\xi,r}q(\xi)\psi'_\xi(r)\mathsf T_{\xi\xi'}\psi_{\xi'}(r')=(q\mathsf T)(\xi')\psi_{\xi'}(r')$,
+so by (i) the free energy before minus after is the displayed sum, whose two
+terms are nonnegative, the first by \eqref{eq:rg-memory-reverse-conditional-loss}
+and the second as an average of relative entropies, and which vanishes exactly
+when both terms do. For (v), positive
 holding makes every $\mathsf M$ or $\mathsf D$ edge a positive $\mathsf T$ edge, so on
 a component $\Xi'$ of $n$ states $\mathsf T^k>0$ for $k=\max(1,n-1)$. With target
 $p_{\Xi'}=p(\cdot\given\Xi')$ and

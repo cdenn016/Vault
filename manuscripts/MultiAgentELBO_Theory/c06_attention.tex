@@ -15,15 +15,15 @@ curvature of \cref{prop:obs-attention-reduced-hessian} feed
 is the attention state that \cref{ch:agent-network-rg} coarse-grains, and the
 comparison records supply the endpoint energies of \cref{ch:network-state}.
 Rows, events, links, and divergences are indexed by oriented edge copies
-\(e:j\to i\); the pair \(ij\) names a unique copy, a pair quantity is the sum
-over parallel copies, and the construction serves both channels, with a
+\(e:j\to i\); the pair \(ij\) names the source copy \(j\to i\) of row \(i\)
+(\cref{def:geo-graph-links}), a pair quantity is the sum over parallel copies, and the construction serves both channels, with a
 model-channel row written \(\beta^m\) where the channel must be named.
 Longer proofs are deferred to \cref{app:deferred-proofs}.
 
 This chapter does not claim that transformer attention as a whole is derived
 (\cref{tab:obs-transformer-correspondence}; feed-forward blocks and layer
-normalization have no counterpart), that declared per-head rows follow from a
-label model, or that an interface map, its rank, or its coding establishes a
+normalization have no counterpart), that the per-head rows of a parent follow
+from coarse-graining a multi-head label model, or that an interface map, its rank, or its coding establishes a
 channel capacity, a reconstruction of the sender's belief, or shared meaning.
 Capacity needs an admissible input family and, for a nonzero continuous
 Gaussian channel, an input resource constraint; a coding theorem also needs
@@ -41,13 +41,24 @@ formation with evolving selective interfaces
 \definitionheading{Per-receiver source-label model}{def:obs-attention-label-model}
 Let \(\mathcal I_{\rm att}\) be a finite set of receiving rows, each an agent
 \(i\in V\) or an agent--head pair \((i,h)\) that inherits its agent's latent
-state (written \(i\) when no head is needed). Row \(i\) carries a source label
-\(J_i\) valued in the incoming edge copies of \(i\), with a structural prior
-row \(\pi_i\) independent of recognition whose support is the source set
-\(\mathcal N_i\); source sums and indices range over \(\mathcal N_i\). These
-supports determine the interaction multigraph at \(c_*\) as in
-\cref{sec:intro-conventions}, and whether \(\mathcal N_i\) contains the self
-edge is part of the model. The
+state (written \(i\) when no head is needed). The copy set of the interaction
+multigraph \(\mathfrak I\) of \cref{def:geo-graph-links} is declared first, as
+structural data, and contains every copy that a row's source set uses (the
+standing convention of \cref{sec:intro-conventions}). Row \(i\) carries a
+source label \(J_i\) valued in the incoming edge copies of \(i\), with a
+structural prior row \(\pi_i\) independent of recognition whose support is the
+source set \(\mathcal N_i\); source sums and indices range over
+\(\mathcal N_i\). If \(j\) is in the source set of row \(i\) through the copy
+\(e:j\to i\) and \(i\) is in the source set of row \(j\) through
+\(e':i\to j\), then \(e'\ne\bar e\): the two copies are distinct, each with
+its own reversal, their links \(\Theta_{ij}:=\Theta_e\) and
+\(\Theta_{ji}:=\Theta_{e'}\) are independent, so that
+\(\Theta_{ji}\ne\Theta_{ij}^{-1}\) in general, and the pair forms the closed
+walk \((e,e')\) with holonomy \(\Theta_{ij}\Theta_{ji}\). Whether
+\(\mathcal N_i\) contains a self edge is part of the model. A self edge is a
+loop copy \(e:i\to i\), and at the agent level it carries the identity link,
+\(\Theta_{ii}=e_G\); at coarse depth a loop copy carries the internal
+holonomy of its block (\cref{def:full-graph-coarse-links}). The
 labels augment the latent baseline independently,
 \begin{equation}
 \mathbb P_{\theta,V}^{Y,\mathrm{aug}}(dy,dj)
@@ -57,8 +68,18 @@ labels augment the latent baseline independently,
 \end{equation}
 Each row has a temperature \(\tau_i>0\) and finite measurable energies
 \(D_{ij}:\mathsf Y\to\R\) that contain no recognition law and are
-gauge-invariant functions of sample-level latent states
-(\cref{def:prob-description-levels}) and of the links, and at the selected
+gauge-invariant functions of the links and of the latent state at the
+description level of the declared model (\cref{def:prob-description-levels}):
+sample states in a sample-level joint, law points when the latent coordinates
+are law points, the configuration in a configuration-level joint. In each
+case \(\mathsf Y\) denotes the latent space of that level. An energy that
+reads the receiver and the source of \(e:j\to i\) only through the transported
+residual \(k_i-\rho_b(\Theta_e)k_j\), or through a divergence between \(q_i\)
+and \((\Theta_e)_\#q_j\) that vanishes at equal arguments, has \(D_{ii}=0\) on
+an agent-level self edge as a consequence of the identity link; an energy that
+compares through distinct query and key maps need not vanish there, and on a
+coarse loop copy with nontrivial holonomy the energy is nonzero in general.
+At the selected
 record row \(i\) has the record density
 \begin{equation}
 L_i(o_i\given y,J_i=j)
@@ -81,6 +102,29 @@ success record with success probability \(\exp[-D_{ij}/\tau_i]\) and every
 \eqref{eq:obs-interaction-energy}, and so does the comparison record of
 \cref{prop:obs-selective-receiver-update} at every record value.
 
+Reading attention as a posterior over a latent alignment or structural
+variable has precedents. Structured attention networks place structured
+distributions over such variables \citep{Kim2017StructuredAttention},
+variational attention treats the alignment as a latent variable with an
+approximate posterior \citep{Deng2018LatentAlignment}, and attention has been
+read as inference over implicitly defined adjacency structures of a graphical
+model \citep{Singh2023ImplicitStructuralInference}, of which a per-receiver
+source label is one instance. The transformer update has been read as a
+maximum-posterior estimator in a Gaussian mixture model
+\citep{Movellan2020ProbabilisticTransformers}, the counterpart of the
+comparison-record update of \cref{prop:obs-selective-receiver-update}, and the
+log-sum-exp energy that integrating out the label gives here is the energy of
+the continuous Hopfield networks whose update rule is attention
+\citep{ramsauer2021hopfield}. Learned per-edge transports occur in sheaf
+neural networks, which learn the restriction maps of a cellular sheaf on a
+graph \citep{Bodnar2022NeuralSheafDiffusion}, and sheaf attention networks
+combine such maps with attention coefficients
+\citep{Barbero2022SheafAttention}. What this chapter adds to these readings is
+the gauge typing of the comparison energies and of independent links, the
+value map that a comparison record fixes from the query and key maps, the
+exact cost of a recognition row held constant in the latent state, and the
+event law that the coarse-graining chapters carry.
+
 \propositionheading{Exact posterior and recognition attention}{prop:obs-attention-elbo}
 Assume \cref{def:obs-attention-label-model} and label exclusivity at the
 complete selected record \(o\): the augmented likelihood factors as
@@ -101,7 +145,10 @@ row given \(y\) and the record is
 \end{equation}
 a version that may also be chosen off that set; it is strictly positive
 exactly on \(\mathcal N_i\), and if row \(i\) has nonnegative energies, an
-included self edge with \(D_{ii}=0\), and equal prior weights, no source has a
+included self edge with \(D_{ii}=0\), which holds for the energies of
+\cref{def:obs-attention-label-model} that read only a transported residual or
+divergence at the identity self link of the agent level, and equal prior
+weights, no source has a
 larger posterior weight than the self edge. (b) Restrict the augmented
 recognition law to the full factorization
 \begin{equation}
@@ -199,12 +246,20 @@ In a linear sample fiber, the energies
 \(\frac12(y_i-\mathring y_{ij})^\top W_i(y_i-\mathring y_{ij})\) with
 \(W_i\succ0\) and structural templates \(\mathring y_{ij}\) have affine
 differences. If instead \(D_{ij}(y)=\frac12 r_{ij}^\top W_ir_{ij}\) with
-\(r_{ij}=y_i-\rho_b(\Theta^b_{ij})y_j\) for a unique edge copy, and \(Y_i\) and
-\(Y_j\) are uncorrelated under \(\mathbb Q_Y\) with finite second moments, then
-\(\beta_i^{Q\star}\) is the posterior row at the recognition mean with the
-logit of source \(j\) lowered by
-\(\Tr(W_i\rho_b(\Theta^b_{ij})\operatorname{Cov}(Y_j)
-\rho_b(\Theta^b_{ij})^\top)/(2\tau_i)\).
+\(r_{ij}=y_i-\rho_b(\Theta^b_{ij})y_j\) for every source, \(\Theta^b_{ij}\) the
+link of the source copy \(j\to i\) of row \(i\) (\cref{def:geo-graph-links}),
+and \(Y_i\) and \(Y_j\) are uncorrelated under \(\mathbb Q_Y\) with finite
+second moments for every source \(j\ne i\), then \(\beta_i^{Q\star}\) is the
+posterior row at the recognition mean with the logit of each source \(j\ne i\)
+lowered by \(\Tr(W_i\rho_b(\Theta^b_{ij})\operatorname{Cov}(Y_j)
+\rho_b(\Theta^b_{ij})^\top)/(2\tau_i)\) and, when the row contains the self
+copy, with residual \(r_{ii}=(I-\rho_b(\Theta^b_{ii}))y_i\), the self logit
+raised by
+\(\bigl[\Tr(W_i\operatorname{Cov}Y_i)-\Tr(W_i(I-\rho_b(\Theta^b_{ii}))
+\operatorname{Cov}(Y_i)(I-\rho_b(\Theta^b_{ii}))^\top)\bigr]/(2\tau_i)\),
+which is \(\Tr(W_i\operatorname{Cov}Y_i)/(2\tau_i)\) at the identity self link
+of the agent level: the receiver's own uncertainty penalizes every other
+source and not the self copy.
 \status{ESTABLISHED}
 
 The proofs of \cref{prop:obs-attention-elbo,prop:obs-attention-constant-row-gap} are in \cref{sec:proofs-attention}.
@@ -615,8 +670,9 @@ some \(\widetilde{\mathsf L}^{\rm enc}_e:E_i\to H_e^-\), then
 The separation does not recover \(\Theta_e\) from communication, and a
 receiver-only processing map \(F_e=F_i\) exists exactly when
 \(\mathsf L_e\Theta_e^{-1}\) agrees on every incoming edge copy at \(i\). (b)
-Communication on the reverse copy is separately specified and need not be an
-inverse, an adjoint, or of the same rank. For a closed walk
+Communication on the reverse copy, and on the distinct copy that a mutually
+attending row reads (\cref{def:geo-graph-links}), is separately specified and
+need not be an inverse, an adjoint, or of the same rank. For a closed walk
 \(p=(e_0,\ldots,e_{r-1})\) with \(e_a:i_{a+1}\to i_a\) and \(i_r=i_0\), the
 communication round trip
 \begin{equation}
@@ -691,9 +747,11 @@ Declared per-head rows \(\beta_{ij}^{(h)}\), value extractions
 \end{equation}
 which in reference coordinates is value extraction, weighted aggregation,
 output placement, and a residual, the operator form of multi-head attention
-\citep{vaswani2017attention}. The operator is declared:
-\cref{def:obs-attention-label-model} constructs one label per row, and nothing
-here selects the content maps.
+\citep{vaswani2017attention}. As written the operator is declared, and nothing
+here selects its content maps in general; in the comparison-record model the
+exact receiver update has this form with value maps fixed by the query and key
+maps, for one head and, with coupled per-head rows, for several
+(\cref{prop:obs-selective-receiver-update}(a),(f)).
 
 \propositionheading{Natural-gradient response to a quadratic disagreement}{prop:obs-selective-response}
 Fix the maps, an SPD state metric \(\mathsf G_i\), and an SPD precision \(W_e\).
@@ -780,7 +838,8 @@ Apply \cref{lem:prob-kl-chain-rule} to the disintegration over \(j\), then over
 
 \propositionheading{Exact receiver update in the comparison-record model}{prop:obs-selective-receiver-update}
 Fix a receiver \(i\) with a finite source set on which \(\pi_{ij}>0\), each
-source \(j\) reaching \(i\) through one edge copy \(e:j\to i\), and suppose
+source \(j\ne i\) reaching \(i\) through one edge copy \(e:j\to i\) (a self
+copy is admitted only in (e)), and suppose
 that these copies share the comparison space \(H_i^{\rm cmp}\), the query map
 \(S^Q_i:=S^Q_e\), and an SPD precision \(W_i\), while the key maps \(S^K_e\) may
 depend on the copy. Let the attention record of
@@ -836,23 +895,115 @@ and need not equal the posterior row \eqref{eq:obs-attention-posterior} at
 \(S^Q_i=S^K_e=\widetilde W_i=\Sigma_i=1\), \(\mu_i=0\), a uniform prior, and
 sources \(k_1=0\) and \(k_2=2\), one has \(w_{i2}=e^{-1}/(1+e^{-1})\) and
 \(\beta^P_{i2}=e^{-2}/(1+e^{-2})\) at \(k_i=0\), while
-\(\mathsf L_e^{\rm val}=\Sigma_i^+\Sigma_i^{-1}=1/2\). (c) The Woodbury identity
+\(\mathsf L_e^{\rm val}=\Sigma_i^+\Sigma_i^{-1}=1/2\). Expanding \(r_{ij}\)
+gives the weights in dot-product form,
+\begin{equation}
+w_{ij}=\frac{\pi_{ij}\exp\bigl[(S^Q_i\mu_i)^\top(\Sigma_i^{\rm pred})^{-1}S^K_ek_j
+-\tfrac12(S^K_ek_j)^\top(\Sigma_i^{\rm pred})^{-1}S^K_ek_j\bigr]}
+{\sum_l\pi_{il}\exp\bigl[(S^Q_i\mu_i)^\top(\Sigma_i^{\rm pred})^{-1}S^K_{e_l}k_l
+-\tfrac12(S^K_{e_l}k_l)^\top(\Sigma_i^{\rm pred})^{-1}S^K_{e_l}k_l\bigr]},
+\label{eq:obs-selective-record-dot-product}
+\end{equation}
+with \(e_l:l\to i\): a dot-product logit and a key-norm bias in the metric
+\((\Sigma_i^{\rm pred})^{-1}\), so that the effective temperature matrix
+\(\Sigma_i^{\rm pred}=\tau_iW_i^{-1}+S^Q_i\Sigma_iS_i^{Q\top}\) contains the
+receiver's covariance. (c) The Woodbury identity
 \(\Sigma_i^+S_i^{Q\top}\widetilde W_i=\Sigma_iS_i^{Q\top}(\Sigma_i^{\rm pred})^{-1}\)
 holds, and for full-row-rank \(S^Q_i\) and \(\widetilde W_i^{-1}\to0\) the value
 map tends to \(R_eS^K_e\) with
 \(R_e=\Sigma_iS_i^{Q\top}(S^Q_i\Sigma_iS_i^{Q\top})^{-1}\), the
 \(\Sigma_i^{-1}\)-minimal right inverse of \(S^Q_i\). (d) With copy-dependent
-query maps, precisions, or comparison spaces, the same computation gives
+query maps or precisions on the common comparison space \(H_i^{\rm cmp}\), the
+same computation gives
 \(w_{ij}\propto\pi_{ij}\mathcal N(0;r_{ij},\Sigma_{ij}^{\rm pred})\) and
 component covariances \(\Sigma_{ij}^+\), so the normalizer of the predictive
-law enters the weights.
+law enters the weights; copies with distinct comparison spaces need a declared
+common record space for \(o_i\) with one reference measure before Bayes'
+formula compares their labels. (e) Let the source set also contain a self copy
+\(e:i\to i\), with key map \(S^K_e\) on the receiver's own fiber and
+\(A_e:=S^Q_i-S^K_e\). Its source state is \(k_i\), which \(y_{-i}\) does not
+fix, and given \(y_{-i}\) and all records the self component has
+\begin{equation}
+w_{ii}\propto\pi_{ii}\mathcal N\bigl(0;A_e\mu_i,\widetilde W_i^{-1}
++A_e\Sigma_iA_e^\top\bigr),
+\qquad
+k_i\given J_i=e\sim\mathcal N\bigl(\Sigma_{ie}^+\Sigma_i^{-1}\mu_i,\Sigma_{ie}^+\bigr),
+\qquad
+\Sigma_{ie}^+=\bigl(\Sigma_i^{-1}+A_e^\top\widetilde W_iA_e\bigr)^{-1},
+\label{eq:obs-selective-self-component}
+\end{equation}
+normalized together with
+\(w_{ij}\propto\pi_{ij}\mathcal N(0;r_{ij},\Sigma_i^{\rm pred})\) for
+\(j\ne i\), whose components are those of (a); the conditional mean is
+\(w_{ii}\Sigma_{ie}^+\Sigma_i^{-1}\mu_i+\sum_{j\ne i}w_{ij}(\Sigma_i^+\Sigma_i^{-1}\mu_i
++\mathsf L_e^{\rm val}k_j)\). With the reference maps of
+\cref{def:obs-selective-comparison} and the identity self link of the agent
+level, \(A_e=(S^Q_{\rm ref}-S^K_{\rm ref})U_i^{-1}\), which vanishes exactly
+when the query and key reference maps are tied. If \(A_e=0\), the self record
+carries no information about \(k_i\): the self component is
+\(\mathcal N(\mu_i,\Sigma_i)\), the conditional mean is
+\(\bigl(w_{ii}I+(1-w_{ii})\Sigma_i^+\Sigma_i^{-1}\bigr)\mu_i
++\sum_{j\ne i}w_{ij}\mathsf L_e^{\rm val}k_j\), and the self weight is the
+value that the formula of (a) with \(r_{ii}=0\) would give, multiplied by
+\begin{equation}
+\det\bigl(\Sigma_i^{\rm pred}\widetilde W_i\bigr)^{1/2}
+=\det\bigl(I+\widetilde W_iS^Q_i\Sigma_iS_i^{Q\top}\bigr)^{1/2},
+\label{eq:obs-selective-self-sink}
+\end{equation}
+which exceeds \(1\) whenever \(S^Q_i\ne0\): the self copy is an attention sink
+whose weight grows with the receiver's predictive uncertainty and which leaves
+the mean unshrunk. (f) Let the receiver carry rows \((i,h)\), \(h=1,\ldots,H\),
+of \cref{def:obs-attention-label-model} with independent prior rows
+\(\pi_i^{(h)}\) on source sets of copies \(e:j\to i\), \(j\ne i\), each label
+\(J_{i,h}\) read only by its comparison record
+\(o_{i,h}\given k_i,J_{i,h}=j,y_{-i}\sim\mathcal N(S^Q_{i,h}k_i-S^K_{h,e}k_j,
+\tau_{i,h}W_{i,h}^{-1})\) at \(o_{i,h}=0\), the records conditionally
+independent given the latent state and the labels, and each head with its own
+comparison space, query map \(S^Q_{i,h}\), and precision
+\(\widetilde W_{i,h}=W_{i,h}/\tau_{i,h}\) shared by its copies. Let
+\(\mathbf S^Q_i\) stack the query maps and put
+\begin{equation}
+\Sigma_i^{+,H}=\Bigl(\Sigma_i^{-1}+\sum_hS_{i,h}^{Q\top}\widetilde W_{i,h}S^Q_{i,h}\Bigr)^{-1},
+\qquad
+\Sigma_i^{{\rm pred},H}=\operatorname{blockdiag}_h\bigl(\widetilde W_{i,h}^{-1}\bigr)
++\mathbf S^Q_i\Sigma_i\mathbf S_i^{Q\top}.
+\label{eq:obs-selective-multihead-covariances}
+\end{equation}
+Then the joint label table is
+\(w_{i,j_1\cdots j_H}\propto\prod_h\pi^{(h)}_{ij_h}
+\mathcal N(0;\mathbf r_{i,j_1\cdots j_H},\Sigma_i^{{\rm pred},H})\), where
+\(\mathbf r_{i,j_1\cdots j_H}\) stacks the residuals
+\(S^Q_{i,h}\mu_i-S^K_{h,e_h}k_{j_h}\); it need not factor by head
+(\cref{prop:obs-selective-head-coupling}). With
+\(\beta^{(h)}_{ij}\) its head marginals,
+\begin{equation}
+\E[k_i\given y_{-i},o]=\Sigma_i^{+,H}\Sigma_i^{-1}\mu_i
++\sum_h\sum_j\beta^{(h)}_{ij}\mathsf L^{\rm val}_{h,e}k_j,
+\qquad
+\mathsf L^{\rm val}_{h,e}=\Sigma_i^{+,H}S_{i,h}^{Q\top}\widetilde W_{i,h}S^K_{h,e},
+\label{eq:obs-selective-multihead-update}
+\end{equation}
+which is the operator \eqref{eq:obs-selective-attention-residual} with value
+maps fixed as in (a), one precision-weighted residual, and per-head rows that
+are the marginals of a coupled label table rather than separate softmax rows.
 \status{ESTABLISHED}
 
 The proof is in \cref{sec:proofs-attention}.
-\Cref{tab:obs-transformer-correspondence} compares the pointwise attention
-network with the attention layer of \citet{vaswani2017attention} row by row;
-the metric lift \(R_eS^K_e\) of (c) is developed for Gaussian beliefs in
-Supplement G.
+The theory defines three attention rows. The generative posterior row
+\(\beta^P_i(y)\) of \eqref{eq:obs-attention-posterior} is a function of the
+latent state in the label model at the level of its energies, and it is the
+posterior row at a latent configuration of law points when the energies are
+role divergences (\cref{cor:obs-selective-softmax}(a)). The constant
+recognition row \(\beta^{Q\star}_i\) of
+\eqref{eq:obs-attention-recognition-optimum} uses averaged energies
+(\cref{prop:obs-attention-elbo}(b)). The predictive-covariance row \(w_{ij}\)
+belongs to the comparison-record model
+(\cref{prop:obs-selective-receiver-update}(a),(b)). The three differ on the
+same data, and \cref{tab:obs-transformer-correspondence}, which compares the
+pointwise attention network with the attention layer of
+\citet{vaswani2017attention}, does not select one of them as the attention of
+the program: each row names the model in which it is derived. The metric lift
+\(R_eS^K_e\) of (c) is developed for Gaussian beliefs in Supplement G.
 
 \begin{sciencetable}{Correspondence between transformer attention and the pointwise attention network at $c_*$.}
 \label{tab:obs-transformer-correspondence}
@@ -861,13 +1012,14 @@ Supplement G.
 \textbf{Transformer} & \textbf{Pointwise attention network} & \textbf{Standing} \\
 \midrule
 Token position & Agent $i\in V$ at $c_*$, its embedding read as a coordinate of its latent state. & declared \\
-Query and key projections & $S^Q_e=S^Q_{\rm ref}U_i^{-1}$, $S^K_e=S^K_{\rm ref}U_j^{-1}$ and the role divergence \eqref{eq:obs-selective-role-divergence}; with a common projected key covariance, a dot-product logit plus a key-norm bias, \eqref{eq:obs-selective-dot-product}. & derived, \cref{cor:obs-selective-softmax} \\
-One key map shared by all edges & Independent links enter $S^K_e=S^K_{\rm ref}U_i^{-1}\Theta_e$ only through the represented edge twist $U_i^{-1}\Theta_eU_j$; the shared map is the identity-twist case $\Theta_e=U_iU_j^{-1}$, and a nonidentity twist, including nontrivial link holonomy, has no counterpart in that architecture. & derived, \cref{prop:geo-edge-twist-invariance} \\
-Softmax row & Generative posterior of a categorical source label, \eqref{eq:obs-attention-posterior}; over law-point divergences, the posterior row at a latent configuration, \eqref{eq:obs-selective-row-functional}, not the recognition optimum. & derived, \cref{prop:obs-attention-elbo,cor:obs-selective-softmax} \\
-Attention mask & Zero prior weight: the source lies outside the support of $\pi_i$, the source set $\mathcal N_i$, where the posterior row vanishes. & derived, \cref{prop:obs-attention-elbo} \\
-Temperature, inverse square root of key width & The temperature $\tau_i>0$ of \eqref{eq:obs-attention-likelihood}; for $\Sigma^K=\varsigma^2I$ the dot-product part of the logit $-d_{ij}/\tau_i$ is $(\mu_i^Q)^\top\mu_j^K/(\varsigma^2\tau_i)$, and $\varsigma^2\tau_i=\sqrt{\dim H^{\rm cmp}_i}$ reproduces the scaled dot product, a choice not derived here. & declared \\
-Value and output maps, residual connection & Declared in \eqref{eq:obs-selective-attention-residual}; in the comparison-record model the exact update fixes the value map $\mathsf L_e^{\rm val}$ and weights the residual by $\Sigma_i^+\Sigma_i^{-1}$. & derived, \cref{prop:obs-selective-receiver-update} \\
-Multiple heads & Declared per-head rows $\beta_{ij}^{(h)}$; no label-level construction, and no head index in the event law \eqref{eq:rg-attention-event-law}. & absent, \cref{open:obs-multihead-attention} \\
+Query and key projections & Law-point model: $S^Q_e=S^Q_{\rm ref}U_i^{-1}$, $S^K_e=S^K_{\rm ref}U_j^{-1}$ and the role divergence \eqref{eq:obs-selective-role-divergence}; with a common projected key covariance $\Sigma^K$, a dot-product logit in the metric $(\Sigma^K)^{-1}$ plus a key-norm bias, \eqref{eq:obs-selective-dot-product}. Comparison-record model: a dot-product logit plus a key-norm bias in the metric $(\Sigma_i^{\rm pred})^{-1}$, which contains the receiver's covariance, \eqref{eq:obs-selective-record-dot-product}. & derived, \cref{cor:obs-selective-softmax} (law-point model), \cref{prop:obs-selective-receiver-update}(b) (comparison-record model) \\
+One key map shared by all edges & Any model: independent links enter $S^K_e=S^K_{\rm ref}U_i^{-1}\Theta_e$ only through the represented edge twist $U_i^{-1}\Theta_eU_j$; the shared map is the identity-twist case $\Theta_e=U_iU_j^{-1}$, and a nonidentity twist has no counterpart in the transformer with absolute positional encodings of \citet{vaswani2017attention}; for relative encodings see the next row. & derived, \cref{prop:geo-edge-twist-invariance} \\
+Positional encoding & Label model: the static per-head bias $-m_h(i-j)$ that ALiBi adds to the scores of the sources $j\leq i$ \citep[Section~3]{press2022train} is $\log\pi_{ij}$ up to a row constant, for the structural prior $\pi_{ij}\propto e^{-m_h(i-j)}$. Law-point model: rotary embeddings multiply query and key by position-dependent rotations so that the score reads only their relative rotation \citep[Section~3.2.2, Eq.~(16)]{su2024roformer}, that is, query and key maps $R_iS^Q_{\rm ref}U_i^{-1}$ and $R_jS^K_{\rm ref}U_j^{-1}$ with orthogonal $R_i$ and isotropic $\Sigma^K$, a nonidentity twist $R_i^{-1}R_j$ of the comparison space that is a coboundary and so has trivial holonomy. A twist with nontrivial holonomy has no counterpart. & derived, \cref{prop:obs-attention-elbo} (ALiBi); declared (rotary) \\
+Softmax row & Label model: generative posterior of a categorical source label, \eqref{eq:obs-attention-posterior}. Law-point model: over role divergences, the posterior row at a latent configuration, \eqref{eq:obs-selective-row-functional}, not the recognition optimum \eqref{eq:obs-attention-recognition-optimum}. Comparison-record model: the predictive row $w_{ij}$, which differs from the posterior row at the receiver mean. & derived, \cref{prop:obs-attention-elbo,cor:obs-selective-softmax,prop:obs-selective-receiver-update} \\
+Attention mask & Any model: zero prior weight; the source lies outside the support of $\pi_i$, the source set $\mathcal N_i$, where every row vanishes. & derived, \cref{prop:obs-attention-elbo} \\
+Temperature, inverse square root of key width & Law-point model: the temperature $\tau_i>0$ of \eqref{eq:obs-attention-likelihood}; for $\Sigma^K=\varsigma^2I$ the dot-product part of the logit $-d_{ij}/\tau_i$ is $(\mu_i^Q)^\top\mu_j^K/(\varsigma^2\tau_i)$, and $\varsigma^2\tau_i=\sqrt{\dim H^{\rm cmp}_i}$ reproduces the scaled dot product, a choice not derived here. Comparison-record model: $\tau_i$ scales the record noise, and the effective temperature matrix is $\Sigma_i^{\rm pred}$. & declared \\
+Value and output maps, residual connection & Comparison-record model: the exact conditional mean of one receiver given its sources' states, \eqref{eq:obs-selective-receiver-update}, fixes the value map $\mathsf L_e^{\rm val}$ and weights the residual by $\Sigma_i^+\Sigma_i^{-1}$; an included self copy is an attention sink that leaves the mean unshrunk, \eqref{eq:obs-selective-self-sink}. A layer that updates every receiver from its sources' recognition means is a different update, not derived here. & derived, \cref{prop:obs-selective-receiver-update}(a),(e) \\
+Multiple heads & Comparison-record model: the exact update with several heads has the operator form \eqref{eq:obs-selective-attention-residual}, with per-head rows the head marginals of a coupled label table, not separate softmax rows, \eqref{eq:obs-selective-multihead-update}; the heads are coupled (\cref{prop:obs-selective-head-coupling}). The event law \eqref{eq:rg-attention-event-law} carries no head index, and an exact recursion with bounded head count is open. & derived at one scale, \cref{prop:obs-selective-receiver-update}(f); recursion open, \cref{open:obs-multihead-attention} \\
 Feed-forward block, layer normalization & No counterpart is modeled. & absent \\
 \bottomrule
 \end{tabularx}
@@ -923,8 +1075,9 @@ $\operatorname{diag}(1,0)$ but every mixed key pairing zero. For
 $a,b\ne0$ both labels remain informative. $\square$
 
 \openproblemheading{Label-level multi-head attention}{open:obs-multihead-attention}
-The per-head rows of \eqref{eq:obs-selective-attention-residual} are declared,
-and the event law \eqref{eq:rg-attention-event-law} carries no head index. Give
+The per-head rows of \eqref{eq:obs-selective-attention-residual} are declared
+in general, at one scale of the comparison-record model they are the head
+marginals of \cref{prop:obs-selective-receiver-update}(f), and the event law \eqref{eq:rg-attention-event-law} carries no head index. Give
 a receiver \(i\) at least two heads \(h\), each an exclusive label \(J_{i,h}\)
 with a comparison record of the form \eqref{eq:obs-selective-attention-record}
 and its own query map \(S^Q_{i,h}\), key maps, precision, and temperature, the
@@ -942,7 +1095,8 @@ supplies one instance. The factorizing subclass is excluded, including
 heads that read disjoint channels through untied links under a receiver law
 that is a product over channels.
 What holds in the class is the per-row label posterior at a fixed receiver
-state, \cref{prop:obs-attention-elbo} with rows \((i,h)\); the event law of
+state, \cref{prop:obs-attention-elbo} with rows \((i,h)\), and the exact
+one-scale receiver update of \cref{prop:obs-selective-receiver-update}(f); the event law of
 \cref{def:obs-attention-event-law} carries no head index, so the pushforward
 of \cref{prop:rg-meta-attention-pushforward} gives a parent no row per head.
 A parent whose receiver state is one coarse coordinate of its block
@@ -1162,14 +1316,18 @@ different softmax, over averaged energies, at an exact expected
 relative-entropy cost that penalizes uncertain sources. Integrating the label
 out gives a log-sum-exp potential whose curvature is the frozen-weight
 curvature minus an attention covariance, which can turn a convex landscape
-concave, the seed of symmetry breaking in the two-timescale and formation
-chapters. Communication is a normalized encoder--channel--decoder kernel,
+concave and so defeat the curvature hypothesis of the reduced slow flow
+(\cref{ch:two-timescales}). Communication is a normalized encoder--channel--decoder kernel,
 covariant under separate recoordinatizations of each message space; it may be
 singular, and a singular round trip is processing, not holonomy. For a Gaussian
 comparison record the exact receiver update has the transformer shape, but the
 value map is fixed by the query and key maps, the residual is precision
-weighted, and the weights use the predictive covariance. Heads sharing one
-receiver state can have coupled labels; an exact recursion with bounded
-head count for the coupled class remains open.
+weighted, the weights use the predictive covariance, and a self copy with tied
+query and key maps is an attention sink. Heads sharing one receiver state can
+have coupled labels, and their exact update keeps the multi-head operator form
+with per-head rows that are marginals of the coupled table; an exact recursion
+with bounded head count for the coupled class remains open. Two agents that
+attend to each other do so through two independent links, whose product is a
+holonomy.
 Coarse-graining carries the receiver--source event law, not the conditional
 row, and a coarse source set contains the block itself.

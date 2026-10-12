@@ -128,7 +128,15 @@ the regular set $\mathsf O^{\mathrm{reg}}_{\theta,V,X}$ of
 below holds for $\mathbb P^{\mathsf O}_{\theta,V,X}$-almost every $o$. A
 comparison of finitely many parameter values uses an observation in the
 intersection of their regular sets. No density of the recognition law is
-required.
+required. For the extended bound no latent density is required either: under
+\cref{hyp:local-interaction-kernels} the joint has the record form
+\eqref{eq:obs-interaction-joint}, so at a fixed parameter value the clause holds
+with the latent kernel $\mathbb P^{\mathsf Y}_{\theta,V}$ in place of
+$\nu^{\mathsf Y}$ and joint density $L_o(y)$, the evidence density and hence the
+regular set do not depend on that choice, and \eqref{eq:prob-rcp-density} becomes
+\eqref{eq:obs-global-posterior}. The parameter-independent latent reference of
+\cref{def:prob-reference-measures}, and a latent density relative to it, enter only
+with (H3)--(H4).
 
 \textbf{(H2) Positive finite evidence.}
 $0<p_{\theta,V}(o\given X)<\infty$; this excludes the observations at which
@@ -497,7 +505,16 @@ families the optimized bound is monotone by inclusion
 family; an arbitrary replacement joint supplies no common evidence
 (\cref{prop:restrict-unrelated-joint-elbo}); and evidence-preserving channels,
 which do order bounds across latent spaces, do so without selecting a
-nondegenerate partition (\cref{sec:cg-elbo}). The problem is settled
+nondegenerate partition (\cref{sec:cg-elbo}). Information-theoretic
+coarse-graining criteria outside this class do select nondegenerate channels, but
+each uses a datum that the problem excludes: the information bottleneck trades the
+information a representation keeps about its input against a multiple of the
+information it keeps about a declared relevance variable, and reaches the
+single-cluster and the arbitrarily detailed endpoints as that multiplier tends to
+zero and to infinity \citep{tishby1999information}, while mutual-information
+renormalization chooses the coarse variable of a block by maximizing its mutual
+information with the environment of the block at a declared number of coarse
+variables \citep{KochJanuszRingel2018}. The problem is settled
 positively by a functional on admissible channels or partitions, expressible
 relative to one fixed joint and not monotone toward an endpoint, whose
 optimizer is nondegenerate, and negatively by a proof of endpoint degeneracy
@@ -983,10 +1000,15 @@ $\mathscr S:\mathscr T\to(-\infty,+\infty]$ be a measurable action with
 $0<Z_{\mathscr S}=\int e^{-\mathscr S}d\nu^{\mathscr T}<\infty$, and let the link
 prior be $Z_{\mathscr S}^{-1}e^{-\mathscr S}\nu^{\mathscr T}$. For each $\Theta$
 let the record model of \cref{hyp:local-interaction-kernels} with links $\Theta$
-have evidence $p(o\given\Theta)\in(0,\infty)$, measurable in $\Theta$, posterior
+have evidence $p(o\given\Theta)\in(0,\infty)$ at the observed $o$, posterior
 $\boldsymbol\Pi_\Theta$, and free energy
 $\Fenergy_{\mathrm{matter}}(Q_\Theta;o,\Theta)=-\log p(o\given\Theta)+\KL(Q_\Theta\Vert\boldsymbol\Pi_\Theta)$,
-and assume the joint evidence
+where, because one observation is evaluated at every $\Theta$, the latent
+baseline is a kernel from $\mathscr T$ and the record energies at $o$ are a version
+jointly measurable in $(\Theta,y)$, declared as model data in the sense of
+\cref{hyp:prob-regular-conditional-convention}, so that $\Theta\mapsto p(o\given\Theta)$
+is measurable and $\Theta\mapsto\boldsymbol\Pi_\Theta$ is a probability kernel. Assume
+the joint evidence
 $p(o)=\int p(o\given\Theta)Z_{\mathscr S}^{-1}e^{-\mathscr S(\Theta)}\nu^{\mathscr T}(d\Theta)$
 is finite. For a recognition law $Q(d\Theta,dy)=R(d\Theta)Q_\Theta(dy)$ with
 $\KL(R\Vert\nu^{\mathscr T})<\infty$ and $\E_R\lvert\mathscr S\rvert<\infty$, the
@@ -1002,7 +1024,10 @@ the links are structural parameters instead of latent variables, only
 $\Fenergy_{\mathrm{matter}}$ appears. \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
-The posterior of the joint model has conditional law $\boldsymbol\Pi_\Theta$
+\Cref{prop:prob-kernel-integration-measurability}, applied to the declared version
+$L_o(y;\Theta)$ and to $\mathbf 1_BL_o$ against the latent kernel, makes
+$p(o\given\Theta)$ and $\boldsymbol\Pi_\Theta(B)$ measurable in $\Theta$. The
+posterior of the joint model has conditional law $\boldsymbol\Pi_\Theta$
 given $\Theta$ and link marginal
 $\boldsymbol\Pi^{\mathscr T}(d\Theta)
 =p(o)^{-1}p(o\given\Theta)Z_{\mathscr S}^{-1}e^{-\mathscr S(\Theta)}\nu^{\mathscr T}(d\Theta)$,

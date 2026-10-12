@@ -294,6 +294,38 @@ At fixed \(o\) the exponent of the joint density has quadratic part
 \eqref{eq:gauss-density} are the natural parameters of the conditional.
 \(\square\)
 
+\propositionheading{Gaussian evidence in information form}{prop:restrict-gaussian-evidence}
+Under the hypothesis of
+\Cref{prop:restrict-conditional-precision-observation-free}, let
+\(Y\in\R^n\) and \(o\in\R^m\), with \(\widehat\Lambda\in\Sym_{++}^{n+m}\), and let the
+evidence \(p_\theta(o\given X)\) be the Lebesgue density of the observation
+marginal. Then, with the log normalizer \eqref{eq:gauss-lognorm} in dimensions
+\(n\) and \(n+m\),
+\begin{equation}
+\log p_\theta(o\given X)
+=\widehat{\mathsf h}_o^\top o-\tfrac12o^\top\widehat\Lambda_{oo}o
++\mathsf A\bigl(\widehat{\mathsf h}_Y-\widehat\Lambda_{Yo}o,\widehat\Lambda_{YY}\bigr)
+-\mathsf A\bigl(\widehat{\mathsf h},\widehat\Lambda\bigr),
+\label{eq:restrict-gaussian-evidence}
+\end{equation}
+and, with \(\Lambda=\widehat\Lambda_{YY}\), the bound at the optimum of
+\Cref{thm:restrict-exact-block-optimum} is this value minus the determinant gap
+\eqref{eq:restrict-determinant-gap}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \eqref{eq:gauss-density} the joint density at \((y,o)\) is
+\(\exp(\widehat{\mathsf h}_Y^\top y+\widehat{\mathsf h}_o^\top o
+-\tfrac12y^\top\widehat\Lambda_{YY}y-y^\top\widehat\Lambda_{Yo}o
+-\tfrac12o^\top\widehat\Lambda_{oo}o-\mathsf A(\widehat{\mathsf h},\widehat\Lambda))\).
+The factors that do not depend on \(y\) leave the integral over \(\R^n\), and the
+remaining integral
+\(\int\exp((\widehat{\mathsf h}_Y-\widehat\Lambda_{Yo}o)^\top y-\tfrac12y^\top\widehat\Lambda_{YY}y)dy\)
+equals \(\exp\mathsf A(\widehat{\mathsf h}_Y-\widehat\Lambda_{Yo}o,\widehat\Lambda_{YY})\) by
+\eqref{eq:gauss-density}, since \(\widehat\Lambda_{YY}\succ0\) as a principal submatrix.
+Taking logarithms gives \eqref{eq:restrict-gaussian-evidence}, and the second claim
+is \eqref{eq:restrict-determinant-gap} at the target of
+\Cref{prop:restrict-conditional-precision-observation-free}. \(\square\)
+
 \corollaryheading{Observation independence of the determinant gap}{cor:restrict-gap-observation-free}
 Under the hypothesis of
 \Cref{prop:restrict-conditional-precision-observation-free}, the gap of
