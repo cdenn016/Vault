@@ -23,7 +23,8 @@ Three documents share one source directory, one preamble style, and one bibliogr
   as local sections of belief and model associated bundles of one principal `G`-bundle, their
   independent dynamic interaction links, written in the exponential chart with latent
   Lie-algebra generators that carry a normalized prior and are inferred with the agents (held
-  links are the zero-width limit; chapter `ch:links`), the normalized joint law and one collective evidence
+  links whose twists lie in the image of the exponential map are the zero-width limit; chapter
+  `ch:links`), the normalized joint law and one collective evidence
   bound, attention and selective communication, fiber information geometry and inference
   histories, fast beliefs and slow models, exact coarse-graining of the pointwise agent network,
   and meta-agent formation. It must be readable on its own, contains no `\cref` into a
@@ -48,9 +49,14 @@ pointwise agent network: effective action, residual, finite-step multipliers, an
 growth bound. It is called exact coarse-graining. Words such as relevant, irrelevant, fixed
 point, and beta function are not used in the main manuscript except in one pointer to Supplement
 B and in the related-work chapter when they describe other authors' constructions. The
-interaction multigraph at `c_*` is a structural parameter whose edge copies come in reversal pairs;
-it contains every copy in the support of a receiving row's source prior and, unless a model adds
-further copies, is the reversal closure of the union of these supports. Each support is complete
+interaction multigraph at `c_*` is a structural parameter whose edge copies come in reversal pairs,
+and its copy set is a structural datum declared before the rows; it contains every copy in the
+support of a receiving row's source prior, so it contains the reversal closure of the union of these
+supports, and a model may add further copies. A mutually attending pair uses two distinct copies, each
+with its own reversal, so its links are independent (`\Theta_{ij}\neq\Theta_{ji}^{-1}` in general) and it
+forms the 2-cycle `i\to j\to i`, which belongs to the declared loop family of the generator prior once
+based at each endpoint. At the agent level a self edge carries the identity link, while a loop copy at
+coarse depth carries the internal holonomy of its block. Each support is complete
 unless masked and need not be symmetric (one-way attention, decided 2026-09-30); each attention row
 is strictly positive on its own source set when its costs are finite, and dynamic structure is
 carried by attention weights and link values; in the latent-link model of `ch:links` the link
@@ -79,8 +85,11 @@ The September 26 review closes the D13' selection statement with a manuscript pr
 conjecture is required. Decision D13 was revised by the author on 2026-09-24 (D13'): the former
 conjecture, formation on the four-cycle from every Gaussian initial mean with probability bounded
 below uniformly in the regime parameter, is the ESTABLISHED proposition
-`prop:phil-seeded-contrast-formation`, with blocks restricted to `2 <= |I| <= |V|-1`, whose
-probability comes from the preparation's matching seed with source learning idle. The theorem,
+`prop:phil-seeded-contrast-formation`, with blocks restricted to `2 <= |I| <= |V|-1`, whose lower
+bound is supplied by the preparation's matching seed and is the same with or without learning; the
+proof uses learning only on the seed interval, the learned and frozen probabilities of contrast
+formation are not compared, and the bound is a positivity statement of size at most 3e-30 for every
+initial mean. The theorem,
 under the unchanged label `conj:phil-contrast-formation`, is the adiabatic law-level selection
 statement: at a fixed small temperature and learning mobility `epsilon_L -> 0`, the learned
 product-row source prior selects one perfect matching from almost every Gaussian initial law, with
@@ -160,9 +169,11 @@ standard Borel; laws and kernels are normalized and measurable; a coarse channel
 recognition-independent Markov kernel on latent coordinates that leaves observations unchanged
 and, at `c_*`, is vertical over the identity of `c_*`; an admitted observation has finite
 positive evidence; structural data are parameters unless a configuration prior or a structural
-channel is declared, and the declaration names its law; the interaction multigraph at `c_*`
-contains the reversal closure of the union of the source-prior supports and equals it unless a
-model adds copies (Section 0). Absolute continuity of a recognition law with respect to
+channel is declared, and the declaration names its law; the copy set of the interaction multigraph
+at `c_*` is a structural datum that contains the reversal closure of the union of the source-prior
+supports, mutually attending pairs use distinct copies with independent links whose 2-cycles belong
+to the declared loop family once per endpoint, and agent-level self edges carry the identity link
+while coarse loop copies carry internal holonomy (Section 0). Absolute continuity of a recognition law with respect to
 the posterior is not a default: it is clause (H3) of `hyp:elbo-evidence-domain`, and its failure
 is the singular branch of the extended ELBO. A statement mentions only departures from these
 defaults. Do not use "declared", "normalized", "actual", "complete", "retained", "exact", or
@@ -288,7 +299,7 @@ tables and never reuse a core glyph with a different meaning. "Replaces" names t
 | `\mathbb P_{\theta,V}`, `\mathbb Q_{V,o,X}`, `\boldsymbol\Pi_{\theta,V,o,X}` | constructed joint, selected recognition coupling, posterior slice | bare `P`, `Q`, `\Pi_o` outside lemma-local use |
 | `\mathcal L_V`, `\mathcal F_V=-\mathcal L_V`, `\KL` | ELBO, free energy, relative entropy (use `\Lelbo`, `\Fenergy`, `\KL`) | raw `\mathcal L`, `\mathcal F`, `\operatorname{KL}` |
 | `a\in\mathfrak A`, `K_a`, `E_{a,o}` | record factor, its normalized record kernel, its negative log density | `\ell_a`, `K_f`; `a` as design index (Supplement B writes `d`) |
-| `\pi_{ij}`, `\beta^{x}_{ij}`, `\alpha^x_i`, `\eta^x_{ij}`, `\mathcal N_i`, `(i,h)` | source prior; attention row of receiver `i` (role mark `P`, `\Pi`, or `Q`); receiver occupancy; event law, which carries no head index; source set (self-edge declared per model); receiving row of head `h` (multi-head label models are `open:obs-multihead-attention`) | `\gamma_{ij}` (use `\beta^m_{ij}`), `b^x_{ij}` |
+| `\pi_{ij}`, `\beta^{x}_{ij}`, `\alpha^x_i`, `\eta^x_{ij}`, `\mathcal N_i`, `(i,h)` | source prior; attention row of receiver `i` (role mark `P`, `\Pi`, or `Q`); receiver occupancy; event law, which carries no head index; source set (self-edge declared per model); receiving row of head `h` (the exact one-scale `H`-head receiver update is `prop:obs-selective-receiver-update`(f); the label-level recursion is `open:obs-multihead-attention`) | `\gamma_{ij}` (use `\beta^m_{ij}`), `b^x_{ij}` |
 | `\eta_e`, `\beta_e`, `\Theta_e`, `D_e` | edge-copy indexing at every depth; pair quantities are sums over copies | `D_{ij}` when copies differ |
 | `\tau_i`, `\mathsf c_{ij}`, `\mathsf r_i`, `\Fenergy^{\mathrm{att},x}_i` | attention temperature, replicator cost, row relaxation rate, row free energy | `\tau` as clock or tree transport; `u_{ij}`; `\gamma_i` as rate; `\Phi^x_{i,\ell}` |
 | `S^Q_e`, `S^K_e`, `K^v_e`; `\mu^Q_i`, `\mu^K_j`, `d^\circ_i` | query and key comparison maps, composed value kernel; projected query and key means, dot-product scale | `K_e` for comparison maps, `S_Q`, `S_K` |

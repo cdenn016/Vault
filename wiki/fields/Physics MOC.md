@@ -95,6 +95,8 @@ updated: 2026-10-08
 
 [[multiagentelbo-2026-10-04-lie-algebra-links]] makes the multi-agent links latent lattice gauge variables with a loop-action prior. Undirected matter induces the Wilson triangle term, time-like loop defects across learning episodes supply a mass, and the linearized operator has screened, massive Euclidean Proca structure. Cross-model checked; nothing trained.
 
+[[multiagentelbo-2026-10-12-theory-review-remediation]] (2026-10-12) records that the native lattice model of the base supplement is a 2D Ising lattice gas in a field, credits Kadanoff's exact-RG normalization condition for the theory's exact coarse-graining, and adds mutual-pair 2-cycles to the loop action of the latent links.
+
 [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) states the lattice reading of attention: the lattice is the communication graph above one context, not an Eguchi–Kawai reduction; invertible links are lattice-gauge data and quiver bifundamentals, singular head maps are sheaf data, and the exponential chart gives the hopping term $\sum_j\beta_{ij}\Theta_{ij}\mu_j$.
 
 [[favoni-2022-lattice-gauge-equivariant-cnns]] (2022) constructs lattice gauge equivariant networks for $\mathrm{SU}(N_c)$ links: parallel-transport convolution, bilinear products that generate arbitrary contractible Wilson loops, and exponentiation and trace layers. [[disipio-2025-curved-spacetime-transformers]] (2025) maps attention onto a discrete connection, layers onto time slices and training onto a least-action principle by analogy with general relativity, and tests the prediction of bent embedding trajectories.

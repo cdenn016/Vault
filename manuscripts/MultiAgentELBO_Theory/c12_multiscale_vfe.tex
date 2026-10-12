@@ -9,7 +9,12 @@ recognition law over the whole tower (\Cref{def:full-graph-tower-vfe}). For an
 adaptive tower both laws factor top-down, each depth conditioned on the whole
 next-depth state and the structural mark (\Cref{lem:full-graph-adaptive-reversal}),
 and the free energy splits into observation, top-prior, partition, graph, and
-parent--child terms (\Cref{thm:full-graph-vfe-decomposition}). A finite acyclic tower
+parent--child terms (\Cref{thm:full-graph-vfe-decomposition}). When the recognition law of an
+adaptive tower is pushed through the same structural channels, the tower free energy is the
+depth-$0$ free energy and the decomposition redistributes it across depths, while a coarse
+recognition law with coordinates of its own has infinite free energy as soon as a channel has a
+deterministic part (\Cref{cor:full-graph-adaptive-tower-vfe}); parents that carry recognition
+coordinates of their own need a declared hierarchy. A finite acyclic tower
 needs a declared latent root (\Cref{prop:obs-declared-root-unavoidable});
 participation across depths enters through the inference loop, parameter learning
 (\Cref{prop:full-graph-aggregate-prior}), and delayed feedback
@@ -40,7 +45,8 @@ refute a causal reading of a separately declared top-down hierarchy. The composi
 potential of \Cref{def:full-graph-composite-potential} is not claimed to be an
 evidence bound, and delayed feedback is not claimed to support a sustained
 nonequilibrium reading. \status{NOT-CLAIMED} Open items are the persistent hierarchy
-(\Cref{open:full-graph-hierarchy}), the accounting across episodes
+(\Cref{open:full-graph-hierarchy}), a multilevel declared Gaussian hierarchy with dressed links
+(\Cref{open:full-graph-declared-gaussian-hierarchy}), the accounting across episodes
 (\Cref{open:full-graph-episode-accounting}), the dynamic closure of the pointwise
 parent (\Cref{open:rg-pointwise-parent-dynamics}), a natural partition selector
 (\Cref{open:cg-natural-selector}), and a finite-dimensional description of coarse link laws
@@ -199,7 +205,9 @@ value of a function of $(Z_\ell,R_\ell)$ charges only the preimage of that value
 $\square$
 
 \propositionheading{The next-depth graph datum cannot be dropped}{prop:full-graph-dropped-datum}
-If the depth-$\ell$ factors of an adaptive tower read only $(Z_{\ell+1},R_\ell)$, the
+If the graph-datum and coordinate factors $\mathbb P^\ell_{\mathfrak N}$ and
+$K^\ell_\downarrow$ of an adaptive tower read only $(Z_{\ell+1},R_\ell)$ while the partition
+factor $\mathbb P^\ell_R$ still reads $Y_{\ell+1}$, the
 product $\mathbb P^{\mathrm{red}}$ of the corresponding selected conditional laws of
 the tower law $\mathbb P^{\mathrm{tow}}$ of \eqref{eq:full-graph-adaptive-tower-law}
 differs from it by
@@ -210,7 +218,10 @@ I_{\mathbb P^{\mathrm{tow}}}\bigl(Y_\ell;\mathfrak N_{\ell+1}\given Z_{\ell+1},R
 \label{eq:full-graph-dropped-datum-cost}
 \end{equation}
 The cost vanishes exactly when every $\mathfrak N_{\ell+1}$ is conditionally
-independent of $Y_\ell$ given $(Z_{\ell+1},R_\ell)$. For a deterministic event
+independent of $Y_\ell$ given $(Z_{\ell+1},R_\ell)$. If $\mathbb P^\ell_R$ is also replaced by
+the selected conditional law of $R_\ell$ given $Z_{\ell+1}$, each summand gains
+$I_{\mathbb P^{\mathrm{tow}}}(R_\ell;\mathfrak N_{\ell+1}\given Z_{\ell+1})$, so the cost is
+$\sum_\ell I_{\mathbb P^{\mathrm{tow}}}((R_\ell,Y_\ell);\mathfrak N_{\ell+1}\given Z_{\ell+1})$. For a deterministic event
 pushforward it is positive as soon as two event laws in the support, at the same
 $(Z_{\ell+1},R_\ell)$, are pushed to different coarse event laws: for four fine
 vertices with the partition $\{0,1\}\mapsto I$, $\{2,3\}\mapsto J$, constant
@@ -223,7 +234,11 @@ unit mass on $(I,J)$ or on $(I,I)$, and the divergence is $\log2$.
 By \Cref{lem:full-graph-adaptive-reversal} the reduced product replaces each
 conditional law of $Y_\ell$ given $(R_\ell,Y_{\ell+1})$ by its conditional law given
 $(R_\ell,Z_{\ell+1})$, and the chain rule \Cref{lem:prob-kl-chain-rule} turns each
-replacement into the displayed conditional mutual information. In the witness the
+replacement into the displayed conditional mutual information. Replacing also the
+conditional law of $R_\ell$ given $Y_{\ell+1}$ by that given $Z_{\ell+1}$ adds, by the same chain
+rule, the expected divergence between these two laws, which is
+$I(R_\ell;\mathfrak N_{\ell+1}\given Z_{\ell+1})$, and the chain rule for mutual information
+sums the two terms. In the witness the
 joint law of $(\mathfrak N_0,\mathfrak N_1)$ has two atoms of mass $1/2$ while the
 reduced product is the product of their marginals, which puts mass $1/2$ on pairs
 that violate the pushforward. $\square$
@@ -256,8 +271,147 @@ Substitute the two factorizations into the Radon--Nikodym ratio of
 entropy, \Cref{lem:prob-kl-chain-rule} and \citet[Sec.~2.5]{CoverThomas2006}, in its
 measure-level form, which subtracts no infinities. $\square$
 
+\corollaryheading{The free energy of an adaptive tower is the depth-0 free energy}{cor:full-graph-adaptive-tower-vfe}
+Let the generative law of the tower be the adaptive tower
+\eqref{eq:full-graph-adaptive-tower-law} with generative input $\mathbb P_0(do,dy_0\given X_*)$,
+let $\mathbf C(y_0;d\gamma_0,dy_1,\ldots,d\gamma_{L-1},dy_L)$ be the composite of its structural
+channels, let $\boldsymbol\Pi_{0,o}$ be a selected posterior version of $\mathbb P_0$ at $o$, and
+let $\Fenergy_0(\mathbb Q_0)=-\log p_\theta(o\given X_*)+\KL(\mathbb Q_0\Vert\boldsymbol\Pi_{0,o})$
+be the free energy of the depth-$0$ model. (i) The tower has the evidence of the depth-$0$
+model and the posterior version $\boldsymbol\Pi_{0,o}\otimes\mathbf C$, and every recognition
+law $\mathbb Q$ on the tower, with depth-$0$ marginal $\mathbb Q_0$ and conditional law
+$\mathbb Q(\cdot\given y_0)$ of the deeper variables, satisfies in $(-\infty,+\infty]$
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_{\mathrm{tower}}[\mathbb Q;X_*,o]
+=\Fenergy_0(\mathbb Q_0)
++\int\KL\bigl(\mathbb Q(\cdot\given y_0)\Vert\mathbf C(y_0;\cdot)\bigr)\mathbb Q_0(dy_0).
+\label{eq:full-graph-adaptive-tower-vfe}
+\end{equation}
+Hence $\Fenergy^{\mathrm{ext}}_{\mathrm{tower}}[\mathbb Q]\ge\Fenergy_0(\mathbb Q_0)$; when
+$\Fenergy_0(\mathbb Q_0)<\infty$, equality holds exactly when
+$\mathbb Q(\cdot\given y_0)=\mathbf C(y_0;\cdot)$ for $\mathbb Q_0$-almost every $y_0$, that is,
+when $\mathbb Q$ is $\mathbb Q_0$ pushed through the structural channels as in
+\eqref{eq:full-graph-common-structural-pushforwards}; and the infimum of the tower free energy
+over all tower recognition laws equals the infimum of $\Fenergy_0$ over depth-$0$ recognition
+laws. For the pushed recognition law, whenever \Cref{thm:full-graph-vfe-decomposition} applies,
+the observation, top-prior, partition, graph, and parent--child terms of
+\eqref{eq:full-graph-vfe-factorized} sum to $\Fenergy_0(\mathbb Q_0)$. (ii) Suppose that for
+some $\ell$ there are measurable maps $f:\mathsf Y_\ell\times\mathsf R_\ell\to\mathsf S$ and
+$\varphi:\mathsf Y_{\ell+1}\to\mathsf S$ into a standard Borel space $\mathsf S$ with
+$C^{\mathrm{struct}}_{\ell+1\leftarrow\ell}(y_\ell;\{(\gamma,y'):\varphi(y')=f(y_\ell,\gamma)\})=1$
+for every $y_\ell$, as when parent coordinates, pushed event laws, or dressed links are
+functions of the child state and the mark. Then the tower posterior gives the event
+$A=\{\varphi(Y_{\ell+1})\ne f(Y_\ell,R_\ell)\}$ mass zero, and every tower recognition law with
+$\mathbb Q(A)>0$ has $\Fenergy^{\mathrm{ext}}_{\mathrm{tower}}[\mathbb Q]=+\infty$. This holds in
+particular when, under $\mathbb Q$, $\varphi(Y_{\ell+1})$ is independent of $(Y_\ell,R_\ell)$ and
+has an atomless law, as for a coarse recognition factor that gives continuous parent
+coordinates a law of their own, independent of the children. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) The structural channels read neither the observation nor the recognition law, so the
+kernel $y_0\mapsto\delta_{y_0}\otimes\mathbf C(y_0;\cdot)$ is a coarse channel on the latent
+coordinates in the sense of \eqref{eq:rg-common-pushforward}, and the tower law is the pushforward
+of $\mathbb P_0$ by it. Part (i) of \Cref{thm:rg-exact-coarse-vfe} gives the evidence and the
+posterior version $\boldsymbol\Pi_{0,o}\otimes\mathbf C$, whose conditional law of the deeper
+variables given $y_0$ is $\mathbf C(y_0;\cdot)$. Part (a) of \Cref{lem:prob-kl-chain-rule}, with
+the first factor $\mathsf Y_0$, gives
+$\KL(\mathbb Q\Vert\boldsymbol\Pi_{0,o}\otimes\mathbf C)=\KL(\mathbb Q_0\Vert\boldsymbol\Pi_{0,o})
++\int\KL(\mathbb Q(\cdot\given y_0)\Vert\mathbf C(y_0;\cdot))\mathbb Q_0(dy_0)$ in $[0,+\infty]$,
+independently of the versions, and adding $-\log p_\theta(o\given X_*)$ gives
+\eqref{eq:full-graph-adaptive-tower-vfe}. The integral is nonnegative and, when the first term is
+finite, vanishes exactly when the conditional laws agree $\mathbb Q_0$-almost surely. Every
+depth-$0$ law has a pushed tower law with the same free energy, which gives the infima. The pushed
+law satisfies \Cref{hyp:full-graph-depth-markov} by \Cref{lem:full-graph-adaptive-reversal}, so
+the right side of \eqref{eq:full-graph-vfe-factorized} is its tower free energy. (ii) The set
+$\{(y_\ell,\gamma,y'):\varphi(y')\ne f(y_\ell,\gamma)\}$ is measurable because the diagonal of
+$\mathsf S\times\mathsf S$ is Borel, and every value of the depth-$\ell$ channel gives it mass
+zero, so integrating the composite against $\boldsymbol\Pi_{0,o}$ gives the posterior mass zero.
+A law with $\mathbb Q(A)>0$ is then not absolutely continuous with respect to the posterior,
+and its relative entropy is $+\infty$ by \eqref{eq:prob-kl-definition}; when $\mathbb Q(A)=1$
+this is \Cref{prop:elbo-subspace-support-singular}. Under the independence hypothesis, with
+$\mu$ the atomless law of $\varphi(Y_{\ell+1})$, Fubini's theorem gives
+$\mathbb Q(A^{\mathrm c})=\int\mu(\{f(y_\ell,\gamma)\})\mathbb Q(dy_\ell,d\gamma)=0$, since
+singletons of $\mathsf S$ are Borel. $\square$
+
+In an adaptive tower the partition, graph, and parent--child terms of
+\eqref{eq:full-graph-vfe-factorized} therefore distribute
+$\KL(\mathbb Q_0\Vert\boldsymbol\Pi_{0,o})$ across depths and add no term to the objective, and
+at the optimum the parent beliefs are pushforwards of the children's recognition law. The
+identity is part (ii) of
+\Cref{thm:rg-exact-coarse-vfe} applied to the projection of the tower onto depth $0$. The terms
+carry generative data of their own only in a declared hierarchy, whose depth-$0$ prior is the
+marginal of the top-down law, or in the partition catalog of \cref{sec:rg-geometry-normalization}.
+
+\remarkheading{A declared Gaussian hierarchy with link transports}{rem:full-graph-anchored-star}
+Let a parent $A$ with coordinate $z_A\in\R^K$ carry the proper prior $\mathcal N(0,\Sigma_A)$,
+and let its children $i=1,\ldots,N$ be conditionally independent given it with
+$z_i\given z_A\sim\mathcal N(\Theta_{e_i}z_A,\Sigma_i)$, where $e_i:A\to i$ are copies with links
+$\Theta_{e_i}\in\GL(K,\R)$ and $\Sigma_A,\Sigma_i\succ0$, and let the record kernel of the
+children be Gaussian, $o\given z\sim\mathcal N(\Xi z,\Sigma_o)$ with a linear map $\Xi$ and
+$\Sigma_o\succ0$. This is a declared hierarchy of depth $L=1$ in the sense of
+\Cref{hyp:full-graph-depth-markov}, with trivial mark and held graph datum, whose coordinate
+kernel $K^0_\downarrow$ reads the parent coordinate. Its posterior is a nondegenerate Gaussian
+law on $\R^{K(N+1)}$, so every nondegenerate Gaussian recognition law, including product laws
+whose parent factor has a free mean and covariance, has finite tower free energy, in contrast
+with part (ii) of \Cref{cor:full-graph-adaptive-tower-vfe}. As for every joint, the tower free
+energy of a recognition law is at least the free energy of its children's marginal in the
+marginal model of the children, and when the latter is finite, equality holds exactly for the
+recognition law that completes that marginal by the posterior conditional of $z_A$ given the
+children; the parent therefore does not
+lower the optimal free energy at fixed generative data, and what it adds are the kernels and the
+parent prior, which make the children's prior a marginal of the declared law.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The joint log density of $(z_A,z_1,\ldots,z_N)$ is, up to a constant,
+$-\tfrac12z_A^\top\Sigma_A^{-1}z_A-\tfrac12\sum_i(z_i-\Theta_{e_i}z_A)^\top\Sigma_i^{-1}(z_i-\Theta_{e_i}z_A)$,
+a sum of positive-semidefinite quadratic forms that vanishes only at $z_A=0$ and then only at
+$z_i=0$, so the prior precision is positive definite. The record adds the positive-semidefinite
+form $\Xi^\top\Sigma_o^{-1}\Xi$ to it, so the posterior is Gaussian with positive-definite
+precision, and the relative entropy between two nondegenerate Gaussian laws on the same space is
+finite. The record reads only the children, so the marginal model of the children has the same
+evidence and its posterior is the children's marginal of the posterior, and part (a) of
+\Cref{lem:prob-kl-chain-rule} with the children as first factor gives the inequality and its
+equality case. $\square$
+
+Supplement G works out this anchored star, its fixed point, and the contraction of its
+coordinate ascent.
+
+\openproblemheading{A multilevel declared Gaussian hierarchy with dressed links}{open:full-graph-declared-gaussian-hierarchy}
+What holds: by \Cref{cor:full-graph-adaptive-tower-vfe} the parents of an adaptive tower add no
+term to the free energy and admit no recognition coordinates of their own at finite cost when a
+channel has a deterministic part; by \Cref{rem:full-graph-anchored-star} a one-level Gaussian
+star with link transports is a declared hierarchy in which they do; and by
+\Cref{lem:cg-cut-completed-square} parallel cut copies compress to one link without new self
+terms only when their dressed twists coincide. What is unproved is a declared hierarchy of more
+than one level whose parents carry the links of \Cref{def:full-graph-coarse-links} and whose
+joint law is also an adaptive tower, so that the declared and the adaptive readings of one joint
+coincide. The class: real fibers $\R^K$ with $K\ge1$, held links in $\GL(K,\R)$ on a finite
+multigraph at $c_*$, a nested sequence of $L\ge2$ hard partitions with declared rooted spanning
+trees, a proper Gaussian top law, and, for $0\le\ell<L$, a conditional law of $Z_\ell$ given
+$Z_{\ell+1}$ whose log density is, up to a function of $Z_{\ell+1}$,
+$-\tfrac12\sum_i(z_i-(\Theta^\ell_{I\leftarrow i})^{-1}z_I)^\top W_i(z_i-(\Theta^\ell_{I\leftarrow i})^{-1}z_I)
+-\tfrac12\sum_e(z_i-\Theta^\ell_ez_j)^\top W_e(z_i-\Theta^\ell_ez_j)-\tfrac12\sum_iz_i^\top\Lambda^{\mathrm s}_iz_i$,
+with $I$ the block of $i$, one term for each reversal pair of non-loop copies $e:j\to i$ of depth
+$\ell$, $W_i,W_e\succ0$, $\Lambda^{\mathrm s}_i\succeq0$, and $\Theta^\ell$ the links of
+\Cref{def:full-graph-coarse-links} at depth $\ell$. The problem is settled by a construction,
+for every datum of this kind (multigraph, links, partitions, and trees) in which a block of the
+first partition contains a closed walk whose holonomy is not the identity, of a law in the class and of structural channels that send each block to
+$z_I=\sum_{i\in I}w_{Ii}\Theta^\ell_{I\leftarrow i}z_i+\xi_I$, the weighted transported mean of
+\Cref{prop:rg-linear-cross-scale} with weights $w_{Ii}>0$ plus independent nondegenerate Gaussian
+noise $\xi_I$, such that the law is the
+adaptive tower \eqref{eq:full-graph-adaptive-tower-law} of its own depth-$0$ marginal through
+these channels; or by a proof that for some such datum no law in the class is an adaptive tower
+through channels of this form.
+
 \section{The scale-local two-channel graph energy}
 \label{sec:full-graph-vfe-scale-local}
+
+The divergences of this section are law-point energies, which enter one evidence bound only
+through a normalized law-point prior (\Cref{open:prob-law-point-prior}); the in-bound alternative
+replaces $D^{x,\ell}_e$ by the expected energy $\E_{\mathbb Q}V_e$ of the sample-level comparison
+record of \Cref{prop:obs-selective-receiver-update}, for which part (b) of
+\Cref{prop:obs-attention-elbo} makes the row free energy a sector of the tower free energy.
 
 \definitionheading{Transported divergences and row free energies}{def:full-graph-transported-divergences}
 For every copy $e:j\to i$ in $E_\ell$ and $x\in\{b,m\}$ put
@@ -358,7 +512,10 @@ energy with its normalizer through the link sector \eqref{eq:link-sector}
 
 Attention rows do not create a parent random variable. A hierarchy meant to emerge
 under the same variational principle puts the structural mark $R_\ell$ inside both
-the generative and the recognition law.
+the generative and the recognition law. In an adaptive tower the structural channel supplies
+the law of $R_\ell$ in both, and the partition factor below then rewrites part of the depth-$0$
+free energy (\Cref{cor:full-graph-adaptive-tower-vfe}); it enters with generative data of its own
+in a declared hierarchy or in the partition catalog.
 
 \definitionheading{Partition factor}{def:full-graph-partition-factor}
 A finite-temperature partition term has the form
@@ -1323,7 +1480,15 @@ rules \eqref{eq:full-graph-edge-pushforward} to
 \eqref{eq:full-graph-structural-channel-composition} and the link lift
 \eqref{eq:full-graph-coarse-links} compose across depths, the parent family has a
 controlled closure residual in the sense of \Cref{prop:rg-interaction-residual}, and
-non-flat holonomy is kept or stabilized without imposing flatness. What holds: every
+non-flat holonomy is kept or stabilized without imposing flatness. The interaction coordinates of
+\Cref{def:rg-network-scale} need one fixed product of agent spaces, while the tower state has a
+random vertex set and edge variables that are not agent coordinates, so the residual is taken
+branchwise: for each value $\gamma$ of $R_\ell$ of positive mass and almost every value of
+$(\mathfrak N_\ell,\mathfrak N_{\ell+1})$ given it, it is the residual of the step on the agent coordinates
+$Z_\ell\mapsto Z_{\ell+1}$ whose base law is the conditional law of $Z_\ell$ given these values,
+whose arrow is the structural channel conditioned on them, and whose product references live on
+$V_\ell$ and on the vertex set of the branch carrier of $\gamma$, and the branch residuals are
+averaged under the law of $(R_\ell,\mathfrak N_\ell,\mathfrak N_{\ell+1})$. What holds: every
 candidate hierarchy has the exact accounting of
 \Cref{thm:full-graph-vfe-decomposition}; at one depth the fast--slow typing of
 \Cref{def:obs-fast-slow-blocks} and its conditional slow-manifold limit,
@@ -1371,7 +1536,11 @@ such a margin.
 \section*{Summary for physicists}
 
 The multiscale free energy is that of one generative and one recognition law over the
-whole tower, not a sum of energies chosen scale by scale. Bayes reversal of a
+whole tower, not a sum of energies chosen scale by scale. In an adaptive tower whose recognition law
+is pushed through the same channels it is the depth-$0$ free energy redistributed across depths,
+and parents with recognition coordinates of
+their own need a declared hierarchy, written so far only as a one-level Gaussian star with link
+transports. Bayes reversal of a
 bottom-up structural channel conditions every depth on the whole next-depth state,
 graph datum included. Partitions enter as a normalized factor, normalized branch by
 branch or globally, and coarse links are the dressed links of all copies, so internal

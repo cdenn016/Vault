@@ -88,9 +88,13 @@ independent of \(p\),
 \]
 These are the drift and minorization hypotheses of
 \citet[Assumptions 1--2 and Theorems 1.2--1.3]{HairerMattingly2011}.
-The explicit dependence in their Theorem 1.3 makes the resulting constants
-uniform in the frozen rows, even though the minorizing measure depends on
-\(p\). Thus \(\mu_p\) is the unique invariant law and
+Their Theorem 1.3 gives contraction in a weighted total variation distance
+whose weight parameter and contraction factor are explicit functions of
+the drift constants \(e^{-2\mathrm T}\) and \(12\), the level \(R\), and the
+minorization constant \(\alpha_{\mathrm T}\) alone; the minorizing measure
+does not enter them. The resulting constants are therefore uniform in the
+frozen rows, even though the minorizing measure depends on \(p\).
+Thus \(\mu_p\) is the unique invariant law and
 \begin{equation}
  |P_t^p\phi(\mathbf x,\sigma)-\mu_p\phi|
  \le\mathrm K_{\mathrm T}e^{-\lambda_{\mathrm T}t}
@@ -474,13 +478,13 @@ Since \(\sum q_\sigma^*z_\sigma^2=1\),
 Indeed \(\sum q_\sigma^*(z_\sigma-1)^2
 =2(1-\E_{q^*}z)\le2\operatorname{Var}_{q^*}(z)\).
 
-Fix a ball \(B=B_\rho\) in these coordinates, and define
+Fix a ball \(B=B_{r_B}\) in these coordinates, and define
 \[
  m_\sigma=|B|^{-1}\int_Bu_\sigma,
  \quad m_* =\sum_\sigma\pi_\sigma m_\sigma,
  \quad X_\sigma=
  \left[\frac{(2\pi)^6\mathsf w_\sigma
-                   e^{\rho^2\|\mathsf B_\sigma\|/2}}{|B|}-1\right]_+,
+                   e^{r_B^2\|\mathsf B_\sigma\|/2}}{|B|}-1\right]_+,
  \quad B_{\mathrm T}=\max_\sigma(1+\sqrt{X_\sigma})^2.
 \]
 Variance about any center is an upper bound on the variance, so
@@ -507,17 +511,17 @@ For the second sum, Jensen's inequality gives
 On \(B\), the explicit Gaussian densities give
 \[
  \mu_{p,\sigma}b_\eta
- \ge\frac{\pi_\sigma\pi_\eta e^{-\rho^2M}}
+ \ge\frac{\pi_\sigma\pi_\eta e^{-r_B^2M}}
               {(2\pi)^6\mathsf Z}.
 \]
 The normalizer therefore cancels, and the preceding sum is at most
-\(2(2\pi)^6\mathsf w_{\max}e^{\rho^2M}
+\(2(2\pi)^6\mathsf w_{\max}e^{r_B^2M}
  \mathscr E_j(u)/|B|\).
 Combining these bounds proves
 \[
  \operatorname{Ent}_{\mu_p}(u^2)
  \le\frac2{\mathrm T\kappa}(1+L_pB_{\mathrm T})\mathscr E_c(u)
-    +\frac{4L_p(2\pi)^6\mathsf w_{\max}e^{\rho^2M}}{|B|}
+    +\frac{4L_p(2\pi)^6\mathsf w_{\max}e^{r_B^2M}}{|B|}
                                                        \mathscr E_j(u).
 \]
 For \(u=\sqrt f\), the production is at least
@@ -614,12 +618,12 @@ For example, the adjacent Hessian entry of the evidence is
 \begin{equation}
  \alpha=\frac{3-2\mathsf r_N-\mathsf r_C}{D_0}>0,\qquad
  \beta=\frac{-1-2\mathsf r_N+3\mathsf r_C}{D_0}<0,\qquad
- \eta=\frac{-1+2\mathsf r_N-\mathsf r_C}{D_0}<0\quad\text{twice}.
+ \eta_{\mathrm{sad}}=\frac{-1+2\mathsf r_N-\mathsf r_C}{D_0}<0\quad\text{twice}.
 \label{eq:phil-selection-saddle-spectrum}
 \end{equation}
 The positive eigendirection is \(\mathbf1\) in matching coordinates,
 or \(\mathbf v\) in the original rows. In fact the chosen bounds give
-\(\alpha\ge7/5\), \(\beta\le-1/3\), and \(\eta\le-2/5\).
+\(\alpha\ge7/5\), \(\beta\le-1/3\), and \(\eta_{\mathrm{sad}}\le-2/5\).
 
 Cyclic invariance makes the matching diagonal \(x=z\mathbf1\) invariant.
 Writing \(w=z(1-z)\), its normalized evidence is
@@ -726,7 +730,7 @@ Consequently, until exit from any sufficiently small fixed ball,
 \end{equation}
 The constants here may depend on the fixed mean.
 
-Let \(\beta_\perp=\max(\beta,\eta)<0\) and
+Let \(\beta_\perp=\max(\beta,\eta_{\mathrm{sad}})<0\) and
 \(\gamma=\alpha-\beta_\perp>0\).
 Oddness and diagonal invariance of the analytic reduced field imply,
 for \(|y|\le r\),

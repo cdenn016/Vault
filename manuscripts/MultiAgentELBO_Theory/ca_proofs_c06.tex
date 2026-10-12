@@ -51,14 +51,23 @@ constancy of the differences forces those constants to equal
 \(d_{ij}-d_{ik}=(\widetilde D_{ij}-\widetilde D_{ik})(\bar\psi_i)\), and a
 softmax row depends only on logit differences, which gives
 \eqref{eq:obs-attention-affine-row}; template differences are affine in
-\(y_i\). For the random source, uncorrelatedness gives
+\(y_i\). For a random source \(j\ne i\), uncorrelatedness gives
 \(\E r_{ij}=\bar y_i-\rho_b(\Theta^b_{ij})\bar y_j\) and
 \(\operatorname{Cov}r_{ij}=\operatorname{Cov}Y_i
 +\rho_b(\Theta^b_{ij})\operatorname{Cov}(Y_j)\rho_b(\Theta^b_{ij})^\top\), so
 \(d_{ij}\) exceeds \(D_{ij}\) at the recognition mean by
 \(\frac12\Tr(W_i\operatorname{Cov}Y_i)+\frac12\Tr(W_i\rho_b(\Theta^b_{ij})
 \operatorname{Cov}(Y_j)\rho_b(\Theta^b_{ij})^\top)\), whose first trace is
-common to the row and cancels from the softmax. \(\square\)
+common to the sources \(j\ne i\). For the self copy,
+\(r_{ii}=(I-\rho_b(\Theta^b_{ii}))Y_i\) has mean
+\((I-\rho_b(\Theta^b_{ii}))\bar y_i\) and covariance
+\((I-\rho_b(\Theta^b_{ii}))\operatorname{Cov}(Y_i)(I-\rho_b(\Theta^b_{ii}))^\top\),
+so \(d_{ii}\) exceeds \(D_{ii}\) at the recognition mean by half the trace of
+\(W_i\) times that covariance. Subtracting the common term
+\(\frac12\Tr(W_i\operatorname{Cov}Y_i)/\tau_i\) from every logit, which leaves
+the softmax unchanged, gives the stated shifts, and at
+\(\Theta^b_{ii}=e_G\) the self shift is
+\(\frac12\Tr(W_i\operatorname{Cov}Y_i)/\tau_i\). \(\square\)
 
 \noindent\emph{Proof of \Cref{cor:obs-attention-replicator}.}
 On the open simplex the Fisher metric is the Shahshahani metric, whose natural
@@ -170,6 +179,10 @@ tower property, and multiplying
 \((\Sigma_i^+)^{-1}=\Sigma_i^{-1}+S_i^{Q\top}\widetilde W_iS^Q_i\) by
 \(\Sigma_i^+\) gives the last identity. (b) Here \(\Sigma_i^{\rm pred}=2\),
 \(r_{i2}=-2\), and \(\Sigma_i^+=1/2\); substitution gives the displayed values.
+Expanding \(-\frac12r_{ij}^\top(\Sigma_i^{\rm pred})^{-1}r_{ij}\) and dropping
+\(-\frac12(S^Q_i\mu_i)^\top(\Sigma_i^{\rm pred})^{-1}S^Q_i\mu_i\), which is
+common to the sources and cancels in the normalization, gives
+\eqref{eq:obs-selective-record-dot-product}.
 (c) The identity follows from
 \(\Sigma_i^+S_i^{Q\top}\widetilde W_i\Sigma_i^{\rm pred}
 =\Sigma_i^+(S_i^{Q\top}+S_i^{Q\top}\widetilde W_iS^Q_i\Sigma_iS_i^{Q\top})
@@ -181,7 +194,46 @@ any \(\delta\) with \(S^Q_i\delta=\mathsf y\) is \(R_e\mathsf y+w\) with
 \(S^Q_iw=0\), for which the cross term
 \((R_e\mathsf y)^\top\Sigma_i^{-1}w=\mathsf y^\top(S^Q_i\Sigma_iS_i^{Q\top})^{-1}S^Q_iw\)
 vanishes, so \(R_e\mathsf y\) uniquely minimizes \(\delta^\top\Sigma_i^{-1}\delta\).
-(d) Repeat (a) with the copy-dependent data. \(\square\)
+(d) Repeat (a) with the copy-dependent data; on one record space with one
+reference measure the predictive densities of the labels are comparable.
+(e) For the self copy the joint density of \((k_i,e)\) is proportional to
+\(\pi_{ii}\mathcal N(k_i;\mu_i,\Sigma_i)\mathcal N(0;A_ek_i,\widetilde W_i^{-1})\),
+since the record mean is \(S^Q_ik_i-S^K_ek_i=A_ek_i\). Adding the quadratic
+forms gives the precision \((\Sigma_{ie}^+)^{-1}\) and, because the record at
+zero contributes no linear term, the mean \(\Sigma_{ie}^+\Sigma_i^{-1}\mu_i\);
+integrating \(k_i\) gives the density at zero of \(A_ek_i\) plus independent
+noise, \(\mathcal N(0;A_e\mu_i,\widetilde W_i^{-1}+A_e\Sigma_i A_e^\top)\). The
+other labels keep the joint densities of (a), whose \(k_i\)-integrals are
+\(\pi_{ij}\mathcal N(0;r_{ij},\Sigma_i^{\rm pred})\), and Bayes' formula over
+all labels and the tower property give the weights and the mean. With the
+reference maps, \(S^Q_i-S^K_e=S^Q_{\rm ref}U_i^{-1}-S^K_{\rm ref}U_i^{-1}\Theta_e\)
+at \(\Theta_e=e_G\). If \(A_e=0\), \(\Sigma_{ie}^+=\Sigma_i\) and the self
+density at zero is \((2\pi)^{-d/2}\det(\widetilde W_i)^{1/2}\) with
+\(d=\dim H_i^{\rm cmp}\), while each other density is
+\((2\pi)^{-d/2}\det(\Sigma_i^{\rm pred})^{-1/2}\exp[-\frac12r_{ij}^\top
+(\Sigma_i^{\rm pred})^{-1}r_{ij}]\); dividing by the common factor
+\((2\pi)^{-d/2}\det(\Sigma_i^{\rm pred})^{-1/2}\) gives the self factor
+\(\det(\Sigma_i^{\rm pred}\widetilde W_i)^{1/2}\), equal to
+\eqref{eq:obs-selective-self-sink} by
+\(\Sigma_i^{\rm pred}\widetilde W_i=I+S^Q_i\Sigma_iS_i^{Q\top}\widetilde W_i\) and
+\(\det(I+XY)=\det(I+YX)\). The matrix \(\widetilde W_iS^Q_i\Sigma_iS_i^{Q\top}\)
+is similar to the positive semidefinite
+\(\widetilde W_i^{1/2}S^Q_i\Sigma_iS_i^{Q\top}\widetilde W_i^{1/2}\), which is
+nonzero when \(S^Q_i\ne0\), so the determinant exceeds \(1\). Collecting the
+coefficients of \(\mu_i\) in the mean gives
+\(w_{ii}I+(1-w_{ii})\Sigma_i^+\Sigma_i^{-1}\).
+(f) Given the labels \((j_1,\ldots,j_H)\), the records are conditionally
+independent Gaussian functions of \(k_i\), so the quadratic forms in \(k_i\)
+add to the precision \((\Sigma_i^{+,H})^{-1}\) and the component mean
+\(\Sigma_i^{+,H}(\Sigma_i^{-1}\mu_i+\sum_hS_{i,h}^{Q\top}\widetilde W_{i,h}
+S^K_{h,e_h}k_{j_h})\). Integrating \(k_i\), the stacked records are
+\(\mathbf S^Q_ik_i\) minus the stacked keys plus block-diagonal noise, with
+mean \(\mathbf r_{i,j_1\cdots j_H}\) and the label-independent covariance
+\(\Sigma_i^{{\rm pred},H}\), and the product label prior with Bayes' formula
+gives the table. The component mean is a constant plus a sum of terms each of
+which depends on one head label, so its expectation under the table depends on
+the table only through the head marginals, which gives
+\eqref{eq:obs-selective-multihead-update}. \(\square\)
 
 \noindent\emph{Proof of \Cref{prop:obs-selective-head-coupling}.}
 At fixed \(k_i\) the proof of \cref{prop:obs-attention-elbo} applies verbatim

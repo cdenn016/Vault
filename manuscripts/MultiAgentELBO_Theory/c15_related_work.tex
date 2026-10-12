@@ -35,14 +35,26 @@ model. \citet{waade2025asone} treat a collective whose group-level Markov
 blanket consists of its sensory agents' observations and its active agents'
 actions as a group-level agent, fit a model of the same structure to simulated
 collective behavior, and find the individual and group models nontrivially
-related. Here agents may carry inequivalent representations and independent
+related. \citet{Friston2021Parcels} renormalize Markov blankets: a particular
+partition groups states into particles, internal states and quickly dissipating
+eigenstates are removed by an adiabatic reduction, and the states of the next
+scale are the slow principal eigenstates of each particle's blanket states, so
+that coarse states are computed from the fine dynamics and the partition is
+applied recursively. \citet{Palacios2020Hierarchical} simulate the
+self-assembly of nested Markov blankets under variational free-energy
+minimization when the elements carry prior beliefs that they belong to a
+macroscopic blanket. Here agents may carry inequivalent representations and independent
 links, their encoder, transmission, and decoder kernels enter one joint with one
-evidence bound (\cref{def:obs-selective-interface,ch:elbo}), parent laws follow
-from the fine joint by exact coarse channels
+evidence bound (\cref{def:obs-selective-interface,ch:elbo}), parent laws are
+pushed forward from the fine joint as normalized laws by exact coarse channels
+with an evidence identity
 (\cref{thm:rg-exact-coarse-vfe,thm:rg-pointwise-parent-datum}), formation is
 proved for a stated family (\cref{ch:finite-depth-formation}), and a low-rank
 interface does not by itself give a Markov blanket
-(\cref{prop:geo-selective-descent}).
+(\cref{prop:geo-selective-descent}). The eigenmode reduction of
+\citet{Friston2021Parcels} also computes coarse states from fine ones, but it
+discards fast modes and states no normalized coarse law and no coarse evidence
+identity.
 
 \section{Connection Laplacians, sheaves, and equivariant networks}
 
@@ -201,7 +213,13 @@ precision under Gaussian aggregation would need a common state space, a map
 between the scale parameters, and a transported monotone; Supplement G records
 this bridge as open.
 
-\citet{MehtaSchwab2014} map Kadanoff's variational renormalization group
+Evidence preservation under a normalized coarse kernel is the exactness
+condition of the variational renormalization group of
+\citet{KadanoffHoughtonYalabik1976}, which \citet[Eqs.~(8)--(9)]{MehtaSchwab2014}
+state as normalization of the coupling between fine and coarse variables over
+the coarse variables, and the coarse free-energy decomposition of
+\cref{thm:rg-exact-coarse-vfe} adds the chain rule of relative entropy
+(\cref{lem:prob-kl-chain-rule}). \citet{MehtaSchwab2014} map Kadanoff's variational renormalization group
 exactly onto deep restricted Boltzmann machines; a deterministic
 identification of coarse and fine coordinates does not supply its kernel, so the
 Galerkin coarse form of \cref{sec:cg-galerkin} is not thereby a deep network.
@@ -221,7 +239,7 @@ nodes, and the specific heat
 \label{eq:grg-heat-capacity}
 \end{equation}
 whose peaks they use to identify characteristic resolution scales
-\citep[Eqs.~(1)--(2)]{villegas2023laplacian}.
+\citep[arXiv version, Eqs.~(1), (2), and~(5)]{villegas2023laplacian}.
 
 \remarkheading{Gauge behavior of heat-kernel diagnostics}{rem:grg-heat-kernel-gauge}
 Let \(R\succ0\) and \(L\) be block matrices on \(\bigoplus_{i\in V}\R^{n_i}\), and
@@ -246,8 +264,8 @@ graphs with a necessary dependence on additive node hidden variables, a
 characterized family rather than arbitrary hidden-variable networks; for random
 graphs whose link probabilities are conditioned on other links,
 \citet{CatanzaroGarlaschelliPatil2026} derive a closed-form renormalization
-transformation for maximum coordination number two and show that higher
-coordination numbers admit none. These candidate partition and closure
+transformation for maximum coordination number two and state that higher
+coordination numbers admit no exact closed-form transformation. These candidate partition and closure
 mechanisms do not by themselves handle directed row-normalized attention, two
 gauge representations, or nonflat link holonomy, and the aggregation of
 \cref{ch:network-state} does not integrate out edge variables. A combined scheme
@@ -274,12 +292,16 @@ and lean algebraic multigrid for graph Laplacians combines piecewise-constant
 interpolation, node aggregation by an affinity measure, and an energy correction
 of the coarse systems \citep{LivneBrandt2012LAMG}. What is added here is the
 placement of that operator inside normalized laws with gauge covariance and
-exact evidence accounting.
+with evidence accounting that is exact in the sense of the normalization
+condition of the variational renormalization group.
 
 \paragraph{Physicist's summary.}
 Here the group acts on sample fibers with independent links at one point, and
-parent laws are computed from the fine joint rather than shared, omitted, or
-fitted as in multi-agent active inference. Sheaf Laplacians supply the linear
+parent laws are pushed forward exactly from the fine joint as normalized laws,
+whereas the renormalization of Markov blankets computes coarse states from an
+eigenmode reduction of the fine dynamics without a coarse evidence identity,
+and other multi-agent active-inference work shares, omits, or fits the
+group-level model. Sheaf Laplacians supply the linear
 algebra and the Kron obstruction, and renormalization flows meet the exact
 channels only through a common comparison target. The latent links take the Wilson plaquette and the
 temporal gauge from lattice gauge theory and the induced action from induced gauge theory, with a Gaussian
