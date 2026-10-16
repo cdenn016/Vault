@@ -26,6 +26,10 @@ a parent map $\operatorname{par}$, a prior $p^0$, record laws $\psi_\xi$, a refr
 fraction $\omega$, and sans-serif kernels acting on row vectors from the right.
 
 \paragraph{Scope.}
+The source-prior section separates native and recognition expected-count drives
+(\cref{prop:obs-native-source-drive}) and gives a conditional inference estimate
+for moving priors (\cref{prop:obs-moving-prior-tracking}). Its inference clock is
+distinct from the recognition dynamics discussed below.
 The collective free energy does not choose the fast--slow split, the rate ratio, or
 the block mobilities, and a rate ratio is an anisotropic mobility that can change the
 selected orbit (\cref{prop:hist-scalar-mobility-orbit}). The chapter does not claim
@@ -211,6 +215,232 @@ $\mathbf 1^\top\Lambda\mathbf 1=\tfrac{33}5$ gives both values. The weighted upd
 is $\boldsymbol\delta\mapsto\boldsymbol\delta-\mathrm w\Lambda\boldsymbol\delta$, which multiplies the component along
 $\mathbf 1$ by $1-\tfrac{11}5\mathrm w$. Each sequential best response is a
 unilateral improvement of \cref{cor:obs-potential-game}. $\square$
+
+\section{Source-prior learning and posterior tracking}
+\label{sec:obs-source-learning-tracking}
+
+\propositionheading{Repeated source counts and their natural learning drive}{prop:obs-native-source-drive}
+Fix a finite set of source-label draws $r$, a group map $i(r)$, and strictly
+positive priors $\pi_i$ on fixed finite alphabets. Let $m_i>0$ be the number of
+draws in group $i$, and set $N_{ia}(J)=\sum_{r:i(r)=i}1_{\{J_r=a\}}$.
+Suppose all remaining latent variables have a fixed probability reference
+$\nu(dy)$ and the observed likelihood $L_o(y,J)$ is positive, independent of
+$\pi$, and integrable for each $J$. Write
+\begin{equation}
+Z(\pi)=\sum_J\int L_o(y,J)\prod_r\pi_{i(r),J_r}\nu(dy),\qquad
+P_\pi(dy,J)=\frac{L_o(y,J)\prod_r\pi_{i(r),J_r}}{Z(\pi)}\nu(dy).
+\label{eq:obs-native-source-law}
+\end{equation}
+For logits $\theta_{ia}$ of $\pi_i$, the log evidence $\ell=\log Z$ obeys
+\begin{align}
+\partial_{\theta_{ia}}\ell
+ &=\E_{P_\pi}N_{ia}-m_i\pi_{ia},\\
+\partial_{\theta_{ia}}\partial_{\theta_{jb}}\ell
+ &=\operatorname{Cov}_{P_\pi}(N_{ia},N_{jb})
+ -1_{\{i=j\}}m_i(\pi_{ia}1_{\{a=b\}}-\pi_{ia}\pi_{ib}).
+\label{eq:obs-native-source-score}
+\end{align}
+Choose the Fisher metric of the complete set of independent prior draws,
+on tangent vectors whose entries sum to zero in each row:
+\begin{equation}
+g_\pi(u,v)=\sum_i m_i\sum_a\frac{u_{ia}v_{ia}}{\pi_{ia}}.
+\label{eq:obs-prefix-source-fisher}
+\end{equation}
+The natural ascent of $\ell$ under this metric is
+$V^P_{ia}=\bar b^P_{ia}-\pi_{ia}$, where
+$\bar b^P_{ia}=\E_{P_\pi}N_{ia}/m_i$. For a fixed recognition law $Q$ of finite
+free energy, the negative natural gradient of its free energy is instead
+\begin{equation}
+V^Q_{ia}=\bar b^Q_{ia}-\pi_{ia},\qquad
+V^Q_{ia}-V^P_{ia}=\frac{\E_QN_{ia}-\E_{P_\pi}N_{ia}}{m_i}.
+\label{eq:obs-native-recognition-drive-gap}
+\end{equation}
+If an interior differentiable optimizing branch $Q^*(\pi)$ in a fixed
+variational family satisfies the envelope hypotheses, its variational gap
+$\mathcal G(\pi)=\KL(Q^*(\pi)\Vert P_\pi)$ satisfies
+\begin{equation}
+\partial_{\theta_{ia}}\mathcal G
+=\E_{P_\pi}N_{ia}-\E_{Q^*(\pi)}N_{ia}.
+\label{eq:obs-source-gap-derivative}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The evidence is a finite sum of finite positive coefficients times products of
+prior entries. Differentiating those products gives the score
+$N_{ia}-m_i\pi_{ia}$. Differentiating its posterior expectation gives its
+covariance with the other score and the derivative of $-m_i\pi_{ia}$, proving
+\cref{eq:obs-native-source-score}. For a simplex tangent vector $v$,
+$d\ell[v]=\sum_{ia}\E_{P_\pi}N_{ia}v_{ia}/\pi_{ia}$.
+Pairing $V^P$ with $v$ under \cref{eq:obs-prefix-source-fisher} gives this value,
+since $\sum_av_{ia}=0$ and $\sum_a\E_{P_\pi}N_{ia}=m_i$.
+At fixed $Q$, the only prior-dependent part of the free energy is
+$-\sum_{ia}\E_QN_{ia}\log\pi_{ia}$, giving \cref{eq:obs-native-recognition-drive-gap}.
+Finally $F(Q^*;\pi)=-\ell(\pi)+\mathcal G(\pi)$ and the envelope derivative of
+$F$ give \cref{eq:obs-source-gap-derivative}. $\square$
+
+\remarkheading{The metric and the repeated-draw convention}{rem:obs-source-drive-scope}
+The metric \cref{eq:obs-prefix-source-fisher} is that of the categorical prior
+family, not the observed-data Fisher metric. Choosing the single-draw metric
+instead multiplies the corresponding row velocity by $m_i$. Reusing a prior
+for several newly drawn labels contributes several counts; repeatedly observing
+one persistent label contributes one prior draw with several likelihood factors.
+For factorized recognition labels, $\bar b^Q_i$ is their average over the draws
+sharing $\pi_i$. Equality of this average with the native posterior average is
+an additional condition, not a consequence of free-energy descent.
+\status{ESTABLISHED}
+
+\propositionheading{Tracking a deterministically moving source prior}{prop:obs-moving-prior-tracking}
+On a fixed measurable state space with a fixed bounded measurable metric $d$,
+let $W_d$ be its coupling distance. Suppose $K_\pi$ preserves $P_\pi$ and, for
+all laws and all priors in the family considered,
+\begin{equation}
+W_d(\mu K_\pi,\nu K_\pi)\le\rho W_d(\mu,\nu),\qquad
+\sup_xW_d(K_\pi(x,\cdot),K_{\pi'}(x,\cdot))\le b(\pi,\pi'),
+\quad 0\le\rho<1.
+\label{eq:obs-prior-kernel-hypotheses}
+\end{equation}
+Assume the measurable couplings required to integrate these inequalities
+exist. Then
+\begin{equation}
+W_d(P_\pi,P_{\pi'})\le\frac{b(\pi,\pi')}{1-\rho}.
+\label{eq:obs-prior-stationary-perturbation}
+\end{equation}
+For a deterministic prior sequence and updates
+$\mu_{k+1}=\mu_k\widetilde K_{\pi_k}$ with
+$W_d(\mu_k\widetilde K_{\pi_k},\mu_kK_{\pi_k})\le\eta_k$, put
+$e_k=W_d(\mu_k,P_{\pi_k})$ and $b_k=b(\pi_k,\pi_{k+1})$. Then
+\begin{equation}
+e_{k+1}\le\rho e_k+\eta_k+\frac{b_k}{1-\rho},\qquad
+e_k\le\rho^ke_0+\sum_{t=0}^{k-1}\rho^{k-1-t}
+\left(\eta_t+\frac{b_t}{1-\rho}\right).
+\label{eq:obs-moving-prior-tracking}
+\end{equation}
+If $\eta_k\le\eta$ and $b_k\le b$, the limiting upper bound is
+$\eta/(1-\rho)+b/(1-\rho)^2$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Invariance, the triangle inequality, and integrated kernel couplings give
+$W_d(P_\pi,P_{\pi'})\le\rho W_d(P_\pi,P_{\pi'})+b(\pi,\pi')$.
+Boundedness makes the distance finite, so subtraction proves
+\cref{eq:obs-prior-stationary-perturbation}. Insert successively
+$\mu_kK_{\pi_k}$ and $P_{\pi_k}$ between $\mu_{k+1}$ and $P_{\pi_{k+1}}$.
+The three terms are at most $\eta_k$, $\rho e_k$, and $b_k/(1-\rho)$.
+Iteration and summation of the geometric series give the remaining assertions.
+$\square$
+
+\corollaryheading{Conditional inference as a source-count approximation}{cor:obs-conditional-count-tracking}
+Use the same set $G$, weights, and source-independent interaction as in
+\cref{prop:link-compact-comparison}, and write
+$d_w(x,y)=\sum_vw_v1_{\{x_v\ne y_v\}}$ and
+$\rho=1-(1-\chi)/\mathsf n$. Its conditional family $P_\pi^G$ and kernels
+$K_\pi^G$ satisfy \cref{eq:obs-prior-kernel-hypotheses} with
+\begin{equation}
+b(\pi,\pi')=\frac1{\mathsf n}\sum_r w_r
+\tanh\left(\frac14\operatorname{osc}_a
+\log\frac{\pi'_{i(r),a}}{\pi_{i(r),a}}\right).
+\label{eq:obs-source-kernel-perturbation}
+\end{equation}
+If $\sup_\pi P_\pi(G^c)\le\epsilon_G$ and
+$e_k^G=W_{d_w}(\mu_k,P_{\pi_k}^G)$, the native count error obeys
+\begin{equation}
+\left|\frac{\E_{\mu_k}N_{ia}-\E_{P_{\pi_k}}N_{ia}}{m_i}\right|
+\le\frac{e_k^G}{m_i\min_{r:i(r)=i}w_r}+\epsilon_G.
+\label{eq:obs-native-count-tracking}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The coupling in \cref{prop:link-compact-comparison} contracts the common weighted
+Hamming distance for arbitrary initial couplings, hence for its infimum.
+At a fixed state the generator conditionals are independent of $\pi$.
+A label conditional changes by the tilt $\pi'_{i(r),a}/\pi_{i(r),a}$; the
+oscillation bound proved there and an identical site choice give
+\cref{eq:obs-source-kernel-perturbation}. The function $N_{ia}/m_i$ is
+$1/(m_i\min_{r:i(r)=i}w_r)$-Lipschitz in $d_w$ and has oscillation at most one.
+Coupling gives its conditional inference error, and
+\cref{eq:link-endpoint-truncation} adds the endpoint tail once. $\square$
+
+\propositionheading{A finite-time source-learning comparison}{prop:obs-source-finite-time-learning}
+In \cref{prop:obs-native-source-drive}, let
+$k_J=\int L_o(y,J)\nu(dy)$ and choose $0<l\le k_J\le u<\infty$.
+These constants exist for the finite supported pattern set. Put
+$\mathcal R=u/l$, $M=\sum_i m_i$,
+$\|v\|_m=\sum_i m_i\|v_i\|_1$, and
+$b_i(\pi)=\E_{P_\pi}N_i/m_i$. Then on the product of closed simplices,
+\begin{equation}
+\|b(\pi)-b(\pi')\|_m\le M\mathcal R\|\pi-\pi'\|_m.
+\label{eq:obs-source-field-lipschitz}
+\end{equation}
+The native natural-learning equation
+$\dot\pi=\varepsilon(b(\pi)-\pi)$, $\varepsilon>0$, has a unique global
+forward solution there and preserves strictly positive entries for every
+finite time when they are initially positive. Let $\widetilde\pi$ be an
+absolutely continuous comparison curve in the same simplices satisfying
+$\dot{\widetilde\pi}=\varepsilon(\widetilde b(t)-\widetilde\pi)$, with
+probability rows $\widetilde b_i(t)$, and set
+$D(t)=\|\widetilde b(t)-b(\widetilde\pi(t))\|_m$.
+For integrable $D$ on the interval and $L=1+M\mathcal R$,
+\begin{equation}
+\begin{split}
+\|\widetilde\pi(t)-\pi(t)\|_m
+&\le e^{\varepsilon Lt}\|\widetilde\pi(0)-\pi(0)\|_m\\
+&\quad+\varepsilon\int_0^t e^{\varepsilon L(t-s)}D(s)ds.
+\end{split}
+\label{eq:obs-source-trajectory-error}
+\end{equation}
+If all rows $\widetilde b_i$ are count averages of one approximate label law
+$\mu_t$, then
+$D(t)\le2M\|\mu_t-P_{\widetilde\pi(t)}^J\|_{\rm TV}$, where the superscript
+$J$ denotes the native label marginal.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For pattern probabilities $r,r'$ and their reweightings
+$p=kr/r(k)$, $p'=kr'/r'(k)$, put $\alpha=p'(A)$ for an event $A$. Then
+\begin{equation}
+p(A)-p'(A)=\frac{(r-r')[k(1_A-\alpha)]}{r(k)}.
+\end{equation}
+The bracketed function has oscillation at most $u$ and $r(k)\ge l$, so
+$\|p-p'\|_{\rm TV}\le\mathcal R\|r-r'\|_{\rm TV}$.
+A product coupling of the repeated draws gives
+$\|r_\pi-r_{\pi'}\|_{\rm TV}\le\tfrac12\|\pi-\pi'\|_m$.
+Each $b_i$ is the law of a uniformly selected draw in group $i$, hence a
+Markov image of the full pattern. Its row $\ell^1$ difference is at most
+twice the pattern total variation. Summing with weights $m_i$ proves
+\cref{eq:obs-source-field-lipschitz} and the last assertion.
+
+The evidence polynomial is at least $l$ on the compact product of simplices,
+so its ratio defining $b$ is smooth on a neighborhood. Its vector field is
+$L$-Lipschitz there when restricted to the simplices. Row sums remain one,
+and variation of constants gives
+\begin{equation}
+\pi_{ia}(t)=e^{-\varepsilon t}\pi_{ia}(0)
++\varepsilon\int_0^t e^{-\varepsilon(t-s)}b_{ia}(\pi(s))ds
+\ge e^{-\varepsilon t}\pi_{ia}(0).
+\end{equation}
+Interior solutions therefore stay in the compact simplex and extend to every
+finite time. Boundary starts follow by continuous dependence from interior
+starts. Subtraction of the two integral equations, the Lipschitz bound, and
+Gronwall's inequality give \cref{eq:obs-source-trajectory-error}. $\square$
+
+\remarkheading{Scope of tracking and learning}{rem:obs-moving-prior-scope}
+These estimates concern a fixed observation design, fixed supports, and a
+deterministic schedule, including a deterministic learner defined from the
+current law. A prior adapted to the same random particle history needs a joint
+conditional argument. The pure contraction hypothesis applies to the
+conditioned family; a native warm-start estimate with a nonzero residual cannot
+be substituted for it. A bounded count error controls the instantaneous
+learning drive under \cref{eq:obs-prefix-source-fisher}.
+\Cref{prop:obs-source-finite-time-learning} propagates such an error on finite
+intervals, with constants that may be very large; useful long-time agreement
+additionally needs stronger stability of that vector field. The extension to
+boundary priors there checks invariance of the mathematical learning field
+and changes no declared execution support.
+Neither inference-kernel contraction nor a unique instantaneous posterior
+settles formation under the marked recognition dynamics of
+\cref{open:full-graph-hierarchy}. \status{ESTABLISHED}
 
 \section{Fast recognition and slow model coordinates}
 \label{sec:obs-fast-slow}

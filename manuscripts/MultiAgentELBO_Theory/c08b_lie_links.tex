@@ -2197,7 +2197,183 @@ kind as the support of the source prior. Away from zero generators the loop defe
 group are not functions of $\mathbf C\mathring\omega$, and the splitting describes only their quadratic part
 (\cref{prop:link-loop-defect}(e)).
 
+\section{Finite comparison of conditional generator laws}
+\label{sec:link-finite-native-comparison}
+
+\propositionheading{A conditional comparison uniform in source priors}{prop:link-compact-comparison}
+Partition a finite latent history into $\mathsf n$ sites, each a generator block or one
+source label. Suppose its posterior, in this proposition's local notation, is
+\begin{equation}
+P_\pi(dy)=Z_\pi^{-1}e^{-V(y)}q_\pi(dy),\qquad
+q_\pi=\bigotimes_{v=1}^{\mathsf n}q_{v,\pi},\qquad 0<Z_\pi<\infty.
+\label{eq:link-comparison-target}
+\end{equation}
+Only the categorical factors of $q_\pi$ depend on the strictly positive source
+priors, on fixed finite supports, and $V$ is independent of them. A correlated
+generator reference must be contained within its block. Let
+$G=\prod_vG_v$ restrict only generator blocks, with $q_\pi(G)>0$, and suppose
+$V$ is finite and bounded on $G$. Write $P_\pi^G=P_\pi(\cdot\given G)$ and
+$\epsilon_\pi=P_\pi(G^c)$. Define
+\begin{equation}
+\begin{split}
+\Delta_{vu}&=\sup\bigl|V(y_v,y_u,z)-V(y'_v,y_u,z)
+-V(y_v,y'_u,z)+V(y'_v,y'_u,z)\bigr|,\quad v\ne u,\\
+\mathsf C_{vu}&=\tanh(\Delta_{vu}/4),\quad \mathsf C_{vv}=0,
+\qquad \chi=\max_u w_u^{-1}\sum_vw_v\mathsf C_{vu}<1,
+\end{split}
+\label{eq:link-mixed-oscillation}
+\end{equation}
+where every coordinate in the supremum lies in $G$ and the weights $w_v>0$ are
+fixed independently of $\pi$. Set $w_{\min}=\min_vw_v$ and
+$w_\Sigma=\sum_vw_v$. Let $K_\pi^G$ choose one site
+uniformly and redraw it using the following density version, defined at every
+outside configuration in $G$:
+\begin{equation}
+P_{v,\pi}^G(dt\given y_{-v})=
+\frac{1_{G_v}(t)e^{-V(t,y_{-v})}q_{v,\pi}(dt)}
+{\int_{G_v}e^{-V(u,y_{-v})}q_{v,\pi}(du)}.
+\label{eq:link-everywhere-conditional}
+\end{equation}
+Its denominator is positive and finite by the stated bounds. Then for every
+initial law $\nu$ supported on $G$ and every nonnegative integer $k$,
+\begin{equation}
+\|\nu(K_\pi^G)^k-P_\pi\|_{\rm TV}
+\le\min\left\{1,\frac{w_\Sigma}{w_{\min}}
+\left(1-\frac{1-\chi}{\mathsf n}\right)^k+\epsilon_\pi\right\}.
+\label{eq:link-endpoint-comparison}
+\end{equation}
+The same $\mathsf C$ works for every source prior. Total variation uses the
+supremum over measurable events. For bounded measurable $f$, truncation alone
+satisfies
+\begin{equation}
+|P_\pi f-P_\pi^Gf|\le\operatorname{osc}(f)\epsilon_\pi,
+\qquad
+\KL(P_\pi^G\Vert P_\pi)=-\log(1-\epsilon_\pi).
+\label{eq:link-endpoint-truncation}
+\end{equation}
+If $\epsilon_\pi>0$, the reverse relative entropy is infinite.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a probability $p$ tilted by $e^u$ with $\operatorname{osc}(u)\le d$, shift
+$u$ so that $1\le e^u\le M=e^d$ and put $a=\E_p e^u$. The chord bound for
+$|x-a|$ on $[1,M]$ gives
+\begin{equation}
+\|p-e^up/a\|_{\rm TV}
+\le\frac{(M-a)(a-1)}{a(M-1)}
+\le\frac{\sqrt M-1}{\sqrt M+1}=\tanh(d/4).
+\end{equation}
+The $M=1$ case is immediate. Changing outside site $u$ changes the logarithm of
+the conditional density at $v$ by a function of oscillation at most
+$\Delta_{vu}$. The factor $q_{v,\pi}$ cancels from this difference. Thus
+$\mathsf C_{vu}$ bounds the conditional total-variation influence, independently
+of $\pi$. This is the finite influence comparison underlying
+\citet[Corollary~2.6]{RebeschiniVanHandel2013}; the present calculation also
+accounts for conditioning and the source-prior family.
+
+Use the weighted Hamming cost $d_w(y,y')=\sum_vw_v1_{\{y_v\ne y'_v\}}$. All conditional
+densities have a common reference. Their common density minimum and residual
+densities define measurable maximal couplings, including at continuous sites.
+For configurations differing at several outside sites, change them one at a time
+inside the product $G$ and use the triangle inequality. Coupling the selected
+site identically in two random scans therefore gives
+\begin{equation}
+\E[d_w(Y_1,Y'_1)\given y,y']
+\le\sum_uw_ud_u-\frac1{\mathsf n}\sum_vw_vd_v
++\frac1{\mathsf n}\sum_{v,u}w_v\mathsf C_{vu}d_u
+\le\left(1-\frac{1-\chi}{\mathsf n}\right)d_w(y,y'),
+\end{equation}
+where $d_u=1_{\{y_u\ne y'_u\}}$. This is a weighted column condition; with equal
+weights the symmetry of the mixed oscillation makes row and column sums equal.
+Conditional disintegration makes
+$P_\pi^G$ invariant under each update. Couple one initial state to this invariant
+law; its initial expected cost is at most $w_\Sigma$. The probability
+of any mismatch is bounded by that cost divided by $w_{\min}$, giving the first term of
+\cref{eq:link-endpoint-comparison}. Finally,
+$P_\pi=(1-\epsilon_\pi)P_\pi^G+\epsilon_\pi P_\pi(\cdot\given G^c)$ and
+$dP_\pi^G/dP_\pi=1_G/(1-\epsilon_\pi)$ give
+\cref{eq:link-endpoint-truncation} and the remaining claims. $\square$
+
+\propositionheading{Failure of the global oscillation envelope on a dilation pair}{prop:link-global-oscillation-failure}
+Consider the full unbounded generator domain in
+\cref{eq:link-comparison-target}, with two distinct generator sites $v,u$.
+Suppose the representation on a nonzero real fiber admits $A$ with
+$\rho(\exp(tA))=e^tI_{\mathbb V}$, and fix all other generators at zero and
+the source labels at one supported pattern. Write $y(t,s)$ for the full
+configuration on the two rays, oriented along a positive-coefficient walk
+containing both selected copies once. Suppose every declared walk uses each
+selected copy at most once, counting its own reversal as the same copy.
+Let $V=\mathscr S+H$, where $\mathscr S$ is the nonnegative loop action of
+\cref{def:link-generator-prior}, $H\ge0$ is finite, and for $t\ge0$,
+\begin{equation}
+H(y(t,0))+H(y(0,t))\le c_0(1+t^2+e^{2t})
+\label{eq:link-dilation-axis-growth}
+\end{equation}
+for a finite $c_0$. Then the mixed oscillation on the full domain satisfies
+$\Delta_{vu}=\Delta_{uv}=\infty$. The envelope
+$\mathsf C_{vu}=\tanh(\Delta_{vu}/4)$ therefore has
+$\mathsf C_{vu}=\mathsf C_{uv}=1$, and no positive weights make its weighted
+column bound $\chi$ smaller than one. For continuous $V$ and full-support
+reference densities the same divergence holds for the essential supremum.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The chosen walk has holonomy $e^{2t}I_{\mathbb V}$ at $y(t,t)$. Since
+$\|I_{\mathbb V}\|_{\mathsf G}^2=d:=\dim\mathbb V$, its contribution is
+$a(e^{2t}-1)^2$, where $a=d c_p/2>0$. Nonnegativity of all other terms gives
+this lower bound for $V(y(t,t))$. On either axis each loop holonomy is the
+identity or $e^{\pm t}I_{\mathbb V}$; the finite sum of its defects is bounded
+by a constant times $1+e^{2t}$. Together with
+\cref{eq:link-dilation-axis-growth}, the mixed rectangle obeys
+\begin{equation}
+\begin{split}
+&V(y(t,t))-V(y(t,0))-V(y(0,t))+V(y(0,0))\\
+&\qquad\ge a(e^{2t}-1)^2-c_1(1+t^2+e^{2t})+V(y(0,0))\longrightarrow\infty.
+\end{split}
+\end{equation}
+This is an admissible sequence in the mixed supremum. The two weighted
+columns contribute at least $w_v/w_u$ and $w_u/w_v$ respectively, whose
+maximum is at least one. Continuity preserves every finite strict lower
+bound on a nonempty open neighborhood of a rectangle, and full support gives
+that neighborhood positive reference measure. $\square$
+
+\remarkheading{Scope of the oscillation obstruction}{rem:link-global-oscillation-scope}
+The preceding result concerns the stated sufficient envelope, not a lower
+bound of one for the actual conditional influence. It does not imply slow
+mixing or a formation obstruction. It applies to any full finite network
+containing the stated copies and walks. A change of block partition that puts
+both selected generators in one site removes this particular two-site
+argument. A localized comparison, another influence estimate, or another
+metric remains possible. A positive Gaussian reference variance, however
+small, retains the unbounded domain and does not by itself make this global
+oscillation finite. \status{ESTABLISHED}
+
+\remarkheading{Comparison law and inference clock}{rem:link-comparison-scope}
+The kernel in \cref{prop:link-compact-comparison} preserves $P_\pi^G$; its
+comparison to $P_\pi$ charges the discarded mass once at the endpoint. It makes
+no assertion that an unrestricted trajectory stays in $G$ at every update.
+Applying a common conditional-matter, coarse, or record kernel preserves the
+total-variation bound, by contraction under a Markov kernel. The relative entropy
+in \cref{eq:link-endpoint-truncation} is in the approximation-to-target direction
+and supplies no forward predictive relative-entropy bound. The integer $k$
+counts conditional draws and is distinct from recognition time and learning
+episodes in \cref{def:link-history-prior}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Invariance and the direction of relative entropy are part of
+\cref{prop:link-compact-comparison}. For a common kernel $L$ and an event $A$,
+$0\le L(\cdot,A)\le1$, so
+$|(\mu L)(A)-(\nu L)(A)|\le\|\mu-\nu\|_{\rm TV}$.
+The clocks refer to different kernels and indices by their definitions.
+$\square$
+
 \section*{Physicist's summary}
+
+For a finite history, a product-domain conditional sampler has an explicit
+weighted influence criterion uniform over source priors
+(\cref{prop:link-compact-comparison}). Its comparison with the full posterior
+requires a separate bound on the probability outside that domain. This is a
+statement about inference accuracy, not about the emergence of a parent.
 
 The links between agents are treated here as a field that is inferred, not as a background that is held.
 Each link is the exponential of a Lie-algebra generator measured in the frame of a reference point;
