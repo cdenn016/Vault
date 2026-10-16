@@ -23,15 +23,22 @@ results are used by the section-space histories of \Cref{ch:section-space-histor
 \Cref{ch:neighborhood-parents}, and the perceived-geometry beta of \Cref{ch:renormalization}. At
 \(c_*\) the counterpart of a scale-connection defect is the defect of the dressed interaction links
 under agent coarse-graining, treated in \Cref{ch:network-state} of the main manuscript.
+With additional common-target comparison data, a collective Fisher minimizer also defines an
+aggregate-moment jet; its rank can be four even when every law is a centered Gaussian
+(\cref{prop:pb-collective-minimizer,prop:pb-collective-gaussian-soldering}). This supplies a local
+example for the conditional determinant geometry of \cref{prop:pb-collective-determinant-metric}.
 
 No connection-independent tensor on the base is obtained from the bundle and the statistical models
 alone, no canonical connection is derived from the change formulas or from passive covariance, and
-the pullback tensors are not claimed to be nondegenerate. A scalar gauged sigma energy would further
+the pullback tensors need not be nondegenerate without rank hypotheses. A scalar gauged sigma energy would further
 require a base cometric, a base density, channel weights, boundary conditions, and a decision whether
 the connection is fixed or dynamical, none of which is selected here. The classifications of
 \Cref{sec:pb-intrinsic-defect-classification} assert no global solution with prescribed boundary data
 across changing ranks, no infinite-dimensional closed-range result, and no compatible connection for
-every scale map. \status{NOT-CLAIMED}
+every scale map. The collective construction selects neither its message sector nor its comparison
+maps, and its local example establishes no persistence under inference, uniform large-network
+bound, or physical dynamics; preservation through a specified inference and coarse family is
+\cref{open:pb-collective-interface-preservation}. \status{NOT-CLAIMED}
 
 \section{Covariant first jets and pullback tensors}
 \label{sec:pb-covariant-jets}
@@ -318,6 +325,271 @@ For a section of means \(\mu\), the vertical jet is \((d\mu+A)\partial_\mu\) by 
 \(\mathrm dA=-\mathrm dx\wedge\mathrm dy\) and \(x\mathrm dy\wedge\mathrm dx\wedge\mathrm dy=0\), and
 the Frobenius criterion identifies \(\ker A\) as nonintegrable. In the second example the vertical jet
 is \(d\mu=2x\mathrm dx\), whose square is \eqref{eq:pb-rank-jump-example}. \hfill$\square$
+
+\section{Collective Fisher minimization and aggregate soldering}
+\label{sec:pb-collective-soldering}
+
+The rank question can be posed after choosing a connection from several law sections. The
+construction below uses the orbit Fisher form of \cref{cor:pb-orbit-fisher-form}, with explicit
+comparison data before any laws or their derivatives are combined.
+
+\definitionheading{Common-target collective data}{def:pb-collective-target}
+Let \(\mathscr W^{\mathrm{msg}}\to\mathcal U\) be a complex rank-two message bundle. Choose
+complex rank-two source bundles \(\mathscr W_i^{\mathrm{msg}}\), smooth fiber isomorphisms
+\(\mathsf S_i:\mathscr W_i^{\mathrm{msg}}\to\mathscr W^{\mathrm{msg}}\), and source-law sections
+\(q_i\). Their target laws \(p_i=(\mathsf S_i)_\#q_i\) lie in finite-dimensional regular statistical
+families closed under the \(\GL(2,\mathbb C)\) pushforward action, with invariant positive Fisher
+metrics. Their second moments exist and depend smoothly on the law coordinates. Independent
+passive source changes \(g_i\) and a target change \(g\) act by
+\begin{equation}
+q_i'=(g_i)_\#q_i,\qquad \mathsf S_i'=g\mathsf S_i g_i^{-1}.
+\label{eq:pb-collective-comparison-law}
+\end{equation}
+For positive constants \(w_i\), write \(\boldsymbol p=(p_i)_i\) and set
+\begin{equation}
+\begin{split}
+\mathsf G^{F,\mathrm{col}}_{\boldsymbol p}(r,t)&=\sum_iw_i g^F_{p_i}(r_i,t_i),\\
+\mathsf J_{\boldsymbol p}\mathsf a&=(\mathsf a_{\mathcal B}(p_i))_i,\qquad
+\mathfrak g_{\boldsymbol p}=\ker\mathsf J_{\boldsymbol p},\qquad
+\mathsf H_{\boldsymbol p}=(\operatorname{im}\mathsf J_{\boldsymbol p})^{\perp_{\mathsf G^{F,\mathrm{col}}}},\\
+\mathfrak k_{\boldsymbol p}(\mathsf a,\mathsf b)
+&=\mathsf G^{F,\mathrm{col}}_{\boldsymbol p}
+(\mathsf J_{\boldsymbol p}\mathsf a,\mathsf J_{\boldsymbol p}\mathsf b),\\
+\mathcal M(\boldsymbol p)&=\sum_iw_i\int zz^\dagger p_i(dz).
+\end{split}
+\label{eq:pb-collective-data}
+\end{equation}
+Here \(\mathsf a,\mathsf b\in\mathfrak{gl}(2,\mathbb C)\) are real Lie-algebra variables and
+\(\mathcal M\) takes values in the real rank-four Hermitian-tensor bundle
+\(\operatorname{Herm}(\mathscr W^{\mathrm{msg}})\). The weights fix both the product metric and
+the aggregate; dividing \(\mathcal M\) by \(\sum_iw_i\) gives the moment of the corresponding
+mixture law. These comparisons and weights are additional data.
+
+\propositionheading{Collective minimizing connection class}{prop:pb-collective-minimizer}
+Under \cref{def:pb-collective-target}, assume \(\mathsf J_{\boldsymbol p(c)}\) has constant rank
+on \(\mathcal U\). For every \(v\in T_c\mathcal U\), the minimizers of
+\begin{equation}
+\mathsf a\longmapsto
+\left\|d\boldsymbol p(v)+\mathsf J_{\boldsymbol p}\mathsf a\right\|^2_{\mathsf G^{F,\mathrm{col}}}
+\label{eq:pb-collective-minimization}
+\end{equation}
+form one affine class \(\mathsf A^F(v)+\mathfrak g_{\boldsymbol p}\), characterized by
+\begin{equation}
+\begin{aligned}
+\mathfrak k_{\boldsymbol p}(\mathsf A^F(v),\mathsf b)
+&=-\mathsf G^{F,\mathrm{col}}_{\boldsymbol p}(d\boldsymbol p(v),\mathsf J_{\boldsymbol p}\mathsf b),\\
+\mathsf r(v)&:=d\boldsymbol p(v)+\mathsf J_{\boldsymbol p}\mathsf A^F(v)\\
+&=P_{\mathsf H_{\boldsymbol p}}d\boldsymbol p(v).
+\end{aligned}
+\label{eq:pb-collective-normal-equation}
+\end{equation}
+The class has smooth local representatives, linear in \(v\). Under
+\cref{eq:pb-collective-comparison-law}, the target laws and minimizing classes obey
+\begin{equation}
+\begin{aligned}
+p_i'&=g_\#p_i,\\
+[\mathsf A^{F\prime}]&=[g\mathsf A^Fg^{-1}-(dg)g^{-1}],\\
+\mathsf r'&=T\widehat\rho(g)\mathsf r.
+\end{aligned}
+\label{eq:pb-collective-minimizer-covariance}
+\end{equation}
+Thus the residual is independent of the source coordinates and of the stabilizer-valued choice
+of representative. The class alone need not specify a full principal connection.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Orthogonally project \(-d\boldsymbol p(v)\) onto \(\operatorname{im}\mathsf J_{\boldsymbol p}\).
+Every preimage minimizes the square, and its other preimages differ exactly by
+\(\ker\mathsf J_{\boldsymbol p}\). Expanding the square gives the displayed normal equation,
+including its minus sign. Constant rank makes the kernel and image smooth subbundles; on a local
+complement of the kernel, \(\mathfrak k_{\boldsymbol p}\) is positive definite, so its inverse
+gives a smooth linear solution. Composition of pushforwards cancels \(g_i\) in \(p_i'\).
+Differentiating \(\boldsymbol p'=\widehat\rho(g)\boldsymbol p\) gives the extra fundamental
+field of \((dg)g^{-1}\); it cancels the inhomogeneous term in
+\cref{eq:pb-collective-minimizer-covariance}. Fisher invariance then carries every minimizer and
+its orthogonal residual to the stated ones. No averaging of coordinate-induced source
+connection potentials enters this construction. \hfill$\square$
+
+\corollaryheading{Aggregate horizontal rank criterion}{cor:pb-collective-rank}
+Under \cref{prop:pb-collective-minimizer}, let \(M^{\mathrm{col}}=\mathcal M(\boldsymbol p)\).
+Its minimizing covariant derivative is the well-defined Hermitian-valued one-form
+\begin{equation}
+\begin{split}
+\mathsf e^{\mathrm{col}}(v)
+&=dM^{\mathrm{col}}(v)+\mathsf A^F(v)M^{\mathrm{col}}
++M^{\mathrm{col}}\mathsf A^F(v)^\dagger\\
+&=d\mathcal M_{\boldsymbol p}\bigl(P_{\mathsf H_{\boldsymbol p}}d\boldsymbol p(v)\bigr).
+\end{split}
+\label{eq:pb-collective-soldering}
+\end{equation}
+It transforms as \(\mathsf e^{\mathrm{col}\prime}=g\mathsf e^{\mathrm{col}}g^\dagger\).
+On a four-dimensional base it is a soldering exactly when
+\(d\mathcal M_{\boldsymbol p}\circ\mathsf r:T_c\mathcal U\to
+\operatorname{Herm}(\mathscr W_c^{\mathrm{msg}})\) has rank four. Surjectivity of
+\(d\mathcal M_{\boldsymbol p}|_{\mathsf H_{\boldsymbol p}}\) is necessary for this rank and
+is sufficient for the existence of a first jet with that rank at the given law tuple;
+it need not hold for a specified section's first jet. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The moment map is equivariant, so
+\(d\mathcal M_{\boldsymbol p}(\mathsf J_{\boldsymbol p}\mathsf a)
+=\mathsf aM^{\mathrm{col}}+M^{\mathrm{col}}\mathsf a^\dagger\).
+The chain rule proves \cref{eq:pb-collective-soldering} and shows that isotropy changes contribute
+zero. Covariance follows from \cref{eq:pb-collective-minimizer-covariance}. The rank assertion is
+linear algebra. If the restricted differential is onto, choose four horizontal preimages of a
+Hermitian basis and realize them as the first derivatives of a local chart-valued section.
+\hfill$\square$
+
+\propositionheading{A local Gaussian collective soldering}{prop:pb-collective-gaussian-soldering}
+There are four smooth centered proper complex Gaussian law sections on a neighborhood of
+\(0\in\R^4\), with identity comparison maps and \(w_i=1\), whose collective isotropy is exactly
+\(i\R I_2\) and whose \(\mathsf e^{\mathrm{col}}\) has rank four throughout that neighborhood.
+Their covariances at the origin are
+\begin{equation}
+M_0^0=I_2,\quad M_1^0=\begin{pmatrix}2&0\\0&1\end{pmatrix},\quad
+M_2^0=\begin{pmatrix}2&1\\1&2\end{pmatrix},\quad
+M_3^0=\begin{pmatrix}2&i\\-i&2\end{pmatrix}.
+\label{eq:pb-collective-gaussian-values}
+\end{equation}
+At the origin a minimizing representative is zero and
+\(\mathsf e^{\mathrm{col}}(\partial_{c^\mu})=\boldsymbol\sigma_\mu\), where
+\(\boldsymbol\sigma_0=I_2\) and
+\begin{equation}
+\boldsymbol\sigma_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
+\boldsymbol\sigma_2=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\quad
+\boldsymbol\sigma_3=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\label{eq:pb-collective-pauli-basis}
+\end{equation}
+By contrast, minimizing from one centered Gaussian covariance alone always gives zero covariant
+derivative of that covariance. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For the density \((\pi^2\det M_i)^{-1}\exp(-z^\dagger M_i^{-1}z)\), the score in a Hermitian
+direction \(r_i\) is \(-\Tr(M_i^{-1}r_i)+z^\dagger M_i^{-1}r_iM_i^{-1}z\). Whitening and the
+identity \(\E[\bar z_a z_b\bar z_d z_f]=\delta_{ab}\delta_{df}+\delta_{af}\delta_{db}\)
+for independent standard proper complex Gaussian coordinates give
+\begin{equation}
+\begin{aligned}
+g^F_{M_i}(r_i,t_i)&=\Tr(M_i^{-1}r_iM_i^{-1}t_i),\\
+\sum_i g^F_{M_i}(r_i,\mathsf aM_i+M_i\mathsf a^\dagger)
+&=2\operatorname{Re}\Tr\left(\mathsf a^\dagger\sum_iM_i^{-1}r_i\right).
+\end{aligned}
+\label{eq:pb-collective-gaussian-normal}
+\end{equation}
+The fourth-moment identity follows by expanding into independent real centered Gaussian
+coordinates of variance \(1/2\). The real pairing with arbitrary \(\mathsf a\) is nondegenerate,
+so a jet is horizontal exactly when \(\sum_iM_i^{-1}r_i=0\).
+
+Choose \(r_{i\mu}=\sum_{\nu=0}^3\mathsf R^{\mathrm{jet}}_{4i+\nu,\mu}
+\boldsymbol\sigma_\nu\), where rows are ordered by \((i,\nu)\), each from \(0\) to \(3\), and
+\begin{equation}
+\mathsf R^{\mathrm{jet}}=\frac12
+\begin{pmatrix}
+-5&1&-1&-1\\ 4&-2&4&-4\\ 0&0&2&0\\ 3&-3&3&-1\\
+4&-4&4&4\\ -4&4&-4&4\\ 0&0&0&0\\ 0&0&0&0\\
+3&3&3&-3\\ 0&0&0&0\\ 0&0&0&0\\ -3&3&-3&3\\
+0&0&-6&0\\ 0&0&0&0\\ 0&0&0&0\\ 0&0&0&0
+\end{pmatrix}.
+\label{eq:pb-collective-rational-jets}
+\end{equation}
+Using \((M_1^0)^{-1}=\operatorname{diag}(1/2,1)\),
+\((M_2^0)^{-1}=\tfrac13\begin{psmallmatrix}2&-1\\-1&2\end{psmallmatrix}\), and
+\((M_3^0)^{-1}=\tfrac13\begin{psmallmatrix}2&-i\\i&2\end{psmallmatrix}\), multiplication of
+each of the four columns gives the two matrix identities
+\begin{equation}
+\sum_{i=0}^3(M_i^0)^{-1}r_{i\mu}=0,\qquad
+\sum_{i=0}^3r_{i\mu}=\boldsymbol\sigma_\mu\quad(\mu=0,1,2,3).
+\label{eq:pb-collective-jet-identities}
+\end{equation}
+These identities prove both minimization at zero and the identity matrix of aggregate Pauli
+coefficients. For the stabilizer, \(\mathsf aM_0^0+M_0^0\mathsf a^\dagger=0\) first makes
+\(\mathsf a\) anti-Hermitian. Commutation with \(M_1^0\) makes it diagonal, and commutation with
+\(M_2^0\) makes its diagonal entries equal. Thus the joint kernel is \(i\R I_2\).
+
+Set \(M_i(c)=M_i^0+\sum_{\mu=0}^3c^\mu r_{i\mu}\). Since every initial covariance has
+minimum eigenvalue one, all covariances remain positive on a ball where
+\[
+\max_i\left\|\sum_{\mu=0}^3c^\mu r_{i\mu}\right\|_{\mathrm{op}}<\frac12.
+\]
+The action map has real rank seven at zero and everywhere has rank at most seven,
+since the central phase acts trivially. A nonzero rank-seven minor remains nonzero nearby, so
+the rank is constant there. Solving on a fixed complement of \(i\R I_2\) gives a smooth local
+\(\mathsf A^F\). Its aggregate jet equals the Pauli basis at zero by
+\cref{eq:pb-collective-jet-identities}; continuity keeps its determinant nonzero on a smaller
+neighborhood. For one covariance and any Hermitian jet \(r\), the choice
+\(\mathsf a=-rM^{-1}/2\) gives \(r+\mathsf aM+M\mathsf a^\dagger=0\), attaining the zero
+minimum. This proves the single-law assertion without applying it to the collective cost.
+\hfill$\square$
+
+\propositionheading{Conditional determinant metric and circle completion}{prop:pb-collective-determinant-metric}
+Suppose \(\mathsf e^{\mathrm{col}}\) is an isomorphism on a four-dimensional region, and choose
+a positive section \(\kappa_{\det}\) of the determinant-scale line, with local transformation
+\(\kappa_{\det}'=|\det g|^2\kappa_{\det}\). Then
+\begin{equation}
+\eta_{\det}(H,K)=\tfrac12[\Tr(HK)-\Tr(H)\Tr(K)],\qquad
+\mathsf G^{\det}(v,w)=\kappa_{\det}^{-1}
+\eta_{\det}(\mathsf e^{\mathrm{col}}v,\mathsf e^{\mathrm{col}}w)
+\label{eq:pb-collective-determinant-metric}
+\end{equation}
+defines a gauge-invariant metric with one negative and three positive directions. Its positive
+Hermitian cone supplies a time orientation. On a base of dimension greater than four, a surjective
+\(\mathsf e^{\mathrm{col}}\) instead gives this metric on the rank-four quotient bundle by its
+kernel; a quotient manifold still requires an integrable kernel, a regular leaf quotient, and
+basicness of \(\mathsf G^{\det}\), as in \cref{prop:pb-quotient-manifold-requirements}.
+
+On the four-dimensional region, let \(\mathscr Q_{\det}\) be the unit circle bundle of
+\(\det\mathscr W^{\mathrm{msg}}\) for the line metric with coefficient
+\(\kappa_{\det}^{-1}\), and \(\pi_{\det}:\mathscr Q_{\det}\to\mathcal U\) its projection.
+If a global real principal circle connection \(\omega_{\det}\), normalized to one on the
+generator of period \(2\pi\), and a smooth positive scalar radius \(r_{\det}\) are supplied,
+then
+\begin{equation}
+\mathsf G^{\mathrm{KK}}=\pi_{\det}^*\mathsf G^{\det}
++(r_{\det}\circ\pi_{\det})^2\omega_{\det}\otimes\omega_{\det}
+\label{eq:pb-collective-circle-completion}
+\end{equation}
+is a circle-invariant metric with one negative and four positive directions. A chosen global
+\(\GL(2,\mathbb C)\) connection lifting the minimizing class gives such a circle connection
+locally as \(d\theta_{\det}+\operatorname{Im}\Tr\mathsf A\), where
+\(\theta_{\det}'=\theta_{\det}+\arg\det g\). For the centered Gaussian example the minimizing
+class fixes neither this phase component nor the positive circle radius. The determinant form is
+an additional moment-space form; the Fisher tensor remains positive. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the basis of \cref{eq:pb-collective-pauli-basis},
+\(\eta_{\det}(H,H)=-\det H=-(h^0)^2+\sum_{a=1}^3(h^a)^2\).
+Multiplicativity of the determinant and polarization give
+\(\eta_{\det}(gHg^\dagger,gKg^\dagger)=|\det g|^2\eta_{\det}(H,K)\).
+The compensator cancels this factor, and an invertible soldering preserves the inertia.
+Congruence preserves the positive cone. In the surjective case the radical is exactly the
+kernel because the target form is nondegenerate. The circle connection splits its total tangent
+bundle into horizontal and vertical summands; the displayed metric is the base metric on the
+first and the positive form \(r_{\det}^2d\theta_{\det}^2\) on the second. Its invariance follows
+from the principal connection law. In local coordinates,
+\(\operatorname{Im}\Tr\mathsf A'=\operatorname{Im}\Tr\mathsf A-d\arg\det g\), which cancels
+the angle change. A central \(g=e^{i\beta}I_2\) changes that angle by \(2\beta\); its action on
+all centered proper Gaussian laws and on their moments is trivial, so its connection component
+and a positive circle norm are absent from the collective normal equations. \hfill$\square$
+
+\openproblemheading{Preserving the collective interface through inference and coarse-graining}{open:pb-collective-interface-preservation}
+Consider connected sparse Gaussian quadratic-record models with held invertible links, positive
+local and edge record precisions, centered product-Gaussian recognition, and joint Fisher natural
+gradient descent of the collective free energy. Supply smooth context-dependent records and
+common-target comparisons on a four-dimensional region. At each prescribed coarse step, use the
+exact pushforward through a recognition-independent, covariant linear block map with disjoint
+blocks of at least two agents, surjective onto a complex rank-two output per block, leaving the
+observations unchanged. Require the fine and coarse initial interfaces to have rank four and their collective
+orbit maps to have rank seven. The problem is to give structural, quantitatively checkable
+conditions on this family that preserve the message-bundle comparisons and yield a uniform
+positive lower bound for the smallest singular value of \(\mathsf e^{\mathrm{col}}\), measured
+in specified reference metrics, on a prescribed positive horizon and through a prescribed
+nonzero coarse depth, along a family of connected graphs of unbounded size. The estimate must follow from
+the actual coupled equations and retained context dependence, with constants controlled as
+network size grows, rather than assuming the desired rank along the trajectory. An admissible
+class must contain nonstationary inference, nonzero edge couplings, and genuinely reducing
+channels; channels that already destroy initial rank and repetitions of the identity channel
+are excluded. \Cref{prop:pb-collective-gaussian-soldering} establishes local realizability but
+does not provide such a dynamical and coarse-preservation criterion.
 
 \section{Transported divergence along base curves}
 \label{sec:pb-transported-divergence}

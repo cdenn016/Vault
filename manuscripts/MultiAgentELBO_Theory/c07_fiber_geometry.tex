@@ -17,7 +17,9 @@ parity witness shows that a collective free energy and its Fisher tensor are not
 functions of the agents' marginal laws.  \Cref{ch:two-timescales} uses the mobility and
 clock results, \cref{ch:coarsegraining} the Fisher-loss theorem, and
 \cref{ch:agent-network-rg,ch:full-graph-meta-agent-vfe} the coarse configuration map and
-the record clocks.  Longer proofs are deferred to \cref{app:deferred-proofs}.
+the record clocks. The phase example of \cref{prop:pb-phase-visibility} distinguishes
+information in the full law from its second moment. Longer proofs are deferred to
+\cref{app:deferred-proofs}.
 
 \paragraph{Scope.}
 Law fibers and kernel fibers are distinct, and no manifold, dominating measure, affine
@@ -211,6 +213,61 @@ $\xi\in\mathfrak g_q$, the second-order form of law coherence up to holonomy sta
 With the link as a variable, the orbit Fisher form is the Hessian of the transported divergence at an
 exact link, and the minimizers of that divergence are unions of double cosets of the stabilizers, hence
 not isolated when a stabilizer has positive dimension (\cref{prop:link-law-level-energy}).
+
+\propositionheading{Phase information beyond the second moment}{prop:pb-phase-visibility}
+Let a regular channel model as in \cref{hyp:pb-regular-models} have sample space
+$\mathbb C^d$ and contain the central phase action. For a law $q$ with finite second
+moment, write $q_\beta=(z\mapsto e^{\mathrm i\beta}z)_\#q$ and let
+$\mathring\xi_{\mathrm{ph}}$ generate this action. Its phase information is
+\begin{equation}
+\mathcal I_{\mathrm{ph}}(q)
+=\E_q\left[\left(\left.\partial_\beta\log q_\beta\right|_{\beta=0}\right)^2\right]
+=\mathfrak k_q(\mathring\xi_{\mathrm{ph}},\mathring\xi_{\mathrm{ph}}).
+\label{eq:pb-phase-information}
+\end{equation}
+It vanishes exactly when $q_\beta=q$ for every $\beta$. In contrast, the moment
+$\mathsf M_{\mathrm{ph}}(q)=\E_q[zz^\dagger]$ is invariant under this action for every such law.
+Zero mean and zero pseudo-covariance $\E_q[zz^\top]$ do not imply zero phase
+information. For example, let $\mathsf U$ be uniform on the unit circle and let
+$\mathsf N_0$ be independent with density
+$(\pi\varsigma^2)^{-1}\exp(-|z|^2/\varsigma^2)$ on $\mathbb C$, where
+$\varsigma>0$. The law of $\mathsf Z=\mathsf U+\mathsf U^3+\mathsf N_0$ has
+\begin{equation}
+\begin{gathered}
+\E\mathsf Z=\E\mathsf Z^2=0,\qquad
+\E|\mathsf Z|^2=2+\varsigma^2,\\
+\E[\mathsf Z^3\overline{\mathsf Z}]=1,\qquad
+0<\mathcal I_{\mathrm{ph}}(q)\leq\frac{4}{\varsigma^2}.
+\end{gathered}
+\label{eq:pb-phase-visible-example}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The score identity and the characterization of its zero set follow from
+\cref{cor:pb-orbit-fisher-form}. Multiplication by a central phase cancels in
+$zz^\dagger$. For the example, $\E\mathsf U^n=0$ for every nonzero integer $n$.
+With $\mathsf B=\mathsf U+\mathsf U^3$, expansion gives
+$\E\mathsf B=\E\mathsf B^2=0$, $\E|\mathsf B|^2=2$, and
+$\E[\mathsf B^3\overline{\mathsf B}]=1$. Independence and circular symmetry of
+$\mathsf N_0$ give the displayed moments of $\mathsf Z$: the only potentially
+nonzero additional term in its fourth mixed moment is
+$3\varsigma^2\E\mathsf B^2=0$. A phase rotation multiplies that moment by
+$e^{2\mathrm i\beta}$, so the law is not phase invariant.
+
+The phase family is the Gaussian mixture with conditional mean
+$e^{\mathrm i\beta}\mathsf B$ and variance $\varsigma^2$, retaining the same
+mixing law for $\mathsf U$. Its density is positive and smooth in $\beta$;
+boundedness of $\mathsf B$ bounds its differentiated densities by Gaussian
+tails times polynomials and permits the required differentiations. The score
+of the joint experiment retaining $\mathsf U$ has conditional variance
+$2|\mathsf B|^2/\varsigma^2$. Differentiating the mixture shows that the
+observed score is its conditional expectation given $\mathsf Z$, so its
+second moment is at most $2\E|\mathsf B|^2/\varsigma^2=4/\varsigma^2$.
+It cannot vanish: a zero score would make the derivative of the finite
+fourth mixed moment zero, whereas that derivative is $2\mathrm i$.
+Thus the one-dimensional phase orbit is a regular model locally, even
+though its mean and pseudo-covariance vanish. $\square$
 
 \section{Markov coarse morphisms and the vertical Fisher defect}
 \label{sec:pb-fisher-defect}
@@ -1484,7 +1541,9 @@ zero.  $\square$
 The Fisher metric on an agent's belief and model law fibers is a gauge-invariant ruler and
 the second-order term of the relative entropy, so a loop holonomy near the identity
 appears as a quadratic form on the Lie algebra that vanishes on the isotropy algebra of
-the law.  A Markov channel loses exactly the conditional variance of the score, so a
+the law. Phase can remain visible in the full law when its mean and pseudo-covariance
+vanish, even though the second moment is phase invariant
+(\cref{prop:pb-phase-visibility}). A Markov channel loses exactly the conditional variance of the score, so a
 meta-agent that is a channel image of its constituents' history has an information clock
 no faster than theirs, by a ratio that is open.  A chosen metric turns the free energy
 into an orbit, Fisher arc length removes its parameterization, and a belief-model rate
