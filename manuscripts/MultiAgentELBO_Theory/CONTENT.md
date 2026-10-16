@@ -246,6 +246,17 @@ for a retained-mechanism parent of fixed dimension below the block's whose path 
 vanishes on horizons of order `1/\epsilon_{\mathrm M}` uniformly in the temperature, or a learned
 rest point or lower bound that excludes one. The linear Gaussian record goes to Supplement G.
 
+The finite complex-message intensity record (`thm:obs-intensity-born`) includes a null outcome
+and a common bound on every transported emission. With setting-independent positive emission
+moment and detector total it gives a setting-independent click rate and a Born-form conditional
+table with globally positive, normalized effects. Its passive covariance transforms emissions,
+detectors, and the link together (`prop:obs-intensity-gauge`). Random links are weighted by their
+click rates (`cor:obs-intensity-random-link`); a law with unbounded scalar link directions does
+not satisfy the fixed-efficiency hypothesis. The distinction between generated records,
+accessible recognition registers, and later feedback (`rem:obs-intensity-access`) uses the
+existing access maps and leaves collective incident-record descent unchanged. These are
+specialized observation kernels, not a selection theorem for quantum dynamics.
+
 **Chapter 7, fiber information geometry and inference histories.** Law fibers and kernel fibers
 are distinct; neither a manifold, a dominating measure, an affine chart, a cone, nor a Fisher
 metric is inferred from the word belief or model. The standing tier is a finite-dimensional
@@ -255,6 +266,11 @@ tensor needs, and nondegeneracy before a Fisher form is called a metric); the Ga
 an example. Vertical Fisher and Amari–Chentsov tensors are invariant under the represented action;
 the orbit Fisher form `\mathfrak k_q` and isotropy algebra `\mathfrak g_q`
 (`cor:pb-orbit-fisher-form`), KL jets, and the vertical defect cocycle are single-point results.
+The phase application (`prop:pb-phase-visibility`) identifies phase information with the
+central-generator orbit Fisher form and distinguishes invariance of the second moment from
+invariance of the full law. Its smooth non-Gaussian example has zero mean and pseudo-covariance,
+a phase-sensitive fourth mixed moment, and finite positive phase information. It imposes no
+Gaussian restriction on the channel models and introduces no base connection.
 The Markov coarse-morphism hypothesis (`hyp:pb-markov-morphism`) carries no common-domination
 clause. The invariance characterizations of the Fisher metric (`prop:ig-fisher-characterizations`,
 STANDARD) state Cencov's theorem as uniqueness, up to one positive factor, of the family of continuous
@@ -1096,6 +1112,19 @@ construction and the descent criterion is the substantive result; conditional at
 undefined at zero occupancy while event masses extend; every nonzero connection defect and its
 composition law are kept; graph-to-base identification is declined, with recovery open; the
 base-loop operational holonomy cites the core network-loop theorem.
+
+The collective construction (`def:pb-collective-target`, `prop:pb-collective-minimizer`) uses
+specified source-to-target comparison maps and a weighted product Fisher metric. It selects a
+smooth local minimizing connection class modulo regular isotropy and is covariant under
+independent source coordinate changes. The aggregate rank criterion (`cor:pb-collective-rank`)
+distinguishes surjectivity on all horizontal tangents from rank along the chosen section.
+Four centered complex Gaussian sections give a local full-rank example with explicit rational
+jets (`prop:pb-collective-gaussian-soldering`). The determinant form and a positive compensator
+then give a conditional Lorentz metric; a separately supplied circle connection and radius give
+its circle completion (`prop:pb-collective-determinant-metric`). These additional moment and
+circle forms do not change the positive Fisher tensor. Uniform preservation along coupled
+inference and reducing coarse channels is `open:pb-collective-interface-preservation`; local
+existence neither selects these additional data nor proves their dynamical persistence.
 
 **Part B-II, infinite networks and Wilsonian limits.** Comparison data, modes, and interaction beta
 functions; relevance conventions (`def:rg-hermite-relevance`, `prop:rg-hermite-scope`); the Lyapunov

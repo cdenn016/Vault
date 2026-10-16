@@ -14,6 +14,8 @@ curvature of \cref{prop:obs-attention-reduced-hessian} feed
 \cref{ch:two-timescales}, the event law of \cref{def:obs-attention-event-law}
 is the attention state that \cref{ch:agent-network-rg} coarse-grains, and the
 comparison records supply the endpoint energies of \cref{ch:network-state}.
+A bounded intensity record gives a conditional Born-form table
+(\cref{thm:obs-intensity-born}) within the same record-extension calculus.
 Rows, events, links, and divergences are indexed by oriented edge copies
 \(e:j\to i\); the pair \(ij\) names the source copy \(j\to i\) of row \(i\)
 (\cref{def:geo-graph-links}), a pair quantity is the sum over parallel copies, and the construction serves both channels, with a
@@ -1157,6 +1159,215 @@ prior's normalizer does not imply (\cref{prop:link-induced-action}); and the dyn
 configuration metric are those of the natural-gradient recognition flow of
 \cref{prop:link-recognition-flow}.
 
+\subsection{A bounded intensity record}
+\label{sec:obs-intensity-record}
+
+\theoremheading{Conditional Born form of a link record}{thm:obs-intensity-born}
+On a complex $d$-dimensional message representation of $G$, with $d\geq1$, write
+$\mathsf T_e\in\GL(d,\mathbb C)$ for the represented link of one copy
+$e:j\to i$ at $c_*$. Let the structural settings $\mathsf x,\mathsf y$ range
+over finite sets. For each $\mathsf x$, choose a probability vector
+$p(\mathsf k\mid\mathsf x)$ and emission vectors $z_{\mathsf k\mid\mathsf x}$;
+for each $\mathsf y$, choose detector covectors represented by columns
+$w_{\mathsf d\mid\mathsf y}$, with common finite label sets. Suppose
+\begin{equation}
+\sum_{\mathsf k}p(\mathsf k\mid\mathsf x)
+ z_{\mathsf k\mid\mathsf x}z_{\mathsf k\mid\mathsf x}^{\dagger}
+ =\mathsf S_{\rm em}>0,
+\qquad
+\sum_{\mathsf d}w_{\mathsf d\mid\mathsf y}w_{\mathsf d\mid\mathsf y}^{\dagger}
+ =\mathsf D_{\rm det}>0
+\label{eq:obs-intensity-moments}
+\end{equation}
+are independent of settings. The sender draws its label, emits its vector,
+and records the label. For $\eta_{\rm rec}>0$, put
+$q_e(z)=z^{\dagger}\mathsf T_e^{\dagger}\mathsf D_{\rm det}\mathsf T_e z$,
+and require $\eta_{\rm rec}q_e(z_{\mathsf k\mid\mathsf x})\leq1$
+for every atom of positive probability. Define the receiver record on the
+whole message space, with null value $\varnothing$, by
+\begin{equation}
+\begin{gathered}
+h_e(z)=\min\{\eta_{\rm rec},q_e(z)^{-1}\}\quad(q_e(z)>0),
+\qquad h_e(0)=\eta_{\rm rec},\\
+K_e^{\rm rec}(\mathsf d\mid z,\mathsf y)
+ =h_e(z)|w_{\mathsf d\mid\mathsf y}^{\dagger}\mathsf T_ez|^2,
+\qquad
+K_e^{\rm rec}(\varnothing\mid z,\mathsf y)=1-h_e(z)q_e(z).
+\end{gathered}
+\label{eq:obs-intensity-kernel}
+\end{equation}
+This is a Markov kernel. Its generated joint record law is
+\begin{align}
+\mathbb P_e^{\rm rec}(\mathsf k,\mathsf d\mid\mathsf x,\mathsf y)
+ &=\eta_{\rm rec}p(\mathsf k\mid\mathsf x)
+ |w_{\mathsf d\mid\mathsf y}^{\dagger}\mathsf T_ez_{\mathsf k\mid\mathsf x}|^2,
+\label{eq:obs-intensity-joint}\\
+\mathbb P_e^{\rm rec}(\mathsf k,\varnothing\mid\mathsf x,\mathsf y)
+ &=p(\mathsf k\mid\mathsf x)
+ [1-\eta_{\rm rec}q_e(z_{\mathsf k\mid\mathsf x})].\nonumber
+\end{align}
+Write $\mathsf C$ for the event that the receiver record is not null, and set
+\begin{equation}
+\mathsf B_e=\mathsf D_{\rm det}^{1/2}\mathsf T_e\mathsf S_{\rm em}^{1/2},
+\qquad
+\mathsf n_e=\Tr(\mathsf B_e\mathsf B_e^{\dagger})>0,
+\qquad
+\mathsf v_e^{\rm rec}=\operatorname{vec}\mathsf B_e,
+\label{eq:obs-intensity-calibrated-link}
+\end{equation}
+where $\operatorname{vec}\mathsf B_e=\sum_{r_i,r_j}(\mathsf B_e)_{r_i r_j}
+\mathbf e_{r_i}\otimes\mathbf e_{r_j}$ in coordinate orthonormal bases. Then
+$\mathbb P_e^{\rm rec}(\mathsf C\mid\mathsf x,\mathsf y)
+=\eta_{\rm rec}\mathsf n_e$ is independent of both settings. With
+\begin{equation}
+\begin{gathered}
+\mathsf a_{\mathsf d\mid\mathsf y}=\mathsf D_{\rm det}^{-1/2}w_{\mathsf d\mid\mathsf y},
+\qquad
+\mathsf b_{\mathsf k\mid\mathsf x}=\sqrt{p(\mathsf k\mid\mathsf x)}
+\mathsf S_{\rm em}^{-1/2}z_{\mathsf k\mid\mathsf x},\\
+\mathsf F_{\mathsf d\mid\mathsf y}=\mathsf a_{\mathsf d\mid\mathsf y}
+\mathsf a_{\mathsf d\mid\mathsf y}^{\dagger},
+\qquad
+\mathsf H_{\mathsf k\mid\mathsf x}=\overline{
+\mathsf b_{\mathsf k\mid\mathsf x}\mathsf b_{\mathsf k\mid\mathsf x}^{\dagger}},
+\end{gathered}
+\label{eq:obs-intensity-effects}
+\end{equation}
+each effect is positive semidefinite on its entire $\mathbb C^d$ factor,
+and the effects sum to the identity on that factor: they are positive
+operator-valued measures. The click-conditioned table is
+\begin{equation}
+\mathbb P_e^{\rm rec}(\mathsf k,\mathsf d\mid\mathsf x,\mathsf y,\mathsf C)
+=\frac{(\mathsf v_e^{\rm rec})^{\dagger}
+(\mathsf F_{\mathsf d\mid\mathsf y}\otimes\mathsf H_{\mathsf k\mid\mathsf x})
+\mathsf v_e^{\rm rec}}{\mathsf n_e}.
+\label{eq:obs-intensity-born-table}
+\end{equation}
+In both the full record law and this conditional law, either endpoint's
+record marginal is independent of the other endpoint's setting.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Summing the click probabilities in \eqref{eq:obs-intensity-kernel} gives
+$h_e(z)q_e(z)\in[0,1]$, so adding the null value gives unit mass.
+The functions are measurable, including at zero. The support bound gives
+$h_e=\eta_{\rm rec}$ on every emitted atom, proving
+\eqref{eq:obs-intensity-joint}. Summing it over both labels and using
+\eqref{eq:obs-intensity-moments} gives
+$\eta_{\rm rec}\Tr(\mathsf D_{\rm det}\mathsf T_e\mathsf S_{\rm em}
+\mathsf T_e^{\dagger})=\eta_{\rm rec}\mathsf n_e$.
+The two sums of outer products in \eqref{eq:obs-intensity-effects} are
+identities by \eqref{eq:obs-intensity-moments}; conjugation preserves
+positivity. For the stated vectorization,
+\[
+(\mathsf a^{\dagger}\otimes\mathsf b^{\top})\operatorname{vec}\mathsf B_e
+=\mathsf a^{\dagger}\mathsf B_e\mathsf b
+=\sqrt{p(\mathsf k\mid\mathsf x)}
+w_{\mathsf d\mid\mathsf y}^{\dagger}\mathsf T_ez_{\mathsf k\mid\mathsf x}.
+\]
+Squaring and dividing by $\mathsf n_e$ proves the Born form, including the
+sender-side conjugation. Summing either effect family proves the conditional
+marginal assertions. Before conditioning, the sender marginal is
+$p(\mathsf k\mid\mathsf x)$, the receiver click marginal is
+$\eta_{\rm rec}w_{\mathsf d\mid\mathsf y}^{\dagger}\mathsf T_e
+\mathsf S_{\rm em}\mathsf T_e^{\dagger}w_{\mathsf d\mid\mathsf y}$,
+and its null probability is $1-\eta_{\rm rec}\mathsf n_e$.
+These give the full-law assertions. $\square$
+
+\propositionheading{Passive covariance of the intensity record}{prop:obs-intensity-gauge}
+In \cref{thm:obs-intensity-born}, let $\mathsf g_j,\mathsf g_i$ be the
+old-to-new linear message coordinate maps. Re-express the data by
+\begin{equation}
+\begin{gathered}
+z'=\mathsf g_jz,\qquad w'=\mathsf g_i^{-\dagger}w,\qquad
+\mathsf T'_e=\mathsf g_i\mathsf T_e\mathsf g_j^{-1},\\
+\mathsf S'_{\rm em}=\mathsf g_j\mathsf S_{\rm em}\mathsf g_j^{\dagger},
+\qquad
+\mathsf D'_{\rm det}=\mathsf g_i^{-\dagger}\mathsf D_{\rm det}\mathsf g_i^{-1}.
+\end{gathered}
+\label{eq:obs-intensity-gauge}
+\end{equation}
+All record probabilities and the support bound are invariant. The calibrated
+matrix changes as $\mathsf B'_e=\mathsf U_i\mathsf B_e\mathsf U_j^{\dagger}$,
+where $\mathsf U_i=(\mathsf D'_{\rm det})^{1/2}\mathsf g_i
+\mathsf D_{\rm det}^{-1/2}$ and
+$\mathsf U_j=(\mathsf S'_{\rm em})^{-1/2}\mathsf g_j\mathsf S_{\rm em}^{1/2}$
+are unitary. Thus its vector and effects change by the matching local
+unitaries $\mathsf U_i\otimes\overline{\mathsf U_j}$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Substitution gives $w'^{\dagger}\mathsf T'_ez'=w^{\dagger}\mathsf T_ez$
+and $q'_e(z')=q_e(z)$. The congruences in
+\eqref{eq:obs-intensity-gauge} give $\mathsf U_i^{\dagger}\mathsf U_i=I$
+and $\mathsf U_j\mathsf U_j^{\dagger}=I$, and substitution gives the asserted
+law for $\mathsf B_e$, $\mathsf a'=\mathsf U_i\mathsf a$, and
+$\mathsf b'=\mathsf U_j\mathsf b$. Vectorization gives the tensor-product
+law. This is \cref{cor:obs-selective-kernel-gauge} with inert record labels.
+$\square$
+
+\corollaryheading{Random links are weighted by their click rates}{cor:obs-intensity-random-link}
+Keep the emissions and detectors of \cref{thm:obs-intensity-born}, and draw
+$\mathsf T_e$ from a law $\nu_e$ independent of the settings and, conditional
+on the sender setting, of its label. Assume the same $\eta_{\rm rec}>0$
+satisfies the support bound for $\nu_e$-almost every link and every used atom,
+and $0<\mathsf n_{\nu}:=\E_{\nu_e}\mathsf n_e<\infty$. The click probability
+is $\eta_{\rm rec}\mathsf n_{\nu}$, and the conditional table is
+\begin{equation}
+\Tr\bigl[\varrho_{\nu}^{\rm rec}
+(\mathsf F_{\mathsf d\mid\mathsf y}\otimes\mathsf H_{\mathsf k\mid\mathsf x})\bigr],
+\qquad
+\varrho_{\nu}^{\rm rec}=
+\frac{\E_{\nu_e}[\mathsf v_e^{\rm rec}(\mathsf v_e^{\rm rec})^{\dagger}]}
+{\mathsf n_{\nu}}.
+\label{eq:obs-intensity-random-state}
+\end{equation}
+The link law given a click is
+$\nu_e^{\mathsf C}(d\mathsf T_e)=\mathsf n_e\nu_e(d\mathsf T_e)/\mathsf n_{\nu}$.
+If the support of $\nu_e$ contains $e^tI$ for every $t>0$, no common positive
+$\eta_{\rm rec}$ satisfies the bound for a nonzero emitted atom.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Integrate \eqref{eq:obs-intensity-joint} over $\nu_e$ and divide by its
+total click mass. Integrability of the outer product follows from
+$\|\mathsf v_e^{\rm rec}\|^2=\mathsf n_e$, and its expected trace is
+$\mathsf n_{\nu}$, proving positivity and unit trace of
+$\varrho_{\nu}^{\rm rec}$. Bayes' formula gives $\nu_e^{\mathsf C}$.
+For the final assertion, $q_e(z)=e^{2t}z^{\dagger}\mathsf D_{\rm det}z$
+at $\mathsf T_e=e^tI$. Every strict violation persists in an open neighborhood
+of that link, which has positive $\nu_e$-mass by the support hypothesis.
+$\square$
+
+\remarkheading{Generated records, accessible registers, and feedback}{rem:obs-intensity-access}
+At fixed $(\theta,X)$, changing recognition while respecting
+\cref{req:gen-typing-prohibition} leaves the generated record law unchanged,
+including \eqref{eq:obs-intensity-joint}. A register that is a measurable
+function only of one endpoint's setting and record inherits the independence
+of the remote setting proved in \cref{thm:obs-intensity-born}, also when
+conditioning on $\mathsf C$. This includes any local recognition register
+factoring through that access map in
+\eqref{eq:prob-local-recognition-kernel}. For a more general accessible map
+of $(o,X,\mathbb Q_{V,o,X})$, the register law is its pushforward of the
+observation law; independence of a remote setting is a separate equality of
+these pushforwards. A population coupling selector requires its own access
+restriction, as in \cref{prop:prob-access-restriction}. If a register changes
+a later emission or parameter, that later joint is governed by the feedback
+map as well as the present record law. None of these distinctions changes
+the incident-record terms of the collective free energy in
+\cref{lem:obs-block-posterior,prop:obs-local-block-descent}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The observation marginal is the integral of the generative joint over its
+latents; recognition is absent from every factor by the typing prohibition.
+For an access-measurable register, equality of the endpoint record laws
+implies equality of their pushforwards under the same local map. A general
+register uses its specified map instead, and a subsequent observation kernel
+is integrated against the resulting register law. These are distinct
+compositions of kernels; no factor of the present joint is removed.
+$\square$
+
 \section{Information loss and descent}
 \label{sec:selective-information}
 
@@ -1329,5 +1540,11 @@ with per-head rows that are marginals of the coupled table; an exact recursion
 with bounded head count for the coupled class remains open. Two agents that
 attend to each other do so through two independent links, whose product is a
 holonomy.
+The intensity record of \cref{thm:obs-intensity-born} gives a Born-form table
+when emission moments and detector totals are independent of settings and
+transported intensities satisfy one common bound. Random links are weighted
+by their click rates (\cref{cor:obs-intensity-random-link}); the generated
+table and accessible inference registers remain distinct
+(\cref{rem:obs-intensity-access}).
 Coarse-graining carries the receiver--source event law, not the conditional
 row, and a coarse source set contains the block itself.
