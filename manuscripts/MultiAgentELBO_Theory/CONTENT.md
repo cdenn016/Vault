@@ -348,7 +348,18 @@ finite-rate limit open. New units: `def:hist-configuration-manifold`,
 `def:hist-coarse-configuration-map`, `open:hist-meta-clock-ratio`,
 `open:hist-retained-fisher-quotient`.
 
-**Chapter 8, two-timescale dynamics.** A fast-slow coordinatization
+**Chapter 8, two-timescale dynamics.** Repeated source draws have an exact native
+evidence score and count-normalized natural learning drive under the declared
+complete-prefix categorical Fisher metric (`prop:obs-native-source-drive`). The
+recognition drive differs by its expected-count error. Conditional contraction in
+one common metric gives a moving-prior estimate (`prop:obs-moving-prior-tracking`);
+for the conditioned law of `prop:link-compact-comparison`, the native count bound
+charges the endpoint tail once (`cor:obs-conditional-count-tracking`). These results
+cover deterministic schedules. Positive finite label-pattern likelihoods give
+an explicit Lipschitz constant for the native prior field and a finite-time
+trajectory comparison (`prop:obs-source-finite-time-learning`); its possibly
+large constants supply no useful long-time or growing-network stability or
+formation result. A fast-slow coordinatization
 (`def:obs-fast-slow-blocks`) maps `(f,s)`, `s=(s_{\mathrm m},\theta)`, to a population recognition law
 and generative parameters, with objective `F(f,s)` the extended VFE with its generative argument
 explicit. The envelope identity and reduced slow flow (`lem:obs-envelope-slow-flow`) use
@@ -491,6 +502,18 @@ principal logarithm is not Gaussian when the leading cumulant forms are nonzero
 (`prop:link-coarse-generator-law`, Chapter 13), so closure is `open:link-coarse-closure`; the
 holonomy-conditioned Gaussian parent score is infinite almost surely under every absolutely
 continuous generator law (`cor:link-holonomy-parent-almost-sure`, Chapter 11).
+A finite product-domain comparison (`prop:link-compact-comparison`) uses mixed
+action oscillations and a weighted column influence condition to contract an exact
+conditional sampler uniformly over positive source priors. The native-law TV
+bound adds the discarded mass once; the exact truncation KL is in the
+approximation-to-target direction (`rem:link-comparison-scope`). This is a
+conditional inference result, not an identification with recognition dynamics.
+On the full unbounded domain, a positive loop containing two independently
+variable central dilation directions makes the mixed-oscillation envelope
+infinite under the stated axis-growth and no-repeat hypotheses
+(`prop:link-global-oscillation-failure`). No positive site weights repair that
+envelope. This is a failure of one sufficient estimate, not of actual mixing
+or formation (`rem:link-global-oscillation-scope`).
 
 ### Part II. Exact coarse-graining at one base point
 
@@ -765,7 +788,11 @@ averaged over the law of the conditioning data; the settling condition is unchan
 handoff comparison of SPEC R14 and the restoring and horizon clauses of R15 for the second level,
 together with the selector and the slow manifold, and its negative branch is a proof that no
 second level produced by descent, apart from a supplied-scale sequence in the sense of R14, meets
-them.
+them. The preparation and handoff quantifiers are distinguished in
+`rem:full-graph-formation-quantifiers` without changing those settling conditions.
+`rem:full-graph-marked-limit` shows why continuous-sheet hyperbolicity alone does
+not make the complete marked event law deterministic at zero thermostat
+temperature; the elementary example is a test of that implication only.
 
 ### Part III. Formation and interpretation
 
@@ -1058,8 +1085,19 @@ least two has a finite joint normalizer and a unicyclic one does not
 attained by no chart link whose negative eigenvalues are semisimple, so it is not attained for
 `K=2,3` (`prop:glink-chart-infimum-semisimple`); the closed-walk (hopping) series with the triangle
 coefficient and an explicit remainder (`prop:glink-hopping`); and the exact spectrum of the
-linearized operator on a ring times learning episodes (`prop:glink-linear-spectrum`). A
-cycle-rooted-forest expansion of the induced action in rank three or more is declined in the scope
+linearized operator on a ring times learning episodes (`prop:glink-linear-spectrum`).
+The finite native-law section (`prop:glink-native-tail-envelope`) gives the exact
+matter-collapsed record action and a source-prior-uniform Gaussian-reference tail
+envelope. `cor:glink-finite-comparison-regime` proves a nonempty finite parameter
+domain with positive generator variance and positive record precision where both
+the tail and contraction premises hold. The thresholds may depend on the whole
+finite graph, history, data, and error tolerance; this supplies no admission at
+unchanged experiment parameters or uniform growing-network regime.
+Primitive fine Gaussian records and the declared simple-face/two-cycle loop
+family meet the axis-growth hypotheses for that global oscillation failure
+(`cor:glink-global-oscillation-failure`). The same finite likelihood envelope
+gives a conservative source-learning Lipschitz bound `1+M exp(B)`.
+A cycle-rooted-forest expansion of the induced action in rank three or more is declined in the scope
 paragraph. Open: normalization of unanchored latent links at a stated `K\geq2`
 (`open:glink-unanchored-normalization`), and the chart infimum for `K\geq4` at minimizers with a
 non-semisimple negative eigenvalue (`open:glink-chart-infimum`).

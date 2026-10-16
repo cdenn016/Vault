@@ -1038,6 +1038,142 @@ The ring is a validation instance, not a model: it shows that the operator of
 single collective mode, and that the episode index enters with the same sign as the anchor, so the most
 probable history relaxes monotonically between its ends.
 
+\section{Finite comparison after Gaussian matter elimination}
+\label{sec:glink-finite-native-comparison}
+
+\propositionheading{A source-prior-uniform tail envelope}{prop:glink-native-tail-envelope}
+For a finite history let $q(d\mathring\omega)$ be a nondegenerate Gaussian
+reference, product across full copy-history blocks, and let
+$r_\pi(s)=\prod_r\pi_{i(r),s_r}$ be the prior of finitely many source draws.
+Use a nonnegative action $S$ consisting of finitely many squared matrix-word
+defects and nonnegative quadratic increments. In each observed episode let
+$z\sim N(\mu_0,\Sigma_0)$, $\Sigma_0\succ0$, and
+$o=D_s(\mathring\omega)z-h_s+\epsilon$, with
+$\epsilon\sim N(0,R)$, $R\succ0$, independently of $z$. The blocks of $D_s$
+are finite matrix-exponential words; the offsets and observations are finite.
+Fresh episode matter and its records are conditionally independent across
+episodes given the history and source draws. Then eliminating matter gives
+\begin{equation}
+\begin{split}
+W_s(\mathring\omega)
+&=\frac12\log\det\bigl(I+R^{-1/2}D_s\Sigma_0D_s^\top R^{-1/2}\bigr)\\
+&\quad+\frac12(o+h_s-D_s\mu_0)^\top
+(R+D_s\Sigma_0D_s^\top)^{-1}(o+h_s-D_s\mu_0)\ge0,
+\end{split}
+\label{eq:glink-collapsed-record-action}
+\end{equation}
+summed over the observed episodes. The posterior of histories and labels has
+density proportional to $e^{-S-W_s}$ relative to $q r_\pi$. Set
+\begin{equation}
+B=\E_q S+\max_s\E_q W_s<\infty.
+\label{eq:glink-reference-envelope}
+\end{equation}
+For every nonnegative measurable function $\psi$ of the generators and every
+source prior on the finite row supports,
+\begin{equation}
+\E_{P_\pi}\psi\le e^B\E_q\psi,\qquad
+P_\pi(G^c)\le\min\{1,e^Bq(G^c)\}
+\label{eq:glink-native-tail-envelope}
+\end{equation}
+for every generator event $G$. The constants are finite-volume quantities.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Gaussian integration gives covariance $R+D_s\Sigma_0D_s^\top$ and mean
+$D_s\mu_0-h_s$. Dividing its density by the fixed noise-only maximum
+$(2\pi)^{-\dim(o)/2}\det(R)^{-1/2}$ gives
+$e^{-W_s}$ and \cref{eq:glink-collapsed-record-action}. Those maxima and the
+generator-prior normalizer cancel in the posterior. Jensen applied before
+matter integration yields, with $b_s=o+h_s-D_s\mu_0$,
+\begin{equation}
+W_s\le\tfrac12\left[b_s^\top R^{-1}b_s+
+\Tr(R^{-1}D_s\Sigma_0D_s^\top)\right].
+\end{equation}
+The norm of a finite exponential word is bounded by the exponential of the sum
+of the generator norms. Gaussian exponential moments of such finite sums are
+finite, so every term in \cref{eq:glink-reference-envelope} is finite; the source
+set is finite. Jensen under $q r_\pi$ gives
+$\E_{q r_\pi}e^{-S-W_s}\ge e^{-B}$, while $e^{-S-W_s}\le1$.
+Integrating $\psi$ proves \cref{eq:glink-native-tail-envelope}. $\square$
+
+\corollaryheading{A nonempty finite comparison regime}{cor:glink-finite-comparison-regime}
+In \cref{prop:glink-native-tail-envelope}, set every generator anchor to zero,
+scale its reference covariance by $\sigma_{\rm g}^2$, and set
+$R=R_0/\upsilon$ with $\sigma_{\rm g},\upsilon>0$. Keep the graph, finite history,
+matter law, offsets, observations, and all loop and increment coefficients fixed,
+with $S(0)=0$. Use equal weights in the influence criterion.
+For every $\delta\in(0,1)$ there are strictly positive upper thresholds for
+$\sigma_{\rm g}$ and $\upsilon$, and one finite standardized product box $G_0$,
+such that for every pair of positive parameters below those thresholds,
+the product set $G_{\sigma_{\rm g}}=\sigma_{\rm g}G_0$ has
+$\chi\le1/2$ in \cref{prop:link-compact-comparison} and
+$\sup_\pi P_\pi(G_{\sigma_{\rm g}}^c)\le\delta$. Thus its bound tends to at most $\delta$ with
+the number of conditional draws, uniformly over the source priors. All original
+copies, their loops, and positive record strengths remain in the target law.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Write $\mathring\omega=\sigma_{\rm g}x$ so that the Gaussian reference of $x$
+is independent of $\sigma_{\rm g}$. Choose a finite product box $G_0$ with
+$q_1(G_0^c)\le\delta/2$ and set $G=\sigma_{\rm g}G_0$. On $G_0$ all loop
+words tend uniformly to the identity, the quadratic increments vanish, and
+\cref{eq:glink-collapsed-record-action} tends uniformly to zero as
+$(\sigma_{\rm g},\upsilon)\to(0,0)$. There are finitely many labels, words,
+episodes, and sites. Hence every mixed oscillation in
+\cref{eq:link-mixed-oscillation} tends to zero, and so does $\chi$.
+
+For parameters in a bounded rectangle, the loop action and the Jensen record
+bound in the preceding proof are dominated by a constant times a polynomial
+plus $\exp(c\|x\|)$ for some finite $c$. This is Gaussian-integrable and the
+integrands tend to zero. Dominated convergence and the finite maximum over
+source assignments give $B\to0$. Choose positive thresholds for which
+$B\le\log2$ and $\chi\le1/2$; then
+\cref{eq:glink-native-tail-envelope} gives the required tail charge. $\square$
+
+\corollaryheading{Global oscillation failure for primitive Gaussian records}{cor:glink-global-oscillation-failure}
+In \cref{prop:glink-native-tail-envelope}, use the standard representation of
+$\GL^+(K,\R)$ and a finite loop family in which each selected copy occurs at
+most once per walk. Suppose two independent generator sites contain a
+mutually attending pair with a positive based two-cycle coefficient. Assume
+that each fine record subtracts one primitive transported source from its
+receiver, with fixed frame matrices, and that the non-loop history action is
+a nonnegative quadratic increment action. Then
+\cref{prop:link-global-oscillation-failure} applies to the full generator
+domain. This holds at every positive reference covariance and record
+precision under these hypotheses. In the source-learning comparison of
+\cref{prop:obs-source-finite-time-learning}, one may separately take
+$\mathcal R\le e^B$, and hence $L\le1+M e^B$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Choose the two independent generator rays $tI_K$ in one episode, with signs
+matching their based two-cycle. Along either axis a primitive fine-record
+operator has norm at most a constant times $1+e^t$. The Jensen bound in
+\cref{prop:glink-native-tail-envelope} gives a record action bounded by a
+constant times $1+e^{2t}$; the finite increment action is $O(t^2)$.
+These are \cref{eq:link-dilation-axis-growth}. Simple directed faces and
+based mutual two-cycles meet the stated no-repeat condition. For the last
+assertion, the finite coefficients
+$k_J=\E_q e^{-S-W_J}$ lie in $[e^{-B},1]$ by the same Jensen argument,
+so their maximum-to-minimum ratio is at most $e^B$. $\square$
+
+\remarkheading{Finite comparison and changing source priors}{rem:glink-finite-comparison-scope}
+The thresholds of \cref{cor:glink-finite-comparison-regime} can depend on the
+network, history, observations, and accuracy. Its proof does not provide
+thresholds uniform in growing network size or a useful cost at a prescribed
+parameter point. The bound $e^B$ can grow exponentially with size. A common
+conditional-matter kernel transfers the total-variation comparison to the full
+latent law, while a changing source prior requires the tracking hypotheses of
+\cref{prop:obs-moving-prior-tracking}. The comparison concerns posterior
+integration and supplies no identification with the collective recognition
+flow or the formation process. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The box and finite sums used in the corollary are chosen after the network and
+history. If $B$ is proportional to size, its exponential has the stated growth.
+The kernel and clock statements follow from \cref{rem:link-comparison-scope}.
+$\square$
+
 \section{Open problems of the Gaussian link sector}
 \label{sec:glink-open}
 
