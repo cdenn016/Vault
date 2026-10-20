@@ -776,6 +776,39 @@ record and have probabilities \(p^n\to0\). (ii) If \(Q(x)=Q(x')\) with
 \(x\neq x'\), recovery of both would require
 \(R(Q(x),\cdot)=\delta_x\) and \(R(Q(x),\cdot)=\delta_{x'}\). \(\square\)
 
+\propositionheading{A conditional operational diagonal}{prop:rg-refresh-operational-diagonal}
+Consider targets $P^\star_N$ on finite networks at $c_*$, evaluated at depths
+$\ell(N)\to\infty$. Suppose each admits the fixed-target estimate of
+\cref{prop:rg-conditional-refresh-entropy}, with $m_N$ blocks, refresh
+floor $\mathrm a_N>0$, entropy factorization constant $\mathrm C_N\geq1$,
+and finite initial entropy $e_{0,N}$. Take $k_N$ inference updates and
+numerical kernel errors $\varepsilon_{j,N}$ as in
+\cref{prop:rg-refresh-target-transfer}. A sufficient condition for vanishing
+ideal endpoint entropy and numerical-to-target TV is
+\begin{equation}
+\frac{k_N\mathrm a_N}{m_N\mathrm C_N}-\log(1+e_{0,N})\longrightarrow+\infty,
+\qquad
+\sum_{j<k_N}\varepsilon_{j,N}\longrightarrow0.
+\label{eq:rg-refresh-operational-diagonal}
+\end{equation}
+If, in addition, specified readout channels $C_N^{\mathrm{out}}$ take these laws to one
+Polish comparison space and $P^\star_NC_N^{\mathrm{out}}$ converges weakly to a law
+$P^\star_\infty$, then the numerical readout laws have the same weak limit.
+This is a transfer conditional on target convergence and on the displayed
+uniform estimates; it supplies neither of those premises, surviving
+parents, nor an operational cost bound.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The fixed-target entropy recurrence gives
+$e_{k_N,N}\leq e_{0,N}\exp[-k_N\mathrm a_N/(m_N\mathrm C_N)]$,
+which tends to zero under the first condition. Pinsker's inequality and
+\eqref{eq:rg-refresh-numerical-transfer} give vanishing numerical TV.
+Readout contracts TV, so the expectations of every bounded continuous
+function differ by at most its oscillation times that TV distance.
+Target weak convergence therefore transfers to the numerical readout.
+\hfill$\square$
+
 \openproblemheading{Two-index limits and universality}{open:rg-two-index-limits}
 Fixed-depth and maximal-depth limits can differ
 (\cref{prop:rg-noncommuting-limits}), finite networks at \(c_*\) do not inhabit
@@ -794,7 +827,10 @@ to scaling, invariant faces, basin, and blocking scheme may still differ. The
 problem is settled by a triangular family with projective consistency at fixed
 depth, uniform control of the coarse error, a diagonal scaling \(\ell(n)\), and
 a proof of convergence of a declared invariant observable, or by an
-impossibility theorem for a stated class.
+impossibility theorem for a stated class. The conditional operational
+diagonal of \cref{prop:rg-refresh-operational-diagonal} transfers an
+already established target limit; it does not construct the limiting
+nonlinear law or its compatible retained dynamics.
 
 \section{Gaussian operator flow on infinite hierarchies}
 

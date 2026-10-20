@@ -1,6 +1,92 @@
 \section{Proofs for Coarse Channels}
 \label{sec:proofs-coarse-channels}
 
+\noindent\emph{Proof of \Cref{prop:cg-finest-independent-partition}.}
+Suppose $P$ factors over partitions $\mathfrak p$ and $\mathfrak q$. Marginalizing
+the second factorization to a block $I\in\mathfrak p$ gives
+\begin{equation*}
+P_I=\bigotimes_{J\in\mathfrak q:I\cap J\ne\varnothing}P_{I\cap J}.
+\end{equation*}
+Substitution in $P=\bigotimes_{I\in\mathfrak p}P_I$ proves factorization over the
+common refinement. The finite set of independent partitions is nonempty, since it
+contains $\{V\}$, and is closed under common refinement. Its common finest refinement
+is independent and uniquely refines every member. Every independent partition has
+negative objective in \eqref{eq:cg-independent-selector-objective}, while every
+dependent partition has positive objective. Among the former the finest has the
+unique largest block count. If it is intermediate, refinement from $\{V\}$ toward it
+strictly decreases the objective; any further strict refinement is dependent and
+raises the objective across zero. Relabeling permutes the marginal products, and
+separate bimeasurable changes push each factor to its corresponding marginal, so
+independence and its finest partition have the asserted naturality and invariance.
+
+For the conditional assertion there are finitely many partitions and pairs of
+partitions. For each one with $\mathsf T_{P\mid\Upsilon}=0$, its conditional product
+identity holds on a set of full $P_\Upsilon$-mass. Intersect these finitely many sets.
+On that intersection the preceding marginalization argument proves closure under
+common refinement, hence the unique finest conditional partition and its objective
+characterization. The conditional laws given $\Upsilon=Y_V$ are point masses and
+therefore products over every partition. These constructions choose a factorization
+objective; no identity with the evidence bound has been introduced. $\square$
+
+\noindent\emph{Proof of \Cref{prop:cg-independent-selector-instability}.}
+The exponent in \eqref{eq:cg-independent-pair-law} is a sum of terms on disjoint
+pairs, so its normalized law is the product of its pair marginals. Within a pair
+the odds ratio is $e^{4\mathrm j}\ne1$, so the pair is not independent and cannot
+split in an independent partition. This gives its finest partition. For
+\eqref{eq:cg-independent-pair-perturbation} all edges of the path have positive
+coupling. Any nontrivial partition cuts an edge $ij$. Conditional on all other
+coordinates, the two-spin odds ratio across this edge is $e^{4\mathrm j_{ij}}\ne1$,
+where $\mathrm j_{ij}$ is $\mathrm j$ or $\mathrm r$. A product over the partition
+would instead make the two spins conditionally independent, with ratio one. Positivity
+of the finite law permits conditioning on every outside assignment. Thus no nontrivial
+independent partition exists. Its finitely many normalized atom probabilities are
+continuous in $\mathrm r$ down to zero, which gives total-variation convergence. $\square$
+
+\noindent\emph{Proof of \Cref{prop:cg-exchangeable-hard-selector}.}
+Because every agent permutation leaves the input law unchanged, naturality forces the
+output unlabeled partition to be invariant under every permutation. If it contained
+a block $I$ with $2\leq|I|\leq N-1$, choose distinct $i,j\in I$ and $k\notin I$.
+The transposition of $j,k$ fixes $i$ and sends $I$ to a different block containing $i$.
+Two distinct blocks of a partition cannot intersect. Therefore no such block exists,
+leaving only the singleton and one-block partitions. The argument concerns a
+deterministic partition from this law alone and imposes no restriction on a
+permutation-invariant probability distribution over partitions. $\square$
+
+\noindent\emph{Proof of \Cref{prop:cg-partition-information-stability}.}
+For a partition $\mathfrak p$ of $I$, the entropy numerator satisfies
+\begin{equation*}
+\sum_{J\in\mathfrak p}\mathrm H(P_J)-\mathrm H(P_I)
+=\KL\Bigl(P_I\Bigm\Vert\bigotimes_{J\in\mathfrak p}P_J\Bigr)
+\end{equation*}
+by \cref{thm:elbo-total-correlation-chain}. It is nonnegative and is zero exactly at a
+product. The minimum ranges over a finite set, so its zero case is a nontrivial
+independent partition.
+
+For each $J\subseteq I$, marginalization gives
+$\operatorname{TV}(P_J,Q_J)\leq\delta$. Couple these two finite-alphabet variables
+with mismatch probability $\delta_J\leq\delta$. Writing the mismatch indicator as
+an auxiliary binary coordinate and applying the entropy chain rule gives
+\begin{equation*}
+|\mathrm H(P_J)-\mathrm H(Q_J)|
+\leq h_2(\delta_J)+\delta_J\log D_J
+\leq h_2(\delta)+\delta\log D_J.
+\end{equation*}
+The last step uses $\delta\leq1/2$. A singleton alphabet contributes zero. For a
+partition with $k\geq2$ blocks, $\sum_{J\in\mathfrak p}\log D_J=\log D_I$;
+therefore its normalized entropy expression changes by at most
+\begin{equation*}
+\frac{(k+1)h_2(\delta)+2\delta\log D_I}{k-1}
+\leq3h_2(\delta)+2\delta\log D_I.
+\end{equation*}
+The minima of finitely many paired expressions differ by at most the largest
+paired difference. This proves \eqref{eq:cg-partition-information-stability}.
+The bound with $D_V\geq D_I$ proves the two threshold inclusions. A score at distance
+greater than $\eta$ from the threshold cannot cross it, so the entire qualified
+subset family and its maximal members are unchanged. Finally, the relative-entropy
+representation of each numerator is invariant under separate bimeasurable changes
+by \cref{thm:cg-dpi-equality} applied in both directions. The finite-alphabet entropy
+bound supplies no corresponding bound on unrestricted continuous laws. $\square$
+
 The proofs for \cref{sec:cg-retained-label-asymptotics} use the notation fixed at the head of
 that section, including its convention on the constant $\mathrm C_{\mathsf K}$.
 

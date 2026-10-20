@@ -116,8 +116,11 @@ $\operatorname{TC}$, and negation gives the second identity. \hfill$\square$
 \hypothesisheading{Evidence-domain hypotheses}{hyp:elbo-evidence-domain}
 \label{hyp:prob-regular-observation}
 \label{hyp:prob-classical-split-elbo}
-The extended bound of \cref{sec:elbo-identity} uses (H1)--(H2); its classical
-split into two expected log densities also uses (H3)--(H4).
+Conditions (H1)--(H2) suffice for the extended bound of
+\cref{sec:elbo-identity}; marginal domination and a selected posterior
+as in \cref{prop:prob-measure-evidence} also suffice without a joint density.
+The classical split into two expected log densities uses the density
+presentation (H1) together with (H2)--(H4).
 
 \textbf{(H1) Types and version.} The joint
 $\mathbb P_{\theta,V}(\cdot\given X)$ of \cref{ch:generative} has the density
@@ -232,9 +235,13 @@ suppressed from $K_a$, $E_{a,o}$ and $\mathbb P^{\mathsf Y}_{\theta,V}$.
 
 \definitionheading{Record likelihood, slice measure, and extended bound}{def:elbo-extended}
 \label{thm:obs-collective-vfe}
-Assume \cref{hyp:local-interaction-kernels} and (H1)--(H2), and fix
-$o\in\mathsf O^{\mathrm{reg}}_{\theta,V,X}$. The record likelihood and the
-interaction energy are
+Fix a record reference, a finite positive evidence density representative,
+and a selected posterior as in \cref{prop:prob-measure-evidence}.
+Set $M_{\theta,V,o,X}=p_{\theta,V}(o\given X)\boldsymbol\Pi_{\theta,V,o,X}$.
+This slice and the extended bound below require no common density of the
+individual record kernels. Under the additional record-density hypothesis
+\cref{hyp:local-interaction-kernels}, (H1)--(H2) give the following
+likelihood and energy presentation on the regular record set:
 \begin{align}
 L_o(y)&:=\prod_{a\in\mathfrak A}e^{-E_{a,o}(y_{\partial a})}\in[0,+\infty),
 \label{eq:obs-complete-record-likelihood}\\
@@ -261,7 +268,7 @@ p_{\theta,V}(o\given X)&=\int_{\mathsf Y}L_o(y)\mathbb P^{\mathsf Y}_{\theta,V}(
 \end{align}
 and the slice measure is
 \begin{equation}
-M_{\theta,V,o,X}(S):=\int_Sp_{\theta,V}(o,y\given X)\nu^{\mathsf Y}(dy)
+M_{\theta,V,o,X}(S)=\int_Sp_{\theta,V}(o,y\given X)\nu^{\mathsf Y}(dy)
 =\int_SL_o(y)\mathbb P^{\mathsf Y}_{\theta,V}(dy)
 =p_{\theta,V}(o\given X)\boldsymbol\Pi_{\theta,V,o,X}(S).
 \label{eq:elbo-slice-measure}
@@ -282,7 +289,10 @@ $[0,+\infty]$, are
 \Fenergy^{\mathrm{ext}}_o(Q)&:=-\Lelbo^{\mathrm{ext}}_o(Q):=\Fenergy_V^{\mathrm{ext}}[Q;X,o].
 \label{eq:obs-collective-vfe}
 \end{align}
-No domination, density, or mean-field condition on $Q$ enters.
+The density integrals above are used when their respective density
+presentations exist. The posterior definition of the slice and the
+extended bound apply under marginal domination alone. No domination,
+density, or mean-field condition on $Q$ enters.
 
 \corollaryheading{Extended gap identity and energy form}{thm:elbo-extended-gap}
 For every probability law $Q$ on the latent space,
@@ -294,6 +304,7 @@ For every probability law $Q$ on the latent space,
 \end{equation}
 so $\Lelbo_V^{\mathrm{ext}}\leq\log p_{\theta,V}(o\given X)$ with equality
 exactly when $Q=\boldsymbol\Pi_{\theta,V,o,X}$ as measures. If moreover
+\cref{hyp:local-interaction-kernels} holds,
 $Q\ll\mathbb P^{\mathsf Y}_{\theta,V}$,
 $\KL(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V})<\infty$, and the negative part of
 $H_o$ is $Q$-integrable, then
@@ -514,11 +525,17 @@ single-cluster and the arbitrarily detailed endpoints as that multiplier tends t
 zero and to infinity \citep{tishby1999information}, while mutual-information
 renormalization chooses the coarse variable of a block by maximizing its mutual
 information with the environment of the block at a declared number of coarse
-variables \citep{KochJanuszRingel2018}. The problem is settled
-positively by a functional on admissible channels or partitions, expressible
-relative to one fixed joint and not monotone toward an endpoint, whose
-optimizer is nondegenerate, and negatively by a proof of endpoint degeneracy
-for a precisely stated class of such functionals.
+variables \citep{KochJanuszRingel2018}. A fixed-law functional with a
+nondegenerate optimizer exists in the exact-independence subclass
+(\cref{prop:cg-finest-independent-partition,prop:cg-independent-selector-instability}),
+but that factorization preference is not derived from the evidence bound.
+The remaining problem is a criterion internal to that bound, on a stated
+class of interacting laws and admissible channels or partitions, not
+monotone toward an endpoint, with a nondegenerate optimizer. A construction
+that derives the criterion without a supplied relevance target, imposed
+block count, or fitted penalty, or an endpoint-degeneracy theorem on the
+same stated class, settles it. The stable partition and information-level
+choice remain \cref{open:cg-natural-selector}.
 
 \section{The factorwise decomposition}
 \label{sec:elbo-factorization}
@@ -665,6 +682,102 @@ $U$ out or restricts recognition to that fiber. \status{ESTABLISHED}
 
 Fix a nonempty block $B\subseteq V$, one agent or any aggregate, and write
 $y=(y_B,y_{-B})$; the probability model does not change with $B$.
+
+\propositionheading{Block descent without likelihood densities}{prop:elbo-measure-block-descent}
+Fix a selected posterior $\boldsymbol\Pi_o$ and a disintegration
+$\boldsymbol\Pi_{o,-B}(dy_{-B})\boldsymbol\Pi_{o,B}(dy_B\given y_{-B})$.
+For an outside recognition marginal $R\ll\boldsymbol\Pi_{o,-B}$ and a
+conditional completion $r_B$, the law $Rr_B$ satisfies
+\begin{equation}
+\KL(Rr_B\Vert\boldsymbol\Pi_o)
+=\KL(R\Vert\boldsymbol\Pi_{o,-B})
++\int\KL(r_B(\cdot\given z)\Vert\boldsymbol\Pi_{o,B}(\cdot\given z))R(dz)
+\label{eq:elbo-measure-block-descent}
+\end{equation}
+in $[0,+\infty]$. If the outside divergence is finite, the posterior
+conditional is the unique minimizing completion up to $R$-null sets.
+Convex mixing of a finite-cost completion with it does not increase the objective.
+For two completions with finite divergences, the change of the collective
+posterior divergence equals the change of the integrated conditional
+divergence. Under marginal domination, the same equality holds for the
+extended free energy.
+
+Suppose the joint is
+$\mathbb P^{\mathsf Y}_{\theta,V}(dy)\prod_a K_a(y_{\partial a},do_a)$,
+without a density assumption on the record kernels, and let
+$O_{\mathfrak A_B}$ collect the incident records. A block posterior version
+then satisfies
+\begin{equation}
+\mathbb P(dY_B\given Y_{-B},O)
+=\mathbb P(dY_B\given Y_{-B},O_{\mathfrak A_B})
+\label{eq:elbo-measure-incident-locality}
+\end{equation}
+almost surely under the joint conditioning law. Dependence in the baseline
+remains in its conditional law of $Y_B$ given $Y_{-B}$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Equation \eqref{eq:elbo-measure-block-descent} and the minimizing completion
+are \cref{lem:prob-kl-chain-rule}(a,c). Convexity of relative entropy gives
+the mixing assertion. Subtracting finite values cancels the outside term;
+the free-energy offset $-\log p(o)$ also cancels when it is defined.
+Given $Y_{-B}=z$, the finite product of record kernels factors into the
+conditional joint of $(Y_B,O_{\mathfrak A_B})$ and the product of the
+remaining kernels, which read only $z$. Disintegrating the first factor
+proves \eqref{eq:elbo-measure-incident-locality}. A restriction to a product
+recognition family may exclude the minimizing conditional completion.
+\hfill$\square$
+
+\propositionheading{A nondominated record separates posterior and prior costs}{prop:elbo-nondominated-record-witness}
+Let $Y=(Y_1,Y_2)$ have the uniform law on $[0,1]^2$ and let $O=Y_1$.
+The record kernels $\delta_{y_1}$ are not commonly sigma-finitely dominated,
+but the record marginal has Lebesgue density one and a posterior version is
+$\boldsymbol\Pi_o=\delta_o\otimes\operatorname{Unif}[0,1]$.
+For a law $q$ with finite divergence from $\operatorname{Unif}[0,1]$, put
+$Q_o=\delta_o\otimes q$. Then
+\begin{equation}
+\KL(Q_o\Vert\boldsymbol\Pi_o)
+=\KL(q\Vert\operatorname{Unif}[0,1])<\infty,
+\qquad
+\KL(Q_o\Vert\mathbb P^{\mathsf Y})=+\infty.
+\label{eq:elbo-nondominated-record-witness}
+\end{equation}
+Consequently a finite posterior-gap objective does not imply a finite
+prior-KL plus point-likelihood energy presentation.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The posterior fixes the observed first coordinate and leaves the second
+uniform. The product-reference chain rule gives its displayed cost.
+The line $\{o\}\times[0,1]$ is prior-null and has full $Q_o$ mass.
+Common domination of the moving Dirac family is excluded by
+\cref{sec:exp-dominated-nondominated}. \hfill$\square$
+
+\propositionheading{Evidence of a finite-resolution record}{prop:elbo-record-event}
+For a latent prior $\varrho$, any record kernel $K$, and a measurable
+record event $A$ of probability $z_A=\int K(y,A)\varrho(dy)>0$, put
+$L_A(y)=K(y,A)$ and $\Pi_A(dy)=z_A^{-1}L_A(y)\varrho(dy)$. For every
+recognition law $Q$,
+\begin{equation}
+-\log z_A+\KL(Q\Vert\Pi_A)
+=\KL(Q\Vert\varrho)+\E_Q[-\log L_A]
+\label{eq:elbo-record-event}
+\end{equation}
+in $[0,+\infty]$. With product record kernels, a rectangular record event
+has the corresponding product likelihood. Shrinking record events need
+not converge to point conditioning in total variation.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Since $0\leq L_A\leq1$, its negative log is nonnegative. On absolute
+continuity the Radon--Nikodym identity
+$dQ/d\Pi_A=z_A(dQ/d\varrho)/L_A$ gives the formula; outside it a
+prior-null set or $\{L_A=0\}$ gives the same infinite branch.
+Conditional independence of the records gives the rectangular-event
+product. In \cref{prop:elbo-nondominated-record-witness}, conditioning the
+first coordinate to a positive-length interval gives an atomless marginal,
+at TV distance one from its point-conditioned marginal for every interval.
+\hfill$\square$
 
 \lemmaheading{Block disintegration of the posterior}{lem:obs-block-posterior}
 Let $\mathfrak A_B=\{a\in\mathfrak A:\partial a\cap B\ne\varnothing\}$ and define
@@ -1238,10 +1351,15 @@ one limit point.
 
 \section*{Physicist's summary}
 
-The population carries one generative law and one recognition law, and the
-only evidence bound is $\log p(o)-\KL(Q\Vert\boldsymbol\Pi)$, defined for every
+The population carries one generative law and one recognition law. With a
+record reference its evidence bound is $\log p(o)-\KL(Q\Vert\boldsymbol\Pi)$, defined for every
 $Q$ and equal to $-\infty$ when $Q$ charges what the posterior cannot see;
 everything else is bookkeeping of that relative entropy through the chain rule.
+Without common likelihood densities the joint-measure objective of
+\cref{prop:prob-measure-evidence} and block descent of
+\cref{prop:elbo-measure-block-descent} remain available; the density-energy
+split has additional assumptions
+(\cref{prop:elbo-nondominated-record-witness}).
 Substituting marginal entropies overstates the bound by exactly the total
 correlation. Observations are records attached to latent states, and an
 environment can be rewritten as boundary nodes emitting them. Each block of

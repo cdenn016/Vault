@@ -167,8 +167,8 @@ ledger row.
 R6. Standing conventions. The same section fixes the defaults: measurable spaces are nonempty and
 standard Borel; laws and kernels are normalized and measurable; a coarse channel is a
 recognition-independent Markov kernel on latent coordinates that leaves observations unchanged
-and, at `c_*`, is vertical over the identity of `c_*`; an admitted observation has finite
-positive evidence; structural data are parameters unless a configuration prior or a structural
+and, at `c_*`, is vertical over the identity of `c_*`; an admitted observation in a scalar evidence statement has finite
+positive evidence relative to its specified record reference; structural data are parameters unless a configuration prior or a structural
 channel is declared, and the declaration names its law; the copy set of the interaction multigraph
 at `c_*` is a structural datum that contains the reversal closure of the union of the source-prior
 supports, mutually attending pairs use distinct copies with independent links whose 2-cycles belong
