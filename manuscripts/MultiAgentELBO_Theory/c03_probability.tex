@@ -10,6 +10,8 @@ atoms are countable (\Cref{thm:prob-mixed-family-common-domination}), the relati
 $[0,+\infty]$ (\Cref{lem:prob-kl-chain-rule}) that every later decomposition cites, and three levels of
 description, at which a law-point energy is not a sample energy and point-mass recognition of law points
 has infinite cost (\Cref{prop:prob-law-point-energy,prop:prob-law-point-point-mass}).
+The measure-level evidence identity of \cref{prop:prob-measure-evidence}
+also applies when individual record likelihood densities do not exist.
 \Cref{ch:generative} builds the joint on these spaces, \Cref{ch:elbo} applies the chain rule, and
 \Cref{ch:selective-communication,ch:finite-depth-formation} use the levels.
 
@@ -18,8 +20,10 @@ Injectivity of a model evaluator is not assumed, and no regularity of the quotie
 the same evaluated kernel is supplied; presentations are retained. The coupling selector is applied once,
 and its equivariance under frame re-expression (rerunning it on transformed marginals returns the
 transformed coupling) is neither assumed nor claimed. Open are a normalized law-point prior
-(\Cref{open:prob-law-point-prior}) and likelihoods for record families without a common dominating
-measure (\Cref{open:prob-nondominated-likelihood}). \status{NOT-CLAIMED}
+(\Cref{open:prob-law-point-prior}) and gauge-compatible local energy
+presentations for nondominated records (\Cref{open:prob-nondominated-likelihood}).
+The latter does not restrict the measure-level posterior calculus of
+\cref{prop:prob-measure-evidence}. \status{NOT-CLAIMED}
 
 \section{Latent and record spaces at \texorpdfstring{$c_*$}{c*}}
 \label{sec:prob-design}
@@ -105,6 +109,8 @@ recognition parameter, nor a posterior is an argument of an evaluated kernel.
 \label{sec:prob-reference}
 
 \definitionheading{Reference measures}{def:prob-reference-measures}
+These references specify density presentations; the law-level statements
+of \cref{prop:prob-measure-evidence} do not assume such presentations.
 Each Euclidean coordinate carries its Borel sigma-algebra and Lebesgue measure, and each countable
 coordinate its power set and counting measure. A mixed real coordinate carries one parameter-independent
 reference for the whole family of laws placed on it, generative and recognition alike: when the union
@@ -194,21 +200,102 @@ measurable set $\mathsf O_{\theta,V,X}^{\mathrm{reg}}$ with
 Every fixed-observation posterior, evidence-bound, or free-energy statement is asserted for
 $\mathbb P_{\theta,V,X}^{\mathsf O}$-almost every $o$, represented by
 $o\in\mathsf O_{\theta,V,X}^{\mathrm{reg}}$. The hypothesis excludes everywhere-pointwise statements
-unless a jointly measurable density, an evidence representative, and a conditional version are declared
-as model data; the joint measure alone does not determine a posterior at an exceptional observation
+unless a conditional version, and for scalar-evidence statements a record
+reference and an evidence representative, are declared as model data; no
+joint density is required by the measure-level convention. The joint
+measure alone does not determine a posterior at an exceptional observation
 (\Cref{rem:prob-version-witness}).
 
-\openproblemheading{Nondominated likelihood families}{open:prob-nondominated-likelihood}
+\propositionheading{Parameterized posterior versions}{prop:prob-parameterized-disintegration}
+For a probability kernel from a measurable parameter space to
+$\mathsf Y\times\mathsf O$, there is a posterior kernel measurable jointly
+in the parameter and the record. Its disintegration identity holds at every
+parameter, with essential uniqueness under that parameter's record marginal.
+No common density of the record kernels is required.
+\citet[Thm.~2.29(1), Thm.~B.6]{Forre2026Transitional} gives this
+parameterized disintegration on a standard Borel latent space and a
+countably generated record space. \status{STANDARD}
+
+\propositionheading{Evidence at the level of joint measures}{prop:prob-measure-evidence}
+Fix $(\theta,V,X)$, a joint law $\mathbb P=\mathbb P_{\theta,V}(\cdot\given X)$,
+its record marginal $\mathbb P^{\mathsf O}$, a selected posterior kernel
+$o\mapsto\boldsymbol\Pi_o$, a recognition kernel $o\mapsto\mathbb Q_o$,
+and a probability $\zeta^{\mathsf O}\ll\mathbb P^{\mathsf O}$. Put
+$\mathbb Q^\zeta(do,dy)=\zeta^{\mathsf O}(do)\mathbb Q_o(dy)$. Then
+\begin{equation}
+\KL(\mathbb Q^\zeta\Vert\mathbb P)
+=\KL(\zeta^{\mathsf O}\Vert\mathbb P^{\mathsf O})
++\int\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)\zeta^{\mathsf O}(do)
+\label{eq:prob-measure-evidence-chain}
+\end{equation}
+in $[0,+\infty]$. If only the record marginal is dominated by a specified
+sigma-finite $\nu^{\mathsf O}$, with density $p$, the finite measure-valued
+slice
+\begin{equation}
+M_o(dy)=p(o)\boldsymbol\Pi_o(dy),
+\qquad
+\mathbb P(do,dy)=\nu^{\mathsf O}(do)M_o(dy),
+\label{eq:prob-measure-slice}
+\end{equation}
+has mass $p(o)$, with $0<p(o)<\infty$ on a record-marginal full set.
+Changing posterior versions on a record-marginal null set changes neither
+\eqref{eq:prob-measure-evidence-chain} nor its coarse pushforwards, up to
+$\zeta^{\mathsf O}$-null sets. A countable collection of record marginals
+has one common probability reference, their positive weighted mixture.
+There need not be a common sigma-finite reference for an uncountable family.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Apply \cref{lem:prob-kl-chain-rule}(a) with the record as first coordinate.
+Disintegration gives the slice formula and its mass; a probability density
+is finite and positive almost surely under its own law. Absolute continuity
+of $\zeta^{\mathsf O}$ propagates the exceptional sets. A mixture with
+strictly positive weights dominates every one of its countably many
+components. The uncountable family $\{\delta_t:t\in[0,1]\}$ has no common
+sigma-finite dominating measure by \cref{sec:exp-dominated-nondominated}.
+\hfill$\square$
+
+\remarkheading{Reference dependence and exceptional records}{rem:prob-measure-reference}
+In \cref{prop:prob-measure-evidence}, replacing $\nu^{\mathsf O}$ by
+$h\nu^{\mathsf O}$, with $0<h<\infty$, replaces the log evidence by
+$\log p(o)-\log h(o)$. Thus scalar evidence needs a specified reference.
+For two mutually singular record marginals there is no probability
+$\zeta^{\mathsf O}$ absolutely continuous with respect to both.
+Parameterwise posterior versions need not have one parameter-independent
+full-measure record set. A countable collection of identities at one
+parameter can use the intersection of their full sets; an everywhere
+prediction on an exceptional record requires additional version data.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The Radon--Nikodym change of reference divides $p$ by $h$.
+If a set has full mass for one of two singular marginals and zero mass for
+the other, a probability dominated by both would give it mass both one and
+zero. For the family with record marginal $\delta_t$, its regular set can
+be $\{t\}$; no set contained in every such set is full for every parameter.
+Countable intersections preserve full measure.
+\hfill$\square$
+
+\openproblemheading{Local energy presentations for nondominated records}{open:prob-nondominated-likelihood}
 The density formulas here use, for every record kernel $K_a$, one sigma-finite $\nu_a$ dominating
 $\{K_a(X,y_{\partial a},\cdot)\}$ and a jointly measurable density. For a family without one, such as
 $K_a(X,y_{\partial a},\cdot)=\delta_{h(y_{\partial a})}$ with $h$ taking uncountably many values
 (\Cref{sec:exp-dominated-nondominated}), the joint law and its regular conditional posterior exist, but the
 likelihood $dK_a(X,y_{\partial a},\cdot)/d\nu_a(o_a)$ is undefined and the evidence density can fail to
-exist. Open is a treatment of the evidence bound, its local disintegrations, and the coarse channels at the
-level of joint measures and regular conditional laws, or hypotheses restoring a jointly measurable
-likelihood, with a rule for propagating record-null choices of versions. It is settled by such a treatment
-with proofs that the exact identities of \Cref{ch:elbo,ch:coarsegraining} hold in it, or by a record family
-for which they provably have no measure-level counterpart.
+exist. The posterior and coarse-channel identities have the
+measure-level treatment of \cref{prop:prob-measure-evidence,prop:elbo-measure-block-descent,cor:cg-measure-evidence}.
+The prior-KL and record-energy split cannot be retained literally for every
+such family (\cref{prop:elbo-nondominated-record-witness}). What remains is
+a local energy presentation for a stated family of nondominated record
+kernels with moving singular support: jointly measurable local slice
+references and energies that are compatible with the same joint, its gauge
+re-expressions, incident-record disintegrations, and coarse channels.
+The posterior itself is not admitted as the chosen local reference;
+the references must be specified from the generative data.
+A positive resolution constructs them and proves the corresponding
+factorwise identities on their stated finite domains; a negative resolution
+exhibits a family for which no such presentation exists. Neither branch is
+settled by posterior KL alone or by requiring the original dominated formula.
 
 \section{Absolute continuity}
 \label{sec:prob-abscont}
@@ -558,7 +645,11 @@ law-point posterior and the sample-level recognition marginals.
 
 \section*{Physicist's summary}
 
-Everything probabilistic at $c_*$ is a law or a kernel, with densities against references fixed per family,
-and one chain rule in $[0,+\infty]$ does all later bookkeeping. Local recognition laws do not determine their
+Everything probabilistic at $c_*$ is a law or a kernel, with densities against references fixed per family
+when those exist. Posterior disintegration and the joint-measure evidence
+identity apply without common record likelihood densities
+(\cref{prop:prob-measure-evidence}); scalar evidence is relative to a
+specified marginal reference. One chain rule in $[0,+\infty]$ does the
+bookkeeping. Local recognition laws do not determine their
 coupling, restricted access has an exact evidence price, and attention's transported divergence is a
 law-point energy.

@@ -87,8 +87,9 @@ every structure group with a declared inner product on its Lie algebra (`prop:li
 loop holonomy, per-edge twist classes, one passive vertex change, and one record kernel.
 
 **Chapter 3, probability semantics at `c_*`.** Kernels come first and densities second, on
-standard Borel spaces with declared reference measures; mixed families have a common dominating
-measure (`thm:prob-mixed-family-common-domination`, proof in the measure appendix). The access map
+standard Borel spaces; density presentations use declared reference measures. A mixed family's
+common domination is characterized by `thm:prob-mixed-family-common-domination`, proved in the
+measure appendix. The access map
 `\operatorname{Acc}_i:\mathsf O\times\mathsf X\to\mathsf I_i` and the local kernel `\mathbb Q_i` give
 `\mathbb Q_{i,o,X}=\mathbb Q_i(\operatorname{Acc}_i(o,X),\cdot)`; access restricts local laws only,
 and decentralization also requires a selector indexed by `((\operatorname{Acc}_i(o,X))_i,X)`. The
@@ -112,7 +113,11 @@ product-reference and fixed-marginal corollaries, the extended data-processing c
 (`thm:cg-kl-dpi-extended`), and bijection invariance (`eq:cg-rn-bimeasurable`,
 `eq:cg-kl-bimeasurable-invariance`); it is STANDARD only with checked locators (Kullback 1951 and
 Csiszár 1967 for data processing; Gray or Pinsker for the chain rule), otherwise ESTABLISHED with
-its proof in the measure appendix. Nondominated likelihood families are
+its proof in the measure appendix. Parameterized posterior disintegration is
+`prop:prob-parameterized-disintegration`. The joint-measure evidence chain
+`prop:prob-measure-evidence` needs no likelihood densities; a scalar evidence bound needs only
+domination of the record marginal, with the reference and null-version distinctions of
+`rem:prob-measure-reference`. Local energy presentations for nondominated record kernels remain
 `open:prob-nondominated-likelihood`. Finite designs, sampling compatibility, and continuum law
 theory go to Supplement B.
 
@@ -147,7 +152,11 @@ with a unique maximizer: conditions checkable on the model, met by some model of
 dimension at least two whose stationary set at the limit value of an orbit is not discrete, that
 give convergence of every orbit to one stationary point, or an orbit with more than one limit
 point under compact upper level sets. Both chapter labels `ch:elbo` and
-`ch:local-collective-elbo` are kept.
+`ch:local-collective-elbo` are kept. The measure-level extension keeps block descent and
+incident-record locality without record densities (`prop:elbo-measure-block-descent`).
+`prop:elbo-nondominated-record-witness` separates finite posterior KL from infinite prior KL;
+`prop:elbo-record-event` gives finite-resolution event evidence without asserting TV convergence
+to point conditioning.
 
 **Chapter 6, attention and selective communication.** The copy set of the interaction multigraph is
 a structural datum declared before the rows (`def:obs-attention-label-model`); it contains the
@@ -572,10 +581,17 @@ softmax of effective log masses, and branch densities `N^{-1}\mathcal I`; its st
 fixed-tie `N^2` tensor (label-observation information), and its `1/N` window
 `\theta=\theta_0+\mathsf w/N` have different hypotheses and coordinates, and the tie
 counterexamples (`prop:rg-thermo-label-tie-counterexamples`) show the hypotheses cannot be dropped.
-Selection is one open problem, `open:cg-natural-selector`: the analyzed costs select trivial
-endpoints or need an external coefficient (Supplement G), and settling it needs a nonmonotone
-functional with a nondegenerate optimizer or an impossibility theorem; its common-recovery part
-cites Chapter 11.
+The nondominated common-channel extension is `cor:cg-measure-evidence`.
+Selection includes the general-law and conditional finest-independent partition, its scalar
+objective and naturality (`prop:cg-finest-independent-partition`), and its non-Gaussian
+nondegeneracy and weak-coupling instability (`prop:cg-independent-selector-instability`).
+Permutation symmetry excludes universal intermediate deterministic hard selection from an
+exchangeable law alone (`prop:cg-exchangeable-hard-selector`). The information hierarchy
+`prop:cg-information-hierarchy` and its finite-alphabet TV stability estimate
+`prop:cg-partition-information-stability` do not choose a single physical level.
+`open:cg-natural-selector` retains stable selection on a stated interacting-law class and
+intrinsic level or membership choice. The evidence-internal criterion remains
+`open:restrict-intrinsic-criterion`.
 
 **Chapter 11, gauge-retained network state and fixed sectors.** Tree transports
 `\Theta^x_{I\leftarrow i}` with stated tree dependence, rooted holonomy `\mathrm{Hol}^x_I`, and
@@ -708,6 +724,15 @@ switching time and of the complete history; dimension alone does not exclude Bor
 without such a class the existing lumpability, refresh, filter, and witness statements decide it in
 both directions. The chapter keeps the agentization no-go. No Wilsonian
 vocabulary (D5); one pointer names Supplement B.
+
+Auxiliary posterior integration has its own finite-network comparison:
+`prop:rg-conditional-refresh-entropy` bounds entropy dissipation of outside-dependent
+conditional refresh, conditional on a weighted dependence inequality or entropy factorization.
+`prop:rg-refresh-target-transfer` charges prescribed target changes and numerical path TV.
+`rem:rg-refresh-accuracy-scope` separates initialization, numerical KL, endogenous learning,
+and scientific parent dynamics. The sufficient size/depth transfer
+`prop:rg-refresh-operational-diagonal` belongs to Supplement B and assumes convergence of the
+targets rather than constructing it.
 
 **Chapter 13, the multiscale graph VFE and closing the tower.** The adaptive tower law: the
 top-down factorization conditions each depth-`\ell` factor on the whole next-depth state

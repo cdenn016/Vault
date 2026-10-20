@@ -27,7 +27,10 @@ expectation, and the action increment; $\mathcal G_\ell,\mathsf g,\mathsf
 E_{\ell,B},\mathsf P_{\ell,B},\operatorname{asm}_\ell,\operatorname{hd}_\ell$ for
 interaction coordinates; $\mathcal T_\ell,D_\ell,D_{n\leftarrow\ell}$ for the exact
 step and its multipliers; $\chi$ and $\mathsf T$ for a deterministic coarse map and
-a transition kernel; and a superscript $c$ for coarse objects. Longer proofs are
+a transition kernel; and a superscript $c$ for coarse objects. The auxiliary
+refresh kernels and entropy estimates of
+\cref{sec:rg-conditional-refresh-accuracy} concern inference accuracy
+relative to a specified joint target. Longer proofs are
 deferred to \cref{app:deferred-proofs}.
 
 Scope. The retained-state table of \Cref{sec:rg-closure-theorem} catalogs exact
@@ -1622,6 +1625,134 @@ The memory cost of a prepared parent whose within-parent refresh is only partial
 (\Cref{sec:rg-memory-parent-mechanism}) is the defect $D^{(1)}_N$ of
 \Cref{thm:rg-memory-projection} for the parent process.
 
+\section{Conditional refresh and joint-law accuracy}
+\label{sec:rg-conditional-refresh-accuracy}
+
+\propositionheading{Conditional entropy dissipation}{prop:rg-conditional-refresh-entropy}
+Let $P^\star$ be a probability law on a finite product and let
+$\mathfrak B$ be a finite collection of update blocks, possibly overlapping,
+with probabilities $p_B$. For each block take a conditional version
+$P^\star_B(\cdot\given y_{-B})$ and a measurable
+$\alpha^{\mathrm{ref}}_B(y_{-B})\in[0,1]$. Define an auxiliary inference
+kernel that keeps the outside and, inside $B$, uses
+\begin{equation}
+\mathsf K_B^{\mathrm{ref}}(y,dz)
+=\delta_{y_{-B}}(dz_{-B})
+\left[\alpha^{\mathrm{ref}}_B(y_{-B})P^\star_B(dz_B\given y_{-B})
++(1-\alpha^{\mathrm{ref}}_B(y_{-B}))\delta_{y_B}(dz_B)\right],
+\label{eq:rg-conditional-refresh-kernel}
+\end{equation}
+and set $\mathsf K^{\mathrm{ref}}=\sum_Bp_B\mathsf K_B^{\mathrm{ref}}$.
+Both kernels preserve $P^\star$. For a law $\mu$ with
+$e=\KL(\mu\Vert P^\star)<\infty$, put
+$d_B(y_{-B})=\KL(\mu_B(\cdot\given y_{-B})\Vert
+P^\star_B(\cdot\given y_{-B}))$. Then
+\begin{equation}
+\KL(\mu\mathsf K^{\mathrm{ref}}\Vert P^\star)
+\leq e-\sum_Bp_B\int\alpha^{\mathrm{ref}}_Bd_B d\mu_{-B}.
+\label{eq:rg-conditional-refresh-dissipation}
+\end{equation}
+In particular, an estimate
+\begin{equation}
+\sum_Bp_B\int\alpha^{\mathrm{ref}}_Bd_B d\mu_{-B}
+\geq\kappa e-\mathrm b,\qquad 0<\kappa\leq1,\quad \mathrm b\geq0,
+\label{eq:rg-weighted-entropy-hypothesis}
+\end{equation}
+on a class containing every evolving law gives
+$e_{n+1}\leq(1-\kappa)e_n+\mathrm b$. For uniform block probabilities,
+a lower refresh $\alpha^{\mathrm{ref}}_B\geq\mathrm a>0$, and
+\begin{equation}
+\KL(\mu\Vert P^\star)\leq
+\mathrm C\sum_{B\in\mathfrak B}\int d_B d\mu_{-B},
+\text{ with }1\leq\mathrm C<\infty,
+\label{eq:rg-block-entropy-factorization}
+\end{equation}
+one may take $\kappa=\mathrm a/(|\mathfrak B|\mathrm C)$ and $\mathrm b=0$.
+The target law and its conditional laws may be non-Gaussian or singular.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The refresh probability depends only on the held outside; each conditional
+mixture therefore preserves its conditional target. Under $\mu$, the
+outside marginal also remains fixed. Conditional convexity bounds the
+new conditional divergence by
+$(1-\alpha^{\mathrm{ref}}_B)d_B$. The chain rule
+\cref{lem:prob-kl-chain-rule}(a) cancels the unchanged outside divergence,
+giving the single-block inequality. Convexity across the random block
+gives \eqref{eq:rg-conditional-refresh-dissipation}. The two stated
+dissipation assumptions give the recurrence and its constant.
+\hfill$\square$
+
+The factorization in \eqref{eq:rg-block-entropy-factorization} is an
+additional dependence estimate. Approximate tensorization is formulated
+by \citet[Eq.~(1.4), Prop.~1.1]{CaputoMenzTetali2015}; their sufficient
+conditions use bounded conditional ratios. The convexity hypotheses of
+\citet[Thms.~3.1--3.2]{AscolaniLavenantZanella2024} supply another
+sufficient setting. Neither is a consequence of having accurate
+individual conditional updates.
+
+\propositionheading{Target changes and numerical transfer}{prop:rg-refresh-target-transfer}
+For a prescribed sequence of equivalent targets $P^\star_n$, suppose
+step $n$ satisfies \eqref{eq:rg-weighted-entropy-hypothesis} with
+$\kappa_n,\mathrm b_n$, and
+$\log(dP^\star_n/dP^\star_{n+1})\leq\mathrm s_n<\infty$ almost surely.
+Starting with finite $e_0=\KL(\mu_0\Vert P^\star_0)$, the ideal sequence
+satisfies
+\begin{equation}
+e_{n+1}\leq(1-\kappa_n)e_n+\mathrm b_n+\mathrm s_n,
+\qquad e_n=\KL(\mu_n\Vert P^\star_n).
+\label{eq:rg-refresh-moving-target}
+\end{equation}
+If numerical transition kernels differ from these ideal kernels uniformly
+in TV by at most $\varepsilon_n$, with the same initial law, their
+complete path TV through step $n$ is at most
+$\sum_{j<n}\varepsilon_j$, and their endpoint law satisfies
+\begin{equation}
+\operatorname{TV}(\widehat\mu_n,P^\star_n)
+\leq\sum_{j<n}\varepsilon_j+\sqrt{e_n/2}.
+\label{eq:rg-refresh-numerical-transfer}
+\end{equation}
+A common record channel contracts the ideal endpoint KL and the total TV
+bound. The ideal KL direction is $\mu_n$ relative to $P^\star_n$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The change of reference adds
+$\E_{\mu_{n+1}}\log(dP^\star_n/dP^\star_{n+1})\leq\mathrm s_n$
+to the post-update divergence. Finite initial divergence, the dissipation
+bound and the bounded log ratio justify this step successively.
+Telescoping the numerical and ideal path kernels charges at most one
+$\varepsilon_j$ per transition. Pinsker's inequality and the triangle
+inequality give the endpoint bound. Data processing applies to the same
+record channel on both laws. \hfill$\square$
+
+\remarkheading{Accuracy assumptions and scientific dynamics}{rem:rg-refresh-accuracy-scope}
+Exact block conditionals do not imply
+\eqref{eq:rg-block-entropy-factorization}. For
+$P^\star=(\delta_{00}+\delta_{11})/2$, singleton refreshes leave
+$\mu=\delta_{00}$ fixed: both conditional divergences are zero, while
+$\KL(\mu\Vert P^\star)=\log2$. A point-mass initializer against a
+nonatomic target has infinite KL and is outside the finite-entropy
+recurrence. Numerical TV accuracy alone does not give numerical KL
+accuracy. If a parameter is learned from the same evolving state, its
+realized path cannot be treated as the prescribed target sequence of
+\cref{prop:rg-refresh-target-transfer} without a corresponding joint or
+conditional-law argument. The auxiliary kernel in
+\cref{prop:rg-conditional-refresh-entropy} does not identify the
+scientific dynamics or establish a parent in the class of
+\cref{open:rg-pointwise-parent-dynamics}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The two-state support gives the first conditional and joint divergences
+directly; singularity gives the initializer claim. For example, adding
+any positive point mass to a nonatomic target can make TV arbitrarily
+small while making forward KL infinite. Conditioning on an endogenously
+chosen parameter path changes the conditional transition laws; the
+prescribed-kernel proof does not assert otherwise. A posterior integration
+kernel is separate data from a scientific evolution.
+\hfill$\square$
+
 \section{The exact retained state}
 \label{sec:rg-closure-theorem}
 
@@ -1681,3 +1812,7 @@ joint event law, transported messages are moments of marked kernels, and the coa
 path law generally has memory, with an exact memory-kernel recurrence and, for
 memory length $k$, a finite-memory cost of at most the hidden-state entropy divided
 by $k+1$ per step.
+Conditional refresh can control a joint law only with an additional
+dependence and initialization estimate
+(\cref{prop:rg-conditional-refresh-entropy,prop:rg-refresh-target-transfer});
+these inference estimates do not establish scientific parent dynamics.

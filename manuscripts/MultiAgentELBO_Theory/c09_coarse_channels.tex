@@ -8,7 +8,9 @@ the posterior version, and splits the free energy into the coarse free energy pl
 relative entropy of the discarded conditional laws. \Cref{thm:rg-pointwise-parent-datum}
 specializes it to a candidate parent of a block of agents, and the exact results of
 \Cref{ch:network-state,ch:agent-network-rg,ch:full-graph-meta-agent-vfe,ch:finite-depth-formation}
-rest on both. The chapter also separates Markov pushforward, precomposition, and Galerkin
+rest on both. The independent-partition selector and its perturbation boundaries are
+\cref{prop:cg-finest-independent-partition,prop:cg-independent-selector-instability,prop:cg-partition-information-stability}; their remaining stable selection question is
+\cref{open:cg-natural-selector}. The chapter also separates Markov pushforward, precomposition, and Galerkin
 restriction (\Cref{sec:cg-three-operations}) and closes with finite labeled families, in which a
 retained label carries information of order $N^2$ at a tie among $N$ agents
 (\Cref{sec:cg-retained-label-asymptotics}). Fisher contraction under a channel is
@@ -20,7 +22,7 @@ the observation unchanged. It does not compare different generative and recognit
 coarse joint fitted rather than pushed forward, or a channel that also coarsens the observation, even
 an invertible or evidence-sufficient one, because each changes the comparison target or the evidence
 event; nor is a Fisher tensor of a labeled family used as the metric of a dynamics.
-\status{NOT-CLAIMED} A natural selector of partitions or membership laws is
+\status{NOT-CLAIMED} A stable intrinsic selector for interacting laws is
 \Cref{open:cg-natural-selector}, and equivariant Bayes versions beyond the finite and compact cases
 are \Cref{open:cg-equivariant-versions}.
 
@@ -166,6 +168,10 @@ then $(PK)R=\tfrac12R(u,\cdot)+\tfrac12Q$ assigns at least $1/4$ to $c$, while $
 \label{sec:rg-law-level-vfe}
 \label{eq:rg-coarse-channel}
 
+The measure-level case uses the joint and posterior versions of
+\cref{prop:prob-measure-evidence}; a record density is needed only for the
+scalar free energies below.
+
 Fix the joint $\mathbb P(do,dy)$ on $\mathsf O\times\mathsf Y$ of \Cref{ch:generative} with
 $(\theta,V,X)$ suppressed, an admitted observation $o$ with evidence density representative $p(o)$,
 the selected posterior-version kernel $o\mapsto\boldsymbol\Pi_o$, a recognition law $\mathbb Q_o$ on
@@ -220,6 +226,48 @@ and coarse variables whose sum over the coarse variables is one, that is, a Mark
 to coarse variables, leaves the free energy unchanged, as stated in
 \citet[Eqs.~(8)--(9)]{MehtaSchwab2014}. Part (ii) adds the chain rule of relative entropy for the
 recognition law and the posterior.
+
+\corollaryheading{Coarse evidence without record likelihood densities}{cor:cg-measure-evidence}
+Let $\mathbb P(do,dy)$ be any joint law, with record marginal
+$\mathbb P^{\mathsf O}$, selected posterior $\boldsymbol\Pi_o$, and
+recognition kernel $\mathbb Q_o$. For a common coarse channel $C$,
+$\boldsymbol\Pi_oC$ is a posterior version of $\mathbb P^c$ and
+\begin{equation}
+\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)
+=\KL(\mathbb Q_oC\Vert\boldsymbol\Pi_oC)+\Delta(o)
+\label{eq:cg-measure-posterior-chain}
+\end{equation}
+in $[0,+\infty]$, with the backward-conditional term $\Delta(o)$ of
+\eqref{eq:rg-vfe-chain-rule}. For $\zeta^{\mathsf O}\ll\mathbb P^{\mathsf O}$,
+the joint recognition laws of \cref{prop:prob-measure-evidence} satisfy
+\begin{equation}
+\KL(\mathbb Q^\zeta\Vert\mathbb P)
+=\KL(\mathbb Q^{\zeta,c}\Vert\mathbb P^c)
++\int\Delta(o)\zeta^{\mathsf O}(do).
+\label{eq:cg-measure-joint-chain}
+\end{equation}
+If only the record marginal has a density with finite positive value,
+the scalar free-energy identity of \cref{thm:rg-exact-coarse-vfe} follows
+from the same density at both scales. These identities compose along
+successive coarse channels. They are invariant under changes of the
+fine posterior on record-marginal null sets. When
+$\mathbb Q_oC\not\ll\boldsymbol\Pi_oC$, the coarse divergence is infinite
+and a backward conditional term on coarse null states need not be
+version-independent; it is not then an intrinsic finite information loss.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Extending each latent law by the same $C$ leaves its relative entropy
+unchanged, since the forward conditional channel agrees. Disintegrate
+the extended laws over the coarse state and apply
+\cref{lem:prob-kl-chain-rule}(a). Integrate with respect to
+$\zeta^{\mathsf O}$ and apply
+\eqref{eq:prob-measure-evidence-chain} on both sides. The record marginal
+is unchanged, so marginal evidence terms agree and posterior null sets
+remain null under $\zeta^{\mathsf O}$. Kernel composition gives the tower
+statement. The backward kernel is determined only almost everywhere under
+its own coarse marginal, which gives the last qualification.
+\hfill$\square$
 
 \corollaryheading{Evidence-preserving coarse channel}{thm:cg-evidence-preserving-channel}
 \label{eq:cg-fixed-joint-pushforward}
@@ -514,7 +562,129 @@ everywhere-defined version equivariant under the stabilizer, jointly measurable 
 family of such laws meeting several orbits, or by a pair $(Q,K)$ of the class with no everywhere-defined
 version equivariant under the stabilizer.
 
-\openproblemheading{A natural selector of partitions and membership laws}{open:cg-natural-selector}
+\section{Independence partitions and information levels}
+\label{sec:cg-intrinsic-selection}
+
+\definitionheading{Independent partition and conditional context}{def:cg-independence-partition}
+For a law $P$ on $\prod_{i\in V}\mathsf Y_i$, let $\operatorname{Part}(V)$ be the finite
+set of unlabeled partitions of $V$. A partition $\mathfrak p$ is independent when
+\begin{equation}
+\mathsf T_P(\mathfrak p):=\KL\Bigl(P\Bigm\Vert\bigotimes_{I\in\mathfrak p}P_I\Bigr)=0.
+\label{eq:cg-independent-partition}
+\end{equation}
+If $P$ is instead a law of $(Y_V,\Upsilon)$ with an already specified retained context
+$\Upsilon$, conditional independence means
+\begin{equation}
+\mathsf T_{P\mid\Upsilon}(\mathfrak p):=
+\int\KL\Bigl(P(dy_V\given v)\Bigm\Vert
+\bigotimes_{I\in\mathfrak p}P(dy_I\given v)\Bigr)P_\Upsilon(dv)=0.
+\label{eq:cg-conditionally-independent-partition}
+\end{equation}
+Both quantities are defined in $[0,+\infty]$ and require no densities.
+
+\propositionheading{Finest independent partition and a law-based objective}{prop:cg-finest-independent-partition}
+Every law $P$ of \cref{def:cg-independence-partition} has a unique finest independent
+partition $\mathfrak p_*(P)$. It uniquely minimizes
+\begin{equation}
+\mathscr J^{\mathrm{ind}}_P(\mathfrak p)
+:=\mathbf1_{\{\mathsf T_P(\mathfrak p)>0\}}-
+\frac{|\mathfrak p|}{N+1},
+\label{eq:cg-independent-selector-objective}
+\end{equation}
+which, whenever the finest partition is intermediate, is not monotone toward either
+partition endpoint. The selector is natural under agent relabeling and invariant under
+separate bimeasurable coordinate changes of the agents, including their gauge
+re-expressions. With $\mathsf T_{P\mid\Upsilon}$ in place of $\mathsf T_P$, the same
+claims hold for the unique finest partition that is conditionally independent given
+$\Upsilon$. Selecting that context is additional data: taking $\Upsilon=Y_V$ makes
+every partition conditionally independent. The objective is a preference for maximal
+factorization, not a consequence of maximizing the evidence bound.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}. The unconditional target is the
+independence-clustering target of \citet[Def.~1]{Ryabko2017IndependenceClustering}; the
+statement includes the general-law and conditional-context versions.
+
+\propositionheading{Nondegeneracy and instability under weak coupling}{prop:cg-independent-selector-instability}
+For every even $N\geq4$, on $\{-1,1\}^N$ the positive law
+\begin{equation}
+P_0(y)\propto\exp\left(\mathrm j\sum_{b=1}^{N/2}y_{2b-1}y_{2b}\right),
+\text{ with }\mathrm j>0,
+\label{eq:cg-independent-pair-law}
+\end{equation}
+has $\mathfrak p_*(P_0)=\{\{2b-1,2b\}:1\leq b\leq N/2\}$. Thus
+\eqref{eq:cg-independent-selector-objective} selects an intermediate partition in a
+non-Gaussian family at arbitrarily large finite size. Replacing the exponent by
+\begin{equation}
+\mathrm j\sum_{b=1}^{N/2}y_{2b-1}y_{2b}
++\mathrm r\sum_{b=1}^{N/2-1}y_{2b}y_{2b+1},
+\text{ with }\mathrm r>0,
+\label{eq:cg-independent-pair-perturbation}
+\end{equation}
+gives $\mathfrak p_*(P_{\mathrm r})=\{V\}$ for every $\mathrm r>0$, although
+$P_{\mathrm r}\to P_0$ in total variation as $\mathrm r\downarrow0$. Consequently
+the exact-independence selector need not be stable under arbitrarily weak interactions.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\propositionheading{Exchangeability obstructs universal hard selection}{prop:cg-exchangeable-hard-selector}
+Let $N\geq3$, let all agent spaces coincide, and let $P$ be invariant under every
+agent permutation. Every deterministic, relabeling-natural hard partition selector
+that reads only $P$ returns either the singleton partition or $\{V\}$. This excludes
+universal nondegeneracy in that class of selectors. It does not exclude a randomized
+membership law, additional structural inputs, or nondegenerate selection on a restricted
+class of nonsymmetric laws. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\definitionheading{Partition information and its threshold family}{def:cg-partition-information}
+For a finite-alphabet law $P$ and $I\subseteq V$ with $|I|\geq2$, put
+\begin{align}
+\mathsf I_I(P)&:=\min_{\substack{\mathfrak p\in\operatorname{Part}(I)\\|\mathfrak p|\geq2}}
+\frac{\sum_{J\in\mathfrak p}\mathrm H(P_J)-\mathrm H(P_I)}{|\mathfrak p|-1},\notag\\
+\mathscr A_P(\mathrm a)&:=\{I\subseteq V:|I|\geq2,\mathsf I_I(P)>\mathrm a\},
+\label{eq:cg-partition-information}
+\end{align}
+where $\mathrm H$ is Shannon entropy with natural logarithms. The maximal members of
+$\mathscr A_P(\mathrm a)$ are the clusters at level $\mathrm a$; retaining the entire
+family over all levels leaves the choice of one level unspecified.
+
+\propositionheading{Information-clustering hierarchy}{prop:cg-information-hierarchy}
+The maximal threshold clusters of \cref{def:cg-partition-information}, over all levels,
+form a hierarchical family: any two clusters are disjoint or one contains the other.
+This is the information hierarchy of
+\citet[Eqs.~(3.3a)--(3.3b), Thms.~3.1--3.3]{Chan2016InfoClustering}.
+\status{STANDARD}
+
+\propositionheading{Information levels and finite-alphabet stability}{prop:cg-partition-information-stability}
+The quantity $\mathsf I_I(P)$ is nonnegative and vanishes exactly when $P_I$ has a
+nontrivial product partition. Let $P,Q$ be laws on the same finite product alphabet with
+$\operatorname{TV}(P,Q)\leq\delta\leq1/2$, and let
+$D_I=\prod_{i\in I}|\mathsf Y_i|$. With
+$h_2(\delta)=-\delta\log\delta-(1-\delta)\log(1-\delta)$, including its continuous
+endpoint values,
+\begin{equation}
+|\mathsf I_I(P)-\mathsf I_I(Q)|\leq
+3h_2(\delta)+2\delta\log D_I.
+\label{eq:cg-partition-information-stability}
+\end{equation}
+In particular, with $\eta=3h_2(\delta)+2\delta\log D_V$,
+\begin{equation}
+\mathscr A_P(\mathrm a+\eta)\subseteq\mathscr A_Q(\mathrm a)
+\subseteq\mathscr A_P(\mathrm a-\eta).
+\label{eq:cg-partition-threshold-stability}
+\end{equation}
+If every subset score has distance greater than $\eta$ from a specified threshold,
+its qualified subset family and maximal clusters are unchanged. The bound charges
+alphabet and block size; it is not a continuity assertion for unrestricted continuous
+laws. Separate bimeasurable re-expressions preserve the relative-entropy form of the
+partition numerator, so its information levels are gauge invariant.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\openproblemheading{A stable natural selector of partitions and membership laws}{open:cg-natural-selector}
 \label{eq:cg-partition-naturality}
 A data-dependent hard partition selector $S(X)$ must be natural under agent relabeling: for every
 fine permutation $P$ there must exist a coarse relabeling $Q=Q(P,X)$ with
@@ -523,14 +693,26 @@ is existential because coarse labels are arbitrary; a universal one would force 
 for every $Q$ at $P=\mathrm{id}$, which no partition into two or more blocks satisfies.
 Gauge-carrying inputs must enter through invariant assignment scores, while represented messages
 transform equivariantly. These conditions type an admissible selector of a partition, a membership
-law, or a structural channel, and select none. The costs analyzed so far do not select one: an
-unpenalized sum of nonnegative within-block divergences is minimized by the singleton partition
+law, or a structural channel. The literal existence of a law-based functional with an
+intermediate optimizer is supplied by
+\cref{prop:cg-finest-independent-partition,prop:cg-independent-selector-instability};
+\cref{prop:cg-exchangeable-hard-selector} rules out universal nondegeneracy for a
+deterministic hard selector reading a permutation-invariant law alone. Neither result
+supplies a stable soft choice for interacting laws. An unpenalized sum of nonnegative
+within-block divergences is minimized by the singleton partition
 (\Cref{rem:cg-structural-vs-marginal}), the Gaussian recognition costs of the Gaussian supplement
 select trivial endpoints or need an external coefficient, and one common recovery kernel for a
 whole statistical experiment, \eqref{eq:cg-holonomy-common-recovery}, is available only under
-simultaneous family hypotheses. The problem is settled by a relabeling-natural, gauge-compatible
-functional of the laws, not monotone under refinement, with a nondegenerate optimizer, or by a
-theorem that no such selector exists in a stated class.
+simultaneous family hypotheses. Remaining is a relabeling-natural, gauge-compatible
+functional on a stated class of interacting laws, not monotone under refinement,
+whose nondegenerate optimizer is stable under a stated probability-law perturbation
+bound and positive score margin, without imposing the number of blocks, an external
+relevance variable, or a fitted penalty coefficient. For the information hierarchy of
+\cref{def:cg-partition-information}, the choice of one level or a membership law must
+also follow from that functional. A construction with these properties, or a theorem
+excluding them on the same stated class, settles this remaining question. A statistical
+partition alone supplies no restoring dynamics, predictive parent closure, or causal
+second formation of \cref{open:rg-pointwise-parent-dynamics,open:full-graph-hierarchy}.
 
 \section{Scale diagrams}
 \label{sec:rg-scale-category}
@@ -930,7 +1112,10 @@ A coarse channel is a noisy detector on latent coordinates, under which relative
 information can only drop. Applied to the generative joint, the posterior, and the recognition law at
 once, it leaves the evidence untouched, and the free energy drops by exactly what it discarded about
 the disagreement of recognition and posterior inside each coarse cell, which is bookkeeping, not
-learning. A retained discrete label, such as which partition is present, carries its own Fisher
+learning. Exact independence supplies an intrinsic partition for general laws, but arbitrarily weak
+coupling can destroy that partition; the information-level stability bound requires a finite alphabet
+and a score margin. These are statistical selection statements, not parent dynamics or formation
+(\cref{prop:cg-independent-selector-instability,prop:cg-partition-information-stability,open:cg-natural-selector}). A retained discrete label, such as which partition is present, carries its own Fisher
 information: with $N$ agents a strict winner hides it, a tie exposes information of order $N^2$, and
 near a tie the natural coordinate is $N(\theta-\theta_0)$, as in the finite-volume rounding of a
 first-order transition.
