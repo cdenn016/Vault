@@ -1,0 +1,55 @@
+\chapter{A Normalized Internal Record Process}
+\label{app:records}
+
+This appendix constructs a finite-history law from an internal interaction rule. The rule is supplied; normalization does not select it. Let $\mathsf S$ and $\mathsf O$ be standard Borel spaces. A state $x$ includes an accessible record register. Write $\rho:\mathsf S\to\mathsf O$ for its readout.
+
+\constructionheading{Event and registration}{def:registered-event}
+Choose a normalized kernel $R:\mathsf S\rightsquigarrow\mathsf O$ and a measurable update $A:\mathsf S\times\mathsf O\to\mathsf S$ satisfying
+\begin{equation}
+\rho(A(x,o))=o,
+\label{eq:registration-condition}
+\end{equation}
+for $R(x,\cdot)$-almost every $o$, for every admitted $x$. Define
+\begin{equation}
+J(x,dx',do)=R(x,do)\delta_{A(x,o)}(dx').
+\label{eq:registered-transition}
+\end{equation}
+If necessary, the state can be explicitly augmented by a register so that \cref{eq:registration-condition} holds.
+
+\propositionheading{Consistent finite histories}{prop:registered-history}
+For an initial law $\mu_0$ on $\mathsf S$, the iterated kernel product
+\begin{equation}
+\mathbb P_n(dx_0,do_1,dx_1,\ldots,do_n,dx_n)
+=\mu_0(dx_0)\prod_{t=1}^nJ(x_{t-1},dx_t,do_t),
+\label{eq:registered-history}
+\end{equation}
+is a probability law. Marginalizing its last pair gives $\mathbb P_{n-1}$, and every record agrees with the readout of the resulting state almost surely.
+\begin{proof}
+The product denotes successive kernel integration, not independent factors. Integrating the last pair gives one because $J(x,\mathsf S\times\mathsf O)=1$. Repeating this argument gives total mass one and the stated consistency. Each transition is supported on $x'=A(x,o)$ and hence on $\rho(x')=o$. For a finite history, the intersection of these probability-one events still has probability one.
+\end{proof}
+
+Nothing in this construction requires a variable external to the agents. It does require a declared accessible register and an update. A stochastic $A$ is handled by replacing its Dirac kernel with a normalized kernel supported on the registration condition. A deterministic transition is recovered when $R$ is a Dirac kernel as well.
+
+\section{Prediction followed by assimilation}
+
+One possible internal state contains a model law $s$ and a record register. Fix a normalized density $k(o\mid m)$ with respect to a reference measure on $\mathsf O$. Let
+\begin{equation}
+R(s,do)=\left[\int k(o\mid m)s(dm)\right]do,
+\qquad
+s^o(dm)=\frac{k(o\mid m)s(dm)}{\int k(o\mid m')s(dm')}.
+\label{eq:predict-and-assimilate}
+\end{equation}
+The update replaces $s$ by $s^o$ and stores $o$. The denominator is positive and finite for predictive-almost every record. Defining an arbitrary probability law on the remaining null set completes the measurable rule under the usual conditional-law hypotheses.
+
+\propositionheading{The Bayesian history identity}{prop:bayesian-history}
+For a fixed latent model $m$, initial law $s_0$, and fixed normalized observation density $k$, sequential prediction and Bayesian assimilation give the record density
+\begin{equation}
+p(o_1,\ldots,o_n)
+=\int\prod_{t=1}^n k(o_t\mid m)s_0(dm).
+\label{eq:bayesian-history}
+\end{equation}
+\begin{proof}
+After $t-1$ records, the posterior is proportional to $s_0(dm)\prod_{r<t}k(o_r\mid m)$. The next predictive density is the integral with the product extended to $t$, divided by the integral up to $t-1$. Multiplying these conditional densities cancels every intermediate normalizer and leaves \cref{eq:bayesian-history}.
+\end{proof}
+
+This identity applies to the stated fixed observation model. If the likelihood itself is changed using the current state, the product of the actual predictive kernels still defines a normalized process, but it need not equal the fixed-latent expression. Likewise, replacing Bayes' rule by a finite natural-gradient step defines a different assimilation mechanism unless the updates coincide. The normalization of a process and its interpretation as Bayesian conditioning are separate statements.

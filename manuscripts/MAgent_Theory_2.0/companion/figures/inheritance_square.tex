@@ -1,0 +1,14 @@
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm]},
+  box/.style={draw=primaryblue,rounded corners=2pt,fill=primaryblue!5,minimum width=2.55cm,minimum height=0.95cm,align=center,font=\small},
+  every node/.style={font=\small}]
+\node[box] (fine) {Fine state\\$x$};
+\node[box,right=4.3cm of fine] (finenext) {Fine successor\\$F(x)$};
+\node[box,below=1.8cm of fine,fill=secondaryblue!10] (parent) {Parent state\\$R(x)$};
+\node[box,below=1.8cm of finenext,fill=secondaryblue!10] (parentnext) {Parent successor\\$R(F(x))=F^c(R(x))$};
+\draw[->,thick,primaryblue] (fine) -- node[above=4pt] {fine update $F$} (finenext);
+\draw[->,thick,secondaryblue] (parent) -- node[below=4pt] {inherited update $F^c$} (parentnext);
+\draw[->,thick,primaryblue] (fine) -- node[left=5pt] {$R$} (parent);
+\draw[->,thick,primaryblue] (finenext) -- node[right=5pt] {$R$} (parentnext);
+\node at ($(fine)!0.5!(parentnext)$) {same retained result};
+\end{tikzpicture}

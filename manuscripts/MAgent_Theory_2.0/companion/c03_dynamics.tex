@@ -1,0 +1,86 @@
+\chapter{Coupled Relaxation and Source Selection}
+\label{comp:dynamics}
+
+The dynamical variables are probability laws. Moving an agent therefore means changing its expectations, uncertainties, and dependencies, rather than moving a point through its sample space. The physical analogue developed here is overdamped motion on a probability manifold: an interaction potential supplies the driving covector, and the Fisher metric converts that covector into a velocity. Neither ingredient determines the other.
+
+\section{The potential and its source rows}
+
+At a fixed context, let $q_i$ describe agent $i$'s represented state $k$, and let $s_i$ describe its model presentation $m$. For this construction their joint recognition law is the explicit product $q_i\otimes s_i$. Choose a model reference $r_i(dm)$ and a normalized evaluator $G_i(m,dk)$. Their local contribution is
+\begin{equation}
+ \mathcal E_0=\sum_i\KL(q_i\otimes s_i\Vert r_iG_i)
+ =\sum_i\left[\KL(s_i\Vert r_i)
+       +\int\KL(q_i\Vert G_i(m,\cdot))s_i(dm)\right].
+ \label{eq:comp-local-potential}
+\end{equation}
+The equality separates the model marginal from the conditional state law. Thus a product recognition family still has coupled dynamics: changing $s_i$ changes the evaluator against which $q_i$ relaxes, and changing $q_i$ changes the model costs.
+
+The channels of \cref{comp:links} send peer laws into comparable spaces. Write $\nu^q_{ij}=q_j\mathcal K^q_{ij}[\mathbf q]$ and $D^q_{ij}=\KL(q_i\Vert\nu^q_{ij})$, where $\mathbf q$ collects the belief laws. Define $\nu^s_{ij}$ and $D^s_{ij}$ similarly for model laws. With normalized source rows $\beta_i,\gamma_i$, positive reference rows $\pi_i^q,\pi_i^s$, and $T_q,T_s>0$, the potential is
+\begin{equation}
+ \begin{aligned}
+ \mathcal E=\mathcal E_0
+ &+\sum_i\left[\sum_j\beta_{ij}D^q_{ij}
+                  +T_q\KL(\beta_i\Vert\pi_i^q)\right]\\
+ &+\sum_i\left[\sum_j\gamma_{ij}D^s_{ij}
+                  +T_s\KL(\gamma_i\Vert\pi_i^s)\right].
+ \end{aligned}
+ \label{eq:comp-potential}
+\end{equation}
+Each sum uses its declared source set. The row penalty balances preference for compatible peers against departure from the reference routing.
+
+Hold the laws fixed. For either sector, minimize $f(\eta)=\sum_j\eta_jD_j+T\KL(\eta\Vert\pi)$ subject to $\sum_j\eta_j=1$. Stationarity gives $D_j+T[\log(\eta_j/\pi_j)+1]=\lambda$, hence
+\begin{equation}
+ \eta_j^*=\frac{\pi_je^{-D_j/T}}{Z},\qquad
+ Z=\sum_j\pi_je^{-D_j/T},\qquad
+ f(\eta)=-T\log Z+T\KL(\eta\Vert\eta^*).
+ \label{eq:comp-source-row}
+\end{equation}
+The last identity proves that this stationary row is the unique minimum. Eliminating both sets of rows gives $\mathcal E_{\mathrm{red}}=\mathcal E_0-T_q\sum_i\log Z_i^q-T_s\sum_i\log Z_i^s$. At fixed temperatures and reference rows,
+\begin{equation}
+ d\mathcal E_{\mathrm{red}}
+ =d\mathcal E_0+\sum_{ij}\beta_{ij}^*dD^q_{ij}
+                   +\sum_{ij}\gamma_{ij}^*dD^s_{ij}.
+ \label{eq:comp-envelope}
+\end{equation}
+This follows by differentiating each log partition sum. Optimized row derivatives disappear; derivatives inside their costs remain.
+
+\section{Every interaction role contributes to motion}
+
+For normalized densities $a,b$, variation of $\int a\log(a/b)$ gives
+\begin{equation}
+ d\KL(a\Vert b)=\int\log(a/b)da-\int(a/b)db,
+ \qquad
+ d\nu^q_{ij}=(dq_j)\mathcal K^q_{ij}
+             +q_jD\mathcal K^q_{ij}(d\mathbf q).
+ \label{eq:comp-all-role-variation}
+\end{equation}
+Here $da,db$ denote mass-preserving variations, and differentiation assumes a regular dominated family. An agent moves through its receiver role, its source role, and any dependence of the channels on its law. Directed routing does not remove incoming contributions to source motion. For an identity self-channel, the two laws remain identical and their divergence stays zero. Holding an old self snapshot fixed instead creates a different potential after the current law changes.
+
+For positive finite probability tables, collect all dynamical tables as $u^a$, including the source rows when they are not eliminated. The Fisher metric and its unit-mobility descent are
+\begin{equation}
+ \begin{aligned}
+ g_u(v,v)&=\sum_{a,z}\frac{(v_z^a)^2}{u_z^a},\\
+ \dot u_z^a&=-u_z^a(h_z^a-\E_{u^a}h^a),\qquad
+ h_z^a=\frac{\partial\mathcal E}{\partial u_z^a},\\
+ \dot{\mathcal E}&=-\sum_a\operatorname{Var}_{u^a}(h^a).
+ \end{aligned}
+ \label{eq:comp-fisher-descent}
+\end{equation}
+Centering preserves each normalization. Substituting the velocity into $\dot{\mathcal E}=\sum_{a,z}h_z^a\dot u_z^a$ proves the dissipation identity. The same construction uses the Fisher tensor on a regular smooth family \citep{Amari1998}. Both sectors have equal mobility; a slower model response must arise from the resulting dynamics.
+
+A Bernoulli law makes the metric concrete. Its success probability $p$ has metric $dp^2/[p(1-p)]$, so the mobility is $p(1-p)$. For $\mathcal E(p)=\KL(\operatorname{Ber}(p)\Vert\operatorname{Ber}(p_0))$, with $p,p_0\in(0,1)$, write $l=\log[p/(1-p)]$ and $l_0=\log[p_0/(1-p_0)]$. Then
+\begin{equation}
+ \dot p=-p(1-p)(l-l_0),\qquad
+ \dot l=-(l-l_0).
+ \label{eq:comp-bernoulli-flow}
+\end{equation}
+Log odds relax exponentially, although probability does not follow a linear restoring equation. Here $t$ parametrizes the chosen relaxation, and the dimensionless $T_q,T_s$ weight routing penalties. They have not been identified with physical time or bath temperature.
+
+\section{A record likelihood defines a different objective}
+
+A fixed normalized prior $P_0$ and record likelihood $\ell_o$ give posterior $\Pi_o=\ell_oP_0/Z_o$ and the exact identity
+\begin{equation}
+ \mathcal F(Q;o)=\KL(Q\Vert P_0)-\E_Q\log\ell_o
+               =\KL(Q\Vert\Pi_o)-\log Z_o.
+ \label{eq:comp-record-vfe}
+\end{equation}
+Source inference in a product recognition family then uses expected negative log likelihood as its cost. Peer coupling instead uses divergence between laws, whose source template can move during relaxation. Both yield Gibbs rows because both contain the same categorical relative-entropy penalty; their costs and state derivatives differ. Identical independent Gaussian laws have zero peer divergence but nonzero expected squared sample difference. A normalized likelihood for that difference therefore describes an interaction distinct from direct agreement of the laws.

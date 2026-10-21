@@ -1,0 +1,57 @@
+\chapter{Probability and Predictive Reconstruction}
+\label{s:probability}
+
+\section{The conditional relative-entropy identity}
+
+The disintegrations used here are regular conditional laws on standard Borel spaces \citep{Kallenberg2021}.
+
+Let $\mu,\nu$ be probability laws on a product $X\times Y$ of standard Borel spaces, with $\KL(\mu\Vert\nu)<\infty$. Write their marginals as $\mu_Y,\nu_Y$ and their conditional laws as $\mu^y,\nu^y$. Then
+\begin{equation}
+\KL(\mu\Vert\nu)
+=\KL(\mu_Y\Vert\nu_Y)
++\int\KL(\mu^y\Vert\nu^y)\mu_Y(dy).
+\label{eq:s-chain-rule}
+\end{equation}
+To see the factorization, put $a=d\mu_Y/d\nu_Y$ and $b_y=d\mu^y/d\nu^y$ for $\mu_Y$-almost every $y$. Integration on measurable rectangles shows that $a(y)b_y(x)$ is a version of $d\mu/d\nu$. The logarithm splits into $\log a+\log b_y$. Integrating these terms gives \cref{eq:s-chain-rule}. The hypotheses guarantee the required conditional versions and prevent an undefined subtraction of infinite quantities. This argument underlies the predictive and reconstruction identities in the main text.
+
+\section{Different predictive mechanisms}
+
+Let $s,t$ be laws on a model space and let $K,L$ be normalized kernels into a common record space. Suppose the following joint divergence is finite. Define
+\begin{equation}
+\mu(dm,do)=s(dm)K(m,do),
+\qquad \nu(dm,do)=t(dm)L(m,do).
+\end{equation}
+Disintegration first by $m$ and then by $o$ gives the exact equality
+\begin{equation}
+\begin{aligned}
+\KL(s\Vert t)+\int\KL(K(m,\cdot)\Vert L(m,\cdot))s(dm)
+={}&\KL(sK\Vert tL)\\
+&+\int\KL(\mu^o\Vert\nu^o)(sK)(do).
+\end{aligned}
+\label{eq:s-different-evaluators}
+\end{equation}
+This is two uses of \cref{eq:s-chain-rule} on one joint law. It displays explicitly the distinction contributed by the evaluators. Equal model laws do not remove that term.
+
+For a bijective change of model presentation $\Theta$, replace $t$ by $\Theta_\#t$ and replace $L$ by $L(\Theta^{-1}m,\cdot)$. Both sides then compare laws in one presentation. Measurable record relabeling must be applied consistently as well.
+
+\section{A conditional reconstruction on four points}
+
+Let $E=\{0,1\}^2$, write its coordinates as $(H,V)$, and transmit only $H$. Choose a sender law with
+\begin{equation}
+q(H=1)=\frac12,
+\qquad q(V=H\mid H)=1.
+\end{equation}
+Let the receiver's prior $p$ make $H,V$ independent uniform bits. The communicated marginal is uniform, so reconstruction using $p(V\mid H)$ returns the uniform law on all four points. Its transmitted marginal is exactly correct, but it discards the sender's perfect dependence. Direct evaluation gives
+\begin{equation}
+\KL(q\Vert\widehat q)
+=2\left(\frac12\log\frac{1/2}{1/4}\right)=\log 2.
+\end{equation}
+The conditional divergence at each value of $H$ is also $\log2$, verifying the conditional identity exactly. A receiver whose prior has the same conditional relation $V=H$ instead reconstructs $q$ from the transmitted marginal. The difference comes from its prior conditional, not from a larger message.
+
+\section{A shared source and two routes}
+
+Let $X$ be a uniform bit. Two routes return $Y_1=X$ and $Y_2=X\oplus b$, where $b\in\{0,1\}$ is a fixed route mark and $\oplus$ is addition modulo two. The comparison $O=Y_1\oplus Y_2$ equals $b$ with probability one. If the second route instead uses an independent uniform bit $X'$, the same comparison is uniform and reveals no route mark. The marginal law arriving on each route is uniform in both experiments. Thus the shared-source dependence, not those marginals, determines the comparison outcome. A record model intended to inspect a loop must specify which occurrences refer to the same source.
+
+\section{Predictive sufficiency for a selected response}
+
+Let $X=(A,B)$ be two independent uniform bits, let the encoder retain $U=A$, and take no side information. For target $Y=A$, one has $I(Y;X\mid U)=0$. For target $Y=B$, the same representation gives $I(Y;X\mid U)=\log2$. Perfect predictive retention is therefore a statement about a specified target. If a later interaction reads $B$, the first sufficiency statement does not supply its response. This elementary distinction persists when $X$ is a complete configuration of law-valued agents and $Y$ is a boundary process.

@@ -1,0 +1,72 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{What a Message Lets the Receiver Infer}
+\label{comp:communication}
+
+Sending a few observables can change an agent's description of many variables. The extra structure comes from the receiver's conditional model. This is familiar in physics: measuring one coordinate of a correlated system can change predictions for another coordinate without measuring it directly. The distinction between transmitted information and inferred structure is explicit here.
+
+\section{Selective sending and conditional reconstruction}
+
+A sender uses a measurable map $T_j:E_j\to\mathsf H$ into a message space. If its content has law $q_j$, possible messages have law
+\begin{equation}
+\nu_j=(T_j)_\#q_j.
+\label{comp:eq-message-law}
+\end{equation}
+The pushforward symbol means $\nu_j(A)=q_j(T_j^{-1}A)$. Sampling a message and transmitting the whole law $\nu_j$ are different communication protocols. A linear receiving map $O_i:\mathsf H\to E_i$ embeds a message, but its composition with $T_j$ cannot have higher rank than $T_j$.
+
+\begin{figure}[htbp]
+\centering
+\input{companion/figures/message_reconstruction}
+\caption{Selective communication and receiver structure. The sender fixes the transmitted marginal. The receiver supplies a conditional law for distinctions that the message does not specify. This distributional reconstruction presupposes that the message law is available; one received sample supplies a value instead.}
+\label{fig:comp-message}
+\end{figure}
+
+To see exactly what is lost, work in one common presentation and write $T:E\to\mathsf H$. Let $q$ be the sender's law and $p$ the receiver's reference law, with finite $\KL(q\Vert p)$. The receiver can combine the transmitted marginal $\nu=T_\#q$ with its own conditional law:
+\begin{equation}
+\widehat q(dk)=\int p(dk\mid h)\nu(dh).
+\label{comp:eq-reconstruction}
+\end{equation}
+Disintegration on standard Borel spaces provides these conditional laws \citep{Kallenberg2021}. The reconstruction has exactly the right message marginal. Its remaining discrepancy is
+\begin{equation}
+\KL(q\Vert\widehat q)
+=\int\KL\bigl(q(\cdot\mid h)\Vert p(\cdot\mid h)\bigr)\nu(dh).
+\label{comp:eq-reconstruction-discrepancy}
+\end{equation}
+Both laws assign the same probability to $h$, so that factor cancels in their density ratio. The remaining logarithm compares the two conditional laws, which gives the equality by integration.
+
+For a calculation on four points, let $k=(H,V)$ be two bits. The sender gives probability $1/2$ to each of $00$ and $11$, and transmits only $H$. A receiver whose reference makes both bits independent and fair reconstructs the uniform law on all four points. The message marginal is correct, while the relative entropy is $\log2$. A receiver whose conditional model has $V=H$ reconstructs the sender's full law. The missing correlation was supplied by the receiver.
+
+For a single received value $h$, Bayesian assimilation instead takes the form
+\begin{equation}
+q_i^+(dk)=\frac{\ell_i(h\mid k)q_i^-(dk)}{\int\ell_i(h\mid k')q_i^-(dk')},
+\label{comp:eq-bayes-receiver}
+\end{equation}
+with a positive finite denominator. In the perfectly correlated two-bit example, a noiseless observation $H=1$ also fixes $V=1$. This is inference through an existing relation, not an inversion of an arbitrary lossy map.
+
+\section{Agreement needs a common prediction rule}
+
+Suppose a model law $s$ and a normalized record evaluator $K(m,do)$ predict the record law $sK$. If two agents compare model laws in one frame, they must also compare their evaluators in that frame. Equal model laws can predict opposite bits when their evaluators differ.
+
+For one common evaluator and finite $\KL(s\Vert t)$, an exact information balance is
+\begin{equation}
+\KL(s\Vert t)
+=\KL(sK\Vert tK)
++\int\KL(s^o\Vert t^o)(sK)(do),
+\label{comp:eq-prediction-balance}
+\end{equation}
+where $s^o,t^o$ are the conditional model laws after record $o$. The joint laws $s(dm)K(m,do)$ and $t(dm)K(m,do)$ have divergence $\KL(s\Vert t)$ because their common kernel cancels. Factoring the same joint laws by their record marginal gives the displayed split. The last term is the distinction left unresolved by the record. A constant evaluator discards every distinction; a sufficient record leaves none.
+
+For a model link $\Theta^s_{ij}$, compatibility means $K_i(\Theta^s_{ij}m,A)=K_j(m,A)$ after identifying record alphabets. Only then does transporting the model law also transport its predictive meaning. If the link changes with the laws, this condition must continue to hold at the updated state.
+
+\section{Compression should name what matters}
+
+Rate--distortion theory makes the desired fidelity part of the communication problem \citep{Shannon1959}. A low-dimensional real vector alone is not a finite-bit channel. Noise, precision, or an encoding constraint must specify the communication cost. Wyner--Ziv coding additionally gives the receiver a realized variable correlated with the source \citep{WynerZiv1976}; possession of a prior by itself is not that realized side information.
+
+For a predictive criterion, name the source $X$, target response $Y$, and accessible receiver information $Z$. An encoder generates $U$ from $X$ alone, so $U-X-(Y,Z)$ is a conditional-independence chain. The optimal decoder is $P(Y\mid U,Z)$. Its expected relative-entropy distortion is
+\begin{equation}
+\mathcal D=I(Y;X\mid U,Z)
+=I(Y;X\mid Z)-I(Y;U\mid Z).
+\label{comp:eq-predictive-distortion}
+\end{equation}
+The equality follows by expanding $I(Y;X,U\mid Z)$ in both orders. It is the information about the chosen response that compression discards. An information-bottleneck criterion trades this quantity against a cost such as $I(X;U\mid Z)$ \citep{Tishby1999}; an operational bit rate requires additional coding assumptions.
+
+If $X=(A,B)$ consists of independent fair bits and $U=A$, the distortion is zero for target $Y=A$ and $\log2$ for target $Y=B$. For a prospective parent, the target can be a future boundary response. Retaining one such response does not ensure that every later interaction can be inherited. That stronger requirement concerns dynamics.

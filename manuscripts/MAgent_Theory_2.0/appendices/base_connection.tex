@@ -1,0 +1,72 @@
+% !TeX root = ../MAgent_Theory_2.0.tex
+\chapter{From Directional Interaction to Base Transport}
+\label{app:connection}
+
+Links between agents at a single context do not determine transport between neighboring contexts. A connection requires a smooth dependence on the direction and size of a base displacement. This construction can occur within one agent; it does not require collective averaging.
+
+Fix one sector and one agent, suppressing the sector superscript. On a coordinate neighborhood of $\mathcal C$, let $U_i(c)$ be a twice continuously differentiable invertible presentation and let
+$a_i=a_{i,\mu}(c)dc^\mu$ be a continuously differentiable matrix-valued one-form. For a principal $G$-connection its values must lie in the represented Lie algebra. General endomorphism-valued forms instead describe connections for the extended general linear frame bundle.
+
+\definitionheading{Infinitesimal directional transport}{def:conn-directional}
+The proposed transport family has first-order behavior
+\begin{equation}
+\Theta_i(c+\delta c,c)
+=U_i(c+\delta c)\exp[-a_{i,\mu}(c)\delta c^\mu]U_i(c)^{-1}
++O(|\delta c|^2).
+\label{eq:conn-infinitesimal}
+\end{equation}
+The first-order generator is linear in the tangent displacement. A single finite matrix at $c$ supplies neither this linear dependence nor the identity value at zero displacement.
+
+\propositionheading{Connection and curvature}{prop:conn-curvature}
+With the convention $D_i=d+B_i$, \cref{eq:conn-infinitesimal} has connection and curvature
+\begin{equation}
+B_i=U_i a_iU_i^{-1}-dU_iU_i^{-1},\qquad
+F_i=U_i(da_i+a_i\wedge a_i)U_i^{-1}.
+\label{eq:conn-curvature}
+\end{equation}
+\begin{proof}
+Expanding the two factors at $c$ gives
+$\Theta_i=I+(dU_iU_i^{-1}-U_i a_iU_i^{-1})(\delta c)+O(|\delta c|^2)$,
+which identifies $B_i$. Acting on a vector-valued function gives the operator identity
+$d+B_i=U_i(d+a_i)U_i^{-1}$. Squaring it yields
+$(d+B_i)^2=U_i(d+a_i)^2U_i^{-1}$, and the squares act by the curvature two-forms in \cref{eq:conn-curvature}.
+\end{proof}
+
+For an explicit curved example, take $U_i=I$ over an open subset of $\R^2$ and set
+\begin{equation}
+a_{i,x}=E_{12},\qquad a_{i,y}=E_{21}.
+\end{equation}
+Both are rank-one receiving--sending products, while their derivatives vanish. Nevertheless,
+\begin{equation}
+F_{i,xy}=[E_{12},E_{21}]
+=\begin{pmatrix}1&0\\0&-1\end{pmatrix}\ne0.
+\end{equation}
+Thus even constant directional interfaces can give curvature through noncommutativity. By contrast, replacing a finite pointwise map by a new frame $V(c)$ and setting $B=-dV V^{-1}$ gives zero curvature: it is the case $a=0$ of \cref{eq:conn-curvature}.
+
+Finite paths use the solution of
+\begin{equation}
+\frac{d}{dt}T_i(t)=-B_i(\dot\gamma(t))T_i(t),\qquad T_i(0)=I.
+\end{equation}
+Uniqueness of this linear equation gives composition under concatenation and inversion under path reversal. The solution is the path-ordered exponential; the usual link and Wilson-line constructions use this ordering \citep{Tong2018}. Independently declared opposite attending edges are not two orientations of this same path and need not be inverses.
+
+\propositionheading{Compatibility under re-expression}{prop:conn-patches}
+Under an agent-coordinate change $U_i'=g_iU_i$ with the same reference form,
+\begin{equation}
+B_i'=g_iB_i g_i^{-1}-dg_i g_i^{-1}.
+\end{equation}
+Under a change of reference presentation $U_i'=U_i h$, keeping the same intrinsic transport instead requires
+\begin{equation}
+a_i'=h^{-1}a_i h+h^{-1}dh.
+\label{eq:conn-reference-affine}
+\end{equation}
+\begin{proof}
+Insert $g_iU_i$ into \cref{eq:conn-curvature} and apply the product rule. Inserting $U_i h$ and \cref{eq:conn-reference-affine} cancels the two terms containing $dh$, leaving the original $B_i$.
+\end{proof}
+The same affine law must hold between overlapping coordinate patches. A directional interface product transforming only by conjugation is a tensorial one-form. It can describe the difference between two connections, but it is not by itself the full affine connection data. Constructing displacement links with the endpoint transformation law and then differentiating them is one way to obtain the required inhomogeneous term.
+
+If patch coordinates satisfy $v_\alpha=g_{\alpha\beta}v_\beta$, their transition functions must obey $g_{\alpha\beta}g_{\beta\gamma}=g_{\alpha\gamma}$ on triple overlaps. The displayed affine law then makes the local connections compatible. A nontrivial bundle need not admit a single global presentation $U_i$. Even on a trivial bundle, zero curvature does not imply path independence: the scalar connection $B=b d\theta$ on the circle is flat but has holonomy $e^{-2\pi b}$, which differs from one for real $b\ne0$. Global path independence requires trivial holonomy as well as local flatness.
+
+Different agents may carry different connections on the same bundle. They represent one common connection only when their local forms satisfy its overlap relations. Neither case requires an averaging construction.
+
+\openproblemheading{Deriving directional transport from agent interactions}{open:conn-derived}
+Specify a constitutive family of displacement links from the agents' laws and interfaces that has identity at zero displacement, a smooth first derivative linear in displacement, and compatible endpoint laws on overlaps. Its derivative then determines the connection by \cref{prop:conn-curvature}. The unresolved step is the selection and construction of that family; pointwise covariance and the possibility of curvature alone do not determine it.

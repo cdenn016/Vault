@@ -1,0 +1,132 @@
+\chapter{Supporting Constructions for Inheritance}
+\label{s:inheritance}
+
+This chapter gives two exact ways to determine what a parent must retain:
+factorization of a boundary map and conditional prediction from a retained
+history. Both distinguish an inherited response from a newly chosen parent
+interaction.
+
+\section{Linear boundary descent}
+
+\propositionheading{Descent through a surjective retention}{sinh:linear-descent}
+Let $E_j,E_i,Z_j,Z_i$ be finite-dimensional real vector spaces. Let
+$C_j:E_j\to Z_j$ be surjective, let $C_i:E_i\to Z_i$ be linear, and let
+$M_{ij}:E_j\to E_i$ be a linear boundary map. There is a linear map
+$M_{IJ}^c:Z_j\to Z_i$ satisfying
+\begin{equation}
+ C_iM_{ij}=M_{IJ}^cC_j,
+ \label{sinh:linear-square}
+\end{equation}
+if and only if
+\begin{equation}
+ \ker C_j\subseteq\ker(C_iM_{ij}).
+ \label{sinh:kernel-condition}
+\end{equation}
+When it exists, it is unique.
+
+\noindent\emph{Proof.}
+If \eqref{sinh:linear-square} holds, every $v\in\ker C_j$ satisfies
+$C_iM_{ij}v=0$. Conversely, define
+$M_{IJ}^c(C_jv)=C_iM_{ij}v$. Two choices $v,w$ with $C_jv=C_jw$ differ
+by an element of $\ker C_j$, which \eqref{sinh:kernel-condition}
+annihilates. The definition is therefore independent of the representative.
+It is linear, and surjectivity of $C_j$ defines it everywhere. The same
+surjectivity proves uniqueness. $\square$
+
+For example, let $C_j(u,v)=u$ and $C_i$ be the identity on $\R$. The
+map $M_{ij}(u,v)=u+v$ cannot descend: the discarded vector $(0,1)$ changes
+the retained output. The map $M_{ij}(u,v)=2u$ descends to multiplication
+by two. Agreement of two current input laws does not change either
+conclusion, since the requirement concerns the boundary mechanism on its
+declared domain.
+
+The same criterion handles an additive-noise channel without requiring
+Gaussian noise. Suppose the receiver content is $M_{ij}v+\varepsilon$,
+where $\varepsilon$ has a fixed probability law $\nu$ independent of
+$v$. If \eqref{sinh:kernel-condition} holds, its retained law is the
+distribution of
+\begin{equation}
+ M_{IJ}^c C_jv+C_i\varepsilon.
+\end{equation}
+Thus the parent inherits the pushed noise law $(C_i)_\#\nu$. A
+state-dependent noise law requires its own factorization through $C_j$;
+factoring the mean map alone is insufficient.
+
+\section{Exact finite filtering}
+
+Let $X_n$ be a Markov chain on a finite configuration space $\mathsf S$
+with transition matrix $T$ and initial row distribution $p_0$. Let
+$Z_n=R(X_n)$ for a map into a finite retained space $\mathsf S^c$.
+For each $z$, let $P_z$ be the diagonal matrix whose entry at $x$ is
+$1_{\{R(x)=z\}}$. These matrices are selectors of configurations, not
+new dynamical transitions.
+
+\propositionheading{The terminal conditional law retains every future prediction}{sinh:filter}
+For a retained history $h_n=(z_0,\ldots,z_n)$ of positive probability,
+define
+\begin{equation}
+ f_{h_n}=p_0P_{z_0}TP_{z_1}\cdots TP_{z_n},\qquad
+ \widehat p_{h_n}=\frac{f_{h_n}}{f_{h_n}\mathbf 1}.
+ \label{sinh:filter-law}
+\end{equation}
+Then $\widehat p_{h_n}$ is the conditional distribution of $X_n$ given
+$h_n$, and
+\begin{equation}
+ \Pr(Z_{n+1}=z\mid h_n)=\widehat p_{h_n}TP_z\mathbf 1.
+ \label{sinh:next-record}
+\end{equation}
+After a positive-probability next value $z$, the update is
+\begin{equation}
+ \widehat p_{(h_n,z)}
+ =\frac{\widehat p_{h_n}TP_z}
+        {\widehat p_{h_n}TP_z\mathbf 1}.
+ \label{sinh:filter-update}
+\end{equation}
+For any finite future word, its probability is obtained by further
+multiplication by the corresponding $TP_z$ matrices and by $\mathbf 1$.
+
+\noindent\emph{Proof.}
+The $x$ component of $p_0P_{z_0}$ is the joint probability of
+$X_0=x$ and $Z_0=z_0$. Multiplication by $T$ propagates this joint mass
+one step; multiplication by $P_{z_1}$ restricts it to the next retained
+value. Induction gives the joint mass of $h_n$ and $X_n=x$ as the $x$
+component of $f_{h_n}$. Its sum is the probability of $h_n$, so division
+gives the conditional distribution. One further propagation and selection
+gives \eqref{sinh:next-record} and \eqref{sinh:filter-update}. Repeating
+the operation gives every future word probability. $\square$
+
+A zero-probability history has zero unnormalized message and no conditional
+law supplied by this formula. Because all matrices are nonnegative, every
+extension of that history also has zero mass. The construction therefore
+needs no arbitrary prediction on an impossible history.
+
+The filter is sufficient even when the retained process is not Markov.
+For the deterministic cycle $1\to2\to3\to1$ with uniform initial law,
+set $R(1)=R(2)=0$ and $R(3)=1$. The histories $(0,0)$ and $(1,0)$
+both have positive probability and end at the same retained value.
+The first ends at state $2$ and predicts $1$ next; the second ends at
+state $1$ and predicts $0$. Hence the current retained value cannot
+determine its next distribution. The terminal conditional law does.
+
+\section{Successive retention of responses}
+
+Suppose a declared joint law contains a fine state $X$ and a boundary
+response $O$. Let $Z=R_{10}(X)$ and $W=R_{21}(Z)$, and assume all spaces
+are standard Borel. For every bounded measurable response observable $g$,
+conditional expectation gives
+\begin{equation}
+ \E[g(O)\mid W]
+ =\E\bigl[\E[g(O)\mid Z]\mid W\bigr].
+ \label{sinh:conditional-tower}
+\end{equation}
+To verify the identity, integrate either side over any event determined by
+$W$. Such an event is also determined by $Z$, so both integrals equal
+the integral of $g(O)$ over that event. This characterizes conditional
+expectation up to null sets.
+
+The identity concerns one declared joint law. Applying it to an equilibrium
+law produces equilibrium-conditional responses. Applying it to the joint
+law conditional on a retained history produces the corresponding predictive
+responses. These are interchangeable only when their relevant conditional
+laws agree. Exact boundary descent is stronger: it fixes the response on
+every admitted fiber, independently of the conditional weights used there.

@@ -1,0 +1,156 @@
+% !TeX root = ../MAgent_Theory_2.0.tex
+\chapter{Law-Dependent Interactions}
+\label{ch:interactions}
+
+An interaction compares or transmits information between agents. Its law may depend on the agents' current statistical states. Gauge covariance specifies how this dependence is represented when coordinates change; it does not require the interaction to be a frame identification or select a unique mechanism. We first construct these interactions at one context. Transport between different contexts is a further construction, developed in \cref{app:connection}.
+
+\section{Two sectors and their comparison spaces}
+
+Fix a context $c$ and a finite set of agents defined there. Write
+\begin{equation}
+\nu_i^q=q_i,\qquad \nu_i^s=s_i,
+\end{equation}
+for the belief and model marginals of agent $i$. The sector index $a$ takes values in $\{q,s\}$. These laws live on standard Borel spaces $E_i^a$. No product assumption between the two sectors, or between different agents, is required to define an interaction between their marginals. Such a product is a separate choice when a joint recognition law is needed.
+
+In a vector realization choose reference spaces $V_q,V_s$ and invertible presentation maps
+\begin{equation}
+U_i^a:V_a\longrightarrow E_i^a,\qquad
+\bar q_i=(U_i^q)^{-1}_\#q_i,\qquad
+\bar s_i=(U_i^s)^{-1}_\#s_i.
+\label{eq:int-reference-laws}
+\end{equation}
+We also write $\bar\nu_i^a=(U_i^a)^{-1}_\#\nu_i^a$. The two presentations can come from different representations of the same principal frame. This does not identify the belief and model interaction maps. Their domains, parameters, and dependence on the laws remain separately specified.
+
+A passive re-expression $y_i'=g_i^a y_i$ sends $\nu_i^a$ to $(g_i^a)_\#\nu_i^a$ and $U_i^a$ to $g_i^aU_i^a$. Therefore the reference laws in \cref{eq:int-reference-laws} are unchanged. A common reference change $U_i^a\mapsto U_i^a h_a$ instead sends every reference law to $(h_a^{-1})_\#\bar\nu_i^a$. The first operation changes an agent's displayed coordinates; the second changes the common coordinates in which interaction parameters are written.
+
+\definitionheading{Normalized interaction channel}{def:int-channel}
+A sector channel from source $j$ to receiver $i$ is a Markov kernel
+\begin{equation}
+\mathcal K_{ij}^a:E_j^a\rightsquigarrow E_i^a.
+\end{equation}
+It sends a law to $(\nu_j^a\mathcal K_{ij}^a)(A)=\int\mathcal K_{ij}^a(y,A)\nu_j^a(dy)$. When the channel depends on the agent configuration, this formula is evaluated at that configuration. Covariance requires
+\begin{equation}
+\mathcal K_{ij}^{a\prime}(g_j^a y,A)
+=\mathcal K_{ij}^a(y,(g_i^a)^{-1}A).
+\label{eq:int-kernel-covariance}
+\end{equation}
+Composition of sending, transmission, and receiving kernels produces another normalized channel by iterated integration. Invertibility is not required. Alternatively, two channels can send the receiver and source laws into a common message space, where their communicated predictions are compared.
+
+\propositionheading{Covariant law comparison}{prop:int-kl-covariance}
+Under \cref{eq:int-kernel-covariance}, the divergence
+\begin{equation}
+D_{ij}^a=\KL(\nu_i^a\Vert\nu_j^a\mathcal K_{ij}^a),
+\label{eq:int-peer-divergence}
+\end{equation}
+is unchanged by passive bimeasurable coordinate changes, including when its value is infinite.
+\begin{proof}
+Changing the integration variable in the kernel gives
+$\nu_j^{a\prime}\mathcal K_{ij}^{a\prime}=(g_i^a)_\#(\nu_j^a\mathcal K_{ij}^a)$.
+For any bimeasurable bijection $g$, absolute continuity is preserved and the transformed Radon--Nikodym derivative is $(d\mu/d\eta)\circ g^{-1}$. Its logarithmic integral is therefore unchanged. Failure of absolute continuity is also preserved, giving infinity on both sides.
+\end{proof}
+This is the coordinate invariance of relative entropy \citep{KullbackLeibler1951}. It makes the comparison intrinsic without asserting that either law is a posterior under a fixed population model.
+
+\section{Sending, receiving, and exponential links}
+
+Choose a message space $H_a$ and reference interfaces
+\begin{equation}
+T_j^a:V_a\longrightarrow H_a,\qquad
+O_i^a:H_a\longrightarrow V_a.
+\end{equation}
+Their direct content map is $M_{ij}^a=U_i^aO_i^aT_j^a(U_j^a)^{-1}$. A deterministic channel can push the entire law through this map even when the image is lower dimensional. A density formula for a nonsingular law cannot then be used on the original ambient space without accounting for that change of support.
+
+\definitionheading{Law-dependent reference generator}{def:int-generator}
+Let $\mathcal L_{ij}^a$ be a measurable function of the reference laws, and of any explicitly declared interface data, with values in $\operatorname{End}(V_a)$. Define
+\begin{equation}
+L_{ij}^a=\mathcal L_{ij}^a(\bar\nu_i^a,\bar\nu_j^a),\qquad
+\Theta_{ij}^a=U_i^a\exp(L_{ij}^a)(U_j^a)^{-1}.
+\label{eq:int-exponential-link}
+\end{equation}
+The primitive self-comparison is $L_{ii}^a=0$. For other edges a receiving--sending factorization is $L_{ij}^a=O_i^a(\bar\nu_i^a)T_j^a(\bar\nu_j^a)$, provided both maps refer to the same $H_a$ and $V_a$.
+
+The exponential is taken on the reference endomorphism, not on a map with different domain and codomain. These are $\GL(V_a)$ interaction maps. A smaller group acting on the frames can still re-express them covariantly. Interpreting them as parallel transports of a connection for that smaller group would additionally require generators in its represented Lie algebra.
+
+\propositionheading{Endpoint covariance and reference consistency}{prop:int-endpoint}
+The links in \cref{eq:int-exponential-link} obey
+\begin{equation}
+\Theta_{ij}^{a\prime}=g_i^a\Theta_{ij}^a(g_j^a)^{-1}.
+\label{eq:int-endpoint}
+\end{equation}
+They are also independent of a common reference rechoice if
+\begin{equation}
+\mathcal L_{ij}^{a\prime}((h_a^{-1})_\#\bar\nu_i^a,(h_a^{-1})_\#\bar\nu_j^a)
+=h_a^{-1}L_{ij}^a h_a,
+\label{eq:int-reference-equivariance}
+\end{equation}
+where the prime includes the re-expression of any supplied interface data.
+\begin{proof}
+Passive site changes leave the reference laws and generator unchanged, so multiplication by the transformed endpoint frames proves \cref{eq:int-endpoint}. Under a reference rechoice, the exponential series gives $e^{h_a^{-1}Lh_a}=h_a^{-1}e^Lh_a$. Substitution cancels both occurrences of $h_a$ in \cref{eq:int-exponential-link}.
+\end{proof}
+For factored generators, $O_i^a\mapsto h_a^{-1}O_i^a$ and $T_j^a\mapsto T_j^a h_a$ suffice. Message-coordinate changes $T_j^a\mapsto r_aT_j^a$, $O_i^a\mapsto O_i^ar_a^{-1}$ cancel within the product.
+
+\propositionheading{Selective generator and invertible transport}{prop:int-rank}
+For finite matrices $O:H\to V$ and $T:V\to H$, the map $OT$ has rank at most $\dim H$, whereas $e^{OT}$ is invertible. Moreover,
+\begin{equation}
+e^{OT}v=v\quad(v\in\ker T),\qquad
+\operatorname{im}(e^{OT}-I)\subseteq\operatorname{im}O.
+\end{equation}
+\begin{proof}
+The rank statement follows from factorization. The exponential series and $e^{OT}e^{-OT}=I$ prove invertibility. Every positive power of $OT$ vanishes on $\ker T$, and every such power has image in $\operatorname{im}O$. Summing the convergent series proves the remaining assertions.
+\end{proof}
+Thus the exponential link retains an identity action in unread directions. It is a different operation from sending only the selective content $OTv$. The identity self-link also differs from a coarse internal loop: a parent may retain nonidentity loop information inherited from several child interactions.
+
+\section{An explicit constitutive family for general laws}
+
+The preceding definition does not select the functional $\mathcal L$. The following choice shows that nonconstant, covariant generators can depend directly on laws without restricting them to a Gaussian family.
+
+\constructionheading{Moment-dependent receiving and sending}{def:int-moment-family}
+For each sector let $V_a=\R^{d_a}$ and admit laws with finite second moments and positive-definite covariance. In reference coordinates write their means and covariances as $\mu_i^a$ and $M_i^a$. For a supplied scalar $\lambda_{ij}^a$ on each nonself directed edge, put
+\begin{equation}
+L_{ij}^a=\lambda_{ij}^a\mu_i^a(\mu_j^a)^T(M_j^a)^{-1},\qquad
+O_{ij}^a(t)=\lambda_{ij}^a\mu_i^a t,\qquad
+T_j^a(v)=(\mu_j^a)^T(M_j^a)^{-1}v.
+\label{eq:int-moment-generator}
+\end{equation}
+Here $H_a=\R$, and $L_{ij}^a=O_{ij}^aT_j^a$ has rank at most one. Set $L_{ii}^a=0$ separately. The edge coefficient is constitutive data, not a consequence of covariance.
+
+\propositionheading{Equivariance of the moment family}{prop:int-moment-equivariance}
+The family \cref{eq:int-moment-generator} satisfies \cref{eq:int-reference-equivariance} under every invertible linear reference change.
+\begin{proof}
+Under $U_i^a\mapsto U_i^a h_a$, the moments become
+$\mu_i^{a\prime}=h_a^{-1}\mu_i^a$ and
+$M_j^{a\prime}=h_a^{-1}M_j^a h_a^{-T}$.
+Consequently
+\begin{equation}
+(\mu_j^{a\prime})^T(M_j^{a\prime})^{-1}
+=(\mu_j^a)^T(M_j^a)^{-1}h_a.
+\end{equation}
+Multiplication with the transformed receiving column gives $L_{ij}^{a\prime}=h_a^{-1}L_{ij}^a h_a$.
+\end{proof}
+No fixed Euclidean metric was inserted into this comparison: the source covariance supplies the inverse bilinear form and transforms with the law. Finite moments and invertible covariance are assumptions of this example alone. Centered laws give zero generators in this family, so it does not encode all distinctions between laws.
+
+For a non-Gaussian example in two dimensions, take independent centered Laplace coordinates of variance one and translate their joint law to means $e_1$ and $e_2$ for two agents. Both covariances equal $I$. With identity frames and unit edge coefficients,
+\begin{equation}
+L_{12}=E_{12},\qquad L_{21}=E_{21},\qquad
+\Theta_{12}\Theta_{21}
+=(I+E_{12})(I+E_{21})
+=\begin{pmatrix}2&1\\1&1\end{pmatrix}.
+\label{eq:int-nongaussian-loop}
+\end{equation}
+The loop is nontrivial even though both interfaces have rank one. This is a communication loop at one context, not yet the curvature of a base connection.
+
+\section{Dependence, direction, and inherited responses}
+
+Covariance constrains which law-only generators are possible. If a reference transformation fixes both input laws and all supplied data, \cref{eq:int-reference-equivariance} requires its matrix to commute with the resulting generator. Identical centered laws invariant under every orthogonal transformation therefore cannot select a distinguished off-diagonal direction through a fully orthogonally equivariant law-only rule. Directional interfaces can carry additional information, but that information must be declared.
+
+Opposite attending edges are independent constitutive choices. In particular, $\Theta_{ji}$ need not equal $\Theta_{ij}^{-1}$, as \cref{eq:int-nongaussian-loop} demonstrates. Geometric reversal of the \emph{same} transport is instead its inverse. Endpoint covariance and conjugation of loop products are the familiar transformation laws of lattice link variables \citep{Wilson1974}; neither imposes an inverse relation between two independently modeled interactions.
+
+When links depend on the current laws, differentiation must include that dependence. At fixed frames a variation of an objective has the form
+\begin{equation}
+d\mathcal E=d_{\nu}\mathcal E+
+\sum_{a,i,j}\langle d_{L_{ij}^a}\mathcal E,
+D\mathcal L_{ij}^a[d\bar\nu_i^a,d\bar\nu_j^a]\rangle.
+\label{eq:int-total-variation}
+\end{equation}
+This statement uses a differentiable statistical family and differentiable constitutive maps. It includes both the sender and receiver occurrences. Freezing the link during an update defines another declared dynamics; it is not generally the derivative of the substituted objective. Nor does substituting live recognition laws into a likelihood make that likelihood part of a fixed generative model during recognition variation.
+
+An inherited parent's state must determine its future boundary response, including the law dependence of its generators. If two child configurations with identical retained data give different future responses, those data do not support autonomous closure.

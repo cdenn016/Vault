@@ -1,0 +1,16 @@
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm]},
+  box/.style={draw=primaryblue,rounded corners=2pt,fill=primaryblue!5,minimum width=2.15cm,minimum height=0.95cm,align=center,font=\small},
+  every edge/.style={draw,->,thick,primaryblue},
+  every node/.style={font=\small}]
+\node[box] (source) {Source fiber\\$E_j^a$};
+\node[box,right=1.15cm of source] (refsource) {Reference\\$V_a$};
+\node[box,right=1.15cm of refsource] (refreceiver) {Reference\\$V_a$};
+\node[box,right=1.15cm of refreceiver] (receiver) {Receiver fiber\\$E_i^a$};
+\path (source) edge node[above=3pt] {$(U_j^a)^{-1}$} (refsource)
+      (refsource) edge node[above=3pt] {$e^{L_{ij}^a}$} (refreceiver)
+      (refreceiver) edge node[above=3pt] {$U_i^a$} (receiver);
+\node[below=0.65cm of $(refsource.south)!0.5!(refreceiver.south)$,align=center]
+  {$\Theta_{ij}^a=U_i^a e^{L_{ij}^a}(U_j^a)^{-1}$\\[3pt]
+   $a=q$ or $s$: two separately specified interactions};
+\end{tikzpicture}

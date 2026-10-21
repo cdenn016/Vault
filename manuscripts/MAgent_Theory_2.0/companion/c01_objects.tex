@@ -1,0 +1,55 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{What an Agent Carries}
+\label{comp:objects}
+
+A classical statistical description distinguishes a phase-space point from a distribution over phase space. The same distinction begins this theory: $k\in\mathsf K$ is a represented possibility, while $q$ is a probability law over such possibilities. The agent carries the law and mechanisms for changing it. Its contents need not be positions and momenta, and the statistical law need not describe an ensemble of physically separate agents.
+
+\section{Beliefs, models, and predictions}
+
+There are two sectors. The belief law $q_i$ describes state contents $k$. The model law $s_i$ describes model presentations $m\in\mathsf M$. Their most general joint description is
+\begin{equation}
+\zeta_i(dk,dm)=q_i(dk\mid m)s_i(dm).
+\label{comp:eq-joint}
+\end{equation}
+The notation $q_i(dk\mid m)$ means a conditional law, and $q_i(dk)$ without the condition denotes its marginal. Choosing $\zeta_i=q_i\otimes s_i$ removes dependence between the sectors in that description. It still permits coupled equations for $q_i$ and $s_i$, just as coupled equations for two coordinates do not require a statistical ensemble over those coordinates.
+
+A model presentation becomes predictive through a normalized evaluator $G_i(m,dk)$. For each $m$, this assigns a probability law to the state contents. Averaging the evaluator over the model law gives
+\begin{equation}
+(s_iG_i)(A)=\int G_i(m,A)s_i(dm).
+\label{comp:eq-model-mixture}
+\end{equation}
+For example, let $k,m$ be binary, with $s_i(m=1)=0.6$, $G_i(1,\{1\})=0.9$, and $G_i(0,\{1\})=0.2$. The model mixture assigns probability $0.62$ to $k=1$. A present belief $q_i(k=1)=0.8$ is a different object. An interaction rule can bring these descriptions into agreement, revise the model law, or change both. Those dynamics must be specified.
+
+An evaluator is a Markov kernel: a function whose output is a probability measure. Ordinary functions are included as the case in which the output measure is concentrated at one value. This language accommodates discrete, continuous, singular, and multimodal laws without selecting a Gaussian family. When differentiating laws later, we will restrict to a regular statistical family or positive finite tables.
+
+\section{A record has an address inside the agent}
+
+Let $x_i\in\mathsf S_i$ denote the complete internal state, including its laws, interfaces, and any memory. A record readout is an ordinary measurable function
+\begin{equation}
+\rho_i:\mathsf S_i\longrightarrow\mathsf O_i.
+\label{comp:eq-readout}
+\end{equation}
+The output alphabet $\mathsf O_i$ specifies the distinctions the agent can read. A binary register gives $\mathsf O_i=\{0,1\}$; a real-valued comparison can use $\R^r$. The detector analogy is precise at this level: an internal state contains a readable distinction. It does not require an outside observer to inspect it.
+
+Write $x\in\mathsf S$ for the complete population configuration. A deterministic interaction $F_{ij}:\mathsf S\to\mathsf S$ produces the record
+\begin{equation}
+o_{ij}=\rho_i\bigl(\operatorname{pr}_i F_{ij}(x)\bigr),
+\label{comp:eq-deterministic-record}
+\end{equation}
+where $\operatorname{pr}_i$ selects the receiver's state. For a stochastic transition $\Gamma_{ij}(x,dx')$, the probability of a record in $A$ is
+\begin{equation}
+\mathcal R_{ij}(x,A)
+=\Gamma_{ij}\bigl(x,\{x':\rho_i(\operatorname{pr}_i x')\in A\}\bigr).
+\label{comp:eq-record-law}
+\end{equation}
+This is a pushforward: collect the probability of every next state that displays an outcome in $A$. The transition specifies what happens; the readout specifies what is accessible. A persistent record requires that some later readout still recover the distinction. A transient comparison and a memory trace therefore have different dynamical requirements.
+
+A likelihood on represented contents has another role. For instance, the expression $o=A_i k_i-B_{ij}k_j+\epsilon$ gives a comparison value once the contents and noise are given. Their joint law predicts possible comparisons. A registration rule must still place the outcome in an internal state and specify the response to it.
+
+\section{Which probability space is being used?}
+
+The configuration $x$ contains the agents' laws. A tuple of represented contents $(k_i,m_i)_i$ belongs to a different space. A probability law over possible configurations is a third construction, useful when a preparation or stochastic dynamics has been declared. Deterministic motion of $x$ requires neither sampling the contents nor drawing an ensemble of configurations at each step.
+
+This distinction also clarifies correlations. Two independent fair bits have probability $1/4$ for each pair. Condition on a shared record that the bits agree. Their marginals remain fair, but the conditional joint law has probability $1/2$ on each of $(0,0)$ and $(1,1)$. A calculation of the next joint comparison needs this dependence; the marginals do not contain it. A coupled product-family evolution remains a possible model, but it will not represent that exact conditional joint law. Whether a correlation is needed is decided by the response being predicted.
+
+The laws can be attached to local domains of a context base $\mathcal C$. This is the section picture: a context selects the law applicable there, and a frame specifies its coordinates. Most interactions below occur at a common context. Moving between contexts introduces the connection problem in \cref{comp:geometry}.
