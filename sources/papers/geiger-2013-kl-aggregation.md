@@ -59,7 +59,7 @@ The method optimizes a computable upper bound and uses greedy partitioning; it i
 - [[Coarse Graining]]
 - [[Statistical experiment comparison and deficiency]]
 - [[Sufficient statistics]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[geiger-temmel-2013-information-preserving-aggregation]]
 
 ## BibTeX

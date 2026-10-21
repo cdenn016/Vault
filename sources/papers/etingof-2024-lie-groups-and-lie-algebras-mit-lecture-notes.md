@@ -26,13 +26,7 @@ Etingof, Pavel. Lie Groups and Lie Algebras: MIT Lecture Notes. 2024. [Retrieved
 
 Course notes used for Lie actions and geometric background. No specific claim of new RG behavior follows from the reference alone.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-frame-quotient-boundaries.md`
 - `docs/derivations/2026-09-10-frame-quotient-check.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

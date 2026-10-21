@@ -24,7 +24,7 @@ The model represents a cultural variant as a continuous value that each learner 
 ## Relevance to this research
 This is the cleanest formal bridge in the batch to the VFE belief-recreation picture: beliefs are reconstructed each transmission step under attractors (priors), not copied verbatim, which is exactly how the gauge-theoretic functional treats an agent's posterior — pulled toward a prior attractor during free-energy minimization rather than transmitted intact. The reduction-to-replicator-under-strong-attractors result is a direct analog of how strong prior coupling (large $\alpha$ in the self-coupling term $\alpha\,\mathrm{KL}(q_i\,\|\,p_i)$) collapses the continuous belief dynamics toward a small set of fixed attractor states, recovering discrete consensus from continuous Gaussian beliefs. This is strong, machinery-level relevance to the belief-inertia premise and to why the program flags both an overdamped (selection-dominated) and an attractor-dominated regime. See [[Belief inertia]].
 
-Concept links: [[Belief inertia]], [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Renormalization-group flow of beliefs]].
+Concept links: [[Belief inertia]], [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Renormalization group flow]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

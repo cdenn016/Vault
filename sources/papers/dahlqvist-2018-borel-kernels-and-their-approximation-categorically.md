@@ -26,14 +26,8 @@ Dahlqvist, Fredrik; Silva, Alexandra; Danos, Vincent; Garnier, Ilias. Borel Kern
 
 Treats Borel kernels and approximation in categorical language. Used for normalized channel composition while retaining measurable-space hypotheses.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-coherent-reverse-diagrams-check.md`
 - `docs/derivations/2026-09-10-coherent-reverse-diagrams.md`
 - `docs/derivations/2026-09-10-coherent-scale-inference.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

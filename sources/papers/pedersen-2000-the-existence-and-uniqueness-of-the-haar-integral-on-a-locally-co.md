@@ -26,13 +26,7 @@ Pedersen, Gert K.. The Existence and Uniqueness of the Haar Integral on a Locall
 
 Provides Haar-measure construction for locally compact groups; noncompact Haar measure cannot be silently normalized into a probability law.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-equivariant-conditional-check.md`
 - `docs/derivations/2026-09-10-equivariant-conditional-compact.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

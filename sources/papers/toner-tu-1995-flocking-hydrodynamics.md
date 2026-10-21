@@ -24,10 +24,10 @@ $$ \partial_t \mathbf{v} + \lambda(\mathbf{v}\cdot\nabla)\mathbf{v} = \alpha\mat
 where the $\alpha,\beta$ terms drive a nonzero mean speed (broken rotational symmetry), $P(\rho)$ is a pressure, and $\mathbf{f}$ is noise. The advective term $\lambda(\mathbf{v}\cdot\nabla)\mathbf{v}$ is absent in equilibrium XY models and is what stabilizes long-range order in 2D. A dynamical renormalization-group analysis yields anomalous scaling exponents for the velocity and density fluctuations, establishing flocking as a distinct nonequilibrium universality class.
 
 ## Relevance to this research
-This is the continuum field theory of collective motion and the rigorous coarse-graining of microscopic alignment rules into an order-parameter field, which makes it the natural physics template for the program's renormalization-group coarse-graining of beliefs from discrete agents to a continuum order parameter. The explicit use of dynamical RG to extract scaling exponents is directly relevant to the program's meta-entropy / continuum-limit machinery and its [[Renormalization-group flow of beliefs]]. The relevance is methodological and strong on the coarse-graining side, while the specific advective hydrodynamics is an analogy rather than an equation the belief functional contains. See [[Renormalization-group flow of beliefs]], [[Collective motion and flocking]], [[Meta-entropy]].
+This is the continuum field theory of collective motion and the rigorous coarse-graining of microscopic alignment rules into an order-parameter field, which makes it the natural physics template for the program's renormalization-group coarse-graining of beliefs from discrete agents to a continuum order parameter. The explicit use of dynamical RG to extract scaling exponents is directly relevant to the program's meta-entropy / continuum-limit machinery and its [[Renormalization group flow]]. The relevance is methodological and strong on the coarse-graining side, while the specific advective hydrodynamics is an analogy rather than an equation the belief functional contains. See [[Renormalization group flow]], [[Collective motion and flocking]], [[Meta-entropy]].
 
 ## Cross-links
-- Concept: [[Renormalization-group flow of beliefs]]
+- Concept: [[Renormalization group flow]]
 - Related sources: [[vicsek-1995-self-driven-particles]], [[vicsek-zafeiris-2012-collective-motion]], [[bialek-2012-statistical-mechanics-flocks]]
 
 ## BibTeX

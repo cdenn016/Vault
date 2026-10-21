@@ -43,21 +43,10 @@ Taking the limit of vanishing time step with a Wiener process and Itô calculus 
 corresponding formulas for stochastic differential equations, including multiplicative noise, so
 a high-dimensional problem reduces to a much lower-dimensional Itô SDE.
 
-## Relevance to this research
-
-In synergetic terms the parent of [[multiagentelbo-2026-09-28-early-parent]] is the
-order-parameter description and the discarded within-pair disagreements are the slaved modes;
-"the culture is the meta-agent" reads as "the order parameters enslave the individual
-deviations." The abstract states slaving as an asymptotic functional relation and does not
-discuss the transient before slaving holds, so it does not address the model's finding that
-slaving at the level of the law fails in relative entropy until $\theta-\log(1/\epsilon)\to\infty$.
-The mapping is interpretive. [[weidlich-1991-physics-social-science]] is the sociological
-application of this framework.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[weidlich-1991-physics-social-science]], [[vankampen-1985-elimination-fast-variables]], [[cox-1995-initial-conditions-models]]
 
 ## BibTeX

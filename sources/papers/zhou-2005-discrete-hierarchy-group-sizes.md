@@ -48,7 +48,7 @@ The measured branching ratio near three is the empirical cousin of the laborator
 ratio $b$: the nested-cycle tower's inner triangles and the ratio-typed fixed structures of the
 rescaling map (ratio-2 and ratio-3 endpoints differing by 0.81 relative sup) make the ratio a
 physical parameter of hierarchy formation, and this paper says human hierarchies empirically
-prefer one. See [[Staged hierarchy formation and RG composability]] and
+prefer one. See [[Meta-agents and hierarchical emergence]] and
 [[Meta-agents and hierarchical emergence]].
 
 ## BibTeX

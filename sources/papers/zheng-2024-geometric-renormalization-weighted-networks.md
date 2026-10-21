@@ -35,7 +35,7 @@ updated: 2026-08-16
 
 ## TL;DR
 
-The paper extends geometric network renormalization from binary topology to weighted links. Nodes are first grouped into consecutive sectors in a latent similarity geometry. The links between two supernodes are then assigned an aggregate weight from a one-parameter rescaled norm,
+The paper extends geometric network renormalization from binary topology to weighted links. Nodes are first grouped into consecutive sectors in a latent similarity geometry. The links between two supernodes are then assigned an aggregate weight from a one-parameter rescaled norm
 
 $$
 \omega'_{IJ}
@@ -74,7 +74,7 @@ The construction assumes a latent metric geometry and externally prescribed cons
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Coarse Graining]], [[Community detection and modularity]], [[Graph synchronization and connection Laplacians]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Community detection and modularity]], [[Graph synchronization and connection Laplacians]]
 - Related sources: [[garuccio-2023-multiscale-network-renormalization]], [[gabrielli-2025-network-renormalization]], [[villegas-2023-laplacian-renormalization-group]], [[serrano-2008-self-similarity]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 

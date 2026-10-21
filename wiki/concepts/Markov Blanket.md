@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-10-20
 ---
 
 # Markov Blanket
@@ -28,15 +28,15 @@ the surface across which an "inside" and an "outside" can be distinguished
 ([[friston-2013-life-as-we-know-it]]).
 
 Formally, partition the state $x$ of an ergodic random dynamical system at nonequilibrium steady
-state into four disjoint subsets,
+state into four disjoint subsets
 
 $$x = (\eta,\; s,\; a,\; \mu),$$
 
 with
 
-- **external states** $\eta$ — the environment / hidden causes outside the system;
-- **sensory states** $s$ — blanket states the external states influence but the internal states do not directly set;
-- **active states** $a$ — blanket states the internal states influence but the external states do not directly set;
+- **external states** $\eta$ — the environment / hidden causes outside the system
+- **sensory states** $s$ — blanket states the external states influence but the internal states do not directly set
+- **active states** $a$ — blanket states the internal states influence but the external states do not directly set
 - **internal states** $\mu$ — the system's "interior", carrying its beliefs.
 
 The **blanket** is the union of the sensory and active states, $b = (s, a)$. The defining property
@@ -148,7 +148,7 @@ program stands on. Three uses recur:
    [[kirchhoff-2018-markov-blankets-of-life]] is the canonical precedent for the project's recursive
    meta-agent tower: scale-$(s{+}1)$ agents are coarse-grainings of clusters of scale-$s$ agents, and a
    parent's beliefs become its constituents' priors. This underwrites [[Meta-agents and hierarchical emergence]],
-   [[Ouroboros multi-scale dynamics]], and the [[Renormalization-group flow of beliefs]].
+   [[Ouroboros multi-scale dynamics]], and the [[Renormalization group flow]].
 3. **The geometry.** [[parr-2020-markov-blankets-thermodynamics]] supply the exact precedent for the
    *pullback* move: internal states parametrize a density over the external world, the metric on that
    parameter space is the [[Fisher information metric]], and belief updating is [[Natural gradient]]

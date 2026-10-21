@@ -31,8 +31,6 @@ Section IV C, pp. 20–24, Eqs. (4.7)–(4.18); Section V A/B, pp. 31–35; Appe
 > [!note] Editorial: proposed transfer
 > This provides a concrete compact/finite-group route for preserving noncommuting loop information during interface compression. Its retained representation dimensions cannot be discarded arbitrarily. The irregular, large-network GL case still needs proper measures, metrics, interface-width control, and a positive-law approximation.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

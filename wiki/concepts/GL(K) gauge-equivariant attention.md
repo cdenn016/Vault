@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-06
+updated: 2026-10-20
 ---
 
 # GL(K) gauge-equivariant attention
@@ -107,7 +107,7 @@ The comparison cospan $E_i\to H^{\mathrm{cmp}}\leftarrow E_j$ is a pair of restr
 
 [[multiagentelbo-2026-selective-communication-formation]] applies the existing communication construction to the multi-agent formation question. Comparison maps $S_Q,S_K$ determine routing observables, while $T$ and $O$ select transmitted content and receiving directions. A small comparison KL permits private disagreement; distinct role maps do not even compare a common measurement. Independent invertible interaction links remain separate from local processing through $\mathcal L_e=F_i\rho(\Theta_e)$.
 
-The proposed collective coordinates comprise a shared interface together with the private states or conditional laws required by the parent. Complete-law formation bounds, a Markov blanket and autonomous reduced dynamics do not follow from low-rank communication alone. This is a source-based connection and a proposed extension, with no new formation theorem or population-VFE descent claim for the predictive residual. See [[Staged hierarchy formation and RG composability]] and [[Markov blanket interpretation debate]].
+The proposed collective coordinates comprise a shared interface together with the private states or conditional laws required by the parent. Complete-law formation bounds, a Markov blanket and autonomous reduced dynamics do not follow from low-rank communication alone. This is a source-based connection and a proposed extension, with no new formation theorem or population-VFE descent claim for the predictive residual. See [[Meta-agents and hierarchical emergence]] and [[Markov blanket interpretation debate]].
 
 ## Predictive communication and matrix links, September 20, 2026
 
@@ -205,7 +205,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
 
 - **Attention is derived, not assumed.** The full KL-plus-softmax rule above follows from a
   multi-agent VFE on a principal bundle with statistical-manifold fibers; the softmax is the KKT
-  solution for the source-selection posterior and the KL is exact ([[gl-k-attention]],
+  solution for the source-selection posterior and the KL is exact ([[gl-k-attention]]
   [[Variational free energy]]). What that derivation costs, stated exactly, is settled in
   the MAgent exact-ELBO attention-row derivation (2026-07-27) and summarized in the next section.
 
@@ -218,11 +218,11 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
 
 - **Architectural choices can be compared with the geometry.** Approximately constant key norms can
   cancel the key-norm bias in the strict identity-transport reduction, but this is not a derivation of
-  LayerNorm or of a general QK metric;
+  LayerNorm or of a general QK metric
   [[Multi-head attention]] is a block-diagonal restriction of the gauge algebra
   $\bigoplus_a\mathfrak{gl}(d_{\mathrm{head}})$; RoPE positional encoding is reinterpreted as
   position-dependent gauge frames; and ALiBi/T5/causal biases are non-uniform attention priors
-  $\pi_j$ entering the logits additively as $+\log\pi_j$ ([[gl-k-attention]],
+  $\pi_j$ entering the logits additively as $+\log\pi_j$ ([[gl-k-attention]]
   [[Attention mechanisms — theory and positional structure]]).
 
 - **Covariance fixed point and SPD dynamics.** Minimizing the free energy in $\Sigma_i$ yields the
@@ -230,7 +230,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   $\Sigma_i^{-1}=\tfrac12\big[\Sigma_{p,i}^{-1}+\sum_j\beta_{ij}(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}\big]$:
   each agent's precision is a $\beta$-weighted blend of its prior precision and its neighbors'
   *transported* precisions — manifest [[Precision weighting]]. Updates to $\Sigma$ are taken as
-  natural-gradient steps with an SPD-manifold retraction ([[SPD-manifold geometry and Riemannian optimization]],
+  natural-gradient steps with an SPD-manifold retraction ([[SPD-manifold geometry and Riemannian optimization]]
   [[Natural gradient]], [[Fisher information metric]]).
 
 - **Flat-bundle (vanishing holonomy) regime.** The gauge transformer's vertex-frame transport
@@ -250,7 +250,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   automatically supply the required witness.
 
 - **The nested attention envelope uses optimized costs, not a differentiated product.** For
-  $F_i(\beta_i)=\min_{q_i}\{D_{\mathrm{KL}}(q_i\|p_i)+\sum_j\beta_{ij}C_{ij}(q_i)\}$,
+  $F_i(\beta_i)=\min_{q_i}\{D_{\mathrm{KL}}(q_i\|p_i)+\sum_j\beta_{ij}C_{ij}(q_i)\}$
   the envelope identity is $\partial F_i/\partial\beta_{ij}=C_{ij}(q_i^*(\beta_i))$.
   At fixed $q_i$, the attention-coordinate objective is linear in $\beta_i$ plus its entropy
   regularizer and gives the Gibbs row. After eliminating $q_i$, this becomes an implicit Gibbs
@@ -498,7 +498,7 @@ transport $\Omega_{ij}$, [[Holonomy]], [[Gauge transformation]]); the **informat
 $\mathrm{GL}(K)/O(K)$, [[Symmetric spaces and the SPD cone]]). It anchors the
 [[VFE Transformer Program]] and feeds the [[Gauge-Theoretic Multi-Agent VFE Model]], where the same
 transported-belief machinery drives meta-agent coarse-graining and the
-[[Renormalization-group flow of beliefs]] / [[Meta-agents and hierarchical emergence]] thread.
+[[Renormalization group flow]] / [[Meta-agents and hierarchical emergence]] thread.
 The construction derives its own KL-softmax attention rule rather than positing it. Its strict
 shared-frame, isotropic limit yields an identity-bilinear score plus a key-norm bias; a general
 transformer compatibility $W_QW_K^\top$ and value map remain structural additions. It is therefore

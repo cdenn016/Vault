@@ -26,7 +26,7 @@ A strongly used empirical anchor for the echo-chamber prediction of belief inert
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Multi-agent variational free energy]], [[Renormalization-group flow of beliefs]], [[Community detection and modularity]]
+- Related: [[Multi-agent variational free energy]], [[Renormalization group flow]], [[Community detection and modularity]]
 - Related sources: [[cinelli-2021-echo-chamber-effect]], [[garrett-2009-echo-chambers-selective-exposure]], [[conover-2011-political-polarization-twitter]]
 
 ## BibTeX

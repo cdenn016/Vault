@@ -16,7 +16,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-10-20
 ---
 
 # Community detection and modularity
@@ -35,7 +35,7 @@ This is the graph-theoretic substrate that the [[Gauge-Theoretic Multi-Agent VFE
 
 ## Details
 
-The resolution limit ([[fortunato-2010-community-detection]]) is the pitfall most relevant to threshold-based meta-agent formation: modularity maximization cannot resolve communities smaller than a scale set by $\sqrt{2m}$, so genuinely distinct small clusters get fused. Any fixed $\Gamma_{\min}$ / fixed-threshold blocking inherits the same defect — the right resolution is scale-dependent, which is why the model's coarse-graining is iterated as an RG sweep ([[Renormalization-group flow of beliefs]]) rather than applied once at a single threshold. The spectral and modularity views connect through the Fiedler eigenvector ([[fiedler-1973-algebraic-connectivity]]) and the Newman-Girvan generative null model ([[newman-girvan-2004-community-structure]]); the consensus dynamics whose rate $\lambda_2$ governs are the multi-agent counterpart of opinion-averaging on networks ([[olfati-saber-2007-consensus]]).
+The resolution limit ([[fortunato-2010-community-detection]]) is the pitfall most relevant to threshold-based meta-agent formation: modularity maximization cannot resolve communities smaller than a scale set by $\sqrt{2m}$, so genuinely distinct small clusters get fused. Any fixed $\Gamma_{\min}$ / fixed-threshold blocking inherits the same defect — the right resolution is scale-dependent, which is why the model's coarse-graining is iterated as an RG sweep ([[Renormalization group flow]]) rather than applied once at a single threshold. The spectral and modularity views connect through the Fiedler eigenvector ([[fiedler-1973-algebraic-connectivity]]) and the Newman-Girvan generative null model ([[newman-girvan-2004-community-structure]]); the consensus dynamics whose rate $\lambda_2$ governs are the multi-agent counterpart of opinion-averaging on networks ([[olfati-saber-2007-consensus]]).
 
 ## Sources
 
@@ -47,7 +47,7 @@ The resolution limit ([[fortunato-2010-community-detection]]) is the pitfall mos
 ## See also
 
 - [[Meta-agents and hierarchical emergence]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[participatory-it-from-bit]]
 - [[Multi-agent variational free energy]]
 - [[Fisher information metric]]

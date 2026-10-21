@@ -48,7 +48,7 @@ map's closure on a theory family is a theorem-by-theorem matter, never a default
 categorical laboratory sidesteps the existence pathology (finite state spaces, strictly positive
 weights make the coarse action always exist) but inherits the closure question, which is exactly
 what its Moebius truncation residual and C4 projection agreement measure. See
-[[Staged hierarchy formation and RG composability]].
+[[Meta-agents and hierarchical emergence]].
 
 ## BibTeX
 

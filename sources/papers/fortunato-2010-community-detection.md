@@ -31,7 +31,7 @@ The definitive review of community-detection methods — modularity maximization
 
 ## Relevance to this research
 
-The project's [[Meta-agents and hierarchical emergence|meta-agent formation]] detects coherent agent clusters to coarse-grain; whatever criterion it uses inherits the strengths and the documented hazards of community detection. Fortunato's review is the place to check those hazards — the modularity resolution limit means a global $Q$-maximization can merge small genuine clusters or miss them entirely, which directly bears on whether the project's culture-closure clustering produces the *right* coarse-graining blocks at each scale of [[Renormalization-group flow of beliefs]]. It backs the new [[Community detection and modularity]] page and extends [[newman-girvan-2004-community-structure]] with the caveats. Manuscript thread: [[participatory-it-from-bit]].
+The project's [[Meta-agents and hierarchical emergence|meta-agent formation]] detects coherent agent clusters to coarse-grain; whatever criterion it uses inherits the strengths and the documented hazards of community detection. Fortunato's review is the place to check those hazards — the modularity resolution limit means a global $Q$-maximization can merge small genuine clusters or miss them entirely, which directly bears on whether the project's culture-closure clustering produces the *right* coarse-graining blocks at each scale of [[Renormalization group flow]]. It backs the new [[Community detection and modularity]] page and extends [[newman-girvan-2004-community-structure]] with the caveats. Manuscript thread: [[participatory-it-from-bit]].
 
 ## Cross-links
 

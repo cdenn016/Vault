@@ -36,13 +36,9 @@ Metadata verified on 2026-09-28 against Crossref and the arXiv abstract page. Fu
 
 In a web-based naming game with no institutions, spatial networks evolve by local coarsening, and in random networks repeated interactions create metastable boundaries between groups of neighbors despite the absence of local clustering. In these networks the dominant convention is never used by more than 45% of the population; its average size is 30% (spatial) and 33% (random) (Fig. 4 caption). In homogeneously mixing populations, "after the initial transient, a dominant convention rapidly emerged, breaking the symmetry": it reached over 60% of the population by round 12 and universal adoption between rounds 20 and 22. With $N=96$ the convention emerged on a timescale comparable to the initial trials with $N=24$. Over time the frequency-rank distribution of the alternatives became increasingly exponential, an emergent "oligopoly." No information-theoretic quantity is measured.
 
-## Relevance to this research
-
-What the population discards is the losing alternatives, eliminated by repeated pairwise coordination; what it keeps is one winner or several local winners. Network structure decides whether one global parent or several local parents form, and repeated-partner structure, the analogue of the source assignment (who attends to whom), creates persistent boundaries. The authors' "after the initial transient" matches the initial layer of [[multiagentelbo-2026-09-28-early-parent]]: a global coarse description is accurate only after the early disorder has been forgotten. The mapping is interpretive. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Phase transitions in social systems]], [[Threshold models and complex contagion]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Phase transitions in social systems]], [[Threshold models and complex contagion]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[centola-2018-tipping-points-social-convention]], [[young-1993-evolution-conventions]], [[centola-2010-online-experiment]]
 

@@ -10,28 +10,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-08-18
+updated: 2026-10-20
 ---
 
 # Data processing inequality
 
 The data processing inequality (DPI) states that for any Markov chain X -> Y -> Z, the mutual information cannot increase under processing: I(X;Z) <= I(X;Y). No transformation of Y (deterministic or stochastic) can create information about X that was not already present. It is the formal backbone of the information-bottleneck view of deep learning, where each layer is a processing stage and the DPI bounds how much task-relevant information can survive successive representations. More generally it expresses the monotonicity (contraction) of f-divergences and Fisher information under stochastic maps, linking it to Cencov's characterization of the Fisher metric. Standard reference: [[cover-thomas-2006-elements-information-theory]].
 
-## In the rescaling laboratory: retention bounded by one as a theorem
-
-In the MultiAgentELBO rescaling step the coarse law is the exact pushforward of the fine law
-through the per-block Bayes kernels, and each parent label depends only on its own block's
-children, so the DPI applies across any block boundary: $I(P_1;P_2) \le I(X_{B_1};X_{B_2})$,
-making the mutual-information retention $R_{\mathrm{MI}} \le 1$ a theorem rather than a
-measurement (amendment 9). Measured retention is
-2–7% at the declared seed (tentative: a single-implementation lab finding, not independently
-verified — the bound is a theorem, the values are not) — an order of magnitude below the sup-norm coupling retention,
-because mutual information is quadratic in weak coupling. The structural consequence: the
-regenerated-attention mechanism restores *interaction* at coarse levels without restoring
-*information* — nothing operating on the coarse law can recover what the pushforward
-discarded, so the rebuilt coupling is synthesized from coarse state (the conserved connection
-and coarse beliefs), not relayed from below. Hierarchies maintain structure upward while
-microscale information dies within a few levels.
+## Synergy and causal emergence
 
 Two published senses in which higher levels nevertheless "have more" do not contradict the
 DPI: synergy — joint configurations carry information no part carries

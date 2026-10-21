@@ -35,13 +35,9 @@ Metadata verified on 2026-09-28 against the Crossref record (authors, title, jou
 
 Confederates ("plants") implanted an arbitrary autokinetic norm of 15–16 in., against a natural norm of about 4 in. (condition X-4-3, p. 650), and were then replaced one per generation by naive members. Under all experimental conditions there was a sharp decay toward the natural norm, and the number of plants had little clear-cut effect. Jacobs and Campbell had expected that the strongest conditions might produce an arbitrary culture that would persist without apparent diminution (p. 654, as quoted). MacNeil and Sherif also quote p. 655 on the mechanism: each naive respondent judges lower than the mentors from whom it learned.
 
-## Relevance to this research
-
-This is the closest laboratory experiment to a collective forgetting its founding imprint. The arbitrary tradition is a displaced initial condition in a coordinate with a restoring force toward the natural norm, and generational replacement is the clock that erases it. The founding imprint does not become a slow shared coordinate; it relaxes, as the fast within-pair disagreements relax in the four-agent model of [[multiagentelbo-2026-09-28-early-parent]], so a parent built before that relaxation would misrepresent the group. The mapping is interpretive, and because the original was not read no rate or window claim is made. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Social influence and conformity]], [[Cultural evolution and social learning]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Social influence and conformity]], [[Cultural evolution and social learning]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[macneil-1976-norm-change-arbitrariness]], [[sherif-1935-social-factors-perception]], [[sherif-1936-psychology-social-norms]]
 

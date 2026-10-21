@@ -26,12 +26,6 @@ Kuo, Frances Y.; Sloan, Ian H.; Wasilkowski, Grzegorz W.; Wozniakowski, Henryk. 
 
 Author preprint with marked replacement/additional text; the displayed draft is not asserted to be the final journal edition. Used for anchored decomposition and interaction bookkeeping.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-05-rg-v2-phase23-finite-action-identities.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

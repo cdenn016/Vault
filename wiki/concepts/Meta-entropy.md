@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-17
+updated: 2026-10-20
 ---
 
 # Meta-entropy
@@ -38,14 +38,14 @@ This matters for the model in several connected ways:
 
 - It supplies the **macrostate / microstate** vocabulary the rest of the program lacks: the value $\mathcal{F}_0$ is a macrostate; the many belief configurations consistent with it are its microstates.
 - Its conjugate **meta-temperature** $T_{\mathrm{meta}}$ is given an operational reading as the noise level of stochastic [[Natural gradient|natural-gradient]] belief updating — i.e. a concrete knob on the inference dynamics, not a metaphor.
-- It identifies the **gauge sector** (the per-agent frames $\boldsymbol\phi_i$) as the structure that distinguishes this thermodynamics from ordinary statistical mechanics, connecting meta-entropy to [[Holonomy]] and to the [[Renormalization-group flow of beliefs]] / [[Meta-agents and hierarchical emergence]] themes of the wider program.
+- It identifies the **gauge sector** (the per-agent frames $\boldsymbol\phi_i$) as the structure that distinguishes this thermodynamics from ordinary statistical mechanics, connecting meta-entropy to [[Holonomy]] and to the [[Renormalization group flow]] / [[Meta-agents and hierarchical emergence]] themes of the wider program.
 - It connects the transformer to classical [[degroot-1974-consensus|consensus]] / [[friedkin1990-social-influence-opinions|opinion-dynamics]] models through the solvable Gaussian case, where a "consensus transition" becomes a question about susceptibility and symmetry breaking.
 
 ## Details
 
 **Three entropies at three levels.** The manuscript insists on separating: (1) the *intra-belief* Gaussian entropy $\mathcal{S}[q_i] = \tfrac12\log\det(2\pi e\,\boldsymbol\Sigma_i)$, which is what makes each agent's term a free energy; (2) the *attention-distribution* entropy, the terms $\tau\,\beta_{ij}\log(\beta_{ij}/\pi_{ij})$ whose minimisation over $\beta_{ij}$ returns softmax attention $\beta_{ij}=\operatorname{softmax}_j(\log\pi_{ij}-D_{\mathrm{KL}}(q_i\,\|\,\Omega_{ij}q_j)/\tau)$; and (3) the **meta-entropy** proper. The first two are within-configuration quantities already present in $\mathcal{F}$; only the third is the new $S=k\log W$ object.
 
-**The counting measure (Fisher–Rao / Chentsov).** A microstate lives in $\mathcal{M}_1 = \mathbb{R}^K \times \mathrm{SPD}(K) \times \mathcal{G}$ with ambient gauge group $\mathcal{G}=\mathrm{GL}^+(K)$. Where Hamiltonian mechanics gets its canonical measure from Liouville's theorem, the VFE dynamics is gradient descent, so a different principle must fix the measure. The manuscript takes the single-agent reference to be the product of the **Fisher–Rao Riemannian volume** on the statistical factor and a group (Haar) measure on the gauge factor,
+**The counting measure (Fisher–Rao / Chentsov).** A microstate lives in $\mathcal{M}_1 = \mathbb{R}^K \times \mathrm{SPD}(K) \times \mathcal{G}$ with ambient gauge group $\mathcal{G}=\mathrm{GL}^+(K)$. Where Hamiltonian mechanics gets its canonical measure from Liouville's theorem, the VFE dynamics is gradient descent, so a different principle must fix the measure. The manuscript takes the single-agent reference to be the product of the **Fisher–Rao Riemannian volume** on the statistical factor and a group (Haar) measure on the gauge factor
 
 $$
 \mathrm{d}\mu_1 = \mathrm{d}\mathrm{Vol}_{\mathrm{FR}}(\boldsymbol\mu,\boldsymbol\Sigma) \times \mathrm{d}\mu_{\mathrm{Haar}}^{\mathcal{G}}(U).
@@ -76,7 +76,7 @@ Z_{\mathcal F}=\int e^{-\mathcal F(X)/T_{\mathrm{cfg}}}d\rho_0(X),
 =Z_{\mathcal F}^{-1}e^{-\mathcal F(X)/T_{\mathrm{cfg}}}
 $$
 
-exists if and only if $0<Z_{\mathcal F}<\infty$. For every $R\ll\rho_0$ with finite terms,
+exists if and only if $0<Z_{\mathcal F}<\infty$. For every $R\ll\rho_0$ with finite terms
 
 $$
 \mathbb E_R[\mathcal F]
@@ -128,7 +128,7 @@ Meta-entropy is the subject of its own dedicated manuscript, "Configurational Me
 
 It sits atop the same belief-sector functional that the companion manuscripts build: the softmax-from-gauge-transported-KL attention of [[gl-k-attention]], and the per-agent frame action treated as active epistemic configuration in [[participatory-it-from-bit]].
 
-> [!note] Editorial: Independent verification and incorporation (2026-06-19). A multi-agent peer review independently reproduced every claimed-exact result of the meta-entropy manuscript (Gaussian-KL affine invariance, the gauge-composition identity, prior symmetry-breaking, vertex-frame holonomy telescoping, $\exp$ non-surjectivity on $\mathrm{GL}^+(K)$, the Fisher–Rao volume exponent $-(K+2)/2$, the McKean–Vlasov first variation with no symmetric $1/2$ factor, and the susceptibility $\chi=1/\alpha$) in sympy/numpy, and confirmed the imported machinery (Kac extensivity, Sanov + contraction with the infimum-form Legendre–Fenchel direction, Chentsov, the Riemannian-Langevin metric-divergence drift) is correctly applied; the conjectures (consensus transition; edge-local holonomy-frustration residual entropy) are honestly labelled and falsifiable. A first-pass flag reading $\chi=1/\alpha$ as a fluctuation-dissipation defect was **overturned** by an independent Kubo computation ($\beta_{\mathrm{meta}}\,\mathrm{Var}(M)/N = 1/\alpha$ exactly, so the energy-scale $\chi$ *is* the fluctuation response). Verdict: **verifiably correct.** Following that verdict the companion [[participatory-it-from-bit]] now references this note in three places — the $\chi=1/\alpha$ result answering its open "phase transitions?" question (PIFB §Scaling and Phase Transitions), the RG section's thermodynamic-limit complement, and the Regime-II holonomy-frustration falsifier — under a reference-and-summarize (companion-paper) relationship rather than a merge. It is conceptually adjacent to — but distinct from — the dynamical constructions of [[belief-inertia]] (where the Fisher precision tensor plays the role of inertial [[Mass as Fisher information|mass]] in [[Hamiltonian belief dynamics]]); meta-entropy instead asks a statistical-mechanical, configuration-counting question about the *population* rather than the trajectory of single beliefs. Within the registry it is the [[Gauge-Theoretic Multi-Agent VFE Model]] concept that supplies the program's thermodynamic limit, feeding the [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]], and [[Ouroboros multi-scale dynamics]] themes.
+> [!note] Editorial: Independent verification and incorporation (2026-06-19). A multi-agent peer review independently reproduced every claimed-exact result of the meta-entropy manuscript (Gaussian-KL affine invariance, the gauge-composition identity, prior symmetry-breaking, vertex-frame holonomy telescoping, $\exp$ non-surjectivity on $\mathrm{GL}^+(K)$, the Fisher–Rao volume exponent $-(K+2)/2$, the McKean–Vlasov first variation with no symmetric $1/2$ factor, and the susceptibility $\chi=1/\alpha$) in sympy/numpy, and confirmed the imported machinery (Kac extensivity, Sanov + contraction with the infimum-form Legendre–Fenchel direction, Chentsov, the Riemannian-Langevin metric-divergence drift) is correctly applied; the conjectures (consensus transition; edge-local holonomy-frustration residual entropy) are honestly labelled and falsifiable. A first-pass flag reading $\chi=1/\alpha$ as a fluctuation-dissipation defect was **overturned** by an independent Kubo computation ($\beta_{\mathrm{meta}}\,\mathrm{Var}(M)/N = 1/\alpha$ exactly, so the energy-scale $\chi$ *is* the fluctuation response). Verdict: **verifiably correct.** Following that verdict the companion [[participatory-it-from-bit]] now references this note in three places — the $\chi=1/\alpha$ result answering its open "phase transitions?" question (PIFB §Scaling and Phase Transitions), the RG section's thermodynamic-limit complement, and the Regime-II holonomy-frustration falsifier — under a reference-and-summarize (companion-paper) relationship rather than a merge. It is conceptually adjacent to — but distinct from — the dynamical constructions of [[belief-inertia]] (where the Fisher precision tensor plays the role of inertial [[Mass as Fisher information|mass]] in [[Hamiltonian belief dynamics]]); meta-entropy instead asks a statistical-mechanical, configuration-counting question about the *population* rather than the trajectory of single beliefs. Within the registry it is the [[Gauge-Theoretic Multi-Agent VFE Model]] concept that supplies the program's thermodynamic limit, feeding the [[Renormalization group flow]], [[Meta-agents and hierarchical emergence]], and [[Ouroboros multi-scale dynamics]] themes.
 
 > [!note] Editorial: Cross-manuscript consistency restored (2026-06-20, PIFB round-8 review). A deep adversarial pass on [[participatory-it-from-bit]] found that PIFB's two cross-references to the holonomy-frustration conjecture had dropped its load-bearing hypothesis — both attributed a residual meta-entropy at $T_{\mathrm{meta}}\to0$ to nontrivial holonomy *alone*. As this page and the meta-entropy manuscript state (Details, "Gauge sector and holonomy frustration"), holonomy is **not** sufficient: "nonzero holonomy does not by itself produce a residual entropy ... [it] is a property of the ground-state degeneracy, not of holonomy alone, and typically needs a compact or regulated sector." PIFB was corrected to require **both** conditions (nontrivial holonomy on extensively many independent plaquettes *and* an extensive ground-state degeneracy of a regulated belief sector). No change was needed here — the wiki statement was already correct; round-8 brought PIFB back into agreement with it.
 
@@ -156,7 +156,7 @@ It sits atop the same belief-sector functional that the companion manuscripts bu
 - [[Mass as Fisher information]]
 - [[Hamiltonian belief dynamics]]
 - [[Meta-agents and hierarchical emergence]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Ouroboros multi-scale dynamics]]
 - [[Participatory realism (it from bit)]]
 - [[Fisher information metric]]

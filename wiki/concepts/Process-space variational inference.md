@@ -11,22 +11,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-09-11
+updated: 2026-10-20
 ---
 
 # Process-space variational inference
 
-> [!note] Current scope, September 11, 2026
-> The current exact path statement is an all-preparation, all-admitted-policy emitted-kernel lumpability theorem. Equality of stationary laws or single-time marginals is insufficient. When closure fails, a fine-state posterior filter or a proved sufficient memory restores prediction. If actions reveal hidden controller state, the observer must condition on the selected action before averaging transition rows. See [[multiagentelbo-2026-09-11-memory]] and the counterexample and repair retained in [[multiagentelbo-2026-09-11-formation]].
-
-
 ## Definition
 
 **Process-space variational inference** compares probability laws over an entire stochastic process rather than treating one selected finite vector of evaluations as the complete random object. If $P$ and $Q$ are process laws on a declared measurable function or path space, the variational objective uses a measure-level relative entropy $D_{\mathrm{KL}}(Q\|P)$ together with the appropriate likelihood functional. Every finite set of indices induces projected finite-dimensional laws, but those marginals do not by themselves specify a usable continuum variational problem without compatibility, extension, and regularity conditions.
-
-## Why it matters here
-
-MultiAgentELBO currently establishes exact identities for finite normalized laws. A continuum of agents, contexts, or bundle sections requires more than taking $N\to\infty$ in a finite sum. The project must declare a process or section law, its sigma-algebra and topology, a compatible family of finite restrictions, normalizability, and enough control for the relevant KL and observables to exist. [[matthews-2016-stochastic-process-kl]] sharpens one specific part of this obligation: a marginally consistent augmentation need not preserve the original variational problem.
 
 ## Details
 
@@ -49,10 +41,6 @@ Matching the marginal on $V$ controls only the first term. Equality with the ori
 ### What remains open
 
 The process-KL framework does not construct a measure on smooth gauge sections, prove tightness of a refining family, or show that a reference measure and Radon-Nikodym derivative are gauge compatible. Those are separate continuum obligations.
-
-## In this work
-
-The exact finite [[Multi-agent variational free energy]] and its tests remain the oracle. A future continuum lane should record nested finite designs, projective compatibility, finite KL values, auxiliary conditional laws, topology/tightness assumptions, and convergence of the observables used by the theory. No current finite test is evidence that this continuum object already exists.
 
 ## Sources
 

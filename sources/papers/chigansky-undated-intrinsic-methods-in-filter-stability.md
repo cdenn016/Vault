@@ -25,12 +25,6 @@ Chigansky, Pavel; Liptser, Robert; van Handel, Ramon. Intrinsic Methods in Filte
 
 Author-hosted survey of filter stability through conditional expectations and martingales. Retrieval alone does not identify a final publication year or supply a finite-memory rate for every hidden process.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-09-duration-memory-rg/evidence/source-context.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

@@ -31,8 +31,6 @@ Definitions 3–5, Eqs. (5)–(11), and Theorem 2, printed/PDF pp. 4–6. Publis
 > [!note] Editorial: proposed transfer
 > Use uniform cumulant and normalization requirements as a standard for any proposed large-network limit. Tensor index size is not agent count, and trace invariance is not local GL covariance or row-normalized attention. The theorem does not classify the present network universality class or prove meta-agent formation.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

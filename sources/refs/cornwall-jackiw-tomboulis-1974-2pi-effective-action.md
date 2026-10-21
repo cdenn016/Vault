@@ -36,7 +36,7 @@ The paper introduces sources coupled to elementary fields and bilocal composite 
 
 ## Why the project cites it
 
-The beyond-mean-field section of [[participatory-it-from-bit]] proposes a 2PI-style configuration theory for the structural gauge-VFE fields. The CJT construction supplies the standard prototype for promoting connected two-point structure to an independent variational object. In this program the analogy becomes a mathematical construction only after the configuration partition function exists, gauge redundancy is handled, and the chosen truncation has a declared operator basis and measurable residual. It connects [[Meta-entropy]] to the effective-action completion of the [[Renormalization-group flow of beliefs]].
+The beyond-mean-field section of [[participatory-it-from-bit]] proposes a 2PI-style configuration theory for the structural gauge-VFE fields. The CJT construction supplies the standard prototype for promoting connected two-point structure to an independent variational object. In this program the analogy becomes a mathematical construction only after the configuration partition function exists, gauge redundancy is handled, and the chosen truncation has a declared operator basis and measurable residual. It connects [[Meta-entropy]] to the effective-action completion of the [[Renormalization group flow]].
 
 ## Full-text status
 

@@ -49,7 +49,7 @@ statistical mechanics, real-space blocking away from special structure fails to 
 declared theory family, so `Theory/07b`'s autonomous-semigroup claim was stronger than the
 standard lore ever warranted, and its failure (composition defect 0.204 against a $10^{-10}$
 criterion) is the expected situation rather than an anomaly of the gauge-VFE setting. See
-[[Staged hierarchy formation and RG composability]] and [[Renormalization group flow]].
+[[Meta-agents and hierarchical emergence]] and [[Renormalization group flow]].
 
 ## BibTeX
 

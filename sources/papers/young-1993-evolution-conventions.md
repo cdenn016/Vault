@@ -36,14 +36,12 @@ Players drawn from a large finite population best-respond to a sample of past pl
 
 ## Relevance to this research
 
-Which convention forms is remembered from the founding history until noise-driven switching erases it. This is forgetting between basins, governed by resistances in a zero-noise limit. The result in [[multiagentelbo-2026-09-28-early-parent]] is forgetting within a basin: linear relaxation of fast modes from the founding imprint to the thermal floor on a time of order $\log(1/\epsilon)$. The shared convention a parent keeps corresponds to Young's convention, and the source assignment of the four-cycle is the analogous basin label. The mapping is interpretive. See [[Soft formation and the activation clock]].
-
 > [!note] Editorial:
 > Not stated in the abstract: in Young's framework the expected exit time from a basin scales like $(\text{mistake rate})^{-r}$ for resistance $r$, so the logarithm of the switching time is proportional to $r\log(1/\text{mistake rate})$. Founding memory held in the basin choice therefore outlasts the logarithmic within-basin transient by an exponential factor. This inference was checked by the verifier against the framework, not against the paper's text.
 
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Phase transitions in social systems]], [[Cultural evolution and social learning]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Phase transitions in social systems]], [[Cultural evolution and social learning]]
 - Related sources: [[centola-2015-spontaneous-emergence-conventions]], [[centola-2018-tipping-points-social-convention]], [[boyd-1982-cultural-transmission-cooperation]]
 
 ## BibTeX

@@ -31,8 +31,6 @@ Retained arXiv Section 2, Eqs. (2.1)–(2.10), printed pp. 2–4, PDF pp. 3–5;
 > [!note] Editorial: proposed transfer
 > Contract genuinely internal closed representation factors before truncating the remaining interface. Exposed matter, feature, and cut legs cannot be deleted by this argument. Compact/unitary orthogonality does not supply normalized GL Haar integration or graph-independent scalability. This recent gauge-theory comparator supports preprocessing, not a completed agent algorithm.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

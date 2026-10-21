@@ -19,10 +19,6 @@ created: 2026-10-02
 
 Theorem 1 treats smooth drift with additive isotropic noise, a simple leading unstable eigenvalue, a smooth unstable curve, transverse boundary intersections, and initial state on the stable manifold. It gives limiting exit locations and logarithmic exit times. Lemma 8 controls the nonlinear remainder. These statements do not directly cover arbitrary temperature-dependent starting points.
 
-## Relevance to this research
-
-[[multiagentelbo-2026-10-02-saddle-handoff]] uses the zero-start theorem and separately derives uniform bounds for thermal-scale entrance points through a bounded entropy comparison. This supports a local mechanism in [[Staged hierarchy formation and RG composability]], not a complete formation theorem.
-
 ## BibTeX
 
 ```bibtex

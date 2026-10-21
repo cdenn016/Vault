@@ -26,13 +26,7 @@ Cuesta, Jose A.; Sanchez, Angel. General Non-Existence Theorem for Phase Transit
 
 Transfer-operator conditions delimit when one-dimensional short-range models have no phase transition. The exact hypotheses matter for finite-size and critical-size comparisons.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/reports/2026-09-07-rg-v2-e5-matched-distance.md`
 - `docs/research-plans/2026-09-06-rg-v2-e6-admission.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

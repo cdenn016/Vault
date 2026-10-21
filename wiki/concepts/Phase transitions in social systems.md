@@ -9,7 +9,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-09-28
+updated: 2026-10-20
 ---
 
 # Phase transitions in social systems
@@ -28,13 +28,13 @@ Some sharp social changes are not phase transitions at all. With cultural drift 
 
 A sharp transition in the strict sense needs a limit, and experimental social systems are finite. In the committed-minority experiment and model of [[centola-2018-tipping-points-social-convention]], the tipping point near 25% sharpens only as population size and observation time grow; the model is a Markov chain with a single absorbing state, a subcritical minority leaves it in a long-lived quasi-stationary state in finite time, and at 20 rounds the transition is a smooth crossover. In [[centola-2015-spontaneous-emergence-conventions]] a global convention emerges in well-mixed populations after an initial transient, on a timescale comparable for $N=24$ and $N=96$, while networked populations coarsen into metastable local conventions. [[young-1993-evolution-conventions]] gives the zero-noise limit in which only stochastically stable conventions survive.
 
-The meta-agent formation threshold of the multi-agent model is a different kind of sharpness. In the four-agent case worked out so far it appears in a small-noise limit at fixed $N=4$ and in time, as a cutoff in $\theta/\log(1/\epsilon)$ rather than a bifurcation in a control parameter; the cutoff literature behind that reading is collected in [[Soft formation and the activation clock]]. The comparison with the social thresholds above is an analogy between limit-sharpened crossovers, not a structural identity.
+The meta-agent formation threshold of the multi-agent model is a different kind of sharpness. In the four-agent case worked out so far it appears in a small-noise limit at fixed $N=4$ and in time, as a cutoff in $\theta/\log(1/\epsilon)$ rather than a bifurcation in a control parameter; the cutoff literature behind that reading is collected in [[Meta-agents and hierarchical emergence]]. The comparison with the social thresholds above is an analogy between limit-sharpened crossovers, not a structural identity.
 
 > [!note] Editorial:
 > The four-agent case grounds a mechanism and does not decide whether meta-agent formation is a crossover or a transition. That question belongs to families of networks of increasing size, the program's target being 512 or more agents with $GL(K,\mathbb R)$, $GL(K,\mathbb C)$ or $SU(N)$ transport, and would be settled the way the examples above settle theirs: by an order parameter for the parent and finite-size scaling across sizes.
 
 ## Related
-[[Axelrod model of cultural dissemination]], [[Discrete spin and majority-rule models of opinion]], [[Synchronization and the Kuramoto model]], [[Collective motion and flocking]], [[Bounded confidence]], [[Network structure — small-world and scale-free]], [[Statistical physics of social systems and collective behavior]], [[Sociophysics]], [[Soft formation and the activation clock]]
+[[Axelrod model of cultural dissemination]], [[Discrete spin and majority-rule models of opinion]], [[Synchronization and the Kuramoto model]], [[Collective motion and flocking]], [[Bounded confidence]], [[Network structure — small-world and scale-free]], [[Statistical physics of social systems and collective behavior]], [[Sociophysics]], [[Meta-agents and hierarchical emergence]]
 
 ## Sources
 [[castellano-2009-statistical-physics-social-dynamics]], [[castellano-marsili-vespignani-2000-axelrod-transition]], [[klemm-2003-global-culture-noise-induced-transition]], [[yang-1952-phase-transitions-condensation]], [[fisher-1972-finite-size-scaling-critical-region]], [[strogatz-2000-kuramoto-to-crawford]], [[vicsek-1995-self-driven-particles]], [[bianconi-2001-bose-einstein-condensation-networks]], [[ben-naim-2003-bifurcations-compromise]], [[deffuant2000-bounded-confidence]], [[centola-2018-tipping-points-social-convention]], [[centola-2015-spontaneous-emergence-conventions]], [[young-1993-evolution-conventions]]

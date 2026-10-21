@@ -33,13 +33,9 @@ Verified on 2026-09-28. The Handbook table of contents (Routledge 2013 reissue, 
 
 Stinchcombe (p. 169) gives three reasons why the structure an organization acquired at founding persists: it may still be the most efficient form; traditionalizing forces, vested interests, and ideologies may preserve it; and the organization may not be in a competitive structure that would select for better forms.
 
-## Relevance to this research
-
-Read against [[multiagentelbo-2026-09-28-early-parent]], the three reasons describe conditions under which a founding imprint can behave like a slow or conserved coordinate rather than a relaxing one: it is still optimal, it is self-reinforcing, or nothing selects against it. The third reason concerns the absence of selective pressure between organizational forms, not the absence of a dynamical restoring force, so the correspondence is a loose analogy. The within-pair disagreement coordinates of the four-agent cycle, which have a restoring force, fit none of the three, and on this reading Stinchcombe's conditions predict forgetting there and persistence only in coordinates such as the loop and the source assignment. The mapping is interpretive and rests on a quotation, not on the original. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]]
+- Concepts: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[marquis-2013-imprinting-multilevel-theory]]
 
 ## BibTeX

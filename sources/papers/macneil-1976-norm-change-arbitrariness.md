@@ -35,13 +35,9 @@ Metadata verified on 2026-09-28. Full text read in the Mead Project transcriptio
 
 Arbitrariness is defined as the difference between the conditions under which a norm originally formed and the conditions that prevail at the present time (p. 762, continuing on p. 763). Hypothesis 5 (p. 766), that the persistence of an enculturated norm across generations varies inversely with its arbitrariness, was supported (p. 770). In the most arbitrary condition, 56.4% of the total change in the mean had taken place by transmission generation 3 and 81.9% by generation 4. In the moderately arbitrary condition only about a third of the total change had occurred by generation 4, and 50% was not reached until generation 6 (p. 770, Table 3, Fig. 2). The design is small: two replications per cell and four subjects per generation. The authors explain the result through norm latitude and credibility, a bounded-acceptance mechanism. Pages 763–764 summarize [[jacobs-1961-arbitrary-tradition]].
 
-## Relevance to this research
-
-Arbitrariness plays the role of the founding imprint's amplitude relative to the natural equilibrium, and generation-by-generation decay is its relaxation, with member turnover as the clock. The dependence on arbitrariness runs against a linear model. Because fraction-of-total-change is normalized by amplitude, a faster fractional decay for the larger imprint contradicts a single linear rate constant; in a linear Ornstein–Uhlenbeck relaxation, a larger imprint instead takes logarithmically longer to fall to the noise floor, which is the origin of the $\log(1/\epsilon)$ threshold in [[multiagentelbo-2026-09-28-early-parent]]. The data point to a nonlinear, latitude-bounded restoring force, consistent with the authors' own explanation. The analogy therefore holds for "founding memory is forgotten by turnover" but not for how the forgetting time scales with imprint size. The mapping is interpretive. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Social influence and conformity]], [[Bounded confidence]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Social influence and conformity]], [[Bounded confidence]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[jacobs-1961-arbitrary-tradition]], [[sherif-1935-social-factors-perception]], [[sherif-1936-psychology-social-norms]]
 

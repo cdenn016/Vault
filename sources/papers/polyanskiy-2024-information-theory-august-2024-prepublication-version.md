@@ -26,14 +26,8 @@ Polyanskiy, Yury; Wu, Yihong. Information Theory: August 2024 Prepublication Ver
 
 Private downloaded prepublication text, marked personal use only. It supplies information-theoretic background; this vault does not redistribute the PDF.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-nondominated-inference-check.md`
 - `docs/derivations/2026-09-10-nondominated-joint-kernels.md`
 - `docs/derivations/2026-09-10-nondominated-vfe.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

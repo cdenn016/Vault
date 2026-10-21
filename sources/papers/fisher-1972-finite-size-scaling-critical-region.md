@@ -31,13 +31,9 @@ Metadata verified on 2026-09-28 against Crossref and OpenAlex (PRL 28(23), 1516â
 
 A scaling theory of critical phenomena in films of finite thickness, with distinct exponents for the shift of the critical point ($\lambda$) and for its rounding ($\theta=1/\nu$). The theory is confirmed by exact calculations on $d$-dimensional spherical models and ideal Bose fluids, and Ising and helium-film data are consistent with it.
 
-## Relevance to this research
-
-The paper supplies the vocabulary for "sharp in a limit, smooth at finite size": a finite system rounds and shifts a transition by powers of its size. The four-cycle of [[multiagentelbo-2026-09-28-early-parent]] has structural analogues, an $O(1)$ window (rounding) and an $O(1)$ offset (shift) around a location $\log(1/\epsilon)$, but its large parameter is $1/T$, not system size, and its relative width $1/\log(1/\epsilon)$ vanishes only logarithmically, more weakly than power-law rounding. The analogy is structural only. For the program's large-network target, finite-size scaling across a family of network sizes is the standard way to tell a genuine formation transition from a crossover; that use is interpretive. See [[Phase transitions in social systems]] and [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Phase transitions in social systems]], [[Soft formation and the activation clock]]
+- Concepts: [[Phase transitions in social systems]], [[Meta-agents and hierarchical emergence]]
 - Related sources: [[yang-1952-phase-transitions-condensation]], [[vicsek-1995-self-driven-particles]], [[castellano-marsili-vespignani-2000-axelrod-transition]]
 
 ## BibTeX

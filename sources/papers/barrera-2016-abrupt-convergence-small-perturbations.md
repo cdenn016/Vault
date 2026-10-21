@@ -37,13 +37,9 @@ $$t_\epsilon=\frac{1}{2V''(0)}\Big[\ln\frac1\epsilon+\ln\big(2V''(0)\big)\Big],$
 
 and window $w_\epsilon=1/V''(0)+\epsilon^\beta$. Theorem 3.2 is the linearized case; its remark with $V(x)=\lambda x^2/2$ shows that the Ornstein–Uhlenbeck process has profile cut-off. Section 5 treats a double-well potential: the local distance $\|x_t-\mathcal N(0,\epsilon/(2V''(x^*)))\|_{\mathrm{TV}}$ has a local cut-off at $\frac{1}{2V''(x^*)}\ln\frac1\epsilon$, and Remark 5.1 extends this to multi-well potentials. The introduction recalls, citing [[freidlin-2012-random-perturbations-dynamical-systems]], that mean exit times from a well are exponentially large in the inverse noise and that normalized exit times are exponentially distributed and memoryless.
 
-## Relevance to this research
-
-This is the one-dimensional prototype of the activation threshold in [[multiagentelbo-2026-09-28-early-parent]]. A discarded within-pair disagreement coordinate behaves as an Ornstein–Uhlenbeck coordinate started at a founding imprint that does not scale with the noise, and such an imprint is forgotten at $\frac{1}{2\lambda}\ln(1/\text{noise})$ in an $O(1)$ window with a shifted-Gaussian profile. Section 5 bears on the question of a collective that has formed but is not permanent. Inside one well, which corresponds to one matching or source assignment, the local law thermalizes abruptly at logarithmic time, while the choice of well persists for times exponential in the inverse noise. That is the paper's own separation between coordinates that are forgotten at a cutoff and a coordinate that is metastable, and it matches the split between the parent's discarded coordinates and its retained source assignment. For the model the metastable half is interpretive: its windows of order $1/T$ and longer are undecided. The distance is total variation, not relative entropy. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Geometric singular perturbation theory]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Geometric singular perturbation theory]]
 - Related sources: [[barrera-2020-thermalisation-small-random-perturbations]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[bovier-2015-metastability-potential-theoretic-approach]], [[bovier-2004-metastability-diffusions]]
 
 ## BibTeX

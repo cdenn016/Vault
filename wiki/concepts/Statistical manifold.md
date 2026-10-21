@@ -12,14 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-10-20
 ---
 
 # Statistical manifold
 
 ## Definition
 
-A **statistical manifold** is a family of probability distributions $\{p(x\mid\theta)\}$ regarded as a smooth manifold $\mathcal{M}$, with the parameters $\theta = (\theta^1,\dots,\theta^n)$ serving as coordinates and each point being one distribution. It is the *base object* of information geometry: once a family of distributions is treated as a geometric space, the tools of differential geometry — a metric, connections, geodesics, curvature — become available to reason about how the distributions relate. The canonical Riemannian metric on a statistical manifold is the [[Fisher information metric]],
+A **statistical manifold** is a family of probability distributions $\{p(x\mid\theta)\}$ regarded as a smooth manifold $\mathcal{M}$, with the parameters $\theta = (\theta^1,\dots,\theta^n)$ serving as coordinates and each point being one distribution. It is the *base object* of information geometry: once a family of distributions is treated as a geometric space, the tools of differential geometry — a metric, connections, geodesics, curvature — become available to reason about how the distributions relate. The canonical Riemannian metric on a statistical manifold is the [[Fisher information metric]]
 
 $$
 g_{ij}(\theta) = \mathbb{E}_{p_\theta}\big[\partial_i \log p_\theta \partial_j \log p_\theta\big],
@@ -46,7 +46,7 @@ The gauge coordinate $\phi$ is not itself a probability distribution parameter,
 and the audited plain-AdamW frame update is not made Fisher-natural by adjoining $\phi$
 to the belief tuple. See [[Symmetric spaces and the SPD cone]].
 
-Several program-level constructions are statements about this manifold. [[Mass as Fisher information]] reads inertia of belief change off the curvature of the statistical metric; [[Belief inertia]] and [[Hamiltonian belief dynamics]] are dynamics on it; [[Physics from Fisher information]] is the claim that physical-like law can be extremized over it. Coarse-graining a population of agents is a map *between* statistical manifolds — the [[Renormalization-group flow of beliefs|RG flow]] that [[beny-osborne-2015-info-geometric-rg]] formalizes as a monotone (distinguishability-contracting) trajectory on the manifold of states, and that [[mehta-schwab-2014-variational-rg-deep-learning]] realizes as an exact deep-learning/RG correspondence. The [[Information bottleneck]] traces an optimal curve through a derived statistical manifold (the information plane), and its Gaussian solution ([[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]]) is a spectral problem in the covariance geometry of exactly this manifold.
+Several program-level constructions are statements about this manifold. [[Mass as Fisher information]] reads inertia of belief change off the curvature of the statistical metric; [[Belief inertia]] and [[Hamiltonian belief dynamics]] are dynamics on it; [[Physics from Fisher information]] is the claim that physical-like law can be extremized over it. Coarse-graining a population of agents is a map *between* statistical manifolds — the [[Renormalization group flow|RG flow]] that [[beny-osborne-2015-info-geometric-rg]] formalizes as a monotone (distinguishability-contracting) trajectory on the manifold of states, and that [[mehta-schwab-2014-variational-rg-deep-learning]] realizes as an exact deep-learning/RG correspondence. The [[Information bottleneck]] traces an optimal curve through a derived statistical manifold (the information plane), and its Gaussian solution ([[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]]) is a spectral problem in the covariance geometry of exactly this manifold.
 
 ## Details
 
@@ -128,5 +128,5 @@ manifold as the fiber or target of a field theory inherits both facts.
 - [[Quantum information geometry]]
 - [[Physics from Fisher information]]
 - [[Symmetric spaces and the SPD cone]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[participatory-it-from-bit]]

@@ -47,7 +47,7 @@ are stated for physical, biological, social, and symbolic systems alike.
 This is the canonical staged-assembly reference behind the intuition that agent hierarchies grow
 through pairs and triples rather than forming wholesale — the kinetic side of what the finite
 laboratory's C3 refutation says about descriptions (see
-[[Staged hierarchy formation and RG composability]]). Near-decomposability is also the informal
+[[Meta-agents and hierarchical emergence]]). Near-decomposability is also the informal
 ancestor of the block-formation criteria in [[Meta-agents and hierarchical emergence]]: strong
 within-block coherence against weak boundary coupling is exactly what the culture-closure
 diagnostic and the thin-boundary contraction measurements quantify.

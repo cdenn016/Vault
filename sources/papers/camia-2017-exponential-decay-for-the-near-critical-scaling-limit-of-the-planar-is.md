@@ -27,15 +27,7 @@ Camia, Federico; Jiang, Jianping; Newman, Charles M.. Exponential decay for the 
 
 Establishes exponential decay for the near-critical planar Ising scaling limit with the stated magnetic-field scaling. The mass exponent belongs to that source family and is not a universal RG exponent for the multi-agent model.
 
-## Relevance to this research
-
-The source is connected to [[Gauge-VFE RG research synthesis September 2026]]. The exact local application and its assumptions are retained in the use sites below and in [[multiagentelbo-2026-09-11-research-snapshot]]. A successful download is not an independent proof check of those applications.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-native-flux-critical-obstruction-check.md`
 - `docs/derivations/2026-09-10-native-flux-critical-obstruction.md`
-
-## Ingestion evidence
-
-The primary metadata and first pages were inspected for identity and scope; the full PDF is retained for later reading. This is not a claim to have re-proved the cited paper. Retrieval details, version qualifications and the SHA-256 digest are in [[multiagentelbo-2026-09-11-reference-register]].

@@ -41,21 +41,10 @@ elimination and gives corrections to it. The long-time asymptotic expressions fo
 correlation functions do not extrapolate back to the equal-time correlations as $t\to0$; the
 paper explains this "initial slip" and calculates its magnitude.
 
-## Relevance to this research
-
-Closest primary statement of the first remedy considered in
-[[multiagentelbo-2026-09-28-early-parent]]: the reduced (parent) dynamics is legitimate only after
-the fast transient, and the founding imprint does not vanish but leaves a finite initial slip
-that the reduced description must absorb as a shifted initial condition. The mapping is
-interpretive. The paper measures the transient through correlation functions, where it lasts
-$O(1)$ fast relaxation times; the model's relative-entropy criterion at $T=\epsilon^8$ stretches
-it to $\theta\sim\log(1/\epsilon)$ because the imprint must fall below the thermal scale
-$\sqrt{T}$. That stretching is not in this paper.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[haake-1983-adiabatic-drag-initial-slip]], [[cox-1995-initial-conditions-models]], [[vankampen-1985-elimination-fast-variables]], [[zwanzig-1961-memory-effects]]
 
 ## BibTeX

@@ -14,14 +14,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-08-10
+updated: 2026-10-20
 ---
 
 # Information bottleneck
 
 ## Definition
 
-The **information bottleneck** (IB) formalizes the extraction of the *relevant* part of a signal. Given a source variable $X$ and a relevance variable $Y$, one seeks a compressed representation $T$ that throws away as much of $X$ as possible while keeping as much as possible of what $X$ tells us about $Y$. This is posed as a single trade-off, minimized over stochastic encoders $p(t \mid x)$,
+The **information bottleneck** (IB) formalizes the extraction of the *relevant* part of a signal. Given a source variable $X$ and a relevance variable $Y$, one seeks a compressed representation $T$ that throws away as much of $X$ as possible while keeping as much as possible of what $X$ tells us about $Y$. This is posed as a single trade-off, minimized over stochastic encoders $p(t \mid x)$
 
 $$
 \mathcal{L}_{\mathrm{IB}} \;=\; I(X; T) \;-\; \beta\, I(T; Y),
@@ -49,7 +49,7 @@ checks.
 
 ## Sources
 
-- [[geiger-2013-kl-aggregation]] — information-bottleneck search for KL-rate Markov aggregation,
+- [[geiger-2013-kl-aggregation]] — information-bottleneck search for KL-rate Markov aggregation
   with scope restricted to the declared finite Markov setting.
 
 - [[tishby-1999-information-bottleneck]] — founding IB variational principle; KL-distortion softmax assignment and the information plane.
@@ -65,6 +65,6 @@ checks.
 - [[Variational free energy]]
 - [[Meta-agents and hierarchical emergence]]
 - [[Information geometry and natural gradient]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Multi-agent variational free energy]]
 - [[participatory-it-from-bit]]

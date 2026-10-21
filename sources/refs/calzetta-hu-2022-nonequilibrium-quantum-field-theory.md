@@ -35,7 +35,7 @@ The book derives generating functionals and Legendre-transform effective actions
 
 ## Relevance to this research
 
-This is not a prerequisite for an ordinary ELBO, gauge-covariant Gaussian belief, or natural-gradient update. It becomes relevant only when the configuration-level theory introduces connected correlators and a genuine 2PI effective action. It should be read after [[sethna-2021-statistical-mechanics]], [[cardy-1996-scaling-renormalization]], and [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]]. It supports [[Meta-entropy]] and [[Renormalization-group flow of beliefs]] while guarding against calling an arbitrary covariance correction “2PI.”
+This is not a prerequisite for an ordinary ELBO, gauge-covariant Gaussian belief, or natural-gradient update. It becomes relevant only when the configuration-level theory introduces connected correlators and a genuine 2PI effective action. It should be read after [[sethna-2021-statistical-mechanics]], [[cardy-1996-scaling-renormalization]], and [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]]. It supports [[Meta-entropy]] and [[Renormalization group flow]] while guarding against calling an arbitrary covariance correction “2PI.”
 
 ## Access
 
@@ -43,7 +43,7 @@ Cambridge provides the open-access reissue under CC BY-NC-ND. A complete local c
 
 ## Cross-links
 
-- Concepts: [[Meta-entropy]] · [[Renormalization-group flow of beliefs]]
+- Concepts: [[Meta-entropy]] · [[Renormalization group flow]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]] · [[cardy-1996-scaling-renormalization]]
 

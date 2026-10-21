@@ -41,7 +41,7 @@ formation.
 The kinetic baseline for meta-agent formation dynamics: if agent hierarchies grow the way
 colloids coagulate, formation proceeds by pairs, and the laboratory's partition posterior can be
 asked whether free energy actually favors such staged paths over direct ones
-([[Staged hierarchy formation and RG composability]],
+([[Meta-agents and hierarchical emergence]],
 [[Meta-agents and hierarchical emergence]]).
 
 ## BibTeX

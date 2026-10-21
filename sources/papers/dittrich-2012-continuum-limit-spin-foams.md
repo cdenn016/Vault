@@ -31,8 +31,6 @@ Sections 6–7, printed/PDF pp. 12–17, Eqs. (6.1)–(6.7) and (7.1)–(7.11). 
 > [!note] Editorial: proposed transfer
 > Boundary interfaces should reflect the exterior experiment and hidden conditional rather than an arbitrary averaging rule. The conditional lift and sufficiency test in the project investigation translate this distinction into positive laws. Static compatibility still does not imply generator descent or preserved retained paths.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

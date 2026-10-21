@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-07
+updated: 2026-10-20
 ---
 
 # Lattice gauge theory
@@ -32,8 +32,6 @@ Two sources in the vault run networks on lattice gauge fields, the opposite dire
 ## Latent link generators and the induced Wilson action, October 3, 2026
 
 [[dennis-2026-dynamic-links]] gives the attention links a lattice-gauge dynamics by making their generators latent variables with a prior inside the variational free energy, following the Euclidean reading of the Wilson weight $e^{-S}$ as a probability measure ([[wilson-1974-confinement-quarks]]). The lattice is depth by token: an edge from $(j,\ell)$ to $(i,\ell+1)$ for each causal source, self edges time-like, and elementary loops that compare two-step routes from $(k,\ell)$ to $(i,\ell+2)$. The curvature energy on each loop is the Frobenius defect $\tfrac12\|W-I\|_F^2$ of the reference-coordinate holonomy, which is $K-\operatorname{tr}W$, Wilson's plaquette density, on $O(K)$ and remains separating on $\mathrm{GL}(K)$. The time-like loops contribute the square of a discrete electric field, so the kinetic term comes from the same action as in the Hamiltonian formulation ([[kogut-susskind-1975-hamiltonian-lattice-gauge]]); linearized, the link field equation is a screened, massive Euclidean Maxwell equation. For undirected Gaussian matter, integrating out the states induces $S_{\rm ind}=\tfrac12\log\det J(X)$, bounded below, whose hopping-parameter expansion is a sum of Wilson loops with the triangle term $\frac{\lambda_E^3}{d_id_jd_k}(K-\operatorname{tr}F)$ at leading order (ratio of exact to leading term $1.15\to1.0003$ as the matter gets heavier); in that model the non-compact generator directions acquire edge-local mass terms even on a tree. Directed (causal) matter induces nothing, so in the transformer's causal model the curvature energy is a declared prior.
-
-[[multiagentelbo-2026-10-04-lie-algebra-links]] makes the same move in the multi-agent theory. The link generators are latent fields of the collective evidence bound, with a Gaussian base prior tilted by a loop action $e^{-\mathcal S}$ whose normalizer obeys $e^{-\mathbb E\mathcal S}\le Z\le1$. Directed record extension induces no link action. Jointly normalized undirected matter induces $-\log Z$, one half the log-determinant of the connection Laplacian, and its hopping expansion begins with the Wilson triangle term. Across learning episodes a history prior adds time-like loop defects with a mass $\mathbf m$. The linearized operator $\mathring\Sigma^{-1}+\sum_pc_p\mathbf C^\top\mathbf C+\mathbf m(-\Delta_n)+\text{matter}$ has the structure of a screened, massive Euclidean Proca operator. The Kogut–Susskind Hamiltonian is cited through its derivation from the transfer matrix of the Wilson action in [[creutz-1983-quarks-gluons-lattices]], Chapter 15, Eq. (15.41).
 
 ## Matrix communication links, September 20, 2026
 
@@ -55,11 +53,6 @@ Group-valued origin of the matrix links (October 2, 2026). A singular link canno
 An endpoint law alone is not a complete lattice gauge theory. A GL(K)-invariant action, normalized measure or dynamics, and graph structure remain to be supplied. Euclidean link norms are not generally invariant under GL(K). Neither the MLP interpretation nor a continuum limit follows from this construction.
 
 The v2 revision (September 23, 2026) names a closer counterpart. The comparison cospan $E_i\to H^{\mathrm{cmp}}\leftarrow E_j$ is a pair of restriction maps into an edge stalk, which is the structure of a cellular sheaf rather than of a group-valued link field ([[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]], [[bodnar-2022-neural-sheaf-diffusion]]). Sheaf restriction maps need not be invertible, and sheaves with orthogonal restriction maps are discrete $O(d)$ bundles with the connection Laplacian ([[Graph synchronization and connection Laplacians]]).
-
-
-> [!note] Current scope, September 11, 2026
-> The program now distinguishes frame-derived transition cocycles from independently supplied connection links. Nontrivial relational loop records can coexist with identical singleton beliefs. A graph, oriented links and declared plaquette or continuum structure must be specified before importing lattice-curvature claims. [[multiagentelbo-2026-09-11-spatial]] and [[multiagentelbo-2026-09-11-continuum]] supply particular normalized constructions and their hypotheses; [[multiagentelbo-2026-09-11-formation]] supplies the finite observational example.
-
 
 ## Definition
 
@@ -202,7 +195,6 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 - [[arnold-1989-classical-mechanics]] — symplectic/Hamiltonian geometric-mechanics framework behind the Hamiltonian lattice formulation and belief dynamics.
 - [[lee-2012-smooth-manifolds]] — smooth-manifold and fiber-bundle foundations: a lattice gauge field as a discrete principal-bundle connection.
 - [[dennis-2026-dynamic-links]] — latent link generators on a depth-by-token lattice, Frobenius-defect curvature prior with Wilson limit on $O(K)$, kinetic term from time-like loops, induced action and hopping expansion of undirected Gaussian matter.
-- [[multiagentelbo-2026-10-04-lie-algebra-links]] — latent Lie-algebra links in the multi-agent theory: loop-action prior, induced action of undirected matter with Wilson triangle term, time-like loop defects across learning episodes, Proca-type linearized operator.
 
 ## See also
 

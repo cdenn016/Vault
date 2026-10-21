@@ -31,7 +31,7 @@ The rectangular maps act on represented states. They do not project the gauge gr
 
 The source's read-only trace of the V3_Transformer working tree at `e028f71`, including the current launcher WIP, reports 96-dimensional frames and three 32-dimensional interfaces per layer, with each head reading the full input. The $S_Q,S_K,T,O$ maps are learned and shared over tokens within each layer/head. This is a dated source-reported configuration, not a new model run or a statement that each edge learns an arbitrary independent map.
 
-At the fixed base point $c_*$, the [live supplement](https://github.com/cdenn016/Vault/blob/c2cd46d86a5424339bf2284fd07782db6d921335/manuscripts/GL(K)_supplementary.tex), Appendix `app:matrix_links`, already supplies the relevant independent-link extension. For an invertible represented link $B_e=\rho(\Theta_e):E_j\to E_i$ and receiver processing $F_i=U_iOTU_i^{-1}$,
+At the fixed base point $c_*$, the [live supplement](https://github.com/cdenn016/Vault/blob/c2cd46d86a5424339bf2284fd07782db6d921335/manuscripts/GL(K)_supplementary.tex), Appendix `app:matrix_links`, already supplies the relevant independent-link extension. For an invertible represented link $B_e=\rho(\Theta_e):E_j\to E_i$ and receiver processing $F_i=U_iOTU_i^{-1}$
 
 $$\mathcal L_e=F_iB_e,\qquad \mathcal L_e'=g_i\mathcal L_eg_j^{-1}.$$
 
@@ -69,7 +69,7 @@ The assessment proposes adding communicated and private coordinates to the norma
 
 ## Relevance to this research
 
-The connection joins [[GL(K) gauge-equivariant attention]] to the [[Gauge-Theoretic Multi-Agent VFE Model]] and [[Staged hierarchy formation and RG composability]] without requiring complete children to become identical. It locates the additional probabilistic and dynamical obligations on [[Meta-agents and hierarchical emergence]] and the [[Markov blanket interpretation debate]]. [[dennis-2026-glk-matrix-links-2026-09-20]] remains the source for the existing matrix-link manuscript construction.
+The connection joins [[GL(K) gauge-equivariant attention]] to the [[Gauge-Theoretic Multi-Agent VFE Model]] and [[Meta-agents and hierarchical emergence]] without requiring complete children to become identical. It locates the additional probabilistic and dynamical obligations on [[Meta-agents and hierarchical emergence]] and the [[Markov blanket interpretation debate]]. [[dennis-2026-glk-matrix-links-2026-09-20]] remains the source for the existing matrix-link manuscript construction.
 
 ## BibTeX
 

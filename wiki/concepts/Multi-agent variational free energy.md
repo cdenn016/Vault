@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-10-20
 ---
 
 # Multi-agent variational free energy
@@ -79,25 +79,15 @@ The covariance response has no universal homophily sign and cannot be substitute
 
 ## Reduced attention Hessian (review, September 23, tentative)
 
-The reduced row objective above has second derivative $\sum_j\beta^*_{ij}\mathrm{Hess}(E_{ij})-\tau^{-1}\mathrm{Cov}_{\beta^*_i}(\nabla E_{ij})$, the covariance correction already recorded under local stiffness below. Investigator X14 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) adds three points. The correction is exactly the Schur complement of the joint Hessian in the state and the row over the simplex tangent (residual $2.7\times10^{-15}$). It can change the sign of curvature: in a random example the frozen-row minimum eigenvalue $+1.63$ became $-3.90$, and in the normalized witness $X\sim\mathcal N(0,\tau/\kappa)$, $J$ uniform on $\{-1,1\}$, $O\mid x,j\sim\mathcal N(x-ja,\tau)$ the reduced curvature is $\kappa+1-a^2/\tau=-2$ at $(\kappa,a,\tau)=(1,2,1)$ although every source energy and the prior are convex. The cost of restricting to a row that does not depend on the latent is exactly $\sum_i\mathbb E_{Q_Y}\mathrm{KL}(\beta_i^{Q*}\Vert\beta_i^P(Y))$. The Theory manuscript states none of this; its coupled case is a single sentence (05b:717–718). X14 writes the reduced potential without the factor $\tau$, which divides the Hessian by $\tau$.
-
 > [!warning] Tentative: investigator recomputation, same model family, not adjudicated
 > Symbolic and brute-force checks by one investigator (Claude Opus 5.5). The identity itself also appears in PIFB2 and the September 13 attention-admission record.
 
 ### Incorporation in the restructured manuscript (September 24)
 
-The reduced Hessian and the constant-row cost are now statements of Chapter 6 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED, with proofs in Appendix B.1. `prop:obs-attention-reduced-hessian` takes one row with $C^2$ energies $E_{ij}$, sets $R_i=-\log\sum_j\pi_{ij}e^{-E_{ij}/\tau_i}$, and proves
-$$
-\nabla^2R_i=\frac1{\tau_i}\sum_j\beta_{ij}\nabla^2E_{ij}-\frac1{\tau_i^2}\operatorname{Cov}_{\beta_i}(\nabla E_i),
-$$
-with the gradient equal to the frozen-weight gradient and the Hessian equal to the Schur complement, over the tangent space of the source simplex, of the joint Hessian of $\mathcal G_i(x,\beta)=\mathrm{KL}(\beta\Vert\pi_i)+\tau_i^{-1}\sum_j\beta_jE_{ij}(x)$. The manuscript's Hessian is $1/\tau_i$ times the expression recorded above, and the proposition shows that the same potential arises under the constant-row restriction and under exact label integration. Its normalized witness has latent baseline $\mathcal N(0,\tau/\omega)$, a uniform source label on $\{-1,1\}$ and record kernel $\mathcal N(x-j\delta,\tau)$; the reduced curvature at $x=0$ is $(\omega+1-\delta^2/\tau)/\tau$ against the frozen-weight value $(\omega+1)/\tau$, which at $(\omega,\delta,\tau)=(1,2,1)$ gives $-2$ against $2$ although every source energy and the prior are convex. `prop:obs-attention-constant-row-gap` states the cost of the constant-row restriction as $R^Q_i-\mathbb E_{\mathbb Q_Y}R^P_i(Y)=\mathbb E_{\mathbb Q_Y}\mathrm{KL}(\beta^{Q\star}_i\Vert\beta^P_i(Y))\ge0$, zero exactly when every energy difference is almost surely constant. The two-timescale chapter cites the reduced Hessian as the reason the curvature hypothesis of its slow-manifold open problem can fail ([[Geometric singular perturbation theory]]). The random-example eigenvalues ($+1.63$ and $-3.90$) are not in the manuscript.
-
 > [!warning] Status
 > Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
 
 ### Access restriction has an evidence price (September 24)
-
-Chapter 3 of the restructured main manuscript (`prop:prob-access-restriction`, ESTABLISHED) records two limits of restricting what each agent's recognition law may read. Fixing every local law does not fix the population law: with both local laws $\mathrm{Ber}(1/2)$, a selector can couple them with a correlation that depends on agent 2's record, so the joint recognition law depends on a record that no local law reads, and a decentralized information claim also needs a selector indexed by the access maps alone. The restriction also has an evidence price that no selector removes. With two binary latents (prior 0.45 on each agreeing pair and 0.05 on each disagreeing pair), records correct with probability 0.8, and agent 1 reading only its own record, the larger of the relative entropies to the posterior at the observations $(1,0)$ and $(1,1)$ is at least the Chernoff information of agent 1's two posterior marginals $(37/89,52/89)$ and $(13/161,148/161)$, about 0.08850 nats, and the bound is sharp. The equality case of the evidence bound therefore lies outside the access-restricted class. A review investigator had put this floor at 0.0889, a grid artifact that Phase 1 corrected ([[multiagentelbo-2026-09-24-theory-restructure]]); this ingest recomputed 0.0884970, with the Chernoff exponent at $\xi\approx0.5483$ and the minimizing $\mathrm{Ber}(t)$ at $t\approx0.7834$.
 
 > [!warning] Status
 > Manuscript statement with proof, written and checked by Claude Opus 5.5 agents; not adjudicated. The numerical value was recomputed for this ingest on the same model family.
@@ -181,7 +171,7 @@ $$
 $$
 
 Under the stated support, positive conditional-evidence, finiteness, integrability, and dominated-
-differentiation hypotheses,
+differentiation hypotheses
 
 $$
 \mathcal F_o(Q_{B^c}r_B^{Q_i})

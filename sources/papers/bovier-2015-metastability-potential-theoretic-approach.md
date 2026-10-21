@@ -32,13 +32,9 @@ Metadata verified on 2026-09-28 against the Springer book page, which confirms t
 
 The blurb describes metastability as a sequence of visits of the path to metastable sets, analyzed through precise estimates of hitting probabilities and hitting times obtained from the potential theory of reversible Markov processes. The table of contents includes Chapter 7, "Potential Theory"; Chapter 8, "Key Definitions and Basic Properties"; Chapter 9, "Basic Techniques"; Chapter 11, "Diffusion Processes with Gradient Drift"; and Chapter 13, "The Curie–Weiss Model".
 
-## Relevance to this research
-
-The book supplies a rigorous definition of a metastable set, which is the notion to test on a parent's retained variables. In the four-cycle of [[multiagentelbo-2026-09-28-early-parent]], the candidate is the source assignment (who attends to whom) together with the loop class; the parent's lifetime would then be a capacity-determined mean exit time, of Arrhenius type in $1/T$ and much longer than the $\log(1/T)$ cutoff of the discarded coordinates. In this framework formation is a statement about separated hitting-time scales, not about an instant. The mapping is interpretive: the model's windows of order $1/T$ and longer are undecided, and no metastability theorem has been established for it. The Curie–Weiss chapter, known here only by title, treats a mean-field many-spin model, which is the kind of large-$N$ family in which metastability of a collective state would have to be shown. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]]
+- Concepts: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[bovier-2004-metastability-diffusions]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[bianchi-2016-metastable-states-quasi-stationary-soft-measures]], [[collet-2013-quasi-stationary-distributions]], [[barrera-2016-abrupt-convergence-small-perturbations]]
 
 ## BibTeX

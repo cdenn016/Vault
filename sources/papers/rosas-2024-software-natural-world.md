@@ -54,21 +54,10 @@ states; the main text (Section III.4) states that a microscopic process has clos
 only if its causal states are strongly lumpable. The framework treats stationary processes;
 transients receive no explicit treatment.
 
-## Relevance to this research
-
-Gives the stationary criterion for when the parent of
-[[multiagentelbo-2026-09-28-early-parent]] is a self-contained level: the discarded micro detail
-adds no predictive information about the parent's future. The founding imprint in the fast modes
-is micro information that, through initial slip, can predict the slow future, so during the
-transient the parent is not informationally closed and closure is reached only asymptotically.
-Because the framework is stated for stationary processes, the model's time-resolved, soft
-approach to closure lies outside what it settles. Interpretive mapping. Related information-
-theoretic emergence sources: [[hoel-2013-causal-emergence]], [[rosas-2019-o-information]].
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[hoel-2013-causal-emergence]], [[rosas-2019-o-information]], [[krakauer-2020-information-theory-individuality]], [[flack-2017-coarse-graining-downward-causation]]
 
 ## BibTeX

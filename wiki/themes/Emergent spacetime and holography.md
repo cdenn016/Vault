@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-09-30
+updated: 2026-10-20
 ---
 
 # Emergent spacetime and holography
@@ -37,7 +37,7 @@ The first thread is **geometry as thermodynamics of horizons**: Einstein's equat
 
 ## How it lands in this work
 
-The participatory program inhabits the same "information to geometry" spirit but runs on different — classical and gauge-theoretic — machinery, and the contrast is sharp enough to be load-bearing. Where the physics tradition builds geometry from *quantum entanglement entropy* on a boundary, the multi-agent model builds it from a *classical-information pullback*: the [[Fisher information metric]] on a statistical fiber, pulled back along an agent's belief section onto a noumenal base manifold, as set out in [[participatory-it-from-bit]] and [[Participatory realism (it from bit)]]. The MERA/holographic coarse-graining of [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]] and [[vidal-2007-entanglement-renormalization]] is the natural foil for the model's own multi-scale coarse-graining — the [[Ouroboros multi-scale dynamics]] tower and its [[Renormalization-group flow of beliefs]] — where meta-agents are coarse-grainings of clusters rather than tensor-network layers, and the "radial/holographic" direction becomes the model's scale index. The thermodynamic-equilibrium reading of [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] and [[jacobson-2016-entanglement-equilibrium]] is the foil for the model's variational-free-energy stationarity: both make geometry a stationary point of an information functional, but the model's functional is a free energy over agent beliefs, not an entanglement entropy over horizons. The honest caveat, in the project's own house style, is that the model's pullback is a *structural analog, not a derivation* of these results: it shares the slogan, reproduces the qualitative architecture (geometry from information, multi-scale holographic compression), and leaves the genuinely hard pieces — Lorentzian signature, the right dynamics, diffeomorphism invariance — exactly where [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]] says the burden lies.
+The participatory program inhabits the same "information to geometry" spirit but runs on different — classical and gauge-theoretic — machinery, and the contrast is sharp enough to be load-bearing. Where the physics tradition builds geometry from *quantum entanglement entropy* on a boundary, the multi-agent model builds it from a *classical-information pullback*: the [[Fisher information metric]] on a statistical fiber, pulled back along an agent's belief section onto a noumenal base manifold, as set out in [[participatory-it-from-bit]] and [[Participatory realism (it from bit)]]. The MERA/holographic coarse-graining of [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]] and [[vidal-2007-entanglement-renormalization]] is the natural foil for the model's own multi-scale coarse-graining — the [[Ouroboros multi-scale dynamics]] tower and its [[Renormalization group flow]] — where meta-agents are coarse-grainings of clusters rather than tensor-network layers, and the "radial/holographic" direction becomes the model's scale index. The thermodynamic-equilibrium reading of [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] and [[jacobson-2016-entanglement-equilibrium]] is the foil for the model's variational-free-energy stationarity: both make geometry a stationary point of an information functional, but the model's functional is a free energy over agent beliefs, not an entanglement entropy over horizons. The honest caveat, in the project's own house style, is that the model's pullback is a *structural analog, not a derivation* of these results: it shares the slogan, reproduces the qualitative architecture (geometry from information, multi-scale holographic compression), and leaves the genuinely hard pieces — Lorentzian signature, the right dynamics, diffeomorphism invariance — exactly where [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]] says the burden lies.
 
 The covariant theorem now makes the comparison more precise. The rigorous classical object is
 $h_s^\omega=(D^\omega s)^*g^F$: a passive-gauge-invariant, connection-relative,
@@ -101,14 +101,11 @@ tensor.
 
 - [[Participatory realism (it from bit)]]
 - [[Fisher information metric]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Ouroboros multi-scale dynamics]]
 - [[wheeler-1990-it-from-bit]]
 - [[participatory-it-from-bit]]
 
-
 ## Pointwise spin-foam method transfer, September 30, 2026
-
-[[Spin foam coarse-graining for agent networks]] adds a methods comparison to the gravity benchmark. The companion [[dennis-2026-spin-foam-boundary-methods]] now proves conditional classical graph-boundary recovery, correlated gluing, admitted gauge/metric interfaces, positive-law errors, and separate predictive-information budgets at $c_*$. Its finite regulator identity is auxiliary; regulator, agent count, representation cutoff, and graph depth remain separate parameters. Usable interface cost, full interface diagrams, evolving-link activation estimates, and size/depth-uniform control remain open.
 
 Labeled two-complexes, specified complex ensembles, and irregular attention laws are distinct, as are quantum amplitudes and positive classical laws. Here a boundary is an exterior-facing graph interface at one base point. No base transport, physical clock, quantum behavior, Lorentz geometry, Einstein dynamics, recursive formation, or thermodynamic limit follows. The conditional results sharpen the method comparison without closing the physicalization questions above.

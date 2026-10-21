@@ -60,7 +60,7 @@ This manuscript is the dynamical / multi-agent pillar of the gauge-theoretic VFE
 - [[Hamiltonian belief dynamics]] — the second-order equation of motion and oscillator regimes.
 - [[Fisher information metric]] / [[Precision weighting]] / [[Variational free energy]] — the geometric and inferential substrate.
 - [[Holonomy]] / [[Parallel transport]] / [[Gauge transformation]] — the social-frame transport and the pure-gauge/edge-local distinction.
-- [[Renormalization-group flow of beliefs]] / [[Meta-agents and hierarchical emergence]] — flagged in "Hierarchical Extensions" as forthcoming coarse-graining into informational meta-agents (links to `meta-entropy-manuscript`).
+- [[Renormalization group flow]] / [[Meta-agents and hierarchical emergence]] — flagged in "Hierarchical Extensions" as forthcoming coarse-graining into informational meta-agents (links to `meta-entropy-manuscript`).
 - [[Participatory realism (it from bit)]] / [[participatory-it-from-bit]] — the state-dependent self-coupling weight is imported from that companion framework.
 - Methods: [[Free-energy principle active inference]], [[Predictive coding network]] (the overdamped limit recovers their first-order dynamics); [[Gauge equivariant CNN]] cited as motivation for retaining gauge structure.
 - Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]].

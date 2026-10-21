@@ -5,7 +5,7 @@ aliases: ["Voter model", "Copy-a-neighbour dynamics", "Spatial conflict model", 
 tags: [cluster/social-physics, project/social-physics]
 status: draft
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-20
 ---
 
 # Voter model
@@ -20,7 +20,7 @@ The answer is a clean dimension-dependent dichotomy. On low-dimensional lattices
 
 The voter model is the canonical binary-agreement baseline, but it is not a derived overdamped limit of the current gauge-VFE theory. The theorem-first revision of the belief-inertia manuscript (2026-07-12) proves only a continuous Gaussian DeGroot subclass: fixed symmetric coupling under the primary unweighted product Fisher metric, or nonuniform reversible coupling under an additional $\rho$-weighted metric or equivalent agent-specific rates. Copy-a-neighbor imitation has a discrete state space, stochastic overwrite rule, martingale structure, and coalescing-walk duality absent from [[Multi-agent variational free energy]]. Concentrating attention on one source does not derive that process. The voter model is therefore a benchmark and structural analogy for consensus, coexistence, and topology-dependent timescales, not a corner already subsumed by the VFE descent.
 
-The Clifford--Sudbury formulation and Holley--Liggett ergodic theory are foundational comparison targets. Their coalescing-walk duality is mathematical machinery for the voter process, not machinery inside the gauge-VFE functional. The Sood--Redner heterogeneous-graph result is adjacent network context: it shows how topology controls consensus time, a structural question also asked of the attention graph ([[Community detection and modularity]], [[Meta-agents and hierarchical emergence]]), but the equations differ. Coexistence, clustering, and topology dependence are analogies for [[Echo chambers and polarization]], [[Bounded confidence]], [[Renormalization-group flow of beliefs]], and [[Meta-entropy]]. Likewise, the absence of momentum in the voter model makes it a useful control for conditional kinetic claims, not proof that [[Hamiltonian belief dynamics]] fills a necessary gap.
+The Clifford--Sudbury formulation and Holley--Liggett ergodic theory are foundational comparison targets. Their coalescing-walk duality is mathematical machinery for the voter process, not machinery inside the gauge-VFE functional. The Sood--Redner heterogeneous-graph result is adjacent network context: it shows how topology controls consensus time, a structural question also asked of the attention graph ([[Community detection and modularity]], [[Meta-agents and hierarchical emergence]]), but the equations differ. Coexistence, clustering, and topology dependence are analogies for [[Echo chambers and polarization]], [[Bounded confidence]], [[Renormalization group flow]], and [[Meta-entropy]]. Likewise, the absence of momentum in the voter model makes it a useful control for conditional kinetic claims, not proof that [[Hamiltonian belief dynamics]] fills a necessary gap.
 
 ## Details
 
@@ -46,4 +46,4 @@ The three sources thus benchmark model definition, rigorous stochastic behavior,
 - [[Echo chambers and polarization]] · [[Bounded confidence]] — the persistent-disagreement / coexistence phenomenology.
 - [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — the underdamped regime the memoryless voter model cannot reach.
 - [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — network structure as a control parameter for consensus.
-- [[Renormalization-group flow of beliefs]] · [[Meta-entropy]] — the multi-scale, connectivity-controlled view.
+- [[Renormalization group flow]] · [[Meta-entropy]] — the multi-scale, connectivity-controlled view.

@@ -31,8 +31,6 @@ Section 4, PDF pp. 3–4, Eqs. (4.1)–(4.3) and the qualifications following th
 > [!note] Editorial: proposed transfer
 > Use ordered products and observable compatibility as a graph-diagram template. Abstract graphs need declared refinement maps; no base transport is required for the proposed transfer. Compact-group operator data and amplitudes are not automatically proper GL link probabilities or the complete agent communication law.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

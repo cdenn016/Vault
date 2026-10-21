@@ -31,8 +31,6 @@ Section 2, Eq. (2.8), PDF p. 4; Section 5, PDF pp. 12–14, Eqs. (5.1)–(5.9).
 > [!note] Editorial: proposed transfer
 > The transferable criterion compares declared observables under compatible graph projections. Matching a selected list is weaker than complete law consistency. The project already has conditional projective extension; constructing useful graph-changing arrows and uniform depth/size estimates remains the gap.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

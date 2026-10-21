@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-19
-updated: 2026-09-20
+updated: 2026-10-20
 ---
 
 # Markov blanket interpretation debate
@@ -22,7 +22,7 @@ updated: 2026-09-20
 
 [[multiagentelbo-2026-selective-communication-formation]] distinguishes communication through selected observables from a probabilistic blanket. For private state $Z$, communicated interface $Y$ and exterior $W$, the required condition is $Z\perp W\mid Y$. A declared law $P(dy)R(dz\mid y)S(dw\mid y)$ supplies it. Low rank, a selected subspace or sparse drift alone does not; hidden baseline correlations, other channels and hidden-dependent routing can defeat it.
 
-Even when the instantaneous law has this factorization, autonomous interface dynamics remain a separate condition. In the linear deterministic case, $y=Mx$ is autonomous under $\dot x=Ax$ exactly when $MA=\bar A M$ for some $\bar A$. The proposed selective-formation extension must therefore derive its normalized conditional law and inherited evolution separately. This adds a concrete formation obligation to the debate rather than inferring blanket existence from [[GL(K) gauge-equivariant attention]]. The cognitive-interface interpretation remains a model interpretation. [[Staged hierarchy formation and RG composability]]
+Even when the instantaneous law has this factorization, autonomous interface dynamics remain a separate condition. In the linear deterministic case, $y=Mx$ is autonomous under $\dot x=Ax$ exactly when $MA=\bar A M$ for some $\bar A$. The proposed selective-formation extension must therefore derive its normalized conditional law and inherited evolution separately. This adds a concrete formation obligation to the debate rather than inferring blanket existence from [[GL(K) gauge-equivariant attention]]. The cognitive-interface interpretation remains a model interpretation. [[Meta-agents and hierarchical emergence]]
 
 ## Definition
 
@@ -34,7 +34,7 @@ This debate is the canonical objection that [[participatory-it-from-bit]] (PIFB)
 
 ## Details
 
-The critiques form a graded trio that PIFB must navigate. [[bruineberg-2022-emperors-markov-blankets]] supplies the *conceptual* worry (Pearl vs Friston, the metaphysics is unlicensed by the math). [[aguilera-2022-particular-physics]] supplies the *quantitative* one: solving linear Ornstein–Uhlenbeck non-equilibrium systems in closed form, they show the blanket-and-belief structure holds only when solenoidal (irreversible) coupling is small, so the inference reading is not generic — a direct warning for [[Multi-agent variational free energy]], where dense inter-agent coupling generates exactly the irreversible flow flagged as fatal. [[biehl-2021-technical-critique]] supplies the *surgical* objection: the foundational derivations equivocate between inequivalent blanket definitions, and "internal states parametrize beliefs about external states" does not follow as stated. Together they qualify the constructive [[Bayesian mechanics]] lineage that treats any blanketed steady state as performing inference. Against them, [[kirchhoff-2018-markov-blankets-of-life|kirchhoff-2018-markov-blankets-life]] is the constructive precedent PIFB leans on for nested blankets and [[Renormalization-group flow of beliefs|scale-spanning]] individuality. The honest position is that PIFB operates within the [[Free-energy principle active inference]] tradition while owing one consistent blanket definition and a check that the synchronization map is non-degenerate in its coupling regime.
+The critiques form a graded trio that PIFB must navigate. [[bruineberg-2022-emperors-markov-blankets]] supplies the *conceptual* worry (Pearl vs Friston, the metaphysics is unlicensed by the math). [[aguilera-2022-particular-physics]] supplies the *quantitative* one: solving linear Ornstein–Uhlenbeck non-equilibrium systems in closed form, they show the blanket-and-belief structure holds only when solenoidal (irreversible) coupling is small, so the inference reading is not generic — a direct warning for [[Multi-agent variational free energy]], where dense inter-agent coupling generates exactly the irreversible flow flagged as fatal. [[biehl-2021-technical-critique]] supplies the *surgical* objection: the foundational derivations equivocate between inequivalent blanket definitions, and "internal states parametrize beliefs about external states" does not follow as stated. Together they qualify the constructive [[Bayesian mechanics]] lineage that treats any blanketed steady state as performing inference. Against them, [[kirchhoff-2018-markov-blankets-of-life|kirchhoff-2018-markov-blankets-life]] is the constructive precedent PIFB leans on for nested blankets and [[Renormalization group flow|scale-spanning]] individuality. The honest position is that PIFB operates within the [[Free-energy principle active inference]] tradition while owing one consistent blanket definition and a check that the synchronization map is non-degenerate in its coupling regime.
 
 It is worth recalling that the *deflationary* reading the critics urge — a blanketed system as a thing that merely *tracks* or *forecasts* its environment, without any metaphysical commitment to inner beliefs — already has a long, fully respectable statistical pedigree. Dynamic Bayesian forecasting models ([[west-harrison-1997-bayesian-forecasting]]) and their steady-state limits ([[smith-1979-steady-forecasting]]) describe systems whose internal state recursively updates a predictive distribution over external observations, which is operationally just the synchronization map without the "physics-of-beliefs" gloss. Reading the FEP's internal states as forecasting filters is thus the minimal, least-contested interpretation; the debate is over whether anything *more* — real individuality, genuine belief — is licensed on top of it. PIFB's wager is that the gauge structure on belief frames is what makes the stronger reading do non-trivial work the forecasting reading cannot.
 
@@ -57,4 +57,4 @@ It is worth recalling that the *deflationary* reading the critics urge — a bla
 - [[Multi-agent variational free energy]]
 - [[Meta-agents and hierarchical emergence]]
 - [[Gauge transformation]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]

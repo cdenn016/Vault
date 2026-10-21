@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-24
+updated: 2026-10-20
 ---
 
 # Agents as fiber-bundle sections
@@ -60,7 +60,7 @@ This is the foundational ontological commitment of the model: it is what makes t
 - **Comparison requires transport, not subtraction.** Two sections live in different gauge frames; comparing them is only meaningful after gauge-covariant transport $\Omega_{ij} = U_i U_j^{-1}$ — taking the frame to be $U_i = \exp(\phi_i)$, this is exactly the $\exp(\phi_i)\exp(-\phi_j)$ form (equivalently $g_i g_j^{-1}$) used in [[Multi-agent variational free energy]] and [[Participatory realism and quantum foundations]] (see [[Gauge transformation]], [[Holonomy]]). This is why the consensus/alignment energy is the *transported* KL $\mathrm{KL}(q_i \,\|\, \Omega_{ij}[q_j])$ rather than a naive distance.
 - **The variational hierarchy is geometric where its closure hypotheses hold.** The four statistical sections are organized as
 $$
-r_i \to s_i \to p_i \to q_i \to \text{observations},
+r_i \to s_i \to p_i \to q_i \to \text{observations}
 $$
 The prior and hyper-prior arrows are realized cross-scale only under the declared hierarchy and
 compatibility hypotheses; otherwise those references are boundary data. This keeps hierarchical
@@ -147,16 +147,12 @@ meta-agent one scale up, or the frame's Role-B reading as internal state.
 
 ## Gauge structure at one base point (review, September 23, tentative)
 
-Investigators E1 and X01 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) find that the active gauge image at a single base point is one copy of $G$. A right-equivariant bundle automorphism with local functions $k_i$ must satisfy $k_j=T_{ij}^{-1}k_iT_{ij}$ for two agents at the same point, in addition to the relative-frame law between belief and model frames. For $\mathrm{GL}(2)$ with two agents the active image has rank 4 inside the 16-dimensional passive frame product, against dimension 8 for the product of twisted diagonals the manuscript described. At $c_*$ the per-agent vertex group acting on the links is therefore entirely passive, and active invariance means invariance under one element of $G$. The gauge-invariant link content that remains is described in [[Holonomy]].
-
 The same review treats equal belief and model frames, $u^m_i=u^b_i$, as a gauge choice rather than a hypothesis. Both frames are local sections of one principal bundle, and no energy, kernel or evaluator reads the relative frame $h_i$, so the map-bundle conversion, the twisted diagonal, the passive $G\times G$ product and the open $G\times G$ quotient item can be removed. The common-link specialization should read $\Theta^m_e=h_i^{-1}\Theta^b_eh_j$, which reduces to $\Theta^b_e=\Theta^m_e$ only in that gauge. This would change if frames became dynamical agent states entering an energy non-covariantly, as in the Role-B reading of frames above.
 
 > [!warning] Tentative: investigator recomputation, same model family, not adjudicated
 > Recomputations by investigators of one model family (Claude Opus 5.5). Whether the core adopts $u^m=u^b$ is one of the author questions the review leaves open.
 
 ### Incorporation in the restructured manuscript (September 24)
-
-Both points are now in Chapter 2 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED with proofs. `prop:geo-active-image-point` proves that a right-$G$-equivariant bijection $F$ of the principal fiber over $c_*$, with local functions $F(u_i)=u_i\cdot\varphi_i$, satisfies $\varphi_j=T_{ij}^{-1}\varphi_iT_{ij}$, and that $F\mapsto(\varphi_i)_i$ is an isomorphism onto a subgroup $\mathcal A_{c_*}\cong G$ of $\prod_{i\in V}G$. The subgroup is proper when $G$ is nontrivial and there are at least two agents, with dimension $\dim G$ against $\lvert V\rvert\dim G$, and in the frame $u_i$ the action of $F$ is the passive re-expression $g_i=\varphi_i$. The common frame is decision D2 of the restructure and the subject of the chapter's section "The common frame is a gauge choice": `prop:geo-common-frame-gauge` shows that two atlases $u^b_i,u^m_i$ of one fiber differ by a unique $h_i$ with $u^m_i=u^b_i\cdot h_i$, that re-expressing the model atlas alone by $g^m_i=h_i$ makes the frames equal, and that frame comparisons, automorphism functions and cross-morphism representatives transform by $h_i$, for instance $T^m_{ij}=h_i^{-1}T^b_{ij}h_j$. `Theory/SPEC.md` therefore fixes one common local frame $u_i$ per agent in the main manuscript, as a gauge choice, while the channels may still carry inequivalent representations, independent link families and declared cross maps. The relative frame $h_i$ and its apparatus live in Supplement B and return to the core only if frames become dynamical agent states, the Role-B case named above.
 
 > [!warning] Status
 > Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.

@@ -29,7 +29,7 @@ updated: 2026-06-20
 
 ## TL;DR
 
-Bény and Osborne recast the renormalization group (RG) as a flow on a statistical manifold equipped with an operationally motivated information geometry. A coarse-graining is a quantum channel mapping microscopic states to observable-scale states; pulling the channel back onto the space of Hamiltonians induces a metric in which RG flow becomes a trajectory whose geometry quantifies how much physical distinguishability is lost at each scale. The construction supplies monotone (non-increasing) functions along the flow expressible through two-point correlations, giving a clean information-theoretic reading of irreversibility in coarse-graining. It is the continuous, metric-level counterpart to the project's [[Renormalization-group flow of beliefs]], grounded in the [[Fisher information metric]].
+Bény and Osborne recast the renormalization group (RG) as a flow on a statistical manifold equipped with an operationally motivated information geometry. A coarse-graining is a quantum channel mapping microscopic states to observable-scale states; pulling the channel back onto the space of Hamiltonians induces a metric in which RG flow becomes a trajectory whose geometry quantifies how much physical distinguishability is lost at each scale. The construction supplies monotone (non-increasing) functions along the flow expressible through two-point correlations, giving a clean information-theoretic reading of irreversibility in coarse-graining. It is the continuous, metric-level counterpart to the project's [[Renormalization group flow]], grounded in the [[Fisher information metric]].
 
 ## Problem & setting
 
@@ -45,13 +45,13 @@ RG flow is monotone in the information metric: coarse-graining can only reduce d
 
 ## Relevance to this research
 
-This paper is the information-geometric backbone for the project's claim that coarse-graining a population of beliefs is an RG step on a statistical manifold. In the PIFB tower, each meta-agent-formation map carries microscopic beliefs into coarse beliefs; the natural way to measure what survives and what is integrated out is the [[Fisher information metric]] on the belief manifold, exactly the Fisher–Bures distinguishability metric Bény and Osborne use. Their monotonicity-under-coarse-graining result is the rigorous version of the project's intuition that relevant belief structure is what remains distinguishable after pooling, while irrelevant fluctuation is washed out ([[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]]).
+This paper is the information-geometric backbone for the project's claim that coarse-graining a population of beliefs is an RG step on a statistical manifold. In the PIFB tower, each meta-agent-formation map carries microscopic beliefs into coarse beliefs; the natural way to measure what survives and what is integrated out is the [[Fisher information metric]] on the belief manifold, exactly the Fisher–Bures distinguishability metric Bény and Osborne use. Their monotonicity-under-coarse-graining result is the rigorous version of the project's intuition that relevant belief structure is what remains distinguishable after pooling, while irrelevant fluctuation is washed out ([[Renormalization group flow]], [[Meta-agents and hierarchical emergence]]).
 
 It complements [[mehta-schwab-2014-variational-rg-deep-learning]]: where Mehta–Schwab give an exact discrete architecture-as-RG mapping, Bény–Osborne give the continuous metric picture, with information loss as metric contraction. Together they bracket the PIFB effective-action / continuum-limit program. The same Fisher metric grounds the [[Natural gradient]] used in the model's optimization, so RG coarse-graining and natural-gradient learning act on one shared geometry. See [[wilson-1975-renormalization-group]] and [[cardy-1996-scaling-renormalization]] for the physics, and [[participatory-it-from-bit]] for the manuscript thread.
 
 ## Cross-links
 
-- Concepts: [[Renormalization-group flow of beliefs]], [[Fisher information metric]], [[Meta-agents and hierarchical emergence]], [[Natural gradient]]
+- Concepts: [[Renormalization group flow]], [[Fisher information metric]], [[Meta-agents and hierarchical emergence]], [[Natural gradient]]
 - Related sources: [[mehta-schwab-2014-variational-rg-deep-learning]], [[wilson-1975-renormalization-group]], [[cardy-1996-scaling-renormalization]], [[berges-tetradis-wetterich-2002-nonperturbative-rg]]
 - Manuscript/Project: [[participatory-it-from-bit]]
 

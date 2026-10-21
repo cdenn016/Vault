@@ -31,8 +31,6 @@ Section II B, Eq. (1), printed/PDF pp. 3–5. First arXiv release 2006; retained
 > [!note] Editorial: proposed transfer
 > The transferable bookkeeping keeps connectivity and field/link marks in one declared joint model. An agent extension needs a positive normalized graph/state measure and must preserve the original attention-event law. Taking absolute values of amplitudes or imposing a melonic graph prior would change the model.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

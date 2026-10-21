@@ -15,58 +15,10 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-13
+updated: 2026-10-20
 ---
 
 # Renormalization group flow
-
-## Native lattice model and Lee-Yang analyticity, October 12, 2026
-
-The native free model of the MultiAgentELBO base supplement is a nearest-neighbor ferromagnetic Ising model on the plaquette grid with a strictly negative field ([[multiagentelbo-2026-10-12-theory-review-remediation]]). [[lebowitz-1968-analytic-clustering-thermodynamic-functions]] (Section IV) proves that the infinite-volume pressure of an Ising ferromagnet is jointly analytic in temperature and field whenever the field is nonzero, by combining the Lee-Yang circle theorem with a two-variable analyticity lemma. Applied here, it would make the native pressure real-analytic on the whole parameter square, not only on the 12t < 1 domain where the supplement proves C^4. The base supplement now states this as `prop:rg-pressure-native-analytic` (ESTABLISHED, October 12): the boundary fields change log Z_L by O(L), the Ising coupling and field are real-analytic in (b,t), and the pressure, the natural log-partition density, and its Hessian are real-analytic on the whole square; the Fisher identifications remain on the constructive domain.
-
-## Positive-rate cyclic formation with weakest energy one, September 13
-
-[[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] removes the growing weakest-energy assumption from the preceding finite-depth positive-rate construction. With J_L=1, source proposals and continuous mobility both have rate one. Exact normalized parents activate from complete actual retained laws, retain every loop and source assignment, and learn from their own actual law. For every finite L>=2, the construction has L actual formation episodes, recognition-source TV greater than one half from each activation, and fixed positive changes of the first physical and optimizing hidden kernels.
-
-Uniform joint diffusion-plus-jump entropy contraction controls the terminal conditional error after logarithmic entrance time. An exact source-relevant fast marginal, common to every parent, supports a complete proposal-history coupling under actual evolving environments. Terminal conditional KL is O_L(epsilon^2), complete-score error O_L(T epsilon), history disagreement O_L(epsilon^6), and the separate continuous-path error O_L(A epsilon^2). Early conditional KL is O_L(epsilon^14).
-
-Supplied energy contrasts, internal-neighbor source support, calibration, small fixed standardized nonlinearity and shrinking preparation/temperature remain assumptions. This result does not establish that source learning creates the hierarchy. Mixed-level source dependence would require a new fast-marginal and history argument. Exact probability composition, approximate dynamics and physical-time interpretation remain distinct; base transport is deferred. Earlier dated sections retain their original scopes.
-
-## Finite-rate adaptive cyclic formation, September 13
-
-[[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] extends the nonlinear finite-depth construction to moving actual source assignments with microscopic proposal rate one. Exact parents inherit optimizer-conditioned rates and activate from the complete actual retained law. Actual recognition-source TV exceeds one half, discarded-conditional KL is O_L(epsilon^8), complete-score error is O_L(T epsilon^4), and the probability of any disagreement over entire assignment histories is O_L(epsilon^7 log(1/epsilon)). Continuous paths have a separate O_L(A epsilon^2) bound. All loops and assignments survive every reduction.
-
-The positive theorem uses an explicit accelerated-energy family with weakest strength J_L=epsilon^-8. The original J_L=1 case remains open. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity and shrinking preparation/temperature are assumptions; most switching occurs after the short formation windows. This does not show that source learning creates the hierarchy. Exact probability composition, approximate dynamics and physical-time interpretation remain distinct; base transport is deferred. Earlier dated sections retain their original scopes.
-
-## Nonlinear adaptive cyclic formation, September 13
-
-[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
-
-Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
-
-> [!note] Current scope, September 11, 2026
-> The September construction supplies exact typed normalized RG towers and several scoped scale, spatial and continuum results. It supersedes any general reading below that RG composition requires a fixed point or self-similar substrate. Fixed points and universal large-scale behavior remain additional properties; exact composition does not establish them. The old finite reduction defects concern the particular state/action family retained in those experiments. See [[multiagentelbo-2026-09-11-normalized-core]], [[multiagentelbo-2026-09-11-scale-and-inference]] and [[Gauge-VFE RG research synthesis September 2026]].
-
-
-## Adaptive cyclic Gaussian dynamics
-
-[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] supplies an admitted finite-L dynamical RG with actual model learning that changes physical and optimizing hidden conditionals. Exact common-channel Gaussian integrations preserve loop and cut kernels, scalar normalizers and generated correlations. The independently learned parents use actual retained initialization, their own full scores and the inherited metric. Conditional-KL and path approximations occupy the same horizon 2/epsilon but have separate proofs.
-
-This adds the changing-conditional interface to the existing finite-depth progression. It assumes microscopic contrast, compatible forcing, Gaussian laws and finite depth, and does not establish nonlinear adaptive closure, learned contrast, universal scaling or infinite-depth control.
-
-## Reusable finite-depth nonlinear dynamics
-
-[[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] extends the pointwise nonlinear witness to arbitrary prescribed finite depth. Full conditional-integral actions and normalized kernels compose exactly; sequential parents evolve from their actual retained laws with inherited metrics and quantitative entropy, force and path estimates. The explicit 8 -> 4 -> 2 -> 1 formation history is generated by fixed microscopic kinetics and interaction weights. Depth-dependent constants and finite observation windows prevent promoting this result to uniform infinite-depth closure, universal scaling or learned interaction hierarchy.
-
-## Nonlinear inherited dynamics and conditional entropy
-
-[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] joins two actual coalescence episodes to two normalized nonlinear reductions at one base point. The common microscopic mobility induces both parent metrics and forces. Full compact integrals retain generated interactions and conditional variational costs. Uniform first-interface entropy control and later separate fine/parent entropy decay complement the path bounds; neither is inferred from the other. The result is finite and conditional on supplied interaction contrast, preparation and a controlled horizon. It does not establish universal scaling or infinite-depth closure.
-
-## Finite dynamical reduction at one base point, September 12, 2026
-
-[[multiagentelbo-2026-09-12-dynamical-rg]] constructs two compatible reductions of a compact three-agent model whose law and link dynamics approach a coherent manifold. The maps eliminate restoring internal matter modes while preserving root laws, independent links and generated interactions. Exact normalized generative laws and conditional parent costs compose; conditional averaging derives the parent mobilities and forces, with finite-horizon path estimates on a stated common regime.
-
-The reduction order and microscopic rate hierarchy are declared inputs. The theorem does not imply fixed points, universal slowdown, unique grouping or infinite-depth attraction. Nor does path accuracy control the discarded conditional KL: the full transient fine VFE retains that explicit residual. These qualifications distinguish the dynamic result from exact static channel composition and from closure in a truncated action family.
 
 ## Definition
 
@@ -94,73 +46,15 @@ recast the whole flow exactly: the **functional (non-perturbative) RG** of
 average action* $\Gamma_k$ — equal to the bare action at the UV cutoff and the full effective
 action as $k\to 0$ — obeying the exact Wetterich flow
 $$
-\partial_k \Gamma_k \;=\; \tfrac{1}{2}\,\mathrm{STr}\!\left[\big(\Gamma_k^{(2)}+R_k\big)^{-1}\,\partial_k R_k\right],
+\partial_k \Gamma_k = \tfrac{1}{2}\mathrm{STr}\left[\big(\Gamma_k^{(2)}+R_k\big)^{-1}\partial_k R_k\right],
 $$
 whose controlled truncations capture non-perturbative physics. The standard pedagogical account
 of all of this — block-spin scaling, the Wilsonian effective action, finite-size scaling, and
 the Gaussian/saddle-point treatment of the partition function — is [[cardy-1996-scaling-renormalization]].
 
-## Why it matters here
-
-This page is the **physics counterpart** of the project-specific
-[[Renormalization-group flow of beliefs]]: the latter applies the machinery summarized here to a
-population of variational beliefs, and the former (this page) is the established theory it
-borrows from. The correspondence is tight. A step of meta-agent formation in
-[[Meta-agents and hierarchical emergence]] — replacing a coherent cluster of micro-agents by a
-single coarse-grained parent — is a **block-spin RG step** in the space of
-[[Variational free energy]] functionals: the cluster is the block, the pooled meta-belief is the
-effective block variable, and the parent's couplings are the renormalized couplings. The
-[[Ouroboros multi-scale dynamics|Ouroboros tower]] is then a discrete RG trajectory, and the
-question of whether that tower has a well-defined continuum/scaling limit is exactly the
-fixed-point question functional RG ([[berges-tetradis-wetterich-2002-nonperturbative-rg]]) is
-built to answer.
-
-The relevant/irrelevant taxonomy of [[wilson-1971-rg-critical-phenomena]] supplies the
-principled answer to *which* belief structures survive aggregation: the few belief couplings
-that grow under coarse-graining set the emergent macro-dynamics, while the many that decay are
-integrated out — a retention criterion that also dovetails with the predictive-information
-picture of [[bialek2001predictability|bialek-2001-predictability-complexity]], where coarse-graining discards extensive
-detail and keeps the sub-extensive, learnable part. The "integrate out the fast/fine modes to
-get an effective slow theory" operation is the same move that
-[[Geometric singular perturbation theory]] makes rigorous at the level of fast-slow dynamics:
-RG flow is its scale-indexed, statistical-mechanical sibling. And the consensus/clustering that
-attention induces on a token cloud — proven as an interacting-particle flow in
-[[geshkovski-2023-mathematical-transformers]] — is the microdynamics whose repeated
-coarse-graining the belief-RG describes, linking this concept to the
-[[VFE Transformer Program]] as well as the multi-agent model.
-
-> [!note] Editorial: the identification of meta-agent coarse-graining with a *bona fide* RG
-> step (with a genuine fixed point and universal large-scale content) is a program goal of
-> [[participatory-it-from-bit]], not yet a proven theorem; functional RG is the tool the project
-> would use to make it quantitative.
-
-## Details
-
-There are two complementary closure techniques the project inherits. The **Wilsonian
-effective action** (integrate out fast modes, keep a renormalized action for the slow modes) is
-the conceptual route; the **Gaussian / saddle-point (Laplace) approximation** to the partition
-function — expanding the free energy about its dominant configuration — is the practical route
-used to get a tractable effective free energy at each scale, both taught in
-[[cardy-1996-scaling-renormalization]]. **Finite-size scaling** is the correction relevant to a
-*finite* ensemble of agents: it governs how emergent macro-quantities approach their
-thermodynamic-limit values, the natural diagnostic when the "block" is a small cluster rather
-than an infinite lattice. The $\epsilon$-expansion of [[wilson-kogut-1974-epsilon-expansion]] is
-the prototype of a controlled small-parameter expansion about a fixed point that any
-quantitative belief-RG claim would emulate.
-
-A subtlety worth flagging is the **pooling choice** at the blocking step. Coarse-graining must
-aggregate the constituent beliefs into one parent belief, and opinion-pooling theory
-([[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]]) shows the aggregator is
-a substantive commitment: the consensus-preserving *linear* (arithmetic) pool and the
-externally-Bayesian *log-linear / multiplicative* pool ([[bordley-1982-multiplicative-pooling]])
-satisfy mutually incompatible axioms. The project's meta-agent uses a gauge-covariant *linear*
-sandwich average for blocking (to avoid the multiplicative "veto"), so the RG blocking operator
-here is a linear pool — a modeling decision the RG framework leaves open and the pooling
-literature adjudicates.
-
 ## Renormalization without a lattice
 
-Everything above assumes the thing being coarse-grained sits on a lattice. Two recent lines drop that assumption in opposite directions, and between them they cover the situation the multi-agent program is actually in.
+Network and statistical constructions supply other choices of scale.
 
 **Networks.** [[garuccio-2023-multiscale-network-renormalization]] supplies a model-specific independent-edge OR-aggregation benchmark. The parameterization, loop convention and uniqueness scope are recorded in [[Coarse Graining]]. Additivity is not a general criterion for every RG construction. [[gabrielli-2025-network-renormalization]] supplies the broader network-RG comparison.
 
@@ -180,14 +74,7 @@ exactly because the substrate is built self-similarly. Away from those cases,
 [[griffiths-1979-rg-transformations]] and [[van-enter-1993-rg-pathologies]] show that real-space
 maps can fail even to produce well-defined renormalized theories; the probabilistic cousin is
 the exceptional character of Markov-chain lumpability
-([[kemeny-snell-1960-finite-markov-chains]]). The MultiAgentELBO finite laboratory measured
-exactly this on the gauge-VFE system (2026-08-17): the pre-registered compatibility check C3
-failed by $0.204$ against $10^{-10}$ with a lossless intermediate projection, so the belief-RG
-flow is a **typed cocycle** — one map per level pair — rather than an autonomous semigroup, its
-per-ratio fixed structures are factorized and ratio-dependent, and the triviality is
-architectural (thin single-edge block boundaries make instances quasi-one-dimensional). The
-synthesis, the measurements, and the open bundled-tower question live in
-[[Staged hierarchy formation and RG composability]].
+([[kemeny-snell-1960-finite-markov-chains]]).
 
 ## Sources
 
@@ -196,7 +83,7 @@ synthesis, the measurements, and the open bundled-tower question live in
 - [[berges-tetradis-wetterich-2002-nonperturbative-rg]] — functional (non-perturbative) RG: the effective average action $\Gamma_k$ and the exact Wetterich flow; the language for the continuum-limit question.
 - [[cardy-1996-scaling-renormalization]] — standard pedagogy: Wilsonian effective action, Gaussian/saddle-point closure, finite-size scaling.
 - [[bialek2001predictability|bialek-2001-predictability-complexity]] — predictive information and its sub-extensive growth; the information-theoretic reading of what coarse-graining keeps versus discards.
-- [[geshkovski-2023-mathematical-transformers]] — attention as an interacting-particle consensus flow producing clusters; the microdynamics the belief-RG coarse-grains.
+- [[geshkovski-2023-mathematical-transformers]] — attention as an interacting-particle consensus flow producing clusters.
 - [[gabrielli-2025-network-renormalization]] — RG on heterogeneous networks: the three-step program; geometric, Laplacian and multiscale frameworks compared.
 - [[garuccio-2023-multiscale-network-renormalization]] — uniqueness of the aggregation-invariant model; additivity as the renormalizability criterion; scale-free versus scale-invariant.
 - [[villegas-2023-laplacian-renormalization-group]] — diffusion time as an intrinsic RG scale; entropic susceptibility as a scale detector.
@@ -205,12 +92,10 @@ synthesis, the measurements, and the open bundled-tower question live in
 - [[griffiths-1979-rg-transformations]], [[van-enter-1993-rg-pathologies]] — rigorous limits of real-space RG: renormalized interactions need not exist; non-Gibbsian images.
 - [[berker-1979-hierarchical-lattice-rg]], [[kadanoff-1976-migdal-recursion]] — hierarchical lattices, the self-similar substrates on which real-space RG composes exactly.
 - [[kemeny-snell-1960-finite-markov-chains]] — lumpability as the exceptional condition for a coarse-grained Markov chain to stay Markov.
-- [[csiszar-1975-i-divergence-geometry]] — I-projection and IPF convergence, the theorem behind the laboratory's variational coupling read-back.
+- [[csiszar-1975-i-divergence-geometry]] — I-projection and IPF convergence.
 
 ## See also
 
-- [[Staged hierarchy formation and RG composability]]
-- [[Renormalization-group flow of beliefs]]
 - [[Meta-agents and hierarchical emergence]]
 - [[Ouroboros multi-scale dynamics]]
 - [[Geometric singular perturbation theory]]

@@ -58,7 +58,7 @@ It is a useful algorithmic comparator for hierarchical elimination/coarse-graini
 
 - [[Coarse Graining]]
 - [[Renormalization group flow]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Belief Propagation]]
 
 ## BibTeX

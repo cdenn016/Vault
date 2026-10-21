@@ -41,7 +41,7 @@ Wilsonian RG needs a physical scale to organize the flow — a momentum cutoff, 
 
 ## Method
 
-**ERG as diffusion.** In the Polchinski scheme the field-space density $P_\Lambda[\phi]\propto e^{-S_\Lambda[\phi]}$ obeys a literal Fokker–Planck equation,
+**ERG as diffusion.** In the Polchinski scheme the field-space density $P_\Lambda[\phi]\propto e^{-S_\Lambda[\phi]}$ obeys a literal Fokker–Planck equation
 
 $$\frac{dP_\Lambda}{d\ln\Lambda} = \Delta P_\Lambda + \operatorname{div}\!\big(P_\Lambda \operatorname{grad}_{C_\Lambda} V_\Lambda[\phi]\big),$$
 
@@ -86,7 +86,7 @@ This paper supplies the criterion the MAgent exact-ELBO white paper's coarse-gra
 
 **The block generalization.** Transplanted correctly the criterion is a subspace log-determinant, not a diagonal threshold: tying kills the within-cluster *difference* subspace, and forcing a direction to a point is cheap exactly when its precision is *large*. The selection objective is $\max_S \tfrac12\log\det(B_\perp^\top\Lambda B_\perp)$ over the orthogonal complement of the tied subspace. Verified on a planted partition (strict maximizer over 500 size-matched scrambles, margin 1.90 nats).
 
-**Direction of flow.** BKS's $\tau=1/T$ says coarse-graining *widens* the posterior. MAgent's meta-agent formation *adds* precisions, i.e. increases $T$ — it runs the flow toward the UV. The white paper independently proves this by sufficiency ($T(y)=\sum_i\Omega_i^\top R_i^{-1}y_i$ is sufficient for the parent, so nothing is integrated out). Precision pooling is therefore a **sufficient reduction, not a coarse-graining**; only the family restriction is a renormalization step. See [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]].
+**Direction of flow.** BKS's $\tau=1/T$ says coarse-graining *widens* the posterior. MAgent's meta-agent formation *adds* precisions, i.e. increases $T$ — it runs the flow toward the UV. The white paper independently proves this by sufficiency ($T(y)=\sum_i\Omega_i^\top R_i^{-1}y_i$ is sufficient for the parent, so nothing is integrated out). Precision pooling is therefore a **sufficient reduction, not a coarse-graining**; only the family restriction is a renormalization step. See [[Renormalization group flow]], [[Meta-agents and hierarchical emergence]].
 
 **The apex.** The [[Ouroboros multi-scale dynamics|Ouroboros]] apex closure is refuted because the self-reference is a *cycle in the model*. Bayesian Renormalization is a formalism in which the loop lives in the *inference*: the flow is a one-parameter family of posteriors indexed by $\tau$, with no top node, and the $\tau\to\infty$ limit is the declared top prior the refutation concludes must survive. Wheeler-style self-reference becomes **flow reversibility** (inference is the inverse of coarse-graining) rather than a graph cycle, so every normalizability obstruction the refutation found is bypassed rather than repaired.
 
@@ -97,7 +97,7 @@ This paper supplies the criterion the MAgent exact-ELBO white paper's coarse-gra
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Fisher information metric]], [[Coarse Graining]], [[Natural gradient]], [[Exponential family]], [[Information bottleneck]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Evidence lower bound (ELBO)]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Fisher information metric]], [[Coarse Graining]], [[Natural gradient]], [[Exponential family]], [[Information bottleneck]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Evidence lower bound (ELBO)]]
 - Related sources: [[beny-osborne-2015-info-geometric-rg]], [[mehta-schwab-2014-variational-rg-deep-learning]], [[tishby-1999-information-bottleneck]], [[jona-lasinio-2001-renormalization-probability]], [[gabrielli-2025-network-renormalization]], [[villegas-2023-laplacian-renormalization-group]], [[wilson-1971-rg-critical-phenomena]], [[cardy-1996-scaling-renormalization]], [[amari-1998-natural-gradient]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[VFE Transformer Program]]
 

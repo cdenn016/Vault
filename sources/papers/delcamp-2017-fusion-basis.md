@@ -31,8 +31,6 @@ Sections III E–IV, pp. 17–28; Section VI B 1–3, pp. 44–50, Eqs. (6.11)�
 > [!note] Editorial: proposed transfer
 > The useful transfer is hierarchical organization of boundary sectors, not an assumption that attention weights are quantum charges. Joint loop/cut marks and exposed comparison operators remain necessary. Fusion labels or individual trace observables alone do not establish sufficiency for the full agent experiment.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

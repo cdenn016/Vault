@@ -100,7 +100,7 @@ Full development in the MAgent repo at `docs/derivations/2026-07-28-renormalizat
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Coarse Graining]], [[Graph Laplacian]], [[Community detection and modularity]], [[Critical Phenomena]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Fisher information metric]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Graph Laplacian]], [[Community detection and modularity]], [[Critical Phenomena]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Fisher information metric]]
 - Related sources: [[villegas-2023-laplacian-renormalization-group]], [[garuccio-2023-multiscale-network-renormalization]], [[garciaperez-2018-multiscale]], [[serrano-2008-self-similarity]], [[boettcher2012renormalization]], [[berman-2023-bayesian-renormalization]], [[beny-osborne-2015-info-geometric-rg]], [[wilson-1971-rg-critical-phenomena]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
 

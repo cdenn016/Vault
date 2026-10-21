@@ -33,13 +33,9 @@ Metadata verified on 2026-09-28 against Crossref. Content read in Harvard Busine
 
 Imprinting is defined as a process whereby, during a brief period of susceptibility, a focal entity develops characteristics that reflect prominent features of its environment, and these characteristics continue to persist despite significant environmental changes in later periods. The definition has three parts: a temporally restricted sensitive period, the entity coming to reflect its environment, and persistence. A section "What Imprinting is Not" distinguishes imprinting from path dependence and from cohort effects. An entity may pass through several sensitive periods, leaving generations of imprints layered on one another. The paper names imprint decay, persistence, and amplification as a tension for future research. It quotes [[stinchcombe-1965-social-structure-organizations]] (p. 169) on why founding-era structure persists.
 
-## Relevance to this research
-
-In [[multiagentelbo-2026-09-28-early-parent]], activation before $\theta\approx\log(1/\epsilon)$ is a sensitive period in this sense: a parent formed then inherits the founding imprint. In the four-agent model, however, that imprint sits in fast restoring coordinates and decays, so the third condition (persistence) fails, and the imprint is transient rather than an imprint in the authors' sense. The framework therefore supports the second remedy (keeping the imprint as an explicit memory variable of the parent) only where the imprint is carried by something slow, such as a structure, a routine, or a source assignment. Carrying a decaying fast mode as memory would build an imprint the dynamics does not support. The mapping is interpretive. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Meta-agents and hierarchical emergence]]
 - Related sources: [[stinchcombe-1965-social-structure-organizations]], [[zwanzig-1961-memory-effects]], [[boyd-1982-cultural-transmission-cooperation]]
 
 ## BibTeX

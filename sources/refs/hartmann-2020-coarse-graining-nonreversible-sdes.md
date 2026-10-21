@@ -20,10 +20,6 @@ Carsten Hartmann, Lara Neureither, and Upanshu Sharma. *Coarse-graining of non-r
 
 Read Assumption 2.1 (p. 6), Theorems 2.4 and 2.7 (pp. 10–12), and Section 2.1.4/Theorem 2.9 (pp. 12–13). The setting assumes smooth coefficients, bounded uniformly nondegenerate diffusion, and a unique invariant density. Conditional functional inequalities and coefficient bounds control marginal errors. The path-space comparison additionally uses resolved diffusion independent of unresolved coordinates, Lipschitz drift dependence, uniformly bounded conditional second moments on a fixed horizon, and a Novikov condition. Its estimate includes a term proportional to the horizon. Matching one-time marginals does not identify path laws.
 
-## Relevance to this research
-
-Provides a comparator for [[Coarse Graining]] and [[Geometric singular perturbation theory]]. It supplies neither a switching-sheet theorem nor an automatic vanishing estimate on the learning window growing as mobility decreases. The project must check its own generator and horizon assumptions; see [[multiagentelbo-2026-09-26-selection-and-reference-review]].
-
 ## BibTeX
 
 ```bibtex

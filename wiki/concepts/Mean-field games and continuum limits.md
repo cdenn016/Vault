@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-19
-updated: 2026-08-10
+updated: 2026-10-20
 ---
 
 # Mean-field games and continuum limits
@@ -85,7 +85,7 @@ These results apply only to an explicit stochastic graphon or graphon-game const
 - [[Multi-agent variational free energy]] — the finite-agent functional for which a continuum limit remains to be derived.
 - [[belief-inertia]] · [[Belief inertia]] — the founding manuscript and the inertial-belief claim that Cucker–Smale prototypes.
 - [[Hamiltonian belief dynamics]] — the second-order belief equation $M\ddot\mu + \gamma\dot\mu + \nabla F = 0$ paralleled by velocity alignment.
-- [[Renormalization-group flow of beliefs]] · [[Meta-agents and hierarchical emergence]] — the program's own coarse-graining tower across scales.
+- [[Renormalization group flow]] · [[Meta-agents and hierarchical emergence]] — the program's own coarse-graining tower across scales.
 - [[Meta-entropy]] — the configuration-counting bridge to the thermodynamic/continuum limit.
 - [[Opinion dynamics]] · [[Bounded confidence]] — restricted averaging correspondence and soft analog; no general overdamped recovery.
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.

@@ -31,13 +31,8 @@ The core is a lemma in Section III (pp. 104–107): if $F(\beta,z)$ is jointly a
 
 Section IV: $p(\beta,z)$ is jointly analytic wherever (36) holds; for the Ising ferromagnet this means for every $\beta>0$ and every nonzero real field, and the energy and specific heat per unit volume are analytic under the same conditions. Sections V and VI extend joint analyticity to the distribution functions (for the ferromagnet and for nonnegative potentials below the Mayer radius); Sections VII and VIII give clustering of Ursell functions, with $|u_s|\le C\exp[(-2\beta m|\operatorname{Re}H|+\varepsilon)\Lambda_s/\lambda]$ for interactions of range $\lambda$. A phase transition as $\beta$ varies at fixed $H$ can occur only at a limit point of Lee–Yang zeros, hence only at $\operatorname{Re}H=0$.
 
-## Relevance to this research
-
-The October 12 review of the MultiAgentELBO theory found that the native free model of Supplement B (`def:rg-pressure-native`) is exactly a nearest-neighbor ferromagnetic Ising model on the $(L-1)\times(L-1)$ plaquette grid, with coupling $\tfrac12\log(1/b)$ and fields $\tfrac12\log t+\tfrac n2\log b$, which are negative for $0<b,t<1$ ([[multiagentelbo-2026-10-12-theory-review-remediation]], `rem:rg-pressure-native-ising`). The bulk field is therefore nonzero on all of $(0,1)^2$, and since $(b,t)\mapsto$ (coupling, bulk field) is a real-analytic diffeomorphism onto an open subset of (positive coupling, negative field), while the paper's variables $(\beta,H)$ for a fixed coupling shape reach every such pair through $(\beta J_0,\beta H)$, this paper's Section IV gives real-analyticity of the native infinite-volume pressure in $(b,t)$ on the whole square, not only on the domain $12t<1$ where Supplement B proves $C^4$. The remark currently claims no analyticity consequence, because this paper had not been read. Before the manuscript cites it, two hypotheses need a line of argument: that the native pressure differs from the Ising pressure only by real-analytic terms in $(b,t)$, and that the site-dependent boundary fields (the $n$ in the field) do not affect the bulk limit, which is the boundary point the authors flag on p. 108. The paper bears on the B = 1 thermodynamic Fisher statements of Supplement B, whose Fisher metric is the Hessian of the pressure ([[Renormalization group flow]]).
-
 ## Cross-links
 - Concepts: [[Renormalization group flow]], [[Fisher information metric]]
-- Related sources: [[multiagentelbo-2026-10-12-theory-review-remediation]]
 
 ## BibTeX
 ```bibtex

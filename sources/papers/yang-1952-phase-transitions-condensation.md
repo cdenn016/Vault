@@ -32,13 +32,9 @@ Metadata verified on 2026-09-28 against Crossref and OpenAlex (Phys. Rev. 87(3),
 
 The paper develops a statistical theory of equations of state and phase transitions that describes the condensed and gas phases and the transition regions between them, studies the thermodynamic properties of an infinite sample rigorously, and re-examines Mayer's theory. The partition-function-zero argument usually attributed to this paper, that a finite system is analytic and that singularities appear only in the infinite-volume limit, is the standard reading of it but was not verified from its text here.
 
-## Relevance to this research
-
-On that standard reading, this is the primary source for the principle that a sharp, nonanalytic transition requires an infinite-system limit. A four-agent cycle at fixed $T>0$ therefore cannot have a phase transition in this sense, and the $s=1$ threshold of [[multiagentelbo-2026-09-28-early-parent]] belongs to a different limit, $T\to0$ with rescaled time: a cutoff, not a condensation. A genuine formation transition would need a family of networks with $N\to\infty$ and an order parameter that becomes nonanalytic in that limit. That question belongs to the program's large-network target, networks of hundreds of agents, and cannot be decided on the four-cycle. The mapping is interpretive. See [[Soft formation and the activation clock]] and [[Phase transitions in social systems]].
-
 ## Cross-links
 
-- Concepts: [[Phase transitions in social systems]], [[Soft formation and the activation clock]]
+- Concepts: [[Phase transitions in social systems]], [[Meta-agents and hierarchical emergence]]
 - Related sources: [[fisher-1972-finite-size-scaling-critical-region]], [[klemm-2003-global-culture-noise-induced-transition]], [[castellano-marsili-vespignani-2000-axelrod-transition]]
 
 ## BibTeX
