@@ -28,10 +28,6 @@ Hansen, Jakob; Ghrist, Robert. Toward a Spectral Theory of Cellular Sheaves. arX
 
 Extends spectral graph ideas to cellular sheaf Laplacians, including interlacing, approximation and resistance constructions. A sheaf edge carrier can retain information that an invertible single-link presentation cannot.
 
-## Relevance to this research
-
-The source is connected to [[Gauge-VFE RG research synthesis September 2026]]. The exact local application and its assumptions are retained in the use sites below and in [[multiagentelbo-2026-09-11-research-snapshot]]. A successful download is not an independent proof check of those applications.
-
 ## Recorded use sites
 
 - `Theory/references.bib#HansenGhrist2019`
@@ -40,7 +36,3 @@ The source is connected to [[Gauge-VFE RG research synthesis September 2026]]. T
 - `docs/derivations/2026-09-11-psd-support-probability-check.md`
 - `docs/derivations/2026-09-11-rectangular-link-compression.md`
 - `docs/derivations/2026-09-11-semidefinite-gaussian-quotient.md`
-
-## Ingestion evidence
-
-The primary metadata and first pages were inspected for identity and scope; the full PDF is retained for later reading. This is not a claim to have re-proved the cited paper. Retrieval details, version qualifications and the SHA-256 digest are in [[multiagentelbo-2026-09-11-reference-register]].

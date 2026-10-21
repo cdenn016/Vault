@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-10
+updated: 2026-10-20
 ---
 
 # Mutual information
@@ -65,7 +65,7 @@ $$
 \mathcal{L}_{\mathrm{IB}} = I(X;T) - \beta I(T;Y),
 $$
 
-where $I(X;T)$ is the **complexity** (code rate) and $I(T;Y)$ the **accuracy** (relevance retained), traded off by a Lagrange multiplier $\beta>0$. The DPI guarantees $I(T;Y)\le I(X;Y)$, so the objective is genuinely a compression-under-a-ceiling problem. Stationarity gives a self-consistent fixed point in which the optimal assignment is a **softmax over a KL distortion**,
+where $I(X;T)$ is the **complexity** (code rate) and $I(T;Y)$ the **accuracy** (relevance retained), traded off by a Lagrange multiplier $\beta>0$. The DPI guarantees $I(T;Y)\le I(X;Y)$, so the objective is genuinely a compression-under-a-ceiling problem. Stationarity gives a self-consistent fixed point in which the optimal assignment is a **softmax over a KL distortion**
 
 $$
 p(t\mid x)\propto p(t)\exp\big(-\beta D_{\mathrm{KL}}(p(y\mid x)\|p(y\mid t))\big),
@@ -118,7 +118,7 @@ self-coupling coefficient $\alpha$ is not Tishby's relevance multiplier
 $\beta$, and the pairwise attention rule is not thereby an IB optimum. The
 connection is a formal comparison, not an equality of functionals.
 
-**Meta-agent coarse-graining.** Grouping units by the similarity of their predictive distributions $p(y\mid x)$ — distributional clustering that preserves mutual information with the relevance variable while compressing the input — is the information-theoretic route by which [[Meta-agents and hierarchical emergence|meta-agents]] form, and the DPI bounds how much relevant information any coarse-graining can retain (see [[Renormalization-group flow of beliefs]] and [[Multi-agent variational free energy]]).
+**Meta-agent coarse-graining.** Grouping units by the similarity of their predictive distributions $p(y\mid x)$ — distributional clustering that preserves mutual information with the relevance variable while compressing the input — is the information-theoretic route by which [[Meta-agents and hierarchical emergence|meta-agents]] form, and the DPI bounds how much relevant information any coarse-graining can retain (see [[Renormalization group flow]] and [[Multi-agent variational free energy]]).
 
 **From information to geometry.** The KL expansion supports the
 [[Fisher information metric]] used for Gaussian belief updates. It does not

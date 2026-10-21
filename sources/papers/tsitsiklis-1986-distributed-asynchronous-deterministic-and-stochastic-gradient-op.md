@@ -26,14 +26,8 @@ Tsitsiklis, John N.; Bertsekas, Dimitri P.; Athans, Michael. Distributed Asynchr
 
 Analyzes distributed asynchronous gradient algorithms under explicit delay, stepsize and objective assumptions. The project checks its own weighted-block common-basin conditions.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-gaussian-star-asynchronous-descent.md`
 - `docs/derivations/2026-09-10-gaussian-star-delay-control.md`
 - `docs/derivations/2026-09-10-gaussian-star-scheduling-check.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

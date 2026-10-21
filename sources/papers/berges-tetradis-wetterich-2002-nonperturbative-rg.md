@@ -42,11 +42,11 @@ The review establishes the effective average action as a unifying tool across cr
 
 ## Relevance to this research
 
-The project repeatedly invokes a *Wilsonian effective action* obtained by integrating out fine-scale agent fluctuations (the Laplace / saddle closure of the partition function over a population of beliefs). Berges-Tetradis-Wetterich supply the rigorous functional-RG language for that move: the effective average action $\Gamma_k$ is the field-theoretic template for the project's scale-dependent effective free energy, and the Wetterich flow is the exact statement of how couplings evolve as scales are integrated out — the formal version of [[Renormalization-group flow of beliefs]]. The open continuum-limit problem in PIFB (does the discrete tower of [[Meta-agents and hierarchical emergence]] possess a well-defined fixed point and scaling limit?) is exactly the kind of question functional RG is built to answer, so this review marks the methodology the project would adopt to close that gap. Manuscript thread: [[participatory-it-from-bit]]; see also [[cardy-1996-scaling-renormalization]] and [[wilson-1975-renormalization-group]].
+The project repeatedly invokes a *Wilsonian effective action* obtained by integrating out fine-scale agent fluctuations (the Laplace / saddle closure of the partition function over a population of beliefs). Berges-Tetradis-Wetterich supply the rigorous functional-RG language for that move: the effective average action $\Gamma_k$ is the field-theoretic template for the project's scale-dependent effective free energy, and the Wetterich flow is the exact statement of how couplings evolve as scales are integrated out — the formal version of [[Renormalization group flow]]. The open continuum-limit problem in PIFB (does the discrete tower of [[Meta-agents and hierarchical emergence]] possess a well-defined fixed point and scaling limit?) is exactly the kind of question functional RG is built to answer, so this review marks the methodology the project would adopt to close that gap. Manuscript thread: [[participatory-it-from-bit]]; see also [[cardy-1996-scaling-renormalization]] and [[wilson-1975-renormalization-group]].
 
 ## Cross-links
 
-- Concept: [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]].
+- Concept: [[Renormalization group flow]], [[Meta-agents and hierarchical emergence]].
 - Sources: [[cardy-1996-scaling-renormalization]], [[wilson-1975-renormalization-group]], [[beny-osborne-2015-info-geometric-rg]].
 - Manuscript: [[participatory-it-from-bit]].
 

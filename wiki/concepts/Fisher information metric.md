@@ -14,14 +14,10 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-10
+updated: 2026-10-20
 ---
 
 # Fisher information metric
-
-> [!note] Current scope, September 11, 2026
-> The new results distinguish information contraction, full statistical sufficiency and regular geometric descent. Fisher preservation alone need not imply sufficiency, and a weak Fisher metric does not automatically supply a strong Hilbert norm or invertible natural-gradient mobility. [[multiagentelbo-2026-09-11-conditional-geometry]] records the quotient and projectability hypotheses; [[multiagentelbo-2026-09-11-thermodynamic-fisher]] records the thermodynamic and joint-depth limit conditions. Geometry feedback also has explicit obstruction cases in [[multiagentelbo-2026-09-11-geometry-feedback]].
-
 
 ## Definition
 
@@ -129,26 +125,6 @@ the realized path, orientation, or duration. After VFE natural-gradient descent 
 unparameterized orbit, Fisher arclength supplies an agent-relative **information duration**. This is
 not physical time, and natural-gradient orbits are not generally Fisher geodesics.
 
-## Orbit Fisher form at one base point (review, September 23, tentative)
-
-The covariant pullback above measures transport along base curves. At a single base point the attention network instead compares a belief with a belief moved by an independent link, $\mathrm{KL}(q_i\Vert\hat\rho(\Omega_{ij})q_j)$. Investigator X03 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) records the corresponding second-order law along the orbit $t\mapsto\hat\rho(e^{t\xi})q$:
-$$
-\mathcal D\bigl(q,\hat\rho(e^{t\xi})q\bigr)=\frac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3),\qquad \mathfrak k_q(\xi,\eta)=g^F(\zeta_\xi q,\zeta_\eta q),
-$$
-where $\zeta_\xi q$ is the fundamental vector field of the fiber action. When $g^F$ is positive definite the radical of $\mathfrak k_q$ is the isotropy algebra $\mathfrak g_q$, so directions that fix the belief cost nothing at second order. This orbit form governs link-transport, holonomy and plaquette energies near the identity at $c_*$; the Theory manuscript states it only at the end of a base-direction theorem. For Gaussians under the $\mathrm{GL}(K)$ congruence action ($K=2,3,4$, 200 draws) the normalized $O(t)$ remainder stayed below 1.24, and a skew isotropy generator $\xi=W\Sigma^{-1}$ annihilated a zero-mean Gaussian to $1.7\times10^{-15}$. X03 also derived the third-order coefficient of the transported-divergence expansion, $\tfrac12g(v,\nabla^*_vv)+\tfrac16T_{\mathcal D}(v,v,v)$, with $\nabla^*$ the dual connection (the exponential connection for KL).
-
-> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
-> A corollary of an existing divergence-jet proposition, with numerical and SymPy checks by one investigator (Claude Opus 5.5).
-
-### Incorporation in the restructured manuscript (September 24)
-
-The orbit form is now `cor:pb-orbit-fisher-form` in Chapter 7 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED, with its proof in Appendix B.2 (Deferred Proofs). Under the chapter's regularity hypothesis it defines $\mathfrak k_q(\xi,\eta)=g^F_q(\xi_{\mathcal B}(q),\eta_{\mathcal B}(q))$ and the isotropy algebra $\mathfrak g_q=\{\xi:\xi_{\mathcal B}(q)=0\}$. It states that $\mathfrak k_q$ is positive semidefinite with radical exactly $\mathfrak g_q$, the Lie algebra of the stabilizer of $q$, that $\mathrm{KL}(q\Vert\widehat\rho(\exp t\xi)q)=\tfrac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3)$, that the left side vanishes for every $t$ when $\xi\in\mathfrak g_q$, and that the same expansion holds for every regular invariant contrast with its metric jet in place of $g^F$. It follows `prop:pb-kl-divergence-jets`, which identifies the metric jet of KL with $g^F$ and its cubic jet with the Amari–Chentsov tensor. X03's third-order coefficient $\tfrac12g(v,\nabla^*_vv)+\tfrac16T_{\mathcal D}(v,v,v)$ is `prop:pb-divergence-cubic-coefficient` in Supplement B, Chapter B2, stated for one-sided contrast expansions along curves, with $\nabla^*$ the exponential connection for regular KL. The review's Gaussian draws are not reproduced in the manuscript.
-
-The same chapter's `prop:ig-fisher-characterizations`, tagged STANDARD, states Cencov's uniqueness theorem (on the open simplex of positive laws on a finite set, the Fisher metric is, up to a positive factor, the unique Riemannian metric invariant under congruent Markov embeddings) and since October 10, 2026 cites it as Theorem 11.1 and Lemma 11.3 of [[cencov-1982-statistical-decision-rules]], with no page number. Campbell (1986, Proc. AMS 98:135) names the result as "Theorem 11.1 or Lemma 11.3" of the monograph; secondary sources disagree on the page (156, 159 and 161 all appear), and the AMS volume itself was not read, so the restructure's earlier "Lemma 11.3, p. 161" locator (itself corrected from p. 156) was replaced by the two statement numbers. The source note on the monograph records no page-level locator of its own.
-
-> [!warning] Status
-> Manuscript statements (ESTABLISHED with proofs, or STANDARD with a checked citation), written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
-
 ## In this work
 
 The Fisher information metric surfaces wherever the configuration declares an information-geometric or natural-gradient operation:
@@ -169,8 +145,6 @@ Blockwise frame conditioning should not be called Fisher preconditioning. The es
 
 [[berman-2023-bayesian-renormalization]] promotes the metric from a preconditioner to a *scale*. Since $D_{KL}(\theta\Vert\theta') = \tfrac12\mathcal I_{ij}\delta\theta^i\delta\theta^j + O(\delta\theta^3)$, the metric converts parameter displacement into statistical distinguishability, and a distinguishability scale is a correlation length. Setting $\tau = 1/T$ with $T$ the observation count, the posterior flow $\pi_T = \mathcal N(\mu_T, T^{-1}\mathcal I^{-1})$ becomes a Fokker–Planck equation with the pushforward Fisher metric as diffusion kernel, structurally identical to the Polchinski exact-RG equation: **inference and renormalization are the same equation with the flow reversed.** Large Fisher eigenvalues are stiff directions (relevant); small ones are sloppy (irrelevant), and the operational scheme integrates out everything below a cutoff.
 
-Two consequences for this program. First, the multi-agent model's matrix-weighted interaction Laplacian *is* this metric in the belief-mean sector — for $Y\sim\mathcal N(\mu,\Lambda^{-1})$ the Fisher information in $\mu$ is exactly $\Lambda$ — so [[Coarse Graining|coarse-graining costs]], natural-gradient preconditioning, and the RG cutoff are all statements about one spectrum. Second, an exactly unidentifiable direction has *zero* Fisher eigenvalue, hence is maximally sloppy: the $K^2$-dimensional coarse-frame orbit the exact-ELBO white paper proves unidentifiable is not merely undetermined but the first thing any Bayesian renormalization discards. That is a stronger statement than "declare a convention," and it explains why no geometric criterion could ever have selected a canonical frame.
-
 > [!warning] Do not use the diagonal. [[berman-2023-bayesian-renormalization|BKS]] argue spectrally but implement with diagonal entries $\mathcal I_{ii}$, a discrepancy they never address; a set of individually sloppy but jointly stiff directions is then misclassified. For a coupled family the criterion must be a subspace determinant, not an entrywise threshold. Their construction also requires an invertible metric, so a degenerate sector must be quotiented before the machinery is imported.
 
 ## Bény–Osborne metric and monotonicity boundary
@@ -183,9 +157,6 @@ Here $N$ is a quantum channel and $x$ a state tangent. Their scalar construction
 
 > [!warning] Source-note correction (2026-09-05)
 > The immutable [[beny-osborne-2015-info-geometric-rg]] note calls this Fisher–Bures. Equation (4) explicitly identifies Kubo–Mori. Use this correction when citing the paper; the original source note remains unchanged.
-
-> [!note] Editorial: RG v2 application
-> Use this metric for distinguishability on a declared tangent space. Treat the proposed coupling-response calculation as a finite diagnostic; identifying a common-space beta function, relevance exponents, or a continuum limit remains a separate construction. See [[Staged hierarchy formation and RG composability]].
 
 ## Sources
 

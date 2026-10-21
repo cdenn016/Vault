@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-20
 ---
 
 # Kinetic theory of opinion dynamics
@@ -26,7 +26,7 @@ a drift term encoding average compromise toward consensus and a diffusion term e
 
 ## Why it matters here
 
-For the SocialPhysics program this literature is the **thermodynamic-limit bridge** — the rigorous template for the claim that a continuum belief dynamics emerges from a finite population of pairwise-interacting agents. The program founded on [[belief-inertia]] ("The Inertia of Belief") works with a finite set of agents carrying Gaussian beliefs $q_i = N(\mu_i,\Sigma_i)$ coupled by [[Multi-agent variational free energy]], and whenever it asserts that this discrete system has a well-defined $N\to\infty$ continuum description — the move its [[Meta-entropy]] configuration-counting and Kac-extensivity arguments and its [[Renormalization-group flow of beliefs]] coarse-graining both rely on — the kinetic-opinion lineage is the precedent it should cite. The microscopic-to-mean-field passage is identical in spirit: a population of agents updating through binary encounters passes, in the many-agent grazing limit, to a Fokker–Planck PDE for the one-agent density ([[pareschi-toscani-2013-interacting-multiagent]], [[krapivsky-redner-bennaim-2010-kinetic-view]]), and the analytic backing for existence, uniqueness, and long-time convergence of such a continuum opinion equation already exists in the literature ([[boudin-salvarani-2009-kinetic-opinion]]).
+For the SocialPhysics program this literature is the **thermodynamic-limit bridge** — the rigorous template for the claim that a continuum belief dynamics emerges from a finite population of pairwise-interacting agents. The program founded on [[belief-inertia]] ("The Inertia of Belief") works with a finite set of agents carrying Gaussian beliefs $q_i = N(\mu_i,\Sigma_i)$ coupled by [[Multi-agent variational free energy]], and whenever it asserts that this discrete system has a well-defined $N\to\infty$ continuum description — the move its [[Meta-entropy]] configuration-counting and Kac-extensivity arguments and its [[Renormalization group flow]] coarse-graining both rely on — the kinetic-opinion lineage is the precedent it should cite. The microscopic-to-mean-field passage is identical in spirit: a population of agents updating through binary encounters passes, in the many-agent grazing limit, to a Fokker–Planck PDE for the one-agent density ([[pareschi-toscani-2013-interacting-multiagent]], [[krapivsky-redner-bennaim-2010-kinetic-view]]), and the analytic backing for existence, uniqueness, and long-time convergence of such a continuum opinion equation already exists in the literature ([[boudin-salvarani-2009-kinetic-opinion]]).
 
 Kinetic and Fokker–Planck opinion theory is a continuum analogy and extension target for [[belief-inertia]], not a limit derived by the manuscript. A compromise drift and self-thinking diffusion suggest the form that a future population-density equation might take, but the finite-agent gauge-VFE theory has not established a propagation-of-chaos, grazing-collision, Langevin, or Fokker–Planck limit. Similarity-gated attention is only a soft analog of bounded confidence; kinetic conviction and leader–follower kernels are comparison mechanisms, not literal images of precision, inertia, asymmetric attention, or meta-agent control.
 
@@ -62,5 +62,5 @@ Read together, these works are the continuum, mean-field face of the discrete op
 - [[Sociophysics]] · [[SocialPhysics]] — the broader statistical-physics-of-society program and the founding project page.
 - [[belief-inertia]] — the founding manuscript; kinetic compromise and diffusion remain continuum benchmarks rather than a literal derived regime.
 - [[Multi-agent variational free energy]] — the finite-agent functional for which a kinetic/Fokker–Planck limit remains to be derived.
-- [[Meta-entropy]] · [[Renormalization-group flow of beliefs]] — the program's own thermodynamic-limit and coarse-graining strands that this lineage underwrites.
+- [[Meta-entropy]] · [[Renormalization group flow]] — the program's own thermodynamic-limit and coarse-graining strands that this lineage underwrites.
 - [[Collective active inference]] — the variational reading of coupled belief-updating populations, closer to the program's substrate than scalar kinetic models.

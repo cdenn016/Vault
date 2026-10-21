@@ -31,8 +31,6 @@ Section IV A, pp. 10–11; Section IV D, pp. 16–19, Eqs. (13)–(20); Section 
 > [!note] Editorial: proposed transfer
 > Compare full-sector retention with declared sector omissions when choosing a compact-group interface. The transformations are not dynamically optimized MERA disentanglers. Numerical tensor tails do not certify positive normalized VFE laws, GL harmonic closure, or error on the actual parent activation horizon.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

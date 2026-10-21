@@ -20,10 +20,6 @@ Martin Hairer and Jonathan C. Mattingly (2011), in *Seminar on Stochastic Analys
 
 Read preprint pp. 2–3, Assumptions 1–2 and Theorems 1.2–1.3. A Markov kernel has geometric drift $PV\le\gamma V+K$, $0<\gamma<1$, and a common minorizing probability on $\{V\le R\}$, with $R>2K/(1-\gamma)$. Theorem 1.2 gives a unique invariant law and geometric convergence in a weighted supremum norm. Theorem 1.3 supplies an explicit contraction in a weighted total-variation distance, with constants depending on the drift and minorization data. This is the locator needed when asserting uniform constants across a kernel family. A process-specific drift/minorization verification remains necessary.
 
-## Relevance to this research
-
-Supports the frozen-kernel mixing and Poisson-tail bounds in [[multiagentelbo-2026-09-26-selection-and-reference-review]]. It does not prove the law-driven learning theorem on its own. See [[Geometric singular perturbation theory]] and [[Staged hierarchy formation and RG composability]].
-
 ## BibTeX
 
 ```bibtex

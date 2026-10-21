@@ -34,13 +34,9 @@ Metadata verified on 2026-09-28 against the Crossref record and the arXiv abstra
 
 The paper establishes metastability in the sense of Lebowitz and Penrose for finite-state Markov chains under practical and simple hypotheses. It proves convergence of Yaglom limits and an asymptotic exponential exit law. It introduces soft measures, which interpolate between the restricted-ensemble measure and the quasi-stationary measure and yield asymptotically exponential transition laws on different time scales. It gives sharp estimates of relaxation time, mean exit time and mixing time with explicit quantitative bounds on the corrective terms; the abstract also mentions a new Poincaré inequality and local thermalization.
 
-## Relevance to this research
-
-Soft measures are a precise mathematical analogue of soft formation. A formed collective described this way is neither the hard restriction of the equilibrium law to a basin nor the exact quasi-stationary law, but an interpolating family indexed by time scale. That fits a parent law that holds the matching fixed, a restricted ensemble, and has to be compared with a law conditioned on survival. The asymptotic exponential exit law says that dissolution of a formed collective would be memoryless: once the founding imprint is lost at the cutoff, the parent's remaining lifetime would not depend on its age. The mapping is interpretive and no such result has been shown for the parent of [[multiagentelbo-2026-09-28-early-parent]]. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]]
+- Concepts: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[collet-2013-quasi-stationary-distributions]], [[bovier-2015-metastability-potential-theoretic-approach]], [[freidlin-2012-random-perturbations-dynamical-systems]]
 
 ## BibTeX

@@ -68,11 +68,11 @@ The failure taxonomy is the result with the widest reach. The configuration mode
 
 **The $\alpha$-stable variant is a third option for the Ouroboros tower.** That investigation's verdict is that what survives the refuted apex closure is "a declared top prior or a truncated tower." MSM offers a third: make the flow a two-sided *group* by drawing the additive parameter from an infinitely divisible law. MAgent's additive parameter is a PSD precision, so the analogue is an infinitely divisible law on $\mathrm{Sym}_+(K)$ — matrix-Gamma / Wishart-type. García-Pérez's geometric branching growth requires stability under summation for the same reason, so two independent literatures converge on *bidirectionality requires stability under summation*. Whether this makes MAgent's precision-addition rule invertible is, as far as I can find, unexplored; the Gindikin-set restrictions on Wishart degrees of freedom make it a real question rather than a formality.
 
-**A demarcation the program should adopt.** MSM's separation of *scale-free* from *scale-invariant* maps directly onto the calibration already recorded on [[Renormalization-group flow of beliefs]]: measuring power laws in a belief population is not evidence that the population is renormalizable. The two properties are largely orthogonal, and the manuscripts should say so.
+**A demarcation the program should adopt.** MSM's separation of *scale-free* from *scale-invariant* maps directly onto the calibration already recorded on [[Renormalization group flow]]: measuring power laws in a belief population is not evidence that the population is renormalizable. The two properties are largely orthogonal, and the manuscripts should say so.
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Coarse Graining]], [[Critical Phenomena]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Community detection and modularity]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Critical Phenomena]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Community detection and modularity]]
 - Related sources: [[gabrielli-2025-network-renormalization]], [[villegas-2023-laplacian-renormalization-group]], [[garciaperez-2018-multiscale]], [[serrano-2008-self-similarity]], [[berman-2023-bayesian-renormalization]]
 - Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[participatory-it-from-bit]]
 

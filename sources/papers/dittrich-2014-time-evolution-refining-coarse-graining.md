@@ -31,8 +31,6 @@ Section 3.1, pp. 13–14, Eqs. (3.1)–(3.2); Section 3.3, pp. 16–17, Eq. (3.1
 > [!note] Editorial: proposed transfer
 > Use dynamics-informed conditional lifts to compare retained experiments, while freezing the structural channel for recognition/reference/evidence accounting. A record-dependent Hilbert embedding is not a common reference-recovery kernel. Equating the agent time evolution with refinement would require a new argument.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

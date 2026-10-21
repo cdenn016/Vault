@@ -26,10 +26,6 @@ Rasmussen, Carl E.; Williams, Christopher K. I.. Gaussian Processes for Machine 
 
 This is the mathematical-background appendix, not the complete book. It supplies Gaussian conditioning and matrix identities used in exact elimination.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/reports/2026-09-08-conditional-parent-inference-and-cuda.md`
@@ -40,5 +36,3 @@ This source is used in the work collected by [[Gauge-VFE RG research synthesis S
 - `docs/derivations/2026-09-08-neighborhood-cover.md`
 - `docs/derivations/2026-09-08-rg-program-completion/agents/evolution.md`
 - `docs/derivations/2026-09-08-rg-program-completion/agents/hybrid-interface-verification.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

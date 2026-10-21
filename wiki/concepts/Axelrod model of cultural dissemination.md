@@ -5,7 +5,7 @@ aliases: ["Axelrod model", "Axelrod culture model", "Cultural dissemination mode
 tags: [cluster/social-physics, project/social-physics]
 status: draft
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-20
 ---
 
 # Axelrod model of cultural dissemination
@@ -24,7 +24,7 @@ The defining and counterintuitive result is that this purely convergent, similar
 
 The Axelrod model is a conceptual progenitor and benchmark for diversity-preserving social influence, not a recovered limit of [[belief-inertia]]. Axelrod's interaction probability can vanish exactly when agents share no feature, producing absorbing disconnected configurations. Finite-temperature softmax attention remains positive on connected support, so large transported disagreement suppresses but does not sever coupling. The current symmetric reciprocal two-cluster result consequently gives metastable contraction rather than persistent heterogeneity. Axelrod's discrete traits, copy rule, and hard support break would have to be introduced explicitly before its multicultural absorbing states or phase transition could be derived.
 
-The useful connection is therefore empirical and methodological. Axelrod's monocultural-versus-fragmented crossover supplies an order parameter and transition benchmark for a future hard-support or discrete-feature extension. Attention temperature is not identified with Axelrod's control parameters, and sweeping it does not by itself predict the same universality class or transition order. The model also contains no kinetic belief mechanism; second-order motion remains a separate conditional extension. [[Renormalization-group flow of beliefs]] and [[Meta-entropy]] offer possible analytical viewpoints, not an existing derivation of Axelrod dynamics.
+The useful connection is therefore empirical and methodological. Axelrod's monocultural-versus-fragmented crossover supplies an order parameter and transition benchmark for a future hard-support or discrete-feature extension. Attention temperature is not identified with Axelrod's control parameters, and sweeping it does not by itself predict the same universality class or transition order. The model also contains no kinetic belief mechanism; second-order motion remains a separate conditional extension. [[Renormalization group flow]] and [[Meta-entropy]] offer possible analytical viewpoints, not an existing derivation of Axelrod dynamics.
 
 ## Details
 

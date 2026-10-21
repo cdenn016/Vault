@@ -42,24 +42,10 @@ within-block subsystems and an aggregate system with one variable per block. The
 superposition separates short-run (within-block) dynamics from long-run (aggregate) dynamics
 and justifies neglecting weak inter-block links in a restricted equilibrium analysis.
 
-## Relevance to this research
-
-This is the primary source for the idea that a coarse description keeps one aggregate per
-block and discards the within-block configuration, and that it is valid only on a timescale
-after the within-block short run has settled. In the four-agent cycle of
-[[multiagentelbo-2026-09-28-early-parent]] the blocks are the pairs, the discarded coordinates
-are the within-pair disagreements, and the kept aggregates are the slow shared coordinates.
-The correspondence is interpretive: Simon–Ando obtain the separation from weak inter-block
-coupling, whereas the model obtains it from strong within-pair restoring rates (4 to 8)
-relative to slow drift, and Simon–Ando measure validity in state space, not in relative entropy,
-so they say nothing about the temperature-dependent $\log(1/\epsilon)$ activation delay. See
-[[Meta-agents and hierarchical emergence]] and [[Staged hierarchy formation and RG composability]];
-the companion informal argument is [[simon-1962-architecture-complexity]].
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[simon-1962-architecture-complexity]], [[geigenmuller-1983-elimination-fast-variables]], [[vankampen-1985-elimination-fast-variables]]
 
 ## BibTeX

@@ -51,7 +51,7 @@ The citation does not manufacture a Banach state space, invariant measure, stati
 ## Cross-links
 
 - [[Renormalization group flow]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[froyland-2013-semi-invertible-oseledets]]
 
 ## BibTeX

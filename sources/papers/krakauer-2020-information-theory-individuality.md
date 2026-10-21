@@ -51,19 +51,10 @@ Measurements are coarse-grained into (possibly nested) partitions, and legitimat
 propagate information forward so that uncertainty is reduced over time; the closing discussion
 describes slow variables as coarse-grained encodings that reduce environmental uncertainty.
 
-## Relevance to this research
-
-On this view a culture counts as an individual to the degree that its coarse variables propagate
-their own past, which is graded rather than an event, matching the soft-formation view in
-[[Meta-agents and hierarchical emergence]]. "Inherited information" is the founding imprint of
-[[multiagentelbo-2026-09-28-early-parent]], and the choice between discarding it after the transient
-and keeping it as a parent memory variable is a choice between forms of individuality. The paper
-has no timescale-separation analysis or validity window. Interpretive mapping.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[flack-2017-coarse-graining-downward-causation]], [[rosas-2024-software-natural-world]], [[hoel-2013-causal-emergence]]
 
 ## BibTeX

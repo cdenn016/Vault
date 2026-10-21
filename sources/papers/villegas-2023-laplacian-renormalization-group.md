@@ -77,7 +77,7 @@ Because `UniversalityTest.compare_flows` already exists to check that different 
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Coarse Graining]], [[Graph Laplacian]], [[Community detection and modularity]], [[Critical Phenomena]], [[Entropy]], [[Meta-agents and hierarchical emergence]], [[Fisher information metric]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Graph Laplacian]], [[Community detection and modularity]], [[Critical Phenomena]], [[Entropy]], [[Meta-agents and hierarchical emergence]], [[Fisher information metric]]
 - Related sources: [[gabrielli-2025-network-renormalization]], [[garuccio-2023-multiscale-network-renormalization]], [[garciaperez-2018-multiscale]], [[boettcher2012renormalization]], [[berman-2023-bayesian-renormalization]], [[beny-osborne-2015-info-geometric-rg]]
 - Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[participatory-it-from-bit]]
 

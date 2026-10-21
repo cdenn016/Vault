@@ -18,17 +18,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-08-10
-updated: 2026-10-07
+updated: 2026-10-20
 ---
 
 # Graph Synchronization and Connection Laplacians
 
 ## Conditional soft-sector mass and localization, October 7, 2026
 
-[[multiagentelbo-2026-10-07-soft-sector-mass]] extends the orthogonal norm-fluctuation mechanism with a declared covariant non-isometry budget, rather than applying the orthogonal group-rounding theorem to GL. The scalar Poincare gap can certify substantial section support only when it dominates energy plus that budget. The arbitrary-N flat noncompact construction shows why per-edge singular-value bounds alone do not give global amplitude comparability.
-
 Flatness and localization can coexist: transporting a constant root vector through a physically non-isometric field can concentrate its metric mass near the root. A passive gauge that trivializes the flat links changes the metric too and preserves this physical mass. Bounded pathwise comparability would exclude the exact construction, but nonzero residual accumulation requires further work. The result makes no new predictive or original-dynamics claim.
-
 
 ## Definition
 

@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-10-20
 ---
 
 # Relativized a priori
@@ -43,5 +43,5 @@ The relativized a priori is best contrasted with two neighbours. Against naive e
 - [[Structural realism]]
 - [[participatory-it-from-bit]]
 - [[Gauge transformation]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]

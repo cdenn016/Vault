@@ -43,10 +43,10 @@ MERA captures critical (scale-invariant) ground states with logarithmic entangle
 
 ## Relevance to this research
 
-MERA is a direct structural cousin of the program's **Ouroboros Tower**: both are stacks of gauge-covariant coarse-grainings, one rung per scale, where the entanglement/correlation removed by disentanglers corresponds to the program's covariant pooling of constituents into meta-agents. Vidal's disentangle-then-block step is the quantum analogue of the [[Renormalization-group flow of beliefs]] that PIFB ([[participatory-it-from-bit]]) runs vertically through its scale tower (see [[Ouroboros multi-scale dynamics]] and [[Meta-agents and hierarchical emergence]]). Because MERA's layered geometry is the seed of emergent-spacetime tensor-network holography, it ties the program's multi-scale machinery to the [[Emergent spacetime and holography]] theme and, through Swingle, to the [[Participatory realism (it from bit)]] reading that geometry is built from informational structure.
+MERA is a direct structural cousin of the program's **Ouroboros Tower**: both are stacks of gauge-covariant coarse-grainings, one rung per scale, where the entanglement/correlation removed by disentanglers corresponds to the program's covariant pooling of constituents into meta-agents. Vidal's disentangle-then-block step is the quantum analogue of the [[Renormalization group flow]] that PIFB ([[participatory-it-from-bit]]) runs vertically through its scale tower (see [[Ouroboros multi-scale dynamics]] and [[Meta-agents and hierarchical emergence]]). Because MERA's layered geometry is the seed of emergent-spacetime tensor-network holography, it ties the program's multi-scale machinery to the [[Emergent spacetime and holography]] theme and, through Swingle, to the [[Participatory realism (it from bit)]] reading that geometry is built from informational structure.
 
 ## Cross-links
-- Concepts: [[Renormalization-group flow of beliefs]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Renormalization group flow]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]]
 - Themes: [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
 - Related sources: [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[wilson-1975-renormalization-group]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]]
 

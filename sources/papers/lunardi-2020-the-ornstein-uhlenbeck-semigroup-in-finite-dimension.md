@@ -26,13 +26,7 @@ Lunardi, Alessandra; Metafune, Giorgio; Pallara, Diego. The Ornstein-Uhlenbeck S
 
 Survey of nondegenerate finite-dimensional Ornstein-Uhlenbeck semigroups. Degenerate support and scale embedding require additional local analysis.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-11-continuous-scale-embedding-check.md`
 - `docs/derivations/2026-09-11-gaussian-scale-embedding.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

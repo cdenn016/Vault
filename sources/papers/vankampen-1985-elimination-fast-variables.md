@@ -42,18 +42,10 @@ categories determined by the structure of the equations. Linear equations such a
 Fokker–Planck equation are treated as well, with special attention to the definition of the
 required projection operator.
 
-## Relevance to this research
-
-The standard review that unifies adiabatic elimination and projection-operator methods and
-includes the initial-condition correction. For [[multiagentelbo-2026-09-28-early-parent]] it
-shows that the choice of projection, meaning which conditional law of the discarded coordinates
-the parent assumes, is a real modeling decision rather than a formality. The recoverable text
-does not give the size of the initial layer in a relative-entropy metric. Interpretive mapping.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[cox-1995-initial-conditions-models]], [[geigenmuller-1983-elimination-fast-variables]], [[haake-1983-adiabatic-drag-initial-slip]], [[zwanzig-1961-memory-effects]]
 
 ## BibTeX

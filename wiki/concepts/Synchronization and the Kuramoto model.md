@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-20
 ---
 
 # Synchronization and the Kuramoto model
@@ -30,7 +30,7 @@ The relevance to the SocialPhysics / [[belief-inertia]] program is real but spec
 
 The closest link is still analogical. The conditional second-order ansatz of [[Hamiltonian belief dynamics]] permits tests of oscillation, overshoot, and resonance only after a positive kinetic metric and damping are independently specified; it does not derive Kuramoto phases, sinusoidal coupling, an order parameter, entrainment, or phase locking. The current first-order theorem is also narrower than an "overdamped recovery" family: the primary unweighted Fisher flow gives fixed symmetric DeGroot, a nonuniform reversible transient requires $G_\rho$ or agent-specific rates, and the restricted anchored stationary equilibrium is independent of the positive flow metric. Kuramoto synchronization remains a benchmark and source of analytical techniques, not a derived limit of [[belief-inertia]].
 
-Two further links are methodological rather than phenomenological. First, the **mean-field, finite-$N$ analytical toolkit** transfers directly: the self-consistency argument, the stability of the incoherent state, and the bifurcation to collective locking ([[strogatz-2000-kuramoto-to-crawford]]) are precisely the techniques one would port to ask whether a population of beliefs locks or fragments as coupling strength crosses a threshold — the consensus-versus-fragmentation transition that the program already frames through critical phenomena and [[Echo chambers and polarization]]. Second, the **noisy, network-coupled** Kuramoto variants ([[acebron-2005-kuramoto-review]]) mirror this program's own setting — noisy belief updates coupled over a graph rather than all-to-all — and their nonlinear Fokker–Planck / population-density formulation is the natural continuum bridge alongside the configuration-counting of [[Meta-entropy]] and the multi-scale view of [[Renormalization-group flow of beliefs]]. Beyond those, the connection is intellectual-neighborhood context: a shared mean-field, order-parameter, phase-transition vocabulary inside [[Sociophysics]] and [[Multi-agent variational free energy]], not an identity of dynamics.
+Two further links are methodological rather than phenomenological. First, the **mean-field, finite-$N$ analytical toolkit** transfers directly: the self-consistency argument, the stability of the incoherent state, and the bifurcation to collective locking ([[strogatz-2000-kuramoto-to-crawford]]) are precisely the techniques one would port to ask whether a population of beliefs locks or fragments as coupling strength crosses a threshold — the consensus-versus-fragmentation transition that the program already frames through critical phenomena and [[Echo chambers and polarization]]. Second, the **noisy, network-coupled** Kuramoto variants ([[acebron-2005-kuramoto-review]]) mirror this program's own setting — noisy belief updates coupled over a graph rather than all-to-all — and their nonlinear Fokker–Planck / population-density formulation is the natural continuum bridge alongside the configuration-counting of [[Meta-entropy]] and the multi-scale view of [[Renormalization group flow]]. Beyond those, the connection is intellectual-neighborhood context: a shared mean-field, order-parameter, phase-transition vocabulary inside [[Sociophysics]] and [[Multi-agent variational free energy]], not an identity of dynamics.
 
 ## Details
 
@@ -61,5 +61,5 @@ Collectively these results place synchronization within the broader theme of [[S
 - [[Multi-agent variational free energy]] — the functional whose present theorem does not derive a Kuramoto or fragmentation transition.
 - [[Opinion dynamics]] — the restricted first-order averaging correspondence, contrasted with synchronization benchmarks.
 - [[Echo chambers and polarization]] — the fragmented (incoherent) phase of the coupling-driven transition.
-- [[Meta-entropy]] · [[Renormalization-group flow of beliefs]] — the continuum / multi-scale machinery the kinetic Kuramoto formulation mirrors.
+- [[Meta-entropy]] · [[Renormalization group flow]] — the continuum / multi-scale machinery the kinetic Kuramoto formulation mirrors.
 - [[Sociophysics]] · [[SocialPhysics]] · [[belief-inertia]] — the broader programme, the founding project page, and the founding manuscript.

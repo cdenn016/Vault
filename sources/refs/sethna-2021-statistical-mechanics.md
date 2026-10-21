@@ -35,7 +35,7 @@ The book builds canonical and grand-canonical ensembles, thermodynamic potential
 
 ## Relevance to this research
 
-This is the primary statistical-mechanics background for [[Meta-entropy]], [[Multi-agent variational free energy]], and [[Renormalization-group flow of beliefs]]. It explains what is required to define a genuine Gibbs distribution over belief configurations and why a local energy sum is not by itself a thermodynamic ensemble. It should precede [[cardy-1996-scaling-renormalization]] when the program moves from state-level VFE to configuration-level or RG claims.
+This is the primary statistical-mechanics background for [[Meta-entropy]], [[Multi-agent variational free energy]], and [[Renormalization group flow]]. It explains what is required to define a genuine Gibbs distribution over belief configurations and why a local energy sum is not by itself a thermodynamic ensemble. It should precede [[cardy-1996-scaling-renormalization]] when the program moves from state-level VFE to configuration-level or RG claims.
 
 ## Access
 
@@ -43,7 +43,7 @@ The [author's course site](https://sethna.lassp.cornell.edu/StatMech/) provides 
 
 ## Cross-links
 
-- Concepts: [[Meta-entropy]] · [[Renormalization-group flow of beliefs]] · [[Multi-agent variational free energy]]
+- Concepts: [[Meta-entropy]] · [[Renormalization group flow]] · [[Multi-agent variational free energy]]
 - Themes: [[Statistical physics of social systems and collective behavior]] · [[Variational free energy and predictive coding]]
 - Related sources: [[cardy-1996-scaling-renormalization]] · [[mackay-2003-information-theory-inference-learning]]
 

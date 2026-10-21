@@ -41,20 +41,10 @@ downward causation arise when components tune behaviour in response to estimates
 computed macroscopic properties. Examples come from biological and social systems and from deep
 neural networks (Section 5).
 
-## Relevance to this research
-
-The social-systems reading of when the parent becomes causally active: when agents condition on
-an estimate of the coarse variable, roughly the coherence-detector activation of
-[[multiagentelbo-2026-09-28-early-parent]]. The model adds a caveat Flack does not address: if
-agents act on the coarse estimate at the first detector firing, about $\tfrac12\log(1/\epsilon)$,
-the estimate still omits a diverging amount of relative entropy about the discarded disagreements
-(order $T^{-5/8}$), although the free-energy cost $T\,\mathrm{KL}$ is small. Interpretive
-mapping; low relevance to the timescale question itself.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[krakauer-2020-information-theory-individuality]], [[rosas-2024-software-natural-world]], [[hoel-2013-causal-emergence]]
 
 ## BibTeX

@@ -5,7 +5,7 @@ aliases: ["Schelling segregation", "Tipping points", "Tipping models", "Critical
 tags: [cluster/social-physics, project/social-physics]
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-20
 ---
 
 # Schelling segregation and tipping points
@@ -22,7 +22,7 @@ For the SocialPhysics program ([[SocialPhysics]], founded on the manuscript [[be
 
 The connection is conceptual and analogical, not a shared equation or derived limit. Schelling's agents move in *physical space* under a *discrete threshold rule*; the program's agents move *beliefs* on an information-geometric [[Statistical manifold]] under smooth gradient flow with gauge-transported coupling. The current theorem gives fixed symmetric DeGroot under the primary unweighted Fisher flow, a nonuniform reversible transient only with $G_\rho$ or agent-specific rates, and a restricted reversible anchored stationary equilibrium independent of the positive flow metric. It does not derive a threshold, segregation, tipping, or bifurcation theorem. Schelling's transitions are therefore benchmark phenomena for a future nonlinear or discrete-state extension.
 
-Arthur's lock-in is the **persistence-of-state** side of tipping and a useful discriminator for future models. Increasing returns, multiple absorbing attractors, and non-ergodic technology choice are not consequences of passive attractive VFE coupling. In the stated finite-temperature symmetric reciprocal two-cluster reduction, separated clusters are metastable and continue to contract. A conditional kinetic metric can generate momentum or overshoot, but hysteresis and history-dependent lock-in require a separately demonstrated multistable landscape, slow state, or discrete reinforcement mechanism. The multi-scale language of [[Renormalization-group flow of beliefs]], [[Meta-entropy]], and [[Meta-agents and hierarchical emergence|meta-agents]] suggests places to formulate that extension; it does not establish the tipping result.
+Arthur's lock-in is the **persistence-of-state** side of tipping and a useful discriminator for future models. Increasing returns, multiple absorbing attractors, and non-ergodic technology choice are not consequences of passive attractive VFE coupling. In the stated finite-temperature symmetric reciprocal two-cluster reduction, separated clusters are metastable and continue to contract. A conditional kinetic metric can generate momentum or overshoot, but hysteresis and history-dependent lock-in require a separately demonstrated multistable landscape, slow state, or discrete reinforcement mechanism. The multi-scale language of [[Renormalization group flow]], [[Meta-entropy]], and [[Meta-agents and hierarchical emergence|meta-agents]] suggests places to formulate that extension; it does not establish the tipping result.
 
 ## Details
 
@@ -51,4 +51,4 @@ These tipping and lock-in phenomena sit within the broader theme of [[Statistica
 - [[Opinion dynamics]] — the restricted averaging correspondence; Schelling tipping remains a separate benchmark.
 - [[Echo chambers and polarization]] · [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — the fragmented, clustered, and coarse-grained regimes.
 - [[Belief inertia]] · [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — conditional kinetic machinery that does not by itself derive hysteresis or lock-in.
-- [[Sociophysics]] · [[Bounded confidence]] · [[Renormalization-group flow of beliefs]] · [[Meta-entropy]] · [[Collective active inference]] · [[Holonomy]].
+- [[Sociophysics]] · [[Bounded confidence]] · [[Renormalization group flow]] · [[Meta-entropy]] · [[Collective active inference]] · [[Holonomy]].

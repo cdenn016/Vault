@@ -31,8 +31,6 @@ PDF pp. 6–7, Eqs. (7)–(9); pp. 8–9 on additional indices and higher-order 
 > [!note] Editorial: proposed transfer
 > Retain rooted loop/cut and source-event data as decorations and compress only an admitted residual feature tier. This is a proposal for the existing marked-parent construction. The paper establishes neither entrywise-positive SVD laws nor a GL implementation or small boundary cost on dense networks.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

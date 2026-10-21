@@ -50,11 +50,11 @@ Modularity provides an objective, null-model-referenced score that selects the n
 
 The project's meta-agent formation rests on detecting which clusters of micro-agents are coherent enough to be coarse-grained into a parent. The "culture-closure ratio" used to decide cluster membership — internal coupling relative to external coupling — is structurally the same comparison modularity makes against a degree-preserving null. Reading `find_clusters` and the closure criterion through Newman-Girvan, the project's cluster acceptance test is a modularity-style score on the agent interaction graph, where edge weights are the belief-coupling strengths ($\beta_{ij}$) rather than binary adjacency. This grounds [[Meta-agents and hierarchical emergence]] in an established, well-understood objective and supplies the new [[Community detection and modularity]] page with its canonical reference.
 
-The connection ties the social-physics aggregation step to the RG picture: choosing which agents form a meta-agent is choosing the coarse-graining blocks of [[Renormalization-group flow of beliefs]], and modularity is the criterion for a *good* blocking. The spectral counterpart — using the Fiedler value $\lambda_2$ of the graph Laplacian to find the cut — connects to [[fiedler-1973-algebraic-connectivity]] and the parent-mass / spectral-gap reading. For the resolution-limit caveats of modularity see [[fortunato-2010-community-detection]]. Manuscript thread: [[participatory-it-from-bit]].
+The connection ties the social-physics aggregation step to the RG picture: choosing which agents form a meta-agent is choosing the coarse-graining blocks of [[Renormalization group flow]], and modularity is the criterion for a *good* blocking. The spectral counterpart — using the Fiedler value $\lambda_2$ of the graph Laplacian to find the cut — connects to [[fiedler-1973-algebraic-connectivity]] and the parent-mass / spectral-gap reading. For the resolution-limit caveats of modularity see [[fortunato-2010-community-detection]]. Manuscript thread: [[participatory-it-from-bit]].
 
 ## Cross-links
 
-- Concept: [[Meta-agents and hierarchical emergence]], [[Community detection and modularity]], [[Renormalization-group flow of beliefs]].
+- Concept: [[Meta-agents and hierarchical emergence]], [[Community detection and modularity]], [[Renormalization group flow]].
 - Sources: [[fortunato-2010-community-detection]], [[fiedler-1973-algebraic-connectivity]].
 - Manuscript: [[participatory-it-from-bit]].
 

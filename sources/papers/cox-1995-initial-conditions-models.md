@@ -50,22 +50,10 @@ time, although matching is possible for a time of $o(|\eta|^{-2})$. Section 4.3 
 Kampen's perturbation-expansion approach, and Section 5.4 compares with the systematic adiabatic
 elimination of Haake and Lewenstein.
 
-## Relevance to this research
-
-This makes "what the parent inherits from the founding" precise for
-[[multiagentelbo-2026-09-28-early-parent]]: discarding the fast coordinates is harmless for the
-slow future only if the slow initial condition is corrected along the fast fibers, so the
-slow-relevant part of the imprint is folded into the kept coordinates once, at founding. The
-theory guarantees closeness only as $O(e^{-\beta t})$ in state space; converting to relative
-entropy at temperature $T$ needs $e^{-\beta t}\ll\sqrt{T}$, which is the model's
-$\theta-\log(1/\epsilon)\to\infty$ condition. The paper does not perform that conversion. Section
-3.1 identifies the regime in which no memoryless projection works for all time, which is where
-the parent would need an explicit memory variable. The mapping is interpretive.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[vankampen-1985-elimination-fast-variables]], [[haake-1983-adiabatic-drag-initial-slip]], [[geigenmuller-1983-elimination-fast-variables]], [[zwanzig-1961-memory-effects]]
 
 ## BibTeX

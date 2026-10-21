@@ -27,14 +27,6 @@ Bruveris, Martins; Michor, Peter W.. Geometry of the Fisher-Rao metric on the sp
 
 Studies geodesics, curvature and completeness of diffeomorphism-invariant metrics on smooth positive densities. Used to distinguish Fisher geometry from an automatically complete strong metric on an arbitrary parameter space.
 
-## Relevance to this research
-
-The source is connected to [[Gauge-VFE RG research synthesis September 2026]]. The exact local application and its assumptions are retained in the use sites below and in [[multiagentelbo-2026-09-11-research-snapshot]]. A successful download is not an independent proof check of those applications.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-09-c3-fisher-geometry-rg/evidence/primary-source-context.md`
-
-## Ingestion evidence
-
-The primary metadata and first pages were inspected for identity and scope; the full PDF is retained for later reading. This is not a claim to have re-proved the cited paper. Retrieval details, version qualifications and the SHA-256 digest are in [[multiagentelbo-2026-09-11-reference-register]].

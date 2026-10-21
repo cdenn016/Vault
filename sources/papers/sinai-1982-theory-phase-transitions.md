@@ -32,7 +32,7 @@ Sinai's monograph develops the rigorous mathematical theory of phase transitions
 Cited by the Jona-Lasinio note connecting the renormalization group to probability theory; grounds the RG-flow-of-beliefs analogy used in the multi-agent VFE program's coarse-graining and emergent-meta-agent picture.
 
 ## Cross-links
-[[Renormalization group flow]], [[Renormalization-group flow of beliefs]]
+[[Renormalization group flow]], [[Renormalization group flow]]
 
 ## BibTeX
 ```bibtex

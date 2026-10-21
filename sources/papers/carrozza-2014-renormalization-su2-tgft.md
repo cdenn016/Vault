@@ -31,8 +31,6 @@ Section 1.1, Eqs. (1)–(3), printed pp. 3–5; Section 1.3, Eq. (10), pp. 9–1
 > [!note] Editorial: proposed transfer
 > Derive the actual generated operator scopes from the declared kinetic and symmetry structure, then measure the residual of any truncation. Graphwise perturbative bounds do not establish convergence of arbitrary attention graph sums, noncompact GL tails, or finite exact pairwise closure.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

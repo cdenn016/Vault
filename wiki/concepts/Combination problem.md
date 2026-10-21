@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-10-20
 ---
 
 # Combination problem
@@ -63,13 +63,13 @@ parallel to (but distinct from) the irreducibility-based emergence of [[tononi-2
 formalization in [[kleiner-tull-2021-mathematical-structure-iit]], where a system is a genuine whole
 only when its integrated information is irreducible to its partitions. The combination problem is
 thus the metaphysical statement of the same coarse-graining trade-off the program studies
-quantitatively through [[Meta-entropy]] and [[Renormalization-group flow of beliefs]]. It is the
+quantitatively through [[Meta-entropy]] and [[Renormalization group flow]]. It is the
 chief unresolved item of the [[Consciousness and the hard problem]] theme and the cross-scale
 counterpart of the [[Explanatory gap]].
 
 ## Sources
 
-- [[chalmers-2016-combination-problem]] — the canonical taxonomy (subject / quality / structure);
+- [[chalmers-2016-combination-problem]] — the canonical taxonomy (subject / quality / structure)
   constitutive vs. emergent panpsychism; phenomenal bonding, fusionism, cosmopsychist responses.
 - [[goff-2017-consciousness-fundamental-reality]] — the contemporary statement; subject-summing as
   decisive against constitutive micropsychism; the cosmopsychist inversion.
@@ -84,5 +84,5 @@ counterpart of the [[Explanatory gap]].
 - [[Consciousness and the hard problem]]
 - [[Russellian monism]] · [[Structural realism]]
 - [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]]
-- [[Multi-agent variational free energy]] · [[Renormalization-group flow of beliefs]]
+- [[Multi-agent variational free energy]] · [[Renormalization group flow]]
 - [[participatory-it-from-bit]]

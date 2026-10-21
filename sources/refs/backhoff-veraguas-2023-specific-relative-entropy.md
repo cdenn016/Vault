@@ -20,10 +20,6 @@ Julio Backhoff-Veraguas and Clara Unterberger. *On the specific relative entropy
 
 Read Definition 1, Remark 1, Assumption 1, and Theorem 1, PDF pp. 1–3. Specific relative entropy is the limit of mesh-restricted KL divided by the number of time intervals. The theorem treats one-dimensional driftless diffusions with a common deterministic initial point. Both diffusion coefficients are positive, bounded above and away from zero, twice continuously differentiable, and have bounded first and second derivatives. It identifies the limit with the expected time integral of $(r-1-\log r)/2$, where $r$ is the variance ratio evaluated along the first diffusion. Ordinary continuous-path KL can be infinite despite a finite specific entropy.
 
-## Relevance to this research
-
-A source for distinguishing divergences in [[Coarse Graining]], not permission to replace an ordinary path-KL obligation by a different entropy. It does not establish path-law equivalence or the project's switching-process approximation. See [[multiagentelbo-2026-09-26-selection-and-reference-review]].
-
 ## BibTeX
 
 ```bibtex

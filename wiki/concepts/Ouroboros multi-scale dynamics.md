@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-11
+updated: 2026-10-20
 ---
 
 # Ouroboros multi-scale dynamics
@@ -39,7 +39,7 @@ Ouroboros dynamics is what turns the framework from a flat, single-scale system 
 
 It sits alongside, and composes with, the other multi-scale machinery of the model:
 - the soft [[Meta-agents and hierarchical emergence|hierarchy]] mode (`'hierarchy'`, §4.2), which forms meta-agents via gated species × coalition membership and condensation;
-- the [[Renormalization-group flow of beliefs|renormalization-group]] mode (`'rg'`, §4.3.2), which coarse-grains by KL-proximity blocking.
+- the [[Renormalization group flow|renormalization-group]] mode (`'rg'`, §4.3.2), which coarse-grains by KL-proximity blocking.
 
 Ouroboros is distinguished from these by its emphasis on *bidirectional* flow and *multi-generation hyperpriors* — the top-down half of the loop is as load-bearing as the bottom-up half.
 
@@ -66,7 +66,7 @@ so distant generations contribute progressively less, giving a finite-range but 
 - **Mode / config.** Selected by `CONFIG['mode'] = 'ouroboros'`; configured through `OuroborosConfig(enable, max_scales, hyperprior_depth, hyperprior_decay, ...)`. The inner base-scale integrator is still chosen by `dynamics.dynamics` (`'natural_gradient'` or `'hamiltonian'`).
 - **Code.** `gauge_agent/ouroboros.py` (`OuroborosTower`, the multi-scale tower with bidirectional flow; `_propagate_hyperpriors`); `gauge_agent/meta_agents.py` (`TopDownFeedback.propagate_prior`); `gauge_agent/mass.py` (`ouroboros_effective_mass`). `OuroborosTower` is part of the exported public API in `gauge_agent.__init__`.
 - **Manuscript correspondence.** Hyperprior weights $\rho^k$ — manuscript line 1990 → `OuroborosTower._propagate_hyperpriors`; top-down propagation — line 1965 → `TopDownFeedback.propagate_prior` (both fibers). The mode as a whole corresponds to §4.5–4.7 of `Participatory_it_from_bit.tex` ([[participatory-it-from-bit]]).
-- **Relation to neighbouring concepts.** Ouroboros builds the self-referential loop on top of [[Belief inertia]] / [[Hamiltonian belief dynamics]] (inner second-order regime), connects upward to [[Meta-agents and hierarchical emergence]] and [[Renormalization-group flow of beliefs]] (the other coarse-graining modes), and is the multi-scale embodiment of [[Participatory realism (it from bit)]]. The thermodynamic-limit counting of belief configurations developed in the meta-entropy manuscript supplies the statistical-mechanical lens on such multi-scale belief populations.
+- **Relation to neighbouring concepts.** Ouroboros builds the self-referential loop on top of [[Belief inertia]] / [[Hamiltonian belief dynamics]] (inner second-order regime), connects upward to [[Meta-agents and hierarchical emergence]] and [[Renormalization group flow]] (the other coarse-graining modes), and is the multi-scale embodiment of [[Participatory realism (it from bit)]]. The thermodynamic-limit counting of belief configurations developed in the meta-entropy manuscript supplies the statistical-mechanical lens on such multi-scale belief populations.
 
 ## Sources
 
@@ -80,7 +80,7 @@ so distant generations contribute progressively less, giving a finite-range but 
 ## See also
 
 - [[Meta-agents and hierarchical emergence]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Hamiltonian belief dynamics]]
 - [[Belief inertia]]
 - [[Mass as Fisher information]]

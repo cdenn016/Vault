@@ -26,13 +26,7 @@ Bertsekas, Dimitri P.; Tsitsiklis, John N.. Some Aspects of Parallel and Distrib
 
 Survey of parallel and asynchronous iteration; scheduler and convergence assumptions remain explicit in the program.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-gaussian-star-schedule-boundaries.md`
 - `docs/derivations/2026-09-10-gaussian-star-scheduling-check.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

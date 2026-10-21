@@ -36,13 +36,9 @@ This is the primary data source for the autokinetic norm experiments that [[sher
 
 The sessions give a coarse relaxation record for individually started groups. For one two-person group the differences over Sessions II–IV run 3.12, 1.03, 2.12, 0.60, and several three-person groups reach statistically unreliable differences by Session IV. The residual disagreement left by a prior individual imprint therefore visibly shrinks over sessions, but no timescale is extracted.
 
-## Relevance to this research
-
-For the meta-agent formation question in [[multiagentelbo-2026-09-28-early-parent]], the individual deviations from the shared norm are what a collective discards through mutual convergence, and the shared norm is the slow shared coordinate it keeps; every member carries it, so it survives when the group is removed. The order effect is the relevant detail. Agents with a prior individual imprint converge less completely than agents that start together, which is the social analogue of a parent's discarded coordinates still carrying the founding imprint early in the dynamics, and the session-by-session shrinkage is consistent with that residual relaxing. This mapping is interpretive. See [[Soft formation and the activation clock]].
-
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Social influence and conformity]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Social influence and conformity]], [[Meta-agents and hierarchical emergence]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[sherif-1936-psychology-social-norms]], [[jacobs-1961-arbitrary-tradition]], [[macneil-1976-norm-change-arbitrariness]]
 

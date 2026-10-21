@@ -53,7 +53,7 @@ Citation alone closes no Oseledets obligation. The project must identify an inve
 ## Cross-links
 
 - [[Renormalization group flow]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[blumenthal-2016-banach-multiplicative-ergodic]]
 
 ## BibTeX

@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-10-20
 ---
 
 # Participatory realism (it from bit)
@@ -141,7 +141,7 @@ vanishing only at perfect post-detection consensus. In the single reported run, 
 
 - **Manuscript.** The page is developed in [[participatory-it-from-bit]] (Dennis), principally in the "It From Bit: The Pullback Construction" section (the boxed induced-metric equations), the three-tiers / observable-sectors sections, and the signature-problem analysis. The RG-spine successor `PIFB2.tex` restructures the epistemic hedges into a single numbered fence register (F1–F6) and gives Part II a consolidated postulate register (P1–P10) with the pullback, signature, and consensus results stated as numbered theorems and propositions (round-2 deep review, 2026-07-02). The README ([[Gauge-Theoretic Multi-Agent VFE Model]]) frames the whole repository as "Wheeler's 'It From Bit' implemented as a participatory loop of agents observing themselves into existence."
 - **Code.** The induced geometry lives in `gauge_agent/pullback.py` (`PullbackMetric.induced_metric(agent, tier=...)`, with a `MetricDecomposition` classifier splitting eigenvalues into observable/dark/internal masks). Per the manuscript's *Implementation scope* note, the codebase realizes only the **belief-tier, flat-frame ($A^{(i)}=0$) score-only pullback** plus a participation-ratio effective dimension and a uniform-mean consensus surrogate; the structural/prior/raw tiers, the frame-twist block, and the Haar-averaged consensus metric are theory-only and exercised only by the test suite. The pullback module is listed as `[Layer 8]` in the module map alongside `manifolds.py` and `manifold_system.py`.
-- **Related model constructs.** The participatory loop is carried by [[Ouroboros multi-scale dynamics]] and [[Meta-agents and hierarchical emergence]]; the multi-scale read-off relates to [[Renormalization-group flow of beliefs]]. The dynamical substrate is [[Multi-agent variational free energy]] minimized by [[Natural gradient]] descent on the [[Fisher information metric]], with agents formalized via [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] and inter-agent [[Gauge transformation|gauge]] transport $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$.
+- **Related model constructs.** The participatory loop is carried by [[Ouroboros multi-scale dynamics]] and [[Meta-agents and hierarchical emergence]]; the multi-scale read-off relates to [[Renormalization group flow]]. The dynamical substrate is [[Multi-agent variational free energy]] minimized by [[Natural gradient]] descent on the [[Fisher information metric]], with agents formalized via [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] and inter-agent [[Gauge transformation|gauge]] transport $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$.
 
 ## Sources
 
@@ -166,7 +166,7 @@ vanishing only at perfect post-detection consensus. In the single reported run, 
 - [[Agents as fibre-bundle sections]]
 - [[Ouroboros multi-scale dynamics]]
 - [[Meta-agents and hierarchical emergence]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]
 - [[Fisher information metric]]
 - [[Natural gradient]]
 - [[Gauge transformation]]

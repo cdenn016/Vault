@@ -25,12 +25,6 @@ Levin, David A.; Peres, Yuval; Wilmer, Elizabeth L.. Markov Chains and Mixing Ti
 
 The retrieved title pages identify the three authors but not the edition date. Used for Markov-chain background, with version uncertainty retained.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/research-plans/2026-09-07-rg-v2-hierarchy-mechanism-decision.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

@@ -37,7 +37,7 @@ model class is an exceptional structural condition, not a default. The laborator
 kernels are not closed under Bayes composition across levels for the same generic reason lumped
 chains are not Markov — and any semigroup-restoration design (a kernel family closed under
 composition) will be, in effect, an engineered lumpability condition. See
-[[Staged hierarchy formation and RG composability]] and [[Coarse Graining]].
+[[Meta-agents and hierarchical emergence]] and [[Coarse Graining]].
 
 ## BibTeX
 

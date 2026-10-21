@@ -40,13 +40,11 @@ Remark 3.2 splits the cutoff into a bias time $c^A=\log(n|z_0|)$ and a variance 
 
 ## Relevance to this research
 
-This is the closest primary source for a cutoff measured in relative entropy, with an explicit profile, for linear Ornstein–Uhlenbeck dynamics. Equation 3.3 has, coordinate by coordinate, the same closed form as the Gaussian relative entropy used in the proof of `prop:phil-early-seeded-parent` in [[multiagentelbo-2026-09-28-early-parent]], $\frac12[-a-\log(1-a)+\lambda az^2/T]$ with $a=e^{-2\lambda r}$, once the stationary variance $1/n$ is replaced by $T/\lambda$. The bias/variance split is the model's split between the founding-imprint term, the mean shift $\lambda az^2/T$, and the covariance-relaxation term $-a-\log(1-a)$. At fixed dimension the covariance term carries no $\log(1/T)$ and relaxes in $O(1)$ time, so the imprint alone sets the $\log(1/\epsilon)$ threshold, and the exponential Kullback profile shows the discarded relative entropy passing from large to small across an $O(1)$ window. The paper's statement that small initial conditions give no cutoff in fixed dimension matches the model's requirement of a founding imprint that does not shrink with the noise.
-
-The asymptotic parameter here is the dimension $n$, not the noise. The transfer to the model's small-temperature setting is by the explicit Gaussian formula and by the cited fixed-dimension result, not by the $n\to\infty$ theorems. Those theorems matter in their own right for the program's target of networks with hundreds of agents: they show that the number of coordinates alone produces a logarithmic cutoff, through the variance time $\frac14\log n$ and the $n$ inside $\log(n|z_0|)$. This reading is interpretive. See [[Soft formation and the activation clock]].
+The asymptotic parameter here is the dimension $n$, not the noise. The transfer to the model's small-temperature setting is by the explicit Gaussian formula and by the cited fixed-dimension result, not by the $n\to\infty$ theorems. Those theorems matter in their own right for the program's target of networks with hundreds of agents: they show that the number of coordinates alone produces a logarithmic cutoff, through the variance time $\frac14\log n$ and the $n$ inside $\log(n|z_0|)$. This reading is interpretive. See [[Meta-agents and hierarchical emergence]].
 
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]]
+- Concepts: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[barrera-2020-thermalisation-small-random-perturbations]], [[lachaud-2005-cutoff-hitting-times-ornstein-uhlenbeck]], [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
 
 ## BibTeX

@@ -31,8 +31,6 @@ Section III A, Eqs. (6)–(11), pp. 6–7; Section III B, Eqs. (12)–(13), p. 7
 > [!note] Editorial: proposed transfer
 > A fixed-feature positive-law generating functional admits a conditional finite Wetterich identity under explicit moment and covariance assumptions. This is complementary to the project pushforward action: the regulator changes intermediate evidence and the Legendre action is another object. No thermodynamic or autonomous-parent result follows from the finite identity.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-03
-updated: 2026-09-27
+updated: 2026-10-20
 ---
 
 # Rigorous theory search
@@ -22,7 +22,6 @@ updated: 2026-09-27
 ## External research configuration
 
 [[exa-2026-agent-create-run]] archives the official create-run API schema as retrieved September 26, 2026. The requested highest effort is the explicit field `effort: "ultra"`; it can coexist with `budget.maxCostDollars`. The schema concerns execution settings. Generated research prose remains a lead to inspect, not a substitute for the primary source or a checked proof. Archive the run configuration and inspect the cited result's hypotheses before using it.
-
 
 ## What it is
 
@@ -80,7 +79,7 @@ all dependence corrections. A local coordinate objective may reproduce the corre
 variation without summing to the global objective. An observation likelihood may be represented by
 an interaction kernel without proving an agent-only ontology.
 
-For [[Renormalization-group flow of beliefs|renormalization]], the method first asks for an exact
+For [[Renormalization group flow|renormalization]], the method first asks for an exact
 pushforward, marginalization, conditional expectation, or variational contraction. A projected
 finite ansatz is exact only after a closure theorem; otherwise generated operators and a typed
 truncation residual must be retained. Cross-scale subtraction and beta data require a common
@@ -108,11 +107,11 @@ This is the default orchestration method for new research-level construction req
 [[VFE Transformer Program]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. It is especially useful
 for the program's recurring load-bearing interfaces:
 
-- local versus collective [[Multi-agent variational free energy]];
-- belief/model fibers versus perceived base geometry;
-- observation kernels versus agent/environment interaction interpretations;
-- fine agents versus meta-agents and cross-scale sections;
-- exact effective functionals versus projected RG or attention ansatzes;
+- local versus collective [[Multi-agent variational free energy]]
+- belief/model fibers versus perceived base geometry
+- observation kernels versus agent/environment interaction interpretations
+- fine agents versus meta-agents and cross-scale sections
+- exact effective functionals versus projected RG or attention ansatzes
 - mathematical duration versus claims about emergent physical time.
 
 The method complements, rather than replaces, the domain foundation in [[Gauge VFE ELBO curriculum]],
@@ -127,5 +126,5 @@ primary-source review, and manuscript peer review.
 
 [[Gauge VFE ELBO curriculum]] · [[Evidence lower bound (ELBO)]] ·
 [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Fisher information metric]] ·
-[[Multi-agent variational free energy]] · [[Renormalization-group flow of beliefs]] ·
+[[Multi-agent variational free energy]] · [[Renormalization group flow]] ·
 [[VFE Transformer Program]] · [[Gauge-Theoretic Multi-Agent VFE Model]]

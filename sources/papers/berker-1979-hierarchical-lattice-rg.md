@@ -48,7 +48,7 @@ its instances quasi-one-dimensional, which is why its measured fixed structures 
 hierarchical lattices show that raising boundary multiplicity — bundles of parallel cross-paths
 per coarse edge — is how a $\beta_{ij}$ architecture sustains a renormalized coupling that
 survives iteration. This reframes "critical dimension" as an architecture property of directed
-agent networks. See [[Staged hierarchy formation and RG composability]] and
+agent networks. See [[Meta-agents and hierarchical emergence]] and
 [[Renormalization group flow]].
 
 ## BibTeX

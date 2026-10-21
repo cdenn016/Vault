@@ -37,22 +37,10 @@ A method for solving initial-value problems for random processes that arise thro
 approximation from higher-dimensional Markov processes. Applications to overdamped Brownian
 motion and the single-mode laser compute correlation functions and discuss initial slips.
 
-## Relevance to this research
-
-The stochastic (Markov/Fokker–Planck) version of the initial-slip problem, closer than the
-deterministic treatments to the noisy slow–fast dynamics at temperature $T$ in
-[[multiagentelbo-2026-09-28-early-parent]]. Read interpretively: the founding imprint is the part
-of the initial law that the adiabatic (parent) process cannot represent, and it shows up as an
-initial slip of the reduced process. The title's "adiabatic drag" suggests that slow variables are
-dragged by relaxing fast ones, but that reading is unverified because only the abstract was
-accessible, and the abstract does not say whether the discrepancy is quantified in relative
-entropy. [[cox-1995-initial-conditions-models]] (Sec. 5.4) uses this paper as the reference
-method of systematic adiabatic elimination.
-
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[geigenmuller-1983-elimination-fast-variables]], [[cox-1995-initial-conditions-models]], [[vankampen-1985-elimination-fast-variables]]
 
 ## BibTeX

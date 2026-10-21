@@ -27,7 +27,7 @@ whose fixed point and rate of approach depend on the transmission coefficients, 
 ## Relevance to this research
 This is the original quantitative-dynamics treatment of belief and trait spread across a population, and it is the direct ancestor of the overdamped opinion-dynamics models the belief-inertia manuscript claims to recover as limiting cases. Its linear blending recursion $p_{t+1}=a p_t + b$ is structurally the population-level analogue of Friedkin–Johnsen averaging, and its transmission operators are precisely the population limit that the pairwise VFE coupling $\mathrm{KL}(q_i\,\|\,\Omega_{ij}[q_j])$ instantiates at the level of individual Gaussian beliefs. The vertical/horizontal/oblique distinction maps onto the structure of the coupling graph and attention kernel in the multi-agent functional. This is genuine machinery-level lineage for the overdamped claim, though the original models are scalar-trait and noise-free whereas the VFE beliefs carry covariance and gauge frames. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], [[Multi-agent variational free energy]], [[Renormalization-group flow of beliefs]].
+Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], [[Multi-agent variational free energy]], [[Renormalization group flow]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

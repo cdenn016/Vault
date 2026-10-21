@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-07-13
+updated: 2026-10-20
 ---
 
 # Belief coupling
@@ -21,7 +21,7 @@ updated: 2026-07-13
 **Belief coupling** is the inter-agent interaction term by which one agent's belief is
 pulled toward another's. In the gauge-theoretic [[Multi-agent variational free energy]] (VFE)
 model it takes the specific form of an **attention-weighted, gauge-transported Kullback–Leibler
-(KL) divergence**,
+(KL) divergence**
 
 $$
 \sum_{k}\,\beta_{ik}\;D_{\mathrm{KL}}\!\big(q_i \,\big\|\, \Omega_{ik}[q_k]\big),
@@ -124,7 +124,7 @@ The *other* limit fuses beliefs rather than averaging opinions. When the alignme
 dominates (small temperature $\tau$ and self-coupling), the belief that minimizes the coupling
 sum is the one that is simultaneously close to all of its transported neighbours — and for
 Gaussian experts this minimizer is the **product of Gaussians**, which is itself Gaussian with
-precision equal to the *sum* of the (transported) neighbour precisions,
+precision equal to the *sum* of the (transported) neighbour precisions
 
 $$
 \Sigma_i^{-1} \;\approx\; \big\langle (\Omega_{ik}\Sigma_k\Omega_{ik}^\top)^{-1} \big\rangle_{\beta}.
@@ -160,7 +160,7 @@ emergent meta-agent's transporter is the inter-cluster average $\Omega_{AB} = (|
 \sum_{i\in A, k\in B}\Omega_{ik}$, and its covariance is the equal-weight mixture moment
 $\Sigma_A = \langle\Sigma_i\rangle + \mathrm{Var}_A(\mu)$ — both read directly off the coupling
 structure. Iterating this gives the cross-scale tower of the
-[[Renormalization-group flow of beliefs]], in which the coupling strength is one of the
+[[Renormalization group flow]], in which the coupling strength is one of the
 RG couplings. For Regime-I vertex variables, equal-weight blocking gives RMS fluctuations
 proportional to $n^{-1/2}$ and $y_2=-1/2$. The $n^{-1}$ rate belongs to a separate enlarged
 independent-edge ensemble and is not established by the data-dependent Regime-II parameterization.
@@ -168,14 +168,14 @@ independent-edge ensemble and is not established by the data-dependent Regime-II
 Two further connections make the term load-bearing:
 
 - **Attention uses this coupling.** The Regime-I cocycle forces trivial loop holonomy but does not
-  force pairwise identity transport. In the shared-frame or edge-independent constant reduction,
+  force pairwise identity transport. In the shared-frame or edge-independent constant reduction
   $\Omega_{ik}=I$. Its isotropic transported-KL score is identity-bilinear plus a key-norm bias; an
   arbitrary learned QK bilinear form is a separate structural map.
 
 - **Coupling vs. inertia.** The coupling term supplies a restoring force. The intrinsic
   [[Fisher information metric]], the loss stiffness, and any kinetic metric are distinct
   ([[Mass as Fisher information]]). At fixed Fisher geometry and learning rate, larger positive
-  first-order stiffness speeds relaxation; slower revision requires an independent mobility,
+  first-order stiffness speeds relaxation; slower revision requires an independent mobility
   damping, kinetic, or slow-state mechanism. Friedkin–Johnsen susceptibility is represented by
   explicit anchoring, not by identifying stiffness or Fisher geometry with inertia
   ([[friedkin1990-social-influence-opinions]]).
@@ -200,7 +200,7 @@ This dual heritage is why the concept sits in both the
 [[Multi-agent variational free energy]] · [[gl-k-attention|GL(K) attention manuscript]] ·
 [[Meta-agents and hierarchical emergence]] · [[Belief inertia]] · [[Mass as Fisher information]] ·
 [[Bounded confidence]] · [[Opinion dynamics]] · [[Probabilistic opinion pooling]] ·
-[[Renormalization-group flow of beliefs]] · [[Gauge transformation]] · [[Parallel transport]] ·
+[[Renormalization group flow]] · [[Gauge transformation]] · [[Parallel transport]] ·
 [[Holonomy]] · [[Agents as fibre-bundle sections]] · [[Precision weighting]] ·
 [[Fisher information metric]] · [[Hamiltonian belief dynamics]]
 

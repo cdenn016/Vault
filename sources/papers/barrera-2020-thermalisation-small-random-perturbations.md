@@ -38,14 +38,12 @@ and the window (eq. 2.6) is $w=1/\lambda+o(1)$. Theorem 2.2 states that for each
 
 ## Relevance to this research
 
-The correspondence with [[multiagentelbo-2026-09-28-early-parent]] is a match in time scale and mechanism. It is not an application of Theorem 2.2. In the held flow of the manuscript section `sec:phil-early-parent`, the discarded coordinates obey $dz=-K_Zz\,dt+\sqrt{2T}\,dW$ with $K_Z=\mathrm{diag}(8+T,4+5T,4+5T)$, so the noise variance is $2T=2\epsilon^8$ and the slowest discarded rate is $\lambda=4+5T$. Formula 2.7 with $l=1$ then gives $\frac{1}{2\lambda}\ln\frac{1}{2T}=\log(1/\epsilon)+O(1)$ with window $1/\lambda\approx1/4$, which is the activation threshold of `prop:phil-early-seeded-parent`. The mechanism is the same in both: the founding imprint, the deterministic mean $e^{-\lambda t}x_0$ measured in units of the noise scale, has to fall below one. That is why the threshold is located by an imprint-to-noise ratio and not by a relaxation rate alone. Because $\lambda$ comes from the slowest component present in the initial point, the paper also implies that the threshold is set by the slowest discarded mode that actually carries the imprint.
-
-Three differences bound the match. The theorem concerns the total-variation distance of the full, unconditioned law from a deterministic start, under global conditions (H) and (G) that have not been established for the four-cycle. The model's quantity is the discarded conditional relative entropy of a law conditioned on a seed event and held. The threshold locations agree because, for Gaussians with a common covariance, both distances are monotone in the Mahalanobis length of the mean shift, and that is an elementary linear computation which the theorem does not supply. The $O(1)$ profile inside the window does not transfer. See [[Soft formation and the activation clock]].
+Three differences bound the match. The theorem concerns the total-variation distance of the full, unconditioned law from a deterministic start, under global conditions (H) and (G) that have not been established for the four-cycle. The model's quantity is the discarded conditional relative entropy of a law conditioned on a seed event and held. The threshold locations agree because, for Gaussians with a common covariance, both distances are monotone in the Mahalanobis length of the mean shift, and that is an elementary linear computation which the theorem does not supply. The $O(1)$ profile inside the window does not transfer. See [[Meta-agents and hierarchical emergence]].
 
 ## Cross-links
 
-- Concepts: [[Soft formation and the activation clock]], [[Geometric singular perturbation theory]]
-- Themes: [[Staged hierarchy formation and RG composability]]
+- Concepts: [[Meta-agents and hierarchical emergence]], [[Geometric singular perturbation theory]]
+- Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[barrera-2016-abrupt-convergence-small-perturbations]], [[boursier-2023-universal-cutoff-dyson-ornstein-uhlenbeck]], [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
 
 ## BibTeX

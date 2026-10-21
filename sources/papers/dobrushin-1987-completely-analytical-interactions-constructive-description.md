@@ -26,12 +26,6 @@ Dobrushin, Roland L.; Shlosman, Senya B.. Completely Analytical Interactions: Co
 
 Relates constructive conditions for complete analyticity of interactions. The program separately verifies its interaction norm and counting assumptions.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-09-c3-fisher-geometry-rg/evidence/primary-source-context.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

@@ -43,7 +43,7 @@ Supplies the mechanism reading for why the MultiAgentELBO tower's coarse maps fa
 the substrate so one blocking step inverts one construction step. The tower is self-similar in
 that sense, but its blocking kernels (Bayes posteriors under a declared parent law) are not
 closed under composition the way bond-moving recursions are — the closure lives in the kernel
-family, not only in the graph. See [[Staged hierarchy formation and RG composability]].
+family, not only in the graph. See [[Meta-agents and hierarchical emergence]].
 
 ## BibTeX
 

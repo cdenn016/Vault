@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-10-20
 ---
 
 # Statistical Experiment Comparison and Deficiency
@@ -56,4 +56,4 @@ For multi-agent recovery or coarse-graining, specify the experiment: the paramet
 - [[Sufficient statistics]]
 - [[Coarse Graining]]
 - [[Fisher information metric]]
-- [[Renormalization-group flow of beliefs]]
+- [[Renormalization group flow]]

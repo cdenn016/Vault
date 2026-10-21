@@ -31,8 +31,6 @@ Section IV B, printed/PDF pp. 7–8, Eqs. (23)–(31); Appendix B. Physical Revi
 > [!note] Editorial: proposed transfer
 > Rank interfaces by their effect on declared exterior records, rather than raw local tensor magnitude. An efficient exact environment is not guaranteed on an arbitrary graph. Positivity, finite normalization, support-aware density error, and path-memory error need separate agent-law estimates.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

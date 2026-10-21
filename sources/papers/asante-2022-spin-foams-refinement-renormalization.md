@@ -31,8 +31,6 @@ Section 2; Section 5, PDF pp. 13–16, Eqs. (13)–(19); Sections 6–7. The det
 > [!note] Editorial: proposed transfer
 > Use its taxonomy to separate fixed complexes, refinement, boundary embeddings, and quantum amplitude sums. The proposed agent boundary is a graph interface at fixed c_*, not a spatial boundary. This survey does not supply a normalized attention ensemble, an autonomous parent, or general noncompact truncation.
 
-The project assessment is recorded in [[Spin foam coarse-graining for agent networks]] and connects to [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Established paper results and proposed agent applications remain distinct.
-
 ## BibTeX
 
 ```bibtex

@@ -28,7 +28,7 @@ The classic graduate text on asymptotic and perturbation methods — dominant ba
 
 ## Why the project cites it
 
-Two project threads draw on this toolkit. The Laplace / saddle-point evaluation behind the [[Renormalization-group flow of beliefs]] closure is the integral-asymptotics material here (complementing [[wong-2001-asymptotic-integrals]]). Separately, boundary-layer theory and matched asymptotics are the analytic face of the fast-E / slow-M timescale split that [[fenichel-1979-geometric-singular-perturbation]] treats geometrically — the inner/outer expansions of a singularly perturbed system are the analytic counterpart of Fenichel's fast foliation and slow manifold, grounding the new [[Geometric singular perturbation theory]] page. Manuscript thread: [[participatory-it-from-bit]].
+Two project threads draw on this toolkit. The Laplace / saddle-point evaluation behind the [[Renormalization group flow]] closure is the integral-asymptotics material here (complementing [[wong-2001-asymptotic-integrals]]). Separately, boundary-layer theory and matched asymptotics are the analytic face of the fast-E / slow-M timescale split that [[fenichel-1979-geometric-singular-perturbation]] treats geometrically — the inner/outer expansions of a singularly perturbed system are the analytic counterpart of Fenichel's fast foliation and slow manifold, grounding the new [[Geometric singular perturbation theory]] page. Manuscript thread: [[participatory-it-from-bit]].
 
 ## BibTeX
 

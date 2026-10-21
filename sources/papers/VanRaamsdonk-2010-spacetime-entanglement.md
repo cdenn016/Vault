@@ -47,7 +47,7 @@ This paper is a foundational reference for the participatory-realism / it-from-b
 ## Cross-links
 - Concepts: [[Emergent spacetime and holography|Holography]], [[Entanglement Entropy]], [[Emergent spacetime and holography|AdS-CFT Correspondence]], [[Emergent spacetime and holography|Emergent Spacetime]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[wheeler-1990-it-from-bit|It-from-Bit]]
 - Related sources: [[maldacena-1999-adscft|Maldacena-1997-adscft]], [[ryu-takayanagi-2006-holographic-entanglement-entropy|Ryu-Takayanagi-2006-holographic-entropy]], [[wheeler-1990-it-from-bit|Wheeler-1989-it-from-bit]], [[wheeler-1990-it-from-bit]], [[rovelli-1996-relational-qm]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]]
-- Concepts (participatory): [[Participatory realism (it from bit)]], [[Fisher information metric]], [[Mass as Fisher information]], [[Meta-agents and hierarchical emergence]], [[Renormalization-group flow of beliefs]]
+- Concepts (participatory): [[Participatory realism (it from bit)]], [[Fisher information metric]], [[Mass as Fisher information]], [[Meta-agents and hierarchical emergence]], [[Renormalization group flow]]
 - Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit|Participatory It-From-Bit]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX

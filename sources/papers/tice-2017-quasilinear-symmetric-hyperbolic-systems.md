@@ -26,10 +26,6 @@ Tice, Ian. Quasilinear Symmetric Hyperbolic Systems. 2017. [Retrieved source](ht
 
 Lecture notes develop well-posedness for quasilinear symmetric hyperbolic systems. The local Fisher-field construction must supply its own hypotheses and cannot infer global control from local existence.
 
-## Relevance to this research
-
-This source is used in the work collected by [[Gauge-VFE RG research synthesis September 2026]]. Primary title/abstract pages were inspected for identity and relevance, and the PDF was checked for readable text. The ingestion is not a new verification of every published theorem or its application. Existing research derivations remain the evidence for project-specific conclusions.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-fisher-field-apriori-control-check.md`
@@ -39,5 +35,3 @@ This source is used in the work collected by [[Gauge-VFE RG research synthesis S
 - `docs/derivations/2026-09-10-fisher-field-continuation.md`
 - `docs/derivations/2026-09-10-hyperbolic-fisher-field.md`
 - `docs/research-plans/2026-09-10-post-restart-continuation.md`
-
-Complete retrieval provenance is in [[multiagentelbo-2026-09-11-reference-register]].

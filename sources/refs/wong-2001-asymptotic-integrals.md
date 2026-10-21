@@ -27,7 +27,7 @@ The standard rigorous reference on asymptotic evaluation of integrals — Laplac
 
 ## Why the project cites it
 
-The project's RG-style closure expands the partition function over a population of beliefs about its dominant (saddle) configuration; doing this rigorously, with controlled errors, is exactly Laplace's method and steepest descent as treated here. Wong supplies the precise asymptotics behind the Gaussian-approximation step of [[Renormalization-group flow of beliefs]] and the BIC marginal-likelihood expansion ([[schwarz-1978-bic]]). Companion asymptotic-methods reference: [[bender-orszag-1999-asymptotic-methods]]; physics context: [[cardy-1996-scaling-renormalization]]. Manuscript thread: [[participatory-it-from-bit]].
+The project's RG-style closure expands the partition function over a population of beliefs about its dominant (saddle) configuration; doing this rigorously, with controlled errors, is exactly Laplace's method and steepest descent as treated here. Wong supplies the precise asymptotics behind the Gaussian-approximation step of [[Renormalization group flow]] and the BIC marginal-likelihood expansion ([[schwarz-1978-bic]]). Companion asymptotic-methods reference: [[bender-orszag-1999-asymptotic-methods]]; physics context: [[cardy-1996-scaling-renormalization]]. Manuscript thread: [[participatory-it-from-bit]].
 
 ## BibTeX
 

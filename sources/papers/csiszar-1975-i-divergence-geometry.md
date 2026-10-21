@@ -46,7 +46,7 @@ over the exponential family spanned by admitted subset indicators, and by this p
 that minimizer is the marginal-matching member and IPF from a seed inside the family converges
 to it deterministically — which is why the primary route has no optimizer-in-a-local-minimum
 failure mode to fear (cited in `coupling_readback.py` of MultiAgentELBO). See
-[[Renormalization group flow]] and [[Staged hierarchy formation and RG composability]].
+[[Renormalization group flow]] and [[Meta-agents and hierarchical emergence]].
 
 ## BibTeX
 

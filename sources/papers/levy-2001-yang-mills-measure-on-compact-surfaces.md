@@ -27,10 +27,6 @@ Levy, Thierry. Yang-Mills measure on compact surfaces. arXiv:math/0101239 (2001)
 
 Constructs two-dimensional Yang-Mills random holonomy on compact orientable surfaces and relates discrete graph measures to a continuum object. The compact-group and surface assumptions matter; Abelian white-noise reconstruction does not transfer unchanged to semisimple groups.
 
-## Relevance to this research
-
-The source is connected to [[Gauge-VFE RG research synthesis September 2026]]. The exact local application and its assumptions are retained in the use sites below and in [[multiagentelbo-2026-09-11-research-snapshot]]. A successful download is not an independent proof check of those applications.
-
 ## Recorded use sites
 
 - `docs/derivations/2026-09-10-compact-gauge-path-extension-check.md`
@@ -41,7 +37,3 @@ The source is connected to [[Gauge-VFE RG research synthesis September 2026]]. T
 - `docs/derivations/2026-09-10-continuum-u1-gauge.md`
 - `docs/derivations/2026-09-10-continuum-u1-scale-fixed-law.md`
 - `docs/derivations/2026-09-10-continuum-u1-topology.md`
-
-## Ingestion evidence
-
-The primary metadata and first pages were inspected for identity and scope; the full PDF is retained for later reading. This is not a claim to have re-proved the cited paper. Retrieval details, version qualifications and the SHA-256 digest are in [[multiagentelbo-2026-09-11-reference-register]].

@@ -32,7 +32,7 @@ Wilson's review develops the renormalization group (RG) as a systematic framewor
 
 ## Why the project cites it
 
-The project's [[Renormalization-group flow of beliefs]] construction is the direct conceptual descendant of this work: beliefs and their precisions are treated as scale-dependent couplings, and coarse-graining over a population of agents induces a flow on the effective belief parameters, exactly as Wilson's block-spin map induces a flow on Ising couplings. The fixed-point / relevant-direction taxonomy supplies the language for which belief structures survive aggregation and which are integrated out.
+The project's [[Renormalization group flow]] construction is the direct conceptual descendant of this work: beliefs and their precisions are treated as scale-dependent couplings, and coarse-graining over a population of agents induces a flow on the effective belief parameters, exactly as Wilson's block-spin map induces a flow on Ising couplings. The fixed-point / relevant-direction taxonomy supplies the language for which belief structures survive aggregation and which are integrated out.
 
 This scale-bridging is what underwrites [[Meta-agents and hierarchical emergence]] and the [[Ouroboros multi-scale dynamics]] picture in the [[Multi-agent variational free energy]] model. Coarse-graining many micro-agents into an effective [[Meta-agents and hierarchical emergence|meta-agent]] is an RG step in the space of [[Variational free energy]] functionals; universality is the claim that the emergent macro-dynamics depend only on a few relevant features of the underlying agent ensemble — the social-physics aggregation of microscopic interaction rules into collective laws, for which Wilson's RG is the canonical tool.
 
