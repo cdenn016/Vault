@@ -281,6 +281,185 @@ This construction has nontrivial reductions and coupled dynamics, but its
 retentions were specified in advance. It proves exact two-level
 inheritance, without proving that the dynamics choose either reduction.
 
+\section{Averaged laws under smooth peer dynamics}
+
+The arithmetic mixture of child laws is a normalized candidate parent law.
+It need not determine either its own derivative or its boundary responses.
+The following example establishes both failures within the smooth peer-KL
+family of \cref{ch:dynamics}, with identical agents, a coupled evaluator,
+and equal Fisher mobilities. It concerns this specified retention; it is
+not an obstruction to every possible parent state.
+
+\constructionheading{A coupled binary model with law-dependent channels}{inh:smooth-binary-model}
+Use counting measure on $k,m\in\{-1,1\}$ and the strictly positive laws
+\begin{equation}
+ q_x(k)=\frac{1+kx}{2},\qquad s_y(m)=\frac{1+my}{2},
+ \qquad x,y\in(-1,1).
+ \label{inh:smooth-binary-laws}
+\end{equation}
+Choose $J=1/2$, reference $r(m)=1/2$, and normalized evaluator
+$G_J(k\mid m)=e^{Jkm}/(2\cosh J)$. For the declared product recognition
+family, the local variational term is exactly
+\begin{equation}
+ \begin{aligned}
+ E_0(x,y)
+ &=\sum_{k,m}q_x(k)s_y(m)
+   \log\frac{q_x(k)s_y(m)}{r(m)G_J(k\mid m)}\\
+ &=\psi(x)+\psi(y)-Jxy+\log\cosh J,\\
+ \psi(x)&=\frac{1+x}{2}\log(1+x)
+          +\frac{1-x}{2}\log(1-x).
+ \end{aligned}
+ \label{inh:smooth-local-energy}
+\end{equation}
+All expectations are finite. The mixed derivative is $-J$, so changing
+either sector changes the force on the other.
+
+In either sector, let a sender with parameter $x$ use the normalized kernel
+\begin{equation}
+ K_x(\ell\mid k)=\frac{1+\rho(x)k\ell}{2},\qquad
+ \rho(x)=\frac{1+x^2}{4},\qquad
+ q_xK_x=q_{f(x)},\quad f(x)=\frac{x+x^3}{4}.
+ \label{inh:smooth-channel}
+\end{equation}
+Every entry exceeds $1/4$. The channel transmits the sampled sender bit,
+and its transmission coefficient depends nontrivially on the sender law.
+For passive frame covariance, present each alphabet as the atoms
+$\{\pm u_i\}$ of a one-dimensional fiber, with $u_i\ne0$, and define
+$\mathcal K_{ij}(u_jk,\{u_i\ell\})=K_{x_j}(\ell\mid k)$.
+Under $g_i\in\mathrm{GL}(1,\mathbb R)$, push the laws forward and replace
+$u_i$ by $g_i u_i$. The reference parameters remain fixed, and
+\begin{equation}
+ \mathcal K'_{ij}(g_jv,g_iA)=\mathcal K_{ij}(v,A).
+ \label{inh:smooth-channel-covariance}
+\end{equation}
+Independent sector frames give the same construction for $s$; pushing
+$G_J$ through its model and belief frames preserves its normalization.
+
+For two identical agents, set
+\begin{equation}
+ \begin{aligned}
+ d(x,z)&=D_{\mathrm{KL}}(q_x\Vert q_z),\\
+ P(x_1,x_2)&=d(x_1,f(x_2))+d(x_2,f(x_1)),\\
+ E&=\sum_{i=1}^2 E_0(x_i,y_i)
+       +P(x_1,x_2)+P(y_1,y_2).
+ \end{aligned}
+ \label{inh:smooth-peer-energy}
+\end{equation}
+Each source row contains only the other agent, so its normalized weight is
+one and its row-relative-entropy term vanishes. This is a specialization
+of the declared peer potential. The local term is the displayed KL
+expectation; no further identification of the entire law-dependent
+potential with a fixed-joint-law ELBO is assumed.
+The product Fisher metric and its negative gradient flow are
+\begin{equation}
+ g=\sum_i\left(\frac{dx_i^2}{1-x_i^2}
+                 +\frac{dy_i^2}{1-y_i^2}\right),\qquad
+ \dot x_i=-(1-x_i^2)\partial_{x_i}E,\quad
+ \dot y_i=-(1-y_i^2)\partial_{y_i}E.
+ \label{inh:smooth-fisher-flow}
+\end{equation}
+Both mobilities are one. The vector field is smooth on $(-1,1)^4$.
+
+\propositionheading{The mixture retention fails the dynamical inheritance test}{inh:smooth-mixture-failure}
+For the flow in \eqref{inh:smooth-fisher-flow}, the retention
+\begin{equation}
+ R(x_1,y_1,x_2,y_2)
+ =\left(\frac{q_{x_1}+q_{x_2}}2,
+         \frac{s_{y_1}+s_{y_2}}2\right)
+ =(q_{\bar x},s_{\bar y})
+ \label{inh:smooth-mixture-retention}
+\end{equation}
+does not support an autonomous parent vector field on the whole interior.
+The same failure holds if the averaged joint law
+$\frac12\sum_iq_{x_i}\otimes s_{y_i}$ is also retained.
+
+\noindent\emph{Proof.}
+For $0<|a|<1$ and $0<|c|<1$, take
+$A=(0,c,0,c)$ and $B=(a,c,-a,c)$ in the coordinate order of
+\eqref{inh:smooth-mixture-retention}. Both retain $(q_0,s_c)$ and the
+same averaged joint law $q_0\otimes s_c$. These are equal full binary
+probability laws, not merely equal estimates of their means.
+The identities $f(-x)=-f(x)$ and $d(-x,-z)=d(x,z)$ imply
+\begin{equation}
+ P(x_1,x_2)=P(x_2,x_1)=P(-x_1,-x_2),\qquad
+ \partial_1P(a,-a)=-\partial_2P(a,-a),\quad
+ \nabla P(0,0)=0.
+\end{equation}
+At $B$ the two Fisher prefactors are equal. Consequently the peer forces
+and the two $\operatorname{atanh}$ terms cancel in $\dot{\bar x}$, giving
+\begin{equation}
+ \dot{\bar x}(A)=Jc,\qquad
+ \dot{\bar x}(B)=Jc(1-a^2).
+ \label{inh:smooth-mixture-defect}
+\end{equation}
+Both model-sector derivatives can also be written exactly. Define
+\begin{equation}
+ h(c)=2\operatorname{atanh}c-\operatorname{atanh}f(c)
+       +f'(c)\frac{f(c)-c}{1-f(c)^2}.
+\end{equation}
+Indeed, direct differentiation gives
+$\partial_xd(x,z)=\operatorname{atanh}x-\operatorname{atanh}z$ and
+$\partial_zd(x,z)=(z-x)/(1-z^2)$. Thus
+\begin{equation}
+ \begin{aligned}
+ (\dot y_1,\dot y_2)(A)&=-(1-c^2)(h(c),h(c)),\\
+ (\dot y_1,\dot y_2)(B)&=-(1-c^2)(h(c)-Ja,h(c)+Ja),\\
+ \dot{\bar y}(A)&=\dot{\bar y}(B)=-(1-c^2)h(c).
+ \end{aligned}
+\end{equation}
+The retained belief derivatives nevertheless differ by $-Jca^2\ne0$.
+For $a=1/2,c=1/4$, they are $1/8$ and $3/32$.
+Hence $DR_x B(x)$ is not constant on a retention fiber, contradicting the
+necessary condition \eqref{inh:vector-square}. The identical retained
+joint laws establish the additional assertion. $\square$
+
+The parameter $a$ may be arbitrarily small. A neighborhood of the
+synchronized configurations therefore does not make this retention exact.
+Unlike \cref{inh:role-loss}, the example uses identical dynamical roles.
+
+\propositionheading{The same retention loses a boundary response}{inh:smooth-boundary-failure}
+Choose a child uniformly, draw its belief bit, and transmit that bit
+through \eqref{inh:smooth-channel} to an external receiver. This declared
+protocol has a normalized binary response law with mean
+$b(x_1,x_2)=(f(x_1)+f(x_2))/2$. For any $m,a$ with
+$|m|+|a|<1$, compare belief parameters $(m,m)$ and $(m+a,m-a)$,
+keeping both model parameters equal to $c$. The retained marginal and
+averaged joint laws agree, but
+\begin{equation}
+ b(m+a,m-a)-b(m,m)=\frac34ma^2.
+ \label{inh:smooth-boundary-defect}
+\end{equation}
+For $ma\ne0$, their full binary response laws differ.
+
+\noindent\emph{Proof.}
+Expand $f(x)=(x+x^3)/4$ and use
+$((m+a)^3+(m-a)^3)/2=m^3+3ma^2$.
+At $m=a=1/4$, the two response means are $20/256$ and $17/256$.
+Thus the response kernel is not constant on a retention fiber, violating
+\eqref{inh:boundary-square}. $\square$
+
+\propositionheading{Interior synchronization cannot first occur at finite time}{inh:smooth-no-finite-entry}
+For \eqref{inh:smooth-fisher-flow}, the diagonal
+$\Delta=\{x_1=x_2,\ y_1=y_2\}$ is invariant. A solution starting outside
+$\Delta$ cannot enter it at a finite time while remaining in the interior.
+
+\noindent\emph{Proof.}
+Agent exchange preserves the potential and metric, hence the vector field.
+On its fixed set $\Delta$, the corresponding component derivatives agree,
+which proves invariance. The smooth field has unique local solutions in
+both time directions. If an interior solution meets $\Delta$, uniqueness
+from that meeting point identifies it locally, backward as well as
+forward, with the solution in $\Delta$. Along the original existence
+interval, the set of times at which it lies in $\Delta$ is therefore open;
+it is also closed by continuity. Connectedness of that interval makes it
+the entire interval, contradicting the initial condition. $\square$
+
+This result permits asymptotic synchronization, state-dependent threshold
+selection, and exact quotients that do not require synchronization. It
+does not prove convergence. An alternative retained state or a restricted
+invariant family must be tested against both inheritance conditions;
+the calculations above do not exclude such constructions.
+
 \section{Memory and formation}
 
 When a proposed retention fails, one exact option is to retain more of the
@@ -313,3 +492,6 @@ Persistence can mean an invariant block relation in deterministic dynamics
 or a specified path event in stochastic dynamics. The finite construction
 settles inheritance for a supplied hierarchy. It does not select that
 hierarchy or establish persistence.
+An extension with explicit fusion events is constructed in
+\cref{ch:fusion}; endogenous, exactly inherited recursive formation under
+the original smooth peer-KL dynamics remains open.

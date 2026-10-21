@@ -13,4 +13,4 @@ Copy-Item -LiteralPath build/MAgent_Theory_2.0_supplement.pdf -Destination MAgen
 Copy-Item -LiteralPath build/MAgent_Theory_2.0_companion.pdf -Destination MAgent_Theory_2.0_companion.pdf
 ```
 
-The scientific scope and conventions for future edits are recorded in `AUTHORING.md`. Recursive formation and the derivation of directional transport remain open constructions. The finite inheritance example demonstrates exact closure under supplied retentions.
+The scientific scope and conventions for future edits are recorded in `AUTHORING.md`. The main text and companion now include a two-stage finite-time fusion example with an explicitly nonsmooth square-root-KL interaction, inherited lognormal laws, and exact fresh-response kernels. Formation under the original smooth KL potential, smaller autonomous parents with internally distinct parameters, and the derivation of directional transport remain open. The earlier finite-state hierarchy remains a separate example of supplied retentions.
