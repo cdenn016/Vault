@@ -1,0 +1,63 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Frames, Messages, and Interactions}
+\label{comp:links}
+
+An agent's probability law and the coordinates used to describe that law are different objects. Communication introduces a third object: a rule for translating, filtering, or modifying what another agent supplies. Keeping these distinctions explicit prevents a coordinate change from being mistaken for an interaction, or a selective message from being mistaken for an invertible transport.
+
+\section{Reading a link from source to receiver}
+
+There are two sectors. Write $\nu_i^q=q_i$ for the belief marginal and $\nu_i^s=s_i$ for the model marginal. In a finite-dimensional realization, a sector $a\in\{q,s\}$ has a reference vector space $V_a$, an agent space $E_i^a$, and an invertible presentation
+\begin{equation}
+U_i^a:V_a\longrightarrow E_i^a,\qquad
+\bar\nu_i^a=(U_i^a)^{-1}_\#\nu_i^a.
+\end{equation}
+The pushforward notation expresses the represented possibilities in reference coordinates. The two sectors may use representations of the same frame group while having different dimensions, laws, and interaction rules.
+
+A law-dependent reference generator and its displayed link are
+\begin{equation}
+L_{ij}^a=\mathcal L_{ij}^a(\bar\nu_i^a,\bar\nu_j^a),\qquad
+\Theta_{ij}^a=U_i^a e^{L_{ij}^a}(U_j^a)^{-1}.
+\label{eq:comp-link}
+\end{equation}
+The index order is receiver first, source second. Reading from right to left, the source is expressed in reference coordinates, the generator acts there, and the result is expressed at the receiver. The function $\mathcal L_{ij}^a$ is a constitutive choice. The exponential parameterization does not derive it or equate the belief and model generators.
+
+\begin{figure}[htbp]
+\centering
+\input{companion/figures/link_transport}
+\caption{The source presentation is undone by $(U_j^a)^{-1}$, the interaction $e^{L_{ij}^a}$ acts within the reference space, and $U_i^a$ presents the result at the receiver. Endpoint frames and the intervening interaction have separate roles.}
+\label{fig:comp-link}
+\end{figure}
+
+\section{Changing coordinates}
+
+For a passive change $y_i'=g_i^a y_i$, both the law and its presentation change: $\nu_i^{a\prime}=(g_i^a)_\#\nu_i^a$ and $U_i^{a\prime}=g_i^aU_i^a$. The reference law stays fixed, giving
+\begin{equation}
+\Theta_{ij}^{a\prime}=g_i^a\Theta_{ij}^a(g_j^a)^{-1}.
+\end{equation}
+This endpoint covariance is familiar from gauge link variables \citep{Wilson1974}. Metrics and additional model data must also be re-expressed when forming scalar predictions. Covariance alone supplies no physical symmetry or evolution law.
+
+Changing the common reference presentation is a separate operation. Under $U_i^a\mapsto U_i^a h_a$, the reference laws become $(h_a^{-1})_\#\bar\nu_i^a$. Reference consistency requires the constitutive rule, including any interface data, to give $L_{ij}^{a\prime}=h_a^{-1}L_{ij}^a h_a$. The identity $e^{h_a^{-1}Lh_a}=h_a^{-1}e^Lh_a$ then leaves the displayed link unchanged.
+
+\section{Selective interfaces and an explicit pair}
+
+Sending and receiving can be represented by
+\begin{equation}
+T_j^a:V_a\longrightarrow H_a,\qquad
+O_i^a:H_a\longrightarrow V_a,\qquad
+L_{ij}^a=O_i^aT_j^a.
+\end{equation}
+The sender $T_j^a$ extracts a message; the receiver $O_i^a$ inserts its effect. A direct content map $O_i^aT_j^a$ can lose dimensions. Its exponential is always invertible and acts as identity on $\ker T_j^a$. Thus exponentiating a selective generator retains unread directions. Sending only the extracted message is a different operation. General normalized Markov kernels allow communication without any linear realization.
+
+One explicit law-dependent choice uses finite second moments and positive-definite covariance. Let $\mu_i^a,M_i^a$ be the reference mean and covariance. On nonself edges choose a scalar $\lambda_{ij}^a$ and set
+\begin{equation}
+L_{ij}^a=\lambda_{ij}^a\mu_i^a(\mu_j^a)^T(M_j^a)^{-1}.
+\end{equation}
+The row $(\mu_j^a)^T(M_j^a)^{-1}$ sends a scalar message; the column $\lambda_{ij}^a\mu_i^a$ receives it. Under a reference change, the mean transforms by $h_a^{-1}$ and covariance by congruence. Their product consequently transforms by conjugation. These assumptions concern moments, not Gaussian shape. Primitive self-comparisons are set to identity separately.
+
+For a concrete non-Gaussian example, let $Z$ have independent centered Laplace coordinates of variance one in two dimensions. Give two agents the laws of $e_1+Z$ and $e_2+Z$, with identity frames and unit coefficients. Then $M_1=M_2=I$, $L_{12}=E_{12}$, and $L_{21}=E_{21}$. Since each generator squares to zero,
+\begin{equation}
+\Theta_{12}\Theta_{21}
+=(I+E_{12})(I+E_{21})
+=\begin{pmatrix}2&1\\1&1\end{pmatrix}.
+\end{equation}
+Here $E_{ab}$ has its only nonzero entry, one, in row $a$, column $b$. The directed communication loop is nontrivial. It establishes neither a connection over contexts nor a physical curvature.

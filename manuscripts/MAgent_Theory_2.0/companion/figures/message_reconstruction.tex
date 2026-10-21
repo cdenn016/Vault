@@ -1,0 +1,13 @@
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm]},
+  box/.style={draw=primaryblue,rounded corners=2pt,fill=primaryblue!5,minimum width=2.55cm,minimum height=1.05cm,align=center,font=\small},
+  every node/.style={font=\small}]
+\node[box] (source) {Sender law\\$q(dk)$};
+\node[box,right=1.6cm of source] (message) {Message law\\$\nu=T_\#q$};
+\node[box,right=1.6cm of message] (receiver) {Reconstruction\\$\widehat q(dk)$};
+\node[box,below=1.1cm of receiver,fill=secondaryblue!10] (prior) {Receiver conditional\\$p(dk\mid h)$};
+\draw[->,thick,primaryblue] (source) -- node[above=4pt] {$T$} (message);
+\draw[->,thick,primaryblue] (message) -- node[above=4pt,align=center] {mix over $h$} (receiver);
+\draw[->,thick,secondaryblue] (prior) -- (receiver);
+\node[below=0.65cm of source,align=center,text width=3cm] {Different sender laws\\can give the same $\nu$.};
+\end{tikzpicture}

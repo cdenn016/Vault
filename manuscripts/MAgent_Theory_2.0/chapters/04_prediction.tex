@@ -1,0 +1,108 @@
+\chapter{Prediction and Selective Communication}
+\label{ch:prediction}
+
+A model law is useful through the records it predicts. Communication can preserve those predictions while discarding other distinctions, and a receiver can combine a message with information already present in its model. This chapter gives exact identities for both operations. The retained prediction is always named; agreement about one output is not automatically agreement about every future interaction.
+
+\section{Model presentations and their evaluators}
+
+Let $G_i:\mathsf M_i\rightsquigarrow\mathsf K_i$ be a normalized local model and let $H_i:\mathsf K_i\rightsquigarrow\mathsf O_i$ be a normalized record kernel. Their composition
+\begin{equation}
+K_i^{\mathrm{rec}}(m,A)=\int H_i(k,A)G_i(m,dk),
+\qquad p_i^{\mathrm{rec}}=s_iK_i^{\mathrm{rec}},
+\label{eq:predictive-evaluator}
+\end{equation}
+gives the model's predictive record law. An evaluator may also take a preparation, accessible history, or chosen interaction as input; these are held fixed when two predictions are compared. More general normalized evaluators need not factor through $G_i$ and $H_i$.
+
+Suppose a model link $\Theta^s_{ij}:\mathsf M_j\to\mathsf M_i$ is a bimeasurable bijection. Exact compatibility of the two evaluators, after identifying their record alphabets, means
+\begin{equation}
+K_i^{\mathrm{rec}}(\Theta^s_{ij}m,A)=K_j^{\mathrm{rec}}(m,A).
+\label{eq:evaluator-compatibility}
+\end{equation}
+Consequently, $s_i=(\Theta^s_{ij})_\#s_j$ implies equal predictive record laws. The compatibility is additional information: two equal laws on a one-point model space can predict opposite deterministic bits through different evaluators.
+
+\theoremheading{Exact predictive information identity}{thm:predictive-chain}
+Let $s,t$ be probability laws on a standard Borel model space and let $K$ be a common normalized record kernel. Assume $\KL(s\Vert t)<\infty$. Set $\mu(dm,do)=s(dm)K(m,do)$ and $\nu(dm,do)=t(dm)K(m,do)$, and denote their conditional model laws given $o$ by $s^o,t^o$. Then
+\begin{equation}
+\KL(s\Vert t)
+=\KL(sK\Vert tK)
++\int\KL(s^o\Vert t^o)(sK)(do).
+\label{eq:predictive-chain}
+\end{equation}
+\begin{proof}
+The common kernel cancels in the joint Radon--Nikodym derivative, giving $\KL(\mu\Vert\nu)=\KL(s\Vert t)$. Disintegrating the same joint laws by their record marginal factors their density ratio into the record ratio and the conditional model ratio. The logarithm is their sum. Integrating the first term gives $\KL(sK\Vert tK)$, and integrating the second first over $m$ gives the displayed conditional term. Finiteness makes the decomposition unambiguous.
+\end{proof}
+
+The second term is the model distinction that the record leaves unresolved. Its vanishing is an exact sufficiency condition. A constant evaluator can make all predictions agree while retaining no model distinction at all. Useful agreement therefore requires a specified predictive task as well as a comparison of laws. For a common history kernel, the same identity holds with the full finite record history in place of $o$.
+
+If the model link depends on the current laws, \cref{thm:predictive-chain} applies to the resulting fixed comparison at that configuration, provided \cref{eq:evaluator-compatibility} holds there. Preservation of compatibility during an update is a separate condition on the dynamics and the evaluator.
+
+\section{What the receiver reconstructs}
+
+A sending map $T_j:E_j\to\mathsf H$ induces the message law $\nu_j=(T_j)_\#q_j$. Different laws can have the same message law. For linear maps $T_j:E_j\to\mathsf H$ and $O_i:\mathsf H\to E_i$,
+\begin{equation}
+\operatorname{rank}(O_iT_j)\leq\operatorname{rank}(T_j).
+\label{eq:message-rank}
+\end{equation}
+Writing a message into a larger space cannot by itself recover distinctions discarded by $T_j$. A richer reconstruction uses the receiver's conditional model.
+
+For a received value $h$ and a declared likelihood $\ell_i(h\mid k)$, Bayesian assimilation is
+\begin{equation}
+q_i^+(dk)=
+\frac{\ell_i(h\mid k)q_i^-(dk)}{\int\ell_i(h\mid k')q_i^-(dk')},
+\label{eq:bayesian-reception}
+\end{equation}
+when the denominator is finite and positive. An unmeasured coordinate can change because it is conditionally related to the measured one in $q_i^-$. The observation selects among possibilities already related by the receiver's model.
+
+\propositionheading{Exact conditional reconstruction}{prop:conditional-lift}
+Let $T:E\to\mathsf H$ be measurable on standard Borel spaces. Let $q,p$ be laws with $\KL(q\Vert p)<\infty$, and set $\nu=T_\#q$. Choose a regular conditional law $p(dk\mid h)$ for $p$ given $T=h$. Define
+\begin{equation}
+\widehat q(dk)=\int p(dk\mid h)\nu(dh).
+\label{eq:conditional-lift}
+\end{equation}
+Then $T_\#\widehat q=\nu$ and
+\begin{equation}
+\KL(q\Vert\widehat q)
+=\int\KL\bigl(q(\cdot\mid h)\Vert p(\cdot\mid h)\bigr)\nu(dh).
+\label{eq:conditional-lift-loss}
+\end{equation}
+In particular, $\widehat q=q$ exactly when the two conditional laws agree for $\nu$-almost every $h$.
+\begin{proof}
+Absolute continuity gives $\nu\ll T_\#p$, so the conditional version of $p$ is defined at every $h$ needed up to a $\nu$-null set. That conditional is supported on $T^{-1}(h)$ almost surely. Hence its mixture has pushforward $\nu$. The laws $q$ and $\widehat q$ have the same $h$-marginal and respective conditional laws $q(\cdot\mid h)$ and $p(\cdot\mid h)$. Factoring their density ratio by $h$ proves \cref{eq:conditional-lift-loss}. Nonnegativity and the equality condition of relative entropy give the last claim.
+\end{proof}
+
+This reconstruction preserves the communicated marginal and supplies the discarded conditional from $p$. It makes precise the sense in which a receiver contributes structure that the message alone does not specify. The proposition assumes a common content presentation; a link or a separately declared correspondence is needed before applying it across different fibers.
+
+\section{A predictive coding criterion}
+
+Lossy source coding makes fidelity part of the problem definition \citep{Shannon1959}. Decoder side information is a realized variable correlated with the source, as in Wyner--Ziv coding \citep{WynerZiv1976}; knowing a prior without such a realization does not supply that variable. A few noiseless real numbers also do not specify a finite-bit channel. A communication rate requires a declared coding, precision, or noise model.
+
+For a predictive criterion, let $P(X,Y,Z)$ be a declared preparation law. The source $X$ may be represented content or a complete fine configuration; the choice is fixed in each application. Let $Z$ be accessible receiver information and let $Y$ be a response to be preserved. An encoder $T(du\mid X)$ gives the conditional independence
+\begin{equation}
+U-X-(Y,Z).
+\label{eq:encoder-markov}
+\end{equation}
+The decoder predicts $Y$ from $(U,Z)$. This is the setting of an information bottleneck, with the relevant variable explicitly named \citep{Tishby1999}.
+
+\theoremheading{Predictive distortion and the optimal decoder}{thm:predictive-distortion}
+On standard Borel spaces, assume the displayed information quantities are finite and \cref{eq:encoder-markov} holds. For any predictive decoder $D(dy\mid u,z)$ with finite expected relative entropy,
+\begin{equation}
+\begin{aligned}
+&\E\KL\bigl(P(Y\mid X,Z)\Vert D(Y\mid U,Z)\bigr)\\
+&\quad=I(Y;X\mid U,Z)
++\E\KL\bigl(P(Y\mid U,Z)\Vert D(Y\mid U,Z)\bigr).
+\end{aligned}
+\label{eq:decoder-decomposition}
+\end{equation}
+The optimal decoder is $P(dy\mid u,z)$. Its distortion is
+\begin{equation}
+\mathcal D(T)=I(Y;X\mid U,Z)
+=I(Y;X\mid Z)-I(Y;U\mid Z).
+\label{eq:predictive-distortion}
+\end{equation}
+\begin{proof}
+Conditional independence gives $P(Y\mid X,U,Z)=P(Y\mid X,Z)$. In the logarithmic ratio defining the left side of \cref{eq:decoder-decomposition}, insert the intermediate conditional law $P(Y\mid U,Z)$. The first resulting expectation is the definition of $I(Y;X\mid U,Z)$. In the second, averaging over $X$ gives the conditional law $P(Y\mid U,Z)$, yielding the remaining divergence. The second term vanishes at the stated decoder and is nonnegative for every decoder. Finally, expand $I(Y;X,U\mid Z)$ in both orders and use $I(Y;U\mid X,Z)=0$.
+\end{proof}
+
+The functional $I(X;U\mid Z)+\lambda\mathcal D(T)$, for $\lambda\geq0$, is one possible criterion for selecting a representation. Its first term is an information cost, not automatically the length of an individual message. An operational coding theorem requires its own source and block-coding assumptions. Transmitting a sample from $(T_j)_\#q_j$ and transmitting that whole probability law are also different protocols.
+
+For parent formation, choose $X$ to include the fine configuration and choose $Y$ to be a future boundary response over a specified horizon and interaction. Zero distortion means that $U$ and $Z$ are sufficient for this target under this preparation. A subsequent interaction may read information that this target ignored. Exact inheritance therefore requires the dynamical condition developed in \cref{ch:inheritance}, not only predictive sufficiency for one chosen response.

@@ -1,0 +1,315 @@
+\chapter{Inherited Parents and Recursive Formation}
+\label{ch:inheritance}
+
+A collection becomes a parent when its retained state supports inherited
+interaction and evolution. A probability law obtained by compression is a first
+part of this construction. It does not determine how that law will change, what
+the parent can communicate, or which information its children must retain. We
+give exact conditions for these further steps and a finite example in which
+inheritance works through two levels. The example supplies its reductions;
+formation of the reductions remains a separate question.
+
+\section{Two objects that a parent must retain}
+
+\definitionheading{Sample compression and configuration retention}{inh:two-retentions}
+Let $x\in\mathsf S$ be a complete agent configuration and let $Q_x$ be its
+declared law on a standard Borel space $\mathsf Y$ of represented contents. A
+normalized sample channel $C:\mathsf Y\rightsquigarrow\mathsf Z$ gives the
+retained law
+\begin{equation}
+ Q_x^c(A)=\int C(y,A)Q_x(dy).
+ \label{inh:sample-parent}
+\end{equation}
+A configuration retention is a measurable map
+$R:\mathsf S\to\mathsf S^c$. Its value includes the parent laws and the
+additional data needed for its declared interactions and update.
+
+The distinction applies to both sectors. A parent carrying $q_I$ and $s_I$
+also needs the evaluator that makes $s_I$ predictive. Boundary channels,
+source rows, source marks, and memory can be further components of $R(x)$.
+Equal marginal laws do not imply equality of these components. When a sample
+channel reads random links or source variables, those variables belong to the
+joint input law of the channel. Substitution of a mean link or a selected
+source is a different retention.
+
+A law of represented contents and a probability law over complete
+configurations are different objects. Coupled deterministic evolution of
+law-valued agents requires no probability distribution over $x$. If such a
+distribution is used below, its preparation or transition mechanism is stated.
+All constructions admit general probability laws. A Gaussian parent is one
+possible family, subject to its own closure conditions.
+
+\section{Exact deterministic inheritance}
+
+\propositionheading{An update descends precisely when it respects retained states}{inh:deterministic-descent}
+Let $\mathsf S,\mathsf S^c$ be measurable spaces, let
+$R:\mathsf S\to\mathsf S^c$ be a measurable surjection with a measurable
+right inverse $\iota$, and let $F:\mathsf S\to\mathsf S$ be measurable.
+There is a measurable parent update $F^c$ satisfying
+\begin{equation}
+ R\circ F=F^c\circ R,
+ \label{inh:update-square}
+\end{equation}
+if and only if
+\begin{equation}
+ R(x)=R(x')\quad\Longrightarrow\quad R(F(x))=R(F(x')).
+ \label{inh:fiber-test}
+\end{equation}
+The parent update is unique. Finite spaces automatically admit the required
+right inverse.
+
+\noindent\emph{Proof.}
+Equation~\eqref{inh:update-square} implies the implication in
+\eqref{inh:fiber-test}. Conversely, define $F^c=R\circ F\circ\iota$.
+It is measurable. Since $R(\iota(R(x)))=R(x)$, the implication gives
+$F^c(R(x))=R(F(x))$. Every parent state has a preimage, so this equation
+also fixes $F^c$ uniquely. $\square$
+
+Repeated substitution gives $R\circ F^n=(F^c)^n\circ R$ for every
+nonnegative integer $n$. This is an exact statement about the chosen update,
+including its order and retained parameters. Replacing that update by descent
+of a newly defined parent objective requires another argument.
+
+For a differentiable version, suppose $R$ is continuously differentiable and
+the fine and parent vector fields $B,B^c$ have unique local solutions. Their
+flows satisfy $R\circ\Phi_t=\Phi_t^c\circ R$ on their common existence
+interval if
+\begin{equation}
+ DR_x B(x)=B^c(R(x)).
+ \label{inh:vector-square}
+\end{equation}
+Indeed, the chain rule makes $R(\Phi_t(x))$ a parent solution with initial
+value $R(x)$, and uniqueness identifies it. Conversely, differentiation of
+the flow identity at zero gives \eqref{inh:vector-square}. For a moving map
+$R_t$, the left side becomes $\partial_tR_t(x)+DR_t(x)B_t(x)$.
+Membership changes therefore need an explicit handoff map; a differential
+identity on one fixed partition does not specify them.
+
+\constructionheading{Loss of dynamical roles under product recognition}{inh:role-loss}
+Take $Q_x=\operatorname{Ber}(p_1)\otimes\operatorname{Ber}(p_2)$, with
+$x=(p_1,p_2)\in[0,1]^2$, and the coupled deterministic law
+\begin{equation}
+ \dot p_1=-p_1+\lambda(p_2-p_1),\qquad
+ \dot p_2=-2p_2+\lambda(p_1-p_2),\qquad \lambda\geq0.
+ \label{inh:role-flow}
+\end{equation}
+The linear system has a unique global solution and its vector field points
+inward on every face of the square. Retain only the law of $K_1+K_2$.
+The configurations $(0.8,0.2)$ and $(0.2,0.8)$ both give probabilities
+$(0.16,0.68,0.16)$ for the values $0,1,2$. However,
+\begin{equation}
+ \frac{d}{dt}\E(K_1+K_2)=-(p_1+2p_2),
+\end{equation}
+equals $-1.2$ and $-1.8$ respectively. Their retained laws therefore have
+different derivatives. No autonomous update of that retained law can
+reproduce both trajectories.
+
+This obstruction occurs while recognition remains a product. The missing
+datum is which probability belongs to which dynamical role. Correlated
+recognition is neither a prerequisite for this counterexample nor its
+automatic remedy. Coupled mean-field dynamics are admissible; the proposed
+retention must still pass its own inheritance test.
+
+\section{Exact stochastic inheritance}
+
+\propositionheading{Finite strong lumpability}{inh:finite-lumpability}
+Let $T$ be a transition matrix on a finite configuration space $\mathsf S$
+and let $R:\mathsf S\to\mathsf S^c$ be surjective. A single parent
+transition matrix reproduces the retained process for every initial law if
+and only if, for every $z'\in\mathsf S^c$,
+\begin{equation}
+ \sum_{y:R(y)=z'}T(x,y)
+ =\sum_{y:R(y)=z'}T(x',y)
+ \quad\text{whenever }R(x)=R(x').
+ \label{inh:lumpability}
+\end{equation}
+In that case the common sum defines $T^c(R(x),z')$ uniquely.
+
+\noindent\emph{Proof.}
+The common sums are nonnegative and sum to one, so they define a transition
+matrix. Conditional on any retained history ending at $z$, the hidden
+configuration lies in $R^{-1}(z)$. Every state in that fiber gives the same
+next retained distribution $T^c(z,\cdot)$; averaging over its conditional
+law leaves this distribution unchanged. Induction gives the parent path law
+from the pushed initial law. Conversely, start the fine process at each
+point mass $\delta_x$. A common parent kernel must give the same one-step
+distribution whenever these initial states have the same image. This is
+\eqref{inh:lumpability}. $\square$
+
+This is the finite strong-lumpability criterion
+\citep{KemenySnell1976}. On standard Borel spaces the same argument applies
+when $T(x,R^{-1}A)$ factors through $R$ as a measurable probability kernel.
+The qualification is part of the construction. Closure for every initial
+law is stronger than closure for one chosen preparation.
+
+An equilibrium conditional average of fine transitions defines a normalized
+candidate parent kernel. It does not prove \eqref{inh:lumpability}: the
+hidden conditional law during a transient can differ from the equilibrium
+conditional. Likewise, agreement of invariant distributions does not
+establish agreement of histories.
+
+\section{Boundary responses and composition}
+
+A parent must inherit what it does to the rest of the population. Fix a
+declared boundary protocol $a$, including the preparation and receiving
+conditions. Let $K_a:\mathsf S\rightsquigarrow\mathsf O_a$ be its
+normalized response kernel and let
+$D_a:\mathsf O_a\rightsquigarrow\mathsf O_a^c$ retain the response of
+interest. An inherited kernel $K_a^c$ satisfies
+\begin{equation}
+ (K_aD_a)(x,A)=K_a^c(R(x),A).
+ \label{inh:boundary-square}
+\end{equation}
+Here $(KD)(x,A)=\int D(o,A)K(x,do)$. Under the measurable right-inverse
+hypothesis of \cref{inh:deterministic-descent}, such a kernel exists exactly
+when $K_aD_a$ is constant on each fiber of $R$. Define it using the right
+inverse to prove sufficiency; substitution proves necessity. When several
+outputs are used jointly, this condition applies to their joint kernel.
+Preserving each output marginal alone need not preserve their dependence.
+
+For a child channel $\mathcal K_{ij}:\mathsf Y_j\rightsquigarrow\mathsf Y_i$
+and retentions $C_j:\mathsf Y_j\rightsquigarrow\mathsf Z_J$ and
+$C_i:\mathsf Y_i\rightsquigarrow\mathsf Z_I$, the corresponding square is
+$\mathcal K_{ij}C_i=C_j\mathcal K_{IJ}^c$, where
+$\mathcal K_{IJ}^c:\mathsf Z_J\rightsquigarrow\mathsf Z_I$. The
+rightmost expression means first retain the sender and then apply the
+parent channel. The retained sender must determine every distinction visible to the retained
+receiver. In a linear realization this reduces to
+$C_iM_{ij}=M_{IJ}^cC_j$; the kernel-inclusion criterion and its proof are
+given in the supplement.
+
+\propositionheading{Inheritance composes}{inh:composition}
+Suppose $R_{10}:\mathsf S_0\to\mathsf S_1$ and
+$R_{21}:\mathsf S_1\to\mathsf S_2$ intertwine deterministic updates at
+successive levels. Then $R_{20}=R_{21}\circ R_{10}$ intertwines the first
+and third updates. The analogous assertion holds for finite lumped Markov
+transitions. Let $K_a^\ell:\mathsf S_\ell\rightsquigarrow\mathsf O_\ell$
+be boundary kernels, with response retentions
+$D_{10}:\mathsf O_0\rightsquigarrow\mathsf O_1$ and
+$D_{21}:\mathsf O_1\rightsquigarrow\mathsf O_2$. If
+\begin{equation}
+ K_a^0D_{10}=R_{10}K_a^1,\qquad
+ K_a^1D_{21}=R_{21}K_a^2,
+ \label{inh:two-boundaries}
+\end{equation}
+where maps on the right are their deterministic kernels, then
+$K_a^0D_{10}D_{21}=R_{10}R_{21}K_a^2$.
+
+\noindent\emph{Proof.}
+For deterministic updates,
+$R_{21}R_{10}F^0=R_{21}F^1R_{10}=F^2R_{21}R_{10}$, where juxtaposition
+in this identity denotes function composition. For Markov transitions and
+their deterministic retention kernels,
+$T^0R_{10}R_{21}=R_{10}T^1R_{21}=R_{10}R_{21}T^2$.
+For boundary kernels, associate the successive integrals and substitute
+\eqref{inh:two-boundaries}. All integrands for events are nonnegative, so
+interchanging the integration order is valid. $\square$
+
+When changes of gauge presentation act on the retained spaces, the
+retentions and boundary kernels must transform compatibly with those
+actions. Re-expressing a commuting square then gives the same square in
+the new coordinates. Neither a parent frame chosen for this purpose nor
+the square itself determines a base connection.
+
+\section{A finite two-level construction}
+
+Let a complete configuration be $x=(a,b,c,r)\in\{0,1\}^4$. The coordinates
+are labels of internal configurations, with $r$ an internal binary register
+and $\rho(x)=r$ its readout. To attach actual agent laws, choose
+\begin{equation}
+ q_a=\operatorname{Ber}\left(\frac{1+2a}{4}\right),\qquad
+ s_a=\operatorname{Ber}\left(\frac{2+a}{4}\right),\qquad
+ \zeta_a=q_a\otimes s_a.
+ \label{inh:finite-laws}
+\end{equation}
+Thus both sectors vary, with tied parameters in this supplied family;
+$b,c$ are additional internal marks. A model presentation $m\in\{0,1\}$
+has evaluator
+\begin{equation}
+ K(m,\{1\})=\frac14+\frac m2.
+\end{equation}
+The corresponding predictive law is
+$\nu_a=s_aK=\operatorname{Ber}(1/2+a/8)$, which distinguishes the two
+values of $a$.
+
+At each step draw independent bits
+$\xi\sim\operatorname{Ber}(1/4)$,
+$\eta\sim\operatorname{Ber}(1/3)$, and
+$\upsilon\sim\operatorname{Ber}(1/5)$, independently of preceding
+draws, and set
+\begin{equation}
+ a'=a\mathbin\oplus\xi,\qquad
+ b'=b\mathbin\oplus a\mathbin\oplus\eta,\qquad
+ c'=c\mathbin\oplus b\mathbin\oplus\upsilon.
+ \label{inh:finite-dynamics}
+\end{equation}
+Independently of these bit draws, conditional on the current configuration,
+give $r'$ law $\nu_a$. This supplies a transition of an internal register;
+the evaluator alone did not force this choice. The symbol $\oplus$ denotes
+addition modulo two. The dynamics are coupled:
+$a$ affects the next $b$, and $b$ affects the next $c$.
+
+Retain $R_{10}(a,b,c,r)=(a,b,r)$ and then $R_{21}(a,b,r)=(a,r)$. For
+$f_p(0)=1-p$ and $f_p(1)=p$, the first parent kernel is
+\begin{equation}
+ \begin{aligned}
+ T^1((a,b,r),(a',b',r'))
+ ={}&f_{1/4}(a'\mathbin\oplus a)\nu_a(\{r'\})\\
+ &{}\cdot f_{1/3}(b'\mathbin\oplus b\mathbin\oplus a).
+ \end{aligned}
+ \label{inh:first-finite-parent}
+\end{equation}
+Summing the fine transition over $c'$ gives this expression, independently
+of $c$. Summing it over $b'$ gives
+$T^2((a,r),(a',r'))=f_{1/4}(a'\mathbin\oplus a)\nu_a(\{r'\})$,
+independently of $b$.
+Both reductions satisfy \cref{inh:finite-lumpability}. Their configuration
+spaces have sizes sixteen, eight, and four, and both parents retain the laws
+in \eqref{inh:finite-laws}, their evaluator, and the register. Its readout
+descends by the identity on record values. The first parent additionally
+retains $b$.
+
+Both parents reproduce the entire finite record history as well as the
+retained configuration history. Indeed, write the fine path probability
+as its initial mass times its transition factors. Summing over hidden
+coordinates gives the parent path law by \cref{inh:finite-lumpability};
+the record at each step is already a coordinate of that path. The next
+record has probability $1/2+a/8$ of being one, so the inherited response
+is nonconstant. No independence of the initial coordinates is needed.
+
+This construction has nontrivial reductions and coupled dynamics, but its
+retentions were specified in advance. It proves exact two-level
+inheritance, without proving that the dynamics choose either reduction.
+
+\section{Memory and formation}
+
+When a proposed retention fails, one exact option is to retain more of the
+configuration. For a declared stochastic process, another is to retain the
+conditional law of the hidden configuration given the accessible retained
+history. That conditional law determines future predictions. In a finite
+model it is a probability vector with an exact recursive update, derived
+in the supplement. Its attainable values need not form a finite set.
+Introducing such a filter presupposes a process and a preparation law; it
+is not compulsory for deterministic coupled agents.
+
+A handoff initializes the parent from the actual fine state or its declared
+conditional law, including the source marks and memory read by future
+interactions. When evidence is shared across levels, its likelihood belongs
+to the joint model once. Reusing a child's record through a complete
+same-episode parent posterior requires the appropriate conditional or
+cavity accounting. A subsequent predictive prior is a different operation.
+
+\openproblemheading{Inherited recursive formation}{inh:recursive-formation}
+Construct a specified population dynamics that selects nontrivial blocks
+from an admitted class of initially unpartitioned configurations, with a
+declared persistence criterion and a handoff determined by the state or
+accessible history. Each selected block must carry inherited belief and
+model laws, evaluators, boundary responses, and dynamics. The resulting
+parents must then select a block containing at least two first-stage
+parents under those inherited interactions, without resetting their source
+data or supplying a newly tuned attraction at the next level.
+
+Persistence can mean an invariant block relation in deterministic dynamics
+or a specified path event in stochastic dynamics. The finite construction
+settles inheritance for a supplied hierarchy. It does not select that
+hierarchy or establish persistence.

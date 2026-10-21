@@ -1,0 +1,101 @@
+\chapter{Gaussian comparison costs and repeated variables}
+\label{ch:sup-variation}
+
+This chapter distinguishes a Gaussian comparison likelihood from a divergence between Gaussian laws by direct calculation. The comparison likelihood is normalized in its record. Its expectation depends on the joint law of the contents that enter the comparison, including whether two appearances denote the same variable. The calculations require finite second moments; Gaussian recognition is needed only where a Gaussian relative entropy is evaluated.
+
+\section{The expected comparison likelihood}
+
+Let $X_i\in\R^{n_i}$ and $X_j\in\R^{n_j}$ have means $\mu_i,\mu_j$, covariances $\Sigma_{ii},\Sigma_{jj}$, and cross covariance $\Sigma_{ij}=\operatorname{Cov}(X_i,X_j)$. Let $A:\R^{n_i}\to\R^d$ and $B:\R^{n_j}\to\R^d$ be fixed linear maps. For $R\succ0$, define the normalized record law
+\begin{equation}
+ O\mid X_i,X_j\sim\mathcal N(AX_i-BX_j,R),
+ \qquad c_R=\tfrac12\log\det(2\pi R).
+ \label{eq:sup-comparison-law}
+\end{equation}
+
+\propositionheading{Complete residual covariance}{prop:sup-residual-cost}
+At a fixed record $o$, set $\delta=A\mu_i-B\mu_j-o$. Then
+\begin{equation}
+ \begin{aligned}
+ \E[-\log p(o\mid X_i,X_j)]
+ &=c_R+\tfrac12\delta^TR^{-1}\delta
+       +\tfrac12\Tr(R^{-1}V_{ij}),\\
+ V_{ij}&=A\Sigma_{ii}A^T+B\Sigma_{jj}B^T
+         -A\Sigma_{ij}B^T-B\Sigma_{ji}A^T.
+ \end{aligned}
+ \label{eq:sup-residual-cost}
+\end{equation}
+\begin{proof}
+The negative log density is $c_R+\tfrac12(AX_i-BX_j-o)^TR^{-1}(AX_i-BX_j-o)$. Write its residual as its mean $\delta$ plus a centered variable. The linear cross terms have zero expectation, and the centered quadratic has expectation $\Tr(R^{-1}V_{ij})$. Expanding the covariance of $AX_i-BX_j$ gives the stated four terms.
+\end{proof}
+
+Independence is sufficient to remove $\Sigma_{ij}$, but it is stronger than necessary. Only the cross covariance visible through $A$ and $B$ contributes to this cost. A pair can be dependent while both displayed cross terms vanish. Conversely, knowing the two marginal laws does not generally determine the expected likelihood.
+
+\section{Equal rows need not give equal covariance updates}
+
+For the next calculation let $AX_i\sim\mathcal N(a,V)$ and $BX_j\sim\mathcal N(b_j,W_j)$ be independent, with $V,W_j\succ0$, and take $o=0$. The likelihood score and the direct peer score are
+\begin{equation}
+ C_j=c_R+\tfrac12\left[(a-b_j)^TR^{-1}(a-b_j)
+                  +\Tr(R^{-1}(V+W_j))\right],
+ \label{eq:sup-nll-score}
+\end{equation}
+\begin{equation}
+ D_j=\tfrac12\left[(a-b_j)^TW_j^{-1}(a-b_j)
+            +\Tr(W_j^{-1}V)-d+\log\frac{\det W_j}{\det V}\right].
+ \label{eq:sup-peer-score}
+\end{equation}
+The second formula follows by taking the expectation of the log ratio of the two Gaussian densities. Its receiver quadratic has expectation $d$, while its source quadratic has expectation $\Tr(W_j^{-1}V)+(a-b_j)^TW_j^{-1}(a-b_j)$.
+
+\propositionheading{A restricted routing equivalence}{prop:sup-row-equivalence}
+Suppose $W_j=W$ for every source, $W$ is held fixed, and $R=TW$ for $T>0$. Then
+\begin{equation}
+ C_j-\frac{D_j}{T}
+ =c_{TW}+\frac dT-\frac1{2T}\log\frac{\det W}{\det V}.
+ \label{eq:sup-row-constant}
+\end{equation}
+Consequently normalized rows proportional to $\pi_je^{-C_j}$ and to $\pi_je^{-D_j/T}$ coincide. Their derivatives with respect to receiver covariance nevertheless differ by
+\begin{equation}
+ d_VC_j-d_V(D_j/T)=\frac1{2T}\Tr(V^{-1}dV).
+ \label{eq:sup-covariance-difference}
+\end{equation}
+\begin{proof}
+Insert $R=TW$ and $W_j=W$ into \cref{eq:sup-nll-score,eq:sup-peer-score}. The mean quadratic and $\Tr(W^{-1}V)$ cancel in their difference, leaving \cref{eq:sup-row-constant}, which is independent of $j$. A common additive score cancels on row normalization. Differentiating the remaining $\log\det V$ gives \cref{eq:sup-covariance-difference}.
+\end{proof}
+
+At $T=1$ the score difference is $H(\mathcal N(a,V))+d/2$, with entropy measured against Lebesgue measure. It is constant for source selection, but not for variation of the receiver law. If $V$ is also fixed, the corresponding mean derivatives agree. If source covariances vary independently, or the comparison maps change them, the hypothesis of a common held $W$ no longer applies. These are restrictions on the optimization block, not alternative formulas for one universal interaction.
+
+\section{Identity self-comparisons and independent snapshots}
+
+Take $A=B=I_d$ and let a self comparison use the same random variable twice. Then $X_i-X_i=0$ identically, so
+\begin{equation}
+ \E[-\log p(o\mid X_i,X_i)]
+ =c_R+\tfrac12o^TR^{-1}o.
+ \label{eq:sup-self-cost}
+\end{equation}
+Its derivative with respect to the law of $X_i$ is zero. In \cref{eq:sup-residual-cost}, all four covariance terms cancel because $\Sigma_{ii}$ is also the cross covariance. The zero-record identity peer divergence $\KL(q_i\Vert q_i)=0$ likewise has zero total derivative.
+
+Now let $X_i$ and $\widetilde X_i$ be independent variables with the same $\mathcal N(0,I_d)$ law, and compare their difference with noise $R=TI_d$. At zero record their cost is $c_R+d/T$. Thus an identity self candidate and a distinct independent candidate with the same marginal law receive different likelihood scores, while their peer divergences are both zero. With equal source priors, the likelihood odds in favor of the identity self candidate are $e^{d/T}$.
+
+An independently sampled self snapshot realizes the second calculation. A remembered state can instead be correlated with the current state, in which case its joint law determines an intermediate or different cost through \cref{eq:sup-residual-cost}. Calling a candidate ``self'' does not select that joint law. The distinction must be fixed before computing a comparison or a receiving update.
+
+\section{Integrating the source before taking a logarithm}
+
+Let $X\sim\mathcal N(a,V)$, $Y\sim\mathcal N(b,W)$ be independent, with $V\succ0$, $W\succeq0$, and $R\succ0$. Regard $k(x\mid y)=\mathcal N(x;y,R)$ as a normalized receiver-coordinate kernel. Integrating over the sender gives $r(x)=\mathcal N(x;b,W+R)$. Therefore
+\begin{equation}
+ -\E_X\log r(X)
+ =c_{W+R}+\tfrac12\left[(a-b)^T(W+R)^{-1}(a-b)
+                       +\Tr((W+R)^{-1}V)\right].
+ \label{eq:sup-integrated-score}
+\end{equation}
+This expression compares the receiver to a noise-convolved source. It is not the peer divergence against $\mathcal N(b,W)$, even when that law is nonsingular.
+
+Subtracting \cref{eq:sup-integrated-score} from the expected negative log kernel gives the exact Jensen gap
+\begin{equation}
+ \begin{aligned}
+ G={}&\tfrac12\log\frac{\det R}{\det(W+R)}
+      +\tfrac12\Tr(R^{-1}W)\\
+ &+\tfrac12(a-b)^T\left[R^{-1}-(W+R)^{-1}\right](a-b)\\
+ &+\tfrac12\Tr\left(\left[R^{-1}-(W+R)^{-1}\right]V\right).
+ \end{aligned}
+ \label{eq:sup-gaussian-jensen}
+\end{equation}
+For completeness, $R^{-1}-(W+R)^{-1}$ is positive semidefinite: conjugating by $R^{1/2}$ reduces this assertion to $I-(I+R^{-1/2}WR^{-1/2})^{-1}\succeq0$. The first line of \cref{eq:sup-gaussian-jensen} is half the sum of $\lambda-\log(1+\lambda)$ over the nonnegative eigenvalues of $R^{-1/2}WR^{-1/2}$. Each summand is nonnegative because its derivative is $\lambda/(1+\lambda)$ and its value at zero is zero. Hence $G\geq0$, with $G>0$ whenever $W\neq0$. Averaging the conditional log density and taking the log of the integrated density remain different even at coincident means.

@@ -1,0 +1,57 @@
+\usepackage{magent_report}
+\usepackage{cleveref}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Prob}{\mathcal P}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Tr}{\operatorname{tr}}
+\newcounter{statementsequence}[chapter]
+\newcounter{definition}[chapter]
+\newcounter{lemma}[chapter]
+\newcounter{proposition}[chapter]
+\newcounter{theorem}[chapter]
+\newcounter{corollary}[chapter]
+\newcounter{remark}[chapter]
+\newcounter{openproblem}[chapter]
+\newcounter{hypothesis}[chapter]
+\makeatletter
+\@for\resulttype:=definition,lemma,proposition,theorem,corollary,remark,openproblem,hypothesis\do{%
+  \expandafter\edef\csname the\resulttype\endcsname{\noexpand\thechapter.\noexpand\arabic{\resulttype}}}
+\makeatother
+\newcommand{\resultheading}[4]{%
+  \stepcounter{statementsequence}%
+  \setcounter{#2}{\numexpr\value{statementsequence}-1\relax}%
+  \refstepcounter{#2}\label{#4}%
+  \paragraph{#1~\csname the#2\endcsname\ (#3).}}
+\newcommand{\definitionheading}[2]{\resultheading{Definition}{definition}{#1}{#2}}
+\newcommand{\constructionheading}[2]{\definitionheading{#1}{#2}}
+\newcommand{\lemmaheading}[2]{\resultheading{Lemma}{lemma}{#1}{#2}}
+\newcommand{\propositionheading}[2]{\resultheading{Proposition}{proposition}{#1}{#2}}
+\newcommand{\theoremheading}[2]{\resultheading{Theorem}{theorem}{#1}{#2}}
+\newcommand{\corollaryheading}[2]{\resultheading{Corollary}{corollary}{#1}{#2}}
+\newcommand{\remarkheading}[2]{\resultheading{Remark}{remark}{#1}{#2}}
+\newcommand{\openproblemheading}[2]{\resultheading{Open problem}{openproblem}{#1}{#2}}
+\newcommand{\hypothesisheading}[2]{\resultheading{Hypothesis}{hypothesis}{#1}{#2}}
+\crefname{definition}{definition}{definitions}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{proposition}{proposition}{propositions}
+\crefname{theorem}{theorem}{theorems}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{remark}{remark}{remarks}
+\crefname{openproblem}{open problem}{open problems}
+\crefname{hypothesis}{hypothesis}{hypotheses}
+\Crefname{definition}{Definition}{Definitions}
+\Crefname{lemma}{Lemma}{Lemmas}
+\Crefname{proposition}{Proposition}{Propositions}
+\Crefname{theorem}{Theorem}{Theorems}
+\Crefname{corollary}{Corollary}{Corollaries}
+\Crefname{remark}{Remark}{Remarks}
+\Crefname{openproblem}{Open problem}{Open problems}
+\Crefname{hypothesis}{Hypothesis}{Hypotheses}
+\setcounter{tocdepth}{1}
+\makeatletter
+\renewcommand{\@pnumwidth}{2.5em}
+\renewcommand{\@tocrmarg}{3.5em}
+\makeatother

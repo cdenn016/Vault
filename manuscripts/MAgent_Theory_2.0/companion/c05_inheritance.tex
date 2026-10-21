@@ -1,0 +1,134 @@
+\chapter{When a Collective Can Act as an Agent}
+\label{comp:inheritance}
+
+A collective can have a simple description without being able to evolve from
+that description alone. Knowing the total energy of two bodies, for example,
+does not usually determine their next interaction. A parent of law-valued
+agents faces the same question: does its retained state determine its future
+responses?
+
+There are two operations to distinguish. A channel $C$ compresses represented
+contents and gives a parent law $Q_xC$. A map $R$ retains a complete dynamical
+state $R(x)$. Besides belief and model laws, that state can include the model
+evaluator, source information, boundary channels, and memory. A distribution
+over possible contents does not automatically contain these additional data.
+
+\section{Two routes to the same parent}
+
+Suppose the fine configuration advances by $F$. Exact inherited evolution
+requires a parent update $F^c$ such that
+\begin{equation}
+ R(F(x))=F^c(R(x)).
+\end{equation}
+We can first evolve the children and then form their parent, or first form
+the parent and evolve it. Both routes must give the same retained state.
+Repeating the identity gives agreement at every later step. Boundary response
+mechanisms must likewise depend only on the retained state.
+
+\begin{figure}[t]
+\centering
+\input{companion/figures/inheritance_square}
+\caption{The two routes to the next parent configuration must agree.
+Vertical maps retain information; horizontal maps advance the dynamics.
+A compressed law alone need not make this square commute.}
+\label{fig:comp-inheritance}
+\end{figure}
+
+The immediate test is whether configurations with the same parent have the
+same next parent. If $R(x)=R(x')$ but $R(F(x))\ne R(F(x'))$, no single
+$F^c$ can satisfy the equation. Conversely, in a finite state space, this
+test is sufficient: evolve any representative of each parent state.
+Agreement within each fiber of $R$ makes the choice irrelevant. On general
+measurable spaces the resulting map must also be measurable.
+
+For stochastic dynamics, replace the next state by its distribution. If $T$
+is the fine transition matrix, the probability
+\begin{equation}
+ \sum_{y:R(y)=z'}T(x,y)
+\end{equation}
+must depend only on $R(x)$. These sums then define normalized parent rows.
+Conditioning on any parent history merely averages identical rows, so the
+parent reproduces the whole retained history law. This is strong lumpability
+\citep{KemenySnell1976}. Agreement for one equilibrium preparation is a
+weaker statement.
+
+\section{A missing role can prevent closure}
+
+Let two independent represented bits have laws
+$\operatorname{Ber}(p_1)$ and $\operatorname{Ber}(p_2)$. Their probabilities
+evolve according to
+\begin{equation}
+ \begin{aligned}
+ \dot p_1&=-p_1+\lambda(p_2-p_1),\\
+ \dot p_2&=-2p_2+\lambda(p_1-p_2),\qquad \lambda\geq0.
+ \end{aligned}
+\end{equation}
+The square $[0,1]^2$ is preserved: the derivative points inward at every
+boundary. Retain only the law of the sum of the two bits. The configurations
+$(0.8,0.2)$ and $(0.2,0.8)$ both give probabilities
+$(0.16,0.68,0.16)$ for sums $0,1,2$.
+
+Their subsequent changes differ. The coupling terms cancel when we add the
+two equations, giving
+\begin{equation}
+ \frac{d}{dt}\E(K_1+K_2)=-(p_1+2p_2).
+\end{equation}
+The derivatives are $-1.2$ and $-1.8$. Thus the same retained law has two
+different possible derivatives. Compression erased which probability belonged
+to the faster-decaying role. The fine recognition law remains a product
+throughout. What must be retained is the information this evolution uses;
+cross-agent covariance is not automatically required.
+
+\section{An exact supplied hierarchy}
+
+A finite construction shows that two successive reductions can work. Take
+$x=(a,b,c,r)\in\{0,1\}^4$, with internal register $r$ and readout
+$\rho(x)=r$. Let the agent laws be
+\begin{equation}
+ q_a=\operatorname{Ber}\left(\frac{1+2a}{4}\right),\qquad
+ s_a=\operatorname{Ber}\left(\frac{2+a}{4}\right).
+\end{equation}
+The model evaluator assigns probability $1/4+m/2$ to record value one
+when the model presentation is $m\in\{0,1\}$. Averaging over $s_a$
+gives the predictive law $\nu_a=\operatorname{Ber}(1/2+a/8)$.
+
+At each step draw independent bits $\xi,\eta,\upsilon$ with probabilities
+$1/4,1/3,1/5$ of being one, independently of previous draws, and set
+\begin{equation}
+ \begin{aligned}
+ a'&=a\mathbin\oplus\xi,\\
+ b'&=b\mathbin\oplus a\mathbin\oplus\eta,\\
+ c'&=c\mathbin\oplus b\mathbin\oplus\upsilon.
+ \end{aligned}
+\end{equation}
+Here $\oplus$ means addition modulo two. Independently of these draws,
+conditional on the current state, give $r'$ law $\nu_a$. The record is
+therefore an internal state change. Its generation rule is supplied, rather
+than deduced from the existence of an evaluator.
+
+First retain $(a,b,r)$, then retain $(a,r)$. Summing the fine transition
+over $c'$ removes a normalized factor and leaves a row independent of $c$.
+Summing that row over $b'$ removes another normalized factor and leaves a
+row independent of $b$. The configuration spaces shrink from sixteen to
+eight to four states. Both parents retain $q_a,s_a$, their evaluator, and
+the register. They reproduce the complete retained state and record
+histories for every initial law. The coupling is real, since $a$ affects
+$b'$ and $b$ affects $c'$; its triangular form permits these reductions.
+The hierarchy itself was prescribed.
+
+\section{Memory and the remaining formation problem}
+
+When closure fails, a parent can retain more state or, under a declared
+stochastic process, the conditional law of hidden states given its accessible
+history. In a finite model this is a probability vector: propagate it with
+the fine transition, restrict to the new retained value, and normalize.
+That vector determines every future response even when the current summary
+does not. Keeping only an equilibrium hidden distribution generally changes
+transient predictions.
+
+The central unfinished construction is a dynamics that chooses persistent
+blocks, hands their actual laws and interactions to parents, and then forms
+another collective from at least two such parents. The next interaction
+must be inherited, without resetting source data or adding a newly tuned
+attraction. Exact reduction explains how a chosen collective can act; it
+does not yet explain why recurring collectives form.
