@@ -1,0 +1,113 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{A Nonsmooth Route to Recurrent Formation}
+\label{comp:fusion}
+
+Smooth attraction can bring two laws progressively closer without making them equal at any finite time. An absolute-difference interaction behaves differently: its force does not vanish as the gap closes. This chapter gives a constitutive extension in which four agents form two parents, and those parents subsequently fuse under the inherited interaction. The grouping follows the evolving state; the equations contain no prescribed pairs.
+
+Pairwise convex fusion penalties and finite-time nonsmooth consensus have established precedents \citep{Hocking2011,Cortes2006}. Here the additional task is to inherit the probability laws, model evaluator, metric, and subsequent responses when fusion occurs.
+
+\section{Laws, a model, and inherited mass}
+
+Write $\operatorname{LN}(\mu,\sigma^2)$ for the law of a positive random variable whose logarithm is normal with mean $\mu$ and variance $\sigma^2$. A component containing $n$ primitive agents carries
+\begin{equation}
+q_n=\operatorname{LN}(\mu^q,1/n),\qquad
+s_n=\operatorname{LN}(\mu^s,1/n),\qquad n\geq1.
+\end{equation}
+Recognition is the product $q_n\otimes s_n$. Its normalized reference model $p_n$ is jointly Gaussian in the logarithms, with zero mean and precision
+\begin{equation}
+n\begin{pmatrix}a&-c\\-c&a\end{pmatrix},\qquad a>c>0.
+\end{equation}
+Thus the model couples the two sectors even though recognition is factorized. Its normalized conditional evaluator is
+\begin{equation}
+G_n(m,dk)=\operatorname{LN}\left(\frac ca\log m,\frac1{an}\right)(dk).
+\end{equation}
+Direct Gaussian relative entropy gives
+\begin{equation}
+\KL(q_n\otimes s_n\Vert p_n)=C+nU,\qquad
+U=\frac a2\bigl[(\mu^q)^2+(\mu^s)^2\bigr]-c\mu^q\mu^s,
+\end{equation}
+where $C=a-1-\tfrac12\log(a^2-c^2)$. The mixed term makes the belief update depend on the model coordinate and conversely. The Fisher metric of this recognition family is
+\begin{equation}
+ds^2=n\bigl[(d\mu^q)^2+(d\mu^s)^2\bigr].
+\end{equation}
+Both the metric and the local potential therefore carry the same inherited mass.
+
+A parent communicates at primitive resolution through the normalized channel
+\begin{equation}
+B_n(k,dw)=\operatorname{LN}(\log k,1-1/n)(dw).
+\end{equation}
+At $n=1$ this means the identity channel. Adding the independent log variances shows that $q_nB_n=\operatorname{LN}(\mu^q,1)$, with the analogous identity for $s_n$. This restores a primitive message law while retaining the narrower parent law internally.
+
+\section{The interaction that permits contact}
+
+All means here use common reference coordinates. In sector $\sigma\in\{q,s\}$, transform the source's restored message by
+\begin{equation}
+S_{IJ}^\sigma(w)=\exp\bigl[\chi_\sigma(\mu_I^\sigma-\mu_J^\sigma)\bigr]w,
+\qquad 0<\chi_\sigma<1.
+\end{equation}
+Its log mean moves toward the receiver. Including endpoint frames $U_I^\sigma,U_J^\sigma$ gives the displayed link $U_I^\sigma\exp[\chi_\sigma(\mu_I^\sigma-\mu_J^\sigma)](U_J^\sigma)^{-1}$, with the usual endpoint covariance under passive re-expression. The interaction depends on the laws, rather than only identifying frames.
+
+The compared message variances are both one. Consequently,
+\begin{equation}
+\sqrt{2\KL\left(\widehat\nu_I^\sigma\Vert
+ (S_{IJ}^\sigma)_\#\widehat\nu_J^\sigma\right)}
+=(1-\chi_\sigma)|\mu_I^\sigma-\mu_J^\sigma|,
+\end{equation}
+where the displayed comparison is in a common reference presentation and $\widehat\nu$ denotes a restored law. Rescaling the coefficient by $1/(1-\chi_\sigma)$ gives an absolute-difference penalty with strength $\lambda>0$. The square root is the new constitutive choice. It changes the smooth quadratic peer penalty into a convex function with a corner at equality.
+
+On the complete contact graph, the energy apart from constants is
+\begin{equation}
+\mathcal E=\sum_I n_IU_I+
+\lambda\sum_{I<J}n_In_J
+\left(|\mu_I^q-\mu_J^q|+|\mu_I^s-\mu_J^s|\right).
+\end{equation}
+The coefficient $n_In_J$ counts primitive contacts. With unit Fisher mobility the evolution is $n_I\dot\mu_I\in-\partial_{\mu_I}\mathcal E$. The subgradient of $|x|$ is its sign away from zero and the interval $[-1,1]$ at zero.
+
+Convexity makes this evolution unique. For two solutions, the derivative of their squared distance in the fixed mass metric is the negative pairing of the state difference with a subgradient difference, hence is nonpositive. Coincident primitive agents are interchangeable in the complete-graph equations. Uniqueness then keeps them equal after contact. Sticking follows from the same dynamics that brought them together.
+
+\section{Two successive formation events}
+
+Consider the invariant family
+\begin{equation}
+\mu_i^q=u_i+v,\qquad \mu_i^s=u_i-v,\qquad
+v(t)=v_0e^{-(a+c)t}.
+\end{equation}
+Both sectors have the same interagent gaps, so their interaction forces cancel in the equation for $v$. Set $\kappa=a-c>0$ and introduce
+\begin{equation}
+u_i(t)=e^{-\kappa t}z_i(\tau),\qquad
+\tau=\frac{e^{\kappa t}-1}{\kappa}.
+\end{equation}
+This removes the common linear contraction. Before collisions,
+\begin{equation}
+\frac{dz_I}{d\tau}=-\lambda\sum_{J\ne I}n_J\operatorname{sign}(z_I-z_J).
+\end{equation}
+Start four primitive agents at $z=(-3d,-2d,2d,3d)$, with $d>0$. Their slopes are $(3\lambda,\lambda,-\lambda,-3\lambda)$. Each neighboring outer pair closes a gap $d$ at relative speed $2\lambda$. The resulting stages are
+\begin{center}
+\begin{tabular}{lll}
+Time & Positions in $z$ & Masses\\
+$0$ & $-3d,-2d,2d,3d$ & $1,1,1,1$\\
+$\tau_1=d/(2\lambda)$ & $-3d/2,3d/2$ & $2,2$\\
+$\tau_2=5d/(4\lambda)$ & $0$ & $4$
+\end{tabular}
+\end{center}
+After the first event, the parents have slopes $2\lambda$ and $-2\lambda$. Their remaining gap $3d$ closes in another $3d/(4\lambda)$. Physical event times are $t_r=\kappa^{-1}\log(1+\kappa\tau_r)$. No coupling or mobility is retuned at the second level.
+
+\section{What the parent retains}
+
+At synchronization, independent log samples with a common mean have an average of variance $1/n$. Exponentiating that average gives the geometric-mean retention and the stated parent law. Restricting the primitive Fisher metric to equal location coordinates gives the factor $n$. Summing contact forces gives $n_In_J$, so the reduced dynamics use exactly the inherited metric and contacts. Redundant location coordinates are removed after synchronization; an average of separated children is not claimed to close their dynamics.
+
+Individual sample distinctions require care. If $X$ is the retained log average, the entire primitive vector is reconstructed as
+\begin{equation}
+(X_1,\ldots,X_n)=X\mathbf1+R,\qquad
+R\sim N\left(0,I-\frac{\mathbf1\mathbf1^T}{n}\right),
+\end{equation}
+with $R$ independent of $X$. The residuals sum to zero and are correlated. Independent scalar applications of $B_n$ to one reused parent sample preserve individual marginals but give the wrong joint law.
+
+Fresh record sampling also closes explicitly. Applying $G_n$ to $s_n$ gives
+\begin{equation}
+\operatorname{LN}\left(\frac ca\mu^s,
+\frac{(c/a)^2+1/a}{n}\right),
+\end{equation}
+the law of the geometric mean of $n$ fresh primitive model records. A primitive record instead uses a fresh restored model sample followed by $G_1$. These are exact statements for the declared fresh sampling protocols; they do not establish closure for sampled-record feedback into the dynamics.
+
+This extension establishes recurrent fusion on the common-$v$ invariant family. It produces eventual global consensus, rather than persistent community diversity. The square-root penalty is a constitutive addition, formation under the original smooth KL dynamics remains open, and no geometry of the context base is derived.

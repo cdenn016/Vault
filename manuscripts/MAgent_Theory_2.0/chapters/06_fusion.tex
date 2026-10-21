@@ -1,0 +1,422 @@
+\chapter{Finite Fusion with Exact Statistical Inheritance}
+\label{ch:fusion}
+
+We now construct a population whose dynamics selects persistent blocks and
+then fuses the resulting parents. Pairwise fusion penalties occur in convex
+clustering \cite{Hocking2011}, and suitable nonsmooth consensus protocols
+produce finite-time agreement \cite{Cortes2006}. The construction here also
+specifies the represented laws, model evaluator, gauge transport, parent
+metric, and boundary kernels. Its peer potential is a new nonsmooth
+square-root-KL interaction. It is distinct from the smooth KL potential of
+the preceding dynamics chapter.
+
+\section{A law family closed under geometric averaging}
+
+Work over one context, with state and model spaces
+$\mathsf K=\mathsf M=(0,\infty)$. Write
+$\operatorname{LN}(\mu,\sigma^2)$ for the law of $e^Z$ when
+$Z\sim N(\mu,\sigma^2)$. An agent of integer multiplicity $n\geq1$ carries
+the product law
+\begin{equation}
+ q_n=\operatorname{LN}(\mu^q,1/n),\qquad
+ s_n=\operatorname{LN}(\mu^s,1/n),\qquad
+ \zeta_n=q_n\otimes s_n.
+ \label{fus:law-family}
+\end{equation}
+Multiplicity is retained state information. The variances are fixed within
+each type; only the two log means evolve. Laws are first written in a common
+reference coordinate. A fixed positive frame
+$U_i^q=U_i^s=:U_i\in\GL^+(1)$ represents both sectors locally by
+multiplication. Frames do not evolve in this example.
+
+Choose constants $a>c>0$ and define the normalized reference and evaluator
+\begin{equation}
+ r_n=\operatorname{LN}\left(0,\frac{a}{n(a^2-c^2)}\right),\qquad
+ G_n(m,dk)=\operatorname{LN}\left(\frac ca\log m,\frac1{an}\right)(dk).
+ \label{fus:evaluator}
+\end{equation}
+The two occurrences of a lognormal expression in this equation denote
+ordinary probability laws and kernels. In logarithmic coordinates the joint
+reference $r_n(dm)G_n(m,dk)$ has precision
+\begin{equation}
+ nA,\qquad A=\begin{pmatrix}a&-c\\-c&a\end{pmatrix}.
+ \label{fus:precision}
+\end{equation}
+Its eigenvalues $n(a-c)$ and $n(a+c)$ are positive. The predictive law is
+\begin{equation}
+ s_nG_n=\operatorname{LN}\left(
+ \frac ca\mu^s,\frac{(c/a)^2+1/a}{n}\right).
+ \label{fus:predictive-law}
+\end{equation}
+Thus the evaluator depends on the represented model value. Physical
+references and evaluators are obtained by pushing both coordinates through
+the common local frame.
+
+\propositionheading{Local energy and metric}{fus:local-inheritance}
+For every $n\geq1$ and every pair of real means, let
+\begin{equation}
+ C=a-1-\frac12\log(a^2-c^2),\qquad
+ \mathcal U(\mu^q,\mu^s)
+ =\frac a2\bigl((\mu^q)^2+(\mu^s)^2\bigr)-c\mu^q\mu^s.
+\end{equation}
+Then
+\begin{equation}
+ E_{0,n}=\KL(q_n\otimes s_n\|r_nG_n)
+ =C+n\mathcal U,\qquad
+ g_n=n\bigl((d\mu^q)^2+(d\mu^s)^2\bigr).
+ \label{fus:local-formulas}
+\end{equation}
+
+\noindent\emph{Proof.}
+The logarithm is a measurable bijection, so it preserves KL divergence.
+The recognition law in log coordinates has covariance $I_2/n$, while the
+reference has covariance $A^{-1}/n$. The Gaussian KL formula gives
+\begin{equation}
+ E_{0,n}=\frac12\left[
+ \operatorname{tr}A-2-\log\det A
+ +n(\mu^q,\mu^s)A(\mu^q,\mu^s)^{\mathsf T}\right],
+\end{equation}
+which is the stated expression. The score for either mean is
+$n(Z-\mu)$, whose squared expectation is $n$. The product law has zero
+cross score expectation, giving the displayed Fisher metric. $\square$
+
+For independent synchronized children of multiplicities $n_j$, set
+$n_I=\sum_{j\in I}n_j$. Their retained reference samples are
+\begin{equation}
+ k_I=\prod_{j\in I}k_j^{n_j/n_I},\qquad
+ m_I=\prod_{j\in I}m_j^{n_j/n_I}.
+ \label{fus:sample-retention}
+\end{equation}
+Weighted log averages have variance
+$\sum_j(n_j/n_I)^2/n_j=1/n_I$. The same calculation for the joint
+reference gives $r_{n_I}G_{n_I}$. Conditional log observation noise has
+variance $\sum_j(n_j/n_I)^2/(an_j)=1/(an_I)$, so the evaluator itself
+is inherited. Physical samples are first returned through $U_j^{-1}$ and
+the retained sample is expressed in a chosen parent frame $U_I$.
+
+\section{Messages and state-dependent scalar links}
+
+Define a normalized message kernel by
+\begin{equation}
+ B_n(k,dw)=\operatorname{LN}(\log k,1-1/n)(dw),
+ \label{fus:message-kernel}
+\end{equation}
+interpreting $B_1(k,dw)=\delta_k(dw)$. It restores unit log variance:
+$q_nB_n=\operatorname{LN}(\mu^q,1)$ and
+$s_nB_n=\operatorname{LN}(\mu^s,1)$. These messages give all multiplicities
+a common comparison family.
+
+Model prediction also commutes with this interface. Put
+$h=(c/a)^2+1/a$ and define
+$B_n^h(k,dw)=\operatorname{LN}(\log k,h(1-1/n))(dw)$, again using the
+identity at $n=1$. Both routes in the kernel identity
+\begin{equation}
+ G_nB_n^h=B_nG_1
+ \label{fus:evaluator-square}
+\end{equation}
+have conditional log mean $(c/a)\log m$ and variance
+$h-(c/a)^2/n$. Integrating against $s_n$ gives
+\begin{equation}
+ (s_nB_n)G_1=(s_nG_n)B_n^h
+ =\operatorname{LN}\left(\frac ca\mu^s,h\right).
+ \label{fus:predictive-square}
+\end{equation}
+Thus a parent can emit the original predictive message by either normalized
+route.
+
+For each sector $\nu\in\{q,s\}$, choose a fixed $0<\chi_\nu<1$ and set
+\begin{equation}
+ L_{ij}^\nu=\chi_\nu(\mu_i^\nu-\mu_j^\nu),\qquad
+ \Theta_{ij}^\nu=U_i\exp(L_{ij}^\nu)U_j^{-1}.
+ \label{fus:links}
+\end{equation}
+Under a local change of frame $U_i\mapsto h_iU_i$, the physical transport
+changes to $h_i\Theta_{ij}^\nu h_j^{-1}$. The reference means and
+$L_{ij}^\nu$ remain unchanged. This supplies nonidentity, law-dependent
+positive scalings when means differ. The chosen scalar links have trivial
+cycle product; no curvature claim is needed.
+
+Transport of the reference message from $j$ shifts its log mean to
+$\mu_j^\nu+\chi_\nu(\mu_i^\nu-\mu_j^\nu)$. Consequently the directed
+comparison cost
+\begin{equation}
+ d_{ij}^\nu=
+ \frac{\sqrt{2\KL\bigl(
+ \operatorname{LN}(\mu_i^\nu,1)\|
+ (\exp L_{ij}^\nu)_{\#}\operatorname{LN}(\mu_j^\nu,1)
+ \bigr)}}{1-\chi_\nu}
+ =|\mu_i^\nu-\mu_j^\nu|
+ \label{fus:distance}
+\end{equation}
+is gauge invariant. The equality includes the dependence of the link on
+both endpoint laws. For unequal means, differentiating its log-mean
+residual gives
+\begin{equation}
+ \partial_{\mu_i^\nu}
+ \bigl[\mu_i^\nu-\mu_j^\nu-L_{ij}^\nu\bigr]=1-\chi_\nu.
+\end{equation}
+This factor cancels the denominator in \eqref{fus:distance}. Holding the
+link fixed while differentiating would give a different dynamics.
+
+\section{The continuous subgradient dynamics}
+
+For multiplicities $n_i$ with total $N=\sum_i n_i$, choose $\lambda>0$ and
+the potential
+\begin{equation}
+ \mathcal F(\boldsymbol\mu)
+ =\sum_i n_i\bigl[C+\mathcal U(\mu_i^q,\mu_i^s)\bigr]
+ +\lambda\sum_{i<j}n_in_j
+ \bigl(|\mu_i^q-\mu_j^q|+|\mu_i^s-\mu_j^s|\bigr).
+ \label{fus:potential}
+\end{equation}
+All contacts are fixed and present. If source rows are recorded, take
+$\beta_{ij}=\gamma_{ij}=n_j/N$, including self entries. Summing child
+entries gives exactly the same parent row. Self comparison costs vanish,
+while their row mass records the corresponding contact multiplicity.
+There is no Gibbs row adaptation. The local term has the stated KL origin;
+no fixed sample-model ELBO identity is asserted for the entire potential.
+
+With $M=\operatorname{diag}(n_1,n_1,\ldots)$, define the flow on
+$\R^{2r}$, for $r$ current agents, by
+\begin{equation}
+ M\dot{\boldsymbol\mu}\in-\partial\mathcal F(\boldsymbol\mu).
+ \label{fus:inclusion}
+\end{equation}
+Solutions are absolutely continuous in the external time $t\geq0$ and
+satisfy this inclusion almost everywhere. There are no boundaries or
+stochastic driving terms. Both law sectors have the same basic mobility;
+the factor $1/n_i$ comes from their inherited Fisher metric. In coordinates,
+\begin{align}
+ \dot\mu_i^q&=-a\mu_i^q+c\mu_i^s
+ -\lambda\sum_{j\ne i}n_j\sigma_{ij}^q,\\
+ \dot\mu_i^s&=-a\mu_i^s+c\mu_i^q
+ -\lambda\sum_{j\ne i}n_j\sigma_{ij}^s,
+ \label{fus:coordinate-flow}
+\end{align}
+where $\sigma_{ij}^\nu=-\sigma_{ji}^\nu$ belongs to
+$\operatorname{Sign}(\mu_i^\nu-\mu_j^\nu)$ and
+$\operatorname{Sign}(0)=[-1,1]$.
+
+\lemmaheading{Uniqueness and persistence}{fus:uniqueness}
+Two solutions of \eqref{fus:inclusion} with the same masses obey
+\begin{equation}
+ \|\boldsymbol\mu(t)-\widetilde{\boldsymbol\mu}(t)\|_M
+ \leq e^{-(a-c)t}
+ \|\boldsymbol\mu(0)-\widetilde{\boldsymbol\mu}(0)\|_M.
+ \label{fus:contraction}
+\end{equation}
+On any interval where a solution exists, synchronized unit-mass children
+remain synchronized in both sectors.
+
+\noindent\emph{Proof.}
+The quadratic part is $(a-c)$-strongly convex in the $M$ metric and the
+absolute-value part is convex. For subgradients $\xi,\widetilde\xi$ at
+two configurations, monotonicity gives
+\begin{equation}
+ \langle\xi-\widetilde\xi,
+ \boldsymbol\mu-\widetilde{\boldsymbol\mu}\rangle
+ \geq(a-c)\|\boldsymbol\mu-\widetilde{\boldsymbol\mu}\|_M^2.
+\end{equation}
+Substitution from \eqref{fus:inclusion} and integration proves
+\eqref{fus:contraction}. Swapping two equal unit-mass children preserves
+the initial configuration, potential, and metric. Uniqueness therefore
+preserves their equality. This argument concerns the full two-sector
+system, not a restricted scalar equation. $\square$
+
+\section{An invariant class with explicit global solutions}
+
+\theoremheading{Finite sticking on a common-offset family}{fus:sticking}
+Let all initial masses be one and suppose
+\begin{equation}
+ \mu_i^q(0)=u_i^0+v_0,\qquad
+ \mu_i^s(0)=u_i^0-v_0,
+ \label{fus:admitted-class}
+\end{equation}
+where the $u_i^0$ are distinct real numbers and $v_0\ne0$. There is a
+unique global solution of the full inclusion for these initial data.
+Both sectors have the form
+\begin{equation}
+ \mu_i^q=u_i+v,\qquad \mu_i^s=u_i-v,\qquad
+ v(t)=v_0e^{-(a+c)t}.
+ \label{fus:invariant-form}
+\end{equation}
+Blocks formed by equal $u_i$ persist and follow the mass-weighted version
+of the same equation.
+
+\noindent\emph{Proof.}
+Set $\kappa=a-c>0$. Equal sector orderings reduce
+\eqref{fus:coordinate-flow} to
+\begin{equation}
+ \dot u_i\in-\kappa u_i-\lambda\sum_{j\ne i}n_j
+ \operatorname{Sign}(u_i-u_j),\qquad
+ \dot v=-(a+c)v.
+\end{equation}
+Introduce the increasing auxiliary time and rescaled positions
+\begin{equation}
+ \tau(t)=\frac{e^{\kappa t}-1}{\kappa},\qquad
+ u_i(t)=e^{-\kappa t}z_i(\tau(t)).
+ \label{fus:time-change}
+\end{equation}
+Since $\dot\tau=e^{\kappa t}>0$, direct differentiation gives
+\begin{equation}
+ z_i'\in-\lambda\sum_{j\ne i}n_j\operatorname{Sign}(z_i-z_j).
+ \label{fus:sticky-flow}
+\end{equation}
+An ordered block has constant velocity
+$\lambda(M_{\rm right}-M_{\rm left})$ between collisions. Adjacent blocks
+approach with relative speed $\lambda(n_I+n_J)>0$. At their collision,
+join their masses, retain the common position, and use the new velocity
+$\lambda(M_{\rm right}-M_{\rm left})$. This equals the mass-weighted
+average of their velocities just before collision. Choosing zero internal
+subgradients verifies the original inclusion for every constituent child
+after collision. Each event reduces the number of blocks, so at most
+$N-1$ events occur, and the resulting piecewise-linear curve exists for
+all $\tau\geq0$. Reversing \eqref{fus:time-change} constructs a global
+full-system solution. \Cref{fus:uniqueness} makes it unique. $\square$
+
+The class \eqref{fus:admitted-class} has a common difference between its
+two sector means. This is an initial-data restriction, not an imposed
+constraint force. It is a proper submanifold of the full parameter space.
+The two laws of each agent remain distinct at every finite time because
+$v(t)\ne0$. The auxiliary $\tau$ is a monotone reparameterization of this
+solution, not a geometric or operational clock.
+
+\section{Two formation stages without a supplied partition}
+
+\theoremheading{Four agents form two parents and then one}{fus:two-stages}
+In \cref{fus:sticking}, take four agents with the unordered initial set
+\begin{equation}
+ \{u_i^0\}=\{-3d,-2d,2d,3d\},\qquad d>0.
+\end{equation}
+Two size-two blocks form at $t_1$ and remain distinct until $t_2>t_1$, where
+they fuse under their inherited equations, with
+\begin{equation}
+ t_1=\frac1\kappa\log\left(1+\frac{\kappa d}{2\lambda}\right),\qquad
+ t_2=\frac1\kappa\log\left(1+\frac{5\kappa d}{4\lambda}\right).
+ \label{fus:collision-times}
+\end{equation}
+
+\noindent\emph{Proof.}
+In sorted order, the initial $z$ velocities are
+$(3\lambda,\lambda,-\lambda,-3\lambda)$. The two outer gaps close at
+$\tau_1=d/(2\lambda)$, leaving parent positions $-3d/2$ and $3d/2$.
+Their inherited masses are two and their velocities are $2\lambda$ and
+$-2\lambda$. Their gap closes after another $3d/(4\lambda)$, giving
+$\tau_2=5d/(4\lambda)$. Inverting \eqref{fus:time-change} gives
+\eqref{fus:collision-times}. $\square$
+
+Exact reflection symmetry is unnecessary. For four sorted initial positions,
+let their adjacent gaps be $g_1,g_2,g_3>0$, and put $H=\max(g_1,g_3)$.
+If
+\begin{equation}
+ D=g_2+\frac{g_1+g_3}{2}-2H>0,
+ \label{fus:open-gap-condition}
+\end{equation}
+both outer pairs form by $\tau_*=H/(2\lambda)$. To check that no middle
+collision intervenes, first note that $D>0$ implies $g_2>H$, so a middle
+collision cannot occur first. Suppose $g_1\leq g_3$. At the first outer collision
+the middle gap is $g_2-g_1$; afterward it decreases at speed $3\lambda$
+until the other outer pair collides at $g_3/(2\lambda)$. Its value there
+is $D>0$. The case $g_3\leq g_1$ is the reflected calculation. The two
+parent gap then decreases at speed $4\lambda$, and the final time is
+\begin{equation}
+ \tau_{\rm final}=\tau_*+\frac{D}{4\lambda}
+ =\frac{2g_2+g_1+g_3}{8\lambda}.
+\end{equation}
+Condition \eqref{fus:open-gap-condition} is strict and defines an open
+set relative to the ordered common-offset family. Taking all label
+permutations gives an admitted class with no assigned labels for blocks.
+The initial laws are unequal across agents, and the interaction rule
+contains no partition. Membership is selected by attained equality.
+
+\section{The inherited handoff and its scope}
+
+At a collision, restrict a block $I$ to its common means. Summing its local
+energies and pulling back its metric gives
+\begin{equation}
+ \sum_{i\in I}n_i(C+\mathcal U)
+ =n_I(C+\mathcal U)=E_{0,n_I}+(n_I-1)C,\qquad
+ g_I=n_I\bigl((d\mu_I^q)^2+(d\mu_I^s)^2\bigr).
+\end{equation}
+Every external pair term sums to
+$n_In_J|\mu_I^\nu-\mu_J^\nu|$. Zero internal subgradients therefore
+lift each solution of the inherited equation to a fine solution. Uniqueness
+identifies that lift with the original trajectory. This also proves
+persistence for inherited masses by expanding a mass into synchronized
+unit children. With $R$ retaining block means, masses, and frames, the
+corresponding parameter flows satisfy the following identity. For a fixed
+formed partition, keep both component index sets fixed even when further
+components coincide; a later merger is a separate retention composed with
+$R$. Then
+\begin{equation}
+ R\circ\Phi_t=\Phi_t^c\circ R
+ \label{fus:flow-square}
+\end{equation}
+on every synchronized stratum reached by the construction, for all future
+times. Weighted geometric averaging is associative, so later collisions
+give the same retained laws as direct averaging. The state is continuous
+at a collision; the velocity changes through the inherited mass sum.
+
+Along the constructed continuous trajectory, ordinary differentiation on
+each interval between collisions gives
+\begin{equation}
+ \frac{d\mathcal F}{dt}
+ =-\sum_i n_i\bigl((\dot\mu_i^q)^2+(\dot\mu_i^s)^2\bigr)
+ \quad\text{almost everywhere}.
+\end{equation}
+The objective is continuous at collisions when the constants above are
+retained. Comparing with the stationary configuration having every mean
+zero in \eqref{fus:contraction} proves convergence to that configuration
+for the admitted initial data. No discrete numerical update has been
+specified, so this calculation makes no discrete-step assertion.
+
+Sample retention is genuinely noninjective: different positive sample
+vectors have the same geometric mean. For $n$ synchronized unit children,
+their log samples conditional on the retained log mean $\bar Z$ have law
+\begin{equation}
+ (Z_1,\ldots,Z_n)\mid\bar Z
+ \sim N\left(\bar Z\mathbf1,
+ I_n-\frac{\mathbf1\mathbf1^{\mathsf T}}n\right).
+ \label{fus:reconstruction}
+\end{equation}
+The residual is independent of the mean: their joint Gaussian cross
+covariance is zero. Exponentiation gives a normalized joint reconstruction
+kernel. Its one-child marginal is \eqref{fus:message-kernel}. Independent
+residuals for all children would be incorrect because the off-diagonal
+conditional covariances are $-1/n$. Generative joint samples similarly use
+the covariance of $(\log m,\log k)$ under $s_1G_1$; their
+residual kernel is determined by that covariance, not by the recognition
+product law. The local KL residual $(n-1)C$ records the corresponding
+state-independent information loss under the reference comparison.
+
+Parameter retention has a narrower meaning. On an exactly synchronized
+stratum, child means are redundant copies; retaining their common value
+does not identify different nonsynchronized configurations. Away from that
+stratum, a block average need not determine its external sign forces.
+Equation~\eqref{fus:flow-square} makes no claim about such hidden parameter
+fibers.
+
+The admitted boundary protocol draws fresh messages through $B_n$, fresh
+predictive messages through \eqref{fus:predictive-square}, or complete
+fresh represented samples through the joint reconstruction. To type an
+accessible stored readout, augment the complete population configuration by
+$o\in\mathsf O=(0,\infty)$ and set $\rho(\boldsymbol\mu,\boldsymbol n,o)=o$.
+At declared epochs, the transition $\Gamma$ advances the deterministic
+parameter flow and overwrites $o$ using the selected normalized scalar
+output kernel. Between epochs, $o$ is fixed, and it never enters the mean
+equation. Retention copies this accessible $o$ exactly; it does not claim
+access to cached private residual samples. For vector readouts the same
+definition uses the corresponding finite product space and joint kernel.
+Equal parameter trajectories and conditional output kernels imply equal
+joint accessible readout laws for every finite sequence of such queries,
+by multiplying successive conditional kernels. Reusing persistent latent
+samples or introducing record feedback requires another state specification.
+
+\openproblemheading{Formation under smooth peer KL dynamics}{fus:smooth-open}
+The finite mergers above depend on a constitutive nonsmooth interaction.
+For a locally Lipschitz vector field with an invariant synchronization
+manifold, an interior trajectory cannot first reach that manifold in finite
+time: local backward uniqueness would identify its preceding segment with
+the manifold trajectory. Establishing recursive formation for the smooth
+KL dynamics therefore requires a different formation criterion or an
+additional mechanism, together with its own inherited closure calculation.
