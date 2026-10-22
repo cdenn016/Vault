@@ -19,7 +19,7 @@ q_j\longrightarrow(T_j)_\#q_j\longrightarrow\text{noise}\longrightarrow\text{dec
 \end{equation}
 Two different objects are built from the same maps. The composite of a sending and a receiving map has rank at most the width of the message space and is lossy. An exponentiated link with a generator of the same form is invertible and loses nothing. This document keeps them apart: each directed edge carries an invertible dictionary, which is the gauge field, and each modality carries a lossy code.
 
-The main results are these. The receiver's decoder is not a free map: for linear Gaussian codes it is the gain computed from the receiver's own prior covariance, and the reconstructed belief adopts the sender's belief along the communicated directions while keeping the receiver's own belief along the discarded ones (\cref{it1:gaussian-reconstruction}). For general laws and a noiseless code, the meaning lost in transmission equals the total disagreement minus the disagreement visible through the code (\cref{it1:loss}). Coded messages identify the dictionary only up to the subgroup that leaves the code unchanged, a subgroup of dimension $K(K-r)$ in $\GL(K,\R)$ for a code of rank $r$ (\cref{it1:identifiability}); several modalities sharing one dictionary identify it up to the intersection of their stabilizers, so overlapping modalities help less than independent ones (\cref{it1:modalities}). Exact consensus of transported beliefs is possible exactly on the common fixed space of the holonomies of the communication graph, so nontrivial holonomy on a loop is an obstruction to agreement, a dissonance (\cref{it1:consensus}). Finally, with $n$ coded messages per exchange the posterior over who was heard behaves as a Gibbs row at temperature $1/n$ whose costs are divergences between message laws, not between full beliefs (\cref{it1:bandwidth}).
+The main results are these. The receiver's decoder is not a free map: for linear Gaussian codes it is the gain computed from the receiver's own prior covariance, and the reconstructed belief adopts the sender's belief along the communicated directions while keeping the receiver's own belief along the discarded ones (\cref{it1:gaussian-reconstruction}). For general laws and a noiseless code, the meaning lost in transmission equals the total disagreement minus the disagreement visible through the code (\cref{it1:loss}). Coded messages identify the dictionary only up to the subgroup that leaves the code unchanged, a subgroup of dimension $K(K-r)$ in $\GL(K,\R)$ for a code of rank $r$ (\cref{it1:identifiability}); several modalities sharing one dictionary identify it up to the intersection of their stabilizers, so overlapping modalities help less than independent ones (\cref{it1:modalities}). Exact consensus of transported beliefs is possible exactly on the common fixed space of the holonomies of the communication graph, so nontrivial holonomy on a loop is an obstruction to agreement, a dissonance (\cref{it1:consensus}). Finally, with $n$ coded messages per exchange the posterior over who was heard behaves as a Gibbs row at temperature $1/n$ whose costs are divergences between message laws, not between full beliefs (\cref{it1:bandwidth}). Learning the dictionaries from grounded messages under a prior that penalizes holonomy concentrates the recognition law on the identified coset, and within it the loop term fills exactly those invisible directions that create holonomy (\cref{it1:learning}). These are the same directions in which a true dissonance would go undetected and be absorbed into the dictionaries (\cref{it1:complementary}). A pair detects its mutual misunderstanding only in what both can say and repairs its dictionaries through reciprocity in what at least one can say (\cref{it1:pair}), and loops through third agents can fix directions that no pair can (\cref{it1:unreachable,it1:complete-exchange}).
 
 Every identity was also checked numerically at small sizes; the checks support the instances tested and are not proofs.
 
@@ -257,7 +257,7 @@ For orthogonal links on undirected graphs with the inverse convention this is th
 \definitionheading{Dissonance of a loop}{it1:dissonance}
 The dissonance of a directed closed walk $\gamma$ is the conjugacy class of $H_\gamma$. A plaquette, a shortest cycle of $\Gamma$, is consonant when its holonomy is the identity and dissonant otherwise. A quantitative label is any conjugation-invariant defect of $H_\gamma$, for example $\Vert H_\gamma-I\Vert_F$ for orthogonal dictionaries; for general dictionaries the main manuscript's law-dressed loop defect supplies an invariant measure.
 
-Two limits on what dissonance can affect follow from the earlier chapters. Agents test agreement only through codes, so the consensus they can detect is the weaker condition $\bar T_j^c(\mu_j-\bar\theta_{ij}^{-1}\mu_i)=0$ for every edge and modality, and dissonance in directions that no code reads is never detected. And a law that is invariant under part of a holonomy, such as an isotropic belief under a rotation, cannot register that part; the main manuscript's loop-blindness proposition states this at the level of laws.
+Two limits on what dissonance can affect follow from the earlier chapters. Agents test agreement only through codes, so the consensus they can detect is the weaker condition $\bar T_j^c(\mu_j-\bar\theta_{ij}^{-1}\mu_i)=0$ for every edge and modality, and dissonance in directions that no code reads is never detected; \cref{it1:complementary} makes this precise for learned dictionaries. And a law that is invariant under part of a holonomy, such as an isotropic belief under a rotation, cannot register that part; the main manuscript's loop-blindness proposition states this at the level of laws.
 
 \chapter{Bandwidth and source rows}
 \label{it1:ch-bandwidth}
@@ -274,11 +274,213 @@ By Bayes' rule the left side is $\frac1n\log(\pi_j/\pi_k)+\frac1n\sum_{t\leq n}[
 
 To leading exponential order, the posterior over who was heard is the Gibbs row $\pi_je^{-\KL(\nu\Vert\nu_j)/T}/Z$ at temperature $T=1/n$, the posterior concentration of a possibly misspecified model \citep{Berk1966}. The costs are divergences between message laws, which are code-visible divergences: by data processing they are at most the corresponding divergences between full beliefs, with equality exactly when the code is sufficient. The law-level peer costs of the main manuscript's reciprocal potential therefore arise in the limit of many messages through an injective, noiseless code; its registered-agreement theorem gives an exact finite-$n$ version for type registration. Finite bandwidth means both a finite temperature and a selective cost.
 
+\chapter{Learning the dictionaries}
+\label{it1:ch-learning}
+
+The receiver owns its dictionaries and has to learn them. \Cref{it1:identifiability} says what messages can teach: a coset of the stabilizer of the code. This chapter asks what a prior that rewards agreement around loops adds to that, and answers the question exactly in the tangent model, the linearization at the identity dictionaries. The identity is the natural prior mean. Before any exchange the receiver assumes that the sender means what it would mean itself.
+
+\section{The tangent model}
+
+\definitionheading{Tangent learning model}{it1:tangent-model}
+Let $\Gamma$ be a finite communication graph with vertex set $\mathcal V$ and edge set $\mathcal E$, and let the edge $e:j\to i$ carry receiver $i$'s generator $\omega_e=\omega_{ij}\in\mathfrak g\subseteq\mathfrak{gl}(K,\R)$, so that $\omega=(\omega_e)_e\in X=\mathfrak g^{\mathcal E}$. Write $\bar T_e$ for the stacked code of the modalities with $\beta^{(c)}_{ij}>0$ in \cref{it1:routed}. Let $\mathcal L$ be a finite set of directed closed walks of $\Gamma$ that contains every two-cycle, and define the linearized holonomy $B:X\to\mathfrak g^{\mathcal L}$ by $(B\omega)_\gamma=\sum_{e\in\gamma}\omega_e$, an edge being counted as often as $\gamma$ traverses it. The tangent learning model consists of the prior law with density proportional to
+\begin{equation}
+\exp\Bigl(-\tfrac12\omega^T\Pi_0\omega-\tfrac\lambda2\sum_{\gamma\in\mathcal L}\Vert(B\omega)_\gamma\Vert_{W_\gamma}^2\Bigr),
+\label{it1:loop-prior}
+\end{equation}
+where $\Pi_0$ is positive definite on $X$, $\lambda\geq0$, and each $W_\gamma$ is a positive-definite quadratic form on $\mathfrak g$, with $W=\bigoplus_\gamma W_\gamma$; and of the messages that $i$ attributes to $j$, with observed labels as in \cref{it1:routed}(i), each produced from a referent $\bar y\sim\rho$ with second moment $M$ positive definite as
+\begin{equation}
+h=\bar T_e^c(I-\omega_e)\bar y+\varepsilon,\qquad\varepsilon\sim\mathcal N(0,R_c).
+\label{it1:tangent-message}
+\end{equation}
+
+The prior is Gaussian with precision $\Lambda_0=\Pi_0+\lambda B^TWB$, which is positive definite, so the prior is normalized for every $\lambda\geq0$. The message model is the first-order form of \cref{it1:grounded-model} at $\bar\theta_e=e^{\omega_e}$, and $(B\omega)_\gamma$ is the first-order form of $\log H_\gamma$. By the Baker--Campbell--Hausdorff formula both errors are of second order in $\omega$; for a fixed triangle the numerical check finds $\vert\log H_\gamma-(B\omega)_\gamma\vert/\epsilon^2=2.31$ at $\epsilon=10^{-2}$ and at $\epsilon=10^{-3}$. Inside the tangent model the likelihood is Gaussian and linear in $\omega$. The recognition law, here the exact posterior, is therefore Gaussian after any number of messages and is updated one message at a time by the information filter
+\begin{equation}
+\Lambda\leftarrow\Lambda+J_t^TR_c^{-1}J_t,\qquad
+\eta\leftarrow\eta+J_t^TR_c^{-1}\bigl(h_t-\bar T_e^c\bar y_t\bigr),\qquad
+J_t\omega=-\bar T_e^c\omega_e\bar y_t,
+\label{it1:information-filter}
+\end{equation}
+started at $(\Lambda_0,0)$, with mean $\Lambda^{-1}\eta$ and covariance $\Lambda^{-1}$.
+
+A change of the common reference coordinates by $h\in G$ acts by $\omega_e\mapsto h^{-1}\omega_eh$ under reference consistency, and then $(B\omega)_\gamma\mapsto h^{-1}(B\omega)_\gamma h$. The loop term is invariant when each $W_\gamma$ is. The Frobenius norm is invariant under orthogonal $h$. For $\GL(K,\R)$ the dressed norm $\Vert X\Vert_\Sigma^2=\Tr(X^T\Sigma^{-1}X\Sigma)$, with $\Sigma$ the reference covariance of the belief of the agent at which $\gamma$ is based, satisfies $\Vert h^{-1}Xh\Vert^2_{h^{-1}\Sigma h^{-T}}=\Vert X\Vert^2_\Sigma$. A law is needed here because $\mathfrak{gl}(K,\R)$ carries no conjugation-invariant positive-definite form for $K\geq2$: conjugation by $\operatorname{diag}(t,1,\ldots,1)$ multiplies $E_{12}$ by $t$. The anchor $\Pi_0$ need not be invariant, since it expresses the receiver's expectation in its own reference coordinates.
+
+For the statements below, let $N_e=\{\delta\in\mathfrak g:\bar T_e\delta=0\}$, the Lie algebra of the stabilizer of the stacked code, and let $N=\bigoplus_eN_e\subseteq X$, the invisible directions. Let $Z$ be a matrix whose columns form an orthonormal basis of $N$ for the Frobenius inner product on $X$, and $Y$ one for $N^\perp$. Put
+\begin{equation}
+S=Z^T\Lambda_0Z,\qquad
+\Pi_N=ZS^{-1}Z^T\Lambda_0,\qquad
+L_N=Z^TB^TWBZ,
+\label{it1:learning-notation}
+\end{equation}
+so that $\Pi_N$ is the $\Lambda_0$-orthogonal projection of $X$ onto $N$ and $L_N$ is the loop operator on the invisible directions. Let $\bar F_e=\sum_c\beta^{(c)}_{ij}F_c^{(j)}$ be the information per exchange of \cref{it1:routed}(i), evaluated at $\bar\theta_e=I$, where $C=M$.
+
+\section{Concentration and selection}
+
+\theoremheading{Learning with a loop prior}{it1:learning}
+In the tangent learning model let the truth be $\omega^\star\in X$, let each edge $e$ receive $n_e=\lceil\kappa_en\rceil$ independent exchanges with $\kappa_e>0$, and write $z^\star=Z^T\omega^\star$.
+\begin{enumerate}
+\item[(i)] For every set of messages the likelihood is constant on each coset $\omega+N$, so the density of the recognition law relative to the prior depends on $\omega$ only through $Y^T\omega$.
+\item[(ii)] Almost surely, as $n\to\infty$, the mean of the recognition law converges to
+\begin{equation}
+\omega_\infty=(I-\Pi_N)\,\omega^\star,
+\label{it1:limit-mean}
+\end{equation}
+its covariance is $ZS^{-1}Z^T+O(1/n)$, and $n$ times its covariance in the coordinates $Y^T\omega$ converges to $(Y^TF_\kappa Y)^{-1}$ with $F_\kappa=\bigoplus_e\kappa_e\bar F_e$. Equivalently, the recognition law converges to the prior conditioned on the coset $\omega^\star+N$. It concentrates on the coset at rate $n$ in the identified directions, and within the coset it is the loop prior restricted to the coset.
+\item[(iii)] Let $\Pi_0=\sigma^{-2}I$. In the coordinates $Z^T\omega$ the limiting covariance is $\sigma^2(I+\lambda\sigma^2L_N)^{-1}$. It equals the prior covariance on $\ker L_N=Z^T(N\cap\ker B)$, is strictly smaller on the orthogonal complement, and tends to zero there as $\lambda\to\infty$. The rank of $L_N$ is $\dim B(N)=\dim N-\dim(N\cap\ker B)$.
+\item[(iv)] If in addition the truth is flat, $B\omega^\star=0$, then
+\begin{equation}
+Z^T(\omega_\infty-\omega^\star)=-(I+\lambda\sigma^2L_N)^{-1}z^\star.
+\label{it1:shrinkage}
+\end{equation}
+The loop term recovers the invisible part of the truth along an eigenvector of $L_N$ with eigenvalue $\mu>0$ up to the factor $\lambda\sigma^2\mu/(1+\lambda\sigma^2\mu)$, and as $\lambda\to\infty$ it recovers all of it except the component in $\ker L_N$, which stays at the prior mean zero.
+\item[(v)] For a general truth, as $\lambda\to\infty$,
+\begin{equation}
+Z^T(\omega_\infty-\omega^\star)\longrightarrow-P_{\ker}z^\star-L_N^+Z^TB^TWB\omega^\star,
+\label{it1:bias}
+\end{equation}
+with $P_{\ker}$ the orthogonal projection onto $\ker L_N$ and $L_N^+$ the pseudoinverse.
+\end{enumerate}
+\begin{proof}
+(i) By \cref{it1:tangent-message} the law of a message on edge $e$ depends on $\omega$ only through $\bar T_e^c\omega_e$ for attending modalities $c$, which does not change when $\omega_e$ changes by an element of $N_e$. Bayes' rule gives the second statement.
+
+(ii) After the messages the precision is $\Lambda_n=\Lambda_0+nF_n$ with $nF_n=\sum_tJ_t^TR_c^{-1}J_t$, and since $h_t-\bar T_e^c\bar y_t=J_t\omega^\star+\varepsilon_t$, the information vector is $\eta_n=nF_n\omega^\star+\xi_n$ with $\xi_n=\sum_tJ_t^TR_c^{-1}\varepsilon_t$. Every $J_t$ vanishes on $N$, so $F_n=YF_{Y,n}Y^T$ and $Z^T\xi_n=0$. By the strong law of large numbers $F_{Y,n}\to Y^TF_\kappa Y$ almost surely, and this limit is positive definite because the kernel of $F_\kappa$ is $N$ by \cref{it1:routed}(iii). In the basis $(Y,Z)$ the matrix $\Lambda_n$ has blocks $A_n=Y^T\Lambda_0Y+nF_{Y,n}$, $D=Y^T\Lambda_0Z$ and $S$, and block inversion gives
+\begin{equation}
+\Lambda_n^{-1}=ZS^{-1}Z^T+(Y-ZS^{-1}D^T)(A_n-DS^{-1}D^T)^{-1}(Y-ZS^{-1}D^T)^T,
+\end{equation}
+with $n(A_n-DS^{-1}D^T)^{-1}\to(Y^TF_\kappa Y)^{-1}$. This proves the statements about the covariance, since $Y^T\Lambda_n^{-1}Y=(A_n-DS^{-1}D^T)^{-1}$. For the mean, $nF_n\omega^\star=\Lambda_n\omega^\star-\Lambda_0\omega^\star$ gives
+\begin{equation}
+\Lambda_n^{-1}\eta_n=\omega^\star-\Lambda_n^{-1}\Lambda_0\omega^\star+\Lambda_n^{-1}\xi_n.
+\end{equation}
+The second term converges to $ZS^{-1}Z^T\Lambda_0\omega^\star=\Pi_N\omega^\star$. Because $Z^T\xi_n=0$, the third term equals $(Y-ZS^{-1}D^T)(A_n-DS^{-1}D^T)^{-1}Y^T\xi_n$, which tends to zero since $\xi_n/n\to0$ almost surely by the strong law. Finally, the Gaussian law with precision $\Lambda_0$ conditioned on the affine set $\omega^\star+N$, in the coordinate $z$ of $\omega^\star+Zz$, has precision $S$ and the mean that minimizes $\frac12(\omega^\star+Zz)^T\Lambda_0(\omega^\star+Zz)$, which is $z=-S^{-1}Z^T\Lambda_0\omega^\star$. Its mean is $\omega_\infty$ and its covariance is $ZS^{-1}Z^T$.
+
+(iii) Here $S=\sigma^{-2}I+\lambda L_N$, and the eigenvalues of $S^{-1}$ are $\sigma^2/(1+\lambda\sigma^2\mu)$ for the eigenvalues $\mu\geq0$ of $L_N$. Since $W$ is positive definite, $L_Nz=0$ exactly when $BZz=0$, so $\ker L_N=Z^T(N\cap\ker B)$ and the rank of $L_N$ is that of $BZ$.
+
+(iv) From (ii) and $Z^T\Lambda_0\omega^\star=\sigma^{-2}z^\star+\lambda Z^TB^TWB\omega^\star$,
+\begin{equation}
+Z^T(\omega_\infty-\omega^\star)=-S^{-1}\bigl(\sigma^{-2}z^\star+\lambda Z^TB^TWB\omega^\star\bigr),
+\label{it1:limit-error}
+\end{equation}
+which is \cref{it1:shrinkage} when $B\omega^\star=0$.
+
+(v) The vector $Z^TB^TWB\omega^\star$ lies in the range of $(W^{1/2}BZ)^T$, which is the range of $L_N=(W^{1/2}BZ)^T(W^{1/2}BZ)$. As $\lambda\to\infty$, $\lambda S^{-1}\to L_N^+$ and $S^{-1}\to0$ on the range of $L_N$, while $\sigma^{-2}S^{-1}=I$ on $\ker L_N$. Applying this to \cref{it1:limit-error} gives \cref{it1:bias}.
+\end{proof}
+
+Without the loop term the recognition law on the invisible directions stays at the prior: messages never move it there, as \cref{it1:identifiability} requires. The loop term changes the geometry in which the identified part of the truth is completed, from the anchor to the anchor plus the loop energy, and \cref{it1:limit-mean} is the resulting projection. In the numerical check, a directed triangle with codes of rank two in $K=3$ and $10^3$ or $10^5$ noisy messages per edge, streamed through \cref{it1:information-filter}, gives mean errors $0.047$ and $0.0044$ relative to $\omega_\infty$, covariance errors $2.0\times10^{-3}$ and $2.0\times10^{-5}$ relative to $ZS^{-1}Z^T$, and relative errors $3.1$ and $0.38$ percent in the identified block. With $\lambda=0$ the limit equals the prior on $N$ to $3\times10^{-16}$, and \cref{it1:shrinkage,it1:bias} hold to $2\times10^{-14}$ and to order $1/\lambda$ with a dressed $W$.
+
+\section{Filling and detection}
+
+\definitionheading{Detectable dissonance}{it1:detectable}
+The detectable dissonance of a configuration $\omega$ is
+\begin{equation}
+\mathcal D(\omega)=\min_{\nu\in N}\Vert B(\omega+\nu)\Vert_W^2,
+\label{it1:detectable-eq}
+\end{equation}
+the least linearized loop energy among the configurations that no message distinguishes from $\omega$.
+
+\propositionheading{Filling and detection are complementary}{it1:complementary}
+In the tangent learning model let $Q$ be the $W$-orthogonal projection of $\mathfrak g^{\mathcal L}$ onto the $W$-orthogonal complement of $B(N)$.
+\begin{enumerate}
+\item[(i)] $\mathcal D(\omega)=\Vert QB\omega\Vert_W^2$. In particular $\mathcal D$ is constant on cosets of $N$, so messages determine it.
+\item[(ii)] With $\Pi_0=\sigma^{-2}I$, as $\lambda\to\infty$ the limit mean $\omega_\infty$ satisfies $B\omega_\infty\to QB\omega^\star$, so its loop energy tends to $\mathcal D(\omega^\star)$.
+\item[(iii)] The loop space $B(X)$ is the $W$-orthogonal sum of $B(N)$, of dimension $\dim N-\dim(N\cap\ker B)$, and of $B(X)\cap B(N)^{\perp_W}$, of dimension $\operatorname{rank}B-\dim B(N)$. The loop energy splits as $\Vert B\omega\Vert_W^2=\Vert(I-Q)B\omega\Vert_W^2+\Vert QB\omega\Vert_W^2$. The first term is the only one that depends on the invisible coordinates, and a dissonance in $B(N)$ is not detectable; the second is a function of the identified coordinates alone.
+\end{enumerate}
+\begin{proof}
+(i) Since $B(\omega+Zz)=B\omega+BZz$, the minimum over $z$ leaves the $W$-orthogonal residual of $B\omega$ from the range of $BZ$, which is $B(N)$; this residual is $QB\omega$. For $\nu\in N$, $QB\nu=0$. (ii) By \cref{it1:bias}, $\omega_\infty-\omega^\star$ tends to $-Z(P_{\ker}z^\star+L_N^+Z^TB^TWB\omega^\star)$. Since $BZP_{\ker}=0$, $B\omega_\infty$ tends to $(I-BZL_N^+(BZ)^TW)B\omega^\star$, and $BZ((BZ)^TWBZ)^+(BZ)^TW$ is the $W$-orthogonal projection onto the range of $BZ$, which is $I-Q$. (iii) The dimension of $B(N)$ is the rank of $BZ$, computed in \cref{it1:learning}(iii). The energy splits because $Q$ is a $W$-orthogonal projection, and $QB\omega$ does not depend on the component of $\omega$ in $N$ by (i).
+\end{proof}
+
+The proposition states the cost of the loop prior. Every loop direction in which agreement around loops completes a dictionary is a direction in which the community assumes an agreement it cannot check. If the truth is dissonant there, the recognition law with a strong loop term reports consonance and moves the dissonance into the unread parts of the dictionaries, as the bias term of \cref{it1:bias}. Dissonance is detectable only in the loop directions that the invisible directions cannot reach. In the complete exchange of three agents with codes of rank one in $K=3$, the invisible directions reach the whole loop space: with a dressed $W$, the numerical check finds $\mathcal D(\omega^\star)=0$ to $10^{-13}$ for a random dissonant truth whose linearized loop energy is $1.02$, and the limit mean at $\lambda=10^8$ has loop energy $4\times10^{-12}$.
+
+\section{Which directions loops cannot reach}
+
+\propositionheading{The unreachable directions}{it1:unreachable}
+Let $\Gamma$ be connected, and suppose that the chains of the walks in $\mathcal L$ span the cycle space of $\Gamma$, regarded as an undirected multigraph in which the edge $e:j\to i$ is oriented from $j$ to $i$. Then
+\begin{equation}
+\ker B=\bigl\{(a_i-a_j)_{e:j\to i}:a\in\mathfrak g^{\mathcal V}\bigr\},
+\label{it1:coboundaries}
+\end{equation}
+and $N\cap\ker B$ consists of the configurations in \cref{it1:coboundaries} with $\bar T_e(a_i-a_j)=0$ on every edge $e:j\to i$. For $\mathfrak g=\mathfrak{gl}(K,\R)$,
+\begin{equation}
+\begin{aligned}
+\dim(N\cap\ker B)&=K\bigl(\dim H^0-K\bigr),\\
+H^0&=\bigl\{u\in(\R^K)^{\mathcal V}:\bar T_e(u_i-u_j)=0\text{ for every edge }e:j\to i\bigr\}.
+\end{aligned}
+\label{it1:sheaf-count}
+\end{equation}
+\begin{proof}
+The value $(B\omega)_\gamma$ is the pairing of $\omega$, read as a $\mathfrak g$-valued cochain on edges, with the chain of $\gamma$, and that chain is a cycle because a closed walk leaves each vertex as often as it enters it. If these chains span the cycle space, $\omega\in\ker B$ exactly when $\omega$ vanishes on every cycle. Choose a spanning tree and a root, let $a_v$ be the sum of $\omega$ along the tree path from the root to $v$, each edge taken with the sign of its orientation, and put $a$ equal to zero at the root. Then $\omega_e-(a_i-a_j)$ vanishes on tree edges and, on any other edge, equals the value of $\omega$ on its fundamental cycle, which is zero. Conversely every configuration of the form \cref{it1:coboundaries} vanishes on cycles. The condition for membership in $N$ is the definition of $N_e$. For $\mathfrak{gl}(K,\R)$ the condition $\bar T_e(a_i-a_j)=0$ holds column by column, so $a\mapsto(a_i-a_j)_e$ maps the families whose $K$ columns lie in $H^0$, a space of dimension $K\dim H^0$, onto $N\cap\ker B$. Its kernel consists of the constant families, of dimension $K^2$, because $\Gamma$ is connected.
+\end{proof}
+
+The configurations in \cref{it1:coboundaries} are the infinitesimal pure-gauge configurations, what the dictionaries would become if each agent's reference coordinates were moved by $e^{a_v}$. The space $N\cap\ker B$ consists of the re-readings of this kind that no attending code registers. They create no holonomy, so no loop term reaches them, and no message reveals them. The space $H^0$ is the space of global sections of a cellular sheaf on $\Gamma$ whose stalk at an agent is $\R^K$, whose stalk at an edge is the message space, and whose two restriction maps at an edge are both the attending code; it is a sheaf of the kind that \citet{HansenGhrist2021} use for discourse, arising here from identifiability.
+
+\corollaryheading{Complete exchange}{it1:complete-exchange}
+Let every pair of agents exchange in both directions, and let $\mathcal L$ contain every two-cycle and every directed triangle. Then the hypothesis of \cref{it1:unreachable} holds and
+\begin{equation}
+H^0=\bigl\{u:u_i-u_j\in\ker\bar T_{j\to i}\cap\ker\bar T_{i\to j}\text{ for every pair }\{i,j\}\bigr\},
+\end{equation}
+where $\bar T_{j\to i}$ is the code on the edge $j\to i$. If the pairs with $\ker\bar T_{j\to i}\cap\ker\bar T_{i\to j}=0$ connect all agents, then $H^0$ consists of constant sections, $N\cap\ker B=0$, and for a flat truth the recognition law recovers every dictionary in the limits $n\to\infty$ and then $\lambda\to\infty$.
+\begin{proof}
+Fix an agent $0$. The edges $0\to i$ form a spanning tree. The fundamental cycle of $i\to0$ is the two-cycle through $0$ and $i$, and that of $j\to i$ with $i,j\neq0$ is the directed triangle $0\to j\to i\to0$ minus the two-cycle through $0$ and $i$. The two edges between $i$ and $j$ give $\bar T_{j\to i}(u_i-u_j)=0$ and $\bar T_{i\to j}(u_j-u_i)=0$. If the pairs with trivial intersection connect the agents, $u$ is constant along each of them, hence constant. The last statement is \cref{it1:learning}(iv).
+\end{proof}
+
+The sufficient condition is not necessary: loops through a third agent can fix what no pair can. In $K=3$ with codes of rank one, the kernels of every pair meet in a line, and the numerical check finds that the three two-cycles alone leave $9=\sum_{\text{pairs}}K\dim(\ker\cap\ker)$ unreachable dimensions out of $36$. Adding the two directed triangles leaves none, because $u_1-u_0$, $u_2-u_1$ and $u_0-u_2$ would have to lie on three lines in general position and sum to zero. If one direction $k$ is read by no code, the count is $K(\dim H^0-K)=6$, from the shifts of each agent along $k$. A directed triangle alone, in which each agent hears one other through a code of rank one, leaves $9$ of $18$. Every count agrees with \cref{it1:sheaf-count}.
+
+\propositionheading{Reciprocal pair}{it1:pair}
+Let two agents exchange in both directions with $\mathcal L$ the two-cycle, $W$ the Frobenius norm and $\mathfrak g=\mathfrak{gl}(K,\R)$. Write $\bar T_1$ for the code on $1\to0$ and $\bar T_0$ for the code on $0\to1$, $\mathcal K_a=\ker\bar T_a$, $\mathcal R_a=\mathcal K_a^\perp$ for the row space of $\bar T_a$, and $P_\cap$ for the orthogonal projection onto $\mathcal R_0\cap\mathcal R_1$. Then
+\begin{equation}
+\begin{aligned}
+\dim B(N)&=K\dim(\mathcal K_0+\mathcal K_1),\qquad
+\dim(N\cap\ker B)=K\dim(\mathcal K_0\cap\mathcal K_1),\\
+\operatorname{rank}B-\dim B(N)&=K\dim(\mathcal R_0\cap\mathcal R_1),
+\end{aligned}
+\label{it1:pair-split}
+\end{equation}
+and $\mathcal D(\omega)=\Vert P_\cap(\omega_{01}+\omega_{10})\Vert_F^2$.
+\begin{proof}
+$N$ consists of the pairs $(\nu_{01},\nu_{10})$ with the range of $\nu_{01}$ in $\mathcal K_1$ and the range of $\nu_{10}$ in $\mathcal K_0$, and $B\nu=\nu_{01}+\nu_{10}$. Hence $B(N)$ is the set of matrices with range in $\mathcal K_0+\mathcal K_1$, of dimension $K\dim(\mathcal K_0+\mathcal K_1)$. Its Frobenius-orthogonal complement in $B(X)=\mathfrak{gl}(K,\R)$ is the set of matrices with range in $(\mathcal K_0+\mathcal K_1)^\perp=\mathcal R_0\cap\mathcal R_1$, and the orthogonal projection onto it is $X\mapsto P_\cap X$. Thus $Q=P_\cap$ and \cref{it1:complementary}(i) gives $\mathcal D$. The space $N\cap\ker B$ consists of the pairs with $\nu_{01}=-\nu_{10}$ and range in $\mathcal K_0\cap\mathcal K_1$.
+\end{proof}
+
+A pair detects its mutual misunderstanding only in what both can say, repairs its dictionaries through reciprocity in what at least one of them can say, and leaves what neither can say at the prior. When the two row spaces are independent and together have dimension $K$, everything invisible is repaired and no misunderstanding is detectable: complete repair costs complete trust. The numerical check at $K=3$ gives the predicted triples $(6,0,3)$ of filled, unreachable and detectable dimensions for two codes of rank two and $(9,3,0)$ for two codes of rank one, and $\mathcal D$ agrees with the projection formula to $10^{-14}$.
+
+\section{Without linearization}
+
+The tangent model is exact about which configurations remain consistent with the messages and with flat loops. The following two statements hold for the grounded model \cref{it1:grounded-model} itself, in the constraint form of the loop term.
+
+\propositionheading{Exact reciprocal identification}{it1:exact-pair}
+Let $G=\GL(K,\R)$ and let the true dictionaries of two agents be reciprocal, $\bar\theta^\star_{10}=(\bar\theta^\star_{01})^{-1}$. The pairs $(\bar\theta_{01},\bar\theta_{10})$ that reproduce the message laws of both edges for every referent and satisfy $\bar\theta_{01}\bar\theta_{10}=I$ are exactly
+\begin{equation}
+\bar\theta_{01}=\bar\theta^\star_{01}s,\qquad\bar\theta_{10}=s^{-1}\bar\theta^\star_{10},\qquad
+s\in\Stab(\bar T_1)\cap\Stab(\bar T_0\bar\theta^\star_{01}).
+\label{it1:exact-pair-eq}
+\end{equation}
+The pair is determined uniquely exactly when the stacked map $(\bar T_1;\bar T_0\bar\theta^\star_{01})$ is injective; otherwise the solutions form a set of dimension $K\dim\ker(\bar T_1;\bar T_0\bar\theta^\star_{01})$.
+\begin{proof}
+By \cref{it1:identifiability}(i), the edge $1\to0$ reproduces its law exactly when $\bar\theta_{01}=\bar\theta^\star_{01}s$ with $s\in\Stab(\bar T_1)$. Reciprocity forces $\bar\theta_{10}=s^{-1}\bar\theta^\star_{10}$, and the edge $0\to1$ reproduces its law exactly when $(\bar\theta^\star_{10})^{-1}s^{-1}\bar\theta^\star_{10}=\bar\theta^\star_{01}s^{-1}(\bar\theta^\star_{01})^{-1}\in\Stab(\bar T_0)$, that is, when $\bar T_0\bar\theta^\star_{01}s^{-1}=\bar T_0\bar\theta^\star_{01}$. The intersection of the two stabilizers is the stabilizer of the stacked map, the set of $s$ with $s-I$ mapping $\R^K$ into its kernel, which is open in an affine space of dimension $K$ times the dimension of that kernel.
+\end{proof}
+
+The map $\bar T_0\bar\theta^\star_{01}$ is agent $0$'s code expressed in agent $1$'s reference coordinates, so the pair is identified exactly when, between them, the two agents can say everything. In the numerical check, with codes of rank one in $K=3$ and a true dictionary far from the identity, a finite element of the residual set reproduces both message laws to $7\times10^{-16}$, is reciprocal to $4\times10^{-16}$, and differs from the truth by $1.86$ in the largest entry.
+
+\propositionheading{Exact flat identification}{it1:exact-flat}
+Let $G=\GL(K,\R)$ and $\Gamma$ be connected, and suppose that every configuration whose holonomies on $\mathcal L$ are the identity is pure gauge, $\bar\theta_{ij}=k_ik_j^{-1}$ for some $k\in G^{\mathcal V}$. Let the truth be pure gauge, $\bar\theta^\star_{ij}=g_ig_j^{-1}$, and put $\bar T'_e=\bar T_eg_j$ for $e:j\to i$. The configurations that reproduce every message law and have identity holonomy on $\mathcal L$ are exactly
+\begin{equation}
+\bar\theta_{ij}=g_iu_iu_j^{-1}g_j^{-1},\qquad u\in G^{\mathcal V},\qquad\bar T'_e(u_i-u_j)=0\text{ for every edge }e:j\to i,
+\label{it1:exact-flat-eq}
+\end{equation}
+and two families $u,u'$ give the same configuration exactly when $u'_v=u_vc$ for all $v$ and one $c\in G$. The truth is the only such configuration exactly when the space $H^0$ of \cref{it1:sheaf-count}, formed with the codes $\bar T'_e$, consists of constant sections. The hypothesis holds for the complete exchange with every two-cycle and every directed triangle.
+\begin{proof}
+By hypothesis $\bar\theta_{ij}=k_ik_j^{-1}$; write $k_v=g_vu_v$. By \cref{it1:identifiability}(i), the edge $e$ reproduces its law exactly when $(\bar\theta^\star_{ij})^{-1}\bar\theta_{ij}=g_ju_iu_j^{-1}g_j^{-1}\in\Stab(\bar T_e)$, that is, when $\bar T'_eu_iu_j^{-1}=\bar T'_e$, that is, when $\bar T'_eu_i=\bar T'_eu_j$. Two families give the same configuration exactly when $(u_i')^{-1}u_i=(u_j')^{-1}u_j$ on every edge, which on a connected graph means $u'=uc$. If $H^0$ consists of constant sections, every column of $u$ is constant, so $u_v=u_0$ for all $v$ and the configuration is the truth. If $s\in H^0$ is not constant, $u_v=I+ts_vw^T$ with $w\neq0$ and small $t\neq0$ is an invertible family satisfying the condition, and it is not of the form $(c)_v$, so its configuration differs from the truth. For the complete exchange put $k_0=I$ and $k_i=\bar\theta_{i0}$. The two-cycle through $0$ and $i$ gives $\bar\theta_{0i}=k_i^{-1}$, and the directed triangle $0\to j\to i\to0$, whose holonomy is $\bar\theta_{0i}\bar\theta_{ij}\bar\theta_{j0}$, gives $\bar\theta_{ij}=\bar\theta_{0i}^{-1}\bar\theta_{j0}^{-1}=k_ik_j^{-1}$.
+\end{proof}
+
+The residual set of \cref{it1:exact-flat-eq} has dimension $K(\dim H^0-K)$ at the truth, the count of \cref{it1:unreachable}. In the numerical check, the complete exchange of three agents with a direction read by no code in the gauge of the truth, and a truth far from the identity, has a finite element of the residual set that reproduces all six message laws to $7\times10^{-15}$, has holonomy equal to the identity to $4\times10^{-15}$ on all five loops, and differs from the truth by $3.7$ in the largest entry.
+
+\section{Receiver-owned recognition laws}
+
+\remarkheading{Ownership and the loop term}{it1:owned}
+In the per-agent picture of the main manuscript each receiver infers only its own dictionaries, so its recognition law is one factor $q_i(\omega_{i\cdot})$ of a law factorized over receivers. A two-cycle couples two receivers and a directed triangle three, so the loop term couples the factors. In the tangent model the factorized law closest to the posterior in $\KL(q\Vert\text{posterior})$ has the exact posterior means and, as covariances, the inverses of the diagonal blocks of the posterior precision \citep[Section~10.1.2]{Bishop2006}. These are smaller in the Loewner order than the exact marginal covariances. Ownership therefore leaves the estimates of the dictionaries unchanged and makes each receiver overconfident about them. To update its factor, receiver $i$ needs the current means of the dictionaries that other agents hold along its loops: a loop prior can be used only if agents communicate about how they read each other, in addition to communicating about the world. In the numerical check, coordinate ascent over the three receivers of the complete exchange reproduces the exact means to $10^{-14}$, the differences between exact and factorized block covariances are positive semidefinite, and the total variance is $4.59$ against the exact $7.75$.
+
 \chapter{Next steps}
 \label{it1:ch-next}
 
-\openproblemheading{Learning the dictionary}{it1:open-learning}
-Give $\omega_{ij}$ a normalized prior on $\mathfrak g$ with a gauge-invariant loop term that includes every two-cycle, and a recognition law updated from a stream of grounded messages. Show that the recognition law concentrates on the coset of the true dictionary modulo the stabilizer of \cref{it1:identifiability}, and determine how the loop term selects within that coset. The loop term is where agreement around loops can supply information that pairwise exchange cannot.
+\openproblemheading{Learning the dictionaries beyond the tangent model}{it1:open-learning}
+\Cref{it1:learning,it1:complementary} settle the learning problem in the tangent model, and \cref{it1:exact-pair,it1:exact-flat} settle the constraint form of the loop term for a flat truth without linearization. Three parts remain. First, for the full grounded model \cref{it1:grounded-model} with a prior on $\omega$, show that the recognition law converges to the prior conditioned on the fiber $\prod_e\bar\theta^\star_e\Stab(\bar T_e)$, which is not linear in the coordinates $\omega$, and determine the selection within the fiber for a dissonant truth and a finite loop weight. Second, replace the positive-definite loop forms by the law-based loop defects of the main manuscript. These are only semidefinite and do not register holonomy that fixes the base law, so more directions should remain unreachable. Third, treat latent routing labels, which lower the information below the routed sum of \cref{it1:routed}, and loop weights built from the routing weights.
 
 \openproblemheading{Codes as part of the species model}{it1:open-codes}
 Let codes be learned as well, so that a shared language is a joint fixed point of code and dictionary learning. The expression-map dynamics of \citet{HansenGhrist2021} is the vector-valued analogue on a sheaf. Determine when the learned codes of a species become related by its frame map, and when learning drives code-visible dissonance to zero while leaving dissonance in unread directions.
