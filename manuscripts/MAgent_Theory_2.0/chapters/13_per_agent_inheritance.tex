@@ -1,0 +1,398 @@
+% !TeX root = ../MAgent_Theory_2.0.tex
+\chapter{Per-Agent Grouping with Persistent Records}
+\label{ch:per-agent-inheritance}
+
+This chapter concerns the normalized per-agent model of \cref{def:dyn-per-agent}, rather than the reciprocal potential used in \cref{ch:fusion,ch:open-formation}. Each agent changes its own recognition laws while treating the communicated laws of its peers as current model data. Records remain in its free energy. The first construction transfers a conditional channel to these dynamics and exhibits a grouping that its prescribed null never selects. A second construction gives persistent grouping and a physically noninjective parent with exact original-time dynamics, admitted response histories, and nonflat collective geometry on a declared family. Its sufficient interface is supplied before selection, and no second compressive handoff is established.
+
+\section{What changes under an own-objective derivative}
+
+All source priors below are positive and normalized. Source rows are minimized exactly at unit temperature; this is the Gibbs-reduced convention, not finite-mobility row evolution. At a fixed configuration let $D^q_{ii}=\int\KL(q_i\Vert G_i(m,\cdot))s_i(dm)$ and $D^s_{ii}=\KL(s_i\Vert r_i)$, with the nonself costs defined by the communicated laws. Then
+\begin{equation}
+ \beta_{ij}=\frac{\pi^q_{ij}e^{-D^q_{ij}}}{\sum_k\pi^q_{ik}e^{-D^q_{ik}}},
+ \qquad
+ \gamma_{ij}=\frac{\pi^s_{ij}e^{-D^s_{ij}}}{\sum_k\pi^s_{ik}e^{-D^s_{ik}}}.
+ \label{pa:rows}
+\end{equation}
+The envelope derivative is the row-weighted derivative of the costs. It does not differentiate the optimized row again. Each law follows its own agent's Fisher field, so derivatives of another agent's free energy are absent. The probability-coordinate form is the replicator equation associated with the Shahshahani metric \citep{Shahshahani1979}; the construction here concerns its particular normalized sources, records, and exact inheritance.
+
+The null of \cref{inh:null-flow} deletes the nonself costs, not their labels or priors. If $a=\pi^q_{ii}$, its content self row is
+\begin{equation}
+ \beta^0_{ii}=\frac{a e^{-D^q_{ii}}}{a e^{-D^q_{ii}}+1-a}.
+ \label{pa:null-row}
+\end{equation}
+The model row has the same form. Replacing these rows by self probability one would specify a different control. Every example below uses the same row convention, records, selector, and initial state in the full and null flows.
+
+\subsection{A conditional four-state channel}
+
+Let $k=(a,x)$ and $m=(b,u)$ range over $\{-1,1\}^2$ with counting measure, and let $q_i,s_i$ be arbitrary positive normalized tables. Fix $J>1$ and $0<\alpha,\kappa<1$. Take
+\begin{equation}
+ r(b,u)=\frac14,\qquad
+ G((b,u),(a,x))=\frac{e^{Jab}}{4\cosh J}.
+ \label{pa:four-evaluator}
+\end{equation}
+For a positive table $p$, define $\mu_p(x)=\sum_a p(a,x)$ and $L_p(b\mid x)=p(b,x)/\mu_p(x)$. The nonself kernel is
+\begin{equation}
+ \begin{aligned}
+ W_b(y\mid x)&=\frac{1+\kappa bxy}{2},\\
+ K[p]((a,x),(b,y))
+ &=\bigl[\alpha\mathbf1_{\{a=b\}}+(1-\alpha)L_p(b\mid x)\bigr]W_b(y\mid x).
+ \end{aligned}
+ \label{pa:four-channel}
+\end{equation}
+Each row sums to one and is positive. The first operation has determinant $\alpha$ on each conditional two-state block, and the second has determinant $\kappa b$ on each content block, so $K[p]$ is invertible. Nevertheless its compared output simplifies exactly:
+\begin{equation}
+ (pK[p])(b,y)=\sum_xp(b,x)W_b(y\mid x)=:(pW)(b,y),
+ \qquad D(pK[p])[v]=vW.
+ \label{pa:four-substitution}
+\end{equation}
+The first identity follows by summing over $a$; its derivative includes the channel derivative. No loss of channel rank or frozen derivative is used.
+
+Let the homogeneous self priors be $\rho_q,\rho_s\in(0,1)$ and divide each remaining prior equally over the $N-1$ peers. Write $m_i=\E_{q_i}a$, $n_i=\E_{s_i}b$, $\nu_j^q=q_jW$, and $\nu_j^s=s_jW$. One retained record $(o_q,o_s)\in\{-1,1\}^2$ has normalized likelihood
+\begin{equation}
+ \ell(o_q,o_s\mid a,x,b,u)
+ =\frac{e^{h_qo_qa}}{2\cosh h_q}
+  \frac{e^{h_so_sb}}{2\cosh h_s},
+ \qquad h_q,h_s>0.
+ \label{pa:four-record}
+\end{equation}
+For finitely many retained records put $H_i^q=\sum_t h_{q,t}o_{q,t}$ and $H_i^s=\sum_t h_{s,t}o_{s,t}$. Their negative expected log likelihood is a constant minus $H_i^qm_i+H_i^sn_i$. The ordered record word is retained whenever it remains an accessible response.
+
+\propositionheading{Transferred own-block and null fields}{pa:four-transfer}
+With product recognition $q_i\otimes s_i$, the normalized per-agent model with sources \cref{pa:four-evaluator,pa:four-channel} has the original-time equations
+\begin{equation}
+ \dot q_i=-q_i(h_i^q-\E_{q_i}h_i^q),\qquad
+ \dot s_i=-s_i(h_i^s-\E_{s_i}h_i^s),
+ \label{pa:four-flow}
+\end{equation}
+where, modulo constants,
+\begin{equation}
+ \begin{aligned}
+ h_i^q(a,x)&=\log q_i(a,x)-\sum_{j\ne i}\beta_{ij}\log\nu_j^q(a,x)
+             -\beta_{ii}Jn_i a-H_i^q a,\\
+ h_i^s(b,u)&=\log s_i(b,u)-\sum_{j\ne i}\gamma_{ij}\log\nu_j^s(b,u)
+             -\beta_{ii}Jm_i b-H_i^s b.
+ \end{aligned}
+ \label{pa:four-potentials}
+\end{equation}
+Writing $b_i^0=\beta^0_{ii}$ and $g_i^0=\gamma^0_{ii}$, the null potentials are
+\begin{equation}
+ h_i^{q,0}=b_i^0(\log q_i-Jn_i a)-H_i^q a,\qquad
+ h_i^{s,0}=g_i^0\log s_i-b_i^0Jm_i b-H_i^s b.
+ \label{pa:four-null}
+\end{equation}
+\begin{proof}
+Integrating the record, content source, presentation source, and source priors in the local model proves normalization. Its content self cost is
+$\sum q_i\log q_i-Jm_in_i+\log(4\cosh J)$, and its presentation self cost is $\sum s_i\log s_i+\log4$. Every peer is fixed in the own-block variation. Differentiating the row-weighted costs and the persistent record term gives \cref{pa:four-potentials}; the coefficients of each full-law entropy sum to one. In particular both derivatives of the evaluator interaction carry $\beta_{ii}$, not $\gamma_{ii}$. After deletion only the self entropy coefficients remain, giving \cref{pa:four-null}. Centering these first variations in the Fisher metric gives \cref{pa:four-flow}.
+\end{proof}
+
+On the synchronized family $q_i(a,x)=(1+ma)/4$, $s_i(b,u)=(1+nb)/4$, every peer cost and normalized peer tangent vanishes. Full and null fields coincide there. With no records, stationarity requires
+\begin{equation}
+ \operatorname{atanh}m=Jn,\qquad
+ \gamma_{ii}\operatorname{atanh}n=\beta_{ii}Jm.
+ \label{pa:four-stationarity}
+\end{equation}
+Thus the reciprocal condition $m=n=r_*$, $\operatorname{atanh}r_*=Jr_*$ additionally requires equality of the two self rows. Synchronized bistability cannot by itself establish interaction necessity.
+
+\propositionheading{Interaction-dependent selection on a full open table class}{pa:four-grouping}
+For $N=2$, $J=3/2$, $\rho_s=1/2$, and $\rho_q=\cosh J/(1+\cosh J)$, there are positive record strengths and a nonempty full open set of initial positive tables for which a permutation-covariant conditional-sign selector selects the pair for a nonzero time window, while its null never selects the pair.
+\begin{proof}
+At the record-free uniform table the self rows equal $1/2$ and their first variations vanish. The sign linearization is
+\begin{equation}
+ \dot m_i=-m_i+\frac12m_j+\frac34n_i,\qquad
+ \dot n_i=-n_i+\frac12n_j+\frac34m_i,\qquad j\ne i.
+ \label{pa:four-linear}
+\end{equation}
+Its common sign eigenvalue is $1/4$ and the matching difference eigenvalue is $-3/4$. Other sign eigenvalues are $-5/4,-9/4$, and the content modes have eigenvalues $-1\pm\kappa/2$, hence are stable. Start with $m=n=\eta(3,-1)$ and uniform conditional content. The relevant linear solution is
+\begin{equation}
+ m_i(t)=n_i(t)=\eta\bigl[e^{t/4}+(a_i-1)e^{-3t/4}\bigr],
+ \qquad (a_1,a_2)=(3,-1).
+ \label{pa:four-crossing}
+\end{equation}
+At $t_*=\log4$ its values are $\eta(3/\sqrt2,1/\sqrt2)$. The analytic field is its linearization plus a quadratic remainder. Variation of constants on a fixed finite interval gives an $O(\eta^2)$ state and velocity error for sufficiently small $\eta>0$. Now fix such an $\eta$ and add small records with $H_1^q=H_1^s=h>0$ and $H_2^q=H_2^s=-h$. Continuous dependence preserves the strict positive crossing and a subsequent common interval, also under arbitrary small positive-table perturbations.
+
+For the null, let $c_i^q(x)=\E[a\mid x]$ and $c_i^s(u)=\E[b\mid u]$. Conditional Fisher centering gives
+\begin{equation}
+ \begin{aligned}
+ \dot c_i^q(x)&=(1-(c_i^q(x))^2)
+ \{b_i^0[Jn_i-\operatorname{atanh}c_i^q(x)]+H_i^q\},\\
+ \dot c_i^s(u)&=(1-(c_i^s(u))^2)
+ \{b_i^0Jm_i-g_i^0\operatorname{atanh}c_i^s(u)+H_i^s\}.
+ \end{aligned}
+ \label{pa:four-cone}
+\end{equation}
+At a first zero of a conditional initially aligned with its record, all other signed conditionals are nonnegative and the signed derivative is strictly positive. The two opposite cones are therefore invariant. All null log ratios have linear growth bounds because the self rows lie in $(0,1)$ and $|m_i|,|n_i|\leq1$, so this conclusion holds for every finite time.
+
+Declare that the pair is selected when all eight conditional means exceed $\eta/(8\sqrt2)$, or all are below its negative. The full flow meets this condition on the common interval; the null never does. Initially there is no selected pair. The condition is strict on a full open neighborhood of the chosen initial tables and is preserved by simultaneous relabeling of agents and records. The partition sequences differ after deleting their event times.
+\end{proof}
+
+\section{A persistent group against conflicting evidence}
+
+A simpler local evaluator yields indefinite persistence with the initial records held fixed. Take three agents with positive Bernoulli belief and presentation laws of log odds $l_i,n_i$, uniform self reference and evaluator, and identity peer channels. Set $\pi_{ii}=a=1/5$ and $\pi_{ij}=p=2/5$ for $j\ne i$. Their common binary record likelihood, relative to counting measure, is
+\begin{equation}
+ \ell_\epsilon(o\mid z)=\frac{e^{\epsilon oz/2}}{2\cosh(\epsilon/2)},
+ \qquad o,z\in\{-1,1\},\quad \epsilon>0.
+ \label{pa:bit-record}
+\end{equation}
+Condition on $o=(1,1,-1)$ and retain it in the objective. The species are identical; the different observations are data.
+
+\theoremheading{Persistent interaction-dependent grouping}{pa:persistent-grouping}
+For all sufficiently small fixed $\epsilon>0$, a nonempty open class of positive initial belief and presentation laws starts with three singleton blocks and selects a persistent three-agent block under the per-agent flow, whereas the prescribed null never selects that block.
+\begin{proof}
+The exact log-odds equations are
+\begin{equation}
+ \dot l_i=-l_i+\sum_{j\ne i}\beta_{ij}l_j+\epsilon o_i,\qquad
+ \dot n_i=-n_i+\sum_{j\ne i}\gamma_{ij}n_j.
+ \label{pa:bit-flow}
+\end{equation}
+For a Bernoulli law, the Fisher inverse cancels $dl/dq(+1)$, so the peer KL derivative contributes $l_i-l_j$ and the log-likelihood ratio contributes $\epsilon o_i$. The rows use the corresponding Bernoulli costs. The field is analytic with at most linear growth. The presentation sector is retained but does not enter the evaluator.
+
+Put $l=\epsilon u$. Since every divergence has vanishing first variation at the uniform law, $\beta_{ij}(\epsilon u)=\pi_{ij}+O_{C^1}(\epsilon^2)$ on bounded sets, and
+\begin{equation}
+ \dot u=M u+o+O_{C^1}(\epsilon^2),\qquad
+ M=-\frac75 I+\frac25\mathbf1\mathbf1^\top,\qquad
+ u_*=-M^{-1}o=\left(\frac{15}7,\frac{15}7,\frac57\right).
+ \label{pa:bit-limit}
+\end{equation}
+The eigenvalues of $M$ are $-1/5,-7/5,-7/5$. The implicit function theorem gives a nearby equilibrium $u_\epsilon=u_*+O(\epsilon^2)$. On a sufficiently small fixed neighborhood the symmetric part of the derivative stays negative definite. A smaller ball centered at $u_\epsilon$ is consequently forward invariant and attracting by differentiation of its squared radius. The limiting affine trajectory from $u^{\rm in}=(4,1/2,-1)$ enters this ball after one finite time. Finite-time continuous dependence gives the same entry for the exact field and an open initial neighborhood.
+
+Connect $i,j$ when $l_i,l_j$ have the same nonzero sign and
+\begin{equation}
+ \frac{\min(|l_i|,|l_j|)}{\max(|l_i|,|l_j|)}>\frac14,
+ \label{pa:selector}
+\end{equation}
+and take connected components. Initially the only same-sign ratio is $1/8$, so there are no edges. At $u_*$ the minimum ratio is $1/3$ and all signs are positive. Choose the attracting ball to preserve these margins.
+
+The null instead has
+\begin{equation}
+ \dot l_i^0=-\beta_{ii}^0(l_i^0)l_i^0+\epsilon o_i,\qquad
+ \beta_{ii}^0=\frac{a e^{-\KL(q_i\Vert q_0)}}{a e^{-\KL(q_i\Vert q_0)}+2p}.
+ \label{pa:bit-null}
+\end{equation}
+At $l_i=0$ its derivative has the strict sign of $o_i$. The first two initial odds remain positive and the third remains negative for all finite null time. Thus the full block never appears under the same selector, irrespective of event timing. Independent presentation-law perturbations do not change the conclusion.
+\end{proof}
+
+This proves interaction necessity for a persistent state-selected group. It has not yet discarded any child law. The next construction supplies a conditional physical quotient while preserving that grouping mechanism.
+
+\section{A fixed-model angular extension}
+
+Let $\mathsf K=\{-1,1\}\times S^1\times S^1$, with uniform binary reference and independent Haar references $H$ on both circles. Let $\mathsf M=\{-1,1\}$ with counting measure. Write $e(\phi)=(\cos\phi,\sin\phi)$ and
+$h(A)=\log I_0(|A|)$, where $I_0(r)=\int e^{r\cos\phi}H(d\phi)$. The invariant belief family is
+\begin{equation}
+ q_i(z,\phi,\psi)=
+ \frac{\exp[l_i z/2+A_i\cdot e(\phi)+zC_i\cdot e(\phi)
+                    +b_i\cos(\psi-\theta_i)]}{Z_i},
+ \label{pa:angular-family}
+\end{equation}
+where $A_i,C_i\in\R^2$, $b_i>0$, $\theta_i\in S^1$, and
+\begin{equation}
+ Z_i=I_0(b_i)
+ \frac{e^{l_i/2}I_0(|A_i+C_i|)+e^{-l_i/2}I_0(|A_i-C_i|)}2.
+ \label{pa:angular-normalizer}
+\end{equation}
+The Cartesian hidden parameter $b_i e(\theta_i)$ is regular at zero; the phase chart used for compression is restricted to $b_i>0$. Retain the independent Bernoulli presentation laws and priors of \cref{pa:persistent-grouping}.
+
+Fix $J=\epsilon^3$ and the normalized self evaluator
+\begin{equation}
+ G_i(m;z,\phi,\psi)=\frac{e^{Jz\cos\phi}}{I_0(J)}.
+ \label{pa:angular-evaluator}
+\end{equation}
+It is independent of $m$. Each nonself channel copies $z$ and resamples both circles from Haar measure. Thus its output is $\mu_j\otimes H\otimes H$, where $\mu_j$ is the public binary marginal. Its density is relative to the uniform binary reference, not counting measure:
+\begin{equation}
+ \mu_i(z)=\frac{e^{L_i z/2}}{\cosh(L_i/2)},\qquad
+ L_i=l_i+h(A_i+C_i)-h(A_i-C_i).
+ \label{pa:public-odds}
+\end{equation}
+The record space is a bit $o$ with counting measure and an angle $\omega$ with Haar measure, with likelihood
+\begin{equation}
+ \ell_{\epsilon}(o,\omega\mid z,\phi,\psi,m)
+ =\frac{e^{\epsilon oz/2}}{2\cosh(\epsilon/2)}
+  \frac{e^{\epsilon\cos(\omega-\phi)}}{I_0(\epsilon)}.
+ \label{pa:angular-record}
+\end{equation}
+Integrating each circle and summing the record bit proves all normalizations. The channels, evaluator, and likelihood are fixed during an own-block variation. In particular this example does not reconstruct the receiver's changing conditional law inside its generative model.
+
+\propositionheading{Exact angular field}{pa:angular-flow}
+The full own-law Fisher field preserves \cref{pa:angular-family} and is
+\begin{equation}
+ \begin{aligned}
+ \dot l_i&=-l_i+\sum_{j\ne i}\beta_{ij}L_j+\epsilon o_i,&
+ \dot A_i&=-A_i+\epsilon e(\omega_i),\\
+ \dot C_i&=-C_i+\beta_{ii}\epsilon^3e_1,&
+ \dot b_i&=-b_i,\qquad \dot\theta_i=0.
+ \end{aligned}
+ \label{pa:angular-ode}
+\end{equation}
+The presentation equation remains the second equation of \cref{pa:bit-flow}. If $m_i=\tanh(L_i/2)$ and $t_i=\E_{q_i}[z\cos\phi]$, the unnormalized content row weights are
+\begin{equation}
+ w_{ii}=\frac{a e^{Jt_i}}{I_0(J)},\qquad
+ w_{ij}=\frac{p e^{L_jm_i/2}}{\cosh(L_j/2)},\qquad
+ \beta_{ij}=\frac{w_{ij}}{\sum_r w_{ir}}.
+ \label{pa:angular-weights}
+\end{equation}
+\begin{proof}
+Put $S_i=\E_{q_i}\log q_i$. The costs are
+$D_{ii}=S_i-Jt_i+\log I_0(J)$ and
+$D_{ij}=S_i-L_jm_i/2+\log\cosh(L_j/2)$.
+The common entropy cancels in the Gibbs normalization, giving \cref{pa:angular-weights}. The centered negative own derivative is the logarithmic replicator velocity. It lies in the span of $z,e(\phi),ze(\phi),e(\psi)$ and constants. Matching coefficients gives \cref{pa:angular-ode}. The covariance of these seven sufficient statistics is positive definite: a linear combination constant under a positive density must be constant under the reference, and its Fourier modes and sign parity force every nonconstant coefficient to vanish. This is therefore the exact Fisher velocity on an invariant family, rather than a Euclidean update or a projected approximation.
+\end{proof}
+
+The marked sector participates in the public force. At $A=\alpha e_1$ and $C=ce_1$ with $c>0$, $\partial_\alpha L=h_1'(\alpha+c)-h_1'(\alpha-c)>0$, since $h_1''(r)=\operatorname{Var}_r(\cos\phi)>0$. Starting with $C=0$ generates positive $c$ at positive time. Also $\partial_{L_j}\beta_{ij}=\beta_{ij}(1-\beta_{ij})(m_i-m_j)/2$. Thus angular data can change source competition and the receiver's force. The separate hidden phase does not enter those quantities.
+
+\theoremheading{Grouping survives the angular extension}{pa:angular-grouping}
+There is $\epsilon_0>0$ such that for every $0<\epsilon<\epsilon_0$, the selector \cref{pa:selector} applied to the actual public odds $L_i$ selects a persistent full block from a nonempty relatively open initial set in \cref{pa:angular-family}, with records $o=(1,1,-1)$ held fixed. Its prescribed null never selects that block. Initial marked and hidden concentrations can lie in a fixed small positive compact patch independent of $\epsilon$, and the conclusion is uniform over the initial angular record values.
+\begin{proof}
+The null equations are
+\begin{equation}
+ \begin{aligned}
+ \dot l_i^0&=-\beta_{ii}^0l_i^0+\epsilon o_i,&
+ \dot A_i^0&=-\beta_{ii}^0A_i^0+\epsilon e(\omega_i),\\
+ \dot C_i^0&=\beta_{ii}^0(\epsilon^3e_1-C_i^0),&
+ \dot b_i^0&=-\beta_{ii}^0b_i^0,\qquad\dot\theta_i^0=0,
+ \end{aligned}
+ \label{pa:angular-null}
+\end{equation}
+with \cref{pa:null-row} evaluated at the complete self cost. Its angular entropy cannot be canceled after deleting the nonself costs.
+
+For $\epsilon\leq1/100$, consider
+\begin{equation}
+ \frac14\leq\frac{o_i l_i}{\epsilon}\leq12,\qquad
+ |A_i|\leq\frac1{10},\qquad |C_i|\leq2\epsilon^3,\qquad
+ 0\leq b_i\leq\frac1{10}.
+ \label{pa:null-box}
+\end{equation}
+In natural parameters $\eta=(l/2,A,C,b e(\theta))$ the sufficient-statistic vector has squared norm four, so the log-partition Hessian has operator norm at most four. Taylor's integral remainder for the exponential-family divergence, relative to $\eta_G=(0,0,\epsilon^3e_1,0)$, gives
+\begin{equation}
+ D_{ii}\leq2|\eta-\eta_G|^2
+ \leq72\epsilon^2+\frac1{25}+18\epsilon^6<\log2,
+ \qquad \frac19\leq\beta_{ii}^0\leq\frac15.
+ \label{pa:null-bound}
+\end{equation}
+For $r_i=o_i l_i/\epsilon$, $\dot r_i=1-\beta_{ii}^0r_i$ points inward at both endpoints. The outward derivatives of the $A$ and $C$ norms are at most $\epsilon-1/90<0$ and $-\beta_{ii}^0\epsilon^3<0$ on their respective boundaries, while $b$ decreases. Thus \cref{pa:null-box} is forward invariant. Since $\nabla h(0)=0$ and $\|\nabla^2h\|\leq1$,
+\begin{equation}
+ |L_i-l_i|\leq2|C_i|(|A_i|+|C_i|)
+ \leq\frac25\epsilon^3+8\epsilon^6<\frac\epsilon8.
+ \label{pa:null-sign-bound}
+\end{equation}
+Consequently $o_iL_i\geq\epsilon/8$ for all finite null times.
+
+For the full flow put $u=l/\epsilon$ and $c=C/\epsilon^3$, leaving $A$ unscaled. On bounded sets,
+$L_i/\epsilon=u_i+O_{C^1}(\epsilon^2)$ and $m_i,t_i=O(\epsilon)$.
+Equation \cref{pa:angular-weights} implies $\beta_{ij}=\pi_{ij}+O_{C^1}(\epsilon^2)$ even for fixed nonzero initial angular amplitudes. Hence
+\begin{equation}
+ \dot u=Mu+o+O_{C^1}(\epsilon^2),\qquad
+ \dot c_i=-c_i+a e_1+O_{C^1}(\epsilon^2),\qquad
+ \dot A_i=-A_i+\epsilon e(\omega_i).
+ \label{pa:angular-limit}
+\end{equation}
+At $\epsilon=0$ this is a stable affine field with equilibrium
+$(u_*,c_i=a e_1,A_i=0)$ and symmetric negative-definite derivative. The implicit function theorem supplies a nearby equilibrium with
+$u=u_*+O(\epsilon^2)$, $c_i=a e_1+O(\epsilon^2)$, and $A_i=\epsilon e(\omega_i)$.
+On a sufficiently small common ball its symmetric derivative is at most $-I/10$. After recentering, the derivative of squared distance is at most minus one fifth of that distance squared. This proves an invariant attracting neighborhood with all public signs positive and all pair ratios above $1/4$.
+
+Choose $u(0)$ near $(4,1/2,-1)$, $|C_i(0)|<\epsilon^3$, and $|A_i(0)|,b_i(0)<1/20$ with positive hidden amplitudes. The limiting affine flow enters the attraction neighborhood after a fixed finite time, uniformly over compact initial marked patches. Finite-time continuous dependence gives the same entry for small positive $\epsilon$ and a relatively open initial set. Initially $L_i=l_i+O(\epsilon^3)$, so the strict singleton margins persist. The angular records range over a compact torus and enter only through bounded constant forcings of size $\epsilon$; the same entrance time and smallness threshold work uniformly over their values. The null retains opposite signs by \cref{pa:null-sign-bound}.
+
+Finally $A,C,b$ have finite-interval bounds directly from their equations, $|L-l|\leq2|C|$, and both $l$ and the presentation log odds have at most linear growth. Solutions therefore continue for every finite time. The subsequent group persistence uses the invariant attraction neighborhood, not indefinite extrapolation of finite-time continuity.
+\end{proof}
+
+\section{A physical quotient with inherited records}
+
+Fix the operational protocol before selection. It admits fresh public and marked-coordinate queries on the primitive ports, normalized generative or recognition-predictive record transactions with the likelihood family \cref{pa:angular-record}, and adaptive choices of ports, strengths and waiting times from the retained history. These two kinds of predictive law are declared separately and need not agree. A prediction is not automatically assimilated. An evidence transaction appends its actual outcome and adds its likelihood to the persistent objective. Every finite continuation has finite record coefficients. Hidden absolute-angle queries are excluded at all stages. An external source-label readout does not change the agent's conditioning convention; revealing such a label to the inferring agent would specify another source-row update.
+
+\propositionheading{Canonical phase parent}{pa:phase-parent}
+On the invariant family \cref{pa:angular-family}, replace each hidden phase by zero and retain $l_i,A_i,C_i,b_i$, the presentation laws, primitive port labels, all constitutive data, event information, and the full record history. For a selected block take the product of these normalized canonical laws. This retention is physically noninjective at every finite time, intertwines the original-time full and null flows, and preserves every admitted finite adaptive joint response-record history, including its dependence with retained next states.
+\begin{proof}
+All full and null costs and retained velocities are independent of $\theta_i$, and $\dot\theta_i=0$. The canonical laws therefore obey the exact inherited port equations. Positive initial $b_i$ remains positive at each finite time. The child diagnostic
+\begin{equation}
+ \E_{q_i}e^{i\Psi}=\frac{I_1(b_i)}{I_0(b_i)}e^{i\theta_i}
+ \label{pa:hidden-diagnostic}
+\end{equation}
+distinguishes a phase fiber because $I_1(b)/I_0(b)>0$ for $b>0$. Thus the retention loses a continuous physical distinction after event data and records are included.
+
+The current retained state determines every admitted next response law. Conditional on its actual outcome, the same likelihood adds the same binary and marked-vector coefficients to the retained objective and the same entry to history. The joint response and retained next-state kernel therefore factors through retention. Deterministic waiting also factors by the exact equations. Induction over the causal product of these kernels proves every finite adaptive joint history. This is the predictive-equivalence requirement familiar from causal-state constructions \citep{ShaliziCrutchfield2001}, proved here directly for the declared controlled protocol.
+\end{proof}
+
+The parent carries primitive ports and their directed own-objective field. No claim is made that it is a fixed-size agent with one new source row, or the Fisher gradient of the sum of its children's free energies. Such a sum would add source-role derivatives. Normalized inherited channels act by projecting to the selected primitive source port, applying the existing public channel, and appending normalized canonical factors on other output coordinates. No new parent force is fitted.
+
+The diagnostic \cref{pa:hidden-diagnostic} is a permitted child-level distinction for assessing physical loss, but it is not a future boundary response in the fixed protocol. If it is admitted there, the quotient fails. A persistent hidden-angle likelihood proportional to $e^{\lambda\cos(v-\psi)}$ also changes the hidden amplitude and phase:
+\begin{equation}
+ \dot b=-b+\lambda\cos(v-\theta),\qquad
+ \dot\theta=\frac{\lambda}{b}\sin(v-\theta)
+ \label{pa:hidden-record-obstruction}
+\end{equation}
+in the full fixed-model example. Two states with the same retained $b,v$ can then have different future $b$ velocities. Finite-record uncertainty about $\theta$ does not remove this dynamical obstruction.
+
+\section{Collective geometry of the same parent}
+
+The marked comparison group is a common $S^1$ acting on $\phi$ within the selected block. Under a frame change $g$, transport $\phi$ and the record angle by addition of $g$, rotate $A_i,C_i$ and the constitutive evaluator direction $e_1$ by the corresponding plane rotation, and leave $z,b,\psi,\theta$ unchanged. The presentation sector carries no marked orbit. This is passive covariance of the declared comparison data. Rotating only the beliefs while holding the numerical evaluator and record directions fixed is generally not a symmetry of the energy. The hidden phase rotations are separate physical symmetries, not the marked comparison gauge.
+
+To include records in the actual statistical experiment, fix one finite initial episode and let $\Pi_c(dh)$ be its normalized generative predictive law at contextual point $c$. Conditional on the prepared configuration the agents' record kernels may be sampled independently; this defines an operational experiment and does not posit a global latent generative model. Let $Q_{c,t}^h$ be the product of fresh recognition and Gibbs-label laws conditional on the retained history $h$. The comparison law is
+\begin{equation}
+ \mathcal P_{c,t}(dh,dy)=\Pi_c(dh)Q_{c,t}^h(dy),\qquad
+ g^{\rm joint}=g^{\rm history}+\E_H[g^{\rm conditional}].
+ \label{pa:joint-record-geometry}
+\end{equation}
+The metric identity follows because the conditional score has mean zero. For the grouping witness one may condition on the positive-probability public pattern $(+,+,-)$, keeping all angular records random and including the conditioning normalizer in the history score. Source-label scores remain part of $Q^h$.
+
+\propositionheading{Exact collective cost inheritance}{pa:geometry-inheritance}
+On a regular contextual section with every discarded $\theta_i$ constant in context, the canonical parent of \cref{pa:phase-parent} preserves the actual collective minimizing connection class and minimized contextual Fisher tensor for \cref{pa:joint-record-geometry}.
+\begin{proof}
+The product shift $\psi_i\mapsto\psi_i-\theta_i$ is constant in context, time and history. It sends the fine joint law to the actual canonical parent law with unit Haar Jacobian and commutes with the marked action. Therefore it carries each contextual score $s_X$ and marked orbit score $s_{\rm orb}$ isometrically. For every tangent $X$ and comparison velocity $\xi$,
+\begin{equation}
+ \mathcal C_{\rm fine}(X,\xi)
+ =\E_{\mathcal P}(s_X+\xi s_{\rm orb})^2
+ =\mathcal C_{\rm parent}(X,\xi).
+ \label{pa:cost-isometry}
+\end{equation}
+The entire quadratic cost, its minimizer class modulo isotropy, and its minimum agree. The parent metric is computed from its normalized law rather than assigned by copying a tensor.
+\end{proof}
+
+If $\theta_i$ varies with context, the erased score contributes
+$b_i I_1(b_i)/I_0(b_i)(d\theta_i)^2$ and the proposition generally fails. It is a theorem on the declared family of sections. The common marked connection is a diagnostic of these evolved sections; it does not enter the present dynamical equations.
+
+\theoremheading{A common nonflat grouping window}{pa:nonflat-window}
+The initial set in \cref{pa:angular-grouping} admits a compact rank-two contextual patch and a fixed finite post-selection window on which the actual collective connection has nonzero curvature, its minimized tensor has rank two, and the canonical parent has exactly the same quantities.
+\begin{proof}
+Choose fixed small positive $a_-<a_+$, $d$, and $b_i$, independent of $\epsilon$. Use contextual coordinates $(a,\chi)$ with
+$A_1(0)=a e(\chi)$, $a\in[a_-,a_+]$, $A_2(0)=d e_1$, and $C_i(0)=0$.
+Other selected marked factors may have fixed positive concentrations. Keep hidden phases constant over context and take the public initial odds from \cref{pa:angular-grouping}. Choose a finite $T_+$ containing its common entrance time and a positive subsequent interval, with no additional assimilation during this window.
+
+At $\epsilon=0$, the episode likelihood is uniform, public laws are uniform, and the full Gibbs rows equal the fixed priors. History and label scores vanish at this limiting parameter. The solution is $A_i(t)=e^{-t}A_i(0)$, $C_i(t)=0$, $l_i(t)=0$, and $b_i(t)=e^{-t}b_i(0)$. Put
+\begin{equation}
+ I(x)=x\frac{I_1(x)}{I_0(x)},\qquad
+ V(x)=\operatorname{Var}_{v_x}(\cos\phi),\qquad
+ B(t)=\sum_{i\ne1}I(e^{-t}|A_i(0)|)>0.
+ \label{pa:inertias}
+\end{equation}
+Here $v_x=e^{x\cos\phi}/I_0(x)$. Differentiating its partition function gives $I'(x)=I_1(x)/I_0(x)+xV(x)>0$ for $x>0$. Integration of the derivative of $\sin\phi e^{x\cos\phi}$ around the circle gives the phase Fisher identity $x^2\E\sin^2\phi=I(x)$. Minimizing the sum of marked phase-score costs gives
+\begin{equation}
+ \begin{aligned}
+ \mathcal A_{0,t}
+ &=-\frac{I(e^{-t}a)}{I(e^{-t}a)+B(t)}d\chi,\\
+ \mathcal F_{0,t}
+ &=-\frac{B(t)e^{-t}I'(e^{-t}a)}
+ {[I(e^{-t}a)+B(t)]^2}da\wedge d\chi,\\
+ h^{0,t}_{aa}&=e^{-2t}V(e^{-t}a),\qquad
+ h^{0,t}_{\chi\chi}=\frac{I(e^{-t}a)B(t)}{I(e^{-t}a)+B(t)},\qquad
+ h^{0,t}_{a\chi}=0.
+ \end{aligned}
+ \label{pa:nonflat-limit}
+\end{equation}
+The locked inertia, both tensor eigenvalues, and the magnitude of the curvature coefficient have positive minima on the compact contextual patch and $0\leq t\leq T_+$.
+
+The exact densities, episode kernels, and ODE coefficients are analytic on a common compact finite-time tube. Their first two contextual derivatives converge uniformly to the displayed limit as $\epsilon\to0$: differentiating the flow gives
+$\dot X_c=DV(X)X_c$ and
+$\dot X_{cc}=DV(X)X_{cc}+D^2V(X)[X_c,X_c]$,
+whose integral inequalities bound the derivatives uniformly. Compact record spaces and positive bounded densities justify differentiating the Fisher integrals. Conditioning on the public pattern is regular because its limiting probability is positive. Thus the locked inertia $K_\epsilon$, momentum $j_\epsilon$, and unminimized contextual tensor $B_\epsilon$ converge with the derivatives required in
+$\mathcal A_\epsilon=-K_\epsilon^{-1}j_\epsilon$,
+$h_\epsilon=B_\epsilon-j_\epsilon\otimes j_\epsilon/K_\epsilon$,
+and $\mathcal F_\epsilon=d\mathcal A_\epsilon$.
+The positive limiting margins persist for sufficiently small positive $\epsilon$, uniformly over the angular episode outcomes. The grouping threshold can be imposed simultaneously by taking the smaller admissible $\epsilon_0$. Equation \cref{pa:cost-isometry} gives exact parent equality.
+\end{proof}
+
+The fixed positive initial marked amplitudes are needed in this finite-window argument: they keep the limiting inertia nonzero at the same finite entrance time as grouping. No numerical bound on $\epsilon_0$ is asserted. The group persists indefinitely with its initial record episode fixed, while nonflatness is asserted on the declared finite window. Later admitted record continuations preserve quotient closure but may alter the grouping or geometry.
+
+\section{The remaining formation obligations}
+
+The construction meets the admitted-family, persistent-selection, conditional-inheritance, physical-compression, and interaction-necessity requirements at one stage. Its selector and phase-insensitive interface are constitutive choices. In particular the phase quotient is available before any group is selected and also under the null. Coupling the marked sector to public communication does not make the separate erased phase endogenously invisible.
+
+Joining two already canonical parent products is associative and preserves their inherited port fields and histories. It erases no new phase. It therefore supplies neither a second noninjective handoff nor the counterfactual dependence required by (F6b). The next obligation is a genuinely collective or interaction-selected sufficient interface, followed by a further compressive inherited selection that depends on the first handoff. The present conditional theorem does not close \cref{inh:formation-open}.

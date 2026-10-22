@@ -1,0 +1,256 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Per-Agent Inference and Conditional Inheritance}
+\label{cf:per-agent-inheritance}
+
+An agent that changes its beliefs to fit a peer need not make that peer change in return. This chapter uses that per-agent picture: each agent minimizes the free energy of its own normalized model, taking communicated peer laws as data. A persistent record can then favor one sign locally while communication brings the agent into a group with the opposite sign. Three agents give an explicit example. Their selected group has an exact compressed parent for a declared interface, including its record histories and a nonflat collective geometry. The compression interface is supplied before selection, so this is a conditional inheritance construction rather than a completion of recursive formation.
+
+\section{Whose free energy supplies the force?}
+
+Let $k\in\mathsf K$ be a represented content, $m\in\mathsf M$ a model presentation, and $j,r$ their respective source labels. Agent $i$ has a normalized evaluator $G_i(m,dk)$, a presentation reference $r_i(dm)$, and fixed positive source priors $\pi_i^q,\pi_i^s$. Its content sources are $T_{ii}=G_i$ and communicated peer laws $T_{ij}=\nu_j^q$ for $j\ne i$; its presentation sources are $R_{ii}=r_i$ and $R_{ir}=\nu_r^s$ for $r\ne i$. With a normalized record likelihood $\ell_i(do\mid k,m)$, its own model is
+\begin{equation}
+ P_i(dm,dk,j,r,do)
+ =\pi_{ir}^sR_{ir}(dm)\pi_{ij}^qT_{ij}(m,dk)
+   \ell_i(do\mid k,m).
+ \label{cp:local-model}
+\end{equation}
+Integrating the record and content, summing $j$, and then integrating the presentation and summing $r$ gives one. The model stays fixed during an own-block variation with peers held fixed. It does not specify a common generative law for the population.
+
+Restrict recognition to $Q_i=q_i\otimes s_i\otimes\beta_i\otimes\gamma_i$. For a retained record $o_i$, define $D_{ij}=\E_{q_i\otimes s_i}\log(q_i/T_{ij})$ and $E_{ir}=\KL(s_i\Vert R_{ir})$. All densities are taken against their declared common reference measures. The negative evidence lower bound is exactly
+\begin{equation}
+ \begin{aligned}
+ F_i={}&\sum_j\beta_{ij}D_{ij}+\KL(\beta_i\Vert\pi_i^q)
+       +\sum_r\gamma_{ir}E_{ir}+\KL(\gamma_i\Vert\pi_i^s)\\
+     &-\E_{q_i\otimes s_i}\log\ell_i(o_i\mid K,M).
+ \end{aligned}
+ \label{cp:free-energy}
+\end{equation}
+The likelihood remains in this objective after observation. Exact source minimization at unit temperature gives
+\begin{equation}
+ \beta_{ij}=\frac{\pi_{ij}^qe^{-D_{ij}}}{\sum_k\pi_{ik}^qe^{-D_{ik}}},
+ \qquad
+ \gamma_{ir}=\frac{\pi_{ir}^se^{-E_{ir}}}{\sum_k\pi_{ik}^se^{-E_{ik}}}.
+ \label{cp:gibbs}
+\end{equation}
+Indeed, differentiating the row objective subject to normalization gives $D_j+\log(\beta_j/\pi_j)+1+\eta=0$; its positive Hessian gives the unique minimum. The reduced content term is $-\log\sum_j\pi_{ij}^qe^{-D_{ij}}$, whose differential is $\sum_j\beta_{ij}dD_{ij}$.
+
+With the own-law Fisher metric and unit mobility, write $h_i^q=\delta F_i/\delta q_i$ and evolve by
+\begin{equation}
+ \dot q_i=-q_i(h_i^q-\E_{q_i}h_i^q),\qquad
+ \dot s_i=-s_i(h_i^s-\E_{s_i}h_i^s).
+ \label{cp:own-flow}
+\end{equation}
+This is natural-gradient descent in each agent's own block \citep{Amari1998}. There is no incoming derivative from the objectives of agents listening to $i$. Such a derivative belongs to the reciprocal potential of \cref{comp:dynamics}. If $G_i$ couples belief and presentation, both derivatives of its expected log density carry $\beta_{ii}$, because the evaluator is a content self source; the presentation reference carries $\gamma_{ii}$. Even an exact channel identity $pK[p]=pW$ only simplifies its full derivative to $D(pK[p])[v]=vW$. It does not convert the per-agent force into the reciprocal force or transfer reciprocal equilibria.
+
+The null control deletes nonself costs while retaining every label, prior, and row entropy. Its content self weight is therefore
+\begin{equation}
+ \beta_{ii}^0=
+ \frac{\pi_{ii}^qe^{-D_{ii}}}
+ {\pi_{ii}^qe^{-D_{ii}}+\sum_{j\ne i}\pi_{ij}^q},
+ \label{cp:null-row}
+\end{equation}
+with the corresponding formula for $\gamma_{ii}^0$. Setting either self weight to one would change this control. The example below uses fixed kernels, so no hidden population dependence remains to freeze.
+
+\section{A bit and two different circles}
+
+Take three agents of one species with $\mathsf K=\{-1,1\}\times S^1\times S^1$. Write $k=(z,\phi,\psi)$, $e_\phi=(\cos\phi,\sin\phi)$, and let $H$ be Haar probability measure. Belief densities are relative to the product of the uniform bit measure and two copies of $H$. Define $I_0(v)=\int e^{v\cos\phi}H(d\phi)$ and $h(A)=\log I_0(|A|)$. The invariant family is
+\begin{equation}
+ \begin{aligned}
+ q_i(z,\phi,\psi)
+ &=\frac{\exp[l_i z/2+A_i\cdot e_\phi+zC_i\cdot e_\phi
+                  +b_i\cos(\psi-\theta_i)]}{Z_i},\\
+ Z_i&=\frac{I_0(b_i)}2
+ \left[e^{l_i/2}I_0(|A_i+C_i|)
+       +e^{-l_i/2}I_0(|A_i-C_i|)\right],
+ \end{aligned}
+ \label{cp:family}
+\end{equation}
+where $A_i,C_i\in\R^2$ and $b_i>0$. The presentation law is $s_i(w)=e^{n_iw/2}/[2\cosh(n_i/2)]$ on $w\in\{-1,1\}$, with counting measure and uniform self reference. All source priors have self mass $1/5$ and mass $2/5$ for each peer.
+
+Fix $\epsilon>0$, set $J=\epsilon^3$ and $\lambda=\epsilon$, and choose the presentation-independent evaluator
+\begin{equation}
+ G_i(w;z,\phi,\psi)=\frac{e^{Jz\cos\phi}}{I_0(J)}.
+ \label{cp:evaluator}
+\end{equation}
+The circle integral proves its normalization for either value of $z$. A peer content channel copies $z$ and draws both circles independently from $H$; a peer presentation channel is the identity. The circle $\phi$ is marked by the evaluator direction $e_1=(1,0)$. The circle $\psi$ carries another physical orientation but has no such role in the communication protocol.
+
+The transmitted bit has log odds
+\begin{equation}
+ L_i=l_i+h(A_i+C_i)-h(A_i-C_i).
+ \label{cp:public-odds}
+\end{equation}
+Thus $l_i$ alone is not the public state. The peer density against the uniform bit reference is $\nu_j(z)=e^{L_jz/2}/\cosh(L_j/2)$; its probability mass is $\nu_j(z)/2$. Using that probability mass in the density KL would add $\log2$ to peer costs alone and change the rows.
+
+A record is $(o,\omega)\in\{-1,1\}\times S^1$, with counting measure for $o$ and Haar measure for $\omega$. Choose
+\begin{equation}
+ \ell(o,\omega\mid z,\phi,\psi,w)
+ =\frac{e^{\epsilon oz/2}}{2\cosh(\epsilon/2)}
+  \frac{e^{\lambda\cos(\omega-\phi)}}{I_0(\lambda)}.
+ \label{cp:likelihood}
+\end{equation}
+Both factors normalize over their recorded variable. The first records the bit imperfectly; the second records a noisy direction on the marked circle. Neither reads $\psi$. Their observed values remain in the free energy throughout the ensuing relaxation.
+
+\section{Exact motion in the original time}
+
+Put $m_i=\tanh(L_i/2)$, $t_i=\E_{q_i}[Z\cos\Phi]$, and $S_i=\E_{q_i}\log q_i$. The content costs are
+\begin{equation}
+ D_{ii}=S_i-Jt_i+\log I_0(J),\qquad
+ D_{ij}=S_i-L_jm_i/2+\log\cosh(L_j/2).
+ \label{cp:costs}
+\end{equation}
+The common entropy $S_i$ cancels from the full row. Its unnormalized weights are
+\begin{equation}
+ w_{ii}=\frac{e^{Jt_i}}{5I_0(J)},\qquad
+ w_{ij}=\frac{2e^{L_jm_i/2}}{5\cosh(L_j/2)},\qquad
+ \beta_{ij}=\frac{w_{ij}}{\sum_rw_{ir}}.
+ \label{cp:weights}
+\end{equation}
+These weights read the marked circle through $L_i,L_j,t_i$, but read neither $b_i$ nor $\theta_i$. For example, when $A_i=\alpha e_1$ and $C_i=ce_1$ with $c>0$, the derivative of $L_i$ with respect to $\alpha$ is $h_1'(\alpha+c)-h_1'(\alpha-c)>0$, where $h_1(r)=\log I_0(r)$ and $h_1''(r)=\operatorname{Var}_r(\cos\Phi)>0$.
+
+Modulo a normalization constant, the own belief force is $\log q_i-\beta_{ii}\log G_i-\sum_{j\ne i}\beta_{ij}\log\nu_j-\log\ell_i$. Its centered negative is the log-density velocity in \cref{cp:own-flow}. Matching the coefficients of the sufficient statistics in \cref{cp:family} therefore gives
+\begin{equation}
+ \begin{aligned}
+ \dot l_i&=-l_i+\sum_{j\ne i}\beta_{ij}L_j+\epsilon o_i,\\
+ \dot A_i&=-A_i+\epsilon e_{\omega_i},&
+ \dot C_i&=-C_i+\beta_{ii}\epsilon^3e_1,\\
+ \dot b_i&=-b_i,&\dot\theta_i&=0,\\
+ \dot n_i&=-n_i+\sum_{j\ne i}\gamma_{ij}n_j.
+ \end{aligned}
+ \label{cp:parameters}
+\end{equation}
+The apparent linearity of several parameter equations comes from the Fisher metric, not a Euclidean gradient assumption. The sufficient-statistic covariance is positive definite in the Cartesian chart $B_i=b_ie_{\theta_i}$: no nonzero combination of the distinct Fourier and bit-parity modes is constant. Hence this is an exact invariant family of the own-law flow. Finite parameters give positive analytic densities, local uniqueness, and smooth parameter dependence. The displayed equations bound $A_i,C_i,B_i$ directly, while $|L_i-l_i|\leq2|C_i|$ gives a linear growth bound for $l_i$; these bounds prevent finite-time escape. No clock has been rescaled.
+
+\section{How the records produce a persistent group}
+
+Retain binary outcomes $o=(1,1,-1)$ and arbitrary angular outcomes $\omega_i$. Start with $l/\epsilon$ near $(4,1/2,-1)$, small $|A_i|,b_i<1/20$, $b_i>0$, and $|C_i|<\epsilon^3$. These strict conditions admit a relatively open set in \cref{cp:family}. Before either evolution, connect two agents exactly when their nonzero public odds have the same sign and
+\begin{equation}
+ \frac{\min(|L_i|,|L_j|)}{\max(|L_i|,|L_j|)}>\frac14.
+ \label{cp:selector}
+\end{equation}
+The selected blocks are the connected components. This rule treats labels symmetrically. Initially the only same-sign pair has ratio close to $1/8$, so the partition consists of singletons.
+
+Write $u_i=l_i/\epsilon$ and $c_i=C_i/\epsilon^3$ for the proof, retaining the original time. On bounded parameter sets, \cref{cp:public-odds,cp:weights} give $L_i/\epsilon=u_i+O(\epsilon^2)$ and $\beta_{ij}=\pi_{ij}+O(\epsilon^2)$, including first derivatives in these scaled variables. The limiting public equation is
+\begin{equation}
+ \dot u=Mu+o,\qquad
+ M=-\frac75\id+\frac25\mathbf1\mathbf1^\top,\qquad
+ u_*=-M^{-1}o=(15/7,15/7,5/7).
+ \label{cp:affine}
+\end{equation}
+The common mode has eigenvalue $-1/5$ and the two difference modes have eigenvalue $-7/5$. Thus a positive shared component survives the conflicting third record. At equilibrium every sign is positive and the smallest pair ratio is $1/3$, strictly above the selection threshold.
+
+This limiting calculation gives an exact small-parameter result. The other limiting equations are $\dot c_i=-c_i+e_1/5$ and $\dot A_i=-A_i$. Their combined derivative is negative definite. The implicit function theorem gives a nearby exact equilibrium $x_\epsilon$ for $x=(u,c,A)$, and the symmetric part of the derivative remains at most $-\id/10$ in a fixed small neighborhood. Consequently
+\begin{equation}
+ \frac{d}{dt}|x-x_\epsilon|^2
+ \leq-\frac15|x-x_\epsilon|^2.
+ \label{cp:attraction}
+\end{equation}
+Choose that neighborhood inside the strict all-positive selection region. The limiting trajectories enter it at one finite time uniformly over a compact initial patch. Finite-time continuous dependence puts the exact trajectories there for sufficiently small fixed $\epsilon>0$, after which \cref{cp:attraction} proves persistence for all later times. The argument is uniform in $\omega\in(S^1)^3$. It assumes that no additional record is assimilated during this episode.
+
+The null has a different field, obtained by deleting the full nonself costs before row reduction:
+\begin{equation}
+ \begin{aligned}
+ \beta_{ii}^0&=\frac{e^{-D_{ii}}}{e^{-D_{ii}}+4},&
+ \dot l_i^0&=-\beta_{ii}^0l_i^0+\epsilon o_i,\\
+ \dot A_i^0&=-\beta_{ii}^0A_i^0+\epsilon e_{\omega_i},&
+ \dot C_i^0&=\beta_{ii}^0(\epsilon^3e_1-C_i^0),\\
+ \dot b_i^0&=-\beta_{ii}^0b_i^0,&
+ \dot n_i^0&=-\gamma_{ii}^0n_i^0.
+ \end{aligned}
+ \label{cp:null-parameters}
+\end{equation}
+Its phase is also constant. Here the hidden concentration contributes to $D_{ii}$ and no longer cancels from the row. An all-time sign bound needs this dependence.
+
+For $0<\epsilon\leq1/100$, consider
+\begin{equation}
+ \frac14\leq\frac{o_il_i}{\epsilon}\leq12,\qquad
+ |A_i|\leq\frac1{10},\qquad |C_i|\leq2\epsilon^3,\qquad
+ b_i\leq\frac1{10}.
+ \label{cp:null-box}
+\end{equation}
+The sufficient-statistic vector has squared norm four, so the log-partition Hessian has operator norm at most four. Its integral Taylor remainder bounds the self divergence by $D_{ii}\leq72\epsilon^2+1/25+18\epsilon^6<\log2$. Hence $1/9\leq\beta_{ii}^0\leq1/5$. For $r_i=o_il_i/\epsilon$, the equation $\dot r_i=1-\beta_{ii}^0r_i$ points inward at both endpoints of \cref{cp:null-box}. The radial derivatives of $A_i$ and $C_i$ also point inward, and $b_i$ decreases. This proves invariance of the whole region.
+
+Finally $\|\nabla^2h\|\leq1$ gives
+\begin{equation}
+ |L_i-l_i|\leq2|C_i|(|A_i|+|C_i|)
+ \leq\frac25\epsilon^3+8\epsilon^6<\frac\epsilon8,
+ \qquad o_iL_i\geq\frac\epsilon8.
+ \label{cp:null-signs}
+\end{equation}
+The third null agent stays negative for every finite time. The full flow eventually selects the three-agent block, whereas the null never does. Deleting event times cannot remove this difference of partition histories.
+
+\section{The parent and its complete admitted histories}
+
+For a selected block $I$, replace each hidden factor $e^{b_i\cos(\psi-\theta_i)}/I_0(b_i)$ by $e^{b_i\cos\psi}/I_0(b_i)$, and take the product of the resulting normalized belief laws and the retained presentation laws. The parent keeps $l_i,A_i,C_i,b_i,n_i$, all primitive ports and source rows, constitutive data, the complete ordered record history, and membership events and their times. Its retained vector field is exactly \cref{cp:parameters} with $\theta_i$ omitted. Every retained derivative is independent of the omitted phases, so this retention intertwines the flows in their original time.
+
+Compression is physical relative to the marked comparison frame. For $I_1(b)=dI_0(b)/db$, a separate child diagnostic gives
+\begin{equation}
+ \E_{q_i}e^{\mathrm i\Psi}
+ =\frac{I_1(b_i)}{I_0(b_i)}e^{\mathrm i\theta_i}.
+ \label{cp:phase-diagnostic}
+\end{equation}
+It distinguishes the phase fibers whenever $b_i>0$, which holds at every finite full-flow time because $b_i(t)=e^{-t}b_i(0)$. The marked-frame group acts only on $\phi$, so changing $\theta_i$ is not its gauge transformation. The parent retains $b_i$, including the information carried by variations of the hidden shape.
+
+Declare the boundary protocol before selection. It may query retained public and marked coordinates, primitive source labels, and transmitted bits, with actions and observation times chosen from the retained history. Assimilated records use \cref{cp:likelihood}, with declared strengths; each new outcome appends its likelihood and actual value without instantaneously resetting the recognition law. Their natural parameters add, so the same finite family remains invariant. Fresh predictive draws are not assimilated as new evidence. A retained source-label trace does not reveal that latent label to the inferring agent; revealing it would change the optimized-row conditioning convention. Reused samples must have their queried coordinates stored. No hidden absolute-angle query is in this protocol, before or after a handoff.
+
+One must also specify how records are sampled. The normalized generative predictive kernel integrates \cref{cp:local-model}, whereas a recognition-predictive kernel integrates the likelihood against $q_i\otimes s_i$. These generally differ. Either declared kernel depends only on retained data here; the geometric construction below uses the former for its initial records. If $x$ is the complete configuration and $R$ its retention, the joint next-output and retained-update kernel has the form
+\begin{equation}
+ K_a(x,dy,dx_c')
+ =\widehat K_a(Rx,dy,dx_c'),\qquad
+ x_c'=U(Rx,a,y),
+ \label{cp:joint-kernel}
+\end{equation}
+where $a$ is the retained action label and $U$ appends the output and any persistent likelihood coefficients. Equal parent states give equal waiting-time flows, equal next outputs, and equal next retained states conditional on those outputs. Successive conditioning proves equality of every finite adaptive joint history, including its dependence with future states. A $\psi$-reading sensor would violate this identity immediately by \cref{cp:phase-diagnostic}.
+
+The parent therefore carries exact directed equations on all its child ports. It is not a fixed-size agent with one new source row. Nor is its field the Fisher gradient of $\sum_{i\in I}F_i$: differentiating that sum would add the source-role forces that the per-agent dynamics excludes.
+
+\section{Geometry of histories and current states}
+
+Use a common marked $S^1$ comparison frame for a block. A passive change through angle $g$ sends $\phi\mapsto\phi+g$, $\omega\mapsto\omega+g$, $A_i\mapsto R_gA_i$, and $C_i\mapsto R_gC_i$. It also sends the evaluator direction $e_1\mapsto R_ge_1$. The hidden variables $\psi,\theta_i$ and the presentation sector do not transform. Evaluators, record kernels, and recognition laws are then expressed in the same new coordinates. Rotating the beliefs while holding numerical evaluator and record directions fixed would instead change the model.
+
+For a contextual section $c$, draw the initial records independently from the agents' normalized generative predictive kernels, conditional on their prepared laws. Let $\Pi_c$ be the law of the resulting history $H$. Condition on the positive-probability binary event $E=\{o=(1,1,-1)\}$, retain its label, and leave the angular records random. If $Q_{c,t}^{h}$ is the product of the selected children's current recognition laws and their Gibbs-label laws after history $h$, the actual experiment is
+\begin{equation}
+ \mathcal P_{c,t}(dh,dy)=\Pi_c(dh\mid E)Q_{c,t}^{h}(dy).
+ \label{cp:experiment}
+\end{equation}
+This experimental product introduces no global population free energy. Its score and Fisher metric satisfy
+\begin{equation}
+ \begin{aligned}
+ s_X&=\partial_X\log\Pi_c(H\mid E)+\partial_X\log Q_{c,t}^{H}(Y),\\
+ g^{\mathrm{joint}}&=g^{\mathrm{history}}+\E_H g^{\mathrm{conditional}}.
+ \end{aligned}
+ \label{cp:history-fisher}
+\end{equation}
+The cross term vanishes because each conditional density is normalized. The first score includes $-\partial_X\log\Pr_c(E)$, and the second includes the source-row label scores. A metric computed only at one fixed realized history would omit the first contribution.
+
+Restrict now to sections whose erased phases are constant in context. Since they are also constant in time and history, the product shift $\psi_i\mapsto\psi_i-\theta_i$ is one fixed change of sample coordinates. It carries \cref{cp:experiment} to the parent's actual experiment, preserves Haar measure, and commutes with the marked-frame action. Consequently, for every contextual tangent $X$ and common angular comparison velocity $\xi$,
+\begin{equation}
+ \mathcal C_{\mathrm{fine}}(X,\xi)
+ =\E_{\mathcal P}(s_X+\xi s_{\mathrm{orb}})^2
+ =\mathcal C_{\mathrm{parent}}(X,\xi),
+ \label{cp:cost-isometry}
+\end{equation}
+where $s_{\mathrm{orb}}$ is the marked-orbit score. Equality before minimization gives the same minimizing connection and contextual tensor. This is the mechanical-connection construction for the declared statistical metric \citep{Smale1970}; the result here is its exact preservation by this parent. Context-varying erased phases would contribute positive terms $[b_iI_1(b_i)/I_0(b_i)](d\theta_i)^2$ that the parent loses, so that broader equality is false.
+
+Nonzero curvature occurs in the same model. Choose a compact contextual patch $c=(a,\chi)$ with $A_1(0)=ae_\chi$, $A_2(0)=de_1$, and $a,d>0$ fixed independently of $\epsilon$. Keep $C_i(0)=0$, hidden phases and concentrations constant over context, and initial presentation laws uniform. Other selected children may have fixed small positive marked amplitudes. At $\epsilon=0$, the initial history is uniform and the row-label laws equal their context-independent priors, so both scores vanish; meanwhile $A_i(t)=e^{-t}A_i(0)$. Define
+\begin{equation}
+ \mathcal I(v)=v\frac{I_1(v)}{I_0(v)},\qquad
+ s=e^{-t}a,\qquad
+ B(t)=\sum_{i\in I\setminus\{1\}}\mathcal I(e^{-t}|A_i(0)|)>0.
+ \label{cp:inertias}
+\end{equation}
+The angular part of the cost is $\mathcal I(s)(d\chi+\xi)^2+B(t)\xi^2$. Minimization, followed by differentiation in context, gives
+\begin{equation}
+ \begin{aligned}
+ \mathcal A_{0,t}&=-\frac{\mathcal I(s)}{\mathcal I(s)+B(t)}d\chi,\\
+ \mathcal F_{0,t}&=-\frac{B(t)e^{-t}\mathcal I'(s)}
+ {[\mathcal I(s)+B(t)]^2}da\wedge d\chi,\\
+ h_{aa}^{0,t}&=e^{-2t}\operatorname{Var}_{s}(\cos\Phi)>0,\\
+ h_{\chi\chi}^{0,t}&=\frac{\mathcal I(s)B(t)}{\mathcal I(s)+B(t)}>0,
+ \qquad h_{a\chi}^{0,t}=0.
+ \end{aligned}
+ \label{cp:curvature}
+\end{equation}
+Here $\mathcal I'(s)=I_1(s)/I_0(s)+s\operatorname{Var}_{s}(\cos\Phi)>0$. The phase inertia identity follows by integrating the derivative of $\sin\phi e^{s\cos\phi}$ around the circle. Thus the tensor has rank two and the connection has nonzero curvature on this patch.
+
+Fix a finite time window containing the common grouping entrance time, and compare sections at the same physical time. The positive inertia, tensor eigenvalues, and curvature magnitude have positive lower bounds on the compact patch throughout that window. Analytic finite-time dependence of the flow and its contextual derivatives, together with positivity of the normalized history density, preserves those strict bounds for sufficiently small fixed $\epsilon>0$. \Cref{cp:cost-isometry} then gives exact equality with the compressed parent's geometry at that same positive parameter. No connection enters \cref{cp:parameters}; it diagnoses the evolved statistical sections. Nonflatness is asserted on the finite window, whereas group persistence concerns the entire fixed-record episode. Later admitted records preserve exact quotient closure but may change the group and its geometry.
+
+The remaining formation obligation is concrete. Every erased phase was already invisible to the admitted interface before any group was selected. The interaction chooses membership, but this construction does not make the sufficient interface appear. Joining already canonical parents concatenates their retained ports and histories and erases no new phase, so it gives neither a second compressive handoff nor the required counterfactual dependence of that second stage. A construction deriving such an interface and a genuinely new inherited loss remains open.

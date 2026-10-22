@@ -13,7 +13,9 @@ Copy-Item -LiteralPath build/MAgent_Theory_2.0_supplement.pdf -Destination MAgen
 Copy-Item -LiteralPath build/MAgent_Theory_2.0_companion.pdf -Destination MAgent_Theory_2.0_companion.pdf
 ```
 
-## Current state (2026-10-22 remediation)
+## Current state (2026-10-22)
+
+The added per-agent chapter and companion derive the correct own-block and null fields, prove persistent interaction-dependent grouping with conflicting records, and give a conditional physical phase parent preserving port dynamics, admitted finite adaptive histories, persistent likelihoods, and actual nonflat collective geometry on a finite window. The phase-insensitive interface is predeclared; no new second compressive handoff is proved. Persistent grouping is restricted to the fixed initial record episode, and geometric equality is restricted to context-constant erased phases. These are conditional one-stage inheritance results, not a completed recursive formation.
 
 A deep review on 2026-10-22 found no false main result but several structural problems, and the remediation applied the author's two decisions.
 
