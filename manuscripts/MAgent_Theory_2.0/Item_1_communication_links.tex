@@ -1,0 +1,301 @@
+\documentclass[11pt,letterpaper]{report}
+\input{preamble}
+\hypersetup{pdftitle={MAgent Theory 2.0 Working Document: Communication Links},pdfauthor={Robert C. Dennis},pdfsubject={Alignment links, lossy codes, identifiability, and dissonance for communicating agents}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\begin{document}
+\hypersetup{pageanchor=false}
+\magenttitle{MAgent Theory 2.0}{Communication Links:\\Alignment, Codes, and Dissonance}
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\chapter*{Status and summary}
+\addcontentsline{toc}{chapter}{Status and summary}
+This is a working document for the first item of the future-work list. It is not part of the main manuscript and is not cited by it. It uses the main manuscript's conventions: one structure group $G$ acts on the belief and model sectors through two representations, an agent's frame is $U_i\in G$, and statements are made at one context in reference coordinates unless they say otherwise. To keep the formulas short, the belief sector is written with $V=\R^K$ and $G\subseteq\GL(K,\R)$ acting by matrix multiplication; the model sector is analogous with its own representation.
+
+The motivating picture is the following. When agent $j$ communicates a belief to agent $i$, most of what the belief means to $j$ is lost: $j$ projects it into a low-dimensional public package, a sentence, a drawing or a signal, and $i$ rebuilds it inside its own, larger internal space using its own conceptual structure. In the manuscript's index convention, with receiver $i$ and sender $j$, the chain is
+\begin{equation}
+q_j\longrightarrow(T_j)_\#q_j\longrightarrow\text{noise}\longrightarrow\text{decoding by }i\longrightarrow q_i'.
+\label{it1:chain}
+\end{equation}
+Two different objects are built from the same maps. The composite of a sending and a receiving map has rank at most the width of the message space and is lossy. An exponentiated link with a generator of the same form is invertible and loses nothing. This document keeps them apart: each directed edge carries an invertible dictionary, which is the gauge field, and each modality carries a lossy code.
+
+The main results are these. The receiver's decoder is not a free map: for linear Gaussian codes it is the gain computed from the receiver's own prior covariance, and the reconstructed belief adopts the sender's belief along the communicated directions while keeping the receiver's own belief along the discarded ones (\cref{it1:gaussian-reconstruction}). For general laws and a noiseless code, the meaning lost in transmission equals the total disagreement minus the disagreement visible through the code (\cref{it1:loss}). Coded messages identify the dictionary only up to the subgroup that leaves the code unchanged, a subgroup of dimension $K(K-r)$ in $\GL(K,\R)$ for a code of rank $r$ (\cref{it1:identifiability}); several modalities sharing one dictionary identify it up to the intersection of their stabilizers, so overlapping modalities help less than independent ones (\cref{it1:modalities}). Exact consensus of transported beliefs is possible exactly on the common fixed space of the holonomies of the communication graph, so nontrivial holonomy on a loop is an obstruction to agreement, a dissonance (\cref{it1:consensus}). Finally, with $n$ coded messages per exchange the posterior over who was heard behaves as a Gibbs row at temperature $1/n$ whose costs are divergences between message laws, not between full beliefs (\cref{it1:bandwidth}).
+
+Every identity was also checked numerically at small sizes; the checks support the instances tested and are not proofs.
+
+\begingroup
+\small
+\tableofcontents
+\endgroup
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Codes and dictionaries}
+\label{it1:ch-objects}
+
+\definitionheading{Code of a modality}{it1:code}
+A modality $c$, such as speech, drawing or gesture, has a public message space $H_c=\R^{r_c}$ and a noise covariance $R_c$, either positive definite or zero for a noiseless code. The message space carries no frame of its own: its coordinates are public conventions. Sender $j$'s code in modality $c$ is a linear map $\bar T_j^c:V\to H_c$ of rank $r_c\leq K$ on reference coordinates. Its displayed form is $T_j^c=\bar T_j^cU_j^{-1}$. A message produced from displayed content $y_j$ is
+\begin{equation}
+h=T_j^cy_j+\varepsilon,\qquad\varepsilon\sim\mathcal N(0,R_c).
+\label{it1:message}
+\end{equation}
+
+Under a passive change $U_j\mapsto g_jU_j$ the displayed content becomes $g_jy_j$ and the displayed code becomes $T_j^cg_j^{-1}$, so the message is unchanged. Public messages therefore do not depend on the sender's frame, and the reference code $\bar T_j^c$ is a frame-independent property of the sender. Codes are agent specific. A shared language is part of a shared generative model in the sense of the main manuscript: members of a species use codes related by the frame map of their shared model.
+
+\definitionheading{Dictionary}{it1:dictionary}
+Receiver $i$'s dictionary for sender $j$ is
+\begin{equation}
+\theta_{ij}=U_i\exp(\omega_{ij})U_j^{-1}\in G,\qquad
+\bar\theta_{ij}=\exp(\omega_{ij}),\qquad\omega_{ij}\in\mathfrak g.
+\label{it1:dictionary-eq}
+\end{equation}
+It is owned by the receiver: it is $i$'s hypothesis about how $j$'s internal reference coordinates sit relative to its own. Content with reference coordinates $\bar y$ for $i$ corresponds, according to $i$, to $\bar\theta_{ij}^{-1}\bar y$ for $j$. The effective code that $i$ attributes to $j$ is therefore
+\begin{equation}
+\hat A_{ij}^c=\bar T_j^c\bar\theta_{ij}^{-1}.
+\label{it1:effective-code}
+\end{equation}
+
+The dictionary $\theta_{ji}$ is $j$'s hypothesis about $i$. It is an independent datum, learned by a different agent, so $\theta_{ji}$ need not equal $\theta_{ij}^{-1}$. The product $\bar\theta_{ij}\bar\theta_{ji}$ is the holonomy of the two-cycle $i\to j\to i$: the composite of what $i$ thinks $j$ means with what $j$ thinks $i$ means. It is the identity exactly when the two agents' translations of each other are mutually inverse; otherwise it measures mutual misunderstanding. The main manuscript's decision not to impose the inverse convention is, in this reading, the statement that two agents learn their dictionaries of each other separately.
+
+\remarkheading{Why the dictionary is group valued}{it1:why-group}
+A model that $i$ holds of $j$ need not in general be a group element, and the group-valued form is a hypothesis with a stated scope. Four considerations support it within a species. First, the two agents' internal spaces are copies of one $G$-space, and the relative position of two frames of one principal bundle at a context is a group element; partial access is carried by the code, not by the dictionary. Second, one dictionary serves every modality, which is what lets several codes pool their evidence in \cref{it1:modalities}. Third, invertibility is used: the consensus theorem \cref{it1:consensus} needs inverses to show that transported beliefs are well defined along different paths, and holonomy has conjugacy-class invariants only for invertible links. Fourth, $i$'s knowledge of $j$ is a probability law over $G$, a recognition law of $\omega_{ij}$, not a point; uncertainty about the dictionary is carried by that law. For agents of different kinds, whose internal spaces differ in dimension or representation, an invertible dictionary does not exist. The natural replacement is a linear or Markov map between different spaces, with consistency measured by global sections of a sheaf rather than by holonomy \citep{HansenGhrist2021}.
+
+\chapter{Reception through a code}
+\label{it1:ch-reception}
+
+Fix a receiver $i$, a sender $j$ and one modality, and suppress the indices. In $i$'s reference coordinates let $p$ be $i$'s prior law of the content and let $q=(\bar\theta)_\#\bar q_j$ be the sender's belief carried into $i$'s coordinates by the dictionary. Write $A=\hat A$ for the effective code.
+
+\propositionheading{Reception of one message}{it1:kalman}
+Let $p=\mathcal N(m,\Sigma_p)$ with $\Sigma_p$ positive definite, let $A$ have full row rank $r$, and let $R$ be positive definite. Given a message $h$ from the model $h=A\bar y+\varepsilon$, the posterior of $\bar y$ is $\mathcal N(m+O(h-Am),\Sigma_p-OA\Sigma_p)$ with
+\begin{equation}
+O=\Sigma_pA^T(A\Sigma_pA^T+R)^{-1}.
+\label{it1:gain}
+\end{equation}
+The posterior precision is $\Sigma_p^{-1}+A^TR^{-1}A$, a correction of rank at most $r$, and the information carried by one message is
+\begin{equation}
+I(\bar y;h)=\tfrac12\log\det\bigl(I_r+R^{-1}A\Sigma_pA^T\bigr).
+\label{it1:mutual-information}
+\end{equation}
+\begin{proof}
+The pair $(\bar y,h)$ is jointly Gaussian with $\operatorname{Cov}(\bar y,h)=\Sigma_pA^T$ and $\operatorname{Cov}(h)=A\Sigma_pA^T+R$, and Gaussian conditioning gives the posterior \citep{Kalman1960}. The precision form follows from the Woodbury identity. The mutual information is the difference of the entropies of $\bar y$ and $\bar y$ given $h$, $\frac12\log\det\Sigma_p-\frac12\log\det(\Sigma_p-OA\Sigma_p)$, and the matrix determinant lemma turns this into \cref{it1:mutual-information}.
+\end{proof}
+
+The receiving map is therefore derived. It is the gain $O$, fixed by the receiver's own uncertainty $\Sigma_p$ and by its model $A$ of the sender's code. The rank bound makes precise the loss in the motivating picture: one message changes the receiver's precision in at most $r$ directions, however large $K$ is.
+
+The next statement concerns the reconstruction of a whole belief rather than the response to one message. For a measurable code $T$ and laws $q,p$ on a standard Borel space, choose a regular conditional law $p(dy\mid h)$ of $p$ given $T=h$, and define the reconstruction
+\begin{equation}
+\hat q(dy)=\int p(dy\mid h)\,(T_\#q)(dh).
+\label{it1:reconstruction}
+\end{equation}
+It keeps exactly what the code transmits, the message law $T_\#q$, and fills every discarded direction with the receiver's own conditional belief.
+
+\propositionheading{Meaning lost through a noiseless code}{it1:loss}
+If $\KL(q\Vert p)<\infty$, then
+\begin{equation}
+\KL(q\Vert\hat q)=\KL(q\Vert p)-\KL(T_\#q\Vert T_\#p).
+\label{it1:loss-eq}
+\end{equation}
+\begin{proof}
+For laws on standard Borel spaces and a measurable map $T$, the chain rule for relative entropy gives
+\begin{equation}
+\KL(\mu\Vert\nu)=\KL(T_\#\mu\Vert T_\#\nu)+\int\KL\bigl(\mu(\cdot\mid h)\Vert\nu(\cdot\mid h)\bigr)(T_\#\mu)(dh)
+\end{equation}
+in $[0,\infty]$, with regular conditional laws given $T$ \citep{CoverThomas2006,Kallenberg2021}. Apply it to $(q,p)$. Apply it also to $(q,\hat q)$: by construction $T_\#\hat q=T_\#q$ and $\hat q(\cdot\mid h)=p(\cdot\mid h)$ for $T_\#q$-almost every $h$, so the first term vanishes and the second is the same integral. Since $\KL(T_\#q\Vert T_\#p)\leq\KL(q\Vert p)<\infty$, subtraction is legitimate.
+\end{proof}
+
+In words, the meaning lost when a belief is sent through a code and rebuilt by a receiver equals the full disagreement between sender and receiver minus the disagreement that the code makes visible. It vanishes exactly when the code is sufficient for the pair, that is, when the sender's conditional belief given the message already equals the receiver's.
+
+\propositionheading{Gaussian reconstruction}{it1:gaussian-reconstruction}
+Let $q=\mathcal N(a,\Sigma_q)$, $p=\mathcal N(m,\Sigma_p)$ with positive-definite covariances, and let $A$ have full row rank. Put
+\begin{equation}
+G=\Sigma_pA^T(A\Sigma_pA^T)^{-1},\qquad P=GA.
+\label{it1:projector}
+\end{equation}
+Then $AG=I_r$, $P^2=P$, $\ker P=\ker A$, the range of $P$ is the range of $\Sigma_pA^T$, and the reconstruction through the noiseless code $A$ is
+\begin{equation}
+\hat q=\mathcal N\bigl((I-P)m+Pa,\ (I-P)\Sigma_p(I-P)^T+P\Sigma_qP^T\bigr).
+\label{it1:gaussian-reconstruction-eq}
+\end{equation}
+\begin{proof}
+The identities for $G$ and $P$ are immediate. Conditioning $p$ on $A\bar y=h$ gives $\mathcal N(m+G(h-Am),\Sigma_p-GA\Sigma_p)$. Mixing over $h\sim\mathcal N(Aa,A\Sigma_qA^T)$ gives mean $m+GA(a-m)=(I-P)m+Pa$ and covariance $\Sigma_p-P\Sigma_p+GA\Sigma_qA^TG^T$. The last term is $P\Sigma_qP^T$. The matrix $P\Sigma_p=\Sigma_pA^T(A\Sigma_pA^T)^{-1}A\Sigma_p$ is symmetric and satisfies $P\Sigma_pP^T=P\Sigma_p$, so $\Sigma_p-P\Sigma_p=(I-P)\Sigma_p(I-P)^T$.
+\end{proof}
+
+The reconstructed belief adopts the sender's belief along the communicated directions and keeps the receiver's own belief along the discarded ones. Its update of the mean,
+\begin{equation}
+\mu_i'=\mu_i+G\hat A_{ij}\bigl(\bar\theta_{ij}\bar\mu_j-\mu_i\bigr),
+\label{it1:mean-update}
+\end{equation}
+is a projected message of the kind computed by attention. The direction in which a communicated coordinate is lifted, the range of $\Sigma_pA^T$, is set by the receiver's own correlations: two receivers with different priors read the same message as meaning different things. This is the formal content of the statement that the receiver internalizes the message through its own conceptual structure. The loss \cref{it1:loss-eq} evaluates in closed form for \cref{it1:gaussian-reconstruction-eq}.
+
+\corollaryheading{Noisy codes}{it1:noisy}
+For a noisy code with kernel $\mathcal K(\bar y,\cdot)=\mathcal N(A\bar y,R)$, let $p^h$ and $q^h$ be the posteriors of $p$ and $q$ given $h$, and define the reconstruction $\hat q=\int p^h\,(q\mathcal K)(dh)$. If $\KL(q\Vert p)<\infty$, then
+\begin{equation}
+\KL(q\Vert\hat q)\leq\KL(q\Vert p)-\KL(q\mathcal K\Vert p\mathcal K).
+\label{it1:noisy-eq}
+\end{equation}
+\begin{proof}
+The chain rule applied to the joint laws of $(\bar y,h)$ under $q\otimes\mathcal K$ and $p\otimes\mathcal K$, which share the kernel, gives $\KL(q\Vert p)=\KL(q\mathcal K\Vert p\mathcal K)+\int\KL(q^h\Vert p^h)(q\mathcal K)(dh)$. Since $q=\int q^h(q\mathcal K)(dh)$, joint convexity of relative entropy bounds $\KL(q\Vert\hat q)$ by the integral.
+\end{proof}
+
+For Gaussian laws, $\hat q$ has mean $m+OA(a-m)$ and covariance $\Sigma_p-OA\Sigma_p+O(A\Sigma_qA^T+R)O^T$ with $O$ from \cref{it1:gain}; at the tested instance the bound holds with slack $3.4\times10^{-3}$.
+
+\remarkheading{The link with a code-shaped generator}{it1:exponential}
+For matrices $O$ of size $K\times r$ and $T$ of size $r\times K$, $e^{OT}=I+O\varphi_1(TO)T$ with $\varphi_1(z)=(e^z-1)/z$ \citep[Section~1.8]{Higham2008}, and $\det e^{OT}=e^{\Tr(OT)}>0$. With the gain of \cref{it1:projector}, $AG=I_r$ gives $e^{P}=I+(e-1)P$: the invertible link whose generator is the reconstruction projector is a dilation along the communicated directions, not the reconstruction. Reconstruction is the affine use $(I-P)m+Pa$ of the projector, and it is not invertible. This is the precise sense in which no group element factors through a lossy code and the two are related only through the Lie algebra.
+
+\chapter{What messages reveal about the dictionary}
+\label{it1:ch-identifiability}
+
+A dictionary can be tested only against something both agents refer to. Let a referent have law $\rho$ on $V$ in $i$'s reference coordinates, with positive-definite second moment $M=\E_\rho[\bar y\bar y^T]$. The sender encodes the referent in its own coordinates, and the receiver models the message as
+\begin{equation}
+h\mid\bar y\sim\mathcal N\bigl(\bar T\bar\theta^{-1}\bar y,R\bigr),
+\label{it1:grounded-model}
+\end{equation}
+with $R$ positive definite.
+
+\theoremheading{Identifiability up to the code stabilizer}{it1:identifiability}
+Let $\Stab_G(\bar T)=\{g\in G:\bar Tg=\bar T\}$.
+\begin{enumerate}
+\item[(i)] Two dictionaries $\bar\theta',\bar\theta''$ give the same conditional message law for every referent if and only if $\bar\theta'^{-1}\bar\theta''\in\Stab_G(\bar T)$.
+\item[(ii)] For the perturbation $\bar\theta e^{\delta}$, $\delta\in\mathfrak g$, the Fisher information of \cref{it1:grounded-model}, averaged over $\rho$, is
+\begin{equation}
+F(\delta,\delta)=\Tr\bigl(R^{-1}\bar T\delta C\delta^T\bar T^T\bigr),\qquad C=\bar\theta^{-1}M\bar\theta^{-T},
+\label{it1:fisher}
+\end{equation}
+and its kernel is $\{\delta\in\mathfrak g:\bar T\delta=0\}$, the Lie algebra of $\Stab_G(\bar T)$.
+\item[(iii)] For $G=\GL(K,\R)$ and $\bar T$ of rank $r$, $\Stab_G(\bar T)$ has dimension $K(K-r)$, and the identifiable part of the dictionary has dimension $Kr$.
+\end{enumerate}
+\begin{proof}
+(i) Gaussian laws with a common covariance agree exactly when their means agree, and $\bar T\bar\theta'^{-1}\bar y=\bar T\bar\theta''^{-1}\bar y$ for every $\bar y$ means $\bar T\bar\theta'^{-1}=\bar T\bar\theta''^{-1}$, that is, $\bar T\bar\theta'^{-1}\bar\theta''=\bar T$. The set $\Stab_G(\bar T)$ is a subgroup because $\bar Tg_1g_2=\bar Tg_2=\bar T$. (ii) The mean $\bar T e^{-\delta}\bar\theta^{-1}\bar y$ has derivative $-\bar T\delta\bar\theta^{-1}\bar y$ at $\delta=0$, and the Fisher information of a Gaussian mean with fixed covariance $R$ is $\E_\rho[(\bar T\delta\bar\theta^{-1}\bar y)^TR^{-1}(\bar T\delta\bar\theta^{-1}\bar y)]$, which is \cref{it1:fisher}. Since $C$ and $R^{-1}$ are positive definite, $F(\delta,\delta)=0$ exactly when $R^{-1/2}\bar T\delta C^{1/2}=0$, that is, when $\bar T\delta=0$. For such $\delta$ every power of $\delta$ is annihilated by $\bar T$, so $\bar Te^{t\delta}=\bar T$ for all $t$. (iii) $\bar Tg=\bar T$ means that $g-I$ maps $V$ into $\ker\bar T$, which has dimension $K-r$; such $g$ form an open subset of an affine space of dimension $K(K-r)$ containing the identity.
+\end{proof}
+
+Messages never test the part of the dictionary that the code discards. Relative to the observable algebra of coded messages that part is gauge in the sense of the main manuscript's definition of active transformations: no message distinguishes two dictionaries that differ by an element of the stabilizer. This is the precise form of the statement that words cannot carry what a belief means to its holder. Without shared referents nothing is identified: if the receiver had only the mean of $\rho$, the data would determine $\bar T\bar\theta^{-1}$ only on one vector. Noise rescales the Fisher information but does not change its kernel. At $K=5$ and $r=2$ the numerical check gives Fisher rank $10=Kr$ out of $25$.
+
+\chapter{Several modalities}
+\label{it1:ch-modalities}
+
+\corollaryheading{Pooling modalities through one dictionary}{it1:modalities}
+Let modalities $c=1,\ldots,C$ have codes $\bar T^c$ and noises $R_c$, all read through the same dictionary $\bar\theta$. Then the dictionary is identified up to $\bigcap_c\Stab_G(\bar T^c)$, and the Fisher information is $\sum_cF_c$ with kernel $\{\delta\in\mathfrak g:\bar T^c\delta=0\text{ for all }c\}$. For $G=\GL(K,\R)$ the identifiable dimension is
+\begin{equation}
+K\dim\Bigl(\sum_c\operatorname{row}\bar T^c\Bigr)\leq K\min\Bigl(K,\sum_cr_c\Bigr),
+\label{it1:modalities-eq}
+\end{equation}
+with equality on the right exactly when the row spaces of the codes are independent, and the dictionary is fully identified exactly when the row spaces span the dual of $V$.
+\begin{proof}
+Identity of the conditional laws of all messages requires identity for each modality, which gives the intersection by \cref{it1:identifiability}. Fisher information adds over conditionally independent messages, and a sum of positive-semidefinite forms vanishes exactly where each does. For $\GL(K,\R)$, $\bar T^c\delta=0$ for all $c$ means that the range of $\delta$ lies in $\bigcap_c\ker\bar T^c$, whose dimension is $K$ minus the dimension of the sum of the row spaces.
+\end{proof}
+
+Modalities that overlap, in the sense that their row spaces share directions, add less than their widths suggest; complementary modalities, such as speech and drawing when they convey different aspects, add fully. The numerical check uses two codes of widths $2$ and $2$ that share one direction: the identifiable dimension is $15=5\times3$, not $20$. The corollary depends on the dictionary being shared across modalities. Without it each modality would have its own effective code to learn, and the modalities could not pool their evidence about the other agent.
+
+\Cref{it1:modalities} assumes that receiver $i$ hears sender $j$ in every modality. A receiver with several senders instead chooses, separately in each modality, whom to listen to. Let $\beta^{(c)}_{ij}$ be the probability that modality $c$ of receiver $i$ carries a message from $j$, and let $F_c^{(j)}$ denote the form \cref{it1:fisher} for the code $\bar T_j^c$, the noise $R_c$ and the dictionary $\bar\theta_{ij}$.
+
+\corollaryheading{Routed modalities}{it1:routed}
+In each exchange let a referent $\bar y\sim\rho$ be drawn, and for each modality $c$ independently let a source label $J_c$ be drawn with $\mathbb P(J_c=k)=\beta^{(c)}_{ik}$ and a message with law $\mathcal N(\bar T_k^c\bar\theta_{ik}^{-1}\bar y,R_c)$ given $J_c=k$ and $\bar y$. Consider the dictionary $\bar\theta_{ij}e^{\delta}$ of one edge $j\to i$.
+\begin{enumerate}
+\item[(i)] If the labels are observed, the Fisher information about $\delta$ per exchange is $\sum_c\beta^{(c)}_{ij}F_c^{(j)}$.
+\item[(ii)] If the labels are latent, the Fisher information is at most $\sum_c\beta^{(c)}_{ij}F_c^{(j)}$ in the Loewner order.
+\item[(iii)] With observed labels the information vanishes exactly on $\{\delta\in\mathfrak g:\bar T_j^c\delta=0\text{ for every }c\text{ with }\beta^{(c)}_{ij}>0\}$.
+\end{enumerate}
+\begin{proof}
+(i) Given $\bar y$ and the labels, the messages of different modalities are independent, so the complete-data log likelihood is a sum over $c$. A term with $J_c=k\neq j$ does not depend on $\bar\theta_{ij}$ and contributes nothing. A term with $J_c=j$ contributes the information of \cref{it1:identifiability}. Averaging the indicator of $J_c=j$ gives the weight $\beta^{(c)}_{ij}$. (ii) By the missing-information principle \citep{Louis1982}, the information of the observed data equals the complete-data information minus the expected information about $\delta$ carried by the conditional law of the labels given the messages, which is positive semidefinite. (iii) A sum of positive-semidefinite forms with positive weights vanishes exactly where every form vanishes, and \cref{it1:identifiability} identifies the kernel of each.
+\end{proof}
+
+A modality that never listens to $j$ teaches $i$ nothing about its dictionary for $j$, and the directions that the attending modalities' codes discard stay invisible. When the receiver must infer who was heard, it learns less than the routing-weighted sum. In the numerical check, with two modalities attending to the target sender with probabilities $0.7$ and $0.2$, a Monte Carlo estimate of the complete-data information agrees with $\sum_c\beta^{(c)}_{ij}F_c^{(j)}$ to $0.6$ percent, and the latent-label information is smaller in the Loewner order.
+
+\propositionheading{A receiver's reading of a code is a dictionary modulo the stabilizer}{it1:query-dictionary}
+Let $\bar T$ and $S$ be $r\times K$ matrices of full row rank $r$. Then $\{\theta\in\GL(K,\R):\bar T\theta^{-1}=S\}$ is a single left coset $\theta_0\Stab_{\GL(K,\R)}(\bar T)$, and for $r<K$ it meets $\GL^+(K,\R)$.
+\begin{proof}
+Complete the rows of $\bar T$ to a basis of the dual space and let $P$ be the invertible matrix whose first $r$ rows are those of $\bar T$; define $Q$ likewise from $S$. With $E=(I_r\ 0)$, $\bar T=EP$ and $S=EQ$, so $\theta_0^{-1}=P^{-1}Q$ satisfies $\bar T\theta_0^{-1}=S$. For $r<K$, changing the sign of a completing row of $Q$ changes the sign of $\det\theta_0$ without changing $EQ$. Finally $\bar T\theta^{-1}=\bar T\theta_0^{-1}$ exactly when $\bar T\theta_0^{-1}\theta=\bar T$, that is, when $\theta_0^{-1}\theta\in\Stab(\bar T)$.
+\end{proof}
+
+A receiver that reads a sender's code through an arbitrary full-rank map $S$ therefore holds exactly the identifiable part of a dictionary, a point of the $rK$-dimensional quotient of \cref{it1:identifiability}. One dictionary shared across modalities is the stronger requirement $S_c=\bar T^c\bar\theta^{-1}$ for a common $\bar\theta$. Readings learned independently for each modality do not satisfy it in general, so they give each modality its own effective dictionary and forgo the pooling of \cref{it1:modalities}.
+
+\remarkheading{Attention heads as modalities}{it1:heads}
+Multi-head attention \citep{Vaswani2017} has the structure of routed modalities. The correspondence is collected below, with modality $c$ written as head $h$.
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.42\textwidth}p{0.5\textwidth}@{}}
+\toprule
+Communication links & Multi-head attention\\
+\midrule
+modality $c$ & head $h$\\
+sender's code $\bar T_j^c$ into $H_c$ of width $r_c$ & key map, and the value map that sends content, of width $d_h$\\
+receiver's reading $S_c=\bar T^c\bar\theta^{-1}$ of the code & query map\\
+decoder, the gain of \cref{it1:kalman} & output map of the head\\
+routing $\beta^{(c)}_{ij}$ & attention weights of head $h$\\
+frames $U_i$ & per-token frames, when present\\
+\bottomrule
+\end{tabular}
+\end{center}
+Three features of standard attention are special cases of the construction here. All tokens share every code, which is one species with one language. The output map is learned rather than derived from the receiver's covariance. The query and key maps of different heads are learned independently, so by \cref{it1:query-dictionary} each head carries its own dictionary, which does not depend on the edge, and no curvature can arise from the dictionaries; if every head shared one dictionary, the heads would also pool their evidence about it as in \cref{it1:modalities,it1:routed}. When the heads' row spaces are independent and span the dual space, the stacked code is invertible, which is the condition for full identification in \cref{it1:modalities}.
+
+\chapter{Curvature as dissonance}
+\label{it1:ch-dissonance}
+
+Let the communication graph $\Gamma$ have a directed edge $j\to i$ when $i$ receives from $j$, with dictionaries $\bar\theta_{ij}$. For a directed closed walk $\gamma=(i_0\to i_1\to\cdots\to i_k=i_0)$ define its holonomy $H_\gamma=\bar\theta_{i_ki_{k-1}}\cdots\bar\theta_{i_1i_0}$, the composite of the receivers' dictionaries along the walk. Reference belief means $(\mu_i)_i$ are in consensus when
+\begin{equation}
+\mu_i=\bar\theta_{ij}\mu_j\qquad\text{for every edge }j\to i,
+\label{it1:consensus-eq}
+\end{equation}
+so that every receiver, translating each sender's belief through its dictionary, finds agreement.
+
+\theoremheading{Consensus is the fixed space of holonomy}{it1:consensus}
+Let $\Gamma$ be strongly connected and fix $i_0$. The map $(\mu_i)_i\mapsto\mu_{i_0}$ is a linear bijection from the solutions of \cref{it1:consensus-eq} onto $\bigcap_\gamma\Fix(H_\gamma)$, the intersection over directed closed walks based at $i_0$ of the fixed spaces of their holonomies.
+\begin{proof}
+If $(\mu_i)$ solves \cref{it1:consensus-eq}, composing the edge relations along $\gamma$ gives $\mu_{i_0}=H_\gamma\mu_{i_0}$. Conversely let $v$ be fixed by every $H_\gamma$. For each $i$ choose a directed walk $p$ from $i_0$ to $i$ and set $\mu_i=\Pi(p)v$, where $\Pi(p)$ is the composite of dictionaries along $p$. If $p'$ is another such walk, choose a directed walk $s$ from $i$ back to $i_0$, which exists by strong connectivity. Then $\Pi(s)\Pi(p)$ and $\Pi(s)\Pi(p')$ are holonomies of closed walks at $i_0$, so both fix $v$, and since $\Pi(s)$ is invertible, $\Pi(p)v=\Pi(p')v$. The definition is therefore independent of the walk, and appending an edge $j\to i$ to a walk to $j$ gives $\mu_i=\bar\theta_{ij}\mu_j$. The two constructions are mutually inverse and linear.
+\end{proof}
+
+The proof uses the invertibility of the dictionaries, which is one of the reasons recorded in \cref{it1:why-group}. A directed closed walk of length two is admitted, so the two-cycle holonomy $\bar\theta_{ij}\bar\theta_{ji}$ constrains consensus as much as any longer loop. If the holonomies have no common nonzero fixed vector, the only consensus is the zero mean in reference coordinates, which is a convention rather than an agreement; the community cannot share a common reference, although each pair can communicate.
+
+\corollaryheading{Frustration}{it1:frustration}
+For positive weights $w_{ij}$, the consensus energy $E(\mu)=\sum_{j\to i}w_{ij}\Vert\mu_i-\bar\theta_{ij}\mu_j\Vert^2$ is a positive-semidefinite quadratic form whose kernel is the solution set of \cref{it1:consensus-eq}. Its least eigenvalue on configurations of unit norm is positive exactly when the holonomies have no common nonzero fixed vector.
+\begin{proof}
+$E(\mu)=\Vert B\mu\Vert^2$ for the weighted incidence operator $B$ with blocks $\sqrt{w_{ij}}(I,-\bar\theta_{ij})$, so $E=\mu^TB^TB\mu$ and its kernel is $\ker B$. The least eigenvalue of $B^TB$ is positive exactly when $\ker B=0$, and \cref{it1:consensus} identifies $\ker B$.
+\end{proof}
+
+For orthogonal links on undirected graphs with the inverse convention this is the connection Laplacian, and its least eigenvalue as a measure of frustration was studied by \citet{SingerWu2012} and \citet{BandeiraSingerSpielman2013}. The directed version above admits independent opposite dictionaries. In the numerical check, three agents with planar rotation dictionaries whose triangle holonomy is the identity have a two-dimensional consensus space; with holonomy angle $0.7$ the consensus space is zero and the least eigenvalue is $0.054$. Two agents with mutually inverse dictionaries have a two-dimensional consensus space; with two-cycle holonomy angle $0.3$ it is zero.
+
+\definitionheading{Dissonance of a loop}{it1:dissonance}
+The dissonance of a directed closed walk $\gamma$ is the conjugacy class of $H_\gamma$. A plaquette, a shortest cycle of $\Gamma$, is consonant when its holonomy is the identity and dissonant otherwise. A quantitative label is any conjugation-invariant defect of $H_\gamma$, for example $\Vert H_\gamma-I\Vert_F$ for orthogonal dictionaries; for general dictionaries the main manuscript's law-dressed loop defect supplies an invariant measure.
+
+Two limits on what dissonance can affect follow from the earlier chapters. Agents test agreement only through codes, so the consensus they can detect is the weaker condition $\bar T_j^c(\mu_j-\bar\theta_{ij}^{-1}\mu_i)=0$ for every edge and modality, and dissonance in directions that no code reads is never detected. And a law that is invariant under part of a holonomy, such as an isotropic belief under a rotation, cannot register that part; the main manuscript's loop-blindness proposition states this at the level of laws.
+
+\chapter{Bandwidth and source rows}
+\label{it1:ch-bandwidth}
+
+\propositionheading{Coded messages give Gibbs rows at temperature one over the message count}{it1:bandwidth}
+Let receiver $i$ consider finitely many candidate sources $j$ with prior $\pi_j>0$, each modeled as emitting independent messages with density $\nu_j$ on the message space. Let $h_1,h_2,\ldots$ be independent with density $\nu$, and suppose $\E_\nu|\log\nu_j|<\infty$ for every $j$. Then, almost surely,
+\begin{equation}
+\frac1n\log\frac{\mathbb P(J=j\mid h_{1:n})}{\mathbb P(J=k\mid h_{1:n})}\longrightarrow\KL(\nu\Vert\nu_k)-\KL(\nu\Vert\nu_j).
+\label{it1:bandwidth-eq}
+\end{equation}
+\begin{proof}
+By Bayes' rule the left side is $\frac1n\log(\pi_j/\pi_k)+\frac1n\sum_{t\leq n}[\log\nu_j(h_t)-\log\nu_k(h_t)]$. The strong law of large numbers sends the average to $\E_\nu\log\nu_j-\E_\nu\log\nu_k$, which equals the right side because the entropy of $\nu$ cancels.
+\end{proof}
+
+To leading exponential order, the posterior over who was heard is the Gibbs row $\pi_je^{-\KL(\nu\Vert\nu_j)/T}/Z$ at temperature $T=1/n$, the posterior concentration of a possibly misspecified model \citep{Berk1966}. The costs are divergences between message laws, which are code-visible divergences: by data processing they are at most the corresponding divergences between full beliefs, with equality exactly when the code is sufficient. The law-level peer costs of the main manuscript's reciprocal potential therefore arise in the limit of many messages through an injective, noiseless code; its registered-agreement theorem gives an exact finite-$n$ version for type registration. Finite bandwidth means both a finite temperature and a selective cost.
+
+\chapter{Next steps}
+\label{it1:ch-next}
+
+\openproblemheading{Learning the dictionary}{it1:open-learning}
+Give $\omega_{ij}$ a normalized prior on $\mathfrak g$ with a gauge-invariant loop term that includes every two-cycle, and a recognition law updated from a stream of grounded messages. Show that the recognition law concentrates on the coset of the true dictionary modulo the stabilizer of \cref{it1:identifiability}, and determine how the loop term selects within that coset. The loop term is where agreement around loops can supply information that pairwise exchange cannot.
+
+\openproblemheading{Codes as part of the species model}{it1:open-codes}
+Let codes be learned as well, so that a shared language is a joint fixed point of code and dictionary learning. The expression-map dynamics of \citet{HansenGhrist2021} is the vector-valued analogue on a sheaf. Determine when the learned codes of a species become related by its frame map, and when learning drives code-visible dissonance to zero while leaving dissonance in unread directions.
+
+\openproblemheading{Dictionaries in the free-energy pictures}{it1:open-free-energy}
+Place receiver-owned dictionaries and codes in the per-agent generative model of the main manuscript, where each receiver infers its own dictionaries, and in a global joint, where all dictionaries are variables of one model. Compare the resulting dynamics with the reciprocal flow, and decide whether consensus dynamics reduces visible dissonance and pushes holonomies toward the stabilizers of the codes.
+
+\openproblemheading{Beyond Gaussian codes}{it1:open-general}
+\Cref{it1:loss} already holds for general laws and measurable codes, including codes into finite alphabets such as words. Extend the identifiability and dissonance results to such codes, where the Fisher form is replaced by the information in the induced discrete channel, and to agents of different kinds, whose dictionaries are not invertible.
+
+\section*{Related work}
+The ingredients appear separately in the literature; their combination was not found in a standard search, which is not exhaustive. Opinion dynamics on discourse sheaves \citep{HansenGhrist2021} gives agents private opinion spaces and linear expression maps into shared discourse spaces, with dynamics that can also evolve the expression maps; opinions are vectors, and there is no receiver reconstruction, gauge group or holonomy. A cognitive-geometric model of interpretation \citep{Amornbunchornvej2025} uses linear interpretation maps between agents' value spaces, with beliefs lost in their null spaces and composite maps along chains. Communication without a shared reference frame treats unknown frame changes as gauge data \citep{BartlettRudolphSpekkens2007,vanEnk2006}. The meeting of minds in conceptual spaces models meaning as maps between individual spaces with agreement as a fixed point \citep{WarglienGardenfors2013}. The relativistic theory of consciousness \citep{LahavNeemeh2022} holds that an observer reading another system's representation measures only its physical coordinates and constructs a new representation of its own; the code-then-reconstruction chain \cref{it1:chain} is a formal version of that measurement, and the identity dictionary between equivalent systems is the transformation it uses for that case. Communication as active inference with a shared generative model is developed by \citet{FristonFrith2015} and \citet{FristonEtAl2020Language}, and language as efficient compression by \citet{ZaslavskyEtAl2018}, in the tradition of \citet{Shannon1948}, the information bottleneck \citep{Tishby1999} and coding with side information \citep{WynerZiv1976}.
+
+\begingroup
+\small
+\setlength{\bibsep}{3pt}
+\bibliographystyle{plainnat}
+\bibliography{references,item1_refs}
+\endgroup
+\end{document}
