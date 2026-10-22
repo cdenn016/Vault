@@ -19,7 +19,7 @@ U_i^a:V_a\longrightarrow E_i^a,\qquad
 \bar s_i=(U_i^s)^{-1}_\#s_i.
 \label{eq:int-reference-laws}
 \end{equation}
-We also write $\bar\nu_i^a=(U_i^a)^{-1}_\#\nu_i^a$ and $\bar{\boldsymbol\nu}^a=(\bar\nu_i^a)_i$ for the tuple of reference laws in sector $a$. Here $E_i^a$ is agent $i$'s displayed coordinate copy of $V_a$. At a common context all agents' statistical sections take values in one fiber of the bundle of \cref{eq:statistical-bundle}; the per-agent presentations are points of the frame torsor at that context, used to display each agent's law, and are not separate fibers. With one structure group $G$ acting through representations $\rho_q,\rho_s$, a passive change at agent $i$ is a single element $g_i$, with $g_i^a=\rho_a(g_i)$. Independent sector changes $g_i^q,g_i^s$ require the structure group $G_q\times G_s$ acting factorwise. Which of these is declared is a constitutive choice; the collective connection of \cref{geo:collective} depends on it, because the group enters its normal equation. The two presentations do not identify the belief and model interaction maps. Their domains, parameters, and dependence on the laws remain separately specified.
+We also write $\bar\nu_i^a=(U_i^a)^{-1}_\#\nu_i^a$ and $\bar{\boldsymbol\nu}^a=(\bar\nu_i^a)_i$ for the tuple of reference laws in sector $a$. Here $E_i^a$ is agent $i$'s displayed coordinate copy of $V_a$. At a common context all agents' statistical sections take values in one fiber of the bundle of \cref{eq:statistical-bundle}; the per-agent presentations are points of the frame torsor at that context, used to display each agent's law, and are not separate fibers. One structure group $G$ acts through the representations $\varrho_q,\varrho_s$ of \cref{eq:content-bundles}, so a passive change at agent $i$ is a single element $g_i$, with $g_i^a=\varrho_a(g_i)$. Independent sector changes would require the product group $G_q\times G_s$, which the theory does not use; the collective connection of \cref{geo:collective} depends on this choice, because the group enters its normal equation. The two presentations do not identify the belief and model interaction maps. Their domains, parameters, and dependence on the laws remain separately specified.
 
 A passive re-expression $y_i'=g_i^a y_i$ sends $\nu_i^a$ to $(g_i^a)_\#\nu_i^a$ and $U_i^a$ to $g_i^aU_i^a$. Therefore the reference laws in \cref{eq:int-reference-laws} are unchanged. A common reference change $U_i^a\mapsto U_i^a h_a$ instead sends every reference law to $(h_a^{-1})_\#\bar\nu_i^a$. The first operation changes an agent's displayed coordinates; the second changes the common coordinates in which interaction parameters are written.
 
@@ -90,6 +90,32 @@ L_{ij}^a=\mathcal L_{ij}^a(\bar{\boldsymbol\nu}^a),\qquad
 Dependence on the two endpoint laws alone is the special case $\mathcal L_{ij}^a(\bar\nu_i^a,\bar\nu_j^a)$. For a receiving--sending factorization, $L_{ij}^a=O_i^a(\bar{\boldsymbol\nu}^a)T_j^a(\bar{\boldsymbol\nu}^a)$, provided both maps refer to the same $H_a$ and $V_a$. The associated deterministic channel is $\mathcal K_{ij}^a(y,\cdot)=\delta_{\Theta_{ij}^ay}$, which is an instance of \cref{def:int-channel}. For exponential links the primitive self link is the identity, $L_{ii}^a=0$.
 
 The exponential is taken on the reference endomorphism, not on a map with different domain and codomain. Its values lie in $\exp(\mathfrak{gl}(V_a))$, which is contained in the identity component $\GL^+(V_a)$ and, for $\dim V_a\ge2$, is a proper subset of it: the matrix $\begin{pmatrix}-1&1\\0&-1\end{pmatrix}$ has determinant one and no real logarithm, because its single Jordan block for a negative eigenvalue occurs an odd number of times \citep{Culver1966}. Orientation-reversing and discrete interactions are therefore not exponential links, although they are channels in the sense of \cref{def:int-channel}. A smaller group acting on the frames can still re-express exponential links covariantly. Interpreting them as parallel transports of a connection for that smaller group would additionally require generators in its represented Lie algebra.
+
+\definitionheading{Group-valued links}{def:int-group-links}
+Let $\mathfrak g$ be the Lie algebra of $G$, and identify frames with elements $U_i\in G$ as in \cref{eq:reference-laws}. Group-valued links assign to each directed edge $j\to i$ a belief generator $\omega_{ij}\in\mathfrak g$ and a model generator $\tilde\omega_{ij}\in\mathfrak g$, either of which may depend on the laws as in \cref{def:int-generator}, and set
+\begin{equation}
+\theta_{ij}=U_i\exp(\omega_{ij})U_j^{-1},\qquad
+\tilde\theta_{ij}=U_i\exp(\tilde\omega_{ij})U_j^{-1},\qquad
+\Theta_{ij}^q=\varrho_q(\theta_{ij}),\qquad
+\Theta_{ij}^s=\varrho_s(\tilde\theta_{ij}).
+\label{eq:int-group-links}
+\end{equation}
+The reference generators of \cref{eq:int-exponential-link} are then $L_{ij}^q=d\varrho_q(\omega_{ij})$ and $L_{ij}^s=d\varrho_s(\tilde\omega_{ij})$. The links are tied when $\theta_{ij}=\tilde\theta_{ij}$, that is, when one $G$-valued link acts on both sectors through the two representations.
+
+Opposite edges remain independent: $\theta_{ji}$ is not required to equal $\theta_{ij}^{-1}$, in either sector.
+
+\propositionheading{The sector mismatch is covariant}{prop:int-mismatch}
+Under a passive change $U_i\mapsto g_iU_i$ at every agent, $\theta_{ij}\mapsto g_i\theta_{ij}g_j^{-1}$ and $\tilde\theta_{ij}\mapsto g_i\tilde\theta_{ij}g_j^{-1}$. The mismatch
+\begin{equation}
+\Xi_{ij}=\tilde\theta_{ij}\theta_{ij}^{-1}\in G
+\label{eq:int-mismatch}
+\end{equation}
+transforms by conjugation at the receiver, $\Xi_{ij}\mapsto g_i\Xi_{ij}g_i^{-1}$. Its conjugacy class is therefore independent of the frames, and the tied case $\Xi_{ij}=e$ is a frame-independent condition.
+\begin{proof}
+The reference generators are unchanged by a passive change, so $\theta_{ij}'=g_iU_i\exp(\omega_{ij})U_j^{-1}g_j^{-1}=g_i\theta_{ij}g_j^{-1}$, and likewise for $\tilde\theta_{ij}$. Then $\Xi_{ij}'=g_i\tilde\theta_{ij}g_j^{-1}g_j\theta_{ij}^{-1}g_i^{-1}=g_i\Xi_{ij}g_i^{-1}$.
+\end{proof}
+
+The general theory keeps both link fields. Results that use one $G$-valued link for both sectors state the tied hypothesis $\Xi_{ij}=e$. Because $\Xi_{ij}$ is covariant, a nonzero mismatch is a frame-independent property of the interaction: the belief and model transports along the edge disagree.
 
 \propositionheading{Endpoint covariance and reference consistency}{prop:int-endpoint}
 The links in \cref{eq:int-exponential-link} obey
