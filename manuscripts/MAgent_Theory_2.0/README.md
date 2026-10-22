@@ -1,5 +1,7 @@
 # MAgent Theory 2.0
 
+The open-law formation chapter and companion now give a six-agent finite-time construction with native preferential pairs and a later parent join against a nonempty exterior. The admitted initial class is open in independently variable positive bit-circle laws, including internal correlations. Fixed selective channels, a declared aggregate response protocol, and anchored contextual profiles yield continuous public orientation loss, exact original-time inherited dynamics, and preserved rank-two geometry with nonzero curvature. The parent flow includes its moving-representative derivative; it is not generally a fresh single-KL Fisher-gradient model. The architecture, selector, response restrictions, finite horizon, and local phase charts are explicit. The derivation record is `../../docs/derivations/2026-10-22-unprepared-recursive-formation/`, and the integration record is `../../docs/research/2026-10-22-open-law-formation-integration.md`.
+
 The main entry point is `MAgent_Theory_2.0.tex`. Its chapters and appendices contain the core constructions and proofs. `MAgent_Theory_2.0_supplement.tex` builds the separate supporting document. `MAgent_Theory_2.0_companion.tex` builds the self-contained physicist's companion; its explanatory chapters and editable TikZ figures are under `companion/`. All use the local style, preamble, and bibliography, with no external manuscript inputs.
 
 From this directory, compile sequentially with TeX Live:
