@@ -14,7 +14,42 @@ Links stay directed. The inverse convention Θ_ji = Θ_ij^{-1} is not imposed. A
 
 ## Items
 
-### 1. Latent links with a gauge-invariant loop prior
+### 1. Edges as alignment plus communication
+
+Working document: `Item_1_communication_links.tex` (derived decoder, meaning-loss identity, identifiability modulo the code stabilizer, several and routed modalities, query maps as dictionaries, attention heads as modalities, consensus and dissonance from holonomy, bandwidth as row temperature). Checks in `item1_checks/`. Not yet part of the main manuscript.
+
+Motivating picture (author, 2026-10-22). When agent j communicates a belief to agent i, most of what the belief means internally is lost: j projects it into a low-dimensional transmissible package (speech, drawing, signal), and i rebuilds it inside its own, higher-dimensional internal space. In the manuscript's convention (receiver i, sender j) the chain is
+
+q_j → (T_j)_# q_j → noise → decode by O_i → Bayesian reconstruction against i's prior → q_i'.
+
+Two different objects are built from the same maps, and item 1 keeps them separate.
+
+The code map M_ij = U_i O_i T_j U_j^{-1} has rank at most the message width r. It is lossy, and it is the object the intuition describes. The exponentiated link U_i exp(O_i T_j) U_j^{-1} is invertible: exp(O T) = I + O φ₁(T O) T with φ₁(z) = (e^z − 1)/z and det = e^{tr OT} > 0 (Higham 2008, §1.8; the low-rank lemma of the GL(K) attention manuscript). It is the identity plus a rank-r correction and transports the whole law. No group element factors through a selective channel; the two are related only through the Lie algebra.
+
+#### 1a. Alignment links (the gauge field)
+
+Each directed edge carries an invertible link θ_ij, θ̃_ij ∈ G (tied case θ = θ̃): how j's internal frame sits relative to i's, a dictionary between their concept spaces. Its holonomy around a loop measures inconsistent translation (meaning drift when a message passes around a group). Links stay directed; the based two-cycle θ_ij θ_ji is a genuine holonomy.
+
+#### 1b. Communication codes (the lossy channel)
+
+For each modality c (speech, drawing, gesture), sender j has an encoder T_j^c: V_q → H_c into a public message space of width r_c, a noise kernel N^c may act, and receiver i has a decoder O_i^c: H_c → V_q followed by Bayesian reconstruction against its own conditional prior. Codes are agent-specific; a shared language is part of a species' shared generative model (`def:shared-model`). The receiver's reconstruction loss is the exact formula of `prop:conditional-lift`: the average divergence between the sender's belief in the discarded directions and what the receiver's own prior supplies there. Targets that connect to Shannon theory: the rank bound (`eq:message-rank`) and channel capacity (½ log det(I + SNR) per use for a Gaussian channel); messages are samples, not laws, and the registered-agreement theorem (`thm:dyn-registered`) makes the row temperature the reciprocal message count, so law-level coupling is the infinite-bandwidth limit; task-relevant compression with receiver side information (information bottleneck, Wyner–Ziv; chapter 4's `thm:predictive-distortion`).
+
+Open design questions: how the alignment link enters the decoding (the receiver places the decoded message in its frame through θ_ij, or the codes are written relative to a public frame of H_c that carries its own representation of G); whether codes are latent and learned (the "learning to lie" analogue below); how the loop prior of 1c interacts with code mismatch.
+
+#### Prior art found (2026-10-22, standard web search; not exhaustive)
+
+The pieces exist separately; the combination was not found. Closest:
+- Hansen and Ghrist, "Opinion dynamics on discourse sheaves" (SIAM J. Appl. Math. 2021; arXiv 2005.12798): private opinion stalks, edge discourse spaces, linear expression maps (the analogue of T), consensus in the discourse space, and "learning to lie" dynamics of the expression maps. Vectors rather than laws; no receiver decoding or reconstruction; no gauge group, frames or holonomy; no free energy. Must be cited; the GL(K) manuscript already calls a single head "sheaf-type data".
+- Amornbunchornvej, "Interpretation as Linear Transformation: A Cognitive-Geometric Model of Belief and Meaning" (arXiv 2512.09831, Dec. 2025): agent-specific value spaces, linear interpretation maps between agents, beliefs lost in null spaces, composition along chains. Deterministic vectors; one map per edge (no message space, encoder/decoder split, or reconstruction from priors); no gauge formalism or loops.
+- Bartlett, Rudolph and Spekkens (PRL 2003; RMP 2007) and van Enk, "Quantum communication, reference frames and gauge theory" (PRA 73, 042306, 2006): communication without a shared reference frame, unknown frame changes treated as gauge fields. Physics precedent for frames-as-gauge in communication.
+- Warglien and Gärdenfors, "Semantics, conceptual spaces, and the meeting of minds" (Synthese 190, 2013): meaning as maps between individual conceptual spaces, agreement as fixed points.
+- Lahav and Neemeh, "A relativistic theory of consciousness" (Front. Psychol. 12:704270, 2022): cognitive frames of reference; a third-person observer measuring another's representation reads only its physical coordinates and constructs a new representation of their own. The T-then-O chain is a formal version of that measurement, and the pure-gauge link is their "delta-function" transformation between equivalent systems. They give no transformation law beyond that case.
+- Communication as active inference with a shared generative model: Friston and Frith (2015), Friston et al. (Neurosci. Biobehav. Rev. 118, 2020), Vasil et al. (Front. Psychol. 2020). Language as compression: Zaslavsky et al. (PNAS 2018), Tucker et al. (2022).
+- The author's own early preprint, "Epistemic Gauge Theory: Emergence of U(1) Interactions from Agent Based Inference Dynamics" (R. C. Dennis, Preprints.org 202505.1773, 23 May 2025). It is superseded by the present theory and is not to be cited in the manuscripts. It matters only as the dated public record of agents as bundle sections with gauge frames, and because a reader searching the topic will find it.
+
+What was not found anywhere: probability laws on frame-relative fibers with an explicit gauge group; the split into an invertible alignment field with directed holonomy and a rank-limited lossy code; receiver reconstruction from its own prior with an exact loss; Gibbs routing over sources; bandwidth as row temperature; the exponential lemma connecting code and link.
+
+#### 1c. Latent links with a gauge-invariant loop prior
 
 Promote L_ij (separately in the belief and model sectors) from constitutive functions of the laws to latent variables with recognition laws. Give them a normalized prior consisting of an anchor (for example a Gaussian on the Lie algebra) and a loop term on a declared family of based loops that includes every two-cycle i → j → i and longer cycles of the attending graph. The loop term should be a gauge-invariant defect of the holonomy, such as a law-dressed metric defect (the proposition added to chapter 2 is the starting point). Class functions such as Re tr miss unipotent holonomy in GL(K), so the defect must be a metric one rather than a trace. This is the Wilson-type action of the program, without the inverse convention.
 
