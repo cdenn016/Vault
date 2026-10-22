@@ -1,0 +1,177 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Preferential Groups from Open Initial Laws}
+\label{cf:open-formation}
+
+A prepared common-precision family makes exact matrix addition possible. A different construction starts from an open set of independently variable laws and lets native source preferences determine which groups form. It uses two represented coordinates with different roles: a bit that communication transmits, and an angle whose relative constant offsets can be discarded. The parent retains enough angular profile information to preserve geometry. The selective architecture is supplied once; no interaction changes when a group is selected.
+
+\section{The transmitted bit and the retained angle}
+
+Take each belief and model possibility to be a pair $(z,\theta)\in\{-1,1\}\times S^1$. Densities are relative to the uniform bit and circle probability measure. Every belief law $q_i$ and model law $s_i$ can have its own positive smooth bit-angle correlation. Recognition uses $q_i\otimes s_i$. Local reference laws and evaluators are uniform, source priors are fixed and uniform, all sources including self are admitted, and the temperature $T$ is fixed and positive.
+
+The comparison channel transmits $z$ and generates a new uniform angle. If $\mu_i(z)$ is the binary marginal density, then
+\begin{equation}
+\KL(q_i\|\mu_j\otimes\mathrm{Haar})
+=\KL(q_i\|\mu_i\otimes\mathrm{Haar})+\KL(\mu_i\|\mu_j).
+\label{co:cost}
+\end{equation}
+The first term depends on the receiver but not on the source. It cancels when the receiver normalizes its source probabilities:
+\begin{equation}
+\beta_{ij}=
+\frac{e^{-\KL(\mu_i\|\mu_j)/T}}
+{\sum_k e^{-\KL(\mu_i\|\mu_k)/T}}.
+\label{co:row}
+\end{equation}
+The model source row is the same expression using its own binary marginals. The angle is absent from this selection equation but is still part of the public law, the local force, and an aggregate response defined below.
+
+Cancellation from a row is not cancellation from the variational potential. The complete belief force is
+\begin{equation}
+\begin{split}
+h_i^q&=2\log q_i-\sum_j\beta_{ij}\log\mu_j
+-\sum_k\beta_{ki}\frac{\mu_k}{\mu_i},\\
+\dot q_i&=-q_i(h_i^q-\E_{q_i}h_i^q).
+\end{split}
+\label{co:force}
+\end{equation}
+One entropy comes from the local KL and the other from the normalized receiver row. The final sum is the incoming source derivative. The self ratio is one, but a self channel still replaces the angle, so its full divergence is generally nonzero. All these terms are required by the original smooth potential.
+
+The formula is well defined on a positive smooth-law neighborhood. Logarithms and ratios are bounded there, so local solutions and their dependence on initial densities follow from an ordinary differential equation on a Banach chart. No Gaussian approximation or finite-dimensional moment closure is needed.
+
+\section{Why pairs appear before a larger group}
+
+For a reference trajectory let
+\begin{equation}
+q_i(z,\theta)=\mu_i(z)f_i(\theta),
+\qquad s_i(w,\psi)=\eta_i(w)g_i(\psi).
+\end{equation}
+The complete force separates exactly. The binary means obey their original identity-channel Fisher equations, while
+\begin{equation}
+f_i(\theta,t)=
+\frac{f_i(\theta,0)^{e^{-2t}}}
+{\int f_i(\psi,0)^{e^{-2t}}d\psi/(2\pi)}.
+\label{co:angular}
+\end{equation}
+Thus an angular factor $e^{\kappa\cos(\theta-\chi)}/I_0(\kappa)$ keeps its phase and has concentration $\kappa e^{-2t}$. The decay rate two is calculated from \cref{co:force}; it is not a new slow mobility.
+
+The binary routing mechanism is easiest to see at small amplitude. Write the mean as $x_i=hu_i$ and choose one temperature $T=h^2$. Without rescaling time, the limiting equation is
+\begin{equation}
+\dot u_i=-u_i+\sum_j(w_{ij}+w_{ji})(u_j-u_i),
+\qquad
+w_{ij}=\frac{e^{-(u_i-u_j)^2/2}}{\sum_k e^{-(u_i-u_k)^2/2}}.
+\label{co:limit}
+\end{equation}
+The local term moves every mean toward zero. The peer terms act strongly on nearby means and weakly on well-separated means. Self mass remains in the denominator.
+
+Place four reference coordinates at
+\begin{equation}
+-A-2,\quad -A+2,\quad A-2,\quad A+2
+\end{equation}
+with large finite $A$. Their internal gaps shrink while their centers are still far apart. Initially even a partner's native weight is at most $e^{-8}$, so the pairs do not begin as activated attention cliques. In the exact symmetric calculation, center distance $a$ and half-gap $b$ obey, while $a\ge4,b\le2$,
+\begin{equation}
+-2a\le\dot a\le-a,\qquad -4b\le\dot b\le-b/2.
+\end{equation}
+A partner weight crosses $1/10$ while exterior weights remain tiny. When the centers reach $a=4$, the residual gap satisfies
+\begin{equation}
+b\le2(A/4)^{-1/4}.
+\end{equation}
+It can therefore be made arbitrarily small without setting the children equal.
+
+In the zero-gap comparison, the inherited source mass from one pair to the other is
+\begin{equation}
+B=\frac{e^{-2a^2}}{1+e^{-2a^2}},
+\qquad \dot a=-a(1+4B).
+\end{equation}
+It grows through $1/10$ at $a=\sqrt{\log9/2}$. This crossing occurs while the original partner weights still dominate their complements. A small nonzero residual gap preserves the strict inequalities and the crossing.
+
+Two pairs alone would leave no exterior at this second event. Add a third pair initially near a much larger finite coordinate $R$. Over the finite observation interval, its center is close to $Re^{-t}$. In that moving frame the cross forces and their derivatives are bounded by a polynomial in separation times $e^{-r^2/2}$. Choosing $R$ sufficiently large keeps every mass between this pair and the four-agent core below $10^{-3}$. It forms internally but remains a genuine exterior while the two core parents join.
+
+For a current partition, define the inherited row by averaging receivers and summing source columns:
+\begin{equation}
+B^q_{IJ}=\frac1{|I|}\sum_{i\in I}\sum_{j\in J}\beta_{ij},
+\end{equation}
+and similarly for the model sector. A proposed pair must satisfy, in both directions and sectors,
+\begin{equation}
+B^a_{IJ}>\frac1{10},\qquad
+B^a_{IJ}-\sum_{K\notin\{I,J\}}B^a_{IK}>\frac1{20}.
+\label{co:criterion}
+\end{equation}
+Self loops are retained in normalization. The same condition selects primitive pairs and parent pairs. It has no competing partners at one vertex, because two partners could not each exceed the other by the positive contrast. At later joins, receiver averages use the inherited primitive counts. Neither temperature nor source data is refitted.
+
+The limiting equation is a proof device. First choose finite $A$, then finite $R$, and finally one sufficiently small positive $h$. Smooth convergence transfers all strict finite-time events to the exact binary KL field. The symmetry and product form are also proof devices: continuous dependence transfers the event windows to a full open set of independent positive belief and model densities, including bit-angle correlations. The initial class is open, not universal. Equal uniform laws, for example, do not produce the required contrast.
+
+\section{What the parent actually forgets}
+
+A physical rotation of both laws of one agent leaves its binary marginals, entropy, evaluator, and full dynamics unchanged. The parent of $I$ discards rotations whose angles sum to zero:
+\begin{equation}
+\mathsf H_I=\{(a_i)_{i\in I}:\sum_i a_i=0\pmod{2\pi}\}.
+\end{equation}
+A two-child parent loses one continuous relative orientation. Joining two parents loses one further relative block orientation. These are changes in physical probability laws, not passive changes of coordinates. Their individual absolute-angle samples differ.
+
+To represent the retained state by actual normalized laws, fix a contextual anchor $c_*$. Let $\vartheta_i$ be the phase of the belief first circular moment there and $\phi_I=|I|^{-1}\sum_i\vartheta_i$, using a local lifted-angle chart. Rotate the entire contextual section of child $i$ by $\phi_I-\vartheta_i$ and take products of the rotated laws:
+\begin{equation}
+q_I(c)=\bigotimes_{i\in I}\tau_{\phi_I-\vartheta_i}q_i(c),
+\qquad
+s_I(c)=\bigotimes_{i\in I}\tau_{\phi_I-\vartheta_i}s_i(c).
+\label{co:parent}
+\end{equation}
+The parent still contains all centered profiles and all changes of phase away from the anchor. It loses the constant relative offsets. Its state size grows with the number of children.
+
+For a subsequent join,
+\begin{equation}
+\phi_{I\cup J}=\frac{|I|\phi_I+|J|\phi_J}{|I|+|J|}.
+\end{equation}
+The resulting primitive rotations equal those obtained by joining all children directly. Native routing is invariant under the discarded rotations, so even a complete record of the formation times does not identify their offsets.
+
+The parent has exact dynamics at the original time, but its moving representation must be differentiated. If $\omega_i$ is the current angular velocity of the first moment at the anchor, then
+\begin{equation}
+\partial_t\widetilde q_i
+=V_i^q(\widetilde x)
+-(\overline\omega_I-\omega_i)\partial_\theta\widetilde q_i.
+\label{co:moving}
+\end{equation}
+Every quantity is determined by retained factors. The second term keeps the representative aligned as it evolves; it does not add a force to the fine system. Omitting it would generally change the parent trajectory.
+
+An exact inherited vector field need not be the ordinary Fisher gradient of a new single KL model. For two phase inertias $I_1,I_2$, the quotient metric for total phase $F$ is $dF^2/(I_1^{-1}+I_2^{-1})$, while the equal-phase representative has metric $(I_1+I_2)dF^2/4$. These differ when the inertias differ. The construction uses the derived flow in \cref{co:moving} and retains the primitive interaction ports.
+
+\section{Which physical responses survive}
+
+Before any formation, declare that a query to a current block returns the bit vector and the sum modulo $2\pi$ of independent constituent angles. A model query uses the analogous product of model laws. The same rule applies at every block size. Native source choices and transmitted bits are also available, and future query choices may depend on the entire recorded history.
+
+The sum of canonicalizing rotations is zero, so the response distribution calculated from \cref{co:parent} is exactly the original one. It has a nontrivial physical angular signal: its first moment is the product of the constituent first moments. At the next join, bit vectors concatenate and angular sums add.
+
+Equality of the waiting-time flow and the next joint response kernel proves equality of every finite adaptive history by conditioning successively on its records. This concerns the full joint history, not just its one-time marginals. Earlier finite sample records are carried forward. Positivity means that they do not exactly reconstruct the discarded continuous offsets. An exact archive of the child laws would remove the advertised loss.
+
+Individual absolute-angle probes of a child inside a compressed block are not allowed by this interface. They change under a discarded relative rotation and cannot be recovered. The construction therefore preserves specified physical experiments, not every possible microscopic measurement.
+
+\section{Why the collective geometry remains}
+
+At any fixed time, the canonicalizing angle in \cref{co:parent} is constant across evaluation context. The contextual derivative of a rotated law is therefore just the rotated original derivative. Rotation preserves Fisher inner products. Independent product scores have zero mean, so their cross terms vanish. The actual parent Fisher metric equals the fine sum on these contextual directions.
+
+The common collective rotation acts on every primitive coordinate once and commutes with these physical rotations. Consequently the full cost
+\begin{equation}
+g(dp+J\xi,dp+J\xi)
+\end{equation}
+is unchanged for every common angular velocity $\xi$. Its minimizer, minimized tensor, and local curvature are the same before and after either join.
+
+This statement has nonzero examples throughout the same finite formation interval. Let belief angles have von Mises concentration $\kappa$ and phase $\chi$, and model angles have fixed positive concentration $\lambda$ and phase zero. Use $(\kappa,\chi)$ as contexts and keep the reference binary trajectory independent of them. Define
+\begin{equation}
+\mathcal I(v)=v\frac{I_1(v)}{I_0(v)},\qquad
+a_t=\mathcal I(\kappa e^{-2t}),\quad
+b_t=\mathcal I(\lambda e^{-2t}).
+\end{equation}
+The function $\mathcal I$ is the rotation Fisher inertia. Integration by parts gives $\mathcal I(v)=\E_{p_v}[v^2\sin^2\theta]$, and $\mathcal I'(v)>0$ for $v>0$. Minimizing the cost $a_t(d\chi+\xi)^2+b_t\xi^2$ gives
+\begin{equation}
+A_t^F=-\frac{a_t}{a_t+b_t}d\chi,\qquad
+F_t^F=-\frac{b_te^{-2t}\mathcal I'(\kappa e^{-2t})}
+{(a_t+b_t)^2}d\kappa\wedge d\chi.
+\label{co:curvature}
+\end{equation}
+For a block of size $n$, the two positive tensor components are
+\begin{equation}
+h_{\chi\chi}=n\frac{a_tb_t}{a_t+b_t},\qquad
+h_{\kappa\kappa}
+=n e^{-4t}\operatorname{Var}_{p_{\kappa e^{-2t}}}(\cos\theta).
+\end{equation}
+The tensor has rank two and the curvature is nonzero at every finite time. Repetition is the reference example, not a restriction on all admitted laws. To extend it through arbitrary nearby law values, tilt each belief by
+$e^{(\kappa-\kappa_*)\cos(\theta-\vartheta_i)}$, normalize, and rotate by $\chi$; keep its model law constant over context. The tilt follows the law's own phase, so a physical rotation rotates the whole assigned section. It cannot reveal an erased offset through a fixed external template. Smooth dependence then preserves the positive geometric bounds on a full open neighborhood.
+
+The handoff is selected at one fixed anchor and applied to the entire section at the same time. If different contexts use different event times $\tau(c)$, differentiating their states adds $Vd\tau$ and gives a different comparison. The phase roots are also local: a global block phase has a finite root ambiguity. Neither issue can be removed by treating it as notation.
