@@ -1,0 +1,206 @@
+\chapter{Public compression and inherited responses}
+\label{ch:public-compression}
+
+A nonlinear projection of the original smooth KL flow can discard continuous public differences without an erasure channel or finite-time equality. This autonomous parent nevertheless fails to predict ordinary child sampling. A separate identifiability result explains why an unrestricted identity-channel Gibbs interface retains every exposed child law.
+
+\section{An exact collective phase for general laws}
+\label{sec:public-phase}
+
+Let $A$ and $B$ be probability measures on standard Borel spaces $\mathsf K$ and $\mathsf M$. Suppose there are measurable functions $\varphi:\mathsf K\to\{-1,1\}$ and $\psi:\mathsf M\to\{-1,1\}$ with zero reference means. For example, either space may be a balanced two-point factor times an arbitrary probability space. The agent laws below need not factor over these coordinates. Fix $|J|<1/4$ and the normalized reference
+\begin{equation}
+ R(dk,dm)=\frac{e^{J\varphi(k)\psi(m)}}{\cosh J}A(dk)B(dm).
+ \label{eq:public-phase-reference}
+\end{equation}
+Its model marginal is $B$, and its evaluator is $G(m,dk)=e^{J\varphi(k)\psi(m)}A(dk)/\cosh J$. Thus
+\begin{equation}
+ \KL(q_i\otimes s_i\Vert R)
+ =\KL(q_i\Vert A)+\KL(s_i\Vert B)
+ -J\E_{q_i}\varphi\E_{s_i}\psi+\log\cosh J.
+ \label{eq:public-phase-local}
+\end{equation}
+For $J\ne0$ the belief and model laws interact through the evaluator.
+
+Take $N\ge2$ identical agents, identity peer channels, all other agents as sources, uniform nonself source priors, and fixed positive temperatures. Use the exact Gibbs-reduced potential of \cref{eq:dyn-reduced}, with unit Fisher mobility. No source or channel derivative is frozen. Introduce the Banach spaces
+\begin{equation}
+ \begin{aligned}
+ \mathsf E_q&=\{u\in L^\infty(A):\E_Au=0\},&
+ q_u&=\frac{e^u}{\E_Ae^u}A,\\
+ \mathsf E_s&=\{v\in L^\infty(B):\E_Bv=0\},&
+ s_v&=\frac{e^v}{\E_Be^v}B,
+ \end{aligned}
+ \label{eq:public-phase-chart}
+\end{equation}
+and $\mathsf E=\mathsf E_q\times\mathsf E_s$, with the maximum norm. These are full bounded log-density charts, rather than a finite-parameter family. Set $z_i=(u_i,v_i)$, $\bar z=N^{-1}\sum_i z_i$, and $\delta_i=z_i-\bar z$. Write $\Phi_t$ for the resulting fine flow in $\mathsf E^N$.
+
+On the diagonal $z_1=\cdots=z_N=z$, every peer force vanishes. The diagonal vector field is
+\begin{equation}
+ f(u,v)=\bigl(-u+J\varphi\E_{s_v}\psi,
+                  -v+J\psi\E_{q_u}\varphi\bigr).
+ \label{eq:public-phase-diagonal}
+\end{equation}
+Denote its flow by $\phi_t$. This equation is defined for all $z\in\mathsf E$, for positive and negative finite times. In particular, it can be used below without extending a locally defined diagonal dynamics.
+
+\theoremheading{A compressive phase projection under the original KL flow}{thm:public-phase}
+For the preceding data there is a forward-invariant neighborhood $U$ of the common reference configuration in $\mathsf E^N$ on which
+\begin{equation}
+ \Pi(x)=\lim_{t\to\infty}\phi_{-t}\bigl(\overline{\Phi_t x}\bigr)
+ \label{eq:public-phase-limit}
+\end{equation}
+exists in $\mathsf E$ and is continuously differentiable. It satisfies
+\begin{equation}
+ \Pi(z,\ldots,z)=z,\qquad
+ \Pi(\Phi_t x)=\phi_t(\Pi x),\qquad
+ D\Pi_{(z,\ldots,z)}(h_1,\ldots,h_N)=\frac1N\sum_i h_i.
+ \label{eq:public-phase-intertwining}
+\end{equation}
+After shrinking $U$ if necessary, $\Pi$ is a submersion with nontrivial fibers parametrized locally by $N-1$ public log-density differences. The parent laws $q_{u^c},s_{v^c}$, where $(u^c,v^c)=\Pi(x)$, follow \cref{eq:public-phase-diagonal} exactly. If two fine child states $(q_i,s_i)$ are initially different, they remain different at every finite time in this neighborhood.
+
+\begin{proof}
+Exponential normalization, bounded density ratios, the finite Gibbs sums, and their derivatives are smooth maps on bounded log-density balls. Consequently the full reduced Fisher vector field $V$ is smooth there. Centering a logarithmic Fisher equation against $A$ or $B$ removes its scalar normalizer and gives an ordinary differential equation in the Banach chart.
+
+At the origin every peer KL cost has zero first variation, so the Gibbs rows equal $1/(N-1)$ and their first variations vanish. The receiver and sender derivatives each contribute one copy of the complete-graph difference operator. Therefore, with $\kappa_N=2N/(N-1)$,
+\begin{equation}
+ \begin{aligned}
+ (DV(0)h)_i&=\mathcal Ah_i-\kappa_N(h_i-\bar h),\\
+ \mathcal A(u,v)&=\bigl(-u+J\varphi\E_B[\psi v],
+                         -v+J\psi\E_A[\varphi u]\bigr).
+ \end{aligned}
+ \label{eq:public-phase-linearization}
+\end{equation}
+The off-diagonal operator in $\mathcal A$ has norm at most $|J|$. Hence its common and difference semigroups have bounds $e^{-(1-|J|)t}$ and $e^{-(1+\kappa_N-|J|)t}$ in the corresponding maximum norms.
+
+Here are the local estimates needed for the limit, including its regularity. Choose $\mu>0$ and $b$ strictly below these two decay rates, respectively, with
+\begin{equation}
+ b>L:=1+2|J|.
+ \label{eq:public-phase-gap}
+\end{equation}
+This is possible because $\kappa_N>2$. Taylor expansion and the variation-of-constants formula, on a sufficiently small ball in the norm of $(\bar z,\delta)$, give a forward-invariant neighborhood and
+\begin{equation}
+ \|\Phi_t x\|+\|D\Phi_t(x)\|\le C e^{-\mu t},\qquad
+ \|\delta(t)\|+\|D_x\delta(t)\|\le C e^{-bt}.
+ \label{eq:public-phase-decay}
+\end{equation}
+The constants are uniform on a smaller neighborhood. To detail the second estimate, the diagonal is invariant, so the difference equation is linear in $\delta$ with coefficient $\mathcal A-\kappa_N I+O(\|x\|)$. Its differentiated equation has the same stable homogeneous part and an additional forcing bounded by $C\|\delta(t)\|\|D\Phi_t(x)\|$. Variation of constants bounds that forcing by $e^{-bt}$ times a convergent integral of $e^{-\mu t}$. Small losses in the two decay exponents absorb the coefficient perturbations. The first estimate follows in the same way from the strictly stable full linearization, after choosing the neighborhood small enough that its nonlinear derivative perturbation is less than the chosen decay margins.
+
+Permutation equivariance implies that the average derivative of $V$ in a zero-sum direction vanishes at every diagonal point. Thus the exact average equation has the form
+\begin{equation}
+ \dot{\bar z}=f(\bar z)+g(\bar z,\delta),\qquad
+ g=O(\|\delta\|^2),\quad
+ D_{\bar z}g=O(\|\delta\|^2),\quad D_\delta g=O(\|\delta\|).
+ \label{eq:public-phase-residual}
+\end{equation}
+It follows from \cref{eq:public-phase-decay} that both $g(\Phi_t x)$ and its derivative with respect to $x$ are bounded by $Ce^{-2bt}$.
+
+The normalized feature expectations in \cref{eq:public-phase-diagonal} have uniformly bounded first and second derivatives. In particular, $f$ is globally Lipschitz with constant at most $L$, has at most linear growth, and has a bounded second derivative. Its complete flow obeys
+\begin{equation}
+ \|D\phi_{-t}\|\le e^{Lt},\qquad
+ \|D^2\phi_{-t}\|\le C e^{2Lt},\qquad t\ge0.
+ \label{eq:public-phase-backward}
+\end{equation}
+Differentiation in time gives the convergent integral
+\begin{equation}
+ \Pi(x)=\bar z(0)+\int_0^\infty
+ D\phi_{-t}\big|_{\bar z(t)}g(\bar z(t),\delta(t))dt.
+ \label{eq:public-phase-integral}
+\end{equation}
+The integrand is bounded by $Ce^{-(2b-L)t}$. Its derivative in $x$ is the sum of a term with $D\phi_{-t}D_xg$ and one with $D^2\phi_{-t}[D_x\bar z,g]$. They are bounded by integrable multiples of $e^{-(2b-L)t}$ and $e^{-(2b-2L)t}$. Uniform convergence proves continuous differentiability.
+
+On the diagonal the residual and its first derivative vanish, proving the retraction and derivative assertions. Shifting the limit in \cref{eq:public-phase-limit} by a finite time proves the intertwining identity. The averaging derivative has the diagonal embedding as a bounded right inverse. The Banach implicit function theorem therefore gives the claimed local fibers, including continuously varying heterogeneous preparations. Finally, if two complete child states first became equal at a finite time, exchanging their labels would produce the same configuration at that time. Permutation equivariance and local uniqueness backward to the initial time would imply that they were initially equal, a contradiction.
+\end{proof}
+
+The parent is a virtual collective state, generally different from either the arithmetic or geometric pool. The restricted potential $N\KL(q^c\otimes s^c\Vert R)$ and metric $Ng_{\mathrm{Fisher}}$ give \cref{eq:public-phase-diagonal}. Fine states remain unchanged by the construction. They approach the common reference, so the theorem supplies neither persistent nonzero separation nor selected membership.
+
+The construction is an exact dynamical lumping \citep{HorstmeyerAtay2016} with stable-foliation structure \citep{ElderingKvalheimRevzen2018}. The proof uses Banach charts directly; it does not extend a finite-dimensional theorem by analogy. The limit supplies no finite-cost evaluation algorithm.
+
+\section{An ordinary response that the phase does not preserve}
+\label{sec:public-phase-response}
+
+The failure of boundary sufficiency can be seen inside the preceding example. Take two binary agents, $q_i=s_i=\operatorname{Ber}_{\pm1}(x_i)$, $0<J<1/4$, and set $x_1=m+a$, $x_2=m-a$. This is an invariant subfamily. The exact single-agent diagonal equation is
+\begin{equation}
+ f_b(x)=-(1-x^2)(\operatorname{atanh}x-Jx).
+ \label{eq:public-phase-binary}
+\end{equation}
+Both source rows have one entry. Including the incoming peer derivative gives
+\begin{equation}
+ \dot x_i=-(1-x_i^2)
+ [2\operatorname{atanh}x_i-\operatorname{atanh}x_j-Jx_i]
+ -(x_i-x_j).
+ \label{eq:public-phase-binary-fine}
+\end{equation}
+Expansion at the reference state yields
+\begin{equation}
+ \begin{aligned}
+ \dot m&=f_b(m)+(6-3J)ma^2+O((|m|+|a|)^5),\\
+ \dot a&=-(5-J)a+O((|m|+|a|)^3).
+ \end{aligned}
+ \label{eq:public-phase-binary-expansion}
+\end{equation}
+In this two-agent finite-dimensional subfamily the same integral argument gives a $C^3$ phase: choose $b$ close to $5-J$, so $2b>4L$, and differentiate the integral three times. The differentiated residuals retain two exponentially decaying difference factors, while the inverse-flow derivatives grow at most as $e^{4Lt}$.
+
+Let $p$ be the mean parameter of the phase law. Retraction, child exchange, and simultaneous bit reversal imply $p=m+cma^2+o((|m|+|a|)^3)$. Substitution into $Dp(V)=f_b(p)$ determines the coefficient:
+\begin{equation}
+ p=m+\frac{3(2-J)}{2(5-J)}ma^2+o((|m|+|a|)^3).
+ \label{eq:public-phase-binary-parent}
+\end{equation}
+Indeed, the coefficient equation is $(6-3J)-2(5-J)c=0$. Along $m=a>0$ sufficiently small, $p\ne m$. The heterogeneous state and the diagonal state $(p,p)$ have exactly the same phase parent, whereas choosing a child uniformly and sampling its public bit gives means $m$ and $p$, respectively. This response is not constant on the phase fibers. Replacing it by sampling the phase law would specify a new interface.
+
+\section{What unrestricted Gibbs probes retain}
+\label{sec:public-gibbs-identifiability}
+
+Consider a block of exposed belief laws $q_j=f_j\lambda$ against a probability reference $\lambda$, with $f_j$ bounded above and away from zero. Fix positive source weights $w_j$ and a temperature $T>0$. An identity-channel receiver with law $r\lambda$ sees the block normalizer
+\begin{equation}
+ Z(r)=\sum_jw_j\exp[-\KL(r\lambda\Vert q_j)/T].
+ \label{eq:public-probe-normalizer}
+\end{equation}
+The probability of selecting this block against a known outside source determines $Z(r)$, so the normalizer is an observable routing response without revealing a child label.
+
+\propositionheading{Unrestricted Gibbs response identifies the exposed child laws}{prop:public-gibbs-identifies}
+If two finite source collections have equal \cref{eq:public-probe-normalizer} for every positive receiver density in an $L^\infty$ neighborhood of $1$, then their weighted empirical measures of densities are equal:
+\begin{equation}
+ \sum_jw_j\delta_{f_j}=\sum_kw'_k\delta_{f'_k}.
+ \label{eq:public-probe-identification}
+\end{equation}
+Repeated identical laws may be combined by adding their weights; distinct exposed laws cannot be forgotten by a retention preserving this entire response class.
+
+\begin{proof}
+Multiplication by the known receiver-entropy factor gives
+\begin{equation}
+ e^{\int r\log r d\lambda/T}Z(r)
+ =\sum_jw_j e^{\int r\log f_j d\lambda/T}.
+ \label{eq:public-probe-exponential}
+\end{equation}
+List the distinct normalized densities in the union of the two collections. No two of their logarithms differ by a constant. There is therefore a bounded mean-zero function $h$ for which the numbers $v_j=\int h\log f_j d\lambda$ are all different: each equality excludes one proper hyperplane in the finite-dimensional span of centered log-density differences, and finitely many such hyperplanes cannot cover that span. Put $r=1+th$ for sufficiently small $|t|$. Subtracting the two expressions in \cref{eq:public-probe-exponential} gives $\sum_j c_j e^{tv_j/T}=0$. Differentiation through orders zero to one less than the number of distinct laws gives an invertible Vandermonde system. Every $c_j$ vanishes. Its positive factor $e^{\int\log f_j d\lambda/T}$ leaves exactly equality of the total weights on each density.
+\end{proof}
+
+In particular, a single ordinary law with one positive weight reproduces all these responses only if every exposed child law already equals it. The proposition concerns fixed identity comparison channels and unrestricted receiver probes. It is not an impossibility result for arbitrary channels, restricted interfaces, or isolated dynamical factors such as \cref{thm:public-phase}.
+
+For a restricted affine receiver family $r_\theta=r_0+\sum_a\theta_a h_a$, the response instead identifies
+\begin{equation}
+ \mu=\sum_jw_j e^{b_j/T}\delta_{v_j},\qquad
+ b_j=\int r_0\log f_j d\lambda,\qquad
+ (v_j)_a=\int h_a\log f_j d\lambda.
+ \label{eq:public-restricted-descriptor}
+\end{equation}
+Equal slopes can be combined by adding the tilted weights. This possible boundary compression still requires a dynamical check. The incoming Fisher force from one Gibbs receiver is $\dot f_j=\alpha_j(r_\theta-f_j)$, and consequently
+\begin{equation}
+ \dot b_j=\alpha_j\left(\int\frac{r_0r_\theta}{f_j}d\lambda-1\right),\qquad
+ (\dot v_j)_a=\alpha_j\int\frac{h_ar_\theta}{f_j}d\lambda.
+ \label{eq:public-restricted-force}
+\end{equation}
+These reciprocal moments are additional information unless the admitted family supplies a closure identity.
+
+\section{The remaining recursive requirement}
+\label{sec:public-recursive-requirement}
+
+For unique flows, block retention $R_I$ and external state $e$ require controlled projectability:
+\begin{equation}
+ DR_I(x_I)V_I(x_I;e)
+ =\bar V_I(R_Ix_I;R_{\mathrm{ext}}e).
+ \label{eq:public-controlled-projection}
+\end{equation}
+Boundary kernels, including memory of a reused child, must factor through the retained data. Joining within a closed admissible family must also descend:
+\begin{equation}
+ R_{I\cup J}\circ\mathcal J_{I,J}
+ =\bar{\mathcal J}_{I,J}\circ(R_I,R_J).
+ \label{eq:public-recursive-joining}
+\end{equation}

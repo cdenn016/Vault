@@ -1,0 +1,49 @@
+\chapter{A collective trajectory is not a complete interface}
+\label{comp:public-compression}
+
+There is a way to compress distinct public laws under the original smooth interaction. It uses their collective motion. Near a common stable reference, differences between agents can decay faster than their shared evolution. One can then assign each fine configuration a virtual collective state whose future follows exactly the same reduced trajectory. The fine agents need not coincide at any finite time.
+
+For an explicit general-law construction, take probability references $A,B$ with balanced binary features $\varphi,\psi$, and the fixed normalized evaluator
+\begin{equation}
+ G(m,dk)=\frac{e^{J\varphi(k)\psi(m)}}{\cosh J}A(dk),\qquad |J|<1/4.
+ \label{comp:eq-phase-evaluator}
+\end{equation}
+The other sample coordinates can be arbitrary. Write $q_i=e^{u_i}A/\E_Ae^{u_i}$ and $s_i=e^{v_i}B/\E_Be^{v_i}$, with bounded reference-centered log densities. No finite-dimensional family is imposed. Use identity channels, uniform nonself source priors, and the original Gibbs-reduced KL potential.
+
+Set $z_i=(u_i,v_i)$. On the virtual diagonal the common law follows
+\begin{equation}
+ \dot u=-u+J\varphi\E_{s_v}\psi,\qquad
+ \dot v=-v+J\psi\E_{q_u}\varphi.
+ \label{comp:eq-phase-common}
+\end{equation}
+At the reference state, the linearized fine dynamics is
+\begin{equation}
+ \dot z_i=\mathcal A z_i-\frac{2N}{N-1}(z_i-\bar z),\qquad
+ \bar z=\frac1N\sum_i z_i.
+ \label{comp:eq-phase-rates}
+\end{equation}
+Here $\mathcal A$ is the linearization of \cref{comp:eq-phase-common}. Its slowest common decay rate is $1-|J|$, whereas the slowest difference rate is $1+2N/(N-1)-|J|$. The factor two in the peer term includes both receiving and being used as a source.
+
+The arithmetic average of the log densities is not itself an exact closed state. Away from the diagonal, its equation contains a correction quadratic in the child differences. That correction decays fast enough to define a nonlinear phase. Let $\Phi_t$ be the fine flow and $\phi_t$ the flow of \cref{comp:eq-phase-common}. The exact parent coordinate is
+\begin{equation}
+ \Pi(x)=\lim_{t\to\infty}\phi_{-t}\bigl(\overline{\Phi_t x}\bigr),\qquad
+ \Pi(\Phi_t x)=\phi_t(\Pi x).
+ \label{comp:eq-phase-map}
+\end{equation}
+The backward common flow transports the late collective state back to the initial time. The fast decay of child differences makes the limit converge. Its local fibers contain continuously many distinct child configurations, so this construction discards public degrees of freedom rather than merely their labels. The parent evolves exactly once its initial phase is known. Evaluating that phase remains an implicit dynamical problem.
+
+The response of the group is a separate question. For two binary agents with equal belief and model means within each agent, put $x_1=m+a$ and $x_2=m-a$. Their phase-law mean is
+\begin{equation}
+ p=m+\frac{3(2-J)}{2(5-J)}ma^2+o((|m|+|a|)^3).
+ \label{comp:eq-phase-response}
+\end{equation}
+A uniform choice of child followed by one bit sample has mean $m$. The diagonal configuration with both child means equal to $p$ has the same phase parent, but its corresponding response has mean $p$. For small $m=a>0$, these means differ. The parent predicts its own inherited trajectory while failing to reproduce this ordinary group response. Sampling the phase law would change the interface.
+
+An unrestricted identity-channel Gibbs receiver can distinguish even more. For child densities $f_j$ and positive weights $w_j$, its block normalizer is
+\begin{equation}
+ Z(r)=\sum_jw_j e^{-\KL(r\lambda\Vert f_j\lambda)/T}.
+ \label{comp:eq-phase-gibbs}
+\end{equation}
+Knowing this response for all nearby receiver laws determines every distinct exposed child density and its total weight. To see the mechanism, cancel the known receiver entropy. The remaining function is a finite sum of exponentials of the linear probes $\int r\log f_j$. A direction that separates these probes gives a Vandermonde system, which recovers their coefficients. Distinct child laws therefore cannot be forgotten while retaining this entire interface.
+
+Restricting the possible receivers may permit compression. It must be accompanied by an exact check of the incoming forces and of repeated-response memory. For a second formation step, joining parents must also respect the information already discarded. The collective phase supplies a continuous autonomous reduction without an erasure gate. It does not yet supply those recursive interface properties or a dynamically selected hierarchy.
