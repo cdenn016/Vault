@@ -15,6 +15,8 @@ Copy-Item -LiteralPath build/MAgent_Theory_2.0_companion.pdf -Destination MAgent
 
 ## Current state (2026-10-22)
 
+The collective/local-parent main and companion chapters add the transmitted-angle model, genuinely collective physical rotation loss, exact local two-jet evolution with finite reference-state memory, actual normalized-law Fisher-cost inheritance, and a conditional finite preparation-and-history realization. The unrestricted local-parent question remains INCONCLUSIVE. The smooth finite-order and regular finite global-encoding obstructions have explicit scopes and do not prove general impossibility. Raw histories remain complete and unbounded; interaction-created invisibility, second-stage recursion and future_TODO extensions remain deferred.
+
 The added per-agent chapter and companion derive the correct own-block and null fields, prove persistent interaction-dependent grouping with conflicting records, and give a conditional physical phase parent preserving port dynamics, admitted finite adaptive histories, persistent likelihoods, and actual nonflat collective geometry on a finite window. The phase-insensitive interface is predeclared; no new second compressive handoff is proved. Persistent grouping is restricted to the fixed initial record episode, and geometric equality is restricted to context-constant erased phases. These are conditional one-stage inheritance results, not a completed recursive formation.
 
 A deep review on 2026-10-22 found no false main result but several structural problems, and the remediation applied the author's two decisions.
