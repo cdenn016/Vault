@@ -16,7 +16,7 @@ Links stay directed. The inverse convention Θ_ji = Θ_ij^{-1} is not imposed. A
 
 ### 1. Edges as alignment plus communication
 
-Working document: `Item_1_communication_links.tex` (derived decoder, meaning-loss identity, identifiability modulo the code stabilizer, several and routed modalities, query maps as dictionaries, attention heads as modalities, consensus and dissonance from holonomy, bandwidth as row temperature). Checks in `item1_checks/`. Not yet part of the main manuscript.
+Working document: `Item_1_communication_links.tex` (derived decoder, meaning-loss identity, identifiability modulo the code stabilizer, several and routed modalities, query maps as dictionaries, attention heads as modalities, consensus and dissonance from holonomy, bandwidth as row temperature, and dictionary learning with a loop prior: in the tangent model the recognition law converges to the loop prior conditioned on the identified coset, the loop term fills exactly the invisible directions that create holonomy, those are the directions in which dissonance is undetectable, and the unreachable directions are counted by global sections of a code sheaf; exact reciprocal-pair and flat-constraint identification without linearization). Checks in `item1_checks/`. Not yet part of the main manuscript.
 
 Motivating picture (author, 2026-10-22). When agent j communicates a belief to agent i, most of what the belief means internally is lost: j projects it into a low-dimensional transmissible package (speech, drawing, signal), and i rebuilds it inside its own, higher-dimensional internal space. In the manuscript's convention (receiver i, sender j) the chain is
 
