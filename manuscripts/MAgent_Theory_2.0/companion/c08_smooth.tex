@@ -1,0 +1,76 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Keeping Distinct Children Under Smooth Dynamics}
+\label{comp:smooth}
+
+Exact inheritance need not identify the children with one another. The requirement is that discarded distinctions have no effect on the future quantities the parent promises to reproduce. Under smooth KL dynamics this requirement has a concrete content: hidden conditional information can contribute to the force on a retained marginal. A parent must retain that contribution, or have a reason why it cancels.
+
+\section{A hidden conditional law can move a visible marginal}
+
+Write a law as $q(dz,dv)=\mu(dz)\kappa_z(dv)$. Here $z$ is retained and $v$ is internal. Against a reference $\nu(dz)A(dv)$, the KL chain rule is
+\begin{equation}
+ \KL(q\Vert\nu\otimes A)
+ =\KL(\mu\Vert\nu)+\int H(z)\mu(dz),\qquad
+ H(z)=\KL(\kappa_z\Vert A).
+ \label{comp:smooth-energy}
+\end{equation}
+If one public value has a more costly hidden conditional law, changing its probability changes the full energy. The public Fisher velocity therefore contains $H(z)$ as well as the ordinary public force. A single average hidden entropy does not tell the parent which public values carry that cost.
+
+There is an exact architecture in which this is the only hidden contribution. A sender transmits its public coordinate through a normalized, possibly law-dependent channel. The receiver reconstructs its private coordinate from its own conditional $\kappa_{i,z}$. The receiver law and compared source law then have the same private conditional, so that conditional cancels from their peer KL. With a fixed reference whose private factors are independent, the two-sector local model still couples the public belief and model laws. The original potential and Fisher metric give
+\begin{equation}
+ \begin{aligned}
+ \dot\mu&=-\mu[h^c+H-\E_\mu(h^c+H)],\\
+ \dot\ell_z(v)&=H(z)-\ell_z(v),\qquad
+ \ell_z=\log(d\kappa_z/dA).
+ \end{aligned}
+ \label{comp:smooth-flow}
+\end{equation}
+The public score $h^c$ includes every incoming interaction and every channel derivative. Cancellation is a functional identity, so it does not require freezing a live channel while differentiating.
+
+\section{Retain the distribution of density values}
+
+The conditional equation in \cref{comp:smooth-flow} moves a log-density value according to its current value and the conditional KL. It does not need the name of the private point carrying that value. This suggests retaining the probability law
+\begin{equation}
+ \xi_z=(\ell_z)_\#A,\qquad
+ \int e^r\xi_z(dr)=1,\qquad
+ H(z)=\int re^r\xi_z(dr).
+ \label{comp:spectrum}
+\end{equation}
+For example, use a uniform reference on two private states. The laws $(3/4,1/4)$ and $(1/4,3/4)$ have the same spectrum: half the reference mass sees $\log(3/2)$ and half sees $\log(1/2)$. Their private preferences differ, but their contribution to the public force agrees.
+
+The complete spectrum evolves exactly. With $a=e^{-t}$,
+\begin{equation}
+ \xi_z(t)=\left(r\mapsto ar-\log\int e^{ar'}\xi_z(0,dr')\right)_\#\xi_z(0).
+ \label{comp:spectrum-evolution}
+\end{equation}
+This follows by solving $d\kappa_z(t)/dA\propto(d\kappa_z(0)/dA)^a$ and normalizing. The formula applies to arbitrary dominated laws under the stated regularity conditions; it does not fit a Gaussian. The retained state can remain infinite-dimensional.
+
+If all public values within an agent have the same conditional spectrum, $H(z)$ is constant and disappears under Fisher centering. The public laws then follow the original coarse KL dynamics exactly. The private conditionals can still differ: a public bit can select between the two swapped binary laws above. This gives internal correlation without changing the public force. Other agents may have different public laws and different spectra; equality between agents is unnecessary.
+
+This property is not created at a finite time by the conditional relaxation. At every finite time $a>0$, the power transformation and its normalization can be inverted. Different spectra therefore remain different until an asymptotic limit, unless some additional operation changes them. Retaining unequal spectra is an exact alternative, but their existence alone does not select groups of agents.
+
+\section{What a future record is allowed to inspect}
+
+The same two swapped private laws show why a boundary protocol matters. Let record $1$ have probabilities $(3/4,1/4)$ at the two private points. The record probabilities are respectively $5/8$ and $3/8$. Equal unmarked spectra therefore do not preserve this response.
+
+If all permitted private readouts use a fixed mark $T(v)$, retain the joint reference distribution of $(\ell_z(v),T(v))$. A likelihood $L(o\mid z,T(v))$ then gives the conditional record probability
+\begin{equation}
+ N_z(o)=\int e^r L(o\mid z,d)\eta_z(dr,dd),\qquad
+ \eta_z=(\ell_z,T)_\#A.
+\end{equation}
+After the record, the log-density coordinate changes by
+\begin{equation}
+ r^+=r+\log L(o\mid z,d)-\log N_z(o).
+\end{equation}
+The public marginal is multiplied by $N_z(o)$ and normalized. Between records the same smooth conditional relaxation resumes. This gives an exact inherited record-and-update sequence for the declared protocols. If the marks identify every private point, however, the supposed compression may retain everything. Sufficiency is relative to what the future interaction can ask.
+
+\section{A smooth channel can erase a dependence in finite time}
+
+A separate four-agent example shows that exact independence can become available during the original smooth flow. Each belief and model law has a public bit, a private bit, and an internal gate bit. A fixed normalized local evaluator couples the public belief and model means. The gate means relax toward a fixed reference value. The private part of a peer channel depends on the source's private mean multiplied by a smooth function $\alpha$ of the population's gate means.
+
+The function $\alpha$ has an exactly flat zero region. Its derivative is included in the Fisher equations. By choosing its private gain sufficiently small, the local KL force drives the gate means into this region at a finite time and keeps them there. Once inside, every peer's private cost in a receiver row is the same for all sources. It cancels from the Gibbs source comparison. The reduced energy and Fisher metric then split into a public part and an independent private-and-gate part.
+
+The public states start in two invariant sign regions, with two agents in each. No labels are assigned to groups by the equations. Initially, private similarities can select crossed pairs, each containing one member from each public region. After private erasure, the preferred sources change: each agent prefers the other member of its public region, and those pairs persist. All cross-pair source weights remain positive. The children need not coincide; smooth uniqueness keeps distinct public states distinct at every finite subsequent time. Their separation is not claimed to stay bounded below forever.
+
+For each pair, retain the empirical measure of its two paired public belief and model means. The original public vector field gives its exact evolution, and fresh public responses are computed by selecting and sampling a child from that measure. The private and gate laws can be forgotten after erasure. This is a noninjective reduction, but the empirical measure still retains every public child state, up to its label.
+
+The example is an existence construction with an engineered channel, a product preparation on finite alphabets, and a specified class of boundary responses. It adds no fusion penalty and imposes no synchronization. It does not show that arbitrary smooth channels acquire a sufficient interface, that the distinct public child states admit a smaller aggregate description, or that the two resulting parents form another parent. Those are the remaining formation obligations.
