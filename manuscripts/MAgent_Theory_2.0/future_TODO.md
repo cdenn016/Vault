@@ -46,6 +46,10 @@ Once items 1 and 4 exist, state what a refinement of the agent graph and the bas
 
 Check whether dynamical links and context coupling change the formation results: whether interaction-sensitive selection becomes available through link-dependent targets, whether holonomy-sensitive records give compression with an internal observer (replacing the external response interface of the open-law construction), and whether parents inherit a link sector. Report every result against the formation standard, including the null-flow control.
 
+## Structure group (decided 2026-10-22)
+
+One structure group G acts on both sectors through representations ϱ_q (beliefs, dimension K) and ϱ_s (models, dimension K̃), with one principal bundle P and two associated content bundles 𝓔_q, 𝓔_s. Bundle morphisms Φ, Φ̃ are induced by one principal map. The general theory has two G-valued link fields θ_ij (beliefs) and θ̃_ij (models), with generators ω_ij, ω̃_ij in 𝔤 (chapter 2, `def:int-group-links`); the focus is the tied case θ_ij = θ̃_ij. For item 1 this means: the link prior lives on 𝔤 (one copy per link field, or one in the tied case); the loop defect is read through both representations; and the sector mismatch Ξ_ij = θ̃_ij θ_ij^{-1} (`prop:int-mismatch`) is a covariant field whose prior or dynamics should be stated whenever the untied case is used. The choice of ϱ_s must be concrete (for Gaussian model parameters, fundamental ⊕ Sym², so K̃ = K + K(K+1)/2).
+
 ## Related open decisions
 
-The structure group (one G with two representations, or G_q × G_s) must be fixed before item 1, since it determines the generator blocks and the loop defect. The other outstanding author decisions are listed in the remediation summary in the VFE_4.0 review folder.
+The other outstanding author decisions are listed in the remediation summary in the VFE_4.0 review folder.
