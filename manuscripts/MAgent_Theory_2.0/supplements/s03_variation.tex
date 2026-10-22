@@ -43,7 +43,7 @@ For the next calculation let $AX_i\sim\mathcal N(a,V)$ and $BX_j\sim\mathcal N(b
             +\Tr(W_j^{-1}V)-d+\log\frac{\det W_j}{\det V}\right].
  \label{eq:sup-peer-score}
 \end{equation}
-The second formula follows by taking the expectation of the log ratio of the two Gaussian densities. Its receiver quadratic has expectation $d$, while its source quadratic has expectation $\Tr(W_j^{-1}V)+(a-b_j)^TW_j^{-1}(a-b_j)$.
+The second formula follows by taking the expectation of the log ratio of the two Gaussian densities. It is the divergence $\KL(A_\#q_i\Vert B_\#q_j)$ between the two laws in the common comparison space; it equals the peer divergence of the dynamics, the divergence from the receiver law to the channelled source law, only when $A$ is invertible and the channel is identified accordingly. Its receiver quadratic has expectation $d$, while its source quadratic has expectation $\Tr(W_j^{-1}V)+(a-b_j)^TW_j^{-1}(a-b_j)$.
 
 \propositionheading{A restricted routing equivalence}{prop:sup-row-equivalence}
 Suppose $W_j=W$ for every source, $W$ is held fixed, and $R=TW$ for $T>0$. Then
@@ -61,7 +61,7 @@ Consequently normalized rows proportional to $\pi_je^{-C_j}$ and to $\pi_je^{-D_
 Insert $R=TW$ and $W_j=W$ into \cref{eq:sup-nll-score,eq:sup-peer-score}. The mean quadratic and $\Tr(W^{-1}V)$ cancel in their difference, leaving \cref{eq:sup-row-constant}, which is independent of $j$. A common additive score cancels on row normalization. Differentiating the remaining $\log\det V$ gives \cref{eq:sup-covariance-difference}.
 \end{proof}
 
-At $T=1$ the score difference is $H(\mathcal N(a,V))+d/2$, with entropy measured against Lebesgue measure. It is constant for source selection, but not for variation of the receiver law. If $V$ is also fixed, the corresponding mean derivatives agree. If source covariances vary independently, or the comparison maps change them, the hypothesis of a common held $W$ no longer applies. These are restrictions on the optimization block, not alternative formulas for one universal interaction.
+At $T=1$ the score difference is $H(\mathcal N(a,V))+d/2$, with entropy measured against Lebesgue measure. It is constant for source selection, but not for variation of the receiver law. The receiver-mean and source-mean derivatives agree for every $V$, since \cref{eq:sup-row-constant} contains neither $a$ nor $b_j$; only the receiver-covariance derivatives differ. If source covariances vary independently, or the comparison maps change them, the hypothesis of a common held $W$ no longer applies. These are restrictions on the optimization block, not alternative formulas for one universal interaction.
 
 \section{Identity self-comparisons and independent snapshots}
 

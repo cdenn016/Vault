@@ -11,7 +11,7 @@ There are two sectors. Write $\nu_i^q=q_i$ for the belief marginal and $\nu_i^s=
 U_i^a:V_a\longrightarrow E_i^a,\qquad
 \bar\nu_i^a=(U_i^a)^{-1}_\#\nu_i^a.
 \end{equation}
-The pushforward notation expresses the represented possibilities in reference coordinates. The two sectors may use representations of the same frame group while having different dimensions, laws, and interaction rules.
+The pushforward notation expresses the represented possibilities in reference coordinates. The space $E_i^a$ is agent $i$'s displayed copy of $V_a$: at one context all agents' laws lie in one fiber of the statistical bundle, and the presentations are frames used to display them. The two sectors may use representations of the same frame group while having different dimensions, laws, and interaction rules. Whether a passive change is one group element acting on both sectors, or independent elements for each sector, is a declared choice, and the collective geometry of \cref{comp:geometry} depends on it.
 
 A law-dependent reference generator and its displayed link are
 \begin{equation}
@@ -19,7 +19,7 @@ L_{ij}^a=\mathcal L_{ij}^a(\bar\nu_i^a,\bar\nu_j^a),\qquad
 \Theta_{ij}^a=U_i^a e^{L_{ij}^a}(U_j^a)^{-1}.
 \label{eq:comp-link}
 \end{equation}
-The index order is receiver first, source second. Reading from right to left, the source is expressed in reference coordinates, the generator acts there, and the result is expressed at the receiver. The function $\mathcal L_{ij}^a$ is a constitutive choice. The exponential parameterization does not derive it or equate the belief and model generators.
+The index order is receiver first, source second. Reading from right to left, the source is expressed in reference coordinates, the generator acts there, and the result is expressed at the receiver. The function $\mathcal L_{ij}^a$ is a constitutive choice. The exponential parameterization does not derive it or equate the belief and model generators. It is also only one kind of interaction. The general interaction is a normalized Markov channel, possibly noisy or information-discarding; the exponential link is the special deterministic channel $y\mapsto\Theta_{ij}^ay$. Its values $e^{L}$ lie in $\exp(\mathfrak{gl}(V_a))$, which in dimension at least two misses some determinant-one matrices, such as $\begin{pmatrix}-1&1\\0&-1\end{pmatrix}$, and every reflection \citep{Culver1966}.
 
 \begin{figure}[htbp]
 \centering
@@ -34,9 +34,9 @@ For a passive change $y_i'=g_i^a y_i$, both the law and its presentation change:
 \begin{equation}
 \Theta_{ij}^{a\prime}=g_i^a\Theta_{ij}^a(g_j^a)^{-1}.
 \end{equation}
-This endpoint covariance is familiar from gauge link variables \citep{Wilson1974}. Metrics and additional model data must also be re-expressed when forming scalar predictions. Covariance alone supplies no physical symmetry or evolution law.
+This endpoint covariance is familiar from gauge link variables \citep{Wilson1974}, here in display coordinates. It holds for every generator rule, because the reference laws do not change, and so it constrains nothing: the frames act as a dressing field \citep{FournelEtAl2014}. Every interaction cost can be computed entirely in reference coordinates. Metrics and additional model data must also be re-expressed when forming scalar predictions. Covariance alone supplies no physical symmetry or evolution law.
 
-Changing the common reference presentation is a separate operation. Under $U_i^a\mapsto U_i^a h_a$, the reference laws become $(h_a^{-1})_\#\bar\nu_i^a$. Reference consistency requires the constitutive rule, including any interface data, to give $L_{ij}^{a\prime}=h_a^{-1}L_{ij}^a h_a$. The identity $e^{h_a^{-1}Lh_a}=h_a^{-1}e^Lh_a$ then leaves the displayed link unchanged.
+Changing the common reference presentation is a separate operation. Under $U_i^a\mapsto U_i^a h_a$, the reference laws become $(h_a^{-1})_\#\bar\nu_i^a$. Reference consistency requires the constitutive rule, including any interface data, to give $L_{ij}^{a\prime}=h_a^{-1}L_{ij}^a h_a$. The identity $e^{h_a^{-1}Lh_a}=h_a^{-1}e^Lh_a$ then leaves the displayed link unchanged. This is the substantive symmetry requirement. It is not automatic, and the main text imposes it as an explicit standing hypothesis wherever a conclusion should not depend on the choice of reference frame.
 
 \section{Selective interfaces and an explicit pair}
 
@@ -46,18 +46,20 @@ T_j^a:V_a\longrightarrow H_a,\qquad
 O_i^a:H_a\longrightarrow V_a,\qquad
 L_{ij}^a=O_i^aT_j^a.
 \end{equation}
-The sender $T_j^a$ extracts a message; the receiver $O_i^a$ inserts its effect. A direct content map $O_i^aT_j^a$ can lose dimensions. Its exponential is always invertible and acts as identity on $\ker T_j^a$. Thus exponentiating a selective generator retains unread directions. Sending only the extracted message is a different operation. General normalized Markov kernels allow communication without any linear realization.
+The sender $T_j^a$ extracts a message; the receiver $O_i^a$ inserts its effect. A direct content map $O_i^aT_j^a$ can lose dimensions. Its exponential is always invertible and acts as identity on $\ker T_j^a$. Thus exponentiating a low-rank generator retains unread directions, and the link compares complete laws. Sending only the extracted message is a different, information-discarding operation. General normalized Markov kernels allow communication without any linear realization.
 
-One explicit law-dependent choice uses finite second moments and positive-definite covariance. Let $\mu_i^a,M_i^a$ be the reference mean and covariance. On nonself edges choose a scalar $\lambda_{ij}^a$ and set
+One explicit law-dependent choice uses finite second moments and positive-definite covariance. Let $\mu_i^a,\Sigma_i^a$ be the reference mean and covariance. On nonself edges choose a scalar $\lambda_{ij}^a$ and set
 \begin{equation}
-L_{ij}^a=\lambda_{ij}^a\mu_i^a(\mu_j^a)^T(M_j^a)^{-1}.
+L_{ij}^a=\lambda_{ij}^a\mu_i^a(\mu_j^a)^T(\Sigma_j^a)^{-1}.
 \end{equation}
-The row $(\mu_j^a)^T(M_j^a)^{-1}$ sends a scalar message; the column $\lambda_{ij}^a\mu_i^a$ receives it. Under a reference change, the mean transforms by $h_a^{-1}$ and covariance by congruence. Their product consequently transforms by conjugation. These assumptions concern moments, not Gaussian shape. Primitive self-comparisons are set to identity separately.
+The row $(\mu_j^a)^T(\Sigma_j^a)^{-1}$ sends a scalar message; the column $\lambda_{ij}^a\mu_i^a$ receives it. Under a reference change, the mean transforms by $h_a^{-1}$ and covariance by congruence. Their product consequently transforms by conjugation. These assumptions concern moments, not Gaussian shape. For these links the primitive self link is set to the identity separately. In general the self channel is constitutive data, and some later constructions use a nonidentity one.
 
-For a concrete non-Gaussian example, let $Z$ have independent centered Laplace coordinates of variance one in two dimensions. Give two agents the laws of $e_1+Z$ and $e_2+Z$, with identity frames and unit coefficients. Then $M_1=M_2=I$, $L_{12}=E_{12}$, and $L_{21}=E_{21}$. Since each generator squares to zero,
+For a concrete non-Gaussian example, let $Z$ have independent centered Laplace coordinates of variance one in two dimensions. Give two agents the laws of $e_1+Z$ and $e_2+Z$, with identity frames and unit coefficients. Then $\Sigma_1=\Sigma_2=I$, $L_{12}=E_{12}$, and $L_{21}=E_{21}$. Since each generator squares to zero,
 \begin{equation}
 \Theta_{12}\Theta_{21}
 =(I+E_{12})(I+E_{21})
 =\begin{pmatrix}2&1\\1&1\end{pmatrix}.
 \end{equation}
-Here $E_{ab}$ has its only nonzero entry, one, in row $a$, column $b$. The directed communication loop is nontrivial. It establishes neither a connection over contexts nor a physical curvature.
+Here $E_{ab}$ has its only nonzero entry, one, in row $a$, column $b$. The directed communication loop is nontrivial. It establishes neither a connection over contexts nor a physical curvature. Writing $\Theta_{12}=\Omega_{12}N_2^{1/2}$ with $N_2=\Theta_{21}\Theta_{12}$, the reciprocal part $\Omega_{12}$ is here a rotation with $\Omega_{12}\Omega_{21}=I$, so this two-cycle measures nonreciprocity, not holonomy.
+
+A further limit concerns what any cost of the form $\KL(\nu_i\Vert\nu_j\mathcal K_{ij})$ can see. A loop map $H$ enters only through the transported law $H_\#\nu$. If $H$ fixes the law, as a rotation fixes a centered isotropic Gaussian, the cost cannot register it. The joint law of a single sample $Y$ and its image $HY$ does determine $H$ almost everywhere, so detecting such a loop requires a record that compares one sample along two routes.

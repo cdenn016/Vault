@@ -14,24 +14,30 @@ $C_j:E_j\to Z_j$ be surjective, let $C_i:E_i\to Z_i$ be linear, and let
 $M_{ij}:E_j\to E_i$ be a linear boundary map. There is a linear map
 $M_{IJ}^c:Z_j\to Z_i$ satisfying
 \begin{equation}
- C_iM_{ij}=M_{IJ}^cC_j,
+ C_i\circ M_{ij}=M_{IJ}^c\circ C_j,
  \label{sinh:linear-square}
 \end{equation}
 if and only if
 \begin{equation}
- \ker C_j\subseteq\ker(C_iM_{ij}).
+ \ker C_j\subseteq\ker(C_i\circ M_{ij}).
  \label{sinh:kernel-condition}
 \end{equation}
 When it exists, it is unique.
 
 \noindent\emph{Proof.}
 If \eqref{sinh:linear-square} holds, every $v\in\ker C_j$ satisfies
-$C_iM_{ij}v=0$. Conversely, define
-$M_{IJ}^c(C_jv)=C_iM_{ij}v$. Two choices $v,w$ with $C_jv=C_jw$ differ
+$C_i(M_{ij}v)=0$. Conversely, define
+$M_{IJ}^c(C_jv)=C_i(M_{ij}v)$. Two choices $v,w$ with $C_jv=C_jw$ differ
 by an element of $\ker C_j$, which \eqref{sinh:kernel-condition}
 annihilates. The definition is therefore independent of the representative.
 It is linear, and surjectivity of $C_j$ defines it everywhere. The same
 surjectivity proves uniqueness. $\square$
+
+This is the factor theorem for linear maps. It covers deterministic linear
+retentions only. For a stochastic sample retention the parent channel must be
+a Markov kernel, and its existence is the garbling condition stated with the
+channel square in the main text; a linear solution with negative entries does
+not qualify.
 
 For example, let $C_j(u,v)=u$ and $C_i$ be the identity on $\R$. The
 map $M_{ij}(u,v)=u+v$ cannot descend: the discarded vector $(0,1)$ changes
@@ -84,6 +90,11 @@ After a positive-probability next value $z$, the update is
 \end{equation}
 For any finite future word, its probability is obtained by further
 multiplication by the corresponding $TP_z$ matrices and by $\mathbf 1$.
+The recursion is the forward algorithm for a function of a Markov chain
+\citep{BaumPetrie1966,EphraimMerhav2002}. The normalized vector
+$\widehat p_{h_n}$ is itself a Markov process on the simplex of laws on
+$\mathsf S$, moving to \eqref{sinh:filter-update} with probability
+\eqref{sinh:next-record}.
 
 \noindent\emph{Proof.}
 The $x$ component of $p_0P_{z_0}$ is the joint probability of
@@ -106,7 +117,11 @@ set $R(1)=R(2)=0$ and $R(3)=1$. The histories $(0,0)$ and $(1,0)$
 both have positive probability and end at the same retained value.
 The first ends at state $2$ and predicts $1$ next; the second ends at
 state $1$ and predicts $0$. Hence the current retained value cannot
-determine its next distribution. The terminal conditional law does.
+determine its next distribution. The terminal conditional law does: it is
+the point mass $\delta_2$ after $(0,0)$ and $\delta_1$ after $(1,0)$. Here the
+filter recovers the fine state, so it compresses nothing; a history-based
+parent forgets information only when noise or nonobservability prevents the
+history from determining the fine state.
 
 \section{Successive retention of responses}
 

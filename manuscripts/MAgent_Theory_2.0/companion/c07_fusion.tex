@@ -1,19 +1,19 @@
 % !TeX root = ../MAgent_Theory_2.0_companion.tex
-\chapter{A Nonsmooth Route to Recurrent Formation}
+\chapter{A Nonsmooth Route to Finite Coalescence}
 \label{comp:fusion}
 
-Smooth attraction can bring two laws progressively closer without making them equal at any finite time. An absolute-difference interaction behaves differently: its force does not vanish as the gap closes. This chapter gives a constitutive extension in which four agents form two parents, and those parents subsequently fuse under the inherited interaction. The grouping follows the evolving state; the equations contain no prescribed pairs.
+Smooth attraction can bring two laws progressively closer without making them equal at any finite time. An absolute-difference interaction behaves differently: its force does not vanish as the gap closes. This chapter explains a nonsmooth modification of the reciprocal law potential in which agents coincide at finite times and their coincident blocks inherit laws, evaluator, metric, and responses exactly. Four agents can fuse into two parents that subsequently fuse under the inherited interaction. The grouping follows the evolving state; the equations contain no prescribed pairs. The outcome is always a finite coalescence tree that ends in one block.
 
-Pairwise convex fusion penalties and finite-time nonsmooth consensus have established precedents \citep{Hocking2011,Cortes2006}. Here the additional task is to inherit the probability laws, model evaluator, metric, and subsequent responses when fusion occurs.
+Pairwise convex fusion penalties and finite-time nonsmooth consensus have established precedents \citep{Hocking2011,Cortes2006}, and on the restricted family used here each sector is a weighted particle solution of the one-dimensional aggregation equation with kernel $\lambda|x|$, whose sticky collisions and finite-time collapse are known \citep{CarrilloEtAl2011,BonaschiEtAl2015}. The additional task here is to inherit the probability laws, model evaluator, metric, and subsequent responses when fusion occurs.
 
-\section{Laws, a model, and inherited mass}
+\section{Laws, a model, and inherited multiplicity}
 
 Write $\operatorname{LN}(\mu,\sigma^2)$ for the law of a positive random variable whose logarithm is normal with mean $\mu$ and variance $\sigma^2$. A component containing $n$ primitive agents carries
 \begin{equation}
 q_n=\operatorname{LN}(\mu^q,1/n),\qquad
 s_n=\operatorname{LN}(\mu^s,1/n),\qquad n\geq1.
 \end{equation}
-Recognition is the product $q_n\otimes s_n$. Its normalized reference model $p_n$ is jointly Gaussian in the logarithms, with zero mean and precision
+The variances are held fixed; this is a constraint, not a family that a variance-inclusive flow would preserve, and releasing the variance would destroy the encoding of $n$. Recognition is the product $q_n\otimes s_n$. Its normalized reference model $p_n$ is jointly Gaussian in the logarithms, with zero mean and precision
 \begin{equation}
 n\begin{pmatrix}a&-c\\-c&a\end{pmatrix},\qquad a>c>0.
 \end{equation}
@@ -30,30 +30,30 @@ where $C=a-1-\tfrac12\log(a^2-c^2)$. The mixed term makes the belief update depe
 \begin{equation}
 ds^2=n\bigl[(d\mu^q)^2+(d\mu^s)^2\bigr].
 \end{equation}
-Both the metric and the local potential therefore carry the same inherited mass.
+Both the metric and the local potential therefore carry the same multiplicity, which cancels from an agent's own velocity. The multiplicity acts as a friction weight and as an interaction charge, not as an inertia: the dynamics below is overdamped one-dimensional motion in a harmonic trap under the pair potential $n_In_J|x_I-x_J|$.
 
 A parent communicates at primitive resolution through the normalized channel
 \begin{equation}
 B_n(k,dw)=\operatorname{LN}(\log k,1-1/n)(dw).
 \end{equation}
-At $n=1$ this means the identity channel. Adding the independent log variances shows that $q_nB_n=\operatorname{LN}(\mu^q,1)$, with the analogous identity for $s_n$. This restores a primitive message law while retaining the narrower parent law internally.
+At $n=1$ this means the identity channel. Adding the independent log variances shows that $q_nB_n=\operatorname{LN}(\mu^q,1)$, with the analogous identity for $s_n$. This restores a primitive message law while retaining the narrower parent law internally. Statistically, $B_n$ is the law of one child sample given the mean of $n$ children, which is sufficient and does not depend on the unknown mean; that parameter independence is why fresh messages descend exactly.
 
 \section{The interaction that permits contact}
 
-All means here use common reference coordinates. In sector $\sigma\in\{q,s\}$, transform the source's restored message by
+All means here use common reference coordinates. In sector $\alpha\in\{q,s\}$, transform the source's restored message by
 \begin{equation}
-S_{IJ}^\sigma(w)=\exp\bigl[\chi_\sigma(\mu_I^\sigma-\mu_J^\sigma)\bigr]w,
-\qquad 0<\chi_\sigma<1.
+S_{IJ}^\alpha(w)=\exp\bigl[\chi_\alpha(\mu_I^\alpha-\mu_J^\alpha)\bigr]w,
+\qquad 0<\chi_\alpha<1.
 \end{equation}
-Its log mean moves toward the receiver. Including endpoint frames $U_I^\sigma,U_J^\sigma$ gives the displayed link $U_I^\sigma\exp[\chi_\sigma(\mu_I^\sigma-\mu_J^\sigma)](U_J^\sigma)^{-1}$, with the usual endpoint covariance under passive re-expression. The interaction depends on the laws, rather than only identifying frames.
+Its log mean moves toward the receiver. Including endpoint frames gives the link $U_I\exp[\chi_\alpha(\mu_I^\alpha-\mu_J^\alpha)]U_J^{-1}$, with the usual endpoint covariance under passive re-expression. This link is pure gauge: it equals $V_IV_J^{-1}$ with $V_I=U_Ie^{\chi_\alpha\mu_I^\alpha}$, so every loop is trivial, and it is a law-dependent change of frame rather than a curved transport.
 
 The compared message variances are both one. Consequently,
 \begin{equation}
-\sqrt{2\KL\left(\widehat\nu_I^\sigma\Vert
- (S_{IJ}^\sigma)_\#\widehat\nu_J^\sigma\right)}
-=(1-\chi_\sigma)|\mu_I^\sigma-\mu_J^\sigma|,
+\sqrt{2\KL\left(\widehat\nu_I^\alpha\Vert
+ (S_{IJ}^\alpha)_\#\widehat\nu_J^\alpha\right)}
+=(1-\chi_\alpha)|\mu_I^\alpha-\mu_J^\alpha|,
 \end{equation}
-where the displayed comparison is in a common reference presentation and $\widehat\nu$ denotes a restored law. Rescaling the coefficient by $1/(1-\chi_\sigma)$ gives an absolute-difference penalty with strength $\lambda>0$. The square root is the new constitutive choice. It changes the smooth quadratic peer penalty into a convex function with a corner at equality.
+where the displayed comparison is in a common reference presentation and $\widehat\nu$ denotes a restored law. Rescaling the coefficient by $1/(1-\chi_\alpha)$ gives an absolute-difference penalty with strength $\lambda>0$, and $\chi_\alpha$ then disappears from the dynamics altogether. The square root is the new constitutive choice. It changes the smooth quadratic peer penalty of the reciprocal potential into a convex function with a corner at equality.
 
 On the complete contact graph, the energy apart from constants is
 \begin{equation}
@@ -61,11 +61,13 @@ On the complete contact graph, the energy apart from constants is
 \lambda\sum_{I<J}n_In_J
 \left(|\mu_I^q-\mu_J^q|+|\mu_I^s-\mu_J^s|\right).
 \end{equation}
-The coefficient $n_In_J$ counts primitive contacts. With unit Fisher mobility the evolution is $n_I\dot\mu_I\in-\partial_{\mu_I}\mathcal E$. The subgradient of $|x|$ is its sign away from zero and the interval $[-1,1]$ at zero.
+The coefficient $n_In_J$ counts primitive contacts. With unit Fisher mobility the evolution is $n_I\dot\mu_I\in-\partial_{\mu_I}\mathcal E$. The subgradient of $|x|$ is its sign away from zero and the interval $[-1,1]$ at zero; this inclusion is the same as the Filippov regularization of the almost-everywhere gradient.
 
-Convexity makes this evolution unique. For two solutions, the derivative of their squared distance in the fixed mass metric is the negative pairing of the state difference with a subgradient difference, hence is nonpositive. Coincident primitive agents are interchangeable in the complete-graph equations. Uniqueness then keeps them equal after contact. Sticking follows from the same dynamics that brought them together.
+Convexity makes this evolution well posed. For every initial configuration there is exactly one solution for all time, by the theory of maximal monotone operators \citep{Brezis1973}. For two solutions, the derivative of their squared distance in the fixed multiplicity metric is the negative pairing of the state difference with a subgradient difference, hence is at most $-2(a-c)$ times their squared distance. Coincident primitive agents are interchangeable in the complete-graph equations. Uniqueness then keeps them equal after contact. Sticking follows from the same dynamics that brought them together.
 
-\section{Two successive formation events}
+The corner also forces complete consensus. The largest and smallest means in a sector are pushed toward each other with a force at least $\lambda$ times the total multiplicity, while the smooth part shrinks exponentially. The spread in each sector therefore reaches zero at a finite time, for every initial configuration and every set of multiplicities, and every coalescence tree ends in one block.
+
+\section{Two successive fusion events}
 
 Consider the invariant family
 \begin{equation}
@@ -84,13 +86,13 @@ This removes the common linear contraction. Before collisions,
 Start four primitive agents at $z=(-3d,-2d,2d,3d)$, with $d>0$. Their slopes are $(3\lambda,\lambda,-\lambda,-3\lambda)$. Each neighboring outer pair closes a gap $d$ at relative speed $2\lambda$. The resulting stages are
 \begin{center}
 \begin{tabular}{lll}
-Time & Positions in $z$ & Masses\\
+Time & Positions in $z$ & Multiplicities\\
 $0$ & $-3d,-2d,2d,3d$ & $1,1,1,1$\\
 $\tau_1=d/(2\lambda)$ & $-3d/2,3d/2$ & $2,2$\\
 $\tau_2=5d/(4\lambda)$ & $0$ & $4$
 \end{tabular}
 \end{center}
-After the first event, the parents have slopes $2\lambda$ and $-2\lambda$. Their remaining gap $3d$ closes in another $3d/(4\lambda)$. Physical event times are $t_r=\kappa^{-1}\log(1+\kappa\tau_r)$. No coupling or mobility is retuned at the second level.
+After the first event, the parents have slopes $2\lambda$ and $-2\lambda$. Their remaining gap $3d$ closes in another $3d/(4\lambda)$. Physical event times are $t_r=\kappa^{-1}\log(1+\kappa\tau_r)$. No coupling or mobility is retuned at the second level. The pattern survives small perturbations off the invariant family, and with gaps separated enough in scale the same mechanism gives coalescence trees of any finite depth.
 
 \section{What the parent retains}
 
@@ -110,4 +112,8 @@ Fresh record sampling also closes explicitly. Applying $G_n$ to $s_n$ gives
 \end{equation}
 the law of the geometric mean of $n$ fresh primitive model records. A primitive record instead uses a fresh restored model sample followed by $G_1$. These are exact statements for the declared fresh sampling protocols; they do not establish closure for sampled-record feedback into the dynamics.
 
-This extension establishes recurrent fusion on the common-$v$ invariant family. It produces eventual global consensus, rather than persistent community diversity. The square-root penalty is a constitutive addition, and this example derives no geometry of the context base. The conditional construction in \cref{cf:formation} instead keeps the smooth KL potential and distinct children, with its own prepared family, membership rule, and response interface.
+\section{How this measures against formation}
+
+Switching the interaction off is the decisive control. With $\lambda=0$ each agent follows a linear contraction toward zero, distinct agents never meet, and no event occurs; with $\lambda>0$ every configuration fuses. The interaction is therefore necessary for the grouping. Two other requirements fail. A fused block consists of identical copies, so retaining its common law forgets nothing that a declared probe could detect: the noninjective geometric mean acts on samples, and the forgotten sample detail is reconstructed by the parameter-free kernel above. And although the parents do select their union under the inherited interaction, that second fusion happens from every possible pair of parents, because every configuration ends in consensus; the counterfactual part of the recursion requirement fails. The construction is a two-stage selection with exact inheritance, not a recursive formation.
+
+The comparison with the Wishart construction in \cref{cf:formation} is instructive. That construction keeps the smooth KL potential, its children remain distinct at every finite time, and its agents also approach a common limit, so the difference in eventual outcome is small. The decisive difference is the role of the interaction. There the membership schedule is the centroid dendrogram of the initial shapes and does not depend on the coupling, so switching the interaction off leaves it unchanged; here switching it off removes every event. Both are two-stage selections with exact inheritance, for different reasons. The square-root penalty is a constitutive addition, and this example derives no geometry of the context base.

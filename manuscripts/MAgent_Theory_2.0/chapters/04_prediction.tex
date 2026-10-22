@@ -21,7 +21,7 @@ K_i^{\mathrm{rec}}(\Theta^s_{ij}m,A)=K_j^{\mathrm{rec}}(m,A).
 Consequently, $s_i=(\Theta^s_{ij})_\#s_j$ implies equal predictive record laws. The compatibility is additional information: two equal laws on a one-point model space can predict opposite deterministic bits through different evaluators.
 
 \theoremheading{Exact predictive information identity}{thm:predictive-chain}
-Let $s,t$ be probability laws on a standard Borel model space and let $K$ be a common normalized record kernel. Assume $\KL(s\Vert t)<\infty$. Set $\mu(dm,do)=s(dm)K(m,do)$ and $\nu(dm,do)=t(dm)K(m,do)$, and denote their conditional model laws given $o$ by $s^o,t^o$. Then
+Let $s,t$ be probability laws on a standard Borel model space and let $K$ be a common normalized record kernel. Assume $\KL(s\Vert t)<\infty$. Set $\mathbb P_s(dm,do)=s(dm)K(m,do)$ and $\mathbb P_t(dm,do)=t(dm)K(m,do)$, and denote their conditional model laws given $o$ by $s^o,t^o$. Then
 \begin{equation}
 \KL(s\Vert t)
 =\KL(sK\Vert tK)
@@ -29,16 +29,18 @@ Let $s,t$ be probability laws on a standard Borel model space and let $K$ be a c
 \label{eq:predictive-chain}
 \end{equation}
 \begin{proof}
-The common kernel cancels in the joint Radon--Nikodym derivative, giving $\KL(\mu\Vert\nu)=\KL(s\Vert t)$. Disintegrating the same joint laws by their record marginal factors their density ratio into the record ratio and the conditional model ratio. The logarithm is their sum. Integrating the first term gives $\KL(sK\Vert tK)$, and integrating the second first over $m$ gives the displayed conditional term. Finiteness makes the decomposition unambiguous.
+The common kernel cancels in the joint Radon--Nikodym derivative, giving $\KL(\mathbb P_s\Vert\mathbb P_t)=\KL(s\Vert t)$. Disintegrating the same joint laws by their record marginal factors their density ratio into the record ratio and the conditional model ratio. The logarithm is their sum. Integrating the first term gives $\KL(sK\Vert tK)$, and integrating the second first over $m$ gives the displayed conditional term. Finiteness makes the decomposition unambiguous.
 \end{proof}
 
-The second term is the model distinction that the record leaves unresolved. Its vanishing is an exact sufficiency condition. A constant evaluator can make all predictions agree while retaining no model distinction at all. Useful agreement therefore requires a specified predictive task as well as a comparison of laws. For a common history kernel, the same identity holds with the full finite record history in place of $o$.
+\Cref{thm:predictive-chain} is the chain rule for relative entropy \citep{KullbackLeibler1951,CoverThomas2006}, written for a joint law built from a common kernel. Without the finiteness assumption the identity still holds in $[0,\infty]$, both sides being infinite together \citep{Gray1990}. With a deterministic kernel $K(m,\cdot)=\delta_{T(m)}$ it decomposes a divergence into the divergence of the pushforwards and the expected divergence of the conditional laws given $T$, the form used in \cref{cor:pythagorean}.
+
+The second term is the model distinction that the record leaves unresolved. Its vanishing is an exact sufficiency condition: $\KL(sK\Vert tK)=\KL(s\Vert t)$ exactly when the Bayesian inverse of $K$ computed at $t$ returns $s$ from $sK$, the classical case of Petz's recovery theorem \citep{Petz1988}. A constant evaluator can make all predictions agree while retaining no model distinction at all. Useful agreement therefore requires a specified predictive task as well as a comparison of laws. For a common history kernel, the same identity holds with the full finite record history in place of $o$.
 
 If the model link depends on the current laws, \cref{thm:predictive-chain} applies to the resulting fixed comparison at that configuration, provided \cref{eq:evaluator-compatibility} holds there. Preservation of compatibility during an update is a separate condition on the dynamics and the evaluator.
 
 \section{What the receiver reconstructs}
 
-A sending map $T_j:E_j\to\mathsf H$ induces the message law $\nu_j=(T_j)_\#q_j$. Different laws can have the same message law. For linear maps $T_j:E_j\to\mathsf H$ and $O_i:\mathsf H\to E_i$,
+A sending map $T_j:E_j\to\mathsf H$ induces the message law $\mu_j=(T_j)_\#q_j$. Different laws can have the same message law. Messages travel from source to receiver. The reciprocal flow of \cref{ch:dynamics} also moves each source by the likelihood ratio of its receivers, so a communication model that realizes that flow must include this reverse message; the per-agent dynamics of \cref{def:dyn-per-agent-flow} needs only the forward one. For linear maps $T_j:E_j\to\mathsf H$ and $O_i:\mathsf H\to E_i$,
 \begin{equation}
 \operatorname{rank}(O_iT_j)\leq\operatorname{rank}(T_j).
 \label{eq:message-rank}
@@ -51,26 +53,41 @@ q_i^+(dk)=
 \frac{\ell_i(h\mid k)q_i^-(dk)}{\int\ell_i(h\mid k')q_i^-(dk')},
 \label{eq:bayesian-reception}
 \end{equation}
-when the denominator is finite and positive. An unmeasured coordinate can change because it is conditionally related to the measured one in $q_i^-$. The observation selects among possibilities already related by the receiver's model.
+when the denominator is finite and positive. An unmeasured coordinate can change because it is conditionally related to the measured one in $q_i^-$. The observation selects among possibilities already related by the receiver's model. Under the reciprocal flow such an update is an assimilation event in the sense of \cref{def:dyn-record-interrupted}; its effect persists in the objective only in the free-energy pictures or in the evidence-augmented potential \cref{eq:dyn-evidence-potential}.
 
 \propositionheading{Exact conditional reconstruction}{prop:conditional-lift}
-Let $T:E\to\mathsf H$ be measurable on standard Borel spaces. Let $q,p$ be laws with $\KL(q\Vert p)<\infty$, and set $\nu=T_\#q$. Choose a regular conditional law $p(dk\mid h)$ for $p$ given $T=h$. Define
+Let $T:E\to\mathsf H$ be measurable on standard Borel spaces. Let $q,p$ be laws with $q\ll p$, and set $\mu=T_\#q$. Choose a regular conditional law $p(dk\mid h)$ for $p$ given $T=h$. Define
 \begin{equation}
-\widehat q(dk)=\int p(dk\mid h)\nu(dh).
+\widehat q(dk)=\int p(dk\mid h)\mu(dh).
 \label{eq:conditional-lift}
 \end{equation}
-Then $T_\#\widehat q=\nu$ and
+Then $T_\#\widehat q=\mu$ and, in $[0,\infty]$,
 \begin{equation}
 \KL(q\Vert\widehat q)
-=\int\KL\bigl(q(\cdot\mid h)\Vert p(\cdot\mid h)\bigr)\nu(dh).
+=\int\KL\bigl(q(\cdot\mid h)\Vert p(\cdot\mid h)\bigr)\mu(dh).
 \label{eq:conditional-lift-loss}
 \end{equation}
-In particular, $\widehat q=q$ exactly when the two conditional laws agree for $\nu$-almost every $h$.
+In particular, $\widehat q=q$ exactly when the two conditional laws agree for $\mu$-almost every $h$.
 \begin{proof}
-Absolute continuity gives $\nu\ll T_\#p$, so the conditional version of $p$ is defined at every $h$ needed up to a $\nu$-null set. That conditional is supported on $T^{-1}(h)$ almost surely. Hence its mixture has pushforward $\nu$. The laws $q$ and $\widehat q$ have the same $h$-marginal and respective conditional laws $q(\cdot\mid h)$ and $p(\cdot\mid h)$. Factoring their density ratio by $h$ proves \cref{eq:conditional-lift-loss}. Nonnegativity and the equality condition of relative entropy give the last claim.
+Absolute continuity gives $\mu\ll T_\#p$, so the conditional version of $p$ is defined at every $h$ needed up to a $\mu$-null set. That conditional is supported on $T^{-1}(h)$ almost surely. Hence its mixture has pushforward $\mu$. The laws $q$ and $\widehat q$ have the same $h$-marginal and respective conditional laws $q(\cdot\mid h)$ and $p(\cdot\mid h)$. Factoring their density ratio by $h$ proves \cref{eq:conditional-lift-loss}. Nonnegativity and the equality condition of relative entropy give the last claim.
 \end{proof}
 
-This reconstruction preserves the communicated marginal and supplies the discarded conditional from $p$. It makes precise the sense in which a receiver contributes structure that the message alone does not specify. The proposition assumes a common content presentation; a link or a separately declared correspondence is needed before applying it across different fibers.
+The reconstruction \cref{eq:conditional-lift} is Jeffrey's rule of conditioning the prior $p$ on the marginal $\mu$ \citep{DiaconisZabell1982}. It preserves the communicated marginal and supplies the discarded conditional from $p$. It makes precise the sense in which a receiver contributes structure that the message alone does not specify. The proposition assumes a common content presentation; a link or a separately declared correspondence is needed before applying it across different fibers.
+
+\corollaryheading{Pythagorean identity and information projection}{cor:pythagorean}
+Under the hypotheses of \cref{prop:conditional-lift}, in $[0,\infty]$,
+\begin{equation}
+\KL(q\Vert p)=\KL(q\Vert\widehat q)+\KL(\widehat q\Vert p),
+\qquad
+\KL(\widehat q\Vert p)=\KL(\mu\Vert T_\#p).
+\label{eq:pythagorean}
+\end{equation}
+Among all laws $r$ with $T_\#r=\mu$ and $\KL(\mu\Vert T_\#p)<\infty$, the reconstruction $\widehat q$ is the unique minimizer of $\KL(r\Vert p)$.
+\begin{proof}
+Apply the deterministic-kernel case of the chain rule to $(q,p)$, to $(\widehat q,p)$, and to $(r,p)$. The pushforwards are $\mu$ and $T_\#p$ in each case. The conditional term vanishes for $\widehat q$, equals the right side of \cref{eq:conditional-lift-loss} for $q$, and is nonnegative for $r$, with equality only when $r$ has the conditional laws of $p$, that is, when $r=\widehat q$.
+\end{proof}
+
+This is the Pythagorean identity for information projections \citep{Csiszar1975}, and the minimization property is the characterization of Jeffrey's rule by minimum relative entropy \citep{DiaconisZabell1982}. What \cref{prop:conditional-lift} adds to these sources is its use as a receiver mechanism: the loss term measures exactly what a receiver's prior conditional fails to restore.
 
 \propositionheading{Common recovery by likelihood descent}{prop:common-family-recovery}
 Let $C:\mathsf X\to\mathsf Z$ be a measurable map between standard Borel
@@ -85,7 +102,8 @@ $\bar L_\alpha(z)=\E_{P_0}[L_\alpha\mid C=z]$. Then
  \label{eq:common-family-density}
 \end{equation}
 Consequently this one kernel recovers every $P_\alpha$ exactly when each
-$L_\alpha$ has a $\sigma(C)$-measurable version. No finite-divergence
+$L_\alpha$ has a $\sigma(C)$-measurable version, that is, exactly when $C$
+is sufficient for the family $\{P_0\}\cup\{P_\alpha\}$. No finite-divergence
 assumption is needed.
 \begin{proof}
 For each measurable $A\subseteq\mathsf Z$,
@@ -111,7 +129,7 @@ its own marginal. It need not reconstruct the reference or other
 posteriors. The common kernel in \cref{prop:common-family-recovery}
 makes the stronger requirement explicit. Regular conditional laws and
 their almost-sure uniqueness are understood in the standard Borel
-sense \citep{Kallenberg2021}.
+sense \citep{Kallenberg2021}. The equivalence in \cref{prop:common-family-recovery} is the Halmos--Savage factorization criterion for a family dominated by one of its members \citep{HalmosSavage1949}; the common reference conditional is the kernel that defines sufficiency, compare the adequate subfields of \citet{Skibinsky1967}, and the statement is an instance of abstract sufficiency in the Markov category of standard Borel spaces \citep{Fritz2020}. What is used below is the explicit density \cref{eq:common-family-density} of the reconstruction when descent fails.
 
 \corollaryheading{Recovery without reading the exterior}{cor:local-family-recovery}
 Let $P_0$ now be a joint reference law of $(X,E)$ on standard Borel spaces,
@@ -131,11 +149,13 @@ the reference conditional for the map $(x,e)\mapsto(C(x),e)$.
 Apply \cref{prop:common-family-recovery} to that map.
 \end{proof}
 
+Descent of the likelihood ratios alone does not suffice. Let $P_0$ be uniform on $\{(0,0),(1,1)\}$ for $(X,E)$ and let $C$ be constant. The family $\{P_0\}$ has a trivially descending likelihood ratio, but the lift draws $X$ uniformly and independently of $E$, so it does not reconstruct $P_0$; here $X$ and $E$ are dependent given $Z$.
+
 \section{A predictive coding criterion}
 
 Lossy source coding makes fidelity part of the problem definition \citep{Shannon1959}. Decoder side information is a realized variable correlated with the source, as in Wyner--Ziv coding \citep{WynerZiv1976}; knowing a prior without such a realization does not supply that variable. A few noiseless real numbers also do not specify a finite-bit channel. A communication rate requires a declared coding, precision, or noise model.
 
-For a predictive criterion, let $P(X,Y,Z)$ be a declared preparation law. The source $X$ may be represented content or a complete fine configuration; the choice is fixed in each application. Let $Z$ be accessible receiver information and let $Y$ be a response to be preserved. An encoder $T(du\mid X)$ gives the conditional independence
+For a predictive criterion, let $P(X,Y,Z)$ be a declared preparation law. The source $X$ may be represented content or a complete fine configuration; the choice is fixed in each application. Let $Z$ be accessible receiver information and let $Y$ be a response to be preserved. An encoder $\mathcal T(du\mid X)$ gives the conditional independence
 \begin{equation}
 U-X-(Y,Z).
 \label{eq:encoder-markov}
@@ -143,18 +163,18 @@ U-X-(Y,Z).
 The decoder predicts $Y$ from $(U,Z)$. This is the setting of an information bottleneck, with the relevant variable explicitly named \citep{Tishby1999}.
 
 \theoremheading{Predictive distortion and the optimal decoder}{thm:predictive-distortion}
-On standard Borel spaces, assume the displayed information quantities are finite and \cref{eq:encoder-markov} holds. For any predictive decoder $D(dy\mid u,z)$ with finite expected relative entropy,
+On standard Borel spaces, assume the displayed information quantities are finite and \cref{eq:encoder-markov} holds. For any predictive decoder $\Delta(dy\mid u,z)$ with finite expected relative entropy,
 \begin{equation}
 \begin{aligned}
-&\E\KL\bigl(P(Y\mid X,Z)\Vert D(Y\mid U,Z)\bigr)\\
+&\E\KL\bigl(P(Y\mid X,Z)\Vert\Delta(Y\mid U,Z)\bigr)\\
 &\quad=I(Y;X\mid U,Z)
-+\E\KL\bigl(P(Y\mid U,Z)\Vert D(Y\mid U,Z)\bigr).
++\E\KL\bigl(P(Y\mid U,Z)\Vert\Delta(Y\mid U,Z)\bigr).
 \end{aligned}
 \label{eq:decoder-decomposition}
 \end{equation}
 The optimal decoder is $P(dy\mid u,z)$. Its distortion is
 \begin{equation}
-\mathcal D(T)=I(Y;X\mid U,Z)
+\mathcal D(\mathcal T)=I(Y;X\mid U,Z)
 =I(Y;X\mid Z)-I(Y;U\mid Z).
 \label{eq:predictive-distortion}
 \end{equation}
@@ -162,6 +182,8 @@ The optimal decoder is $P(dy\mid u,z)$. Its distortion is
 Conditional independence gives $P(Y\mid X,U,Z)=P(Y\mid X,Z)$. In the logarithmic ratio defining the left side of \cref{eq:decoder-decomposition}, insert the intermediate conditional law $P(Y\mid U,Z)$. The first resulting expectation is the definition of $I(Y;X\mid U,Z)$. In the second, averaging over $X$ gives the conditional law $P(Y\mid U,Z)$, yielding the remaining divergence. The second term vanishes at the stated decoder and is nonnegative for every decoder. Finally, expand $I(Y;X,U\mid Z)$ in both orders and use $I(Y;U\mid X,Z)=0$.
 \end{proof}
 
-The functional $I(X;U\mid Z)+\lambda\mathcal D(T)$, for $\lambda\geq0$, is one possible criterion for selecting a representation. Its first term is an information cost, not automatically the length of an individual message. An operational coding theorem requires its own source and block-coding assumptions. Transmitting a sample from $(T_j)_\#q_j$ and transmitting that whole probability law are also different protocols.
+The decomposition \cref{eq:decoder-decomposition} is the logarithmic-loss identity of source coding with soft reconstructions, in which the optimal reconstruction is a conditional law and the distortion is a conditional mutual information \citep{CourtadeWeissman2014}.
+
+The functional $I(X;U\mid Z)+\lambda\mathcal D(\mathcal T)$, for $\lambda\geq0$, is one possible criterion for selecting a representation. Its first term is an information cost, not automatically the length of an individual message. An operational coding theorem requires its own source and block-coding assumptions. Transmitting a sample from $(T_j)_\#q_j$ and transmitting that whole probability law are also different protocols.
 
 For parent formation, choose $X$ to include the fine configuration and choose $Y$ to be a future boundary response over a specified horizon and interaction. Zero distortion means that $U$ and $Z$ are sufficient for this target under this preparation. A subsequent interaction may read information that this target ignored. Exact inheritance therefore requires the dynamical condition developed in \cref{ch:inheritance}, not only predictive sufficiency for one chosen response.

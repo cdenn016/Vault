@@ -5,14 +5,14 @@
 
 The disintegrations used here are regular conditional laws on standard Borel spaces \citep{Kallenberg2021}.
 
-Let $\mu,\nu$ be probability laws on a product $X\times Y$ of standard Borel spaces, with $\KL(\mu\Vert\nu)<\infty$. Write their marginals as $\mu_Y,\nu_Y$ and their conditional laws as $\mu^y,\nu^y$. Then
+Let $\mu,\nu$ be probability laws on a product $X\times Y$ of standard Borel spaces. Write their marginals as $\mu_Y,\nu_Y$ and their conditional laws as $\mu^y,\nu^y$. Then
 \begin{equation}
 \KL(\mu\Vert\nu)
 =\KL(\mu_Y\Vert\nu_Y)
 +\int\KL(\mu^y\Vert\nu^y)\mu_Y(dy).
 \label{eq:s-chain-rule}
 \end{equation}
-To see the factorization, put $a=d\mu_Y/d\nu_Y$ and $b_y=d\mu^y/d\nu^y$ for $\mu_Y$-almost every $y$. Integration on measurable rectangles shows that $a(y)b_y(x)$ is a version of $d\mu/d\nu$. The logarithm splits into $\log a+\log b_y$. Integrating these terms gives \cref{eq:s-chain-rule}. The hypotheses guarantee the required conditional versions and prevent an undefined subtraction of infinite quantities. This argument underlies the predictive and reconstruction identities in the main text.
+The identity holds in $[0,\infty]$, both sides being infinite together. Suppose first $\mu\ll\nu$ and put $f=d\mu/d\nu$, a jointly measurable function. Then $a(y)=\int f(x,y)\nu^y(dx)$ is a version of $d\mu_Y/d\nu_Y$, and $b=f/a$ on $\{a>0\}$ is jointly measurable with $\mu^y=b(\cdot,y)\nu^y$ for $\mu_Y$-almost every $y$. Starting from $f$ in this way avoids choosing a jointly measurable version of the conditional densities separately. The logarithm splits into $\log a+\log b$. The negative parts of $x\log x$ are bounded by $1/e$, so the negative parts of the two logarithms have finite $\mu$-integrals and the split integrates in $[0,\infty]$, giving \cref{eq:s-chain-rule}. If $\mu$ is not absolutely continuous with respect to $\nu$, then either $\mu_Y\not\ll\nu_Y$ or $\mu^y\not\ll\nu^y$ on a set of positive $\mu_Y$-measure, and both sides are infinite. This argument underlies the predictive and reconstruction identities in the main text.
 
 \section{Different predictive mechanisms}
 
@@ -46,11 +46,11 @@ Let the receiver's prior $p$ make $H,V$ independent uniform bits. The communicat
 \KL(q\Vert\widehat q)
 =2\left(\frac12\log\frac{1/2}{1/4}\right)=\log 2.
 \end{equation}
-The conditional divergence at each value of $H$ is also $\log2$, verifying the conditional identity exactly. A receiver whose prior has the same conditional relation $V=H$ instead reconstructs $q$ from the transmitted marginal. The difference comes from its prior conditional, not from a larger message.
+The conditional divergence at each value of $H$ is also $\log2$, verifying the conditional identity exactly. A receiver whose prior has the same conditional relation $V=H$ instead reconstructs $q$ from the transmitted marginal. The difference comes from its prior conditional, not from a larger message. The reconstruction is Jeffrey's rule of conditioning the receiver's prior on the transmitted marginal \citep{DiaconisZabell1982}, and it is the law closest to that prior, in relative entropy, among all laws with the transmitted marginal.
 
 \section{A shared source and two routes}
 
-Let $X$ be a uniform bit. Two routes return $Y_1=X$ and $Y_2=X\oplus b$, where $b\in\{0,1\}$ is a fixed route mark and $\oplus$ is addition modulo two. The comparison $O=Y_1\oplus Y_2$ equals $b$ with probability one. If the second route instead uses an independent uniform bit $X'$, the same comparison is uniform and reveals no route mark. The marginal law arriving on each route is uniform in both experiments. Thus the shared-source dependence, not those marginals, determines the comparison outcome. A record model intended to inspect a loop must specify which occurrences refer to the same source.
+Let $X$ be a uniform bit. Two routes return $Y_1=X$ and $Y_2=X\oplus b$, where $b\in\{0,1\}$ is a fixed route mark and $\oplus$ is addition modulo two. The comparison $O=Y_1\oplus Y_2$ equals $b$ with probability one. If the second route instead uses an independent uniform bit $X'$, the same comparison is uniform and reveals no route mark. The marginal law arriving on each route is uniform in both experiments. Thus the shared-source dependence, not those marginals, determines the comparison outcome. A record model intended to inspect a loop must specify which occurrences refer to the same source. In general, a functional of the pair of route laws cannot distinguish two loop maps $H,H'$ with the same pushforward of the source law, whereas the joint law of a shared sample and its image along the loop determines the loop map almost everywhere; the route mark is the simplest instance.
 
 \section{Predictive sufficiency for a selected response}
 
