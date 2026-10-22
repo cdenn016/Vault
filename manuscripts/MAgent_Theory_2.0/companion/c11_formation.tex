@@ -1,0 +1,185 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Two Stages of Conditional Formation}
+\label{cf:formation}
+
+Four distinct agents can select two parents and then a parent of those parents while preserving their original smooth KL/Fisher dynamics. The example below also preserves a declared response interface and curved contextual geometry. It assumes common matrix precisions, a particular moment-dependent interaction, fresh sum responses, and a fixed membership threshold. All block-sum descriptions already exist mathematically at the initial time. The threshold selects when one becomes operative; the dynamics does not first create the redundancy that permits it. The initial class is open within this statistical architecture.
+
+\section{Random matrices as represented contents}
+\label{cf:laws}
+
+Let both represented-content spaces be $\mathsf K=\mathsf M=\operatorname{SPD}(2)$, the cone of real symmetric positive-definite two-by-two matrices. A sample $k$ or $m$ is a matrix content. It is distinct from a contextual coordinate and need not be the covariance of another random variable. Use the Wishart density
+\begin{equation}
+ \begin{aligned}
+ W_2(\nu,\mathsf P)(dk)
+ &=\frac{\det(\mathsf P)^\nu}{\Gamma_2(\nu)}
+ \det(k)^{\nu-3/2}e^{-\operatorname{tr}(\mathsf Pk)}dk,\\
+ \Gamma_2(\nu)&=\sqrt\pi\Gamma(\nu)\Gamma(\nu-\tfrac12),
+ \end{aligned}
+ \label{cf:wishart}
+\end{equation}
+where $\nu>1/2$, $\mathsf P\succ0$, and $dk$ is Lebesgue measure on the three independent entries. The shape $\nu$ is real; a Gaussian sampling representation is not assumed \citep{LetacMassam2017}.
+
+Normalization can be checked by writing $k_{11}=u$, $k_{12}=\sqrt u v$, and $k_{22}=w+v^2$, with $u,w>0$. At $\mathsf P=I_2$, the determinant is $uw$, the trace is $u+w+v^2$, and the Jacobian is $\sqrt u$. Two gamma integrals and one scalar Gaussian integral give $\Gamma_2(\nu)$. Congruence by $\mathsf P^{-1/2}$ gives the general normalizer. The same calculation yields
+\begin{equation}
+ \E e^{-\operatorname{tr}(Tk)}
+ =\left(\frac{\det\mathsf P}{\det(\mathsf P+T)}\right)^\nu,
+ \qquad
+ \E k=\nu\mathsf P^{-1},
+ \qquad \mathsf P+T\succ0.
+ \label{cf:laplace}
+\end{equation}
+Multiplying these transforms proves that independent matrices with common precision add their shapes. Transform uniqueness applies because the transforms are finite near $T=0$. Thus $k_i\sim W_2(\alpha_i,\mathsf P)$ independently implies $\sum_{i\in I}k_i\sim W_2(\sum_{i\in I}\alpha_i,\mathsf P)$. This is an exact convolution identity for laws of matrices.
+
+Take four agents with $q_i=W_2(\alpha_i,\mathsf P)$, $s_i=W_2(\eta_i,\mathsf Q)$, and product recognition $\zeta_i=q_i\otimes s_i$. Shapes exceed $1/2$. They may differ across agents and preparations, but are constant over the context base. They will evolve in inference time. The common precisions are preparation assumptions.
+
+\section{An interaction that moves every precision}
+\label{cf:flow}
+
+Fix $\alpha_0,\eta_0>1/2$ and $\kappa>0$. The proper local reference is the product of $W_2(\alpha_0,I_2)$ and $W_2(\eta_0,I_2)$; its normalized evaluator is the constant kernel $G_i(m,dk)=W_2(\alpha_0,I_2)(dk)$. Let $N=4$ remain the primitive population count. Define
+\begin{equation}
+ \begin{aligned}
+ M_q&=\sum_i\E_{q_i}k,
+ \qquad \Lambda_q=I_2+\frac\kappa N M_q,\\
+ \mathcal K^q_{ij}[\boldsymbol q](k',dk)
+ &=W_2(\alpha_0,\Lambda_q)(dk).
+ \end{aligned}
+ \label{cf:channel}
+\end{equation}
+The model sector exchanges $(q,\alpha_0,k)$ for $(s,\eta_0,m)$. Every source, including self, is admitted with prior $\pi_{ij}=1/N$. These normalized channels ignore the individual input sample $k'$, but read the population's current moment. Each receiver's costs are identical across source labels, so exact Gibbs reduction at any positive source temperature gives the original prior row. The reduced belief potential is
+\begin{equation}
+ \mathcal E_q=\sum_i\left[
+ \KL(q_i\Vert W_2(\alpha_0,I_2))
+ +\KL(q_i\Vert W_2(\alpha_0,\Lambda_q))\right].
+\end{equation}
+
+Changing one law changes every target in \cref{cf:channel}. The moment-dependent peer terms are $\operatorname{tr}(\Lambda_qM_q)-N\alpha_0\log\det\Lambda_q$. Their full differential is $\operatorname{tr}(C_qdM_q)$, where
+\begin{equation}
+ C_q=\Lambda_q+\frac\kappa N
+ (M_q-N\alpha_0\Lambda_q^{-1})
+ =I_2+\frac{2\kappa}{N}M_q-\kappa\alpha_0\Lambda_q^{-1}.
+ \label{cf:channel-force}
+\end{equation}
+The second term in the first expression comes from differentiating the channel. Freezing the target would remove it. Up to a constant, the density force and its ordinary unit-Fisher flow are
+\begin{equation}
+ \begin{aligned}
+ h_i(k)&=2\log q_i(k)-2(\alpha_0-\tfrac32)\log\det k
+       +\operatorname{tr}[(I_2+C_q)k],\\
+ \dot q_i&=-q_i(h_i-\E_{q_i}h_i),\\
+ \dot\alpha_i&=-2(\alpha_i-\alpha_0),
+ \qquad \dot{\mathsf P}=-2\mathsf P+I_2+C_q.
+ \end{aligned}
+ \label{cf:full-flow}
+\end{equation}
+The last two equations follow by substituting \cref{cf:wishart} into the density equation and matching the coefficients of $\log\det k$ and $k$. They establish tangency of the unrestricted density field. No parameter projection or mobility factor is inserted. The model equations use $(\eta_i,\eta_0,\mathsf Q,C_s)$. Both sectors have interagent coupling: a moment perturbation $H$ gives $DC_q[H]=(2\kappa/N)H+(\kappa^2\alpha_0/N)\Lambda_q^{-1}H\Lambda_q^{-1}$, whose trace pairing with $H\ne0$ is positive. The product evaluator supplies no additional coupling between sectors.
+
+These equations remain regular for all finite times. Put $\bar\alpha=\sum_i\alpha_i/N$. Then $M_q=N\bar\alpha\mathsf P^{-1}$ and each precision eigenvalue satisfies
+\begin{equation}
+ \dot p=f(p,\bar\alpha(t))
+ =-2p+2+\frac{2\kappa\bar\alpha(t)}p
+ -\frac{\kappa\alpha_0p}{p+\kappa\bar\alpha(t)}.
+ \label{cf:eigenvalue}
+\end{equation}
+The mean shape relaxes to $\alpha_0$ and stays above $1/2$. The right side is positive for sufficiently small $p$ and negative for sufficiently large $p$, uniformly along this shape trajectory. Each eigenvalue therefore remains in a compact positive interval. Shapes also remain in compact intervals above $1/2$, ensuring finite KL values and square-integrable scores. Common precision is preserved. Starting with unequal precisions instead gives $\mathsf P_i(t)-\mathsf P_j(t)=e^{-2t}(\mathsf P_i(0)-\mathsf P_j(0))$, so equality is never first attained at finite time.
+
+\section{The same clock after joining}
+\label{cf:parent}
+
+For a current block $I$, retain $n_I=|I|$, $A_I=\sum_{i\in I}\alpha_i$, $B_I=\sum_{i\in I}\eta_i$, and the common precisions. Fresh independent addition gives $q_I=W_2(A_I,\mathsf P)$ and $s_I=W_2(B_I,\mathsf Q)$. The parent references and evaluator are the convolutions of the children's references and evaluator outputs. Their shapes are $n_I\alpha_0,n_I\eta_0$; the parent peer target has belief shape $n_I\alpha_0$ and precision $\Lambda_q$. Its source prior is $\pi^c_{IJ}=n_J/N$, the sum of the original source probabilities over sender block $J$.
+
+The total moment is still $M_q=\sum_I\E_{q_I}k_I$, and $N=\sum_In_I$ does not become the number of current parents. The inherited original-form potential is
+\begin{equation}
+ \mathcal E_q^c=\sum_I\left[
+ \KL(q_I\Vert W_2(n_I\alpha_0,I_2))
+ +\KL(q_I\Vert W_2(n_I\alpha_0,\Lambda_q))\right].
+\end{equation}
+Its target normalizers still contribute $-N\alpha_0\log\det\Lambda_q$. The complete derivative is consequently the same $C_q$, giving the unit-Fisher equations
+\begin{equation}
+ \dot A_I=-2(A_I-n_I\alpha_0),
+ \qquad \dot B_I=-2(B_I-n_I\eta_0),
+ \qquad \dot{\mathsf P}=-2\mathsf P+I_2+C_q,
+ \label{cf:parent-flow}
+\end{equation}
+and the exchanged equation for $\mathsf Q$. These are exactly the summed fine shape equations and original precision flow, in the same time. Fine and parent energies need not be equal. Joining adds $(n,A,B)$ and keeps the common precisions, so joining is associative and commutes with evolution. Independent addition also commutes with the evaluator and channel outputs. Even the final single parent keeps its inherited nonidentity self channel and second KL term; deleting it would change the flow.
+
+\section{Two selected parents and a real loss of information}
+\label{cf:selection}
+
+Fix a threshold $\delta>0$ and start with singletons. A block's score is $b_I=A_I/n_I-\alpha_0$. It obeys $\dot b_I=-2b_I$; joining replaces two scores by their count-weighted average. Join current blocks when $|b_I-b_J|$ first reaches $\delta$ from above. Simultaneous threshold edges join their connected components. This is a declared, relabeling-equivariant rule applied to current states.
+
+Sort the initial belief shapes as $u_1<u_2<u_3<u_4$, and let $d_1,d_2,d_3$ be successive gaps. The open conditions
+\begin{equation}
+ \delta<\min(d_1,d_3),
+ \qquad d_2>\max(d_1,d_3)
+ \label{cf:gaps}
+\end{equation}
+select the lower pair and upper pair, followed by their union. The first two times and the union time are
+\begin{equation}
+ \begin{aligned}
+ t_L&=\tfrac12\log(d_1/\delta),
+ \qquad t_R=\tfrac12\log(d_3/\delta),\\
+ t_2&=\tfrac12\log\frac{d_2+(d_1+d_3)/2}{\delta}.
+ \end{aligned}
+ \label{cf:times}
+\end{equation}
+To see why no other join intervenes, suppose the lower pair joins first. Its closest remaining singleton has distance $e^{-2t}(d_2+d_1/2)$, larger than the upper pair's distance $e^{-2t}d_3$. Thus the upper pair joins next. The reversed ordering has the same argument. The resulting parent separation is $e^{-2t}[d_2+(d_1+d_3)/2]$, so both first parents coexist for a positive interval. Each selected child-block distance remains below threshold afterward. All primitive shape differences remain nonzero at every finite time.
+
+For explicit values choose $\alpha_0=\eta_0=\kappa=1$, $\delta=0.1$, and initial belief shapes $(1,1.2,1.8,2.1)$. The gaps are $(0.2,0.6,0.3)$ and the times are $\tfrac12\log2$, $\tfrac12\log3$, and $\tfrac12\log(17/2)$. Model shapes can vary independently near $(0.8,1.1,1.4,1.7)$. A small open neighborhood and all its relabelings preserve the strict inequalities. No binary tree was supplied; all additive block descriptions were available before any threshold crossing.
+
+A formation time can reveal a belief-shape gap. To exhibit information that remains lost even with all times recorded, fix the belief shapes and change two model shapes inside a joining pair by $(\eta_i,\eta_j)\mapsto(\eta_i+\epsilon,\eta_j-\epsilon)$. The parent model shape, population moments, subsequent precision flow, and all selection times stay unchanged. The individual public model laws change continuously, with a nonzero Fisher tangent because their shape scores contain the nonconstant statistic $\log\det m$. Distinct fixed belief labels exclude a mere permutation. At the second join, transfer model shape from one first-parent sum to the other while fixing the total. The final parent loses a further continuous distinction between its children.
+
+\section{What a parent can be asked}
+\label{cf:responses}
+
+At each query, draw fresh independent samples $k_i\sim q_i$, $m_i\sim s_i$ across agents and sectors. For every current block report $k_I=\sum_{i\in I}k_i$, $m_I=\sum_{i\in I}m_i$. At partition $\Pi$, the whole response vector has the conditional law
+\begin{equation}
+ K_\Pi=\bigotimes_{I\in\Pi}
+ \left[W_2(A_I,\mathsf P)\otimes W_2(B_I,\mathsf Q)\right].
+ \label{cf:response-kernel}
+\end{equation}
+Allow any normalized readout kernel on this vector. This includes overlapping unions of whole current blocks using the same batch of samples, so their correlations are retained. A controller may choose future readouts and finite query times from its carried record history and current retained state.
+
+Condition on that history. Fine and parent waiting-time evolution agree by \cref{cf:parent-flow}, joins give the same retained state, and \cref{cf:response-kernel} gives the same next-record kernel. Induction therefore gives the same finite joint history of records, actions, times, and retained states for each initial preparation. Earlier records are carried forward; different preparations need not have identical record laws from time zero. Recording a response does not reset any belief. A query cutting through a retained block can reveal an unretained intersection shape. Reusing a hidden child's samples or applying child-specific Bayesian updates likewise requires another interface and another closure proof.
+
+\section{Curvature that survives both joins}
+\label{cf:geometry}
+
+Use the contextual chart $(a,\chi)\in(1/5,2/5)\times(-\chi_0,\chi_0)$, with $\chi_0>0$, and the common $SO(2)$ action by matrix conjugation. Let $R_\chi$ be rotation through angle $\chi$, and prepare
+\begin{equation}
+ \mathsf P(0;a,\chi)=R_\chi
+ \operatorname{diag}(e^a,e^{-a})R_\chi^T,
+ \qquad
+ \mathsf Q(0)=\operatorname{diag}(e^{3/10},e^{-3/10}).
+ \label{cf:section}
+\end{equation}
+These coordinates describe how the laws depend on context, whereas $k,m$ remain represented matrix samples. Context-constant shapes make all event times independent of context. At fixed shape, a precision variation $U$ has score and Fisher metric
+\begin{equation}
+ \begin{aligned}
+ \ell_U(k)&=\nu\operatorname{tr}(\mathsf P^{-1}U)-\operatorname{tr}(Uk),\\
+ g^F(U,V)&=\nu\operatorname{tr}(\mathsf P^{-1}U\mathsf P^{-1}V).
+ \end{aligned}
+ \label{cf:score}
+\end{equation}
+The joint score for common contextual changes depends on the children only through their matrix sums. The same holds for common rotation scores. Addition therefore retains every contextual and orbit direction used here, with its exact Fisher inner products. Fine and parent infinitesimal stabilizers also agree. With unit child weights, the collective minimizing connection and residual contextual tensor are identical before and after a join.
+
+Write $p_+>p_-$ for the belief precision eigenvalues, and $q_+>q_-$ for the model precision eigenvalues. The derivative $f_p$ in \cref{cf:eigenvalue} is negative, and the scalar solution's derivative with respect to its initial value is $\exp(\int_0^t f_pdu)>0$ at finite time. Thus $\partial_ap_+>0$, $\partial_ap_-<0$, and neither eigenvalue pair meets in finite time. For a block $I$, define its two rotational Fisher coefficients and radial coefficient by
+\begin{equation}
+ \begin{aligned}
+ k_1&=2A_I\frac{(p_+-p_-)^2}{p_+p_-},
+ &k_2&=2B_I\frac{(q_+-q_-)^2}{q_+q_-},\\
+ g_{aa}&=A_I\left[
+ (\partial_ap_+/p_+)^2+(\partial_ap_-/p_-)^2\right].
+ \end{aligned}
+\end{equation}
+All three are positive, $\partial_ak_1>0$, and $k_2$ is independent of $a$. An angular connection correction $\xi$ has Fisher cost $k_1(d\chi+\xi)^2+k_2\xi^2$. Minimization, with the convention $D^{\mathcal A}p=dp+J_p\mathcal A$, gives
+\begin{equation}
+ \begin{aligned}
+ \mathcal A^F&=-\frac{k_1}{k_1+k_2}d\chi,
+ &h^{\min}&=g_{aa}da^2+\frac{k_1k_2}{k_1+k_2}d\chi^2,\\
+ \mathcal F&=-\frac{(\partial_ak_1)k_2}{(k_1+k_2)^2}da\wedge d\chi
+ \ne0.
+ \end{aligned}
+ \label{cf:curvature}
+\end{equation}
+The scalar connection form represents the coefficient of the standard $SO(2)$ generator. Its curvature is its exterior derivative. The tensor has rank two at every finite time. Applying the same formulas to each block's fine children or retained parent gives equality through both joins. A passive frame rotation by $\vartheta$ sends $\mathcal A^F$ to $\mathcal A^F-d\vartheta$, with the compensating change in the section derivative. The fixed addition map contributes no moving-channel term to this geometric comparison.
+
+Context-constant shape allocations are substantive: an opposite contextual variation of two model shapes has positive fine Fisher length but zero derivative of their sum law. It would destroy the claimed tensor equality. Common precision, global moment channels, product recognition, and fresh extensive responses likewise delimit the construction. The threshold is constitutive, and selection does not alter the underlying fine flow. Deriving a preferred membership criterion, obtaining suitable exact redundancy from broader preparations, preserving unrestricted child probes, and constructing a local interaction architecture remain open. Neither a thermodynamic limit nor spacetime follows from this finite contextual geometry.
