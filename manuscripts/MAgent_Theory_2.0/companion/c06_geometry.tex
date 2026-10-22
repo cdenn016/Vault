@@ -1,5 +1,5 @@
 % !TeX root = ../MAgent_Theory_2.0_companion.tex
-\chapter{Links and Physical Geometry}
+\chapter{From Statistical Change to Base Geometry}
 \label{comp:geometry}
 
 The agent graph and the context base describe different directions of comparison. An edge $j\to i$ compares agents at one context. A path in the base $\mathcal C$ compares states at successive contexts. A product of communication links can be nontrivial without defining curvature on $\mathcal C$. Conversely, one agent can carry a curved connection over contexts; collective averaging is not required.
@@ -57,4 +57,133 @@ Likewise, keeping the intrinsic transport fixed under $U'=Uh$ requires $a'=h^{-1
 
 Global compatibility adds another requirement. If patch coordinates obey $v_\alpha=g_{\alpha\beta}v_\beta$, then $g_{\alpha\beta}g_{\beta\gamma}=g_{\alpha\gamma}$ on triple overlaps, and local connection forms must satisfy the affine law there. A nontrivial bundle may have no single global presentation. Even a trivial bundle can carry flat transport with global memory: on a circle, the scalar connection $B=b d\theta$ has $F=0$ but holonomy $e^{-2\pi b}$ around one turn. For real $b\ne0$, this differs from identity.
 
-Physical interpretation requires a model of the contexts, an agent mechanism producing compatible directional links, and observable responses to their transport. A connection alone does not supply spacetime or quantum dynamics.
+\section{Distinguishability supplies a fiber metric}
+
+A connection tells us how to compare laws at neighboring contexts. To measure the change remaining after that comparison, use the Fisher metric on a declared regular statistical family. Let $\zeta_\theta$ be a family of probability laws, with a centered square-integrable score $\ell_v$ in parameter direction $v$. In a dominated differentiable realization,
+\begin{equation}
+\ell_v=\left.\frac{d}{d\epsilon}\right|_{\epsilon=0}
+\log p_{\theta+\epsilon v},
+\qquad
+g^F_\zeta(v,w)=\E_\zeta[\ell_v\ell_w].
+\end{equation}
+Quadratic-mean differentiability supplies a more general score definition. Positive definiteness requires that the admitted tangent directions be statistically distinguishable. These hypotheses apply to the chosen family, not to every element of the measurable space of laws \citep{AyJostLeSchwachhofer2018}.
+
+The relevant law is the full $\zeta(dk,dm)=q(dk\mid m)s(dm)$. Its log density has a marginal part and a conditional part. The conditional score averages to zero for each $m$, so the cross term disappears:
+\begin{equation}
+g^F_\zeta=g^F_s+\int g^F_{q(\cdot\mid m)}s(dm).
+\end{equation}
+For the product family this is $g^F_q+g^F_s$. For a general joint family the second term is conditional geometry. It cannot be replaced by the geometry of the state marginal.
+
+For example, take $k,m\in\{-1,1\}$ and
+\begin{equation}
+\zeta_\rho(k,m)=\frac{1+\rho km}{4},
+\qquad |\rho|<1.
+\end{equation}
+Both marginals are uniform for every $\rho$. The score is $km/(1+\rho km)$, giving
+\begin{equation}
+g^F_\zeta(\partial_\rho,\partial_\rho)
+=\frac12\left(\frac1{1+\rho}+\frac1{1-\rho}\right)
+=\frac1{1-\rho^2}.
+\end{equation}
+The law changes through dependence even though neither marginal changes. This is why the statistical metric must follow the actual probabilistic description.
+
+\section{Pulling distinguishability onto the context base}
+
+Let $\zeta(c)$ be an admitted smooth section and let $\omega$ be its connection. Subtract the horizontal motion from the derivative of the section:
+\begin{equation}
+D^\omega\zeta=\operatorname{ver}^\omega T\zeta,
+\qquad
+h^\omega_\zeta(X,Y)
+=g^F_\zeta(D^\omega\zeta X,D^\omega\zeta Y).
+\label{comp:eq-pullback}
+\end{equation}
+The tangent vectors $X,Y$ now lie in the context base. The tensor $h^\omega_\zeta$ measures how much the represented law changes when the context changes, after the declared transport accounts for the change of frame. In a local chart it uses $D^A\zeta=d\zeta+J_\zeta A$, where $J_\zeta\xi$ is the infinitesimal action of the Lie algebra element $\xi$ on the law.
+
+Under second-order relative-entropy regularity, move a small distance $\epsilon X$, transport the neighboring law back, and compare it with the original:
+\begin{equation}
+\KL\left(\zeta(c)\middle\|
+T^\omega_{c+\epsilon X\to c \#}\zeta(c+\epsilon X)\right)
+=\frac{\epsilon^2}{2}h^\omega_\zeta(X,X)+o(\epsilon^2).
+\end{equation}
+The familiar local quadratic behavior of KL therefore measures contextual distinguishability. The transport is part of the comparison.
+
+For a simple case with identity transport, let the law at real context $c$ be $\operatorname{Ber}(p(c))$, with $0<p(c)<1$. Direct differentiation of its two log probabilities gives
+\begin{equation}
+h=\frac{p'(c)^2}{p(c)(1-p(c))}dc^2.
+\end{equation}
+The same change of success probability is more distinguishable near a deterministic outcome. If $p'(c)=0$, this family records no first-order distinction in that context direction. The example uses no Gaussian assumption.
+
+A passive gauge change transforms both the section and connection, leaving the tensor unchanged. Choosing a different connection changes what is subtracted. If $A$ changes by a Lie-algebra-valued one-form $\alpha$, the statistical derivative changes by $J_\zeta\alpha$; its squared Fisher norm acquires both cross terms and the squared norm of that added vector. Gauge invariance is thus a statement about presentation, not a claim that all transport rules give the same geometry.
+
+Positive-definite fiber geometry makes $\ker h^\omega_\zeta=\ker D^\omega\zeta$. Constant rank gives a metric on the vector spaces obtained by quotienting these null directions. To obtain a lower-dimensional context manifold, the null directions must also fit together into leaves and the metric must descend along them. The one-form $dz-x dy$ illustrates the difference: its square has rank one everywhere, but its kernel is not integrable because $(dz-x dy)\wedge d(dz-x dy)$ is nonzero. Counting statistical directions does not by itself construct a quotient space of contexts.
+
+\section{Choosing a collective connection}
+
+Suppose several laws have been placed in compatible fibers by declared comparison maps. Give their product tangent space the positive metric
+\begin{equation}
+\mathsf G=\sum_iw_i g^F_{p_i},
+\qquad w_i>0.
+\end{equation}
+The weights specify how the individual statistical changes are compared. A common infinitesimal frame motion $\xi$ changes the tuple by $J_{\boldsymbol p}\xi$. For each contextual direction $X$, select the correction $a$ that minimizes
+\begin{equation}
+\|d\boldsymbol p(X)+J_{\boldsymbol p}a\|_{\mathsf G}^2.
+\end{equation}
+Differentiation with respect to $a$ gives the normal equation
+\begin{equation}
+\mathsf G(JA^F(X),J\xi)
+=-\mathsf G(d\boldsymbol p(X),J\xi)
+\quad\text{for every }\xi.
+\end{equation}
+The residual is orthogonal to all common frame motions. This is the statistical version of the orthogonal connection used to separate rotation from shape change \citep{Guichardet1984}.
+
+For an explicit calculation, take two unit-variance normal location laws with means $\mu_1=m+d$ and $\mu_2=m-d$, and give them equal weight. Common translation acts as $J a=(a,a)$. The cost is
+\begin{equation}
+(dm+dd+a)^2+(dm-dd+a)^2
+=2(dm+a)^2+2(dd)^2.
+\end{equation}
+It is minimized at $A^F=-dm$, leaving
+\begin{equation}
+h^{\min}=2(dd)^2.
+\end{equation}
+Common location change is removed while change in their relative separation remains. This calculation is a realization of the general construction; the construction itself applies to any admitted smooth isometric group action.
+
+If some nonzero $\xi$ moves none of the laws, then $J\xi=0$ and the normal equation cannot determine that connection component. At constant orbit rank it determines a smooth affine class modulo this infinitesimal stabilizer. When the infinitesimal stabilizer is zero the solution is unique and obeys the affine patch law. A free proper action additionally gives the usual smooth statistical orbit space. These conclusions concern different hypotheses \citep{LewisNigamOlver2003}.
+
+Orthogonality also measures the cost of choosing another connection:
+\begin{equation}
+h^A=h^{\min}
++\mathfrak k(A-A^F,A-A^F),
+\qquad
+\mathfrak k(\xi,\eta)=\mathsf G(J\xi,J\eta).
+\end{equation}
+The minimized tensor is positive semidefinite. Whether it has enough independent directions, and whether inference preserves those directions, depends on the actual section and its dynamics. The least-squares rule alone supplies neither persistence nor a physical interpretation of the contextual base.
+
+\section{What compression does to this geometry}
+
+A fixed normalized channel $K$ transforms a family $P_\theta$ into $P_\theta K$. The output score is the input score averaged over possibilities compatible with the output. The law of total covariance gives
+\begin{equation}
+I(P_\theta)-I(P_\theta K)
+=\E_\theta\operatorname{Cov}_\theta(\ell_\theta(X)\mid Y).
+\end{equation}
+The missing Fisher information is exactly the uncertainty remaining about the score. A zero value recovers that local score, not necessarily the full family of laws \citep{Pollard2013}. If the channel itself varies with $\theta$, its own score must be added before conditioning. The output can then acquire information through the channel parameter, so contraction relative to the input alone need not hold.
+
+Even a fixed equivariant channel need not preserve the collectively selected connection. In the two-location example, take $(\mu_1,\mu_2)=(x,-x)$. The fine metric is $\operatorname{diag}(1,1)$ and its collective connection is zero. Add independent unit-variance normal noise to the first observation. The first variance becomes two, so the output Fisher metric is $\operatorname{diag}(1/2,1)$. Its connection minimizes
+\begin{equation}
+\frac12(1+a)^2+(-1+a)^2,
+\end{equation}
+whose derivative is $3a-1$. The new minimum is $a=1/3$. The channel has reduced distinguishability and commutes with translation, yet the weighting of shape change against translation has changed.
+
+In general, let a smooth equivariant retention $R$ map the fine family to the coarse family, with metrics $g,g_c$. Set $\Delta=g-R^*g_c$, and let $r$ be the fine horizontal residual. Because $dR J=J^c$, the fine connection also minimizes the coarse cost exactly when
+\begin{equation}
+\Delta(r(X),J\xi)=0
+\quad\text{for every }X,\xi.
+\end{equation}
+This follows by inserting the fine connection in the coarse normal equation and using fine orthogonality. It is a condition on the mixed shape--orbit part of information loss. Preserving all orbit scores is sufficient for a fixed channel, but contraction alone is not.
+
+For independently chosen fine and coarse connections there is another contribution. A bundle map may send a fine horizontal vector to a vector that is not coarse-horizontal. If $a$ denotes that vertical difference and $u=D^\omega\zeta$, the coarse derivative is $T^V\Psi u+a$. Expanding its squared norm gives the fine information loss minus two cross terms and minus $\|a\|^2$. Zero horizontal mismatch is sufficient for contraction of the base tensor; a nonzero mismatch can still be dominated by information loss. The actual derivative and both connections must therefore be specified.
+
+\section{Geometric structure and physical interpretation}
+
+The pullback construction is already a mathematical geometry of contextual statistical change. Its physical interpretation requires a model of the contexts, a mechanism selecting the comparison data, and observable responses to transport. Inherited evolution and inherited responses impose further conditions on a parent; connection preservation is an additional requirement.
+
+Fisher geometry is positive semidefinite. An indefinite metric can be introduced through a separate construction. For example, a Hermitian $2\times2$ matrix $H=tI+\boldsymbol x\cdot\boldsymbol\sigma$ has determinant $t^2-|\boldsymbol x|^2$, where $\boldsymbol\sigma$ are the Pauli matrices. Pulling its determinant bilinear form back by an invertible soldering field gives a Lorentzian metric. A circle extension then requires a circle connection and a positive radius. Those choices do not follow from Fisher positivity, and their existence does not establish spacetime dynamics.

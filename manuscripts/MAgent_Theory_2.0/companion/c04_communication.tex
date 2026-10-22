@@ -35,6 +35,13 @@ Both laws assign the same probability to $h$, so that factor cancels in their de
 
 For a calculation on four points, let $k=(H,V)$ be two bits. The sender gives probability $1/2$ to each of $00$ and $11$, and transmits only $H$. A receiver whose reference makes both bits independent and fair reconstructs the uniform law on all four points. The message marginal is correct, while the relative entropy is $\log2$. A receiver whose conditional model has $V=H$ reconstructs the sender's full law. The missing correlation was supplied by the receiver.
 
+One reference conditional can recover a whole family only under a stronger condition. Suppose $q_\alpha=L_\alpha p$ and use the same $p(dk\mid h)$ for every $\alpha$. Its reconstruction has density
+\begin{equation}
+\frac{d\widehat q_\alpha}{dp}(k)
+=\E_p[L_\alpha\mid T](k).
+\end{equation}
+To obtain this identity, weight the reference message marginal by its conditional mean likelihood and then apply the reference conditional. The result equals $q_\alpha$ precisely when $L_\alpha$ is already measurable from the message. Reconstructing one posterior with its own conditional does not establish this family-wide property. If a local reconstruction must also ignore retained exterior information, the reference needs conditional independence from that exterior given the message.
+
 For a single received value $h$, Bayesian assimilation instead takes the form
 \begin{equation}
 q_i^+(dk)=\frac{\ell_i(h\mid k)q_i^-(dk)}{\int\ell_i(h\mid k')q_i^-(dk')},
