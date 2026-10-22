@@ -1,0 +1,334 @@
+% !TeX root = ../MAgent_Theory_2.0.tex
+\chapter{Geometry of Statistical Sections}
+\label{ch:geometry}
+
+A section's statistical change induces contextual geometry relative to a connection. We construct that tensor, a collective rule for choosing the connection, and conditions for their inheritance.
+
+\section{Regular law families}
+
+\definitionheading{Fisher geometry on an admitted family}{geo:regular-family}
+Let $\mathcal N$ be a finite-dimensional smooth manifold of probability laws on a standard Borel space $\mathsf Y$. In each parameter chart $\theta\mapsto P_\theta$, assume differentiability in quadratic mean with centered square-integrable score $\ell_\theta:\mathsf Y\to\R^d$. At a fixed $\theta$, this means that the Lebesgue decomposition
+$P_{\theta+\delta}=p_\delta P_\theta+P_\delta^\perp$ satisfies
+\begin{equation}
+P_\delta^\perp(\mathsf Y)=o(|\delta|^2),
+\qquad
+\left\|\sqrt{p_\delta}-1-\tfrac12\delta^\top\ell_\theta\right\|_{L^2(P_\theta)}
+=o(|\delta|).
+\label{geo:dqm}
+\end{equation}
+For a tangent vector $v$, its scalar score $\ell_v$ is the corresponding directional derivative in this expansion. Require the Fisher tensor
+\begin{equation}
+g^F_P(v,w)=\E_P[\ell_v\ell_w]
+\label{geo:fisher}
+\end{equation}
+to be smooth and positive definite on the admitted tangent space. Redundant parameter directions must be removed or treated as null directions before imposing this last requirement.
+
+These family-specific hypotheses allow parameter-dependent supports satisfying \cref{geo:dqm}, without a common dominating measure \citep{AyJostLeSchwachhofer2018}.
+
+Suppose the finite-dimensional Lie group $G$ acts smoothly on $\mathcal N$ by the sample-space pushforwards in \cref{def:agent-section}. A fixed bimeasurable bijection carries a score $\ell_v$ to $\ell_v\circ g^{-1}$. Change of variables in \cref{geo:fisher} therefore makes the action a Fisher isometry. Its infinitesimal action is
+\begin{equation}
+J_P\xi=\left.\frac{d}{dt}\right|_{t=0}(\exp(t\xi))_\#P,
+\qquad \xi\in\mathfrak g.
+\label{geo:fundamental}
+\end{equation}
+The regular family must be stable under every group element used in these comparisons.
+
+\propositionheading{Fisher metric of the joint agent law}{geo:joint-fisher}
+Let $\zeta_\theta(dk,dm)=q_\theta(dk\mid m)s_\theta(dm)$ be a regular family. Assume the marginal and conditional derivatives obey the product rule, that the joint score is
+$\ell^\zeta_v(k,m)=\ell^s_v(m)+\ell^{q\mid m}_v(k)$, and that these scores are square-integrable. Assume differentiation of conditional normalization is valid, so
+$\int\ell^{q\mid m}_v(k)q_\theta(dk\mid m)=0$ for $s_\theta$-almost every $m$. Then
+\begin{equation}
+g^F_\zeta(v,w)
+=g^F_s(v,w)
++\int g^F_{q(\cdot\mid m)}(v,w)s(dm).
+\label{geo:conditional-fisher}
+\end{equation}
+\begin{proof}
+Expand $\E_\zeta[(\ell^s_v+\ell^{q\mid m}_v)(\ell^s_w+\ell^{q\mid m}_w)]$. Each mixed term vanishes after conditioning on $m$. The two remaining terms are exactly those displayed.
+\end{proof}
+
+For the actual product family $q_\theta\otimes s_\theta$, \cref{geo:conditional-fisher} reduces to $g^F_q+g^F_s$. The two marginal metrics do not in general recover the joint metric. For example, the law
+\begin{equation}
+\zeta_\rho(k,m)=\frac{1+\rho km}{4},
+\qquad k,m\in\{-1,1\},\qquad |\rho|<1,
+\end{equation}
+has two fixed uniform marginals, whereas its joint score is $km/(1+\rho km)$. Summing its squared score over the four outcomes gives
+\begin{equation}
+g^F_{\zeta_\rho}(\partial_\rho,\partial_\rho)=\frac{1}{1-\rho^2}.
+\end{equation}
+A declared marginal metric omits this dependence direction. We use the joint law unless a restriction is stated.
+
+\section{Covariant statistical change}
+
+Restrict the statistical bundle of \cref{eq:statistical-bundle} to the admitted smooth fiber $\mathcal N$, writing $E=P\times_G\mathcal N$ and $\pi:E\to\mathcal C$. A principal connection $\omega$ induces a horizontal lift $H^\omega_e:T_c\mathcal C\to T_eE$ and vertical projection $\operatorname{ver}^\omega:T_eE\to V_eE$, where $V_eE=\ker T_e\pi$ and $c=\pi(e)$. The vertical Fisher metric is well defined because the transition action is isometric.
+
+\definitionheading{Covariant pullback}{geo:pullback}
+For a smooth statistical section $\zeta:\mathcal U\to E$, define
+\begin{equation}
+D^\omega\zeta=\operatorname{ver}^\omega\circ T\zeta,
+\qquad
+h^\omega_\zeta(X,Y)
+=g^F_\zeta(D^\omega\zeta X,D^\omega\zeta Y).
+\label{geo:pullback-formula}
+\end{equation}
+The vertical projection removes the base component of $T\zeta$ forced by $\pi\circ\zeta=\id$. The resulting base tensor is positive semidefinite.
+
+In a local frame write $A$ for the connection form and $p(c)$ for the law coordinates. With the convention that the horizontal lift is $(X,-J_pA(X))$,
+\begin{equation}
+D^A p(X)=dp(X)+J_pA(X).
+\label{geo:local-derivative}
+\end{equation}
+Here $J_pA(X)$ is a statistical tangent vector.
+
+\propositionheading{Gauge covariance and connection dependence}{geo:gauge-connection}
+Under a passive change $p'=g_\#p$ and
+$A'=\operatorname{Ad}_g A-(dg)g^{-1}$,
+\begin{equation}
+D^{A'}p'=T(g_\#)D^A p,
+\qquad h^{A'}_{p'}=h^A_p.
+\label{geo:passive}
+\end{equation}
+For two connections on the same bundle, let $\alpha=\omega'-\omega$ denote their adjoint-bundle-valued difference. Along one fixed section put $b_X=J_\zeta\alpha(X)$ and $u_X=D^\omega\zeta X$. Then
+\begin{align}
+D^{\omega'}\zeta X&=u_X+b_X,\\
+h^{\omega'}_\zeta(X,Y)
+&=h^\omega_\zeta(X,Y)+g^F(u_X,b_Y)+g^F(b_X,u_Y)+g^F(b_X,b_Y).
+\label{geo:connection-change}
+\end{align}
+\begin{proof}
+Differentiation of $p'=g_\#p$ gives $dp'=T(g_\#)dp+J_{p'}((dg)g^{-1})$. Equivariance of the fundamental action gives $J_{p'}\operatorname{Ad}_g=T(g_\#)J_p$. Substitution in \cref{geo:local-derivative} cancels the inhomogeneous terms. Fisher invariance proves \cref{geo:passive}. Replacing $A$ by $A+\alpha$ in that same derivative adds $b$; expanding the bilinear pairing gives \cref{geo:connection-change}.
+\end{proof}
+
+Changing the connection changes the comparison. \Cref{app:connection} constructs compatible connection data from directional links.
+
+\propositionheading{Transported relative entropy}{geo:transported-kl}
+Fix a smooth curve $\gamma$ through $c$ with $\dot\gamma(0)=X$, and transport its laws back to the fiber at $c$:
+\begin{equation}
+\mu_t=(T^\omega_{\gamma(t)\to c})_\#\zeta(\gamma(t)).
+\end{equation}
+Assume, in addition to \cref{geo:regular-family}, that $\mu_t$ has positive densities $f_t$ with respect to one measure near $t=0$, that $\log f_t$ is twice differentiable, and that both derivatives can be interchanged with the integrals of $f_t$ and $f_0\log f_t$. Assume their second derivatives are continuous at zero. Then
+\begin{equation}
+\KL(\zeta(c)\Vert\mu_t)
+=\frac{t^2}{2}h^\omega_\zeta(X,X)+o(t^2).
+\label{geo:kl-pullback}
+\end{equation}
+\begin{proof}
+The derivative of the transported law is $D^\omega\zeta X$ by the horizontal-lift convention. Write $\ell=\partial_t\log f_t|_0$ for its score. Differentiating normalization once gives $\E_{\mu_0}\ell=0$. Differentiating twice gives
+$\E_{\mu_0}[\partial_t^2\log f_t|_0+\ell^2]=0$. The first derivative of the displayed relative entropy is therefore zero and its second derivative is $\E_{\mu_0}\ell^2=h^\omega_\zeta(X,X)$. Taylor's theorem proves the claim.
+\end{proof}
+
+Quadratic-mean differentiability alone does not justify this second-order KL expansion.
+
+\section{Null directions and quotients}
+
+\propositionheading{Rank and quotient geometry}{geo:quotient}
+For the positive fiber Fisher metric in \cref{geo:regular-family},
+\begin{equation}
+\operatorname{rad}h^\omega_\zeta=\ker D^\omega\zeta,
+\qquad
+\operatorname{rank}h^\omega_\zeta=\operatorname{rank}D^\omega\zeta.
+\label{geo:rank}
+\end{equation}
+If the latter rank is constant, $K=\ker D^\omega\zeta$ is a smooth subbundle and
+$T\mathcal U/K$ carries the positive-definite metric
+$\bar h([X],[Y])=h^\omega_\zeta(X,Y)$.
+\begin{proof}
+The diagonal value of $h^\omega_\zeta$ is the squared Fisher norm of $D^\omega\zeta X$, so it vanishes exactly on the derivative's kernel. For a positive semidefinite form, its diagonal null set is its radical. Rank-nullity gives the second identity, and the constant-rank theorem for bundle maps makes $K$ a smooth subbundle. The pairing is independent of representatives because it annihilates $K$, and it is positive on every nonzero quotient class.
+\end{proof}
+
+A quotient vector bundle is not automatically the tangent bundle of a quotient manifold. Suppose a smooth Hausdorff manifold $\bar{\mathcal U}$ and a surjective submersion $q:\mathcal U\to\bar{\mathcal U}$ with connected fibers satisfy $\ker Tq=K$. The tensor descends to $\bar{\mathcal U}$ exactly when it is basic: besides annihilating $K$, it obeys $\mathcal L_Zh^\omega_\zeta=0$ for every vertical field $Z\in\Gamma(K)$. Necessity follows by differentiating a pulled-back tensor along a fiber. For sufficiency, use submersion coordinates $(y,z)$: the annihilation condition leaves only $dy^a dy^b$ components, and the Lie derivatives in the $z$ directions make their coefficients independent of $z$. Connected fibers make these local definitions agree across each fiber. The resulting tensor is positive definite by \cref{geo:rank}.
+
+Even involutivity is an additional condition. On the trivial translation bundle over $\R^3$, use the unit-variance normal location family, the constant section of mean zero, and $A=dz-xdy$. Its location Fisher metric is one, so
+\begin{equation}
+D^A p=dz-xdy,\qquad h^A_p=(dz-xdy)^2.
+\end{equation}
+This has constant rank one, but its null fields $\partial_x$ and $\partial_y+x\partial_z$ have bracket $\partial_z$, which is not null. Hence its radical is not a foliation. This counterexample concerns the quotient inference; Gaussian laws are not required for the preceding results.
+
+A contextual tangent quotient differs from a group-orbit quotient or measurable parent retention, which may discard information having no Fisher tangent.
+
+\section{A collective choice of connection}
+
+Several law sections can determine a common comparison rule by minimizing their shared frame motion. Choose smooth comparisons $\mathsf S_i$ placing the participating laws in compatible associated fibers, and write $p_i=(\mathsf S_i)_\#\zeta_i$. For bimeasurable comparisons, independent source changes $g_i$ and a common target change $g$ act by
+\begin{equation}
+\zeta_i'=(g_i)_\#\zeta_i,\qquad
+\mathsf S_i'=g\mathsf S_i g_i^{-1},\qquad
+p_i'=g_\#p_i.
+\label{geo:comparison-data}
+\end{equation}
+The compositions in this formula mean composition of represented sample maps. More general comparisons may be declared, but their target laws must still form an admitted smooth equivariant family.
+
+\definitionheading{Collective Fisher data}{geo:collective-data}
+Let $\boldsymbol p=(p_i)_i$ lie in a finite product of regular statistical manifolds with diagonal $G$-action. Choose positive constants $w_i$ and define
+\begin{align}
+\mathsf G_{\boldsymbol p}(v,w)&=\sum_i w_i g^F_{p_i}(v_i,w_i),\\
+J_{\boldsymbol p}\xi&=(J_{p_i}\xi)_i,\qquad
+\mathfrak h_{\boldsymbol p}=\ker J_{\boldsymbol p},\qquad
+H_{\boldsymbol p}=(\operatorname{im}J_{\boldsymbol p})^{\perp_{\mathsf G}},\\
+\mathfrak k_{\boldsymbol p}(\xi,\eta)
+&=\mathsf G_{\boldsymbol p}(J_{\boldsymbol p}\xi,J_{\boldsymbol p}\eta).
+\label{geo:locked-inertia}
+\end{align}
+The weights and comparisons are constitutive data. A different declared joint statistical family may replace the product if its metric and group action satisfy the same hypotheses.
+
+\propositionheading{Collective minimizing connection class}{geo:collective}
+Suppose $J_{\boldsymbol p(c)}$ has constant rank on $\mathcal U$. For each contextual direction $X$, the minimizers of
+\begin{equation}
+a\longmapsto\|d\boldsymbol p(X)+J_{\boldsymbol p}a\|_{\mathsf G}^2
+\end{equation}
+form an affine class $A^F(X)+\mathfrak h_{\boldsymbol p}$, characterized by
+\begin{align}
+\mathfrak k(A^F(X),\xi)
+&=-\mathsf G(d\boldsymbol p(X),J\xi),\\
+r_X:=d\boldsymbol p(X)+JA^F(X)
+&=P_Hd\boldsymbol p(X).
+\label{geo:normal-equation}
+\end{align}
+Smooth local representatives can be chosen, linear in $X$. With $h^{\min}(X,Y)=\mathsf G(r_X,r_Y)$, any other local connection form $A$ satisfies
+\begin{equation}
+h^A(X,Y)
+=h^{\min}(X,Y)
++\mathfrak k((A-A^F)(X),(A-A^F)(Y)).
+\label{geo:minimal-pullback}
+\end{equation}
+The minimizing class transforms by the affine connection law, and $r$ transforms by the tangent action.
+\begin{proof}
+Project $-d\boldsymbol p(X)$ orthogonally onto $\operatorname{im}J$. Its preimages under $J$ give all minimizing $a$, and two preimages differ exactly by $\ker J$. Orthogonality to every $J\xi$ gives the normal equation. At constant rank, choose a smooth local complement to $\ker J$; the positive form $\mathfrak k$ restricted to it has a smooth inverse, providing the stated representative. Writing $d\boldsymbol p+JA=r+J(A-A^F)$ and using orthogonality gives \cref{geo:minimal-pullback}. Under a passive target change, the derivative and connection terms cancel exactly as in \cref{geo:passive}. Isometry of the action carries minimizers to minimizers and residuals to residuals.
+\end{proof}
+
+If infinitesimal isotropy is nonzero, the construction leaves stabilizer-valued components undetermined. An arbitrarily chosen pseudoinverse representative need not obey the affine law. If $\ker J=0$, the unique local forms do obey that law and therefore glue on the given principal bundle; discrete stabilizers do not obstruct this conclusion. Separately, a free proper isometric action on a statistical manifold gives a smooth orbit quotient whose orthogonal horizontal distribution is the usual mechanical connection. These geometric antecedents are described by \citet{Guichardet1984,LewisNigamOlver2003}. A single transitive family has $H=0$ and zero minimizing residual; a collective family need not.
+
+\propositionheading{Aggregate covariant derivative}{geo:aggregate}
+Let $\mathcal M$ be a smooth equivariant map from the collective statistical family to a finite-dimensional representation $W$ of $G$. For $M=\mathcal M(\boldsymbol p)$ define
+\begin{equation}
+e(X)=d\mathcal M_{\boldsymbol p}r_X
+=dM(X)+\rho_*(A^F(X))M.
+\label{geo:aggregate-jet}
+\end{equation}
+This $W$-valued one-form is independent of the representative of the minimizing class. If $\dim\mathcal C=\dim W$, it is an isomorphism exactly when the actual map $d\mathcal M_{\boldsymbol p}\circ r$ has full rank.
+\begin{proof}
+Differentiating equivariance gives $d\mathcal M_{\boldsymbol p}J\xi=\rho_*(\xi)M$. Applying this identity to \cref{geo:normal-equation} proves \cref{geo:aggregate-jet}. A change in $A^F$ belonging to $\ker J$ has zero image under $d\mathcal M$, proving representative independence. The rank statement is the criterion for a linear map between equal-dimensional spaces to be invertible.
+\end{proof}
+
+Surjectivity of $d\mathcal M|_H$ establishes that a full-rank first jet can be chosen at the law tuple: choose horizontal preimages of a basis of $W$ and realize those as derivatives in a local statistical chart. It does not establish full rank for the supplied section or its preservation under inference. The determinant specialization in \cref{app:determinant} uses an additional form on $W$; the Fisher metric above remains positive.
+
+\section{Information retained by a channel}
+
+\theoremheading{Score projection and exact Fisher loss}{geo:fisher-loss}
+Let $\{P_\theta\}$ satisfy \cref{geo:dqm} at $\theta_0$, and let $K:\mathsf Y\rightsquigarrow\bar{\mathsf Y}$ be one normalized Markov kernel independent of $\theta$. Under the joint law $P_{\theta_0}(dy)K(y,d\bar y)$, the output family is differentiable in quadratic mean with score and Fisher matrix
+\begin{align}
+\bar\ell(\bar Y)&=\E[\ell(Y)\mid\bar Y],\\
+I(P_{\theta_0})-I(P_{\theta_0}K)
+&=\E\operatorname{Cov}(\ell(Y)\mid\bar Y)\succeq0.
+\label{geo:score-projection}
+\end{align}
+Equality in direction $v$ holds exactly when $v^\top\ell(Y)$ is measurable from $\bar Y$ up to a joint null set.
+\begin{proof}
+Lift the decomposition in \cref{geo:dqm} to the joint space. Its absolutely continuous square root is $V_\delta=\sqrt{p_\delta(Y)}$ with the same $L^2$ remainder, and its singular mass is still $o(|\delta|^2)$. For its output, put
+$m_\delta=\E[V_\delta\mid\bar Y]$ and
+$v_\delta=\E[(V_\delta-m_\delta)^2\mid\bar Y]$. The projected density of this absolutely continuous part is
+$q_\delta=m_\delta^2+v_\delta$.
+Conditional expectation is an $L^2$ contraction, so
+$m_\delta=1+\tfrac12\delta^\top\E[\ell\mid\bar Y]+o_{L^2}(|\delta|)$.
+
+To replace $m_\delta$ by $\sqrt{q_\delta}$, observe that $m_\delta\ge0$ and
+\begin{equation}
+(\sqrt{q_\delta}-m_\delta)^2
+=v_\delta
+\frac{v_\delta}{(\sqrt{q_\delta}+m_\delta)^2}
+\le v_\delta.
+\end{equation}
+Set the fraction to zero where its numerator and denominator both vanish. It tends to zero in probability. Moreover $v_\delta/|\delta|^2$ is uniformly integrable as $\delta\to0$: the square-root expansion expresses
+$(V_\delta-1)/|\delta|$ as a bounded finite-dimensional combination of the fixed $L^2$ scores plus an $L^2$ remainder tending to zero, and conditional variance preserves the resulting uniform integrability. Thus the last display has expectation $o(|\delta|^2)$.
+The projected singular part may acquire an absolutely continuous density $a_\delta$, but its total mass is $o(|\delta|^2)$. The inequality
+$(\sqrt{q_\delta+a_\delta}-\sqrt{q_\delta})^2\le a_\delta$
+shows that this change does not affect the score; any remaining singular output mass has the same small bound. This proves output differentiability and its score formula. Total covariance gives the matrix identity. Its quadratic form in $v$ is the expected conditional variance of $v^\top\ell$, which vanishes exactly under the stated measurability condition.
+\end{proof}
+
+This score-projection mechanism is the one in \citet[Theorem~7]{Pollard2013}; the Markov formulation is also treated in \citet{AyJostLeSchwachhofer2018}. It identifies local score sufficiency. It does not identify a kernel recovering every law in the experiment. For example, take independent Bernoulli variables with probabilities $1/2+\theta/4$ and $1/2+\theta^2/4$, and discard the second. At $\theta=0$ its score vanishes, so no Fisher information is lost. A fixed recovery kernel applied to the first Bernoulli law makes every reconstructed event probability affine in $\theta$, whereas the required second-coordinate probability is quadratic. Such a kernel cannot recover the family on a neighborhood.
+
+\propositionheading{Moving-channel correction}{geo:moving-channel}
+Let the channel instead have density $k_\theta(\bar y\mid y)$ with respect to a fixed output measure. Assume the joint family is differentiable in quadratic mean with square-integrable score
+$\ell_\theta(Y)+b_\theta(Y,\bar Y)$, where
+$b_\theta=\partial_\theta\log k_\theta$, and assume differentiation of channel normalization gives $\E[b_\theta\mid Y]=0$. Then
+\begin{align}
+\bar\ell_\theta(\bar Y)
+&=\E_\theta[\ell_\theta(Y)+b_\theta(Y,\bar Y)\mid\bar Y],\\
+I(\bar Y)
+&=I(Y)+\E_\theta I(K_\theta(Y,\cdot))
+-\E_\theta\operatorname{Cov}(\ell_\theta+b_\theta\mid\bar Y).
+\label{geo:moving-score}
+\end{align}
+\begin{proof}
+Apply \cref{geo:fisher-loss} to the fixed output projection of the joint experiment. Its score is the stated sum. Conditional centering of $b_\theta$ eliminates the mixed terms in its Fisher matrix, leaving the input matrix plus the average conditional channel matrix. Subtracting the conditional covariance proves the formula.
+\end{proof}
+
+Consequently input-to-output Fisher change has no fixed sign for a moving channel. A constant input followed by a Bernoulli output with success probability $(1+e^{-\theta})^{-1}$ has zero input Fisher information and output information $e^{-\theta}/(1+e^{-\theta})^2>0$. A singular moving deterministic statistic need not have a channel log density at all. Its actual weak derivative, schematically $d(PK)=(dP)K+P(dK)$ when these derivatives exist, must replace that expression. These distinctions apply to the law-dependent channels used in the interaction potential.
+
+\section{Geometry across a retention}
+
+Let $\Psi:E\to\bar E$ be a smooth bundle map covering $f:\mathcal C\to\bar{\mathcal C}$, where both statistical bundles carry positive vertical Fisher metrics and connections $\omega,\bar\omega$. Assume the sections are related,
+\begin{equation}
+\Psi\circ\zeta=\bar\zeta\circ f.
+\label{geo:related-sections}
+\end{equation}
+This is a hypothesis: a map over $f$ does not automatically make every fine section descend through $f$.
+
+\definitionheading{Horizontal transport defect}{geo:horizontal-defect}
+For $X\in T_c\mathcal C$, define
+\begin{equation}
+a_\Psi(X)=T\Psi(H^\omega_{\zeta(c)}X)
+-H^{\bar\omega}_{\Psi(\zeta(c))}(TfX).
+\label{geo:horizontal-defect-formula}
+\end{equation}
+Both terms project to $TfX$, so their difference lies in the same coarse vertical tangent space. Set
+$u_X=D^\omega\zeta X$, $\Psi_*=T^V\Psi$, and
+$\Delta_F=g^F-\Psi_*^*\bar g^F$ along the section.
+
+\propositionheading{Signed comparison of base tensors}{geo:signed-comparison}
+Under \cref{geo:related-sections},
+\begin{align}
+D^{\bar\omega}\bar\zeta(TfX)&=\Psi_*u_X+a_\Psi(X),\\
+h^\omega_\zeta-f^*h^{\bar\omega}_{\bar\zeta}
+&=u^*\Delta_F-\mathcal X_\Psi-\mathcal Q_\Psi,
+\label{geo:signed-identity}
+\end{align}
+where
+\begin{align}
+\mathcal X_\Psi(X,Y)
+&=\bar g^F(\Psi_*u_X,a_\Psi(Y))
++\bar g^F(a_\Psi(X),\Psi_*u_Y),\\
+\mathcal Q_\Psi(X,Y)&=\bar g^F(a_\Psi(X),a_\Psi(Y)).
+\end{align}
+If each fiber map is realized by a fixed parameter-independent Markov kernel, then $\Delta_F\succeq0$. In that case base contraction holds exactly when, for every $X$,
+\begin{equation}
+2\bar g^F(\Psi_*u_X,a_\Psi(X))
++\|a_\Psi(X)\|_{\bar g^F}^2
+\le\Delta_F(u_X,u_X).
+\label{geo:contraction-criterion}
+\end{equation}
+\begin{proof}
+Differentiate \cref{geo:related-sections}, decompose $T\zeta X=H^\omega X+u_X$, and take coarse vertical parts. This proves the first identity. Expand the coarse Fisher pairing of $\Psi_*u+a_\Psi$ and subtract it from the fine pairing to obtain the second. For a fixed Markov fiber map, \cref{geo:fisher-loss} gives $\Delta_F\succeq0$. Evaluating the signed identity on the diagonal proves the exact contraction criterion.
+\end{proof}
+
+Zero horizontal defect is sufficient, but is not necessary, for \cref{geo:contraction-criterion}. Information discarded in the fiber and mismatch of horizontal transports enter different terms. For two successive smooth statistical maps $R_{01},R_{12}$, the vertical defects also compose exactly:
+\begin{equation}
+\Delta_{02}=\Delta_{01}+R_{01}^*\Delta_{12},
+\qquad
+\Delta_{ab}=g_a-R_{ab}^*g_b.
+\label{geo:defect-composition}
+\end{equation}
+This follows by inserting and subtracting $R_{01}^*g_1$ and using contravariance of pullback. Both terms are nonnegative when the two maps are fixed Markov morphisms.
+
+\propositionheading{Retention of the collective connection}{geo:retained-connection}
+Let $R:\mathcal N\to\bar{\mathcal N}$ be a smooth $G$-equivariant map between positive-metric collective statistical families, independent of the contextual coordinate. Denote their metrics by $g,\bar g$, their infinitesimal orbit maps by $J,\bar J$, and put $\Delta=g-R^*\bar g$. Let $\boldsymbol p(c)$ be a smooth fine section, and let $A^F$ and $r_X=d\boldsymbol p(X)+JA^F(X)$ be a fine minimizing representative and residual. The same representative minimizes the cost at $\bar{\boldsymbol p}=R(\boldsymbol p)$ exactly when
+\begin{equation}
+\Delta(r_X,J\xi)=0
+\quad\text{for all }X,\xi.
+\label{geo:connection-retention}
+\end{equation}
+Under this condition, equality of the entire fine and coarse affine minimizing classes holds exactly when $\ker J=\ker\bar J$. For every possible fine first jet, the condition is $\Delta(H,\operatorname{im}J)=0$. If $\Delta\succeq0$, vanishing loss on every orbit direction is sufficient. This includes a fixed Markov morphism equipped with the Fisher metrics of its input and output experiments in the same normalization; arbitrary independently reweighted metrics need not satisfy that premise.
+\begin{proof}
+Equivariance gives $dR J=\bar J$. Thus the coarse residual using $A^F$ is $dR r_X$. Its normal equation is $\bar g(dR r_X,\bar J\xi)=0$. Fine orthogonality gives $g(r_X,J\xi)=0$, so the coarse equation is equivalent to \cref{geo:connection-retention}. Once the representative minimizes both costs, their classes are $A^F+\ker J$ and $A^F+\ker\bar J$, proving the equality criterion. Every horizontal vector is realizable as a residual by choosing the first jet equal to that vector, which gives the all-jets statement. When $\Delta\succeq0$, Cauchy--Schwarz for this semidefinite form makes $\Delta(v,J\xi)=0$ whenever $\Delta(J\xi,J\xi)=0$.
+\end{proof}
+
+Contraction alone is insufficient. Two independent unit-variance normal location laws with $J\xi=(\xi,\xi)$ and means $(x,-x)$ have Fisher matrix $I$ and minimizing coefficient zero. Adding independent unit normal noise only to the first sample is a fixed equivariant channel. Its coarse Fisher matrix is $\operatorname{diag}(1/2,1)$, whose cost $\tfrac12(1+a)^2+(-1+a)^2$ is minimized at $a=1/3$. The minimizing connection has changed despite Fisher contraction. Its preservation is an additional requirement beyond the dynamical and response conditions in \cref{ch:inheritance}.

@@ -72,6 +72,65 @@ Absolute continuity gives $\nu\ll T_\#p$, so the conditional version of $p$ is d
 
 This reconstruction preserves the communicated marginal and supplies the discarded conditional from $p$. It makes precise the sense in which a receiver contributes structure that the message alone does not specify. The proposition assumes a common content presentation; a link or a separately declared correspondence is needed before applying it across different fibers.
 
+\propositionheading{Common recovery by likelihood descent}{prop:common-family-recovery}
+Let $C:\mathsf X\to\mathsf Z$ be a measurable map between standard Borel
+spaces. Let $P_0$ be a probability law and let
+$P_\alpha=L_\alpha P_0$ be a family of probability laws dominated by it.
+Choose the reference conditional
+$R_0(z,dx)=P_0(dx\mid C=z)$, and write
+$\bar L_\alpha(z)=\E_{P_0}[L_\alpha\mid C=z]$. Then
+\begin{equation}
+ (C_\#P_\alpha)R_0(dx)
+ =\bar L_\alpha(C(x))P_0(dx).
+ \label{eq:common-family-density}
+\end{equation}
+Consequently this one kernel recovers every $P_\alpha$ exactly when each
+$L_\alpha$ has a $\sigma(C)$-measurable version. No finite-divergence
+assumption is needed.
+\begin{proof}
+For each measurable $A\subseteq\mathsf Z$,
+$P_\alpha(C^{-1}A)=\int_A\bar L_\alpha(z)(C_\#P_0)(dz)$, by the defining
+property of conditional expectation. For a measurable
+$B\subseteq\mathsf X$, disintegration therefore gives
+\begin{equation}
+ \begin{aligned}
+ ((C_\#P_\alpha)R_0)(B)
+ &=\int\bar L_\alpha(z)R_0(z,B)(C_\#P_0)(dz)\\
+ &=\int_B\bar L_\alpha(C(x))P_0(dx).
+ \end{aligned}
+\end{equation}
+Equality with $P_\alpha$ is equivalent to equality of their
+Radon--Nikodym densities,
+$L_\alpha=\bar L_\alpha\circ C$ almost surely. Conditional expectation
+fixes exactly the integrable $\sigma(C)$-measurable functions, proving
+both directions.
+\end{proof}
+
+A posterior-specific conditional always reconstructs that posterior from
+its own marginal. It need not reconstruct the reference or other
+posteriors. The common kernel in \cref{prop:common-family-recovery}
+makes the stronger requirement explicit. Regular conditional laws and
+their almost-sure uniqueness are understood in the standard Borel
+sense \citep{Kallenberg2021}.
+
+\corollaryheading{Recovery without reading the exterior}{cor:local-family-recovery}
+Let $P_0$ now be a joint reference law of $(X,E)$ on standard Borel spaces,
+and let $Z=C(X)$. Retain $(Z,E)$ but reconstruct $X$ using only
+$R_0(z,dx)=P_0(dx\mid Z=z)$, leaving $E$ unchanged. This reconstructs
+$P_0$ exactly if and only if $X$ and $E$ are conditionally independent
+given $Z$. Under that condition it also reconstructs a dominated family
+$P_\alpha=L_\alpha P_0$ exactly if and only if each likelihood ratio
+descends to $(Z,E)$.
+\begin{proof}
+The lifted reference has conditional law $R_0(z,dx)$ given $(z,e)$.
+Because $R_0$ is supported on $C^{-1}(z)$ almost surely, its joint law
+with $(Z,E)$ agrees with the true law exactly when
+$P_0(dx\mid Z,E)=P_0(dx\mid Z)$ almost surely. This is the stated
+conditional independence. In that case the exterior-preserving lift is
+the reference conditional for the map $(x,e)\mapsto(C(x),e)$.
+Apply \cref{prop:common-family-recovery} to that map.
+\end{proof}
+
 \section{A predictive coding criterion}
 
 Lossy source coding makes fidelity part of the problem definition \citep{Shannon1959}. Decoder side information is a realized variable correlated with the source, as in Wyner--Ziv coding \citep{WynerZiv1976}; knowing a prior without such a realization does not supply that variable. A few noiseless real numbers also do not specify a finite-bit channel. A communication rate requires a declared coding, precision, or noise model.

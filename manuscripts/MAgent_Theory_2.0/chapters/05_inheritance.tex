@@ -85,6 +85,63 @@ $R_t$, the left side becomes $\partial_tR_t(x)+DR_t(x)B_t(x)$.
 Membership changes therefore need an explicit handoff map; a differential
 identity on one fixed partition does not specify them.
 
+\propositionheading{A sufficient metric condition for gradient inheritance}{inh:gradient-inheritance}
+Let $R:(\mathsf S,g)\to(\mathsf S^c,g_c)$ be a smooth surjective
+submersion between finite-dimensional Riemannian manifolds. Suppose the
+smooth potentials satisfy $E=\chi\circ E_c\circ R$, with $\chi'>0$.
+Assume there is a smooth positive function $d$ such that
+\begin{equation}
+ g_c(DR_xu,DR_xv)=d(x)^2g(u,v),
+ \qquad u,v\in(\ker DR_x)^\perp.
+ \label{inh:horizontal-conformality}
+\end{equation}
+Then their negative gradient fields obey
+\begin{equation}
+ DR_x[-\operatorname{grad}_gE(x)]
+ =a(x)[-\operatorname{grad}_{g_c}E_c](R(x)),
+ \qquad a(x)=\chi'(E_c(R(x)))d(x)^2.
+ \label{inh:gradient-factor}
+\end{equation}
+In particular, a Riemannian submersion and $E=E_c\circ R$ give
+same-time inheritance.
+\begin{proof}
+For $v\in\ker DR_x$, differentiation of the potential identity gives
+$dE_x(v)=0$. Thus $w=\operatorname{grad}_gE(x)$ lies in
+$(\ker DR_x)^\perp$. The restriction of $DR_x$ to this horizontal space
+is an isomorphism onto $T_{R(x)}\mathsf S^c$. Given any coarse tangent
+$z$, take its horizontal lift $v$. Then
+\begin{equation}
+ \begin{aligned}
+ g_c(DR_xw,z)
+ &=d(x)^2g(w,v)
+ =d(x)^2dE_x(v)\\
+ &=d(x)^2\chi'(E_c(R(x)))d(E_c)_{R(x)}(z).
+ \end{aligned}
+\end{equation}
+Nondegeneracy of $g_c$ identifies $DR_xw$ with
+$a(x)\operatorname{grad}_{g_c}E_c(R(x))$. Negating proves the
+identity. When $a=1$, \cref{inh:vector-square} applies.
+\end{proof}
+
+For $a>0$, a fine trajectory projects onto the same oriented coarse
+gradient orbit after the time change $d\tau/dt=a(x(t))$. An autonomous
+field in the original time additionally requires the product
+$a(x)\operatorname{grad}_{g_c}E_c(R(x))$ to be constant on retention
+fibers. Factorization $a=\bar a\circ R$ suffices; dependence on discarded
+state need not satisfy this requirement. The proposition is one sufficient
+route to inheritance. Fisher contraction and preservation of the
+collective connection in \cref{ch:geometry} are different conditions.
+
+Fiber minimization alone does not supply its potential hypothesis.
+For $R(u,v)=v$ on Euclidean $\R^2$, let
+\begin{equation}
+ E(u,v)=\tfrac12(u-v)^2+\tfrac12v^2,
+ \qquad E_c(v)=\inf_u E(u,v)=\tfrac12v^2.
+\end{equation}
+Equality $E=E_c\circ R$ holds only on $u=v$. More generally,
+$dE(\partial_u)=u-v$ does not vanish on any open set, so there is no
+identity $E=\chi(E_c\circ R)$ on an open set for any $\chi$.
+
 \constructionheading{Loss of dynamical roles under product recognition}{inh:role-loss}
 Take $Q_x=\operatorname{Ber}(p_1)\otimes\operatorname{Ber}(p_2)$, with
 $x=(p_1,p_2)\in[0,1]^2$, and the coupled deterministic law
@@ -167,6 +224,46 @@ inverse to prove sufficiency; substitution proves necessity. When several
 outputs are used jointly, this condition applies to their joint kernel.
 Preserving each output marginal alone need not preserve their dependence.
 
+\propositionheading{Exact elimination through a conditional separator}{inh:separator-gluing}
+Let $Z,U,V$ have a declared joint reference law
+$\rho(dz,du,dv)=\pi(dz)\rho_{UV}(du,dv\mid z)$ on standard Borel
+spaces. Denote its conditional marginals by $\rho_U,\rho_V$. For
+bounded nonnegative likelihood factors $L_U(u,z),L_V(v,z)$, define
+\begin{equation}
+ F_U(z)=\int L_U(u,z)\rho_U(du\mid z),
+ \qquad F_V(z)=\int L_V(v,z)\rho_V(dv\mid z).
+\end{equation}
+The identity
+\begin{equation}
+ \int L_U(u,z)L_V(v,z)\rho_{UV}(du,dv\mid z)
+ =F_U(z)F_V(z)
+ \label{inh:separator-factorization}
+\end{equation}
+holds $\pi$-almost everywhere for every such pair precisely when
+$U$ and $V$ are conditionally independent given $Z$.
+Under that condition, a nonnegative factor $L_Z(z)$ with finite positive
+total evidence gives the unnormalized retained measure
+\begin{equation}
+ m_Z(dz)=L_Z(z)F_U(z)F_V(z)\pi(dz).
+ \label{inh:separator-measure}
+\end{equation}
+\begin{proof}
+Conditional independence factors $\rho_{UV}$ as
+$\rho_U\otimes\rho_V$ almost surely. Tonelli's theorem then gives
+\cref{inh:separator-factorization,inh:separator-measure}. Conversely,
+take indicator factors from countable generating families closed under
+finite intersections for the two standard Borel spaces. Outside one
+$\pi$-null set, the conditional joint and product laws agree on every
+generating rectangle. Uniqueness of probability measures extends this
+equality to the product sigma algebra, proving conditional independence.
+\end{proof}
+
+The shared factor $L_Z$ appears once. If the hidden blocks are not
+conditionally independent, their joint conditional factor must be
+retained. This elimination statement concerns the declared reference and
+likelihood; it does not replace the law-dependent interaction potential
+by a fixed joint model.
+
 For a child channel $\mathcal K_{ij}:\mathsf Y_j\rightsquigarrow\mathsf Y_i$
 and retentions $C_j:\mathsf Y_j\rightsquigarrow\mathsf Z_J$ and
 $C_i:\mathsf Y_i\rightsquigarrow\mathsf Z_I$, the corresponding square is
@@ -209,7 +306,9 @@ When changes of gauge presentation act on the retained spaces, the
 retentions and boundary kernels must transform compatibly with those
 actions. Re-expressing a commuting square then gives the same square in
 the new coordinates. Neither a parent frame chosen for this purpose nor
-the square itself determines a base connection.
+the square itself determines a base connection. If the parent is also
+required to retain the collective Fisher connection, the additional
+condition in \cref{geo:retained-connection} must be checked.
 
 \section{A finite two-level construction}
 
@@ -471,12 +570,208 @@ in the supplement. Its attainable values need not form a finite set.
 Introducing such a filter presupposes a process and a preparation law; it
 is not compulsory for deterministic coupled agents.
 
+\theoremheading{Information lost by a retained history}{inh:causal-memory}
+Let $\mathbb P$ be a probability law on
+$\mathsf Z_0\times\cdots\times\mathsf Z_{T-1}$, where each record space
+is standard Borel and $T$ is finite. Set $H_t=(Z_0,\ldots,Z_{t-1})$,
+with $H_0$ a point. For measurable maps into standard Borel statistic
+spaces, let $M_t=f_t(H_t)$. Write
+$P_t^M(\cdot\mid m)$ for a regular conditional law of $Z_t$ given
+$M_t=m$. Let $\widetilde T_t$ be any normalized kernel from the
+statistic space to $\mathsf Z_t$, and let $\widetilde{\mathbb P}$ be
+the causal path law whose next-record kernel is
+$\widetilde T_t(f_t(h),\cdot)$ at history $h$. Then, in $[0,\infty]$,
+\begin{equation}
+ \begin{aligned}
+ \KL(\mathbb P\Vert\widetilde{\mathbb P})
+ &=\sum_{t=0}^{T-1}I_{\mathbb P}(Z_t;H_t\mid M_t)\\
+ &\quad+\sum_{t=0}^{T-1}\E_{\mathbb P}
+ \KL\bigl(P_t^M(\cdot\mid M_t)
+          \Vert\widetilde T_t(M_t,\cdot)\bigr).
+ \end{aligned}
+ \label{inh:causal-memory-identity}
+\end{equation}
+The first sum is the minimum path divergence among these predictors,
+attained by choosing $\widetilde T_t=P_t^M$. Its $t$-th term vanishes
+exactly when the true next-record law has a version depending on $H_t$
+only through $M_t$.
+\begin{proof}
+Let $P_t(\cdot\mid h)$ be the true conditional law given $H_t=h$.
+The relative-entropy chain rule expresses the path divergence as
+\begin{equation}
+ \sum_{t=0}^{T-1}\E_{\mathbb P}
+ \KL\bigl(P_t(\cdot\mid H_t)
+          \Vert\widetilde T_t(M_t,\cdot)\bigr).
+ \label{inh:causal-row-chain}
+\end{equation}
+To decompose its $t$-th summand, compare the true joint law of
+$(H_t,Z_t)$ with the law obtained by keeping its $H_t$ marginal and
+drawing $Z_t$ from $\widetilde T_t(M_t,\cdot)$. Disintegrate these
+two laws by $(M_t,Z_t)$. The divergence of their marginals is
+$\E_{\mathbb P}\KL(P_t^M(\cdot\mid M_t)
+\Vert\widetilde T_t(M_t,\cdot))$.
+In the second joint law the conditional history given $(M_t,Z_t)$
+is the true conditional history given $M_t$ alone. The conditional
+divergence term is consequently
+$I_{\mathbb P}(Z_t;H_t\mid M_t)$.
+
+The chain rule on standard Borel spaces is an equality of nonnegative
+extended quantities. A singular marginal or conditional contributes
+infinite divergence; no subtraction of infinite terms is used. Applying
+it to each summand of \cref{inh:causal-row-chain} gives
+\cref{inh:causal-memory-identity}. Choosing the true statistic-conditional
+rows makes every term in the second sum zero. Conditional mutual
+information vanishes exactly when the corresponding conditional joint
+law is the product of its conditional marginals. Since $M_t$ is a
+function of $H_t$, this is equivalent to
+$P_t(\cdot\mid H_t)=P_t^M(\cdot\mid M_t)$ almost surely.
+\end{proof}
+
+The finite-window case is a Markov approximation of a record process
+\citep[Sec.~7.3]{Gray1990}; the theorem permits any measurable history
+statistic. Its two terms separate forgetting information from predicting
+incorrectly with the information kept. A statistic alone need not have
+a compact recursive realization. To update from the retained state and
+new record only, one additionally needs
+$M_{t+1}=U_t(M_t,Z_t)$, or a sufficient enlargement of $M_t$.
+The theorem concerns one preparation and protocol. Sufficiency for
+every admitted intervention requires the corresponding conditional-law
+identity for each such protocol.
+
 A handoff initializes the parent from the actual fine state or its declared
 conditional law, including the source marks and memory read by future
 interactions. When evidence is shared across levels, its likelihood belongs
 to the joint model once. Reusing a child's record through a complete
 same-episode parent posterior requires the appropriate conditional or
 cavity accounting. A subsequent predictive prior is a different operation.
+
+\section{Statistical partitions and their limits}
+
+An independence partition is a property of a declared joint law. A tuple
+of individual agent laws does not itself specify a cross-agent joint
+law; taking their product would impose independence in the input.
+The following constructions apply when such a joint law has been supplied.
+
+\propositionheading{The finest independent partition}{inh:finest-independent}
+Let $V$ be a finite nonempty index set and let $\mathbb P$ be a
+probability law on $\prod_{i\in V}\mathsf Y_i$, with standard Borel
+coordinate spaces. Call a partition $\pi$ independent when
+\begin{equation}
+ \mathbb P=\bigotimes_{B\in\pi}\mathbb P_B,
+ \label{inh:independent-partition}
+\end{equation}
+where $\mathbb P_B$ is its marginal on block $B$.
+There is a unique finest independent partition $\pi_*(\mathbb P)$.
+Relabeling the coordinates relabels this partition, and separate
+bimeasurable changes of their presentations preserve it.
+\begin{proof}
+The one-block partition is independent. Suppose $\pi$ and $\sigma$
+are independent. Marginalizing the $\sigma$ factorization to a block
+$B\in\pi$ gives
+\begin{equation}
+ \mathbb P_B
+ =\bigotimes_{\substack{D\in\sigma\\B\cap D\ne\varnothing}}
+       \mathbb P_{B\cap D}.
+\end{equation}
+Substituting these marginals into the $\pi$ factorization proves
+independence of the common refinement consisting of the nonempty
+intersections $B\cap D$. There are finitely many partitions of $V$.
+Refining all independent ones therefore gives an independent partition
+finer than every one of them, which is necessarily unique.
+Relabelings and coordinatewise bimeasurable maps commute with taking
+marginals and product laws. Applying the inverse transformation gives
+the reverse implication, so the set of independent partitions and its
+unique finest member transform as stated.
+\end{proof}
+
+This statistical target is the finest-independent clustering problem
+\citep{Ryabko2017}. Its existence does not require Gaussian laws or
+densities, but does not identify statistical independence with agency.
+In particular, it makes no statement about autonomous dynamics or
+future boundary responses.
+
+\corollaryheading{Conditional independence partitions}{inh:conditional-partition}
+Let the same coordinate tuple have a joint law with an already retained
+standard Borel variable $C$. Define
+\begin{equation}
+ \mathcal I_C(\pi)=
+ \int\KL\left(
+ \mathbb P(dy_V\mid c)
+ \middle\Vert
+ \bigotimes_{B\in\pi}\mathbb P_B(dy_B\mid c)
+ \right)\mathbb P_C(dc).
+ \label{inh:conditional-partition-information}
+\end{equation}
+There is a unique finest partition for which $\mathcal I_C(\pi)=0$.
+\begin{proof}
+Zero divergence means equality of the conditional joint and product
+laws for $\mathbb P_C$-almost every $c$. There are finitely many
+partitions. Outside the union of their relevant null sets, the
+common-refinement argument in \cref{inh:finest-independent} applies
+pointwise to every conditionally independent partition. Their common
+refinement is therefore conditionally independent and uniquely finest.
+\end{proof}
+
+Choosing $C=Y_V$ makes every partition conditionally independent while
+retaining the whole tuple. The corollary does not choose the context
+that a useful parent should retain.
+
+\constructionheading{Weak coupling can destroy every independent split}{inh:independence-discontinuity}
+For any even $N\geq4$, let $y_i\in\{-1,1\}$ and define the strictly
+positive finite law
+\begin{equation}
+ \mathbb P_\epsilon(y)
+ =Z_\epsilon^{-1}\exp\left(
+ J\sum_{b=1}^{N/2}y_{2b-1}y_{2b}
+ +\epsilon\sum_{b=1}^{N/2-1}y_{2b}y_{2b+1}
+ \right),
+ \qquad J>0,\quad\epsilon\geq0,
+ \label{inh:ising-partition}
+\end{equation}
+where $Z_\epsilon$ is the sum of the numerator over the finite alphabet.
+At $\epsilon=0$, distinct pairs are independent and each pair is
+dependent: its odds ratio is $e^{4J}\ne1$. Thus the finest partition
+consists of those pairs.
+
+For $\epsilon>0$ the interaction path is connected. Any nontrivial
+partition cuts an edge. Fix all coordinates except the endpoints of
+one cut edge, whose coupling is $J_e\in\{J,\epsilon\}$. Positivity
+makes every such conditional law well defined. Its odds ratio is
+$e^{4J_e}\ne1$, since all terms involving just one endpoint cancel
+in that ratio. Factorization across the proposed partition would make
+these endpoints conditionally independent after the other coordinates
+were fixed, forcing ratio one. No nontrivial independent partition
+exists. Hence $\pi_*(\mathbb P_\epsilon)=\{V\}$ for every
+$\epsilon>0$, although continuity of each of the finitely many
+probabilities gives $\mathbb P_\epsilon\to\mathbb P_0$ in total
+variation. Exact independence is therefore not a continuous
+soft-membership criterion.
+
+\propositionheading{Symmetry constrains a deterministic hard selector}{inh:selector-symmetry}
+Let $|V|\geq3$, let all coordinate spaces equal $\mathsf Y$, and
+suppose a deterministic partition selector $\Pi$ reads only a law on
+$\mathsf Y^V$. Assume relabeling naturality:
+$\Pi(\sigma_\#\mathbb P)=\sigma\Pi(\mathbb P)$ for every permutation
+$\sigma$ of $V$. If $\mathbb P$ is invariant under all permutations,
+then $\Pi(\mathbb P)$ is either the singleton partition or the
+one-block partition.
+\begin{proof}
+The selected partition must be invariant under every permutation.
+If it had a block $B$ with $2\leq|B|<|V|$, choose distinct $i,j\in B$
+and $k\notin B$. The transposition exchanging $j$ and $k$ sends $B$
+to a distinct block that still contains $i$. Two distinct blocks of
+a partition cannot intersect. Therefore no such $B$ exists, leaving
+exactly the two stated possibilities.
+\end{proof}
+
+A distribution over partitions, soft memberships, asymmetric realized
+histories, or additional geometric inputs are outside this proposition.
+An information-based hierarchy can also be retained before choosing
+a cut \citep{ChanEtAl2016}. None of these possibilities supplies the
+required dynamics without a further construction. The symmetry result
+does not exclude symmetry breaking from asymmetric initial conditions.
+
+\section{The formation obligation}
 
 \openproblemheading{Inherited recursive formation}{inh:recursive-formation}
 Construct a specified population dynamics that selects nontrivial blocks

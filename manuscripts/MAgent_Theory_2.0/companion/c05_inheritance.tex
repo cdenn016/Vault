@@ -52,6 +52,22 @@ parent reproduces the whole retained history law. This is strong lumpability
 \citep{KemenySnell1976}. Agreement for one equilibrium preparation is a
 weaker statement.
 
+\section{When a gradient flow descends}
+
+Suppose the fine configuration lies on a Riemannian manifold with metric $g$ and evolves by $-\operatorname{grad}_g E$. Let a smooth surjective submersion $R$ retain the parent, whose metric is $g_c$. One sufficient condition is that the energy depend only on the parent,
+\begin{equation}
+E=E_c\circ R,
+\end{equation}
+and that $R$ preserve lengths of horizontal vectors, meaning vectors orthogonal to $\ker DR$. Then the gradient is horizontal because the energy has no derivative along a fiber of $R$. For a horizontal $u$,
+\begin{equation}
+g_c(DR\operatorname{grad}_gE,DR u)
+=g(\operatorname{grad}_gE,u)
+=dE_c(DR u).
+\end{equation}
+Every parent tangent has a horizontal lift, so the pushed gradient is exactly $\operatorname{grad}_{g_c}E_c$. The dynamics descends in the same time.
+
+If instead $E=\chi(E_c\circ R)$ and the horizontal metric is scaled by $d(x)^2$, the pushed vector field acquires the factor $\chi'(E_c(Rx))d(x)^2$. A positive factor preserves oriented trajectories after a time change. A factor that depends on discarded state does not specify an autonomous parent clock. Taking the minimum of $E$ over each fiber does not supply the first hypothesis: it gives the value at the minimizing states, not the fine energy everywhere on that fiber.
+
 \section{A missing role can prevent closure}
 
 Let two independent represented bits have laws
@@ -125,6 +141,19 @@ the fine transition, restrict to the new retained value, and normalize.
 That vector determines every future response even when the current summary
 does not. Keeping only an equilibrium hidden distribution generally changes
 transient predictions.
+
+There is an exact way to separate insufficient memory from inaccurate prediction. Let $P$ be a declared law of a finite record sequence $Z_0,\ldots,Z_{T-1}$ on standard Borel spaces. A retained statistic is $M_t=f_t(Z_{<t})$. Let $S$ use normalized prediction rows $s_t(\cdot\mid M_t)$. The path-law chain rule and conditional disintegration give
+\begin{equation}
+\begin{split}
+\KL(P\|S)
+={}&\sum_{t=0}^{T-1}I_P(Z_t;Z_{<t}\mid M_t)\\
+&+\sum_{t=0}^{T-1}\E_P
+\KL\bigl(P(Z_t\in\cdot\mid M_t)\|s_t(\cdot\mid M_t)\bigr).
+\end{split}
+\end{equation}
+The first sum is information about the next record that was discarded with the history. The second is error in the chosen prediction given the retained information. Both are nonnegative, including when the total is infinite. This extends the finite-window Markov decomposition \citep{Gray1990}. Zero first sum gives predictive sufficiency for the declared process; a compact recursively updated memory still needs a realization $M_{t+1}=U(M_t,Z_t)$. Changing the allowed controls changes which histories must be predicted.
+
+Statistical dependence alone also does not select an agent hierarchy. A declared finite cross-agent joint law has a finest partition into independent blocks, but arbitrarily weak couplings can merge those blocks. A deterministic selector reading only a fully permutation-symmetric law cannot choose a nontrivial intermediate hard partition while respecting relabeling: swapping one member with an outside agent would create a different block that overlaps the original. Realized histories, additional geometry, or a distribution over partitions can fall outside that restriction. The result identifies what a selector must read; it does not identify independence with agency.
 
 Formation requires dynamics that choose persistent blocks, hand their laws
 and interactions to parents, and then form another collective from at least
