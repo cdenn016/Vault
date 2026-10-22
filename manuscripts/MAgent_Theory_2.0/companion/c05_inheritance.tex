@@ -68,6 +68,14 @@ Every parent tangent has a horizontal lift, so the pushed gradient is exactly $\
 
 If instead $E=\chi(E_c\circ R)$ and the horizontal metric is scaled by $d(x)^2$, the pushed vector field acquires the factor $\chi'(E_c(Rx))d(x)^2$. A positive factor preserves oriented trajectories after a time change. A factor that depends on discarded state does not specify an autonomous parent clock. Taking the minimum of $E$ over each fiber does not supply the first hypothesis: it gives the value at the minimizing states, not the fine energy everywhere on that fiber.
 
+The requirement $E=E_c\circ R$ is stronger than descent needs, and it has a physical cost: it makes the energy blind to every motion along a fiber, so the discarded coordinates cannot move relative to the retained ones. Only the horizontal derivatives matter. The computation above uses $dE(u)$ for horizontal $u$ alone, so descent holds exactly when
+\begin{equation}
+dE(u)=dE_c(DR(u))\qquad\text{for every horizontal }u.
+\end{equation}
+Two particles on a line with unit masses, harmonic self-energies $\tfrac12x_1^2+\tfrac12x_2^2$, and any pair interaction $W(x_1-x_2)$ show the difference. The center of mass $(x_1+x_2)/\sqrt2$ relaxes as if the interaction were absent, because a force that depends only on the separation pushes the two particles in opposite directions and cancels in their sum. Meanwhile the separation evolves under $W$. The parent is exact, the discarded coordinate has its own dynamics, and yet the energy is not a function of the center of mass.
+
+The opposite case is a retention that simply drops some agents. If the retained and discarded agents exchange any peer cost, the retained velocity depends on the discarded state, because each agent pulls on every agent it attends to and is pulled back. Dropping whole agents is exact only for blocks that do not interact at all. Exact compression of interacting agents therefore comes from symmetry, as when every member of a block can be rotated together without changing any cost, or from special energy structure such as the center-of-mass cancellation. A related consequence is that exact inheritance cannot create oscillation: the linearization of a gradient flow at an equilibrium has real eigenvalues, and an exact parent inherits a subset of them.
+
 \section{A missing role can prevent closure}
 
 Let two independent represented bits have laws
@@ -79,8 +87,9 @@ evolve according to
  \dot p_2&=-2p_2+\lambda(p_1-p_2),\qquad \lambda\geq0.
  \end{aligned}
 \end{equation}
-The square $[0,1]^2$ is preserved: the derivative points inward at every
-boundary. Retain only the law of the sum of the two bits. The configurations
+The square $[0,1]^2$ is preserved: the vector field never points outward
+on its boundary. It is tangent to a face when $\lambda=0$ and vanishes at the
+corner $(0,0)$. Retain only the law of the sum of the two bits. The configurations
 $(0.8,0.2)$ and $(0.2,0.8)$ both give probabilities
 $(0.16,0.68,0.16)$ for sums $0,1,2$.
 
@@ -130,9 +139,13 @@ eight to four states. Both parents retain $q_a,s_a$, their evaluator, and
 the register. They reproduce the complete retained state and record
 histories for every initial law. The coupling is real, since $a$ affects
 $b'$ and $b$ affects $c'$; its triangular form permits these reductions.
-The hierarchy itself was prescribed.
+This is a drive and its response: $a$ drives $b$, which drives $c$, and
+nothing acts back. Each retained block is autonomous because the variables
+it keeps never read the variables it discards. The configuration describes
+one agent with internal marks, so neither level groups two agents, and the
+hierarchy itself was prescribed.
 
-\section{Memory and the remaining formation problem}
+\section{What a parent must remember}
 
 When closure fails, a parent can retain more state or, under a declared
 stochastic process, the conditional law of hidden states given its accessible
@@ -140,7 +153,31 @@ history. In a finite model this is a probability vector: propagate it with
 the fine transition, restrict to the new retained value, and normalize.
 That vector determines every future response even when the current summary
 does not. Keeping only an equilibrium hidden distribution generally changes
-transient predictions.
+transient predictions. The vector lives on the simplex of all fine states,
+so it saves nothing unless noise or poor observability keeps the history from
+pinning down the fine state.
+
+There is a middle case in which the parent needs no memory although the
+current summary is not autonomous for every preparation. Suppose that for
+each retained value $z$ there is a fixed way $\Lambda(z,\cdot)$ of spreading
+probability over the fine states with that value, and that spreading and then
+evolving gives the same result as evolving the parent and then spreading,
+$\Lambda T=T^c\Lambda$. A child population prepared by spreading a parent law
+in this way stays spread in this way forever: the hidden distribution is
+always $\Lambda(Z_n,\cdot)$, and the parent is an ordinary Markov chain with
+kernel $T^c$ \citep{RogersPitman1981}. A handoff that prepares children
+differently can break the parent, even though the kernels are unchanged.
+
+Given the fine update and a list of what the parent must reproduce (its
+laws, the responses to a declared set of probes, and the channels it reads),
+there is a smallest exact parent. Two configurations are lumped together
+exactly when the listed quantities agree for them now and at every later
+time. Nothing coarser can be exact, and anything exact remembers at least
+this much. A longer list of probes gives a finer parent; if outside agents
+may probe the children without restriction, they can tell every exposed child
+law apart and the parent cannot forget any of them. How much a parent
+forgets is therefore decided by the probes declared before the parent is
+chosen.
 
 There is an exact way to separate insufficient memory from inaccurate prediction. Let $P$ be a declared law of a finite record sequence $Z_0,\ldots,Z_{T-1}$ on standard Borel spaces. A retained statistic is $M_t=f_t(Z_{<t})$. Let $S$ use normalized prediction rows $s_t(\cdot\mid M_t)$. The path-law chain rule and conditional disintegration give
 \begin{equation}
@@ -151,22 +188,88 @@ There is an exact way to separate insufficient memory from inaccurate prediction
 \KL\bigl(P(Z_t\in\cdot\mid M_t)\|s_t(\cdot\mid M_t)\bigr).
 \end{split}
 \end{equation}
-The first sum is information about the next record that was discarded with the history. The second is error in the chosen prediction given the retained information. Both are nonnegative, including when the total is infinite. This extends the finite-window Markov decomposition \citep{Gray1990}. Zero first sum gives predictive sufficiency for the declared process; a compact recursively updated memory still needs a realization $M_{t+1}=U(M_t,Z_t)$. Changing the allowed controls changes which histories must be predicted.
+The first sum is information about the next record that was discarded with the history. The second is error in the chosen prediction given the retained information. Both are nonnegative, including when the total is infinite. This extends the finite-window Markov decomposition \citep[Thm.~7.3.1]{Gray1990}. Zero first sum gives predictive sufficiency for the declared process; a compact recursively updated memory still needs a realization $M_{t+1}=U(M_t,Z_t)$. Changing the allowed controls changes which histories must be predicted.
 
-Statistical dependence alone also does not select an agent hierarchy. A declared finite cross-agent joint law has a finest partition into independent blocks, but arbitrarily weak couplings can merge those blocks. A deterministic selector reading only a fully permutation-symmetric law cannot choose a nontrivial intermediate hard partition while respecting relabeling: swapping one member with an outside agent would create a different block that overlaps the original. Realized histories, additional geometry, or a distribution over partitions can fall outside that restriction. The result identifies what a selector must read; it does not identify independence with agency.
+Statistical dependence alone also does not select an agent hierarchy. A declared finite cross-agent joint law has a finest partition into independent blocks, but arbitrarily weak couplings can merge those blocks. A deterministic selector reading only a fully permutation-symmetric law cannot choose a nontrivial intermediate hard partition while respecting relabeling: swapping one member with an outside agent would create a different block that overlaps the original. More generally, such a selector can only output a partition that every symmetry of the law preserves; on a ring of four agents with the symmetries of a square, it can pair opposite agents but never neighbors. Realized histories, additional geometry, or a distribution over partitions can fall outside that restriction. The result identifies what a selector must read; it does not identify independence with agency.
 
-Formation requires dynamics that choose persistent blocks, hand their laws
-and interactions to parents, and then form another collective from at least
-two such parents. The next interaction must be inherited, without resetting
-source data or adding a newly tuned attraction. The next chapter supplies
-one such fusion mechanism using a nonsmooth interaction. Its additional
-assumptions distinguish that example from the smooth KL dynamics discussed
-earlier.
-The later construction in \cref{cf:formation} gives two selected stages under
-the original smooth potential, conditional on a common-precision matrix-law
-family, moment-dependent channels, a fixed membership threshold, and a
-declared extensive-response interface.
-\Cref{cf:open-formation} then gives a full open law neighborhood with native
-preferential pairs and a later parent join. It uses a fixed selective
-bit-circle channel and retains contextual profiles. Its exact parent flow
-and response protocol differ from those of the prepared matrix-law example.
+\section{The formation standard}
+
+The theory aims to show that interacting agents can produce further agents.
+A construction that groups agents and hands their laws to parents does not
+yet show this, because the grouping and the handoff can be arranged without
+the interaction doing anything. The formation standard of the main text lists
+six clauses, each closing one such loophole.
+
+The first clause asks for a set of starting configurations that is open, or
+a family declared in advance and preserved by the dynamics. A single
+trajectory is not enough. Along one path, almost any summary of the state
+traces out a curve, and every curve is the solution of some differential
+equation, so ``the parent evolves autonomously'' would hold for nearly any
+choice of parent. Exactness means something only when it is tested on
+configurations that the parent cannot tell apart. The second clause asks the
+dynamics to pick nontrivial groups that persist by a declared criterion, with
+the moment of handoff read off from the state or its accessible history. The
+third asks that each group carry inherited laws, evaluators, responses, and
+dynamics, with the probes that outsiders may use fixed before the parent is
+chosen.
+
+The fourth clause is compression. A parent that simply keeps every child's
+state is always exact and says nothing. Four agents with Gaussian laws pulled
+together by symmetric peer costs make the point: a threshold rule first pairs
+the two closest agents, then the other two, then the two pairs, and keeping
+the full tuple of child states at each stage reproduces the dynamics exactly.
+Nothing has been forgotten, so nothing has formed. The clause therefore asks
+each parent to lump together configurations that some admitted probe of the
+children could still distinguish.
+
+The fifth clause is the control experiment. Delete every cost that couples
+one agent to another, freeze the population dependence of the channels at its
+initial value, keep everything else, and run the same selector. This is the
+null flow. If it produces the same groups, the interaction did no selection
+work. Agents that do not interact can be grouped by any rule that reads their
+initial data and a common relaxation clock, much as runners in a race can be
+grouped by finishing order even though they never touch. The standard asks
+that the sequence of selected groups differ from the null one on an open set
+of starting configurations. Only the groups count: if the interaction merely
+makes the same joins happen sooner or later, it has changed a clock, not the
+outcome. A stronger version asks that the final grouping not
+be predictable from any summary of the initial data that evolves the same way
+with and without interaction, and an amplifying version asks that groups be
+tighter relative to their separations than they would be without interaction.
+
+A whole class of architectures fails this control. If every receiver compares
+itself with the same target law, and the channels see the population only
+through additive moments, then each pair of agents relaxes toward each other
+at a common rate: the logarithm of the ratio of their laws shrinks by the
+factor $e^{-2t}$, up to a constant. Without the peer costs the same quantity
+shrinks by $e^{-t}$. The interaction then only speeds up a clock that every
+pair shares, and any selector that compares pairs in this way produces the
+same sequence of groups with or without it, at different times. The same
+happens whenever summing two agents' parameters is an exact parent for every
+pair: the parameter equation must then be affine, all differences shrink by a
+common factor, and the order of joins is fixed by the initial distances.
+Selection that depends on the interaction needs receivers that weigh
+different sources differently.
+
+The sixth clause is recursion. The parents must themselves be grouped, by
+the inherited interactions, without resetting their data or adding a new
+attraction tuned for the purpose, and this second grouping must depend on what
+the first stage produced. If it would occur from every possible handoff in
+the inherited class, the second stage is a sequence of scales supplied in the
+initial data, not a parent built from parents.
+
+A construction that meets the selection, inheritance, and recursion clauses
+but fails compression or the null-flow control is called a two-stage
+selection with exact inheritance. The constructions in the later chapters
+are measured against this standard. The nonsmooth fusion example meets the
+null-flow control, since without coupling its agents never collide, at the
+cost of changing the interaction. The common-precision matrix-law
+construction of \cref{cf:formation} selects two parents and then their union,
+but its schedule does not depend on the coupling: it is a two-stage
+selection with exact inheritance. The six-agent construction of
+\cref{cf:open-formation} works on a full open neighborhood of laws with
+selective channels, but in the regime of its proof the null flow reproduces
+its membership history. Both smooth constructions supply their compression
+architectures in advance. A construction that meets every clause, with a
+selector and a compression interface derived rather than declared, remains
+open.

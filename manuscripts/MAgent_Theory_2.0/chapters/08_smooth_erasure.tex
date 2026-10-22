@@ -1,47 +1,47 @@
 % !TeX root = ../MAgent_Theory_2.0.tex
-\chapter{State-Controlled Erasure and Persistent Groups}
+\chapter{State-Controlled Erasure and Persistent Source Preferences}
 \label{ch:smooth-erasure}
 
-There is a conditional first-stage construction inside the original smooth KL potential. A prescribed channel can lose its dependence on some internal laws when a dynamically evolving gate coordinate enters a flat part of that channel. The remaining agents can be distinct, their preferred groups can change, and the retained dynamics can then become exactly autonomous. The mechanism is an engineered constitutive choice. It supplies neither a general explanation of sufficient interfaces nor a second formation stage. The general laws of the preceding chapter remain the framework; the existence example below uses an explicitly invariant family of positive finite laws.
+This chapter concerns the reciprocal law potential of \cref{def:dyn-potential}, in its exact Gibbs-reduced form \cref{eq:dyn-reduced}; nothing in it is a statement about the per-agent or global free-energy pictures. Inside that potential there is a conditional first-stage construction. A prescribed channel can lose its dependence on some internal laws when a dynamically evolving gate coordinate enters a flat part of that channel. The preferred sources of the remaining agents can change, and the retained dynamics can then become exactly autonomous. The mechanism is an engineered constitutive choice, and both of its conclusions follow from a declared ordering of scales. It supplies neither a general explanation of sufficient interfaces nor a second formation stage. Measured against the formation standard \cref{inh:recursive-formation}, it is a single-stage selection with exact inheritance by a decoupled-factor projection; \cref{sec:erase-status} records the clause-by-clause status and the null-flow control. The general laws of the preceding chapters remain the framework; the existence example below uses an explicitly invariant family of positive finite laws.
 
 \section{A homogeneous population with internal gate coordinates}
 
-Write $b_x(k)=(1+kx)/2$ on $\{-1,1\}$, set $d(x,z)=\KL(b_x\Vert b_z)$, and put $\psi(x)=d(x,0)$. Four agents carry
+Write $b_x(k)=(1+kx)/2$ on $\{-1,1\}$, set $d(x,z)=\KL(b_x\Vert b_z)$, and put $d_0(x)=d(x,0)$. Four agents carry
 \begin{equation}
  q_i=b_{x_i}\otimes b_{z_i}\otimes b_{h_i},\qquad
  s_i=b_{y_i}\otimes b_{w_i}\otimes b_{\widehat h_i}.
  \label{erase:family}
 \end{equation}
-The first coordinate is public, the second private, and the third controls a channel. Their unit Fisher metric has diagonal entries $1/(1-u^2)$ for each mean $u$. The product preparation within each sector is an assumption. It is invariant under the full table dynamics specified below, rather than a projection imposed after each step.
+The first coordinate is called public, the second private, and the third is a gate coordinate. These words refer to a declared observable algebra: the peer channel below transmits samples of the public coordinate, it reads the private coordinate of a source only through that source's mean multiplied by the gate, and the admitted response class of \cref{erase:parent-flow} reads public coordinates only. Their unit Fisher metric has diagonal entries $1/(1-u^2)$ for each mean $u$. The product preparation within each sector is an assumption. It is invariant under the full table dynamics specified below, rather than a projection imposed after each step.
 
 Take $J=\log3$ and $h_*=-1/2$. Use the proper reference $r=b_0\otimes b_0\otimes b_{h_*}$ and normalized evaluator
 \begin{equation}
- G_J(k\mid m)=\frac{e^{Jkm}}{2\cosh J}
+ G_J(k\mid m)=\frac{e^{Jkm}}{2\cosh J},
  \label{erase:evaluator}
 \end{equation}
 on the public coordinates, with independent private output $b_0$ and gate output $b_{h_*}$. The local term is exactly
 \begin{equation}
  \begin{split}
- E_{0,i}={}&\psi(x_i)+\psi(y_i)-Jx_iy_i+\log\cosh J\\
- &+\psi(z_i)+\psi(w_i)+d(h_i,h_*)+d(\widehat h_i,h_*).
+ E_{0,i}={}&d_0(x_i)+d_0(y_i)-Jx_iy_i+\log\cosh J\\
+ &+d_0(z_i)+d_0(w_i)+d(h_i,h_*)+d(\widehat h_i,h_*).
  \end{split}
  \label{erase:local}
 \end{equation}
-All agents have the same reference and evaluator. Every nonself agent is an allowed source, with uniform prior and fixed temperature $T>0$. We use the exact Gibbs-reduced version of the original potential. The bits are reference coordinates: a change of presentation carries the reference laws, channels, and readout maps with it, so the KL and Fisher covariance statements apply.
+All agents have the same reference and evaluator. Every nonself agent is an allowed source, with uniform prior and fixed temperature $T>0$. We use the exact Gibbs-reduced version of the reciprocal potential. The bits are reference coordinates: a change of presentation carries the reference laws, channels, and readout maps with it, so the KL and Fisher covariance statements apply.
 
 Define $\chi(r)=0$ for $r\leq0$, $\chi(r)=1$ for $r\geq1$, and, for $0<r<1$,
 \begin{equation}
  \chi(r)=\frac{e^{-1/r}}{e^{-1/r}+e^{-1/(1-r)}}.
  \label{erase:flat-step}
 \end{equation}
-This increasing function is smooth, all its derivatives match at the endpoints, and $M_\chi=\max|\chi'|<\infty$. Fix $h_0=1/4$ and $\delta>0$, and set
+This increasing function is smooth, all its derivatives match at the endpoints, and $M_\chi=\max|\chi'|<\infty$. Fix $h_0=1/4$ and a gate width $\Delta>0$, and set
 \begin{equation}
  H_q=\frac14\sum_i h_i,\quad
  H_s=\frac14\sum_i\widehat h_i,\quad
- \alpha(H)=\chi((H-h_0)/\delta).
+ \alpha(H)=\chi((H-h_0)/\Delta).
  \label{erase:gate}
 \end{equation}
-The gate is a nonlocal function of internal laws. Its threshold and flat region are constitutive data. There is no external time schedule.
+The gate is a nonlocal function of internal laws. Its threshold and flat region are constitutive data. There is no external time schedule; the schedule is internal, set by the initial gate positions and by $h_*$, as \cref{erase:gate-entry} makes precise.
 
 Choose gains $0<\varepsilon,\varrho<1$. On a belief edge $j\to i$, let the public output kernel be $(1-\varepsilon)b_{x_i}+\varepsilon\delta_{k_{\rm pub}}$, and independently draw private output from $b_{\alpha(H_q)\varrho z_j}$ and gate output from $b_{h_*}$. Its compared law is
 \begin{equation}
@@ -49,32 +49,32 @@ Choose gains $0<\varepsilon,\varrho<1$. On a belief edge $j\to i$, let the publi
               \otimes b_{\alpha(H_q)\varrho z_j}\otimes b_{h_*}.
  \label{erase:compared-law}
 \end{equation}
-This normalized channel is strictly positive on the interior and depends smoothly on the current marginal means. It transmits public samples and uses the source's private law. The model channel exchanges $(x,z,h)$ with $(y,w,\widehat h)$. Define
+This normalized channel is strictly positive on the interior and depends smoothly on the current marginal means. It transmits public samples, mixed with the receiver's own public law, and uses the source's private mean rather than its private sample. At $\alpha=0$ every private cost therefore equals $d_0(z_i)$ by construction. The model channel exchanges $(x,z,h)$ with $(y,w,\widehat h)$. Define
 \begin{equation}
  D_\varepsilon(x,v)=d(x,(1-\varepsilon)x+\varepsilon v).
 \end{equation}
-The original peer cost becomes
+The reciprocal peer cost becomes
 \begin{equation}
  D_{ij}^q=D_\varepsilon(x_i,x_j)
        +d(z_i,\alpha(H_q)\varrho z_j)+d(h_i,h_*).
  \label{erase:peer-cost}
 \end{equation}
-No fusion cost has been added.
+No fusion cost has been added. Because the public kernel mixes in the receiver's own law, every public peer cost and force is of order $\varepsilon^2$.
 
-The definitions extend to arbitrary positive tables on each three-bit space by taking the indicated marginal means. At a product table, the derivative of the receiver entropy is additive in its coordinates. Each compared law is a product, and every channel derivative is a function of a single coordinate because the channel parameters depend on marginal means. The local evaluator also gives additive scores within each sector. The full Fisher score is consequently a sum of coordinate scores on \cref{erase:family}. Differentiating a product shows that the full table flow preserves this family and induces the stated Bernoulli Fisher metric. This argument includes incoming and channel derivatives.
+The definitions extend to arbitrary positive tables on each three-bit space by taking the indicated marginal means. At a product table, the derivative of the receiver entropy is additive in its coordinates. Each compared law is a product, and every channel derivative is a function of a single coordinate because the channel parameters depend on marginal means. The local evaluator also gives additive scores within each sector. The full Fisher score is consequently a sum of coordinate scores on \cref{erase:family}. Differentiating a product shows that the full table flow of \cref{thm:dyn-finite-flow} preserves this family and induces the stated Bernoulli Fisher metric. This argument includes incoming and channel derivatives.
 
 \section{Finite entry into an exactly erasing region}
 
-\lemmaheading{Permanent gate closure under the original flow}{erase:gate-entry}
-For sufficiently small $\delta>0$ and then sufficiently small $\varrho>0$ relative to $\delta$, there is an open class within \cref{erase:family}, with
+\lemmaheading{Permanent gate closure under the reciprocal flow}{erase:gate-entry}
+For sufficiently small $\Delta>0$ and then sufficiently small $\varrho>0$ relative to $\Delta$, there is an open class within \cref{erase:family}, with
 \begin{equation}
- |z_i|,|w_i|<p=3/4,\qquad
- h_i,\widehat h_i\in(h_0+\delta/2,h_0+3\delta/4),
+ |z_i|,|w_i|<\sigma_{\max}=3/4,\qquad
+ h_i,\widehat h_i\in(h_0+\Delta/2,h_0+3\Delta/4),
  \label{erase:initial-gates}
 \end{equation}
-for which both gates reach zero in finite time and remain zero.
+and public means unrestricted, on which, for as long as the solution exists, both gates reach zero by the time $3\Delta/(2m_K)$ defined below and remain zero afterward. The gate means follow an autonomous relaxation toward $h_*$ perturbed by a term of size at most $B\varrho M_\chi/\Delta$. On the admitted class of \cref{erase:pairs} the solution exists for all time.
 \begin{proof}
-The exact envelope derivative gives
+The exact envelope derivative \cref{eq:dyn-envelope} gives
 \begin{equation}
  \dot h_i=-(1-h_i^2)\left[
  2(\operatorname{atanh}h_i-\operatorname{atanh}h_*)+
@@ -82,7 +82,7 @@ The exact envelope derivative gives
        \partial_\alpha d(z_a,\alpha\varrho z_j)\right].
  \label{erase:gate-flow}
 \end{equation}
-The factor two comes from the local term and the receiver's source-independent gate cost. For $|z_a|,|z_j|\leq p$ and $\varrho\leq1/2$,
+The factor two comes from the local term and the receiver's source-independent gate cost. For $|z_a|,|z_j|\leq\sigma_{\max}$ and $\varrho\leq1/2$,
 \begin{equation}
  \partial_\alpha d(z_a,\alpha\varrho z_j)
  =\varrho z_j\frac{\alpha\varrho z_j-z_a}
@@ -90,24 +90,24 @@ The factor two comes from the local term and the receiver's source-independent g
  \label{erase:gate-derivative}
 \end{equation}
 Its absolute value is bounded by $B\varrho$, where one may take
-$B=3p^2/[2(1-p^2/4)]$. The four row sums equal one, so the correction to the gate force is bounded by $B\varrho M_\chi/\delta$.
+$B=3\sigma_{\max}^2/[2(1-\sigma_{\max}^2/4)]$. The four row sums equal one, so the correction to the gate force is bounded by $B\varrho M_\chi/\Delta$.
 
 On $K=[1/8,1/2]$, define the positive constants
 \begin{equation}
  \begin{aligned}
- m&=\min_{h\in K}2(1-h^2)
+ m_K&=\min_{h\in K}2(1-h^2)
                 (\operatorname{atanh}h-\operatorname{atanh}h_*),\\
- M&=\max_{h\in K}2(1-h^2)
+ M_K&=\max_{h\in K}2(1-h^2)
                 (\operatorname{atanh}h-\operatorname{atanh}h_*),
- \qquad V=M+m/2.
+ \qquad V_K=M_K+m_K/2.
  \end{aligned}
 \end{equation}
-Choose $B\varrho M_\chi/\delta\leq m/2$. While its coordinates stay in $K$, each gate coordinate has $\dot h_i\leq-m/2$ and $|\dot h_i|\leq V$. Also choose $\delta$ so that the initial interval lies in $K$ and
+Choose $B\varrho M_\chi/\Delta\leq m_K/2$. While its coordinates stay in $K$, each gate coordinate has $\dot h_i\leq-m_K/2$ and $|\dot h_i|\leq V_K$. Also choose $\Delta$ so that the initial interval lies in $K$ and
 \begin{equation}
- \frac{3V\delta}{2m}<h_0-1/8.
+ \frac{3V_K\Delta}{2m_K}<h_0-1/8.
  \label{erase:time-choice}
 \end{equation}
-The sector mean reaches $h_0$ by time $3\delta/(2m)$, before any coordinate can leave $K$. On $H_q=h_0$, both $\alpha$ and $\alpha'$ vanish. Thereafter
+The sector mean reaches $h_0$ by time $3\Delta/(2m_K)$, before any coordinate can leave $K$. On $H_q=h_0$, both $\alpha$ and $\alpha'$ vanish. Thereafter
 \begin{equation}
  \dot h_i=-2(1-h_i^2)
            (\operatorname{atanh}h_i-\operatorname{atanh}h_*).
@@ -116,20 +116,20 @@ The sector mean reaches $h_0$ by time $3\delta/(2m)$, before any coordinate can 
 All these coordinates start above $h_*$ and decrease toward it. Their mean therefore cannot leave the closed-gate region. The model-sector proof is identical.
 
 It remains to justify the private bounds used in the argument. At $\varrho=0$ the private field is
-$\dot z=-2(1-z^2)\operatorname{atanh}z$, strictly inward at $z=\pm p$. Private derivatives of \cref{erase:peer-cost} converge uniformly to this field as $\varrho\to0$, uniformly over normalized source rows and $0\leq\alpha\leq1$. The incoming terms are of order $\varrho$; differentiating a private mean does not differentiate $\alpha$. Compactness therefore preserves the strict inward signs for sufficiently small $\varrho$. The same holds for $w$. This closes the interval argument.
+$\dot z=-2(1-z^2)\operatorname{atanh}z$, strictly inward at $z=\pm\sigma_{\max}$. Private derivatives of \cref{erase:peer-cost} converge uniformly to this field as $\varrho\to0$, uniformly over normalized source rows and $0\leq\alpha\leq1$. The incoming terms are of order $\varrho$; differentiating a private mean does not differentiate $\alpha$. Compactness therefore preserves the strict inward signs for sufficiently small $\varrho$. The same holds for $w$. This closes the interval argument. The private and gate means stay in compact subsets of $(-1,1)$. On the admitted class of \cref{erase:pairs} so do the public means, by the box invariance proved there, and the solution therefore continues for all time on that class.
 \end{proof}
 
-Let $\tau$ be the later of the two gate-closure times. The construction uses a smooth but nonanalytic channel: its exactly flat region makes finite entry into exact erasure possible. Decreasing a small nonzero analytic gate would not establish this conclusion.
+Let $\tau$ be the later of the two gate-closure times. The construction uses a smooth but nonanalytic channel: its exactly flat region makes finite entry into exact erasure possible. Decreasing a small nonzero analytic gate would not establish this conclusion. The gate mean is an internal clock: its motion is monotone and decoupled from the other coordinates up to a perturbation that the parameter choice makes subordinate.
 
-\section{A change of preferred groups without synchronization}
+\section{A change of preferred sources without synchronization}
 
-\theoremheading{Persistent heterogeneous pairs}{erase:pairs}
+\theoremheading{Changing and persistent source preferences}{erase:pairs}
 For sufficiently small $\varepsilon>0$, admit two public states in $(l,u)^2$ and two in $(-u,-l)^2$, with $l=0.49$, $u=0.51$, including every assignment of these signs to the four labels. These boxes are forward invariant. After $\tau$, each agent's unique preferred source in both sectors is the other agent in its box. There are initial private states for which the preferred pairs are instead crossed between these boxes before closure. The public states within each final pair can remain distinct at every finite time.
 \begin{proof}
 For the local public flow, the inequalities
 \begin{equation}
  Jl-\operatorname{atanh}l>0,\qquad
- \operatorname{atanh}u-Ju>0
+ \operatorname{atanh}u-Ju>0,
  \label{erase:well-margins}
 \end{equation}
 give strict inward signs on every face of the two boxes. They follow by differentiating $Jv-\operatorname{atanh}v$ near its zero $v=1/2$. Set $c=(1-\varepsilon)x+\varepsilon v$. Direct differentiation gives
@@ -153,20 +153,52 @@ After gate closure, the private and gate costs in a row do not depend on its sou
 \end{equation}
 A same-box source has separation at most $u-l$, whereas an opposite-box source has separation at least $2l$. Since $(u-l)^2/(1-u^2)<(2l)^2$, the same-box partner is the unique preferred source throughout the invariant region. Cross-pair weights remain positive.
 
-For an explicit initial reorganization, choose private means $\pm\zeta$, with $0<\zeta<p$, in both sectors, assigning each same-private-sign pair one positive and one negative public member. Initially $\alpha\geq1/2$. The private advantage of the same-sign partner over an opposite-sign source is
+For an explicit initial reorganization, choose private means $\pm\sigma$, with $0<\sigma<\sigma_{\max}$, in both sectors, assigning each same-private-sign pair one positive and one negative public member. Initially $\alpha\geq1/2$. The private advantage of the same-sign partner over an opposite-sign source is
 \begin{equation}
- d(\zeta,-\alpha\varrho\zeta)
- -d(\zeta,\alpha\varrho\zeta)
- =2\zeta\operatorname{atanh}(\alpha\varrho\zeta)
- \geq\varrho\zeta^2.
+ d(\sigma,-\alpha\varrho\sigma)
+ -d(\sigma,\alpha\varrho\sigma)
+ =2\sigma\operatorname{atanh}(\alpha\varrho\sigma)
+ \geq\varrho\sigma^2.
  \label{erase:crossed-pair-gap}
 \end{equation}
-The public cost range is at most $2u^2\varepsilon^2/(1-u^2)$. Choosing this smaller than $\varrho\zeta^2$ makes the initial preferred pairs the crossed pairs. Strict inequalities persist under small perturbations of the initial private values. Thus the final persistent grouping is not an unchanged initial source assignment.
+The public cost range is at most $2u^2\varepsilon^2/(1-u^2)$. Choosing this smaller than $\varrho\sigma^2$ makes the initial preferred pairs the crossed pairs. Strict inequalities persist under small perturbations of the initial private values. Thus the final persistent grouping is not an unchanged initial source assignment.
 
-Choose initial public states within a box separated by a fixed positive distance. Their speeds are uniformly bounded, whereas $\tau\leq3\delta/(2m)$. Taking $\delta$ sufficiently small keeps them distinct through $\tau$. Afterward the public field is autonomous, smooth, and permutation equivariant. Its equality diagonal for a pair is invariant. Backward uniqueness precludes first entry into that diagonal at a finite time. This proves finite-time distinctness; it does not give a uniform lower bound on their separation as $t\to\infty$.
+Choose initial public states within a box separated by a fixed positive distance. Their speeds are uniformly bounded, whereas $\tau\leq3\Delta/(2m_K)$. Taking $\Delta$ sufficiently small keeps them distinct through $\tau$. Afterward the public field is autonomous, smooth, and permutation equivariant. Its equality diagonal for a pair is invariant. Backward uniqueness precludes first entry into that diagonal at a finite time. This proves finite-time distinctness.
 \end{proof}
 
-The parameter choices are compatible: first choose a sufficiently small $\delta$, then $\varrho$ sufficiently small relative to $\delta$, and finally $\varepsilon$ sufficiently small that $\varepsilon^2$ is small relative to $\varrho$ and the fixed public inward margins. All means stay in compact subsets of $(-1,1)$, giving global continuation in this admitted family.
+The preference change is a switch between two prescribed scales: before closure the private advantage $\varrho\sigma^2$ dominates the public cost range of order $\varepsilon^2$, and after closure only the public costs remain. The parameter choices are compatible: first choose a sufficiently small $\Delta$, then $\varrho$ sufficiently small relative to $\Delta$, and finally $\varepsilon$ sufficiently small that $\varepsilon^2$ is small relative to $\varrho$ and the fixed public inward margins. All means stay in compact subsets of $(-1,1)$, giving global continuation in this admitted family. The two final groups are the two wells of the bistable single-agent energy $d_0(x)+d_0(y)-Jxy$, whose minima are $x=y=\pm1/2$, and box membership is the supplied initial well.
+
+The temperature enters this ordering. The proofs above use only that row weights lie in $[0,1]$, so $T>0$ may be fixed before the gains are chosen. At fixed $T$ every row cost is $O(\varrho+\varepsilon^2)$, so every Gibbs row is within $O((\varrho+\varepsilon^2)/T)$ of uniform, and a preferred source is then the largest entry of a nearly uniform row. Quantitatively, \cref{erase:cost-comparison} gives after closure
+\begin{equation}
+ \beta^*_{i,\mathrm{same}}\geq\frac1{1+2e^{-\Delta_\varepsilon/T}},\qquad
+ \Delta_\varepsilon=\varepsilon^2\left[2l^2-\frac{(u-l)^2}{2(1-u^2)}\right],
+ \label{erase:row-bound}
+\end{equation}
+and before closure, with $\alpha\geq1/2$, the crossed partner has weight at least $[1+2e^{-(\varrho\sigma^2-2u^2\varepsilon^2/(1-u^2))/T}]^{-1}$. Near one-hot selection therefore requires $T$ of order $\varepsilon^2$ or smaller.
+
+The heterogeneity of the final pairs is transient, as the next result shows.
+
+\propositionheading{Each preferred pair converges to a common state}{erase:pair-convergence}
+Fix $T>0$ and the parameters of \cref{erase:pairs}. There is $\varepsilon_T>0$ such that for $0<\varepsilon<\varepsilon_T$ the public system after $\tau$ has exactly one equilibrium in the closed boxes $Q=([l,u]^2)^2\times([-u,-l]^2)^2$, ordered by box. At this equilibrium the two members of each box have equal public states, the two boxes carry opposite states $\pm(x_\varepsilon,y_\varepsilon)$, and $(x_\varepsilon,y_\varepsilon)\to(1/2,1/2)$ as $\varepsilon\to0$. Every admitted trajectory converges to it exponentially. In particular the in-pair public separation tends to zero, and each retained empirical measure $\eta_I$ of \cref{erase:parent-state} converges to a Dirac mass.
+\begin{proof}
+After $\tau$ the public coordinates follow the unit Fisher gradient flow of the public part $\mathcal E_{\rm pub}$ of \cref{erase:separated-energy}, so
+\begin{equation}
+ \frac{d\mathcal E_{\rm pub}}{dt}
+ =-\sum_i(1-x_i^2)(\partial_{x_i}\mathcal E_{\rm pub})^2
+  -\sum_i(1-y_i^2)(\partial_{y_i}\mathcal E_{\rm pub})^2\leq0,
+\end{equation}
+with equality exactly at equilibria. The set $Q$ is compact and forward invariant by \cref{erase:pairs}. By the invariance principle \citep{LaSalle1960}, the $\omega$-limit set of each trajectory is a nonempty connected set of equilibria in $Q$.
+
+At $\varepsilon=0$ the public field decouples into single-agent fields. In the positive box their zeros solve $\operatorname{atanh}x=Jy$ and $\operatorname{atanh}y=Jx$. With the increasing map $g(t)=\operatorname{atanh}(t)/J$ this reads $x=g(y)$ and $y=g(x)$. If $x>g(x)$, then $y=g(x)<x$ and $x=g(y)<g(x)$, a contradiction; the case $x<g(x)$ is symmetric. Hence $\operatorname{atanh}x=Jx$, and since $\operatorname{atanh}(x)/x$ increases from one and $J>1$, the only solution in $(0,1)$ is $x=1/2$. The Jacobian of $(\operatorname{atanh}x-Jy,\operatorname{atanh}y-Jx)$ there has diagonal entries $4/3$ and off-diagonal entries $-J$, and $16/9-J^2>0$, so the zero is nondegenerate. The negative box is the mirror image. Thus at $\varepsilon=0$ the field on $Q$ has exactly one zero, and it is nondegenerate and interior.
+
+The peer cost $D_\varepsilon$ is a smooth function of $(x,v,\varepsilon)$ that vanishes to second order in $\varepsilon$, so all its derivatives in $(x,v)$ are $O(\varepsilon^2)$ on $Q$, and the derivatives of the Gibbs rows are $O(\varepsilon^2/T)$. For fixed $T$ the public field therefore converges to the decoupled field in $C^1(Q)$ as $\varepsilon\to0$. The decoupled field is bounded away from zero on $Q$ outside any neighborhood of its zero, and the implicit function theorem gives a unique nondegenerate zero inside a small neighborhood. This proves uniqueness and the limit $(1/2,1/2)$.
+
+The post-closure public system has identical constitutive data for all agents and uniform nonself priors, so it is equivariant under permutations of the agents. It is also equivariant under the global reversal $(x,y)\mapsto(-x,-y)$, since $d_0$ is even, $Jxy$ is invariant, and $d(-x,-c)=d(x,c)$. The transposition of two box-mates, and the composition of global reversal with the exchange of the two boxes, map $Q$ to itself and therefore fix the unique equilibrium. This gives equal box-mates and opposite boxes.
+
+Every $\omega$-limit set is therefore this single equilibrium. It attracts every interior point of $Q$, so it is a local minimum of $\mathcal E_{\rm pub}$: a nondegenerate critical point of a gradient flow that is not a minimum has a stable set of positive codimension. The linearized gradient flow at a nondegenerate minimum has negative spectrum, which gives exponential convergence.
+\end{proof}
+
+Persistent heterogeneous pairs would require heterogeneous constitutive data. With identical agents each box carries a single attracting equilibrium, and \cref{erase:pair-convergence} forces its members together. If agent $i$ instead carried its own coupling $J_i=\log3+\eta_i$, the single-agent equilibria near $1/2$ would separate to first order by $|\eta_i-\eta_k|/(8/3-2\log3)$ per coordinate, while the inward margins of \cref{erase:well-margins} survive for small $|\eta_i|$; box-mates would then be expected to converge to distinct states. We do not prove this variant here. A gate driven by a public statistic, such as the polarization $\frac14\sum_id_0(x_i)$, would make erasure depend on public relaxation rather than on a dedicated clock; its entry estimate is also not established.
 
 \section{The exact inherited state}
 
@@ -174,12 +206,12 @@ For $t\geq\tau$ the reduced potential separates exactly:
 \begin{equation}
  \begin{split}
  \mathcal E_{\rm red}={}&\mathcal E_{\rm pub}(\mathbf x,\mathbf y)\\
- &+2\sum_i[\psi(z_i)+\psi(w_i)
+ &+2\sum_i[d_0(z_i)+d_0(w_i)
                 +d(h_i,h_*)+d(\widehat h_i,h_*)].
  \end{split}
  \label{erase:separated-energy}
 \end{equation}
-Here $\mathcal E_{\rm pub}$ is the original coupled local KL and Gibbs-reduced peer potential with costs $D_\varepsilon$. The product Fisher metric separates as well. Discarding the private and gate laws therefore gives an exact autonomous public system without fitting another potential or mobility.
+Here $\mathcal E_{\rm pub}$ is the coupled local KL and Gibbs-reduced reciprocal peer potential with costs $D_\varepsilon$. The product Fisher metric separates as well. After closure the state space is the product of eight public means and sixteen private and gate means, the flow is a product flow, and the second factor relaxes autonomously to $z=w=0$ and $h=\widehat h=h_*$. Discarding that factor is projection onto a factor of a product flow, the most elementary exact lumping \citep{HorstmeyerAtay2016}, and it gives an exact autonomous public system without fitting another potential or mobility.
 
 This independence is generally absent before gate closure. To see that this is an actual change of the vector field, expand one reduced row with $\alpha>0$ fixed. If
 $A_{ij}=(x_j-x_i)^2/[2(1-x_i^2)]$, its first mixed public-private term is
@@ -188,35 +220,44 @@ $A_{ij}=(x_j-x_i)^2/[2(1-x_i^2)]$, its first mixed public-private term is
  z_i\operatorname{Cov}_{j\ne i}(A_{ij},z_j).
  \label{erase:mixed-term}
 \end{equation}
-This follows by expanding $D_\varepsilon=\varepsilon^2A+O(\varepsilon^3)$, $d(z_i,\alpha\varrho z_j)=\psi(z_i)-\alpha\varrho z_i z_j+O(\varrho^2)$, and the logarithm of the row normalization. The covariance is under the uniform source prior. It is not identically zero even within the crossed-preference preparation. Fix $v=(-b,-a,a,b)$ with $l<a<b<u$, keep $z=\zeta(1,-1,1,-1)$ fixed, and vary only public $x_i=r v_i$ near $r=1$. The summed coefficient is
+This follows by expanding $D_\varepsilon=\varepsilon^2A+O(\varepsilon^3)$, $d(z_i,\alpha\varrho z_j)=d_0(z_i)-\alpha\varrho z_i z_j+O(\varrho^2)$, and the logarithm of the row normalization in powers of the costs divided by $T$; the expansion is valid at fixed $T$ as the gains tend to zero. The covariance is under the uniform source prior. It is not identically zero even within the crossed-preference preparation. Fix $v=(-b,-a,a,b)$ with $l<a<b<u$, keep $z=\sigma(1,-1,1,-1)$ fixed, and vary only public $x_i=r v_i$ near $r=1$. The summed coefficient is
 \begin{equation}
- \frac{2\zeta^2r^2}{9}\left[
+ \frac{2\sigma^2r^2}{9}\left[
  \frac{a^2-3b^2+6ab}{1-r^2b^2}
  +\frac{b^2-3a^2+6ab}{1-r^2a^2}\right].
  \label{erase:mixed-witness}
 \end{equation}
-Both numerator factors are positive on the stated intervals, so this expression has positive derivative in $r>0$. Two fixed admissible values of $\zeta$ therefore give different public directional gradients at leading order $\varrho\varepsilon^2$. The differentiated remainder is $O(\varrho\varepsilon^3+\varrho^2\varepsilon^2)$ on these compact sets. For sufficiently small positive gains, equal public data thus have different public derivatives while the gate is open. This expansion establishes nonidentity of the preclosure force; \cref{erase:separated-energy} is an exact postclosure identity.
+Both numerator factors are positive on the stated intervals, so this expression has positive derivative in $r>0$. Two fixed admissible values of $\sigma$ therefore give different public directional gradients at leading order $\varrho\varepsilon^2$. The differentiated remainder is $O(\varrho\varepsilon^3+\varrho^2\varepsilon^2)$ on these compact sets. For sufficiently small positive gains, equal public data thus have different public derivatives while the gate is open. This expansion establishes nonidentity of the preclosure force; \cref{erase:separated-energy} is an exact postclosure identity. For $T$ of order $\varepsilon^2$ or smaller the cumulant expansion is unavailable, and nonautonomy before closure would need a direct comparison of the forces under two private assignments.
 
 For each selected pair $I$, retain its size and the empirical measure
 \begin{equation}
  \eta_I=\frac1{|I|}\sum_{i\in I}\delta_{(x_i,y_i)},\qquad
- M=\sum_I|I|\eta_I.
+ \mathsf M=\sum_I|I|\eta_I.
  \label{erase:parent-state}
 \end{equation}
-This is a deterministic configuration statistic, not an assumed probability distribution over uncertain population configurations. Let $V[v;M]$ be the public Fisher vector field at the public state $v=(x,y)$, computed from $\mathcal E_{\rm pub}$. It is determined by $v$ and the counting measure $M$: source sums use $M-\delta_v$, and the derivative includes both receiver and incoming source terms from \cref{erase:public-derivatives}. The normalized Gibbs denominator is computed from the same counting measure. Permutation equivariance makes this definition independent of labels, including multiplicities.
+This is a deterministic configuration statistic, not an assumed probability distribution over uncertain population configurations. Let $V[v;\mathsf M]$ be the public Fisher vector field at the public state $v=(x,y)$, computed from $\mathcal E_{\rm pub}$. It is determined by $v$ and the counting measure $\mathsf M$: source sums use $\mathsf M-\delta_v$, and the derivative includes both receiver and incoming source terms from \cref{erase:public-derivatives}. The normalized Gibbs denominator is computed from the same counting measure. Permutation equivariance makes this definition independent of labels, including multiplicities.
 
 \propositionheading{Exact parent evolution and public responses}{erase:parent-flow}
 The inherited parent equations are
 \begin{equation}
  \frac{d}{dt}\int f(v)\eta_I(dv)
- =\int\nabla f(v)\cdot V[v;M]\eta_I(dv)
+ =\int\nabla f(v)\cdot V[v;\mathsf M]\eta_I(dv),
  \label{erase:empirical-flow}
 \end{equation}
-for every continuously differentiable test function. On the realizable finite-atom states they determine the retained evolution uniquely. They also determine every declared fresh public response whose source selection depends only on public states, including joint responses with a shared sampled child.
+for every continuously differentiable test function. Among curves of realizable finite-atom states, that is, empirical measures of solutions of the public system, two curves with equal initial retained measures coincide at all later times. The retained measures also determine every declared fresh public response whose source selection depends only on public states, including joint responses with a shared sampled child.
 \begin{proof}
-Differentiate the finite sum in \cref{erase:parent-state} using the exact public equations. This gives \cref{erase:empirical-flow}. Equal retained parent measures admit enumerations that differ only by within-pair permutations. Uniqueness and permutation equivariance of the public system give identical evolved measures, proving the retained uniqueness assertion. For a fresh response, select the child or children using the declared normalized public kernel, then integrate their public sample laws against the retained empirical measures. Both the selection probabilities and sample laws are determined by the retained states. For shared-source outputs, use one shared draw rather than multiplying separate marginals; the same calculation preserves their joint law.
+Differentiate the finite sum in \cref{erase:parent-state} using the exact public equations. This gives \cref{erase:empirical-flow}. Equal retained parent measures admit enumerations that differ only by within-pair permutations. Uniqueness and permutation equivariance of the public system give identical evolved measures, proving the uniqueness assertion among realizable curves. For a fresh response, select the child or children using the declared normalized public kernel, then integrate their public sample laws against the retained empirical measures. Both the selection probabilities and sample laws are determined by the retained states. For shared-source outputs, use one shared draw rather than multiplying separate marginals; the same calculation preserves their joint law.
 \end{proof}
 
-The parent can carry belief and model marginals $q_I=\int b_x\eta_I(d(x,y))$ and $s_I=\int b_y\eta_I(d(x,y))$, with normalized public evaluator $G_J$. These two marginals alone are insufficient: $\eta_I$ retains the paired public roles and receiver-specific routing information. The inherited equations are \cref{erase:empirical-flow}, not a newly postulated Fisher flow for the two mixture marginals.
+The proposition does not assert uniqueness for \cref{erase:empirical-flow} among general measure-valued curves; that would need a Lipschitz stability estimate for $V$ in $(v,\mathsf M)$. A single $\eta_I$ has no autonomous dynamics, since $V[v;\mathsf M]$ depends on the counting measure of both pairs; only the pair of parents is closed. The descent also holds for every partition of the four agents, so inheritance does not distinguish the selected pairs.
 
-The physical compression here discards the private and gate laws: the admitted family has twenty-four continuous means, and the retained empirical state keeps eight public means, up to within-pair permutations. It keeps every public child state. Cached private readouts, feedback that changes the erased channels, and protocols that later inspect discarded private coordinates are outside the response class. The reference, gate, initial sign-box preparation, and boundary restrictions are all supplied assumptions. The dynamics select changing source preferences and a persistent grouping within them, but do not discover the erasing architecture. The two final sign boxes remain separated, so this example supplies no recursive second-stage formation and no further compression of the distinct public states.
+The parent can carry belief and model marginals $q_I=\int b_x\eta_I(d(x,y))$ and $s_I=\int b_y\eta_I(d(x,y))$, with normalized public evaluator $G_J$. These two marginals alone are insufficient: $\eta_I$ retains the paired public roles and receiver-specific routing information. The inherited equations are \cref{erase:empirical-flow}, not a Fisher flow of the reciprocal potential for the two mixture marginals. The parent is therefore not an agent of the children's type: no law pair with an evaluator and a reciprocal KL interaction carries its dynamics, and the construction cannot be iterated as it stands. A recursion would need a retention whose image is again a law pair with an inherited reciprocal interaction.
+
+The compression here discards the private and gate laws, which no admitted response reads after closure: the admitted family has twenty-four continuous means, and the retained empirical state keeps eight public means, up to within-pair permutations. It is a decoupled-factor projection followed by a finite label quotient, and it keeps every public child state. Cached private readouts, feedback that changes the erased channels, and protocols that later inspect discarded private coordinates are outside the response class. The reference, gate, initial sign-box preparation, and boundary restrictions are all supplied assumptions. The dynamics select changing source preferences and a persistent grouping within them, but do not discover the erasing architecture.
+
+\section{Status against the formation standard}
+\label{sec:erase-status}
+
+Take as selector the map that assigns to each agent the source of smallest reciprocal row cost \cref{erase:peer-cost} at the current state, and as handoff the closure time $\tau$. The admitted class is open in the invariant family \cref{erase:family}, so (F1) holds in its invariant-family form. Selection with a persistence criterion, (F2), holds: the box pairs are an invariant block relation after $\tau$, and $\tau$ is a function of the state. Inheritance, (F3), holds for the declared public response class through \cref{erase:parent-flow}, with the qualification that the parent state is an empirical measure rather than a law pair. Compression, (F4), fails: the retention is non-injective only on private and gate coordinates that no admitted probe reads, and it keeps every public child state. Recursion, (F6), fails, since there is a single stage and the two final boxes stay separated.
+
+For the null-flow control of \cref{inh:null-flow}, delete every peer cost. The public coordinates then follow the single-agent flows, which keep the two sign boxes invariant by \cref{erase:well-margins}; the private means relax monotonically toward zero without changing sign; and the gate means follow \cref{erase:closed-clock} with the factor two replaced by one, so the gates still close. The same selector, evaluated along this flow, therefore reads the crossed pairs while the private advantage dominates and the box pairs after it is erased. The sequence of selected pairings coincides with that of the reciprocal flow, and only the switching time changes; the null gates relax at about half the speed. Clause (F5) is therefore met only through a shift of an event time, and its strong form fails: the final pairing is the sign pattern of the initial public states and the initial pairing is the sign pattern of the initial private states, and the null flow preserves both. The construction is a single-stage selection with exact inheritance by a decoupled-factor projection, not a two-stage selection and not a recursive formation.

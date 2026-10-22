@@ -22,6 +22,19 @@ For example, let $k,m$ be binary, with $s_i(m=1)=0.6$, $G_i(1,\{1\})=0.9$, and $
 
 An evaluator is a Markov kernel: a function whose output is a probability measure. Ordinary functions are included as the case in which the output measure is concentrated at one value. This language accommodates discrete, continuous, singular, and multimodal laws without selecting a Gaussian family. When differentiating laws later, we will restrict to a regular statistical family or positive finite tables.
 
+\section{A belief is not a generative model}
+
+The evaluator is half of a generative model. The other half is a record likelihood $\ell_i(k,m;do)$, which says how represented contents would show up in the agent's own registers. Together with a prior $r_i(dm)$ over presentations they form one normalized joint law,
+\begin{equation}
+P_i(dm,dk,do)=r_i(dm)G_i(m,dk)\ell_i(k,m;do).
+\label{comp:eq-generative-model}
+\end{equation}
+Each presentation $m$ labels a complete forward model: a prior over contents and a likelihood for records. The agent's laws $q_i$ and $s_i$ are something else. They are its current beliefs, the recognition law that approximates the posterior $P_i(dm,dk\mid o)$ once a record $o$ is in hand, and their quality is scored by the variational free energy $\KL(\zeta_i\Vert P_i(\cdot\mid o))-\log P_i(o)$. The analogy is a detector with a calibration curve. The calibration curve is the generative model; the current estimate of the signal is the belief. Two detectors of one design share the calibration curve and can still hold different estimates; two detectors with the same estimate predict the same counts only if their calibrations also agree.
+
+The same distinction organizes populations. Agents whose generative models agree up to a relabeling of presentations and contents form a species. Sharing a model is a fact about mechanisms. Agreement of beliefs is a fact about states, and a record registered by one member changes its beliefs without changing those of a member that did not register it.
+
+Without records the best belief under a model is the prior itself, with the conditional $q_i(dk\mid m)$ equal to $G_i(m,dk)$. Under the product restriction $\zeta_i=q_i\otimes s_i$ this is no longer reachable: the best belief at fixed $s_i$ is the geometric average $q_i\propto\exp\int\log g_i(m,\cdot)s_i(dm)$ of the evaluator densities, not the arithmetic mixture $s_iG_i$. The product description therefore already separates what an agent believes from what its models predict.
+
 \section{A record has an address inside the agent}
 
 Let $x_i\in\mathsf S_i$ denote the complete internal state, including its laws, interfaces, and any memory. A record readout is an ordinary measurable function
@@ -29,7 +42,7 @@ Let $x_i\in\mathsf S_i$ denote the complete internal state, including its laws, 
 \rho_i:\mathsf S_i\longrightarrow\mathsf O_i.
 \label{comp:eq-readout}
 \end{equation}
-The output alphabet $\mathsf O_i$ specifies the distinctions the agent can read. A binary register gives $\mathsf O_i=\{0,1\}$; a real-valued comparison can use $\R^r$. The detector analogy is precise at this level: an internal state contains a readable distinction. It does not require an outside observer to inspect it.
+The output alphabet $\mathsf O_i$ specifies the distinctions the agent can read. A binary register gives $\mathsf O_i=\{0,1\}$; a real-valued comparison can use $\R^r$. The detector analogy is precise at this level: an internal state contains a readable distinction. It does not require an outside observer to inspect it. A detector reading must also not depend on the coordinates in which it is written down. A readout of the first coordinate of a displayed mean would change under a mere rotation of the agent's frame, so readouts are required to be invariant, or to transform by a declared rule, under such passive changes.
 
 Write $x\in\mathsf S$ for the complete population configuration. A deterministic interaction $F_{ij}:\mathsf S\to\mathsf S$ produces the record
 \begin{equation}
@@ -50,6 +63,8 @@ A likelihood on represented contents has another role. For instance, the express
 
 The configuration $x$ contains the agents' laws. A tuple of represented contents $(k_i,m_i)_i$ belongs to a different space. A probability law over possible configurations is a third construction, useful when a preparation or stochastic dynamics has been declared. Deterministic motion of $x$ requires neither sampling the contents nor drawing an ensemble of configurations at each step.
 
-This distinction also clarifies correlations. Two independent fair bits have probability $1/4$ for each pair. Condition on a shared record that the bits agree. Their marginals remain fair, but the conditional joint law has probability $1/2$ on each of $(0,0)$ and $(1,1)$. A calculation of the next joint comparison needs this dependence; the marginals do not contain it. A coupled product-family evolution remains a possible model, but it will not represent that exact conditional joint law. Whether a correlation is needed is decided by the response being predicted.
+This distinction also clarifies correlations. Two independent fair bits have probability $1/4$ for each pair. Condition on a shared record that the bits agree. Their marginals remain fair, but the conditional joint law has probability $1/2$ on each of $(0,0)$ and $(1,1)$. A calculation of the next joint comparison needs this dependence; the marginals do not contain it. A coupled product-family evolution remains a possible model, but it will not represent that exact conditional joint law. It does not even keep the fair marginals. The best product description of the hard agreement record is a point mass on $(0,0)$ or on $(1,1)$. For a soft record $\propto e^{J\sigma_1\sigma_2}$ in spin variables, the symmetric product description is the mean-field magnet $m=\tanh(Jm)$: unmagnetized for $J\leq1$ and spontaneously magnetized above $J=1$, although the exact posterior keeps zero magnetization for every $J$. Whether a correlation is needed is decided by the response being predicted.
+
+A third kind of law joins the contents of several agents, or of one agent at several contexts, into one joint law of fields. Only such a law can predict a record that compares the same sample along two routes. A comparison of the two route laws cannot see a loop that leaves the transported law unchanged, such as a rotation of an isotropic Gaussian, whereas the joint law of a sample and its image along the loop determines the loop map.
 
 The laws can be attached to local domains of a context base $\mathcal C$. This is the section picture: a context selects the law applicable there, and a frame specifies its coordinates. Most interactions below occur at a common context. Moving between contexts introduces the connection problem in \cref{comp:geometry}.

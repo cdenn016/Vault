@@ -1,13 +1,21 @@
-\chapter{Coupled Relaxation and Source Selection}
+\chapter{Free Energies, Coupled Relaxation, and Source Selection}
 \label{comp:dynamics}
 
-The dynamical variables are probability laws. Moving an agent therefore means changing its expectations, uncertainties, and dependencies, rather than moving a point through its sample space. The physical analogue developed here is overdamped motion on a probability manifold: an interaction potential supplies the driving covector, and the Fisher metric converts that covector into a velocity. Neither ingredient determines the other.
+The dynamical variables are probability laws. Moving an agent therefore means changing its expectations, uncertainties, and dependencies, rather than moving a point through its sample space. The physical analogue developed here is overdamped motion on a probability manifold: an objective supplies the driving covector, and the Fisher metric converts that covector into a velocity. Neither ingredient determines the other.
+
+\section{Three objectives}
+
+Before any equation, one must say what is being minimized, and for interacting agents there are three different answers. In the global picture all agents are parts of one normalized joint law over their contents and records, as the spins of one lattice share one Boltzmann weight. Each agent's own free energy is then that single functional seen as a function of its own factor, peers act on it only through expectations of their contents, and every local update lowers the same total: coordinate descent, like a sequence of single-spin heat-bath moves.
+
+In the per-agent picture each agent has its own generative model, in which its own evaluator and the laws its peers communicate compete as sources of prior. The peers' laws are data for the agent, like an external field it does not control. Each agent lowers its own free energy, but the free energies of the agents that listen to it change through terms it does not control. Such non-reciprocal forces need have no global Lyapunov function: on a directed ring of three Bernoulli agents, each pulled toward its successor, the linearized motion spirals, with complex eigenvalues that no gradient flow can have.
+
+The third object, developed in this chapter, is the reciprocal law potential. It adds the divergences between agent laws directly, so each edge pulls its receiver toward the source and also pulls the source toward its receivers, like a spring that acts on both ends. All agents then descend one shared function, and the dynamics dissipates that function and cannot spiral into an equilibrium. The price is that this function is not the free energy of any fixed normalized model in which the agent laws are the beliefs, and records enter it only as separate assimilation events. The constructions of the later chapters use this third object; their conclusions are not claims about the other two.
 
 \section{The potential and its source rows}
 
-At a fixed context, let $q_i$ describe agent $i$'s represented state $k$, and let $s_i$ describe its model presentation $m$. For this construction their joint recognition law is the explicit product $q_i\otimes s_i$. Choose a model reference $r_i(dm)$ and a normalized evaluator $G_i(m,dk)$. Their local contribution is
+At a fixed context, let $q_i$ describe agent $i$'s represented state $k$, and let $s_i$ describe its model presentation $m$. For this construction their joint recognition law is the explicit product $q_i\otimes s_i$. Choose a model reference $r_i(dm)$ and a normalized evaluator $G_i(m,dk)$. With the reference joint $R_i(dk,dm)=r_i(dm)G_i(m,dk)$, their local contribution is
 \begin{equation}
- \mathcal E_0=\sum_i\KL(q_i\otimes s_i\Vert r_iG_i)
+ \mathcal E_0=\sum_i\KL(q_i\otimes s_i\Vert R_i)
  =\sum_i\left[\KL(s_i\Vert r_i)
        +\int\KL(q_i\Vert G_i(m,\cdot))s_i(dm)\right].
  \label{eq:comp-local-potential}
@@ -53,7 +61,7 @@ For normalized densities $a,b$, variation of $\int a\log(a/b)$ gives
              +q_jD\mathcal K^q_{ij}(d\mathbf q).
  \label{eq:comp-all-role-variation}
 \end{equation}
-Here $da,db$ denote mass-preserving variations, and differentiation assumes a regular dominated family. An agent moves through its receiver role, its source role, and any dependence of the channels on its law. Directed routing does not remove incoming contributions to source motion. For an identity self-channel, the two laws remain identical and their divergence stays zero. Holding an old self snapshot fixed instead creates a different potential after the current law changes.
+Here $da,db$ denote mass-preserving variations, and differentiation assumes a regular dominated family. An agent moves through its receiver role, its source role, and any dependence of the channels on its law. Directed routing does not remove incoming contributions to source motion. The source is pulled toward the pooled law of the agents that listen to it, so a source more confident than its listeners' spread is widened; a communicating population realizes this only if listeners send a reverse message back to their sources. For an identity self-channel, the two laws remain identical and their divergence stays zero. Holding an old self snapshot fixed instead creates a different potential after the current law changes.
 
 For positive finite probability tables, collect all dynamical tables as $u^a$, including the source rows when they are not eliminated. The Fisher metric and its unit-mobility descent are
 \begin{equation}
@@ -65,7 +73,7 @@ For positive finite probability tables, collect all dynamical tables as $u^a$, i
  \end{aligned}
  \label{eq:comp-fisher-descent}
 \end{equation}
-Centering preserves each normalization. Substituting the velocity into $\dot{\mathcal E}=\sum_{a,z}h_z^a\dot u_z^a$ proves the dissipation identity. The same construction uses the Fisher tensor on a regular smooth family \citep{Amari1998}. Both sectors have equal mobility; a slower model response must arise from the resulting dynamics.
+Centering preserves each normalization. Substituting the velocity into $\dot{\mathcal E}=\sum_{a,z}h_z^a\dot u_z^a$ proves the dissipation identity. The same construction uses the Fisher tensor on a regular smooth family \citep{Amari1998}. Both sectors have equal mobility; a slower model response must arise from the resulting dynamics. Equal mobility is what one gets by treating all tables as one product law of all represented variables and source labels, since Fisher information adds over independent factors. It has a cost for the source rows: under unit mobility a row's log odds relax at a rate equal to its temperature, so a row that selects sharply moves slowly, and replacing it by its instantaneous Gibbs optimum is a fast-row limit rather than the same flow.
 
 A Bernoulli law makes the metric concrete. Its success probability $p$ has metric $dp^2/[p(1-p)]$, so the mobility is $p(1-p)$. For $\mathcal E(p)=\KL(\operatorname{Ber}(p)\Vert\operatorname{Ber}(p_0))$, with $p,p_0\in(0,1)$, write $l=\log[p/(1-p)]$ and $l_0=\log[p_0/(1-p_0)]$. Then
 \begin{equation}
@@ -83,4 +91,4 @@ A fixed normalized prior $P_0$ and record likelihood $\ell_o$ give posterior $\P
                =\KL(Q\Vert\Pi_o)-\log Z_o.
  \label{eq:comp-record-vfe}
 \end{equation}
-Source inference in a product recognition family then uses expected negative log likelihood as its cost. Peer coupling instead uses divergence between laws, whose source template can move during relaxation. Both yield Gibbs rows because both contain the same categorical relative-entropy penalty; their costs and state derivatives differ. Identical independent Gaussian laws have zero peer divergence but nonzero expected squared sample difference. A normalized likelihood for that difference therefore describes an interaction distinct from direct agreement of the laws.
+Source inference in a product recognition family then uses expected negative log likelihood as its cost. Peer coupling instead uses divergence between laws, whose source template can move during relaxation. Both yield Gibbs rows because both contain a categorical relative-entropy penalty, with coefficients $T_q$ and $1$ respectively; their costs and state derivatives differ. There is one setting in which the two meet exactly. If each agent receives $n$ messages from a source chosen by its prior and registers whether their empirical frequencies match its own law, the posterior over which source was heard is the Gibbs row at temperature $1/n$. The row temperature is then the reciprocal number of exchanged messages, as in a counting experiment in which a sharper verdict needs more counts. Identical independent Gaussian laws have zero peer divergence but nonzero expected squared sample difference. A normalized likelihood for that difference therefore describes an interaction distinct from direct agreement of the laws.

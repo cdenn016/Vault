@@ -2,7 +2,9 @@
 \chapter{Sufficient States for Smooth KL Evolution}
 \label{ch:smooth-closure}
 
-The smooth potential of \cref{ch:dynamics} can admit exact reductions while its agents remain different. Such a reduction requires control of the conditional information that enters the retained force. We first identify that information, then construct a closed state made of general probability laws. The construction keeps the original KL potential and unit Fisher mobilities. Its conditional reconstruction channels are additional constitutive data within that potential; they are not a consequence of an arbitrary law-dependent transport. They provide a sufficient-state architecture, but do not yet explain selection of agent groups.
+This chapter works with the reciprocal law potential of \cref{def:dyn-potential} and its unit-mobility Fisher flow; its conclusions concern that potential, not the per-agent or global free energies of \cref{ch:dynamics}. The question is which information a coarse description of an agent must keep when an exact reduction is wanted while agents remain different. We first identify the conditional information that enters a retained force, then construct an exact state completion made of general probability laws for one architecture: fixed independent private reference factors, and receiver reconstruction channels that discard the sender's private coordinate. These channels are additional constitutive data within the potential, not a consequence of an arbitrary law-dependent transport.
+
+In this architecture the private sector is passive. Each private conditional relaxes along an explicit exponential arc toward its reference, independently of every public law, row, and other agent, and it acts on the public flow only as open-loop forcing through its conditional KL profile. The completion is therefore a solvable baseline. Its compression is the equimeasurability quotient of each private log density under its declared reference: it forgets which private point carries a log-density value, so it identifies distinct conditionals only when the reference has nontrivial symmetry, and it is not minimal for the public flow (\cref{smooth:cgf-completion}). It fails once a channel transmits the sender's private data (\cref{smooth:channel-variants}). The construction selects no group of agents, so the interaction-necessity clause of \cref{inh:recursive-formation} does not apply to it; its private sector evolves identically under the null flow of \cref{inh:null-flow}, because the conditional equations contain no peer term.
 
 \section{The force that survives marginalization}
 
@@ -11,7 +13,7 @@ Let $Q$ be a positive law on a standard Borel space, let $C$ be a measurable sta
  \dot Q=-Q(h_Q-\E_Qh_Q).
  \label{smooth:fine-score}
 \end{equation}
-All identities below are immediate for finite positive tables. On general spaces we assume a dominated differentiable path, square-integrable scores, and integrability that permits the displayed conditional expectations and differentiations. Statements about flow inheritance are on an interval where the fine and proposed retained equations have unique regular solutions. They do not assert unrestricted existence on every space of probability measures.
+All identities below are immediate for finite positive tables. On general spaces they need a dominated differentiable path, square-integrable scores, and integrability that permits the displayed conditional expectations and differentiations. Statements about flows on general spaces are made under the hypotheses of \cref{smooth:hypotheses}, which give unique solutions in bounded log-density charts (\cref{smooth:wellposed}); they do not assert existence on every space of probability measures.
 
 \propositionheading{Conditional mean force}{smooth:mean-force-criterion}
 The retained velocity is
@@ -19,32 +21,39 @@ The retained velocity is
  \dot\mu=-\mu\left(\E_Q[h_Q\mid C]-\E_Qh_Q\right).
  \label{smooth:mean-force}
 \end{equation}
-Consequently, an autonomous velocity for $\mu$ exists precisely when the centered conditional mean on the right is determined by $\mu$ on the admitted class.
+Consequently, an autonomous velocity for $\mu$ exists on an admitted class precisely when the centered conditional mean on the right is determined by $\mu$ on that class. If, in addition, the admitted class is invariant under the fine flow and the resulting retained equation $\dot\mu=V(\mu)$ has unique solutions, then two fine trajectories in the class with the same initial marginal have the same marginal at all common times.
 \begin{proof}
-For every bounded measurable $f$, integrate $f(C)$ against \cref{smooth:fine-score} and condition on $C$. This gives the weak form of \cref{smooth:mean-force}. Two laws with the same marginal have the same marginal velocity if and only if their centered conditional forces agree almost everywhere under that marginal. With the stated uniqueness hypothesis, equality of these velocities gives equality of retained flows.
+For every bounded measurable $f$, integrate $f(C)$ against \cref{smooth:fine-score} and condition on $C$. This gives the weak form of \cref{smooth:mean-force}. Two laws with the same marginal have the same marginal velocity if and only if their centered conditional forces agree almost everywhere under that marginal. Invariance keeps both fine trajectories in the class, so each marginal solves $\dot\mu=V(\mu)$, and uniqueness identifies them.
 \end{proof}
 
-For $Q(dz,dv)=\mu(dz)\kappa_z(dv)$ and a fixed reference $P(dz,dv)=\nu(dz)\pi_z(dv)$, the local KL force illustrates the missing information:
+Equation \cref{smooth:mean-force} is the class-mean aggregation of a replicator equation over types, familiar from the Price equation of selection \citep{Price1970}. For $Q(dz,dv)=\mu(dz)\kappa_z(dv)$ and a fixed reference $P(dz,dv)=\nu(dz)\pi_z(dv)$, the local KL force illustrates the missing information:
 \begin{equation}
  \E_Q[\log(dQ/dP)\mid z]
  =\log\frac{d\mu}{d\nu}(z)+H(z),\qquad
  H(z)=\KL(\kappa_z\Vert\pi_z).
  \label{smooth:hidden-profile}
 \end{equation}
-Thus a scalar total conditional loss does not usually determine the retained force. Its dependence on $z$ matters. The Fisher metric makes the same separation: if a score is $f(z,v)=a(z)+b(z,v)$, with $\E_\mu a=0$ and $\E_{\kappa_z}b=0$, then
+Thus a scalar total conditional loss does not usually determine the retained force. Its dependence on $z$ matters. The Fisher metric makes the same separation: if a score is $f(z,v)=f_1(z)+f_2(z,v)$, with $\E_\mu f_1=0$ and $\E_{\kappa_z}f_2=0$, then
 \begin{equation}
- g_Q(fQ,fQ)=\int a(z)^2\mu(dz)
-       +\int\left[\int b(z,v)^2\kappa_z(dv)\right]\mu(dz).
+ g_Q(fQ,fQ)=\int f_1(z)^2\mu(dz)
+       +\int\left[\int f_2(z,v)^2\kappa_z(dv)\right]\mu(dz).
  \label{smooth:fisher-split}
 \end{equation}
 The cross term vanishes by conditional centering. This calculation is consistent with the statistical behavior of Fisher information under sufficient statistics \citep{AyJostLeSchwachhofer2015}. Dynamical sufficiency asks a different question: it preserves the specified evolution and responses, and need not preserve inference about every discarded parameter.
 
+\corollaryheading{Pushforward as a Fisher submersion}{smooth:submersion}
+On a regular positive class, the differential of $Q\mapsto C_\#Q$ sends the tangent $fQ$ to $\E_Q[f\mid C]\mu$. Its kernel consists of the scores with zero conditional mean given $C$, and it is isometric on scores that are functions of $C$. If the functional has the form $\mathcal E=\mathcal E_c\circ C_\#$, the retained marginal follows the Fisher gradient flow of $\mathcal E_c$ at the same time.
+\begin{proof}
+For bounded $g$, $\int g(C)f\,dQ=\int g\,\E_Q[f\mid C]\,d\mu$, which identifies the pushforward tangent. With $f_1=\E_Q[f\mid C]$ and $f_2=f-f_1$, \cref{smooth:fisher-split} gives the kernel and the isometry. If $\mathcal E=\mathcal E_c\circ C_\#$, the chain rule gives $h_Q=h_c\circ C$ up to a constant, so \cref{smooth:mean-force} becomes $\dot\mu=-\mu(h_c-\E_\mu h_c)$.
+\end{proof}
+This is the equality case of the monotonicity of Fisher information under statistics \citep{AyJostLeSchwachhofer2018}; the content of the present chapter is the case in which $h_Q$ is not a function of $C$.
+
 \section{Conditional reconstruction within the original potential}
 
-For each agent take $\mathsf K_i=\mathsf Z_i\times\mathsf V_i$ and $\mathsf M_i=\mathsf W_i\times\mathsf U_i$, all standard Borel. Use positive public densities against fixed reference probabilities, so conditional versions share common full-measure public sets. Disintegrate
+For each agent take $\mathsf K_i=\mathsf Z_i\times\mathsf V_i$ and $\mathsf M_i=\mathsf W_i\times\mathsf U_i$, all standard Borel. The coordinates $z,w$ are public in the sense that the channels below read them; the coordinates $v,u$ are private in the sense that no channel reads the sender's value of them, and the declared probes read them only through the marks of \cref{sec:smooth-records}. Use public densities against fixed reference probabilities $\rho_i$ on $\mathsf Z_i$ and $\varrho_i$ on $\mathsf W_i$, so conditional versions share common full-measure public sets. Disintegrate
 \begin{equation}
  q_i(dz,dv)=\mu_i(dz)\kappa_{i,z}(dv),\qquad
- s_i(dw,du)=\sigma_i(dw)\lambda_{i,w}(du).
+ s_i(dw,du)=\sigma_i(dw)\varkappa_{i,w}(du).
  \label{smooth:disintegrations}
 \end{equation}
 Neither conditional need be independent of its retained coordinate. Choose fixed private reference probabilities $A_i^q,A_i^s$ and a fixed normalized public reference
@@ -55,13 +64,13 @@ Neither conditional need be independent of its retained coordinate. Choose fixed
 \end{equation}
 with the product reordered into state and model coordinates. The evaluator $G_i^c$ can couple $\mu_i$ and $\sigma_i$. Independence of the private reference factors is an assumption of this construction, not a restriction of the general theory.
 
-Let $B_{ij}^q[\boldsymbol\mu]:\mathsf Z_j\rightsquigarrow\mathsf Z_i$ be normalized channels, with the regularity needed for the original variation. Define the full channels by
+Let $B_{ij}^q[\boldsymbol\mu]:\mathsf Z_j\rightsquigarrow\mathsf Z_i$ be normalized channels, differentiable in the laws in the sense required by \cref{smooth:hypotheses} on general spaces. Define the full channels by
 \begin{equation}
  \mathcal K_{ij}^q[\mathbf q]((z_j,v_j),d(z_i,v_i))
  =B_{ij}^q[\boldsymbol\mu](z_j,dz_i)\kappa_{i,z_i}(dv_i).
  \label{smooth:shield}
 \end{equation}
-The model channel uses $B_{ij}^s[\boldsymbol\sigma]$ and $\lambda_{i,w_i}$ in the same way. Source sets may exclude self edges; if self comparisons are included, use the primitive identity convention separately. Public channels may be informative and nonconstant functions of the retained laws. For example, on the public space $\{-1,1\}$, the channel $B_\mu(z,\{z'\})=(1+\rho(\mu)zz')/2$, with $\rho(\mu)=(1+(\E_\mu Z)^2)/4$, is strictly positive, transmits source information, and varies with the law. Public/private maps and reference factors are declared interface data; carrying them through a bimeasurable change of presentation preserves these constructions.
+The model channel uses $B_{ij}^s[\boldsymbol\sigma]$ and $\varkappa_{i,w_i}$ in the same way. Source sets may exclude self edges; if self comparisons are included, use the primitive identity convention separately. Public channels may be informative and nonconstant functions of the retained laws. For example, on the public space $\{-1,1\}$, the channel $B_\mu(z,\{z'\})=(1+\rho(\mu)zz')/2$, with $\rho(\mu)=(1+(\E_\mu Z)^2)/4$, is strictly positive, transmits source information, and varies with the law. Public/private maps and reference factors are declared interface data; carrying them through a bimeasurable change of presentation preserves these constructions.
 
 \propositionheading{Exact cancellation of private peer information}{smooth:peer-cancellation-rule}
 Where the divergences are defined,
@@ -83,12 +92,21 @@ Let $\mathcal E_c$ denote exactly \cref{eq:dyn-potential} applied to $\mu_i,\sig
  \begin{aligned}
  \ell_{i,z}^q&=\log(d\kappa_{i,z}/dA_i^q),&
  H_i^q(z)&=\int\ell_{i,z}^q d\kappa_{i,z},\\
- \ell_{i,w}^s&=\log(d\lambda_{i,w}/dA_i^s),&
- H_i^s(w)&=\int\ell_{i,w}^s d\lambda_{i,w}.
+ \ell_{i,w}^s&=\log(d\varkappa_{i,w}/dA_i^s),&
+ H_i^s(w)&=\int\ell_{i,w}^s d\varkappa_{i,w}.
  \end{aligned}
  \label{smooth:conditional-entropies}
 \end{equation}
-In the following formulas, assume these log densities are bounded on the time interval in question. This convenient sufficient condition allows arbitrary dominated law shapes and justifies the exponential moments and derivatives used below. We do not impose a Gaussian or finite-dimensional exponential family.
+On finite public alphabets with twice continuously differentiable channel entries it suffices that each private log density be bounded. On general public spaces we use the following hypotheses.
+
+\hypothesisheading{Regularity on general spaces}{smooth:hypotheses}
+Use the bounded log-density chart for every public law: $\mu_i=e^{u_i}\rho_i/\E_{\rho_i}e^{u_i}$ with $u_i$ in $L^\infty_0(\rho_i)=\{u\in L^\infty(\rho_i):\E_{\rho_i}u=0\}$, the same for $\sigma_i$ against $\varrho_i$, and log-odds coordinates for interior rows.
+\begin{enumerate}
+\item[(H1)] The initial private log densities are bounded uniformly in the public coordinate: $\operatorname{ess\,sup}_{(z,v)}|\ell^q_{i,z}(v)|\leq M<\infty$ with respect to $\rho_i\otimes A_i^q$ at time zero, and likewise in the model sector.
+\item[(H2)] The public reference has bounded log densities: $G_i^c(w,dz)=g_i^c(w,z)\rho_i(dz)$ and $r_i^c=\tilde r_i\varrho_i$, with $\log g_i^c\in L^\infty(\varrho_i\otimes\rho_i)$ and $\log\tilde r_i\in L^\infty(\varrho_i)$.
+\item[(H3)] On bounded subsets of the product of the charts, the public first variations $h_i^q=\delta\mathcal E_c/\delta\mu_i$ and $h_i^s=\delta\mathcal E_c/\delta\sigma_i$, including every interaction role and channel derivative, are Lipschitz into $L^\infty(\rho_i)$ and $L^\infty(\varrho_i)$, and the costs $D_{ij}^q,D_{ij}^s$ are Lipschitz. Identity channels between agents sharing a public reference space satisfy this, as do channels with kernel densities whose logarithms are bounded on bounded subsets and which depend on the laws through a continuously differentiable map into $L^\infty$ with locally Lipschitz derivative.
+\end{enumerate}
+Positivity of the public densities alone does not suffice: a normalized, strictly positive, law-dependent channel whose first variation contains an unbounded function of $z$ gives a public force outside $L^\infty$, and the chart vector field is then undefined. A bound on each $\ell_{i,z}$ separately does not suffice either: a family of bounded conditionals whose bounds grow as $z$ approaches a boundary point can make the public log density unbounded for every positive time. The class (H1) excludes conditionals whose density vanishes on a set of positive reference measure or is unbounded, such as Gaussian conditionals against a Gaussian reference; \cref{smooth:exponential-family} treats those separately.
 
 \theoremheading{Exact marginal and conditional dynamics}{smooth:split-dynamics}
 For the architecture above the original energy is
@@ -112,7 +130,9 @@ The equations for $\sigma_i,\ell_i^s$ are obtained by exchanging sectors. Source
 Apply the relative-entropy chain rule to the local reference in \cref{smooth:reference} and use \cref{smooth:peer-cancellation}. This proves \cref{smooth:energy-split}. Up to a constant independent of $(z,v)$, the full derivative with respect to $q_i$ is $h_i^q(z)+\ell_{i,z}^q(v)$. This can be checked directly from the log-density ratio in the local KL; every peer contribution is a functional of $\mu$ alone. Conditional averaging gives the first equation of \cref{smooth:split-flow}. Subtract its logarithmic derivative from the full logarithmic derivative of $q_i=\mu_i\kappa_i$. The public score and global centering cancel, leaving the second equation. The private terms contain no source rows, so their variations do not change the row equations.
 \end{proof}
 
-The dependence of $H_i^q$ on $z$ is the only private contribution to the retained belief velocity in this architecture. It cannot generally be discarded. Its evolution will require more than its present value.
+The two row choices share stationary points but are different flows. At frozen costs the Fisher row equation relaxes log-ratio contrasts at the rate $T_q$ (\cref{smooth:row-ratio}), so exactly optimized rows are the limit of infinite row mobility, and the two choices differ most in their transients when $T_q$ is small.
+
+The private equation in \cref{smooth:split-flow} contains no public law, no row, and no other agent. Each private conditional is solved in closed form, independently of the public dynamics, by \cref{smooth:conditional-solution} below: the exponential arc from $\kappa_{i,z}(0)$ to $A_i^q$. The public flow sees the private sector only through the function $H_i^q(z,t)$, which is fixed by the initial conditionals. The completion constructed next is therefore the public flow of $\mathcal E_c$ driven by the precomputable time-dependent potential $\int H_i^q(\cdot,t)d\mu_i$. Private information never influences an interaction in this architecture. The dependence of $H_i^q$ on $z$ is the only private contribution to the retained belief velocity, and it cannot generally be discarded.
 
 \section{An exact law-valued completion}
 
@@ -130,22 +150,29 @@ This probability law records how much reference mass carries each log-density va
  \label{smooth:spectrum-normalization}
 \end{equation}
 
+The spectrum is the law under $A$ of the log-likelihood ratio of the dichotomy $(\kappa_z,A)$. For mutually absolutely continuous pairs, equal spectra are equivalent to Blackwell equivalence of the two dichotomies \citep{Blackwell1953,Torgersen1991}. Two conditionals have the same spectrum exactly when their log densities are equimeasurable under $A$. The compression is therefore a property of the declared reference, not of the dynamics. On a finite private alphabet $\xi_z(\{r\})=A(\{\ell_z=r\})$, so if no two distinct sets of atoms of $A$ have equal mass, equal spectra force equal level sets and hence equal conditionals: the retention is injective. With $A=(0.6,0.4)$, for example, the conditionals $(3/4,1/4)$ and $(1/4,3/4)$ have the different spectra with atoms $\log(5/4),\log(5/8)$ and $\log(5/12),\log(15/8)$ at masses $0.6,0.4$. Noninjectivity requires a reference with equal-mass sets of atoms, such as a uniform finite reference, or an atomless reference. The log-Laplace transform of the spectrum is
+\begin{equation}
+ \Lambda_z(b)=\log\int e^{br}\xi_z(dr)=(b-1)D_b(\kappa_z\Vert A),
+ \label{smooth:renyi}
+\end{equation}
+where $D_b$ is the R\'enyi divergence of order $b$ \citep{vanErvenHarremoes2014}. Under (H1) the spectrum has compact support, so $\Lambda_z$ on $(0,1]$ determines $\xi_z$.
+
 \theoremheading{Closed conditional-spectrum evolution}{smooth:spectrum-flow}
-For \cref{smooth:split-dynamics}, the state consisting of all $\mu_i,\sigma_i$, conditional spectra $\xi_i^q,\xi_i^s$, and source rows is autonomous. Each spectrum satisfies, in weak form,
+For \cref{smooth:split-dynamics}, the velocity of the state consisting of all $\mu_i,\sigma_i$, conditional spectra $\xi_i^q,\xi_i^s$, and source rows is a function of that state. Each spectrum satisfies, in weak form,
 \begin{equation}
  \frac{d}{dt}\int f(r)\xi_z(dr)
  =\int f'(r)(H(z)-r)\xi_z(dr),
  \label{smooth:spectrum-weak}
 \end{equation}
-for continuously differentiable test functions on the bounded range in use. For a time interval $t$ starting at zero, its exact solution is
+for continuously differentiable test functions on the initial range $I=[m_0,M_0]$ of the log density, which contains the range at every later time. For a time interval $t$ starting at zero, its exact solution is
 \begin{equation}
  \begin{aligned}
  a&=e^{-t},& Z_z(a)&=\int e^{ar}\xi_z^0(dr),\\
- \xi_z^t&=(r\mapsto ar-\log Z_z(a))_\#\xi_z^0.
+ \xi_z^t&=(r\mapsto ar-\log Z_z(a))_\#\xi_z^0,
  \end{aligned}
  \label{smooth:spectrum-solution}
 \end{equation}
-The entropy profile obeys
+and it is the only narrowly continuous curve of probability laws supported in $I$ that solves \cref{smooth:spectrum-weak} with $H(z)$ given by \cref{smooth:spectrum-normalization} from the same initial law with $\int e^r\xi^0_z(dr)=1$. The entropy profile obeys
 \begin{equation}
  \dot H(z)=-\operatorname{Var}_{e^r\xi_z}(r).
  \label{smooth:entropy-rate}
@@ -157,25 +184,51 @@ The reference $A$ is fixed. Differentiate $\int f(\ell_z(v))A(dv)$ and substitut
  =\frac{\exp(a\ell_z^0(v))}{Z_z(a)}
  \label{smooth:conditional-solution}
 \end{equation}
-solves the normalized conditional equation. Pushing $A$ through its logarithm gives \cref{smooth:spectrum-solution}. Setting $f(r)=re^r$ in the weak equation gives
-$\dot H=H(H+1)-\int(r^2+r)e^r\xi_z(dr)$, which is \cref{smooth:entropy-rate}. The probability $e^r\xi_z(dr)$ is normalized by \cref{smooth:spectrum-normalization}. All private contributions to \cref{smooth:split-flow} are now functions of the retained spectra. The remaining scores and row equations depend only on retained public data, proving closure.
+solves the normalized conditional equation; this is the explicit solution of the Fisher--Rao gradient flow of a relative entropy, the exponential arc toward the reference \citep{ChenEtAl2023}. Pushing $A$ through its logarithm gives \cref{smooth:spectrum-solution}. For the range, H\"older's inequality gives $Z_z(a)\leq1$, and $e^{ar}\geq e^re^{-(1-a)M_0}$ for $r\leq M_0$ gives $Z_z(a)\geq e^{-(1-a)M_0}$; since $m_0\leq0\leq M_0$ by normalization, $a\ell_z^0-\log Z_z(a)$ takes values in $[m_0,M_0]$, and the width of its range is $a(M_0-m_0)$.
+
+For uniqueness, let $\xi_t$ be a curve in the stated class and put $H(t)=\int re^r\xi_t(dr)$, which is continuous. Then $\xi_t$ solves the linear continuity equation with the velocity field $H(t)-r$, which is Lipschitz in $r$, and continuity equations with such fields have unique narrowly continuous solutions \citep[Sec.~8.1]{AmbrosioGigliSavare2008}. Hence $\xi_t=(X_t)_\#\xi_0$ with $X_t(r)=e^{-t}r+c(t)$ and $c(t)=\int_0^te^{-(t-s)}H(s)ds$. Taking $f(r)=e^r$ in \cref{smooth:spectrum-weak} gives $\dot N=H(N-1)$ for $N=\int e^r\xi_t(dr)$, so $N\equiv1$, which forces $e^{c(t)}Z(a)=1$ and gives \cref{smooth:spectrum-solution}.
+
+Setting $f(r)=re^r$ in the weak equation gives
+$\dot H=H(H+1)-\int(r^2+r)e^r\xi_z(dr)$, which is \cref{smooth:entropy-rate}. The probability $e^r\xi_z(dr)$ is normalized by \cref{smooth:spectrum-normalization}. All private contributions to \cref{smooth:split-flow} are now functions of the retained spectra. The remaining scores and row equations depend only on retained public data, so the retained velocity is a function of the retained state.
 \end{proof}
 
-This is a configuration retention. Its spectra can be infinite-dimensional, and there is no claim that they give a fixed finite number of parameters. If represented as a sample statistic, the map $v\mapsto\ell_z(v)$ depends on the current law; its motion is exactly the term differentiated in \cref{smooth:spectrum-weak}. It must not be frozen while the law changes. The autonomous equations are inherited equations. They have not been identified with a new unrestricted Fisher gradient on probability laws over the spectrum coordinate.
+That the retained state determines its own future additionally requires uniqueness of the public flow forced by $H_i(z,t)$. For finite public alphabets with twice continuously differentiable channels, the Picard--Lindel\"of argument of \cref{thm:dyn-finite-flow} applies to this forced system. On general public spaces the following proposition supplies it.
+
+\propositionheading{Well-posedness and exact lift on general spaces}{smooth:wellposed}
+Assume \cref{smooth:hypotheses}. Then for every initial state in the charts:
+\begin{enumerate}
+\item[(i)] each private log density keeps its values in its initial essential range, $0\leq H_i^q(z,t)\leq H_i^q(z,0)\leq M$, and $|\partial_tH_i^q(z,t)|\leq M^2$ uniformly in $z$, and likewise in the model sector;
+\item[(ii)] the retained system of public laws, rows, and spectra has a unique maximal solution on an interval $[0,T^*)$, with public laws and rows continuously differentiable into the charts and spectra given by \cref{smooth:spectrum-solution};
+\item[(iii)] the fine Fisher system has a unique maximal continuously differentiable solution in the charts $L^\infty_0(\rho_i\otimes A_i^q)$ and $L^\infty_0(\varrho_i\otimes A_i^s)$ on the same interval, and it equals the lift $q_i(t)=\mu_i(t)\kappa_i(t)$ with $\kappa_i(t)$ given by \cref{smooth:conditional-solution}, and likewise in the model sector;
+\item[(iv)] if $R$ sends a fine state to its public laws, spectra, and rows, then $R\circ\Phi_t=\Phi_t^c\circ R$ on $[0,T^*)$, where $\Phi^c$ is the solution map of (ii).
+\end{enumerate}
+\begin{proof}
+(i) The range statement is in the proof of \cref{smooth:spectrum-flow}, and it holds uniformly in $z$ by (H1). The function $H$ is a relative entropy, hence nonnegative, and it is nonincreasing by \cref{smooth:entropy-rate}. A law on an interval of width at most $2M$ has variance at most $M^2$.
+
+(ii) In the chart the public equation reads $\dot u_i=-(\phi_i-\E_{\rho_i}\phi_i)$ with $\phi_i=h_i^q+H_i^q(\cdot,t)$, because then $\partial_t\log(d\mu_i/d\rho_i)=-(\phi_i-\E_{\mu_i}\phi_i)$. By (i), $t\mapsto H_i^q(\cdot,t)$ is Lipschitz into $L^\infty(\rho_i)$. The normalizer and the centering are smooth on the chart, and (H2) and (H3) make $h_i^q$ Lipschitz on bounded sets; the row block is a finite-dimensional equation whose costs are Lipschitz on bounded sets, and Gibbs rows are smooth functions of the costs. The Picard--Lindel\"of theorem in Banach spaces \citep{Dieudonne1960} gives a unique maximal solution, with the alternative that it leaves every bounded set as $t\to T^*$ if $T^*<\infty$.
+
+(iii) In the fine chart, the first variation of the energy with respect to $q_i$ is $\varphi_i(z,v)=h_i^q(z)+\ell_{i,z}(v)$ up to a constant, by the proof of \cref{smooth:split-dynamics}. The public marginal map $l\mapsto\log\int e^{l(\cdot,v)}A_i^q(dv)$ is smooth from $L^\infty(\rho_i\otimes A_i^q)$ to $L^\infty(\rho_i)$, so the fine field is Lipschitz on bounded sets and its solutions are unique. For the lift, $\partial_t\log q_i=-(h_i^q+H_i^q-\E_{\mu_i}(h_i^q+H_i^q))+(H_i^q-\ell_i)=-(\varphi_i-\E_{q_i}\varphi_i)$, because $\E_{q_i}\varphi_i=\E_{\mu_i}h_i^q+\E_{\mu_i}H_i^q$. The lift stays bounded on compact subintervals of $[0,T^*)$ by (i), so it is the fine solution there. Conversely, the projection of a fine solution solves the retained system, so a fine solution bounded beyond $T^*$ would contradict the alternative in (ii).
+
+(iv) Two fine states with the same retained value have the same public laws, rows, and spectra, hence the same forcing $H(t)$ and, by (ii), the same retained solution; by (iii) their projections are retained solutions.
+\end{proof}
+
+Under these hypotheses the retained state is therefore autonomous on the common maximal interval. Global existence, $T^*=\infty$, requires further estimates on the public sector, which are not given here.
+
+This is a configuration retention. Its spectra can be infinite-dimensional, and there is no claim that they give a fixed finite number of parameters. If represented as a sample statistic, the map $v\mapsto\ell_z(v)$ depends on the current law; its motion is exactly the term differentiated in \cref{smooth:spectrum-weak}. It must not be frozen while the law changes. The inherited spectral evolution is not a Fisher--Rao gradient flow on probability laws over $(z,r)$. Such a flow $\dot Q=-Q(h-\E_Qh)$ keeps $Q_t$ mutually absolutely continuous with $Q_0$, whereas the retained conditional $e^r\xi^t_z(dr)$ is supported on $a\operatorname{supp}\xi_z^0-\log Z_z(a)$, which moves unless $\kappa_z=A$. The spectral evolution is a continuity equation in $r$ with velocity $H(z)-r$.
 
 \corollaryheading{Different internal conditionals with the original public flow}{smooth:equal-spectra}
-Suppose that, for each agent and each sector separately, the initial spectrum is independent of the public coordinate. Then this property persists, and the public laws and source rows follow exactly the original coarse KL/Fisher system generated by $\mathcal E_c$.
+Suppose that, for each agent and each sector separately, the initial spectrum is independent of the public coordinate. Then this property persists, and the public laws and source rows solve the original coarse KL/Fisher system generated by $\mathcal E_c$ on the common maximal interval.
 \begin{proof}
 The same initial spectrum gives the same solution of \cref{smooth:spectrum-solution} at every public coordinate. Consequently $H_i^q(z)$ is constant in $z$, and $H_i^s(w)$ is constant in $w$. Each constant disappears under its own marginal centering in \cref{smooth:split-flow}.
 \end{proof}
 
-Equal spectra do not require equal conditionals. With a private reference uniform on two points, the conditionals $(3/4,1/4)$ and $(1/4,3/4)$ share
+Equal spectra do not require equal conditionals when the reference is uniform. With a private reference uniform on two points, the conditionals $(3/4,1/4)$ and $(1/4,3/4)$ share
 \begin{equation}
  \xi=\tfrac12\delta_{\log(3/2)}+
       \tfrac12\delta_{\log(1/2)}.
  \label{smooth:swapped-spectrum}
 \end{equation}
-A public bit may select either conditional, producing correlation between public and private variables. Another law with the same public marginal may use the first conditional at both public values and be a product. Both have the same public trajectory in this architecture, although their internal laws differ. Different agents may have different public laws and different spectra. No equality between agents is imposed.
+A public bit may select either conditional, producing correlation between public and private variables. Another law with the same public marginal may use the first conditional at both public values and be a product. When the original public flow from the common initial public state is unique, as it is for this finite public alphabet by \cref{thm:dyn-finite-flow} and on general spaces under \cref{smooth:hypotheses}, both have the same public trajectory in this architecture, although their internal laws differ. Different agents may have different public laws and different spectra. No equality between agents is imposed.
 
 This class is invariant, but it is not reached for the first time at finite interior time. For any $a>0$, the spectral update in \cref{smooth:spectrum-solution} is invertible on its image. Indeed, if $\xi^t$ is given, the initial log value is recovered by the map
 \begin{equation}
@@ -185,7 +238,26 @@ This class is invariant, but it is not reached for the first time at finite inte
 \end{equation}
 Substituting \cref{smooth:spectrum-solution} and using $\int e^r\xi^0(dr)=1$ proves the assertion. Equal spectra at a finite time therefore had to be equal initially. The same inversion applied to \cref{smooth:conditional-solution} proves that distinct conditionals cannot first become equal at finite time. Neither fact forbids an autonomous quotient that keeps the unequal spectra.
 
+\propositionheading{A coarser completion for the public flow}{smooth:cgf-completion}
+In the setting of \cref{smooth:wellposed}, the public laws and rows are determined, on the common maximal interval, by their initial values together with the classes of the maps $z\mapsto\Lambda^q_{i,z}|_{(0,1]}$ and $w\mapsto\Lambda^s_{i,w}|_{(0,1]}$ of \cref{smooth:renyi} modulo functions of $b$ alone. These classes evolve autonomously by
+\begin{equation}
+ \Lambda^t_z(b)=\Lambda^0_z(ab)-b\Lambda^0_z(a),\qquad a=e^{-t}.
+ \label{smooth:cgf-flow}
+\end{equation}
+The class is strictly coarser than the spectrum: if $\mathsf V=\mathsf V_1\times\mathsf V_2$ with a product reference, the conditionals $\kappa^{(1)}_z\otimes\psi$ and $\kappa^{(1)}_z\otimes\psi'$ with $\psi\neq\psi'$ fixed have different spectra at every $z$ whenever $\psi$ and $\psi'$ have different spectra, but the same class.
+\begin{proof}
+Substituting \cref{smooth:spectrum-solution} into the definition gives \cref{smooth:cgf-flow}. If $\Lambda^0_z=\widetilde\Lambda^0_z+k(b)$ with $k$ independent of $z$, then \cref{smooth:cgf-flow} adds $k(ab)-bk(a)$, again independent of $z$, so the flow acts on classes. The forcing is $H(z,t)=\partial_b\Lambda^t_z(1)$, which the class determines up to a function of $t$ alone, and such a function disappears under marginal centering in \cref{smooth:split-flow}. Uniqueness in \cref{smooth:wellposed} gives the conclusion. For the example, the log-Laplace transform of a product conditional against a product reference is the sum of the transforms of the factors, so the two maps differ by the $z$-independent function $\Lambda_\psi-\Lambda_{\psi'}$, while the spectra are the convolutions of a common factor with the different spectra of $\psi$ and $\psi'$.
+\end{proof}
+The full spectrum, or its marked version below, is needed only for records that read private data. \Cref{smooth:equal-spectra} is the case in which the classes are trivial.
+
+\remarkheading{Exponential families and finite-parameter private closure}{smooth:exponential-family}
+H\"older's inequality gives $0<Z_z(a)\leq1$ for every $\kappa_z(0)$ mutually absolutely continuous with $A$, so \cref{smooth:conditional-solution} defines the private solution without (H1). If $\kappa_z(0)\propto\exp(\theta_z\cdot T)A$ for a statistic $T$ with log-partition function $\psi$, then $\kappa_z(t)\propto\exp(e^{-t}\theta_z\cdot T)A$: the natural parameters contract linearly, and $H(z,t)=a\theta_z\cdot\nabla\psi(a\theta_z)-\psi(a\theta_z)$ with $a=e^{-t}$. The private sector then closes on finitely many parameters per public value, for instance on Gaussian conditionals relative to a Gaussian reference. Such families fall outside (H1) when $T$ is unbounded, and the public part then needs its own justification; for the public equation alone, a bound on $\operatorname{ess\,sup}_zH(z,0)$ suffices for the forcing to be bounded, because $H$ is nonincreasing in $t$. Nothing here makes the public laws finite-dimensional.
+
+\remarkheading{Which channels permit the completion}{smooth:channel-variants}
+Receiver reconstruction is not what produces closure. If every channel in a row is replaced by $B_{ij}^q(z_j,dz_i)A_i^q(dv_i)$, a fixed reconstruction independent of state and source, the chain rule gives $D_{ij}^q=\KL(\mu_i\Vert\mu_jB_{ij}^q)+\int H_i^q d\mu_i$. The added term is the same for every source, so it cancels from Gibbs rows and from the row velocities, the private energy doubles, and the conditional equation becomes $\partial_t\ell_{i,z}^q=2(H_i^q(z)-\ell_{i,z}^q)$; the spectrum still closes. What matters is that the channel discards the sender's private coordinate. A channel that transmits it fails. Take a trivial public space, $\mathsf V=\{1,2\}$ with uniform $A$, two agents attending to each other through the identity channel, and $\kappa_1=(3/4,1/4)$. With $\kappa_2=\kappa_1$ the peer costs vanish, whereas with $\kappa_2=(1/4,3/4)$, which has the same spectrum, each peer cost is $\tfrac12\log3$ and the peer forces move $\kappa_1$ toward $\kappa_2$. The spectral velocity of agent $1$ then differs between two configurations with the same per-agent spectra, so those spectra are not a closed state. For identity private channels on a common $(\mathsf V,A)$, every peer integrand is a function of the vector $(\ell_{k}(v))_k$ at one private point, which suggests the joint law of that vector under $A$ as the retained state; its closure and its compression are not established here.
+
 \section{Boundary records and feedback}
+\label{sec:smooth-records}
 
 Public-only response kernels descend immediately: the channels $B_{ij}^q,B_{ij}^s$ and evaluator $G_i^c$ are determined by the retained public laws. A private-sensitive response needs more information. In \cref{smooth:swapped-spectrum}, let the probabilities of record $1$ at the two private points be $(3/4,1/4)$. The two conditionals yield record probabilities $5/8$ and $3/8$. After record $1$, their private posteriors are $(9/10,1/10)$ and $(1/2,1/2)$. Thus an unmarked spectrum can fail both the boundary test and the next-update test.
 
@@ -219,6 +291,8 @@ Since $d\kappa_z=e^{\ell_z}dA$, integration of the likelihood gives \cref{smooth
 $d\kappa_z^+/dA=e^{\ell_z}L(o\mid z,T)/N_z(o)$. Taking the logarithm and pushing $A$ gives the marked update. The fine reference remains fixed. The conditional equation after the update is therefore the same equation with this new conditional law. Inductively, the inherited flow gives the next retained state, the inherited record kernel gives the same next-record law, and the inherited update gives the same posterior retained state. Actions selected from retained histories preserve this induction. Any reference or likelihood parameters changed by records must also be retained and updated by a rule that depends only on this state.
 \end{proof}
 
+The composite of flow intervals and these updates is the record-interrupted dynamics of \cref{def:dyn-record-interrupted}. The potential contains no record term and is not monotone across records. Records act only at their times: no rule changing the references is declared here, and between records each conditional relaxes toward its fixed reference by \cref{smooth:conditional-solution}, so the effect of a record on the private sector decays.
+
 The update is sectorwise. A product of separate belief and model likelihoods preserves the recognition restriction $q_i\otimes s_i$. A likelihood jointly coupling the two sectors need not preserve that product; exact joint conditioning would require a joint recognition state, or a separately declared projection. Marked feedback can also destroy equality of unmarked spectra across public coordinates. The augmented marked state still closes, but the simpler conclusion of \cref{smooth:equal-spectra} then need not hold.
 
 For an explicit retained sample law, use
@@ -232,16 +306,16 @@ It is normalized and reproduces every declared marked record. It is the pushforw
 
 Positive source temperature does not give exact isolation by itself. For optimized rows, every allowed finite-cost edge has positive weight. For a dynamic row, set
 \begin{equation}
- a_{jk}=\log\frac{\beta_j/\pi_j}{\beta_k/\pi_k}.
+ \theta_{jk}=\log\frac{\beta_j/\pi_j}{\beta_k/\pi_k}.
 \end{equation}
 The Fisher row equation from \cref{eq:dyn-potential} gives
 \begin{equation}
- \dot a_{jk}=-(D_j-D_k)-T_q a_{jk}.
+ \dot\theta_{jk}=-(D_j-D_k)-T_q\theta_{jk}.
  \label{smooth:row-ratio}
 \end{equation}
 Multiplying by $e^{T_qt}$ and integrating shows that finite cost differences keep every such ratio finite on a regular finite interval. Initially positive weights therefore stay positive there. Uniformly bounded cost differences also bound these ratios for all time and prevent asymptotic disappearance of an allowed weight. A formed collective may nevertheless keep nonzero boundary interactions; isolation is not required for inheritance.
 
-The construction above compresses internal conditional information. It does not combine several distinct public agent laws into one smaller collective state. Retaining their complete labeled tuple and calling it a parent would leave that aggregation problem untouched. Nor does recognizing a persistent source-preference group establish a compatible collective retention. The distinction between a coarse observable and an autonomous macroscopic evolution is also expressed by flow intertwining in \citet{BarnettSeth2023}.
+The construction above compresses private conditional information of each agent separately, and only up to the equimeasurability quotient of its declared reference. It does not combine several distinct public agent laws into one smaller collective state. Retaining their complete labeled tuple and calling it a parent would leave that aggregation problem untouched; whether a retention of such a tuple compresses is decided by clause (F4) of \cref{inh:recursive-formation}, which requires a noninjective retention whose fibers some admitted child-level probe distinguishes. Nor does recognizing a persistent source-preference group establish a compatible collective retention. The distinction between a coarse observable and an autonomous macroscopic evolution is also expressed by flow intertwining in \citet{BarnettSeth2023}.
 
-\openproblemheading{Endogenous aggregation with conditional information retained}{smooth:formation-open}
-Within the original smooth potential, construct an initially unpartitioned population whose evolution selects persistent groups, together with a noninjective collective retention that forgets some of their distinct public degrees of freedom while determining all inherited forces, channels, and declared feedback. The conditional-spectrum state may contribute part of that retention. Its existence for each agent does not establish the collective construction, and no subsequent formation stage follows from it alone.
+\remarkheading{Aggregation with conditional information retained}{smooth:formation-open}
+The construction of this chapter selects no group and involves no grouping of agents, and its private sector is unchanged by deleting every peer cost. A recursive formation that uses the conditional-spectrum state as part of its retention is an instance of \cref{inh:formation-open}. A coupled architecture under the reciprocal potential in which private conditionals feed back into public interactions, for example through private-transmitting channels or rows that read private data, and which still admits an exact compressing completion, is not available.

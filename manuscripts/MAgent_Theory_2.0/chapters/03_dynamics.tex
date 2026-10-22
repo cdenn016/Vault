@@ -1,7 +1,7 @@
-\chapter{Coupled inference on agent laws}
+\chapter{Free Energies and Coupled Dynamics of Agent Laws}
 \label{ch:dynamics}
 
-An interaction between probability laws can be specified directly, without first interpreting it as an observation likelihood. This chapter chooses such an interaction for both belief and model laws, derives its source rows, and supplies a covariant dissipative dynamics. A normalized model of records defines a second construction. Their relation depends on what is held fixed and on whether the interaction compares laws or sampled contents.
+Interacting agents can be given three different objectives, and this chapter keeps them apart. In the global picture all agents are parts of one normalized joint over their contents and records, and each agent's local free energy is that global free energy viewed as a function of its own recognition factor. In the per-agent picture each agent has its own normalized generative model in the sense of \cref{def:generative-model}, in which its own evaluator and the communicated laws of its peers are competing sources of prior information. The third object is a direct interaction potential between laws, specified without an observation likelihood. Its gradient flow moves each source toward the receivers that attend to it. We first develop this reciprocal potential, its source rows, and its Fisher dynamics, because the constructions of \cref{ch:fusion} to \cref{ch:open-formation} use it. We then give the two free energies and prove that the reciprocal potential is not the free energy of any fixed normalized model in which the agent laws are recognition laws.
 
 \section{A potential for the two interacting sectors}
 \label{sec:dyn-potential}
@@ -20,7 +20,10 @@ The evaluator couples the sectors even though their recognition law is a product
 \end{equation}
 This is a conditional relative-entropy identity: the model marginal contributes the first term and the state conditional contributes the second. In particular, the expectation of a log evaluator in this objective is different from the log of the predictive mixture $s_iG_i$.
 
-Let $\mathbf q=(q_i)_i$ and $\mathbf s=(s_i)_i$. For each allowed directed edge $j\to i$, choose normalized channels $\mathcal K^q_{ij}[\mathbf q]:\mathsf K_j\rightsquigarrow\mathsf K_i$ and $\mathcal K^s_{ij}[\mathbf s]:\mathsf M_j\rightsquigarrow\mathsf M_i$. Their dependence on the laws is part of the specified interaction. Define
+\remarkheading{What the product restriction removes}{rem:dyn-product}
+Over unrestricted joint laws the unique minimizer of $\KL(\zeta_i\Vert R_i)$ is $\zeta_i=R_i$, whose belief conditional is the evaluator. Under the product restriction and an evaluator density $g_i$, the belief minimizer at fixed $s_i$ is instead $q_i\propto\exp\int\log g_i(m,\cdot)s_i(dm)$, which differs from the model prediction $s_iG_i$. The restriction therefore carries part of the distinction between belief and model. It is also not invariant under the joint-law dynamics. For binary $k,m\in\{-1,1\}$, let the joint Fisher flow be $\partial_t\log\zeta_i=-(h-\E_{\zeta_i}h)$ with $h(k,m)=\log(\zeta_i/R_i)(k,m)+h^q(k)+h^s(m)$, where the peer terms $h^q,h^s$ depend only on the marginals. The additive terms cancel in the log odds ratio $\operatorname{LOR}(\zeta)=\sum_{k,m}km\log\zeta(k,m)$, so $\partial_t\operatorname{LOR}(\zeta_i)=-(\operatorname{LOR}(\zeta_i)-\operatorname{LOR}(R_i))$. Dependence between the sectors is generated at unit rate whenever $R_i$ is not a product. The product flow used below is the restriction of the dynamics to the product family, not a consequence of it.
+
+Let $\mathbf q=(q_i)_i$ and $\mathbf s=(s_i)_i$. For each allowed directed edge $j\to i$, choose normalized channels $\mathcal K^q_{ij}[\mathbf q]:\mathsf K_j\rightsquigarrow\mathsf K_i$ and $\mathcal K^s_{ij}[\mathbf s]:\mathsf M_j\rightsquigarrow\mathsf M_i$. Their dependence on the laws is part of the specified interaction. A law-dependent channel is required to be a kernel $\mathcal K^q_{ij}:\mathsf S\times\mathsf K_j\rightsquigarrow\mathsf K_i$, jointly in the configuration and the source value, and likewise in the model sector. Then $x\mapsto\nu^q_{ij}(x)$ is Borel by a monotone-class argument, relative entropy is Borel on pairs of laws through its supremum over finite partitions from a countable generating algebra \citep{Gray1990}, and the costs, Gibbs rows, and reduced potential below are Borel functions of the configuration, as \cref{prop:record-law} and the record appendix require. Define
 \begin{equation}
  \begin{aligned}
  \nu^q_{ij}&=q_j\mathcal K^q_{ij}[\mathbf q],&
@@ -32,7 +35,7 @@ Let $\mathbf q=(q_i)_i$ and $\mathbf s=(s_i)_i$. For each allowed directed edge 
 \end{equation}
 The source sets $\mathcal N_i^q,\mathcal N_i^s$ are finite and nonempty, with positive normalized reference rows $\pi_i^q,\pi_i^s$. Belief routing uses $\beta_i$ and model routing uses $\gamma_i$ on their respective sets.
 
-\definitionheading{Coupled law potential}{def:dyn-potential}
+\definitionheading{Reciprocal law potential}{def:dyn-potential}
 For fixed $T_q,T_s>0$, set
 \begin{equation}
  \begin{aligned}
@@ -46,7 +49,9 @@ For fixed $T_q,T_s>0$, set
 \end{equation}
 The reference laws, evaluators, source priors, and temperatures are held fixed in the variations below. The admissible domain consists of laws for which all displayed divergences are finite.
 
-This potential is a constitutive choice at the level of agent laws. No distribution over these law configurations is required to define it. General probability laws enter \cref{eq:dyn-potential}; differentiability will require stronger hypotheses. An identity self-channel has $D^q_{ii}=0$ throughout its domain, with the same convention in the model sector. Independent opposite attending edges remain independent data.
+This potential is a constitutive choice at the level of agent laws. No distribution over these law configurations is required to define it. It contains no record; records enter its dynamics only through the assimilation events of \cref{def:dyn-record-interrupted}. Its gradient is reciprocal: a law that serves as a source appears in the cost of every receiver that attends to it, so the flow moves sources as well as receivers (\cref{sec:dyn-variation}). \Cref{sec:dyn-per-agent} gives the per-agent alternative in which peers' laws are data, and \cref{prop:dyn-no-global-vfe} shows that this potential is not a global variational free energy. General probability laws enter \cref{eq:dyn-potential}; differentiability will require stronger hypotheses. An identity self-channel has $D^q_{ii}=0$ throughout its domain, with the same convention in the model sector. Independent opposite attending edges remain independent data.
+
+The receiver side of \cref{eq:dyn-potential} is a pooling rule. With the other agents, rows, and channels frozen, and with the appearances of $q_i$ as a source ignored, stationarity of $q_i$ gives $\log q_i=(1+\sum_j\beta_{ij})^{-1}\bigl(\int\log g_i(m,\cdot)s_i(dm)+\sum_j\beta_{ij}\log\nu^q_{ij}\bigr)+\mathrm{const}$, a logarithmic opinion pool of the evaluator and the compared laws \citep{GenestZidek1986,Abbas2009}. Iterated relative-entropy averaging over a network is the consensus scheme of \citet{BattistelliChisci2014}, with \citet{DeGroot1974} as its linear antecedent. The source side, which \cref{prop:dyn-compensation} identifies, is not part of these pooling rules.
 
 \section{Source selection and reduction}
 \label{sec:dyn-rows}
@@ -79,6 +84,8 @@ the exact identity is
 For one row, $\log\beta_j^*=\log\pi_j-D_j/T-\log Z$. Substitute this expression into $T\KL(\beta\Vert\beta^*)$ to obtain the row objective plus $T\log Z$. Summing proves \cref{eq:dyn-row-gap}. Relative entropy is nonnegative and vanishes exactly when its two probability laws agree, which proves uniqueness, including competitors on the simplex boundary.
 \end{proof}
 
+\Cref{prop:dyn-gibbs} is the finite case of the Gibbs variational principle, the convex duality between relative entropy and the log moment generating function \citep{DonskerVaradhan1975,DupuisEllis1997}. What is specific here is that the costs $D_{ij}$ are themselves divergences between agent laws, so the rows move with the laws they select.
+
 On a differentiable family, direct differentiation of the finite sums in \cref{eq:dyn-gibbs} gives
 \begin{equation}
  d\mathcal E_{\mathrm{red}}
@@ -87,6 +94,14 @@ On a differentiable family, direct differentiation of the finite sums in \cref{e
  \label{eq:dyn-envelope}
 \end{equation}
 Indeed, $-T_qd\log Z_i^q=\sum_j\beta_{ij}^*dD^q_{ij}$, and the other sector is identical. There is no derivative of an optimized row to add. Every dependence of its cost on the laws still belongs in $dD$. If a source prior were varied, this formula would also contain $-T_q\sum_{ij}\beta_{ij}^*d\log\pi_{ij}^q$ and its model counterpart.
+
+\remarkheading{Identity self sources and learned source priors}{rem:dyn-self-sources}
+Suppose the source set of $i$ contains $i$ with an identity self-channel, so $D^q_{ii}=0$. Since every cost is nonnegative, $\pi_{ii}^q\leq Z_i^q\leq1$, hence $\beta_{ii}^*\geq\pi_{ii}^q$ and $\beta_{ij}^*\leq(\pi_{ij}^q/\pi_{ii}^q)e^{-D^q_{ij}/T_q}$ for $j\neq i$. A peer whose divergence exceeds $T_q\log(\pi^q_{ij}/(\pi^q_{ii}\varepsilon))$ receives row weight below $\varepsilon$, so at fixed priors the reduced interaction is a smooth form of bounded-confidence opinion dynamics \citep{HegselmannKrause2002}. If instead the prior row $\pi_i^q$ is made a dynamical table of \cref{eq:dyn-potential} with unit Fisher mobility, then $\partial\mathcal E/\partial\pi^q_{ij}=-T_q\beta_{ij}/\pi^q_{ij}$ and its Fisher flow is exactly
+\begin{equation}
+ \dot\pi_i^q=T_q(\beta_i-\pi_i^q).
+ \label{eq:dyn-prior-learning}
+\end{equation}
+With Gibbs rows this is $\dot\pi^q_{ij}=(T_q/Z_i^q)\pi^q_{ij}(e^{-D^q_{ij}/T_q}-Z_i^q)$, a replicator equation with fitness $e^{-D/T_q}$ \citep{HofbauerSigmund1998}, slow at small $T_q$ without an inserted multiplier. An identity self source then has $\dot\pi^q_{ii}=(T_q/Z_i^q)\pi^q_{ii}(1-Z_i^q)\geq0$, and the infimum of the row terms over priors and rows is approached in the limit of isolation, where each agent attends only to itself. A learned-prior mechanism therefore needs self excluded from the learnable rows or its self prior held fixed. Whether learned rows without self concentrate on a pairing is open.
 
 \section{The derivative includes every interaction role}
 \label{sec:dyn-variation}
@@ -114,7 +129,21 @@ The second term differentiates the prescribed channel itself. Thus an agent cont
 \end{equation}
 The model sector has the same expression with $q,\beta$ replaced by $s,\gamma$. If the channels are constructed from law-dependent moments or generators, \cref{eq:dyn-channel-differential} also differentiates those moments and generators. Keeping their numerical values fixed computes a different vector field.
 
-An identity self-channel illustrates why the variable identification matters. Here $a=b$ and $da=db$, so \cref{eq:dyn-kl-differential} is zero throughout the state space. Freezing the source as an old snapshot while moving the receiver replaces this zero functional by a divergence from that snapshot. Its first derivative still vanishes at equality, but its curvature and its force after displacement differ. More generally, directed source selection does not make the gradient of \cref{eq:dyn-potential} one-way: a source appears in the energy of every row that attends to it.
+An identity self-channel illustrates why the variable identification matters. Here $a=b$ and $da=db$, so \cref{eq:dyn-kl-differential} is zero throughout the state space. Freezing the source as an old snapshot while moving the receiver replaces this zero functional by a divergence from that snapshot. Its first derivative still vanishes at equality, but its curvature and its force after displacement differ. More generally, directed source selection does not make the gradient of \cref{eq:dyn-potential} one-way: a source appears in the energy of every row that attends to it. Each directed edge $j\to i$ therefore carries influence in both directions. The force on the source is the receiver likelihood ratio $q_i/\nu^q_{ij}$ pulled back through the adjoint of the channel, so it is supported on what the channel reads; for a deterministic readout $T$ it is a function of $T(v)$, and only the message marginal of the source moves. The communication model of \cref{ch:prediction} sends messages from source to receiver only. A population of communicating agents realizes the reciprocal flow only if this reverse message is also modeled; otherwise each source must be able to read the laws of every receiver that attends to it. Every agent descends the same total $\mathcal E$, so the population plays an identical-interest game in the sense of \citet{MondererShapley1996}. \Cref{sec:dyn-per-agent} shows what is lost when each agent descends only its own objective.
+
+\propositionheading{Receiver and source pools}{prop:dyn-compensation}
+Let the receivers $i\in I_j$ of a source $j$ use a common fixed channel $K_j$, with weights $\beta_{ij}>0$, $W_j=\sum_{i\in I_j}\beta_{ij}$, and pooled receiver law $\bar q_{\to j}=W_j^{-1}\sum_{i\in I_j}\beta_{ij}q_i$. If all displayed divergences are finite,
+\begin{equation}
+ \sum_{i\in I_j}\beta_{ij}\KL(q_i\Vert q_jK_j)
+ =\sum_{i\in I_j}\beta_{ij}\KL(q_i\Vert\bar q_{\to j})
+ +W_j\KL(\bar q_{\to j}\Vert q_jK_j).
+ \label{eq:dyn-compensation}
+\end{equation}
+\begin{proof}
+Expand both sides with $\int\log$ of densities against a common reference. The receiver entropies agree. On the right, $-\sum_i\beta_{ij}\int\log\bar q_{\to j}dq_i+W_j\int\log\bar q_{\to j}d\bar q_{\to j}=0$ because $\sum_i\beta_{ij}q_i=W_j\bar q_{\to j}$, and the remaining cross term equals the left cross term for the same reason.
+\end{proof}
+
+The first term on the right does not contain $q_j$. At fixed rows the complete source-role force on $q_j$ is therefore the force of $W_j\KL(\bar q_{\to j}\Vert q_jK_j)$, which fits one source law to the arithmetic pool of its receivers in the mass-covering direction, while the receiver-role force is the logarithmic pool above. In a Gaussian covariance sector with identity channel, the source force on the variance $v_j$ from one receiver $\mathcal N(m_i,v_i)$ is $(v_j-v_i-(m_i-m_j)^2)/(2v_j^2)$, which vanishes at $v_j=v_i+(m_i-m_j)^2$: a source more confident than its receivers' spread is widened.
 
 \section{Fisher dynamics with equal mobilities}
 \label{sec:dyn-fisher}
@@ -144,11 +173,65 @@ Along this solution,
 The stated positivity and regularity make $\mathcal E$ twice continuously differentiable in interior simplex coordinates. The right side of \cref{eq:dyn-fisher-flow} is therefore locally Lipschitz, giving a unique local solution and its maximal continuation in the interior. Its entries sum to zero within each table. Centering $h^a$ removes any ambiguity from extending $\mathcal E$ off the normalized tables. For every tangent vector $v$, the metric pairing of $u^a(h^a-\E_{u^a}h^a)$ with $v^a$ equals $\sum_zh_z^av_z^a$. This identifies the Fisher gradient. Finally, substitute \cref{eq:dyn-fisher-flow} into $\dot{\mathcal E}=\sum_{a,z}h_z^a\dot u_z^a$ to obtain the sum of negative variances. Interior continuation does not assert that the trajectory stays away from the boundary for all time.
 \end{proof}
 
-All blocks have unit mobility. A persistent slow model sector would have to follow from the interactions and their state, rather than from an inserted small multiplier in its equation. One may instead optimize the source rows at each state and apply the same construction to $\mathcal E_{\mathrm{red}}$ and the matter tables alone; \cref{eq:dyn-envelope} gives its complete derivative.
+On a single simplex \cref{eq:dyn-fisher-flow} is the replicator equation with fitness $-h$, the metric \cref{eq:dyn-fisher-metric} is the Shahshahani metric, and its identification as a gradient flow is Shahshahani's theorem \citep{Shahshahani1979,HofbauerSigmund1998}; \cref{eq:dyn-dissipation} is the corresponding form of Fisher's fundamental theorem. \Cref{thm:dyn-finite-flow} is that statement on a product of simplices with law-dependent channels. For fixed channels the local statement extends to all time.
 
-For a regular finite-dimensional family with positive-definite Fisher tensor $g_{ab}(\theta)$, the corresponding equation is $\dot\theta^a=-(g^{-1})^{ab}\partial_b\mathcal E$ \citep{Amari1998}. Whenever the derivatives exist, contraction gives $\dot{\mathcal E}=-(\partial\mathcal E)^Tg^{-1}(\partial\mathcal E)$. Bimeasurable re-expression of samples, carrying all kernels and reference laws with it, preserves relative entropy and Fisher score inner products. On a family preserved by that re-expression, the gradient therefore transforms as a tangent vector. These statements concern fixed coordinate changes; coordinates that themselves evolve require their coordinate-velocity term.
+\propositionheading{Global flow for fixed channels}{prop:dyn-global-flow}
+In addition to the hypotheses of \cref{thm:dyn-finite-flow}, suppose every channel is independent of the laws and has no null column: $c_{\min}=\min_{i,j,z}\sum_v\mathcal K_{ij}(v,z)>0$ in each sector. Then every interior solution of \cref{eq:dyn-fisher-flow} exists for all $t\geq0$, its entries are bounded below by a positive constant uniformly in time, $\int_0^\infty\sum_a\operatorname{Var}_{u^a}(h^a)dt\leq\mathcal E(u(0))$, and it converges to a single critical point of $\mathcal E$.
+\begin{proof}
+Consider the belief tables. Constants in $h$ cancel on centering, so replace the belief force of agent $i$ by $\tilde h_z=\log q_i(z)-\int\log G_i(m,z)s_i(dm)+\sum_j\beta_{ij}\log(q_i(z)/\nu_{ij}(z))+\sigma_z$, where $\sigma_z\leq0$ collects the incoming terms \cref{eq:dyn-incoming}. Let $m(t)$ be the minimum of $\log q_i(z)$ over agents and states, attained at $(i,z)$. Every entry of every belief table is at least $e^m$, so $\nu_{ij}(z)\geq c_{\min}e^m$ and $\tilde h_z\leq m+C_G+\log^+(1/c_{\min})$, with $C_G=\max(-\log G)$. On the other hand $\E_{q_i}\tilde h\geq-\log|\mathsf K_i|-N$: the entropy term is at least $-\log|\mathsf K_i|$, the evaluator and receiver terms are nonnegative, and each incoming term averages to $-\beta_{ki}$ under $q_i$. Hence the lower Dini derivative of $m$ is at least $-m-C$ with $C=C_G+\log^+(1/c_{\min})+\log\max_i|\mathsf K_i|+N$, and $m(t)\geq\min(m(0),-C)$. The model tables are treated in the same way, with $-\log r_i$ added to the bound. With these floors every $D_{ij}$ is bounded by a constant $\bar D$, and the same argument applied to $h_j=D_{ij}+T(\log(\beta_{ij}/\pi_{ij})+1)$ bounds the rows below by $\min(\log\beta_{ij}(0),-\bar D/T-\log(1/\min\pi))$ in logarithm. The trajectory therefore stays in a compact subset of the interior, so it is global. Since $\mathcal E\geq0$, integrating \cref{eq:dyn-dissipation} bounds the dissipated variance. With fixed channels $\mathcal E$ is real analytic on the interior of the product of simplices, and on the compact set the Fisher metric is uniformly equivalent to the Euclidean one, so the {\L}ojasiewicz gradient inequality gives convergence of the bounded trajectory to one critical point \citep{Lojasiewicz1963,AbsilMahonyAndrews2005}.
+\end{proof}
 
-\section{What a fixed record model changes}
+For law-dependent channels the channel-derivative term of \cref{eq:dyn-channel-differential} can be unbounded near the boundary, and no statement of this kind follows without further hypotheses.
+
+\propositionheading{Row relaxation}{prop:dyn-row-relaxation}
+Hold all costs of one row fixed and write $l_j=\log(\beta_j/\beta_j^*)$ with $\beta^*$ from \cref{eq:dyn-gibbs}. Under \cref{eq:dyn-fisher-flow}, $\frac{d}{dt}(l_j-l_k)=-T(l_j-l_k)$ for every pair of sources.
+\begin{proof}
+The row force is $h_j=D_j+T(\log(\beta_j/\pi_j)+1)=Tl_j+T(1-\log Z)$, and \cref{eq:dyn-fisher-flow} gives $\frac{d}{dt}\log\beta_j=-(h_j-\E_\beta h)$.
+\end{proof}
+
+All blocks have unit mobility, and \cref{prop:dyn-row-relaxation} shows its price: under unit mobility, log-odds contrasts within a row relax at rate exactly $T$, so rows that select sharply are slow. Exact Gibbs rows are the singular limit of infinite row mobility, not a property of the unit-mobility flow. One may optimize the source rows at each state and apply the same construction to $\mathcal E_{\mathrm{red}}$ and the matter tables alone; \cref{eq:dyn-envelope} gives its complete derivative. The two flows are different vector fields with different transients, but they share their critical points and their stability (\cref{prop:dyn-morse}). Equal mobility has a justification beyond convention. Unit mobilities are the Fisher metric of the single product law of all tables, regarded as one law of all represented variables and source labels, because the Fisher metric of a product law restricted to the product family is the sum of the factor metrics. If the kinetic metric is required to be the restriction of a metric on the law space of all these variables jointly that is invariant under Markov congruent embeddings, \v{C}encov's theorem \citep{Cencov1982} forces it to be a constant multiple of the Fisher metric, so equal mobility is fixed up to one global time scale. Imposing invariance on each table separately allows an independent constant for each table, equivalent to replicating that table. A persistent slow model sector would have to follow from the interactions and their state, rather than from an inserted small multiplier in its equation.
+
+\propositionheading{Full and reduced flows have the same critical structure}{prop:dyn-morse}
+Under the hypotheses of \cref{thm:dyn-finite-flow}, $(u,\beta^*(u),\gamma^*(u))$ is a critical point of $\mathcal E$ exactly when $u$ is a critical point of $\mathcal E_{\mathrm{red}}$, and at such a point the Hessians of $\mathcal E$ and $\mathcal E_{\mathrm{red}}$ on the tangent spaces have the same number of negative and zero eigenvalues.
+\begin{proof}
+At fixed laws the row terms are $\sum_j\beta_jD_j+T\KL(\beta\Vert\pi)$, whose Hessian on the tangent space of the simplex is $T$ times the Fisher metric, hence positive definite; the row optimum is $\beta^*$, and \cref{eq:dyn-envelope} identifies the critical points. The Hessian of $\mathcal E_{\mathrm{red}}$ is the Schur complement of the positive-definite row block in the Hessian of $\mathcal E$, and Haynsworth's inertia additivity \citep{Haynsworth1968} gives the claim.
+\end{proof}
+
+For a regular finite-dimensional family with positive-definite Fisher tensor $g_{ab}(\theta)$, the corresponding equation is $\dot\theta^a=-(g^{-1})^{ab}\partial_b\mathcal E$ \citep{Amari1998}. Whenever the derivatives exist, contraction gives $\dot{\mathcal E}=-(\partial\mathcal E)^Tg^{-1}(\partial\mathcal E)$. Bimeasurable re-expression of samples, carrying all kernels and reference laws with it, preserves relative entropy and Fisher score inner products. On a family preserved by that re-expression, the gradient therefore transforms as a tangent vector; this is passive covariance. Active equivariance would further need equivariant constitutive maps for the law-dependent channels, as in \cref{eq:int-reference-equivariance}, and transported references and evaluators. These statements concern fixed coordinate changes; coordinates that themselves evolve require their coordinate-velocity term.
+
+\definitionheading{Restricted-family flow}{def:dyn-restricted-flow}
+Let $\theta\mapsto p_\theta$ be an admitted regular finite-dimensional family for some of the laws, with Fisher tensor $g(\theta)$. The restricted-family flow is $\dot\theta=-g(\theta)^{-1}\partial_\theta\mathcal E(p_\theta)$. For a Gaussian law $\mathcal N(\mu,\Sigma)$ on $\R^d$, with $\nabla_\mu\mathcal E$ and the symmetric gradient $\nabla_\Sigma\mathcal E$, it reads
+\begin{equation}
+ \dot\mu=-\Sigma\nabla_\mu\mathcal E,
+ \qquad
+ \dot\Sigma=-2\Sigma(\nabla_\Sigma\mathcal E)\Sigma.
+ \label{eq:dyn-gaussian-flow}
+\end{equation}
+
+The restricted flow is the Fisher-orthogonal projection of the full velocity onto the tangent space of the family. It is the full flow only on families that the full flow leaves invariant, and the source role prevents this for Gaussian agents.
+
+\propositionheading{Gaussian agents are not an invariant family}{prop:dyn-gaussian-noninvariance}
+Let all belief laws be Gaussian on $\R^d$ with identity channels and fixed rows, let the evaluators be Gaussian with means affine in $m$ and fixed covariance, and let the model laws have finite second moments. Suppose exactly one receiver $k\neq i$ attends to $i$, with $\beta_{ki}>0$ and $q_k\neq q_i$. Then the Fisher velocity $-(\varphi-\E_{q_i}\varphi)$ of $q_i$, with $\varphi$ the first variation of $\mathcal E$ in $q_i$, is not the logarithmic derivative of any differentiable curve of Gaussian laws.
+\begin{proof}
+For a curve of Gaussian laws, $\partial_t\log q$ is a polynomial of degree at most two. The local term contributes $\log q_i-\int\log g_i(m,\cdot)s_i(dm)$, and each receiver term $\beta_{ij}\log(q_i/q_j)$; both are polynomials of degree at most two. By \cref{eq:dyn-incoming} with an identity channel, the source term is $-\beta_{ki}q_k/q_i=-\beta_{ki}e^{Q}$ with $Q$ a nonconstant polynomial of degree at most two. Along a line on which $Q$ is nonconstant, $e^Q$ is not a polynomial, since a polynomial $p=e^Q$ would satisfy $p'=Q'p$ with $\deg(Q'p)\geq\deg p>\deg p'$. Hence $\varphi$ is not a polynomial of degree at most two.
+\end{proof}
+
+The inheritance and formation results of \cref{ch:smooth-closure} to \cref{ch:open-formation} are proved for full density charts. They do not transfer to the restricted Gaussian flow without a separate proof. Channels that are constant in their input, as in \cref{ch:conditional-formation}, remove the source term and with it this obstruction.
+
+The density-level flow used in those chapters needs its own hypotheses. For a law $q$ on a standard Borel space with probability reference $\lambda$, write $q_l=e^l\lambda/\E_\lambda e^l$ for $l$ in the chart $L^\infty_0(\lambda)=\{l\in L^\infty(\lambda):\E_\lambda l=0\}$, and use log-odds coordinates for rows. Suppose $\mathcal E$ has a first variation $\varphi_q\in L^\infty(\lambda)$ in each law, in the sense that $\frac{d}{dt}\mathcal E(q_{l(t)})=\sum\int\varphi_q d\dot q$ along every continuously differentiable chart curve.
+
+\definitionheading{Fisher flow in bounded log-density charts}{def:dyn-chart-flow}
+The chart Fisher flow is $\dot l=-(\varphi_{q_l}-\E_\lambda\varphi_{q_l})$ for every law, together with \cref{eq:dyn-fisher-flow} for the rows.
+
+\propositionheading{Local well-posedness in charts}{prop:dyn-chart-flow}
+Suppose the map from chart coordinates to the first variations $\varphi_q\in L^\infty(\lambda)$ is Lipschitz on bounded sets. Then for every initial point there is a unique maximal continuously differentiable solution on $[0,t^*)$, and if $t^*<\infty$ the chart coordinates are unbounded as $t\to t^*$. Along it, $\partial_t\log q=-(\varphi_q-\E_q\varphi_q)$ and $d\mathcal E/dt=-\sum\operatorname{Var}_q(\varphi_q)\leq0$, the sum running over all laws and rows. The hypothesis holds for relative-entropy terms when the reference laws and evaluators have bounded log densities against $\lambda$ and every channel is either an identity between agents sharing $\lambda$ or a fixed kernel with densities bounded above and below by positive constants; for law-dependent channels it is an additional hypothesis on the first variation of the channel.
+\begin{proof}
+The maps $l\mapsto\E_{q_l}f=\E_\lambda[fe^l]/\E_\lambda e^l$ are locally Lipschitz in $(l,f)\in L^\infty\times L^\infty$, so the vector field is Lipschitz on bounded sets, and the Picard--Lindel\"of theorem in a Banach space gives local existence, uniqueness, and the continuation alternative \citep{Dieudonne1960}. Since $\log q_l=l-\log\E_\lambda e^l$ and $\frac{d}{dt}\log\E_\lambda e^l=\E_q\dot l$, the logarithmic velocity is $-(\varphi_q-\E_q\varphi_q)$; integrating it against $\varphi_q dq$ gives the variance. Under the stated bounds, the receiver terms $\log(q_i/\nu_{ij})$ and evaluator terms are bounded, the source terms $-\int(q_i/\nu_{ij})(w)\mathcal K_{ij}(v,dw)$ are bounded, and each is a composition of exponentials, logarithms on bounded ranges, and integrals against fixed bounded kernels, hence Lipschitz on bounded sets.
+\end{proof}
+
+Global statements on general spaces need maximum-principle estimates for particular channel classes and are stated where they are used. The Fisher--Rao metric used here is, up to scale, the metric singled out by invariance under sufficient statistics \citep{Cencov1982,AyJostLeSchwachhofer2015}.
+
+\section{A global free energy and its local free energies}
 \label{sec:dyn-likelihood}
 
 Choose a proper prior $P_0(dy,dJ)$ on represented contents and source labels, and a normalized record kernel $\mathscr R(do\mid y,J)$. Then $\mathbb P=P_0\mathscr R$ is normalized by integrating the record first. At a declared record density $\ell_o(y,J)$ with $0<Z_o=\int\ell_o dP_0<\infty$, its posterior is $\Pi_o=\ell_o P_0/Z_o$. Substitution proves
@@ -157,9 +240,32 @@ Choose a proper prior $P_0(dy,dJ)$ on represented contents and source labels, an
  =\KL(Q\Vert\Pi_o)-\log Z_o,
  \label{eq:dyn-fixed-vfe}
 \end{equation}
-when the split terms are defined. The right side supplies the extended definition otherwise. This is the variational free energy of a fixed model. A product family for $Q$ is permitted and its block updates remain coupled through the likelihood factors. Each block derivative contains every factor incident on it.
+when the split terms are defined. The right side supplies the extended definition otherwise. This is the variational free energy of a fixed model \citep{NealHinton1998,JordanEtAl1999,Friston2010}. A product family for $Q$ is permitted and its block updates remain coupled through the likelihood factors. Each block derivative contains every factor incident on it.
 
-With independent source priors and one likelihood factor reading each label, a factorized source row has cost $C_{ij}=\E_{Q_Y}[-\log\ell_i(o_i\mid Y,j)]$ and optimizer $\beta_{ij}\propto\pi_{ij}e^{-C_{ij}}$. This expected log likelihood differs from both the peer divergence and the likelihood integrated over a prior. For an isolated source record, exact source inference gives $\mathbb P(J=j\mid o)\propto\pi_j\E_{P_Y}\ell_j(o\mid Y)$. Equality of these different rows needs additional hypotheses.
+In the global picture the represented contents of all agents are variables of one such model. Write $y=(y_1,\dots,y_N)$ with $y_i\in\mathsf Y_i$, where $\mathsf Y_i$ collects the state and model coordinates of agent $i$, and let $\lambda_i$ be a sigma-finite reference on $\mathsf Y_i$. Peer interactions are likelihood factors: for example, a comparison record \cref{eq:sample-comparison} between agents $i$ and $j$ contributes a factor that depends on $(y_i,y_j)$.
+
+\propositionheading{Local free energies of a global model}{prop:dyn-global-local}
+Let $\Pi_o$ have a density $p$ with respect to $\bigotimes_j\lambda_j$, and restrict recognition to products $Q=\bigotimes_jQ_j$ with $Q_j=a_j\lambda_j$. Assume $\int|a_j\log a_j|d\lambda_j<\infty$ for every $j$ and $\int|\log p|dQ<\infty$. Fix $i$ and the factors $Q_{-i}=\bigotimes_{j\neq i}Q_j$, and put
+\begin{equation}
+ \bar e_i(y_i)=\int\log p(y_i,y_{-i})Q_{-i}(dy_{-i}),
+ \qquad
+ Z_i=\int e^{\bar e_i}d\lambda_i.
+ \label{eq:dyn-mean-field-field}
+\end{equation}
+If $0<Z_i<\infty$, then with $Q_i^*=e^{\bar e_i}\lambda_i/Z_i$,
+\begin{equation}
+ \mathcal F(Q;o)=\KL(Q_i\Vert Q_i^*)-\log Z_i
+ +\sum_{j\neq i}\int a_j\log a_jd\lambda_j-\log Z_o.
+ \label{eq:dyn-local-free-energy}
+\end{equation}
+Consequently the local free energy of agent $i$, defined as $\mathcal F$ viewed as a function of $Q_i$ alone, has the unique minimizer $Q_i^*$, every update of one factor to its minimizer lowers $\mathcal F$ or leaves it unchanged, and $\mathcal F$ is a Lyapunov function for every schedule of such block updates. The peers enter $\bar e_i$ only through expectations, so $\bar e_i$ is affine in each $Q_j$ with $j\neq i$.
+\begin{proof}
+By the assumed integrability, $\mathcal F(Q;o)=\KL(Q\Vert\Pi_o)-\log Z_o=\sum_j\int a_j\log a_jd\lambda_j-\int\log p dQ-\log Z_o$. Fubini's theorem gives $\int\log p dQ=\int\bar e_idQ_i$. Since $\log(dQ_i/dQ_i^*)=\log a_i-\bar e_i+\log Z_i$, the terms involving $Q_i$ equal $\KL(Q_i\Vert Q_i^*)-\log Z_i$, which proves \cref{eq:dyn-local-free-energy}. The remaining statements follow because relative entropy is nonnegative and vanishes only at equality, and because $\bar e_i$ is an integral of a fixed function against the product $Q_{-i}$.
+\end{proof}
+
+This is the coordinate-ascent identity of mean-field variational inference \citep{Bishop2006,BleiEtAl2017}, here read as a statement about agents: each agent minimizing its own local free energy, with its peers' current factors given, performs coordinate descent of one collective functional. The identification requires that every agent's model be a conditional of the same joint and that peers act through expectations of their contents. The latter property is what the two other objectives of this chapter lack.
+
+With independent source priors and one likelihood factor reading each label, a factorized source row has cost $C_{ij}=\E_{Q_Y}[-\log\ell_i(o_i\mid Y,j)]$ and optimizer $\beta_{ij}\propto\pi_{ij}e^{-C_{ij}}$. This expected log likelihood differs from both the peer divergence and the likelihood integrated over a prior. For an isolated source record, exact source inference gives $\mathbb P(J=j\mid o)\propto\pi_j\E_{P_Y}\ell_j(o\mid Y)$. Equality of these different rows needs additional hypotheses; \cref{prop:dyn-label-model,thm:dyn-registered} give two exact settings.
 
 \propositionheading{Entropy and the likelihood Jensen gap}{prop:dyn-jensen}
 On standard Borel spaces, let $k(w\mid v)$ be a density of a normalized kernel into a receiver space with sigma-finite reference $\lambda$. Let the receiver law be $q=a\lambda$ and the source law be $p$. Put $b(w)=\int k(w\mid v)p(dv)$. Assume $0<b(w)<\infty$ for $q$-almost every $w$, $k>0$ almost everywhere under $q\otimes p$, and finiteness of $\E_q|\log a|$, $\E_q|\log b|$, and $\E_{q\otimes p}|\log k|$. Define $p^w(dv)=k(w\mid v)p(dv)/b(w)$ on this full-measure set. Then
@@ -175,6 +281,26 @@ The density ratio gives $\KL(p\Vert p^w)=\log b(w)-\int\log k(w\mid v)p(dv)$. In
 
 The entropy here is relative to the declared reference. A record likelihood normalized in $o$ need not be normalized in the receiver coordinate $w$, so \cref{prop:dyn-jensen} requires that additional kernel interpretation. Even when it applies, the entropy and conditional divergence can affect the dynamics.
 
+The identity gives the exact relation between the Gibbs rows and a normalized source-label model in one sector.
+
+\propositionheading{Gibbs rows and a normalized label model}{prop:dyn-label-model}
+Let all alphabets be finite with counting reference, let the represented contents $Y_i\sim r_i$ be independent, let labels $J_i\sim\pi_i$ range over nonself sources, and let each receiver register one binary record whose success probability given $J_i=j$ is $k_{ij}(Y_i\mid Y_j)^{1/T}$, where $k_{ij}(w\mid v)=\mathcal K_{ij}(v,\{w\})>0$. With all records registered and product recognition $\bigotimes_iq_i\otimes\bigotimes_i\beta_i$, the free energy $\mathcal F$ of this model satisfies
+\begin{equation}
+ T\mathcal F
+ =\mathcal E
+ +\sum_i\bigl[H(q_i)+(T-1)\KL(q_i\Vert r_i)\bigr]
+ +\sum_{ij}\beta_{ij}G_{ij},
+ \qquad
+ G_{ij}=\int\KL(q_j\Vert q_j^w)q_i(dw),
+ \label{eq:dyn-label-model}
+\end{equation}
+where $\mathcal E$ is \cref{eq:dyn-potential} in this sector with local term $\sum_i\KL(q_i\Vert r_i)$, and $q_j^w$ is the source conditional of \cref{prop:dyn-jensen}. The recognition-optimal rows are $\beta_{ij}\propto\pi_{ij}e^{-(D_{ij}+G_{ij})/T}$, and they equal the Gibbs rows \cref{eq:dyn-gibbs} exactly when $G_{ij}$ does not depend on $j$.
+\begin{proof}
+Since $k_{ij}\leq1$ on a finite alphabet, the record probabilities are normalized. Substitution gives $T\mathcal F=T\sum_i\KL(q_i\Vert r_i)+T\sum_i\KL(\beta_i\Vert\pi_i)+\sum_{ij}\beta_{ij}\E_{q_i\otimes q_j}[-\log k_{ij}]$. Apply \cref{eq:dyn-jensen} to each expectation and use $\sum_j\beta_{ij}=1$. The row statement is \cref{prop:dyn-gibbs} with costs $D_{ij}+G_{ij}$.
+\end{proof}
+
+This generalizes the Gaussian calculation of the supplement. A channel whose kernel vanishes on a set charged by $q_i\otimes q_j$, such as a deterministic bit-transmitting channel, makes the expected log likelihood infinite and has no reading as a label likelihood of this kind.
+
 There is also an exact obstruction to universal equality. Freeze a channel $K$ and receiver $q$. Suppose $p_1K,p_2K$ have positive densities that differ on a set of positive $q$-measure, with both divergences finite. Strict convexity of $-\log$ gives
 \begin{equation}
  \KL(q\Vert (tp_1+(1-t)p_2)K)
@@ -182,3 +308,129 @@ There is also an exact obstruction to universal equality. Freeze a channel $K$ a
  \label{eq:dyn-affine-obstruction}
 \end{equation}
 This follows pointwise on the differing-density set and then by integration. By contrast, the expectation $\E_{q\otimes p}e(W,V)$ of any fixed integrable sample energy is affine in $p$. It cannot equal the divergence at both endpoints and their strict mixture. The obstruction concerns a fixed sample energy; it does not exclude a direct law potential, a frozen-template episode, or an explicitly different probability model whose variables are law points.
+
+\section{Per-agent free energies}
+\label{sec:dyn-per-agent}
+
+In the per-agent picture each agent has its own normalized generative model, and the communicated laws of its peers enter that model as data. The agent's own evaluator and reference become one source among several, and a latent label records which source supplies the prior.
+
+\definitionheading{Per-agent mixture-source model}{def:dyn-per-agent}
+Fix agent $i$ and the current laws of its peers. Let the finite source sets $\mathcal N_i^q,\mathcal N_i^s$ contain the self label $i$, with positive normalized priors $\pi_i^q,\pi_i^s$. Define content sources and presentation sources by
+\begin{equation}
+ \kappa_{ii}(m,\cdot)=G_i(m,\cdot),\quad
+ \kappa_{ij}(m,\cdot)=\nu^q_{ij}\ (j\neq i),\qquad
+ \rho_{ii}=r_i,\quad
+ \rho_{il}=\nu^s_{il}\ (l\neq i),
+ \label{eq:dyn-mixture-sources}
+\end{equation}
+with $\nu^q_{ij},\nu^s_{il}$ as in \cref{eq:dyn-peer-costs}. The per-agent model on $(m,k,J,L,o)$ is
+\begin{equation}
+ P_i(dm,dk,J=j,L=l,do)
+ =\pi^s_{il}\rho_{il}(dm)\pi^q_{ij}\kappa_{ij}(m,dk)\ell_i(k,m;do).
+ \label{eq:dyn-per-agent-model}
+\end{equation}
+It is normalized for every value of the peer laws. Those laws are parameters of agent $i$'s model, not variables over which it infers.
+
+\propositionheading{Per-agent free energy}{prop:dyn-per-agent}
+In \cref{eq:dyn-per-agent-model}, fix a record value $o$ with a declared density of $\ell_i$ and $0<P_i(o)<\infty$. Take recognition $s_i\otimes q_i\otimes\beta_i\otimes\gamma_i$ on $(m,k,J,L)$, and assume that every term below is finite. Then
+\begin{equation}
+ \begin{aligned}
+ \mathcal F_i={}&\sum_l\gamma_{il}\KL(s_i\Vert\rho_{il})+\KL(\gamma_i\Vert\pi_i^s)
+ +\sum_j\beta_{ij}\int\KL(q_i\Vert\kappa_{ij}(m,\cdot))s_i(dm)\\
+ &+\KL(\beta_i\Vert\pi_i^q)
+ +\iint-\log\ell_i(o\mid k,m)q_i(dk)s_i(dm).
+ \end{aligned}
+ \label{eq:dyn-per-agent-free-energy}
+\end{equation}
+For fixed laws the minimizing rows are the Gibbs rows of \cref{prop:dyn-gibbs} at unit temperature, with self costs $\KL(s_i\Vert r_i)$ and $\int\KL(q_i\Vert G_i(m,\cdot))s_i(dm)$ and peer costs $D^s_{il},D^q_{ij}$.
+\begin{proof}
+Write densities of $\rho_{il}$ and $\kappa_{ij}(m,\cdot)$ against the references of $s_i$ and $q_i$. Then $-\log$ of \cref{eq:dyn-per-agent-model} is the sum of $-\log\pi^s_{il}$, $-\log\rho_{il}(m)$, $-\log\pi^q_{ij}$, $-\log\kappa_{ij}(m,k)$, and $-\log\ell_i(o\mid k,m)$. Since $\mathcal F_i=\E_Q[\log Q-\log P_i(\cdot,o)]$, group each term with the entropy of the recognition factor it shares. The label terms give $\KL(\gamma_i\Vert\pi_i^s)+\KL(\beta_i\Vert\pi_i^q)$. Conditioning on $L=l$ and integrating $\log s_i-\log\rho_{il}$ against $s_i$ gives $\sum_l\gamma_{il}\KL(s_i\Vert\rho_{il})$. Conditioning on $J=j$ and $m$ and integrating $\log q_i-\log\kappa_{ij}(m,\cdot)$ against $q_i$ gives the third term. The record term remains. The row statement is \cref{prop:dyn-gibbs} with $T_q=T_s=1$.
+\end{proof}
+
+At unit temperatures the peer terms of \cref{eq:dyn-per-agent-free-energy} are exactly the peer terms of the reciprocal potential, and the self terms reproduce the split \cref{eq:dyn-local-split} of $\mathcal E_0$, now weighted by the self probabilities $\beta_{ii},\gamma_{ii}$. The agent's own model competes with its peers for the role of prior, and the rows infer which source to trust. Records add a likelihood term that persists in the objective. A temperature $T\neq1$ multiplies the label divergences; dividing by $T$ shows that it corresponds to tempered peer and self factors, a generalized-Bayes objective in the sense of \citet{BissiriHolmesWalker2016} rather than a normalized model.
+
+\definitionheading{Per-agent dynamics}{def:dyn-per-agent-flow}
+On finite positive tables satisfying the hypotheses of \cref{thm:dyn-finite-flow}, let each table $u^a$ belong to one agent $i(a)$. The per-agent dynamics is \cref{eq:dyn-fisher-flow} with $h^a_z=\partial\mathcal F_{i(a)}/\partial u^a_z$, where the peer laws inside $\mathcal F_{i(a)}$ take their current values.
+
+The proof of \cref{thm:dyn-finite-flow} applies without change and gives a unique maximal interior solution. The dissipation identity does not: each agent lowers its own free energy at the rate of its own variances, while the free energies of the receivers that attend to it change through terms it does not control. Let $\mathcal F_{\mathrm{tot}}=\sum_i\mathcal F_i$, regarded as a function of all tables. The per-agent force on $u^a$ omits from $\partial\mathcal F_{\mathrm{tot}}/\partial u^a$ exactly the derivatives of the other agents' free energies, namely the source-role terms \cref{eq:dyn-incoming} and the channel derivatives \cref{eq:dyn-channel-differential} of edges that $i(a)$ does not receive. The Fisher gradient flow of $\mathcal F_{\mathrm{tot}}$ keeps those terms and is the reciprocal flow of a potential of the form \cref{eq:dyn-potential}, with the agent's own model entering as the self source instead of as the additive term $\mathcal E_0$. Results proved for the reciprocal flow therefore do not transfer to the per-agent dynamics without a separate argument.
+
+\propositionheading{Per-agent dynamics need not be a gradient flow}{prop:dyn-nonreciprocal}
+Take three agents with Bernoulli belief laws of log odds $l_1,l_2,l_3$, a trivial model sector, evaluators equal to Bernoulli references of log odds $\varrho_i$, identity channels, and rows held fixed at $\beta_{ii}=1/(1+w)$ and $\beta_{i,i+1}=w/(1+w)$ with $w>0$ and indices modulo three. The per-agent dynamics is
+\begin{equation}
+ (1+w)\dot l_i=-(l_i-\varrho_i)-w(l_i-l_{i+1}),
+ \label{eq:dyn-three-cycle}
+\end{equation}
+whose linear part has eigenvalues $-1/(1+w)$ and $(-1-3w/2\pm i\sqrt3w/2)/(1+w)$. No Riemannian metric makes \cref{eq:dyn-three-cycle} the gradient flow of a function. By contrast, the linearization of the Fisher gradient flow of \cref{eq:dyn-potential} at any interior critical point is self-adjoint for the Fisher metric and has real spectrum.
+\begin{proof}
+For a Bernoulli law the Fisher flow in log odds is $\dot l=-\partial F/\partial p$, and $\partial_p\KL(\operatorname{Ber}(p)\Vert\operatorname{Ber}(p'))=l-l'$, which gives \cref{eq:dyn-three-cycle}. Its linear part is circulant, with eigenvalues $(-1-w+w\omega)/(1+w)$ for the cube roots of unity $\omega$. At an equilibrium of a gradient flow $\dot x=-g^{-1}\nabla F$ the linearization is $-g^{-1}\operatorname{Hess}F$, which is self-adjoint for $g$ and hence has real eigenvalues; the same argument applies to \cref{eq:dyn-potential}.
+\end{proof}
+
+The cross-derivative criterion of \citet{MondererShapley1996} says the same in game-theoretic terms: agent-wise objectives $\KL(q_1\Vert q_2)$ and $\KL(q_2\Vert q_1)$ have unequal mixed partial derivatives unless $q_1=q_2$, so they admit no exact potential. Damped oscillation on directed cycles is the characteristic behavior of non-reciprocal interactions \citep{FruchartEtAl2021}. The reciprocal potential excludes it by construction, and an exact inheritance of a Fisher gradient flow cannot create it, since differentiating an exact intertwining by a submersion at an equilibrium shows that the parent spectrum is contained in the real spectrum of the fine linearization.
+
+\section{The reciprocal potential is not a global free energy}
+\label{sec:dyn-no-global}
+
+\propositionheading{No global free-energy identification}{prop:dyn-no-global-vfe}
+Hold the rows of \cref{eq:dyn-potential} fixed and positive, and suppose agent $i$ attends to a source $j\neq i$ through an identity channel.
+\begin{enumerate}
+\item[(a)] Let $\mathsf K_i=\mathsf K_j$ be finite with at least two points. There is no normalized joint $\mathbb P$ over finitely many finite-valued variables, record value $o$, rule $x\mapsto Q(x)$ assigning recognition laws, and constants $a>0$, $b$ with $\mathcal E(x)=a\mathcal F(Q(x);o)+b$ on the interior of the configuration space.
+\item[(b)] Suppose in addition that the channels are fixed. There is no normalized joint $\mathbb P$ and record value $o$ such that, with the product recognition $Q=\bigotimes_k\zeta_k$ whose factors are the agent laws themselves, $\mathcal E=a\mathcal F(Q;o)+b$ with $a>0$ on an open set of interior configurations.
+\end{enumerate}
+\begin{proof}
+For (a), every finite value of $\mathcal F(Q;o)=\KL(Q\Vert\Pi_o)-\log Z_o$ satisfies $\KL(Q\Vert\Pi_o)=\sum Q\log Q-\sum Q\log\Pi_o\leq\max_{\operatorname{supp}\Pi_o}(-\log\Pi_o)$, a finite bound independent of $Q$. Every term of \cref{eq:dyn-potential} is nonnegative, so $\mathcal E\geq\beta_{ij}\KL(q_i\Vert q_j)$. Let $q_i$ tend to the point mass at $u$ and $q_j$ to the point mass at $v\neq u$ through interior laws. Then $\mathcal E$ is finite along the path and tends to infinity, which no bounded function can match.
+
+For (b), $\mathcal F(Q;o)$ is a sum of single-factor terms $\int\zeta_k\log\zeta_k$ and the integral of a fixed function against $\bigotimes_k\zeta_k$, which is affine in each factor. Hence the third derivative in a mass-preserving direction $w$ of $q_i$ and twice in a mass-preserving direction $v$ of $q_j$ vanishes identically for $i\neq j$. For $\mathcal E$ the same derivative is that of $\beta_{ij}\KL(q_i\Vert q_j)$, namely $\beta_{ij}\int w(v/q_j)^2$ in densities against a common reference. For two-point alphabets with $w=v=(v_1,-v_1)$, this equals $\beta_{ij}v_1^3[q_j(1)^{-2}-q_j(2)^{-2}]$, which is nonzero whenever $v_1\neq0$ and $q_j$ is not uniform. An affine identity on an open set would equate the two derivatives there.
+\end{proof}
+
+The obstruction concerns models in which the agent laws are recognition laws. The per-agent picture evades it because each $\mathcal F_i$ is a fixed model only with its peers' laws held as data. Two further identifications place the agent laws elsewhere. In the first, agent $i$ receives $n$ independent messages from a source $J\sim\pi_i^q$ with law $\nu^q_{iJ}$ and registers whether their empirical type equals $q_i$, a type with denominator $n$. The method of types gives the registration probability $|T_{q_i}|\exp\{-n[H(q_i)+\KL(q_i\Vert\nu^q_{ij})]\}$ given $J=j$ \citep[Theorem 11.1.2]{CoverThomas2006}, so the posterior of $J$ given registration is the Gibbs row \cref{eq:dyn-gibbs} with $T_q=1/n$. There the laws are parameters of message laws. In the second, a prior proportional to $e^{-\mathcal E/\tau}$ against the Fisher volume on finite positive tables is normalizable because $\mathcal E\geq0$ and that volume is finite; records then add a likelihood, and the mode follows the Fisher flow of $\mathcal E-\tau\log\ell$. There the laws are latent variables of a hierarchical model. Neither construction makes $q_i$ or $s_i$ a recognition law.
+
+The first identification is exact on a type lattice. Fix $n\geq1$, set $T_q=T_s=T=1/n$, and let $\mathcal X_n$ be a finite set of configurations $x=(q_i,s_i)_i$ on finite alphabets in which every $q_i$, $s_i$, and $q_i\otimes s_i$ is a type with denominator $n$ and every compared law $\nu^q_{ij}(x),\nu^s_{ij}(x)$ and reference joint $R_i$ is positive; law-dependent channels are allowed. In the registered-agreement model, $X$ is uniform on $\mathcal X_n$, the labels $J^q_i\sim\pi^q_i$ and $J^s_i\sim\pi^s_i$ are independent, agent $i$ receives conditionally independent batches $Y^0_i\sim R_i^{\otimes n}$, $Y^q_i\sim\nu^q_{iJ^q_i}(X)^{\otimes n}$, and $Y^s_i\sim\nu^s_{iJ^s_i}(X)^{\otimes n}$, and it registers the binary records that the empirical types of these batches equal $q_i\otimes s_i$, $q_i$, and $s_i$. Write $o$ for the event that every record is registered, $|T_p|$ for the size of the type class of $p$, and $c_n(p)=H(p)-n^{-1}\log|T_p|$.
+
+\theoremheading{Registered agreement}{thm:dyn-registered}
+In the registered-agreement model the following hold.
+\begin{enumerate}
+\item[(i)] $\mathbb P(o^q_i\mid x,J^q_i=j)=|T_{q_i}|\exp\{-n[H(q_i)+D^q_{ij}(x)]\}$, and likewise in the model sector and for the reference batch with $\KL(q_i\otimes s_i\Vert R_i)$.
+\item[(ii)] The posterior of $J^q_i$ given $x$ and $o$ is the Gibbs row $\beta^*_i(x)$ of \cref{eq:dyn-gibbs}, and likewise for $J^s_i$.
+\item[(iii)] For recognition $\delta_x\otimes\bigotimes_i\beta_i\otimes\bigotimes_i\gamma_i$ of $(X,J)$, with the batches integrated out, the free energy satisfies $T\mathcal F=\mathcal E(x,\beta,\gamma)+C_n(x)+T\log|\mathcal X_n|$, where $C_n(x)$ is the sum of $c_n$ over the registered targets and $0\leq c_n(p)\leq|\operatorname{supp}p|\log(n+1)/n$.
+\item[(iv)] $\mathcal E_{\mathrm{red}}(x)=-T\log\mathbb P(o\mid x)-C_n(x)$, and $\mathcal E_{\mathrm{red}}(x)+C_n(x)+T\log|\mathcal X_n|\geq-T\log\mathbb P(o)$.
+\end{enumerate}
+\begin{proof}
+A sequence of type $p$ has probability $\exp\{-n[H(p)+\KL(p\Vert\nu)]\}$ under $\nu^{\otimes n}$ \citep[Theorem 11.1.2]{CoverThomas2006}; summing over the type class gives (i). In the posterior of a label the factor $|T_{q_i}|e^{-nH(q_i)}$ is common to all sources and cancels, which gives (ii). For (iii), $\KL(\delta_x\Vert\mathrm{Unif})=\log|\mathcal X_n|$, the label terms are $\KL(\beta_i\Vert\pi^q_i)$ and $\KL(\gamma_i\Vert\pi^s_i)$, and by (i) each expected negative log likelihood is $n$ times a divergence of \cref{eq:dyn-potential} plus $nc_n$ of its target; multiplying by $T=1/n$ gives the identity. The bounds on $c_n$ are those on the size of a type class \citep[Theorem 11.1.3]{CoverThomas2006}. For (iv), $-T\log\mathbb P(o\mid x)$ equals $\mathcal E_0(x)+C_n(x)-T\sum_i\log Z^q_i-T\sum_i\log Z^s_i$ by (i), and the free energy at the optimal rows bounds the negative log evidence.
+\end{proof}
+
+In this model the row temperature is the reciprocal number of exchanged messages, the Gibbs rows are exact posteriors of which source was heard, and the reduced potential is, up to the receiver-only term $C_n$, a negative log evidence at a point recognition of the configuration. The identification needs equal temperatures and one batch size; unequal temperatures give a weighted composite likelihood in the sense of \citet{BissiriHolmesWalker2016}. A nonuniform configuration prior $\rho$ adds $-T\log\rho(x)$. On general standard Borel spaces, registration of an empirical law in a neighborhood of the target gives the divergence as a large-deviation rate through Sanov's theorem \citep{Csiszar1984}; the double limit that would make (iii) exact there is not established here. Resampling $n$ messages from a table $p$ has covariance $(\operatorname{diag}p-pp^T)/n$, which is $T$ times the inverse of the Fisher metric \cref{eq:dyn-fisher-metric}, so the same message count would set the temperature of a stochastic version of the flow; that version and its metastability are open.
+
+At frozen sources the same device needs no type lattice.
+
+\corollaryheading{Frozen-source episodes}{cor:dyn-frozen-source}
+Hold the compared laws $\nu_{ij}$ of agent $i$ fixed, let $T=1/N$ with $N$ a positive integer, and consider the normalized model $J\sim\pi_i$, $X^{1:N}\mid J\sim\nu_{iJ}^{\otimes N}$. For the tied-copy recognition $\beta_i\otimes q_i^{\otimes N}$,
+\begin{equation}
+ T\KL\bigl(\beta_i\otimes q_i^{\otimes N}\Vert\pi_i(dJ)\nu_{iJ}^{\otimes N}\bigr)
+ =\sum_j\beta_{ij}D_{ij}+T\KL(\beta_i\Vert\pi_i),
+ \label{eq:dyn-frozen-source}
+\end{equation}
+and for a sequence of type $q_i$ the posterior of $J$ is the Gibbs row at temperature $T$. Replicating the reference joint in the same way represents the local term, so at $T_q=T_s=1/N$ the terms of one agent at frozen sources are $T$ times the record-free free energy of a fixed normalized model, and records attached to the copies add a likelihood with an evidence for each frozen episode.
+\begin{proof}
+The chain rule gives $\KL(\beta_i\Vert\pi_i)+\sum_j\beta_{ij}\KL(q_i^{\otimes N}\Vert\nu_{ij}^{\otimes N})$, and relative entropy is additive over independent copies. The posterior statement is (ii) of \cref{thm:dyn-registered} for one row.
+\end{proof}
+
+Freezing the sources removes their source-role forces, so a sequence of such episodes is a per-agent dynamics in the sense of \cref{sec:dyn-per-agent}, not the reciprocal flow.
+
+\definitionheading{Record-interrupted reciprocal dynamics}{def:dyn-record-interrupted}
+Let $0<t_1<t_2<\cdots$ be declared record times and let $A_{o}:\mathsf S\to\mathsf S$ be declared measurable assimilation maps, for example the conditioning updates of \cref{ch:prediction}. The record-interrupted dynamics follows the reciprocal Fisher flow on each interval $[t_k,t_{k+1})$ and applies $A_{o_k}$ at $t_k$, with right-continuous paths.
+
+This is a piecewise-deterministic process in the sense of \citet{Davis1984}. The reciprocal potential decreases along each flow interval but need not decrease at an assimilation, since conditioning on a record can move an agent away from the minimizer of \cref{eq:dyn-potential}. In the free-energy pictures the same record is a likelihood term, and the objective it enters is fixed between records.
+
+Relative to a fixed normalized model, the reciprocal potential therefore gives up four things: an evidence for model comparison, a posterior that the dynamics targets (its stationary points are compromises among references and peers), one objective that spans both interaction and data and is monotone across records, and a learning criterion for references, evaluators, priors, and temperatures. Its stationary set does not depend on records, so after an assimilation event the flow relaxes back toward record-independent states. A persistent record dependence must be declared.
+
+\definitionheading{Evidence-augmented reciprocal potential}{def:dyn-evidence-potential}
+For registered records $o=(o_i)_i$ with declared densities of the record kernels $\ell_i$ of \cref{def:generative-model}, set
+\begin{equation}
+ \mathcal E_o=\mathcal E+\sum_i\iint-\log\ell_i(o_i\mid k,m)q_i(dk)s_i(dm).
+ \label{eq:dyn-evidence-potential}
+\end{equation}
+
+The added term is the record term of \cref{eq:dyn-per-agent-free-energy}, so $\mathcal E_o$ is the reciprocal potential with the per-agent record likelihoods kept in the objective. Its stationary points depend on the records. The constructions of \cref{ch:fusion} to \cref{ch:open-formation} are proved for $\mathcal E$ with records entering only as assimilation events, and they are not claimed for $\mathcal E_o$.
+
+\openproblemheading{Relating the three objectives}{op:dyn-three-pictures}
+Characterize the configurations and channels for which the per-agent models \cref{eq:dyn-per-agent-model} of a population are conditionals of one normalized joint, so that the per-agent dynamics is coordinate descent of a global free energy as in \cref{prop:dyn-global-local}. Determine the families, such as linear Gaussian comparisons with fixed covariances, on which the reciprocal, per-agent and global objectives have the same stationary points. Decide whether a species in the sense of \cref{def:shared-model}, with matched evaluators and information, admits such a common joint. For each construction of \cref{ch:fusion} to \cref{ch:open-formation}, determine whether its conclusions hold under the per-agent dynamics or under a global free energy.

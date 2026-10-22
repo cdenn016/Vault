@@ -5,9 +5,19 @@ A collection becomes a parent when its retained state supports inherited
 interaction and evolution. A probability law obtained by compression is a first
 part of this construction. It does not determine how that law will change, what
 the parent can communicate, or which information its children must retain. We
-give exact conditions for these further steps and a finite example in which
-inheritance works through two levels. The example supplies its reductions;
+give exact conditions for these further steps, classify the mechanisms that
+make them hold, and give a finite drive--response example in which exact
+lumping works through two levels. The example supplies its reductions;
 formation of the reductions remains a separate question.
+
+Most exactness criteria below are instances of classical mathematics, and we
+attribute them where they are stated: factor maps of dynamical systems, exact
+lumping of differential equations, strong lumpability and Markov functions of
+Markov chains, Riemannian submersions, equivariant reduction, and conditional
+independence. What this chapter adds is their assembly into one notion of an
+inherited parent with declared protocol and preparation classes, the
+counterexamples showing which natural retentions fail, and the restrictions
+that these criteria place on the formation constructions of later chapters.
 
 \section{Two objects that a parent must retain}
 
@@ -23,6 +33,8 @@ retained law
 A configuration retention is a measurable map
 $R:\mathsf S\to\mathsf S^c$. Its value includes the parent laws and the
 additional data needed for its declared interactions and update.
+\Cref{inh:canonical-parent} identifies the smallest such data for a declared
+interface.
 
 The distinction applies to both sectors. A parent carrying $q_I$ and $s_I$
 also needs the evaluator that makes $s_I$ predictive. Boundary channels,
@@ -39,13 +51,23 @@ distribution is used below, its preparation or transition mechanism is stated.
 All constructions admit general probability laws. A Gaussian parent is one
 possible family, subject to its own closure conditions.
 
+Throughout the chapter, $\circ$ composes maps and juxtaposition composes
+kernels in the order in which they act: for kernels
+$K:\mathsf X\rightsquigarrow\mathsf O$ and
+$D:\mathsf O\rightsquigarrow\mathsf O'$,
+$(KD)(x,A)=\int D(o,A)K(x,do)$. A measurable map used in a kernel product
+stands for its deterministic kernel. With this convention every square below
+is a commutative diagram of Markov kernels between standard Borel spaces, and
+the composition results are the pasting of such diagrams in the Markov
+category of these spaces \citep{Fritz2020}.
+
 \section{Exact deterministic inheritance}
 
 \propositionheading{An update descends precisely when it respects retained states}{inh:deterministic-descent}
-Let $\mathsf S,\mathsf S^c$ be measurable spaces, let
-$R:\mathsf S\to\mathsf S^c$ be a measurable surjection with a measurable
-right inverse $\iota$, and let $F:\mathsf S\to\mathsf S$ be measurable.
-There is a measurable parent update $F^c$ satisfying
+Let $\mathsf S,\mathsf S^c$ be standard Borel spaces, let
+$R:\mathsf S\to\mathsf S^c$ be a Borel surjection, and let
+$F:\mathsf S\to\mathsf S$ be Borel. There is a Borel parent update $F^c$
+satisfying
 \begin{equation}
  R\circ F=F^c\circ R,
  \label{inh:update-square}
@@ -55,20 +77,30 @@ if and only if
  R(x)=R(x')\quad\Longrightarrow\quad R(F(x))=R(F(x')).
  \label{inh:fiber-test}
 \end{equation}
-The parent update is unique. Finite spaces automatically admit the required
-right inverse.
+The parent update is unique. The same conclusion holds on arbitrary
+measurable spaces when $R$ has a measurable right inverse.
 
 \noindent\emph{Proof.}
 Equation~\eqref{inh:update-square} implies the implication in
-\eqref{inh:fiber-test}. Conversely, define $F^c=R\circ F\circ\iota$.
-It is measurable. Since $R(\iota(R(x)))=R(x)$, the implication gives
-$F^c(R(x))=R(F(x))$. Every parent state has a preimage, so this equation
-also fixes $F^c$ uniquely. $\square$
+\eqref{inh:fiber-test}. Conversely, set $F^c(z)=R(F(x))$ for any $x$ with
+$R(x)=z$. The implication makes this independent of the choice of $x$, and
+surjectivity defines it on all of $\mathsf S^c$. Its graph is the image of
+$\mathsf S$ under the Borel map $x\mapsto(R(x),R(F(x)))$ into the standard
+Borel space $\mathsf S^c\times\mathsf S^c$, hence an analytic set. A function
+between standard Borel spaces with analytic graph is Borel
+\citep[Thm.~14.12]{Kechris1995}. With a measurable right inverse $\iota$,
+the formula $F^c=R\circ F\circ\iota$ gives measurability directly. Every
+parent state has a preimage, so \eqref{inh:update-square} fixes $F^c$
+uniquely. $\square$
 
-Repeated substitution gives $R\circ F^n=(F^c)^n\circ R$ for every
-nonnegative integer $n$. This is an exact statement about the chosen update,
-including its order and retained parameters. Replacing that update by descent
-of a newly defined parent objective requires another argument.
+This is the factor-map (semiconjugacy) criterion of dynamical systems. The
+analytic-graph argument matters because a Borel surjection need not have a
+Borel right inverse; the uniformization theorem supplies only universally
+measurable ones \citep[Sec.~18.A]{Kechris1995}. Repeated substitution gives
+$R\circ F^n=(F^c)^n\circ R$ for every nonnegative integer $n$. This is an
+exact statement about the chosen update, including its order and retained
+parameters. Replacing that update by descent of a newly defined parent
+objective requires another argument.
 
 For a differentiable version, suppose $R$ is continuously differentiable and
 the fine and parent vector fields $B,B^c$ have unique local solutions. Their
@@ -83,45 +115,123 @@ value $R(x)$, and uniqueness identifies it. Conversely, differentiation of
 the flow identity at zero gives \eqref{inh:vector-square}. For a moving map
 $R_t$, the left side becomes $\partial_tR_t(x)+DR_t(x)B_t(x)$.
 Membership changes therefore need an explicit handoff map; a differential
-identity on one fixed partition does not specify them.
+identity on one fixed partition does not specify them. Condition
+\eqref{inh:vector-square} is the exact-lumping condition for differential
+equations, introduced for linear kinetics by \citet{WeiKuo1969}, for
+nonlinear kinetics by \citet{LiRabitz1989}, and for flows on manifolds by
+\citet{HorstmeyerAtay2016}; flow intertwining has also been proposed as a
+criterion of macroscopic emergence \citep{BarnettSeth2023}. The
+differentiable statement needs $R$ to be continuously differentiable between
+manifolds on which both flows are defined. A retention into spaces of laws
+that is differentiable only weakly, with a parent law of motion given by a
+weak continuity equation, is not covered, and its intertwining must be
+proved directly.
 
-\propositionheading{A sufficient metric condition for gradient inheritance}{inh:gradient-inheritance}
+\propositionheading{Projectable vector fields}{inh:projectable}
+Let $R:\mathsf S\to\mathsf S^c$ be a $C^{k+1}$ surjective submersion between
+finite-dimensional manifolds, $k\geq1$, whose fibers are connected, and let
+$B$ be a $C^k$ vector field on $\mathsf S$. A $C^k$ parent field $B^c$
+satisfying \eqref{inh:vector-square} exists if and only if, in every
+submersion chart $R(a,b)=a$ with $B=(B_A,B_V)$,
+\begin{equation}
+ \partial_bB_A(a,b)=0.
+ \label{inh:projectable-criterion}
+\end{equation}
+For a linear surjection $R=M$ on $\R^n$ this is the condition
+$M(DB(x)v)=0$ for all $x$ and all $v\in\ker M$.
+
+\noindent\emph{Proof.}
+In a submersion chart, $DR_xB(x)=B_A(a,b)$. Condition
+\eqref{inh:projectable-criterion} says that this map is locally constant
+along each fiber; a locally constant function on a connected fiber is
+constant, so $x\mapsto DR_xB(x)$ is constant on fibers, and conversely
+constancy on fibers gives \eqref{inh:projectable-criterion}. A submersion
+has smooth local sections $\sigma$ through every point, and
+$B^c=(DR\cdot B)\circ\sigma$ is then well defined and $C^k$. Since $k\geq1$,
+both fields have unique local solutions. In the linear case the fibers are
+affine, hence connected, and the derivative of $MB$ along $v\in\ker M$ is
+$M(DB(x)v)$. $\square$
+
+\remarkheading{Why inheritance is tested on a set of configurations}{inh:trajectory-remark}
+Dynamical inheritance checked only along one realized trajectory carries no
+information. If $x(t)$ is a smooth solution on $[0,T]$ and $R$ is smooth with
+$z=R\circ x$ an embedded arc, the tangent field of the arc extends to a smooth
+field $B^c$ on a neighborhood of the arc, and $R(\Phi_t x_0)=\Phi^c_t(Rx_0)$
+holds with unique parent solutions. The same holds on a prepared family on
+which $R$ is injective. The fiber test \eqref{inh:fiber-test} constrains a
+retention only over a set containing distinct configurations with the same
+retained value. For this reason the inheritance identities are imposed below
+on a declared invariant set $\Omega_I$ of post-handoff states
+(\cref{inh:inherited-parent}), and the formation standard requires an
+admitted class that is open or a declared invariant family.
+
+\propositionheading{Gradient descent through a horizontally conformal submersion}{inh:gradient-inheritance}
 Let $R:(\mathsf S,g)\to(\mathsf S^c,g_c)$ be a smooth surjective
-submersion between finite-dimensional Riemannian manifolds. Suppose the
-smooth potentials satisfy $E=\chi\circ E_c\circ R$, with $\chi'>0$.
-Assume there is a smooth positive function $d$ such that
+submersion between finite-dimensional Riemannian manifolds, with horizontal
+spaces $H_x=(\ker DR_x)^\perp$. Assume there is a smooth positive function
+$d$ such that
 \begin{equation}
  g_c(DR_xu,DR_xv)=d(x)^2g(u,v),
- \qquad u,v\in(\ker DR_x)^\perp.
+ \qquad u,v\in H_x.
  \label{inh:horizontal-conformality}
 \end{equation}
-Then their negative gradient fields obey
+Let $E,E_c$ be smooth potentials and $a$ a positive function. Then
 \begin{equation}
  DR_x[-\operatorname{grad}_gE(x)]
- =a(x)[-\operatorname{grad}_{g_c}E_c](R(x)),
- \qquad a(x)=\chi'(E_c(R(x)))d(x)^2.
+ =a(x)[-\operatorname{grad}_{g_c}E_c](R(x))
  \label{inh:gradient-factor}
 \end{equation}
-In particular, a Riemannian submersion and $E=E_c\circ R$ give
-same-time inheritance.
-\begin{proof}
-For $v\in\ker DR_x$, differentiation of the potential identity gives
-$dE_x(v)=0$. Thus $w=\operatorname{grad}_gE(x)$ lies in
-$(\ker DR_x)^\perp$. The restriction of $DR_x$ to this horizontal space
-is an isomorphism onto $T_{R(x)}\mathsf S^c$. Given any coarse tangent
-$z$, take its horizontal lift $v$. Then
+holds at $x$ if and only if
 \begin{equation}
- \begin{aligned}
- g_c(DR_xw,z)
- &=d(x)^2g(w,v)
- =d(x)^2dE_x(v)\\
- &=d(x)^2\chi'(E_c(R(x)))d(E_c)_{R(x)}(z).
- \end{aligned}
+ d(x)^2dE_x(v)=a(x)(dE_c)_{R(x)}(DR_xv)
+ \qquad\text{for every }v\in H_x.
+ \label{inh:horizontal-criterion}
 \end{equation}
-Nondegeneracy of $g_c$ identifies $DR_xw$ with
-$a(x)\operatorname{grad}_{g_c}E_c(R(x))$. Negating proves the
-identity. When $a=1$, \cref{inh:vector-square} applies.
+In particular, if $E=\chi\circ E_c\circ R$ with $\chi'>0$, then
+\eqref{inh:gradient-factor} holds with
+$a(x)=\chi'(E_c(R(x)))d(x)^2$, and a Riemannian submersion with
+$E=E_c\circ R$ gives same-time inheritance.
+\begin{proof}
+Let $w=\operatorname{grad}_gE(x)$ and let $w^H$ be its horizontal part.
+Since $DR_xw=DR_xw^H$, for any coarse tangent $z$ with horizontal lift $v$,
+\begin{equation}
+ g_c(DR_xw,z)
+ =d(x)^2g(w^H,v)
+ =d(x)^2g(w,v)
+ =d(x)^2dE_x(v).
+\end{equation}
+Nondegeneracy of $g_c$ shows that $DR_xw=a(x)\operatorname{grad}_{g_c}E_c(R(x))$
+exactly when $d(x)^2dE_x(v)=a(x)(dE_c)_{R(x)}(z)$ for every $z$, which is
+\eqref{inh:horizontal-criterion} because horizontal lifting is a bijection
+$T_{R(x)}\mathsf S^c\to H_x$. If $E=\chi\circ E_c\circ R$, then
+$dE_x(v)=\chi'(E_c(R(x)))(dE_c)_{R(x)}(DR_xv)$ for every $v$. When $a=1$,
+\cref{inh:vector-square} applies.
 \end{proof}
+
+This is the gradient pushforward for Riemannian submersions
+\citep{ONeill1966} and horizontally conformal submersions
+\citep{BairdWood2003}. The potential hypothesis $E=\chi\circ E_c\circ R$ is
+much stronger than the criterion. It forces $dE$ to vanish on $\ker DR$, so
+the fine gradient is horizontal and every fine trajectory is the horizontal
+lift of its projection: for a product metric and $R(a,b)=a$, the discarded
+coordinate does not move. Criterion \eqref{inh:horizontal-criterion}
+constrains only horizontal derivatives and leaves the discarded dynamics
+free. On Euclidean $\R^2$ with $R(x_1,x_2)=(x_1+x_2)/\sqrt2$, the potential
+\begin{equation}
+ E=\tfrac12x_1^2+\tfrac12x_2^2+W(x_1-x_2),
+ \qquad E_c(z)=\tfrac12z^2,
+\end{equation}
+with any smooth $W$, satisfies \eqref{inh:horizontal-criterion} with $a=1$,
+so the center of mass descends at the same time, although
+$E\neq\chi\circ E_c\circ R$ whenever $W'\neq0$ and the separation
+$x_1-x_2$ evolves under $W$. The metric hypothesis is necessary in a
+uniform sense: if \eqref{inh:gradient-factor} holds with $a\equiv1$ for every
+potential of the form $E_c\circ R$, then
+$DR_x\circ g^{-1}\circ DR_x^{*}=g_c^{-1}$ at $R(x)$, because
+$DR(\operatorname{grad}_g(E_c\circ R))=(DR\circ g^{-1}\circ DR^{*})(dE_c)$ must equal
+$g_c^{-1}dE_c$ for every covector, and this identity says that $R$ is a
+Riemannian submersion. For a single potential the metric hypothesis is not
+necessary.
 
 For $a>0$, a fine trajectory projects onto the same oriented coarse
 gradient orbit after the time change $d\tau/dt=a(x(t))$. An autonomous
@@ -132,17 +242,104 @@ state need not satisfy this requirement. The proposition is one sufficient
 route to inheritance. Fisher contraction and preservation of the
 collective connection in \cref{ch:geometry} are different conditions.
 
-Fiber minimization alone does not supply its potential hypothesis.
+Fiber minimization alone does not supply the criterion.
 For $R(u,v)=v$ on Euclidean $\R^2$, let
 \begin{equation}
  E(u,v)=\tfrac12(u-v)^2+\tfrac12v^2,
  \qquad E_c(v)=\inf_u E(u,v)=\tfrac12v^2.
 \end{equation}
-Equality $E=E_c\circ R$ holds only on $u=v$. More generally,
-$dE(\partial_u)=u-v$ does not vanish on any open set, so there is no
-identity $E=\chi(E_c\circ R)$ on an open set for any $\chi$.
+Equality $E=E_c\circ R$ holds only on $u=v$. The horizontal direction is
+$\partial_v$, and $dE(\partial_v)-dE_c(DR(\partial_v))=v-u$, so the
+same-time criterion fails off the diagonal; the pushed field $u-2v$ is not a
+function of $v$. Since $dE(\partial_u)=u-v$ does not vanish on any open set,
+there is also no identity $E=\chi(E_c\circ R)$ on an open set.
 
-\constructionheading{Loss of dynamical roles under product recognition}{inh:role-loss}
+\propositionheading{Equivariant descent}{inh:equivariant-descent}
+Let a Lie group $G$ act smoothly, freely, and properly on a
+finite-dimensional manifold $\mathsf S$, and let
+$\pi:\mathsf S\to\mathsf S/G$ be the quotient map.
+\begin{enumerate}
+\item[(i)] If a smooth vector field $B$ is $G$-equivariant, there is a unique
+smooth field $B^c$ on $\mathsf S/G$ with $D\pi\cdot B=B^c\circ\pi$, and the flows
+intertwine. Every $G$-invariant measurable response kernel or channel on
+$\mathsf S$ factors through $\pi$.
+\item[(ii)] If $B=-\operatorname{grad}_gE$ with $g$ and $E$ both
+$G$-invariant, then $\mathsf S/G$ carries a unique metric $g_c$ making $\pi$
+a Riemannian submersion, $E=E_c\circ\pi$ for a smooth $E_c$, and
+$B^c=-\operatorname{grad}_{g_c}E_c$.
+\end{enumerate}
+\begin{proof}
+By the quotient manifold theorem \citep[Thm.~21.10]{Lee2013}, $\mathsf S/G$
+is a smooth manifold and $\pi$ a surjective submersion whose fibers are the
+orbits. Since $\pi\circ\phi_h=\pi$ for the action $\phi_h$,
+$D\pi_{hx}D\phi_h=D\pi_x$, and equivariance gives
+$D\pi_{hx}B(hx)=D\pi_{hx}D\phi_hB(x)=D\pi_xB(x)$. Thus $D\pi\cdot B$ is constant
+on fibers, and $B^c=(D\pi\cdot B)\circ\sigma$ for local smooth sections $\sigma$ is
+well defined and smooth. Invariant kernels are constant on orbits and
+descend by \cref{inh:deterministic-descent} applied to the kernel-valued map.
+For (ii), invariance of $E$ makes $dE$ vanish on orbit tangents, which for a
+free action span $\ker D\pi$. Isometries carry horizontal spaces to
+horizontal spaces, so $g_c(D\pi u,D\pi v)=g(u,v)$ for horizontal $u,v$ is well
+defined \citep{ONeill1966}. \Cref{inh:gradient-inheritance} with $d=1$ and
+$\chi=\id$ gives the gradient identity.
+\end{proof}
+
+Equivariant descent holds on the whole configuration space, so the fiber
+test needs no restriction to an admitted class. It forgets only orbit data.
+Without freeness the quotient is stratified by orbit type and the statement
+holds on each stratum. On infinite-dimensional law charts, (ii) requires in
+addition a closed complement to the orbit tangent in the Fisher metric and a
+quotient Banach manifold, which must be verified for the chart in use.
+
+\propositionheading{Coordinate projections are exact only for isolated blocks}{inh:coordinate-projection}
+Let $\mathsf S=\mathsf S_A\times\mathsf S_B$ be a product of connected
+manifolds with metric $g=g_A(a)\oplus g_B(b)$, and let $E\in C^2$. The
+projection $R(a,b)=a$ intertwines $-\operatorname{grad}_gE$ with an
+autonomous field if and only if $\partial_a\partial_bE\equiv0$, that is,
+$E(a,b)=E_A(a)+E_B(b)$. The discarded block is then autonomous as well.
+\begin{proof}
+The retained velocity is $\dot a=-g_A(a)^{-1}\partial_aE(a,b)$. Since the
+fibers $\{a\}\times\mathsf S_B$ are connected and $g_A(a)$ is invertible,
+it is independent of $b$ exactly when $\partial_b\partial_aE=0$, that is,
+when $\partial_aE(a,b)=\phi(a)$. Integrating along paths in the connected
+factors gives $E=E_A(a)+E_B(b)$, and then
+$\dot b=-g_B(b)^{-1}\partial_bE_B(b)$.
+\end{proof}
+
+The Fisher flow of \cref{ch:dynamics} with product recognition has
+agent-local metric blocks and one potential, and a source appears in the
+cost of every receiver that attends to it. Discarding whole agents or whole
+sectors is therefore exact in that dynamics only for energetically isolated
+blocks, with no peer cost in either direction between the retained and the
+discarded agents. Exact compression of reciprocally coupled agents must come
+from symmetry (\cref{inh:equivariant-descent}) or from horizontal energy
+structure (\cref{inh:gradient-inheritance}), as in the center-of-mass example.
+
+\propositionheading{Exact inheritance of a gradient flow creates no oscillatory mode}{inh:no-underdamped}
+Let $B=-\operatorname{grad}_gE$ with $E\in C^2$, and let $x^*$ be a critical
+point of $E$. Then $L=DB(x^*)=-g(x^*)^{-1}\operatorname{Hess}E(x^*)$ is
+self-adjoint for $g(x^*)$ and has real spectrum. If a $C^2$ submersion $R$
+intertwines $B$ with a $C^1$ field $B^c$ near $x^*$ in the sense of
+\eqref{inh:vector-square}, then $R(x^*)$ is an equilibrium of $B^c$ and
+$\operatorname{spec}DB^c(R(x^*))\subseteq\operatorname{spec}L\subset\R$.
+\begin{proof}
+At a critical point the Hessian is a symmetric bilinear form, so $L$ is
+$g(x^*)$-self-adjoint. Evaluating \eqref{inh:vector-square} at $x^*$ gives
+$B^c(R(x^*))=0$. Differentiating it at $x^*$, the term containing the second
+derivative of $R$ is multiplied by $B(x^*)=0$, leaving
+$DR\circ L=L^c\circ DR$ with $L^c=DB^c(R(x^*))$. Hence $\ker DR$ is $L$-invariant,
+and since $DR$ is surjective, $L^c$ is conjugate through $DR$ to the map that
+$L$ induces on $T_{x^*}\mathsf S/\ker DR$. The characteristic polynomial of
+$L$ is the product of those of its restriction and of the induced quotient
+map, so every eigenvalue of $L^c$ is an eigenvalue of $L$.
+\end{proof}
+
+An exactly inherited parent of a Fisher gradient flow therefore has no
+underdamped linear mode at an inherited equilibrium. Oscillatory collective
+modes require nonreciprocal fields, explicit driving, or declared
+second-order kinetics.
+
+\propositionheading{Loss of dynamical roles under product recognition}{inh:role-loss}
 Take $Q_x=\operatorname{Ber}(p_1)\otimes\operatorname{Ber}(p_2)$, with
 $x=(p_1,p_2)\in[0,1]^2$, and the coupled deterministic law
 \begin{equation}
@@ -150,16 +347,23 @@ $x=(p_1,p_2)\in[0,1]^2$, and the coupled deterministic law
  \dot p_2=-2p_2+\lambda(p_1-p_2),\qquad \lambda\geq0.
  \label{inh:role-flow}
 \end{equation}
-The linear system has a unique global solution and its vector field points
-inward on every face of the square. Retain only the law of $K_1+K_2$.
-The configurations $(0.8,0.2)$ and $(0.2,0.8)$ both give probabilities
-$(0.16,0.68,0.16)$ for the values $0,1,2$. However,
+Retain only the law of $K_1+K_2$. No autonomous update of that retained law
+reproduces every trajectory of \eqref{inh:role-flow}.
+
+\noindent\emph{Proof.}
+The linear system has a unique global solution. Its vector field does not
+point outward on any face of the square: at $p_1=0$, $\dot p_1=\lambda p_2\geq0$,
+at $p_1=1$, $\dot p_1\leq-1$, and similarly for $p_2$. The square is therefore
+forward invariant; the field is tangent to a face when $\lambda=0$ and
+vanishes at the corner $(0,0)$. The configurations $(0.8,0.2)$ and
+$(0.2,0.8)$ both give probabilities $(0.16,0.68,0.16)$ for the values
+$0,1,2$. However,
 \begin{equation}
  \frac{d}{dt}\E(K_1+K_2)=-(p_1+2p_2),
 \end{equation}
 equals $-1.2$ and $-1.8$ respectively. Their retained laws therefore have
-different derivatives. No autonomous update of that retained law can
-reproduce both trajectories.
+different derivatives, and no autonomous update of the retained law can
+reproduce both trajectories. $\square$
 
 This obstruction occurs while recognition remains a product. The missing
 datum is which probability belongs to which dynamical role. Correlated
@@ -194,16 +398,138 @@ distribution whenever these initial states have the same image. This is
 \eqref{inh:lumpability}. $\square$
 
 This is the finite strong-lumpability criterion
-\citep{KemenySnell1976}. On standard Borel spaces the same argument applies
-when $T(x,R^{-1}A)$ factors through $R$ as a measurable probability kernel.
-The qualification is part of the construction. Closure for every initial
-law is stronger than closure for one chosen preparation.
+\citep{KemenySnell1976}; its general state-space form is Dynkin's criterion
+for a function of a Markov process \citep{Dynkin1965}. On standard Borel
+spaces the same argument applies whenever $x\mapsto T(x,R^{-1}(\cdot))$ is
+constant on fibers: the analytic-graph argument of
+\cref{inh:deterministic-descent}, applied to this map into the standard Borel
+space of probability laws on $\mathsf S^c$, makes the parent kernel
+measurable. Closure for every initial law is stronger than closure for one
+chosen preparation. The latter is weak lumpability \citep{KemenySnell1976},
+and the question whether a function of a Markov chain is itself Markov goes
+back to \citet{BurkeRosenblatt1958}; \citet{Buchholz1994} compares these
+notions with exact lumpability.
 
 An equilibrium conditional average of fine transitions defines a normalized
 candidate parent kernel. It does not prove \eqref{inh:lumpability}: the
 hidden conditional law during a transient can differ from the equilibrium
 conditional. Likewise, agreement of invariant distributions does not
 establish agreement of histories.
+
+\propositionheading{Intertwined handoffs}{inh:intertwining}
+Let $T$ be a transition matrix on a finite space $\mathsf S$, let
+$R:\mathsf S\to\mathsf S^c$ be surjective, and let $\Phi_R$ be its
+deterministic kernel. Let $\Lambda$ be a stochastic matrix from
+$\mathsf S^c$ to $\mathsf S$ with $\Lambda(z,R^{-1}\{z\})=1$ for every $z$,
+and suppose
+\begin{equation}
+ \Lambda T=T^c\Lambda
+ \label{inh:intertwining-identity}
+\end{equation}
+for some matrix $T^c$. Then $T^c=\Lambda T\Phi_R$ is a transition matrix.
+For every law $\nu$ on $\mathsf S^c$, under the initial law $\nu\Lambda$ the
+retained process $Z_n=R(X_n)$ is Markov with initial law $\nu$ and kernel
+$T^c$, and on every retained history of positive probability the conditional
+law of $X_n$ is $\Lambda(Z_n,\cdot)$. For a response kernel $K_a$ on
+$\mathsf S$, the predictive response given the retained history is
+$(\Lambda K_a)(Z_n,\cdot)$.
+
+\noindent\emph{Proof.}
+The support condition gives $\Lambda\Phi_R=I$, so multiplying
+\eqref{inh:intertwining-identity} on the right by $\Phi_R$ yields
+$T^c=\Lambda T\Phi_R$, a product of stochastic matrices. Let $P_z$ be the
+diagonal selector of $R^{-1}\{z\}$. The support condition also gives
+$\Lambda(w,\cdot)P_z=\delta_{wz}\Lambda(z,\cdot)$. Let $f_n$ be the row
+vector whose $x$ entry is the probability of the history
+$(z_0,\ldots,z_n)$ jointly with $X_n=x$. Then
+$f_0=\nu\Lambda P_{z_0}=\nu(z_0)\Lambda(z_0,\cdot)$. If
+$f_n=c_n\Lambda(z_n,\cdot)$, then
+\begin{equation}
+ f_{n+1}=f_nTP_{z_{n+1}}
+ =c_n(T^c\Lambda)(z_n,\cdot)P_{z_{n+1}}
+ =c_nT^c(z_n,z_{n+1})\Lambda(z_{n+1},\cdot).
+\end{equation}
+By induction $c_n=\nu(z_0)\prod_{k<n}T^c(z_k,z_{k+1})$ is the probability
+of the history and $\Lambda(z_n,\cdot)$ is the normalized conditional law.
+The predictive response follows by integrating $K_a$ against it. $\square$
+
+This is the Markov-function theorem of \citet{RogersPitman1981}, who also
+give the continuous-time and general state-space versions. It describes
+exactly what a handoff ``from a declared conditional law'' must supply for
+the parent to be memoryless: the kernel $\Lambda$, and an initial law of the
+form $\nu\Lambda$. It does not require strong lumpability. On
+$\mathsf S=\{1,2,3\}$ with $R(1)=R(2)=a$, $R(3)=b$, rows
+$(0.3,0.5,0.2)$, $(0.4,0.2,0.4)$, $(0.25,0.25,0.5)$, and
+$\Lambda(a,\cdot)=(\tfrac12,\tfrac12,0)$, $\Lambda(b,\cdot)=\delta_3$,
+condition \eqref{inh:lumpability} fails ($0.2\neq0.4$) while
+\eqref{inh:intertwining-identity} holds with
+$T^c=\bigl(\begin{smallmatrix}7/10&3/10\\1/2&1/2\end{smallmatrix}\bigr)$.
+From the initial law $\delta_1$, which is not of the form $\nu\Lambda$, the
+retained path laws of length five differ from those of $T^c$ by $1/10$ in
+total variation.
+
+\propositionheading{The coarsest exact parent containing an interface}{inh:canonical-parent}
+Let $F:\mathsf S\to\mathsf S$ and an interface $Q:\mathsf S\to\mathsf Y$ be
+measurable. The interface collects what the parent must reproduce: its laws,
+the responses of a declared protocol class, and the channels and evaluators
+it reads. Define
+\begin{equation}
+ \pi(x)=(Q(F^nx))_{n\geq0}\in\mathsf Y^{\mathbb N}.
+ \label{inh:canonical-retention}
+\end{equation}
+Then $\pi$ satisfies \eqref{inh:fiber-test}, with parent update the left
+shift on $\pi(\mathsf S)$, and $Q$ is its zeroth coordinate. If a retention
+$R$ satisfies \eqref{inh:fiber-test} and $Q=Q^c\circ R$ for some $Q^c$, then
+$R(x)=R(x')$ implies $\pi(x)=\pi(x')$. Thus $\pi$ is, up to relabeling of its
+values, the unique coarsest exact retention through which the interface
+factors. For a forward-complete flow, replace $F^n$ by $\Phi_t$, $t\geq0$. If
+$B$ and $Q$ are real analytic, $\pi(x)=\pi(x')$ exactly when
+$L_B^kQ(x)=L_B^kQ(x')$ for every $k\geq0$.
+
+\noindent\emph{Proof.}
+The identity $\pi(F(x))=(Q(F^{n+1}x))_{n\geq0}$ is the shift of $\pi(x)$, so
+equal values have equal successors. If $R$ satisfies \eqref{inh:fiber-test},
+induction gives $R(F^nx)=R(F^nx')$ whenever $R(x)=R(x')$, and applying $Q^c$
+gives $\pi(x)=\pi(x')$. In the analytic case $t\mapsto Q(\Phi_tx)$ is real
+analytic on its interval of existence and its derivatives at zero are the
+Lie derivatives $L_B^kQ(x)$, so the identity theorem gives the stated
+equivalence. $\square$
+
+The analytic case is the observability construction of
+\citet{HermannKrener1977}. For finite Markov chains the corresponding object
+is computed by partition refinement.
+
+\propositionheading{The coarsest strongly lumpable refinement}{inh:canonical-lumping}
+Let $T$ be a transition matrix on a finite space $\mathsf S$ and let
+$\mathcal B_0$ be the partition of $\mathsf S$ into level sets of an
+interface $Q$. Define $\mathcal B_{k+1}$ by splitting each block of
+$\mathcal B_k$ according to the vector $(T(x,B))_{B\in\mathcal B_k}$. The
+sequence stabilizes at a partition $\mathcal B_*$, which is the unique
+coarsest partition refining $\mathcal B_0$ that satisfies
+\eqref{inh:lumpability}.
+
+\noindent\emph{Proof.}
+Each step refines the previous partition, so the sequence stabilizes after
+finitely many steps. At the fixed point, states in one block have equal
+masses into every block, which is \eqref{inh:lumpability}. Let $\mathcal B$
+be any strongly lumpable partition refining $\mathcal B_0$, and suppose it
+refines $\mathcal B_k$. Each block of $\mathcal B_k$ is a union of blocks of
+$\mathcal B$, so two states in one block of $\mathcal B$ have equal masses
+into every block of $\mathcal B_k$ and lie in one block of
+$\mathcal B_{k+1}$. By induction $\mathcal B$ refines $\mathcal B_*$.
+$\square$
+
+This is probabilistic bisimulation \citep{LarsenSkou1991}; an efficient
+algorithm is given by \citet{DerisaviHermannsSanders2003}. The two
+propositions make the phrase ``the additional data needed'' in
+\cref{inh:two-retentions} a theorem: given the update and the interface,
+the canonical parent is determined. A larger interface gives a finer
+canonical parent, so the protocol class decides how much a parent can
+forget. Unrestricted identity-channel probes make it injective on exposed
+child laws (\cref{sec:public-gibbs-identifiability}, \cref{prop:boundary-observable}).
+The compression clause of the formation standard asks whether this canonical
+parent, for the interface fixed before the retention, is noninjective on the
+post-handoff invariant set.
 
 \section{Boundary responses and composition}
 
@@ -217,43 +543,59 @@ interest. An inherited kernel $K_a^c$ satisfies
  (K_aD_a)(x,A)=K_a^c(R(x),A).
  \label{inh:boundary-square}
 \end{equation}
-Here $(KD)(x,A)=\int D(o,A)K(x,do)$. Under the measurable right-inverse
-hypothesis of \cref{inh:deterministic-descent}, such a kernel exists exactly
-when $K_aD_a$ is constant on each fiber of $R$. Define it using the right
-inverse to prove sufficiency; substitution proves necessity. When several
-outputs are used jointly, this condition applies to their joint kernel.
-Preserving each output marginal alone need not preserve their dependence.
+On standard Borel spaces, such a kernel exists exactly when
+$x\mapsto(K_aD_a)(x,\cdot)$ is constant on each fiber of $R$; the
+analytic-graph argument of \cref{inh:deterministic-descent} gives
+measurability, and substitution proves necessity. When several outputs are
+used jointly, this condition applies to their joint kernel. Preserving each
+output marginal alone need not preserve their dependence.
+
+The same applies to a response and the next retained state. For a
+stochastic update, response inheritance concerns the joint kernel
+$x\mapsto\operatorname{law}(D_a(O_a),R(X'))$ on
+$\mathsf O_a^c\times\mathsf S^c$, which must factor through $R$. Separate
+descent of the response kernel and of the retained transition does not imply
+it. Let $x=(u,v)\in\{0,1\}^2$, $R(x)=u$, draw a fresh fair bit $\xi$, set
+$u'=u\oplus\xi$, draw $v'$ freshly, and respond with $O=\xi\oplus v$. Both
+the response and the next retained state are uniform from every
+configuration, but at $(0,0)$ the joint law of $(O,u')$ is uniform on
+$\{(0,0),(1,1)\}$ and at $(0,1)$ it is uniform on $\{(1,0),(0,1)\}$. If the
+randomness of the response is conditionally independent of the transition
+randomness given $x$, separate descent suffices. For adaptive protocols, in
+which a receiver chooses its next action from past outputs, the joint
+condition is required for each admitted action.
 
 \propositionheading{Exact elimination through a conditional separator}{inh:separator-gluing}
 Let $Z,U,V$ have a declared joint reference law
-$\rho(dz,du,dv)=\pi(dz)\rho_{UV}(du,dv\mid z)$ on standard Borel
-spaces. Denote its conditional marginals by $\rho_U,\rho_V$. For
-bounded nonnegative likelihood factors $L_U(u,z),L_V(v,z)$, define
+$\omega(dz,du,dv)=\omega_Z(dz)\omega_{UV}(du,dv\mid z)$ on standard Borel
+spaces. Denote its conditional marginals by $\omega_U,\omega_V$. For
+bounded nonnegative likelihood factors $L_U(u,z),L_V(v,z)$, jointly
+measurable, define
 \begin{equation}
- F_U(z)=\int L_U(u,z)\rho_U(du\mid z),
- \qquad F_V(z)=\int L_V(v,z)\rho_V(dv\mid z).
+ F_U(z)=\int L_U(u,z)\omega_U(du\mid z),
+ \qquad F_V(z)=\int L_V(v,z)\omega_V(dv\mid z).
 \end{equation}
 The identity
 \begin{equation}
- \int L_U(u,z)L_V(v,z)\rho_{UV}(du,dv\mid z)
+ \int L_U(u,z)L_V(v,z)\omega_{UV}(du,dv\mid z)
  =F_U(z)F_V(z)
  \label{inh:separator-factorization}
 \end{equation}
-holds $\pi$-almost everywhere for every such pair precisely when
+holds $\omega_Z$-almost everywhere for every such pair precisely when
 $U$ and $V$ are conditionally independent given $Z$.
 Under that condition, a nonnegative factor $L_Z(z)$ with finite positive
 total evidence gives the unnormalized retained measure
 \begin{equation}
- m_Z(dz)=L_Z(z)F_U(z)F_V(z)\pi(dz).
+ m_Z(dz)=L_Z(z)F_U(z)F_V(z)\omega_Z(dz).
  \label{inh:separator-measure}
 \end{equation}
 \begin{proof}
-Conditional independence factors $\rho_{UV}$ as
-$\rho_U\otimes\rho_V$ almost surely. Tonelli's theorem then gives
+Conditional independence factors $\omega_{UV}$ as
+$\omega_U\otimes\omega_V$ almost surely. Tonelli's theorem then gives
 \cref{inh:separator-factorization,inh:separator-measure}. Conversely,
 take indicator factors from countable generating families closed under
 finite intersections for the two standard Borel spaces. Outside one
-$\pi$-null set, the conditional joint and product laws agree on every
+$\omega_Z$-null set, the conditional joint and product laws agree on every
 generating rectangle. Uniqueness of probability measures extends this
 equality to the product sigma algebra, proving conditional independence.
 \end{proof}
@@ -262,18 +604,49 @@ The shared factor $L_Z$ appears once. If the hidden blocks are not
 conditionally independent, their joint conditional factor must be
 retained. This elimination statement concerns the declared reference and
 likelihood; it does not replace the law-dependent interaction potential
-by a fixed joint model.
+by a fixed joint model. It is the separator factorization of
+\citet{Dawid1979} that underlies junction-tree propagation
+\citep{Lauritzen1996}.
+
+The proposition presupposes the joint law. A gluing statement holds for
+two blocks: laws of $(Z,U)$ and $(Z,V)$ with a common $Z$ marginal have
+exactly one joint law with $U$ and $V$ conditionally independent given $Z$,
+namely the conditional product. Elimination of $k\geq3$ blocks needs mutual
+conditional independence, not pairwise independence: with $U,V$ independent
+fair bits, $W=U\oplus V$, and $Z$ constant, every pair is independent, but
+$\E[1_{U=1}1_{V=1}1_{W=1}]=0\neq1/8=F_UF_VF_W$. Gluing over a family of
+overlapping separators requires a junction tree. Edge laws on a four-cycle
+forcing $A=B$, $B=C$, $C=D$, and $D\neq A$ with uniform single-site marginals
+are pairwise consistent but have no joint law; existence of a joint law for
+every consistent family characterizes the decomposable (running-intersection)
+hypergraphs \citep{Vorobev1962}.
 
 For a child channel $\mathcal K_{ij}:\mathsf Y_j\rightsquigarrow\mathsf Y_i$
 and retentions $C_j:\mathsf Y_j\rightsquigarrow\mathsf Z_J$ and
 $C_i:\mathsf Y_i\rightsquigarrow\mathsf Z_I$, the corresponding square is
-$\mathcal K_{ij}C_i=C_j\mathcal K_{IJ}^c$, where
-$\mathcal K_{IJ}^c:\mathsf Z_J\rightsquigarrow\mathsf Z_I$. The
-rightmost expression means first retain the sender and then apply the
-parent channel. The retained sender must determine every distinction visible to the retained
-receiver. In a linear realization this reduces to
-$C_iM_{ij}=M_{IJ}^cC_j$; the kernel-inclusion criterion and its proof are
-given in the supplement.
+\begin{equation}
+ \mathcal K_{ij}C_i=C_j\mathcal K_{IJ}^c,
+ \qquad \mathcal K_{IJ}^c:\mathsf Z_J\rightsquigarrow\mathsf Z_I.
+ \label{inh:channel-square}
+\end{equation}
+The right side means first retain the sender and then apply the parent
+channel. A parent channel exists exactly when $\mathcal K_{ij}C_i$ is a
+garbling of $C_j$, that is, when it lies in the set $C_j\mathcal M$ with
+$\mathcal M$ ranging over Markov kernels $\mathsf Z_J\rightsquigarrow\mathsf Z_I$;
+for finite alphabets this is a linear feasibility problem. For a
+deterministic retention $C_j$ it reduces to constancy of
+$\mathcal K_{ij}C_i$ on the fibers of $C_j$: the retained sender must
+determine every distinction visible to the retained receiver. For a
+stochastic $C_j$ the condition is stronger than any linear solvability. If
+$C_j$ is the binary symmetric channel with flip probability $1/4$ and
+$\mathcal K_{ij}=C_i=\id$, the only linear solution is
+$C_j^{-1}=\bigl(\begin{smallmatrix}3/2&-1/2\\-1/2&3/2\end{smallmatrix}\bigr)$,
+which is not a Markov kernel, so no parent channel exists. For a
+law-dependent channel $\mathcal K_{ij}[x]$, the square must hold at each
+configuration and the map $x\mapsto\mathcal K_{ij}[x]C_i$ must also factor
+through the configuration retention. In a deterministic linear realization
+the square reads $C_i\circ M_{ij}=M_{IJ}^c\circ C_j$; the kernel-inclusion
+criterion and its proof are given in the supplement.
 
 \propositionheading{Inheritance composes}{inh:composition}
 Suppose $R_{10}:\mathsf S_0\to\mathsf S_1$ and
@@ -289,15 +662,15 @@ $D_{21}:\mathsf O_1\rightsquigarrow\mathsf O_2$. If
  K_a^1D_{21}=R_{21}K_a^2,
  \label{inh:two-boundaries}
 \end{equation}
-where maps on the right are their deterministic kernels, then
-$K_a^0D_{10}D_{21}=R_{10}R_{21}K_a^2$.
+then $K_a^0D_{10}D_{21}=R_{10}R_{21}K_a^2$.
 
 \noindent\emph{Proof.}
 For deterministic updates,
-$R_{21}R_{10}F^0=R_{21}F^1R_{10}=F^2R_{21}R_{10}$, where juxtaposition
-in this identity denotes function composition. For Markov transitions and
-their deterministic retention kernels,
-$T^0R_{10}R_{21}=R_{10}T^1R_{21}=R_{10}R_{21}T^2$.
+$R_{21}\circ R_{10}\circ F^0=R_{21}\circ F^1\circ R_{10}
+=F^2\circ R_{21}\circ R_{10}$. For Markov transitions and their
+deterministic retention kernels, in kernel order,
+$T^0R_{10}R_{21}=R_{10}T^1R_{21}=R_{10}R_{21}T^2$, and the kernel
+$R_{10}R_{21}$ is the deterministic kernel of $R_{21}\circ R_{10}$.
 For boundary kernels, associate the successive integrals and substitute
 \eqref{inh:two-boundaries}. All integrands for events are nonnegative, so
 interchanging the integration order is valid. $\square$
@@ -309,6 +682,65 @@ the new coordinates. Neither a parent frame chosen for this purpose nor
 the square itself determines a base connection. If the parent is also
 required to retain the collective Fisher connection, the additional
 condition in \cref{geo:retained-connection} must be checked.
+
+\definitionheading{Inherited parent}{inh:inherited-parent}
+An inherited parent of a block $I$ consists of the following data, declared
+in this order: a protocol class $A_I$ of boundary protocols, a preparation
+class $\mathcal P_I$ of initial laws (for stochastic dynamics), an invariant
+set $\Omega_I$ containing every post-handoff configuration that arises from
+the admitted class with the block $I$, and a measurable retention
+$R_I:\Omega_I\to\mathsf S^c_I$. It must satisfy four conditions.
+\begin{enumerate}
+\item[(D)] Dynamics. In deterministic dynamics, \eqref{inh:fiber-test} holds
+for all $x,x'\in\Omega_I$; in stochastic dynamics, a single parent kernel
+reproduces the retained process for every initial law in $\mathcal P_I$
+(strong lumpability when $\mathcal P_I$ contains all laws, the intertwining
+of \cref{inh:intertwining} when $\mathcal P_I=\{\nu\Lambda\}$).
+\item[(B)] Responses. For every $a\in A_I$, the joint kernel of the retained
+response and the next retained state factors through $R_I$ on $\Omega_I$,
+for each admitted receiver action of an adaptive protocol.
+\item[(C)] Channels. Every channel and evaluator read by a protocol in $A_I$
+or by the parent update factors through $R_I$, including its dependence on
+the configuration.
+\item[(G)] Geometry, when declared. The condition of
+\cref{geo:retained-connection} holds.
+\end{enumerate}
+This is the sense of inheritance in clause (F3) of
+\cref{inh:recursive-formation}. Fixing $A_I$ before $R_I$ is essential. An
+empty protocol class makes (B) vacuous, and an unrestricted one forces the
+retention to be injective on exposed child laws. Dynamical, response, and
+connection inheritance are separate conditions.
+
+This notion differs from a Markov-blanket hierarchy
+\citep{KirchhoffEtAl2018,PalaciosEtAl2020,FristonEtAl2021}. A Markov blanket
+is a conditional-independence property of a declared joint law over the
+states of a system. A parent here is a retention that intertwines the given
+dynamics and the declared responses; no joint law over configurations is
+assumed or derived, and conditional independence enters only where a
+separator is eliminated as in \cref{inh:separator-gluing}.
+
+\definitionheading{Type closure}{inh:type-closed}
+Fix a constitutive class $\mathcal C$ of agent dynamics, for example Fisher
+gradient flows of reciprocal law potentials with normalized, possibly
+law-dependent channels and evaluators. An inherited parent is type-closed
+for $\mathcal C$ if its descended update, channels, and responses again
+belong to $\mathcal C$, with the parent laws as agent laws and their Fisher
+metric as the metric.
+
+Type closure is what allows a result proved for primitive agents to be
+applied to parents without change, and hence by induction at every level.
+For the gradient class, \cref{inh:gradient-inheritance} gives the test under
+horizontal conformality: the retention must be horizontally conformal from
+the fine Fisher metric to the Fisher metric of the parent laws, and the fine
+potential must satisfy \eqref{inh:horizontal-criterion} with a reciprocal
+potential of the parent laws.
+
+\openproblemheading{Type-closed parents}{inh:type-closure-open}
+Determine which of the exact parents of the later chapters are type-closed
+for the class of Fisher gradient flows of reciprocal law potentials. A first
+case is the additive common-precision Wishart parent of
+\cref{ch:conditional-formation}, where the first step is to test horizontal
+conformality of matrix addition with respect to the two Fisher metrics.
 
 \section{A finite two-level construction}
 
@@ -379,10 +811,20 @@ is nonconstant. No independence of the initial coordinates is needed.
 This construction has nontrivial reductions and coupled dynamics, but its
 retentions were specified in advance. It proves exact two-level
 inheritance, without proving that the dynamics choose either reduction.
+It is exact lumping of a drive--response chain: the fine configuration
+carries one law pair and internal marks, so neither level groups two or
+more agents, and each retained block is autonomous because the update of
+$a$ reads only $a$ and the update of $(a,b)$ reads only $(a,b)$. For any
+coordinate projection, \eqref{inh:lumpability} is precisely such autonomy
+of the retained block in law. In the reciprocal gradient dynamics of
+\cref{ch:dynamics}, \cref{inh:coordinate-projection} shows that this
+one-way mechanism is unavailable between energetically coupled agents.
 
 \section{Averaged laws under smooth peer dynamics}
 
-The arithmetic mixture of child laws is a normalized candidate parent law.
+The arithmetic mixture of child laws is a normalized candidate parent law,
+the linear opinion pool \citep{GenestZidek1986}, which minimizes the
+average divergence $\sum_jw_j\KL(p_j\Vert q)$ \citep{Abbas2009}.
 It need not determine either its own derivative or its boundary responses.
 The following example establishes both failures within the smooth peer-KL
 family of \cref{ch:dynamics}, with identical agents, a coupled evaluator,
@@ -415,14 +857,14 @@ either sector changes the force on the other.
 
 In either sector, let a sender with parameter $x$ use the normalized kernel
 \begin{equation}
- K_x(\ell\mid k)=\frac{1+\rho(x)k\ell}{2},\qquad
- \rho(x)=\frac{1+x^2}{4},\qquad
+ K_x(\ell\mid k)=\frac{1+\vartheta(x)k\ell}{2},\qquad
+ \vartheta(x)=\frac{1+x^2}{4},\qquad
  q_xK_x=q_{f(x)},\quad f(x)=\frac{x+x^3}{4}.
  \label{inh:smooth-channel}
 \end{equation}
 Every entry exceeds $1/4$. The channel transmits the sampled sender bit,
-and its transmission coefficient depends nontrivially on the sender law.
-For passive frame covariance, present each alphabet as the atoms
+and its transmission coefficient $\vartheta$ depends nontrivially on the
+sender law. For passive frame covariance, present each alphabet as the atoms
 $\{\pm u_i\}$ of a one-dimensional fiber, with $u_i\ne0$, and define
 $\mathcal K_{ij}(u_jk,\{u_i\ell\})=K_{x_j}(\ell\mid k)$.
 Under $g_i\in\mathrm{GL}(1,\mathbb R)$, push the laws forward and replace
@@ -433,7 +875,8 @@ $u_i$ by $g_i u_i$. The reference parameters remain fixed, and
 \end{equation}
 Independent sector frames give the same construction for $s$; pushing
 $G_J$ through its model and belief frames preserves its normalization.
-
+These frames are per-agent coordinates on each agent's fiber; the identity
+is a passive re-expression and constrains nothing in the dynamics.
 For two identical agents, set
 \begin{equation}
  \begin{aligned}
@@ -553,11 +996,16 @@ interval, the set of times at which it lies in $\Delta$ is therefore open;
 it is also closed by continuity. Connectedness of that interval makes it
 the entire interval, contradicting the initial condition. $\square$
 
+The argument is the invariance of fixed-point subspaces of equivariant
+vector fields \citep{GolubitskyStewartSchaeffer1988} combined with backward
+uniqueness.
+
 This result permits asymptotic synchronization, state-dependent threshold
 selection, and exact quotients that do not require synchronization. It
 does not prove convergence. An alternative retained state or a restricted
 invariant family must be tested against both inheritance conditions;
 the calculations above do not exclude such constructions.
+
 
 \section{Memory and formation}
 
@@ -570,10 +1018,25 @@ in the supplement. Its attainable values need not form a finite set.
 Introducing such a filter presupposes a process and a preparation law; it
 is not compulsory for deterministic coupled agents.
 
+The conditional law is not a configuration retention in the sense of
+\cref{inh:two-retentions}. It is a function of the retained history, and it
+evolves as a Markov process on the simplex of laws on $\mathsf S$, an
+information state, moving from $\widehat p$ to
+$\widehat pTP_z/(\widehat pTP_z\mathbf 1)$ with probability
+$\widehat pTP_z\mathbf 1$ in the notation of the supplement. It compresses
+only when noise or nonobservability prevents the history from determining
+the fine state. For deterministic dynamics observed through $R$, the filter
+is supported on the image under $F^n$ of the initial configurations
+consistent with the history, a set that decreases to the observability class
+of \cref{inh:canonical-parent} with interface $R$; when that class is a point,
+the filter becomes the fine state. The intertwined handoffs of
+\cref{inh:intertwining} are the case in which the filter is a function of the
+current retained value.
+
 \theoremheading{Information lost by a retained history}{inh:causal-memory}
 Let $\mathbb P$ be a probability law on
-$\mathsf Z_0\times\cdots\times\mathsf Z_{T-1}$, where each record space
-is standard Borel and $T$ is finite. Set $H_t=(Z_0,\ldots,Z_{t-1})$,
+$\mathsf Z_0\times\cdots\times\mathsf Z_{n-1}$, where each record space
+is standard Borel and the horizon $n$ is finite. Set $H_t=(Z_0,\ldots,Z_{t-1})$,
 with $H_0$ a point. For measurable maps into standard Borel statistic
 spaces, let $M_t=f_t(H_t)$. Write
 $P_t^M(\cdot\mid m)$ for a regular conditional law of $Z_t$ given
@@ -584,8 +1047,8 @@ $\widetilde T_t(f_t(h),\cdot)$ at history $h$. Then, in $[0,\infty]$,
 \begin{equation}
  \begin{aligned}
  \KL(\mathbb P\Vert\widetilde{\mathbb P})
- &=\sum_{t=0}^{T-1}I_{\mathbb P}(Z_t;H_t\mid M_t)\\
- &\quad+\sum_{t=0}^{T-1}\E_{\mathbb P}
+ &=\sum_{t=0}^{n-1}I_{\mathbb P}(Z_t;H_t\mid M_t)\\
+ &\quad+\sum_{t=0}^{n-1}\E_{\mathbb P}
  \KL\bigl(P_t^M(\cdot\mid M_t)
           \Vert\widetilde T_t(M_t,\cdot)\bigr).
  \end{aligned}
@@ -599,7 +1062,7 @@ only through $M_t$.
 Let $P_t(\cdot\mid h)$ be the true conditional law given $H_t=h$.
 The relative-entropy chain rule expresses the path divergence as
 \begin{equation}
- \sum_{t=0}^{T-1}\E_{\mathbb P}
+ \sum_{t=0}^{n-1}\E_{\mathbb P}
  \KL\bigl(P_t(\cdot\mid H_t)
           \Vert\widetilde T_t(M_t,\cdot)\bigr).
  \label{inh:causal-row-chain}
@@ -627,23 +1090,40 @@ function of $H_t$, this is equivalent to
 $P_t(\cdot\mid H_t)=P_t^M(\cdot\mid M_t)$ almost surely.
 \end{proof}
 
-The finite-window case is a Markov approximation of a record process
-\citep[Sec.~7.3]{Gray1990}; the theorem permits any measurable history
+The finite-window case is the Markov approximation of a record process
+\citep[Thm.~7.3.1]{Gray1990}; the theorem permits any measurable history
 statistic. Its two terms separate forgetting information from predicting
-incorrectly with the information kept. A statistic alone need not have
+incorrectly with the information kept. Vanishing of the first sum is
+predictive sufficiency of the statistic \citep{ShaliziCrutchfield2001}, and
+for a statistic of a coarse process it is the stochastic autonomy criterion
+of \citet[Sec.~2.3]{BarnettSeth2023}. A statistic alone need not have
 a compact recursive realization. To update from the retained state and
 new record only, one additionally needs
-$M_{t+1}=U_t(M_t,Z_t)$, or a sufficient enlargement of $M_t$.
+$M_{t+1}=U_t(M_t,Z_t)$, or a sufficient enlargement of $M_t$; this is the
+determinism of causal states in \citet{ShaliziCrutchfield2001}.
 The theorem concerns one preparation and protocol. Sufficiency for
 every admitted intervention requires the corresponding conditional-law
 identity for each such protocol.
 
 A handoff initializes the parent from the actual fine state or its declared
 conditional law, including the source marks and memory read by future
-interactions. When evidence is shared across levels, its likelihood belongs
-to the joint model once. Reusing a child's record through a complete
-same-episode parent posterior requires the appropriate conditional or
-cavity accounting. A subsequent predictive prior is a different operation.
+interactions. \Cref{inh:intertwining} gives the class of declared
+conditional laws for which the parent is memoryless. When evidence is shared
+across levels, its likelihood belongs to the joint model once. Reusing a
+child's record through a complete same-episode parent posterior requires the
+appropriate conditional or cavity accounting. A subsequent predictive prior
+is a different operation.
+
+No parent in the later constructions acts as a source for its children. A
+parent law can enter a child's cost as a law-dependent source, but the exact
+reverse channel exerts no force: if $\zeta_I$ is the pushforward of
+$\bigotimes_{i\in I}\zeta_i$ under a retained statistic and
+$\mathcal K_{iI}$ is the regular conditional law of child $i$ given that
+statistic, then $\zeta_I\mathcal K_{iI}=\zeta_i$, the marginal of a
+disintegration. Downward action therefore needs a declared reverse channel
+that differs from the exact conditional, and its inheritance must be tested
+with the moving-map form of \eqref{inh:vector-square}; no such construction
+is given here.
 
 \section{Statistical partitions and their limits}
 
@@ -716,7 +1196,7 @@ Choosing $C=Y_V$ makes every partition conditionally independent while
 retaining the whole tuple. The corollary does not choose the context
 that a useful parent should retain.
 
-\constructionheading{Weak coupling can destroy every independent split}{inh:independence-discontinuity}
+\propositionheading{Weak coupling can destroy every independent split}{inh:independence-discontinuity}
 For any even $N\geq4$, let $y_i\in\{-1,1\}$ and define the strictly
 positive finite law
 \begin{equation}
@@ -729,10 +1209,14 @@ positive finite law
  \label{inh:ising-partition}
 \end{equation}
 where $Z_\epsilon$ is the sum of the numerator over the finite alphabet.
+Then $\pi_*(\mathbb P_0)$ consists of the pairs $\{2b-1,2b\}$, while
+$\pi_*(\mathbb P_\epsilon)=\{V\}$ for every $\epsilon>0$, although
+$\mathbb P_\epsilon\to\mathbb P_0$ in total variation.
+
+\noindent\emph{Proof.}
 At $\epsilon=0$, distinct pairs are independent and each pair is
 dependent: its odds ratio is $e^{4J}\ne1$. Thus the finest partition
 consists of those pairs.
-
 For $\epsilon>0$ the interaction path is connected. Any nontrivial
 partition cuts an edge. Fix all coordinates except the endpoints of
 one cut edge, whose coupling is $J_e\in\{J,\epsilon\}$. Positivity
@@ -741,62 +1225,173 @@ $e^{4J_e}\ne1$, since all terms involving just one endpoint cancel
 in that ratio. Factorization across the proposed partition would make
 these endpoints conditionally independent after the other coordinates
 were fixed, forcing ratio one. No nontrivial independent partition
-exists. Hence $\pi_*(\mathbb P_\epsilon)=\{V\}$ for every
-$\epsilon>0$, although continuity of each of the finitely many
-probabilities gives $\mathbb P_\epsilon\to\mathbb P_0$ in total
-variation. Exact independence is therefore not a continuous
-soft-membership criterion.
+exists. Continuity of each of the finitely many probabilities gives the
+convergence in total variation. $\square$
+
+Exact independence is therefore not a continuous soft-membership criterion.
 
 \propositionheading{Symmetry constrains a deterministic hard selector}{inh:selector-symmetry}
-Let $|V|\geq3$, let all coordinate spaces equal $\mathsf Y$, and
-suppose a deterministic partition selector $\Pi$ reads only a law on
-$\mathsf Y^V$. Assume relabeling naturality:
-$\Pi(\sigma_\#\mathbb P)=\sigma\Pi(\mathbb P)$ for every permutation
-$\sigma$ of $V$. If $\mathbb P$ is invariant under all permutations,
-then $\Pi(\mathbb P)$ is either the singleton partition or the
-one-block partition.
+Let all coordinate spaces equal $\mathsf Y$, and suppose a deterministic
+partition selector $\Pi$ reads only a law on $\mathsf Y^V$. Assume
+relabeling naturality: $\Pi(\sigma_\#\mathbb P)=\sigma\Pi(\mathbb P)$ for
+every permutation $\sigma$ of $V$. Let
+$H_{\mathbb P}=\{\sigma:\sigma_\#\mathbb P=\mathbb P\}$ be the stabilizer of
+the law. Then $\Pi(\mathbb P)$ is invariant under $H_{\mathbb P}$. If
+$H_{\mathbb P}$ is transitive, the blocks of $\Pi(\mathbb P)$ form a block
+system of $H_{\mathbb P}$; if it is primitive, $\Pi(\mathbb P)$ is either the
+singleton or the one-block partition. In particular this holds when
+$\mathbb P$ is invariant under all permutations.
 \begin{proof}
-The selected partition must be invariant under every permutation.
-If it had a block $B$ with $2\leq|B|<|V|$, choose distinct $i,j\in B$
-and $k\notin B$. The transposition exchanging $j$ and $k$ sends $B$
-to a distinct block that still contains $i$. Two distinct blocks of
-a partition cannot intersect. Therefore no such $B$ exists, leaving
-exactly the two stated possibilities.
+For $\sigma\in H_{\mathbb P}$, naturality gives
+$\Pi(\mathbb P)=\Pi(\sigma_\#\mathbb P)=\sigma\Pi(\mathbb P)$. An invariant
+partition of a transitive group is by definition a block system, and a
+transitive group is primitive when its only block systems are the two
+trivial partitions \citep{DixonMortimer1996}. The full symmetric group is
+primitive. For $|V|\leq2$ only the trivial partitions exist. For
+$|V|\geq3$, if an invariant partition had a block $B$ with
+$2\leq|B|<|V|$, choose distinct $i,j\in B$ and $k\notin B$. The
+transposition exchanging $j$ and $k$ sends $B$ to a distinct block that
+still contains $i$, which is impossible for a partition.
 \end{proof}
 
-A distribution over partitions, soft memberships, asymmetric realized
-histories, or additional geometric inputs are outside this proposition.
-An information-based hierarchy can also be retained before choosing
-a cut \citep{ChanEtAl2016}. None of these possibilities supplies the
-required dynamics without a further construction. The symmetry result
-does not exclude symmetry breaking from asymmetric initial conditions.
+For a law on a four-cycle invariant under its dihedral group, the only
+nontrivial block system is the diagonal pairing $\{\{1,3\},\{2,4\}\}$, so a
+relabeling-natural law-only selector cannot output adjacent pairs; adjacent
+pairing needs asymmetric preparation data. A distribution over partitions,
+soft memberships, asymmetric realized histories, or additional geometric
+inputs are outside this proposition. An information-based hierarchy can also
+be retained before choosing a cut \citep{ChanEtAl2016}. None of these
+possibilities supplies the required dynamics without a further construction.
+The symmetry result does not exclude symmetry breaking from asymmetric
+initial conditions.
 
-\section{The formation obligation}
+The four results of this section need a cross-agent joint law, and the
+dynamics of \cref{ch:dynamics} evolves a tuple of agent laws with product
+recognition. The product of the agent laws has the singleton partition as its
+finest independent partition. The one joint law that the dynamics produces is
+the pushforward $(\Phi_t)_\#\mu_0$ of a preparation ensemble $\mu_0$, and
+coupling makes it dependent across interacting agents: for
+$\dot x=Ax$ with $A=\bigl(\begin{smallmatrix}-1-\lambda&\lambda\\
+\lambda&-1-\lambda\end{smallmatrix}\bigr)$ and $x(0)\sim\mathcal N(0,I)$,
+$\operatorname{Cov}(x_1(t),x_2(t))=\tfrac12(e^{-2t}-e^{-2(1+2\lambda)t})>0$
+for $\lambda,t>0$. These results are therefore constraints on admissible
+selectors rather than formation mechanisms; the selectors of the later
+chapters are declared thresholds for this reason.
+
+\section{Architectures whose selection cannot see the interaction}
+
+Two exact statements show that some architectures cannot satisfy the
+interaction-necessity clause of the formation standard, whatever selector
+they use within a natural class.
+
+\propositionheading{Scalar additive closure fixes the membership order}{inh:scalar-additive}
+Let scalar parameters $\theta_i$ in an open interval $\mathsf J$ evolve by
+$\dot\theta_i=G(\theta_i,g(t))$, where $g$ is a state common to all agents and
+$G$ is continuous in its first argument. Suppose that for every pair of
+agents the sum retention $\theta_i+\theta_j$ intertwines with the flow, that
+is, $G(x,g)+G(y,g)$ depends on $x,y\in\mathsf J$ only through $x+y$. Then
+$G(\theta,g)=a(g)\theta+c(g)$, and every difference $\theta_i-\theta_j$ and
+every difference of count-weighted block centroids equals its initial value
+times the common factor $m(t)=\exp\int_0^ta(g(\tau))d\tau$. Consider a
+selector that joins two current blocks when their centroid distance first
+reaches a fixed threshold from above, and suppose $m$ is nonincreasing and
+the initial centroid distances have no ties. Then the sequence of selected
+partitions is an initial segment of a sequence determined by the initial
+data alone; the common state $g$ determines only the event times and the
+length of the segment.
+\begin{proof}
+For fixed $g$ put $\phi=G(\cdot,g)$. If $x+y=x'+y'$ then
+$\phi(x)+\phi(y)=\phi(x')+\phi(y')$; taking $x'=y'=(x+y)/2\in\mathsf J$ gives
+Jensen's equation $\phi((x+y)/2)=(\phi(x)+\phi(y))/2$, whose continuous
+solutions are affine. Hence $\frac{d}{dt}(\theta_i-\theta_j)=a(g)(\theta_i-\theta_j)$,
+and a count-weighted centroid obeys the same affine law, so centroid
+differences are also multiplied by $m(t)$. A pair of current blocks with
+initial centroid distance $D$ is at distance $Dm(t)$ and first reaches the
+threshold $\delta$ when $m(t)=\delta/D$. Since $m$ is common and
+nonincreasing, events occur in increasing order of $D$. After a join at
+level $D$, a pair involving the new block with initial centroid distance
+$D'\leq D$ is already at or below the threshold and, $m$ being
+nonincreasing, never reaches it from above; a pair with $D'>D$ joins later in
+order of $D'$. All of these comparisons involve only initial distances.
+Whether the event at level $D$ occurs depends on whether $m$ reaches
+$\delta/D$, which is where $g$ enters.
+\end{proof}
+
+Anisotropic linear laws escape this proposition. For vector parameters with
+$\dot\theta_i=A(g)\theta_i+c(g)$, differences evolve by a common propagator
+that need not preserve the ordering of distances: with
+$A=\operatorname{diag}(-1,-3)$, initial differences $(1,0)$ and $(0,1.5)$
+become approximately $(0.37,0)$ and $(0,0.075)$ at $t=1$, reversing which
+pair is closer. Whether a smooth reciprocal potential realizes an
+anisotropic, interaction-dependent propagator with exact additive closure
+is open.
+
+\propositionheading{Shared targets give a common clock}{inh:common-clock}
+Work on finite positive tables as in \cref{thm:dyn-finite-flow}, with a
+common belief alphabet $\mathsf K$. Suppose every evaluator is the same
+model-independent law, $G_i(m,\cdot)=G_0$; the belief source sets exclude
+self; and every belief channel is $\mathcal K^q_{ij}[\mathbf q](v,\cdot)=C[M]$
+for all $j\neq i$ and all inputs $v$, where $C$ is a twice continuously
+differentiable normalized law of the additive moment
+$M=\sum_i\E_{q_i}\mathsf T$ of a fixed statistic
+$\mathsf T:\mathsf K\to\R^p$. Then along the Fisher flow of
+\cref{eq:dyn-potential} (with dynamic rows) or of its reduced potential
+\cref{eq:dyn-reduced},
+\begin{equation}
+ \frac{d}{dt}\log\frac{q_i(k)}{q_j(k)}
+ =-2\log\frac{q_i(k)}{q_j(k)}+c_{ij}(t),
+ \label{inh:common-clock-identity}
+\end{equation}
+with $c_{ij}$ independent of $k$. Along the null flow
+of \cref{inh:null-flow} the coefficient $-2$ is replaced by $-1$.
+\begin{proof}
+With a model-independent evaluator the local term splits as
+$\KL(s_i\Vert r_i)+\KL(q_i\Vert G_0)$, whose belief derivative is
+$\log q_i-\log G_0$ plus a constant. Each peer cost $\KL(q_i\Vert C[M])$
+contributes $\beta_{ij}(\log q_i-\log C[M])$ as receiver, and the rows of
+$i$ sum to one over $j\neq i$. As a source, $q_i$ enters every peer cost
+only through $M$, so it contributes
+$-\sum_{l}\sum_{j\neq l}\beta_{lj}\sum_u\frac{q_l(u)}{C[M](u)}
+\frac{\partial C[M](u)}{\partial M}\cdot\mathsf T(v)$, which is the same
+function of $v$ for every $i$; with Gibbs rows the envelope identity
+\cref{eq:dyn-envelope} gives the same expression with $\beta^*$. Hence
+$h_i=2\log q_i+V_t$ with $V_t$ common to all agents, up to constants in $v$.
+The flow \cref{eq:dyn-fisher-flow} gives
+$\frac{d}{dt}\log q_i=-(h_i-\E_{q_i}h_i)$, and subtracting the equations for
+$i$ and $j$ proves \eqref{inh:common-clock-identity}. Deleting the peer costs
+leaves $h_i=\log q_i-\log G_0$.
+\end{proof}
+
+Hence $\log(q_i/q_j)$, modulo additive constants, equals $e^{-2t}$ times its
+initial value under the full flow and $e^{-t}$ times it under the null flow.
+Any relabeling-equivariant selector that reads only these pairwise log-ratios
+modulo constants produces under the full flow the membership history it
+produces under the null flow, with every event time halved. Its partition
+sequence is therefore that of the null flow, and it fails interaction
+necessity, which disregards event times. Interaction-sensitive selection under
+the reciprocal potential therefore requires receiver-dependent targets, such
+as selective channels with nonconstant Gibbs rows.
+
+\section{The formation standard}
+
+The thesis of the theory is that interactions between agents can produce further agents. A definition of formation must therefore exclude three ways in which the selection and inheritance clauses can be met without any such production. A parent that retains every child state compresses nothing: four agents with laws $\mathcal N(x_i,1)$ under symmetric peer-KL consensus, a threshold selector, and the identity retention select two pairs and then their union with exact inheritance at every stage. Agents that do not interact can be grouped by any rule that reads their initial data and a common relaxation clock. A second stage that forms from every handoff whatever the first stage produced is a sequence of supplied scales rather than recursion. The standard below makes each exclusion a clause.
+
+\definitionheading{Null flow}{inh:null-flow}
+Let a construction specify a flow $\Phi$ generated by a potential of the form \cref{eq:dyn-potential} or by the per-agent dynamics of \cref{def:dyn-per-agent-flow}, together with references, evaluators, source priors, temperatures, a selector, and an admitted class of initial configurations. Its null flow $\Phi^0$ is the flow obtained by deleting every peer cost $D^q_{ij},D^s_{ij}$ with $j\neq i$ and evaluating every law-dependent channel and evaluator at its value with the peer laws held at their initial values, with all other data unchanged. The membership history $H(x)$ of an initial configuration $x$ is the sequence of selected partitions with their event times; $H^0(x)$ is the history produced by the same selector along $\Phi^0$. The partition sequence $P(x)$ is $H(x)$ with its event times removed, and $P^0(x)$ is obtained from $H^0(x)$ in the same way.
 
 \definitionheading{Inherited recursive formation}{inh:recursive-formation}
-An inherited recursive-formation construction specifies population dynamics
-that selects nontrivial blocks
-from an admitted class of initially unpartitioned configurations, with a
-declared persistence criterion and a handoff determined by the state or
-accessible history. Each selected block must carry inherited belief and
-model laws, evaluators, boundary responses, and dynamics. The resulting
-parents must then select a block containing at least two first-stage
-parents under those inherited interactions, without resetting their source
-data or supplying a newly tuned attraction at the next level.
+An inherited recursive formation is a construction satisfying all of the following clauses.
+\begin{enumerate}
+\item[(F1)] Admitted class. The initial configurations form a nonempty set that is open in a declared topology on a declared space of initially unpartitioned configurations, or a declared invariant family.
+\item[(F2)] Selection. The dynamics selects nontrivial blocks with a declared persistence criterion, and each handoff is a measurable function of the state or of accessible history.
+\item[(F3)] Inheritance. Each selected block carries inherited belief and model laws, evaluators, boundary responses, and dynamics in the sense of this chapter, with the class of admitted probes fixed before the retention is chosen.
+\item[(F4)] Compression. Each handoff retention is non-injective on the post-handoff invariant set, and some admitted child-level probe distinguishes two configurations with the same retained value.
+\item[(F5)] Interaction necessity. $P\neq P^0$ on a nonempty open subset of the admitted class. A difference only in event times does not count.
+\item[(F6)] Recursion. The parents select a block containing at least two first-stage parents under the inherited interactions, without resetting their source data or supplying a newly tuned attraction, and this second-stage selection does not occur from every counterfactual handoff in the inherited class.
+\end{enumerate}
+A construction satisfies the strong form of (F5) if its final partition is not a function of any statistic of the initial data whose evolution is the same under $\Phi$ and $\Phi^0$. It is amplifying if, at each event, the ratio of the largest within-block diameter to the smallest between-block distance is smaller along $\Phi$ than along $\Phi^0$ by a declared factor below one. Write (F6a) for the first sentence of (F6), a second selection among first-stage parents under the inherited interactions without reset or retuning, and (F6b) for its counterfactual part. A construction satisfying (F1), (F2), (F3), and (F6a) but failing at least one of (F4), (F5), and (F6b) is a two-stage selection with exact inheritance; a construction with only one selection stage that satisfies (F1) to (F3) is a single-stage selection with exact inheritance. The clauses that fail are always stated.
 
-Persistence can mean an invariant block relation in deterministic dynamics
-or a specified path event in stochastic dynamics. The earlier finite
-construction settles inheritance for a supplied hierarchy. It does not select that
-hierarchy or establish persistence.
-An extension with explicit fusion events is constructed in
-\cref{ch:fusion}. Under the original smooth potential,
-\cref{ch:conditional-formation} supplies a conditional four-agent realization:
-a retained-state threshold selects two parents and then their union, with
-exact dynamics, extensive responses, and collective geometry on a prepared
-common-precision family. Its additive quotients are available initially.
-\Cref{ch:open-formation} gives a different six-agent construction on a full
-open law neighborhood, with native preferential selection, a fixed
-selective channel, an aggregate-angle response interface, and section-valued
-parents. Its inherited dynamics includes the derivative of a moving
-representative. Both constructions supply their compression architectures;
-deriving a preferred sufficient interface or membership criterion remains open.
+Persistence can mean an invariant block relation in deterministic dynamics or a specified path event in stochastic dynamics. Clause (F5) is a control experiment: it asks whether the grouping would occur with the interaction switched off. Clause (F4) excludes the identity retention described above, and (F6) is the counterfactual-handoff requirement. The finite construction of this chapter settles inheritance for a supplied hierarchy and makes no selection claim. \Cref{ch:fusion} gives a construction with explicit fusion events under a nonsmooth interaction; at zero coupling its agents never collide, so it meets (F5), but fused children are identical, so it fails (F4), and it fails (F6b); it is a two-stage selection with exact inheritance. The erasure construction of \cref{ch:smooth-erasure} is a single-stage selection with exact inheritance. Under the original smooth potential, \cref{ch:conditional-formation} selects two parents and then their union on a prepared common-precision family, but its membership schedule is independent of the coupling (\cref{form:kappa-independence}), so it fails (F5); since the union also forms from every counterfactual handoff with sufficiently separated parents, it fails (F6b) as well, and it is a two-stage selection with exact inheritance. \Cref{ch:open-formation} gives a six-agent construction on a full open law neighborhood with native preferential selection; it meets (F4) and (F6a), but in the regime of its proof the null flow reproduces its membership history, so its theorem does not establish (F5), and (F6b) is not verified; it is a two-stage selection with exact inheritance. Both smooth constructions supply their compression architectures.
+
+\openproblemheading{A recursive formation}{inh:formation-open}
+Construct a population dynamics under the reciprocal potential, the per-agent free energies, or a global free energy that satisfies (F1) to (F6), preferably in the strong and amplifying forms, and derive rather than declare its selector and its compression interface.
