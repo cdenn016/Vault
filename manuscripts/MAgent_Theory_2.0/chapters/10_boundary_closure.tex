@@ -1,0 +1,220 @@
+\chapter{Boundary Closure and Recursive Composition}
+\label{ch:boundary-closure}
+
+There is an exact hierarchy of public compressions under the original smooth potential with a coupled evaluator and identity peer channels. Each level preserves fresh uniform-descendant responses, their subsequent evolution, and a declared class of record conditioning. The construction supplies an invariant family and its hierarchy. It establishes recursive inheritance on that family, while leaving the selection of the family and hierarchy open.
+
+\section{A general-law family on a supplied tree}
+\label{sec:boundary-tree-family}
+
+Let $A$ and $B$ be probability references on standard Borel spaces with coordinates $r$ and $w$. Choose a positive joint density $\rho(r,w)$ against $A\otimes B$, normalized to one, with bounded logarithm. Its disintegration supplies a proper model reference and normalized evaluator as in \cref{eq:dyn-local-joint}. It may couple its arguments; for example, balanced signs $\phi(r),\psi(w)$ give $\rho=\exp(J\phi\psi)/\cosh J$.
+
+Fix a binary tree of depth $d\ge1$ with $N=2^d$ leaves. Each leaf is a primitive agent. Append one independent Haar circle for every internal tree node to the belief sample space, and a separate set to the model sample space. The references extend by these independent circle laws. At internal node $v$, fix a measurable phase function $\alpha_v(r)$ and define
+\begin{equation}
+ \sigma_v(r,\theta_v)=\operatorname{sign}\cos(\theta_v-\alpha_v(r)).
+ \label{eq:boundary-tree-signs}
+\end{equation}
+The sign on its null zero set is immaterial. Conditional on the base, the signs are independent and fair. The circles are original public sample coordinates. Different phase functions change the laws in those same coordinates; they are held fixed along a continuous trajectory.
+
+Label the left and right edges by $\epsilon=+1,-1$. A leaf $i$ defines a signed path
+\begin{equation}
+ u_j(i,\theta)=\epsilon_j(i)\sigma_{v_{j-1}(i)}(r,\theta_{v_{j-1}(i)}),
+ \qquad j=1,\ldots,d.
+ \label{eq:boundary-path-bits}
+\end{equation}
+Let $U_d$ be the uniform law on $\{-1,1\}^d$. Choose any positive bounded profile $f(r,u)$, with bounded logarithm and $\int f dA dU_d=1$, and set
+\begin{equation}
+ q_i(r,\theta)=f(r,u(i,\theta)),\qquad
+ f_0(r)=\E_{U_d}f(r,u).
+ \label{eq:boundary-profile-lift}
+\end{equation}
+These are densities against $A$ times all the Haar factors. Each leaf has the same base marginal $f_0A$, but its full public law can differ from every other leaf law. Define model densities from an independent profile $g(w,z)$ and model circles in the same way. The base spaces and the profile functions are unrestricted within the stated regularity domain; no Gaussian or finite-parameter family is imposed.
+
+All physical peer channels are identities, every other agent is an allowed source, and the original source priors are uniform. If two leaves share exactly $k$ initial edges, there are $n_k=2^{d-k-1}$ possible sources in that class for each receiver. Give each such source weight $b_k/n_k$, where $b$ is a probability vector on $k=0,\ldots,d-1$. The belief and model vectors $b^q,b^s$ evolve separately. Uniform original rows are included by taking
+\begin{equation}
+ \pi_k=\frac{n_k}{N-1},\qquad b_k^q=b_k^s=\pi_k.
+ \label{eq:boundary-class-priors}
+\end{equation}
+The tree therefore enters the prepared relation among the agent laws and row classes. The fine potential and its uniform priors contain no additional preference for a chosen pair.
+
+\section{The exact inherited profile equations}
+\label{sec:boundary-profile-equations}
+
+For each $k$, define an operator $P_k$ on bit profiles: keep the first $k$ bits, reverse bit $k+1$, and average all later bits. It is a Markov operator, self-adjoint for $U_d$. It describes an average over a class of original source labels; it is not a replacement physical communication channel. Define
+\begin{equation}
+ D_k(f)=\int f(r,u)[\log f(r,u)-(P_k\log f)(r,u)] dA(r) dU_d(u).
+ \label{eq:boundary-class-cost}
+\end{equation}
+
+\theoremheading{Exact coupled hierarchy dynamics}{thm:boundary-tree-flow}
+On its regular positive domain, the family \cref{eq:boundary-profile-lift} is invariant under the original full Fisher flow, including source-row evolution. Its inherited profile energy and metric are the original restrictions divided by their common factor $N$. The complete profile equations retain the incoming source derivatives.
+
+\begin{proof}
+For any two leaves in class $k$, the first $k$ path bits agree, bit $k+1$ is opposite, and later bits lie on disjoint branches. Integrating their independent signs gives exactly $\KL(q_i\Vert q_j)=D_k(f)$. Every leaf path has uniform bit law. Each local product law therefore has the same base marginals $f_0,g_0$ in its evaluator term. Direct substitution gives $\mathcal E=NF$, with
+\begin{equation}
+ \begin{aligned}
+ F={}&\int f\log f dA dU_d+\int g\log g dB dU_d
+       -\int f_0(r)g_0(w)\log\rho(r,w) dA dB\\
+ &+\sum_{k=0}^{d-1}b_k^qD_k(f)+T_q\KL(b^q\Vert\pi)
+  +\sum_{k=0}^{d-1}b_k^sD_k(g)+T_s\KL(b^s\Vert\pi).
+ \end{aligned}
+ \label{eq:boundary-tree-energy}
+\end{equation}
+The metric restricts to $N$ times
+\begin{equation}
+ g^c=\int\frac{(\delta f)^2}{f} dA dU_d
+       +\int\frac{(\delta g)^2}{g} dB dU_d
+       +\sum_{a=q,s}\sum_k\frac{(\delta b_k^a)^2}{b_k^a}.
+ \label{eq:boundary-tree-metric}
+\end{equation}
+Thus no new mobility is introduced.
+
+Self-adjointness gives the exact derivative
+\begin{equation}
+ \delta D_k(f)=\int\delta f
+ \left[\log f+1-P_k\log f-\frac{P_k f}{f}\right]dA dU_d.
+ \label{eq:boundary-class-variation}
+\end{equation}
+The last ratio is the incoming source contribution. Define
+\begin{equation}
+ V^q(r)=-\int g_0(w)\log\rho(r,w) dB(w),\qquad
+ V^s(w)=-\int f_0(r)\log\rho(r,w) dA(r).
+ \label{eq:boundary-tree-local}
+\end{equation}
+Up to an irrelevant additive constant, the belief force and evolution are
+\begin{equation}
+ \begin{aligned}
+ h^q&=2\log f+V^q-\sum_kb_k^q\left[P_k\log f+\frac{P_kf}{f}\right],\\
+ c_q&=\int fh^q dA dU_d,\qquad
+ \dot f=-f(h^q-c_q).
+ \end{aligned}
+ \label{eq:boundary-tree-flow}
+\end{equation}
+Exchange the sectors for $\dot g$. With $D_k^q=D_k(f)$ and $D_k^s=D_k(g)$, the rows obey
+\begin{equation}
+ \dot b_k^a=-b_k^a\left[
+ D_k^a+T_a\log\frac{b_k^a}{\pi_k}
+ -\sum_l b_l^a\left(D_l^a+T_a\log\frac{b_l^a}{\pi_l}\right)\right].
+ \label{eq:boundary-tree-rows}
+\end{equation}
+
+To establish full-flow invariance, fix a receiver and a public sample point. The leaves in its class-$k$ source subtree run through every suffix bit string once, regardless of the physical signs at that point. Their averages of $\log q_j$ and $q_j$ are therefore $P_k\log f$ and $P_kf$. Incoming weights have the same class values. The original fine force at that leaf is precisely \cref{eq:boundary-tree-flow} evaluated at its path bits. All leaf normalizations agree because every path-bit vector is uniform under the reference. Source costs also agree within their classes, preserving the row form. Hence the full field stays in the profile family, and the restricted gradient is its actual evolution. Bounded logarithms, bounded $\log\rho$, and positive rows give local Lipschitz equations in the bounded-profile charts, with unique solutions on their regular existence intervals.
+\end{proof}
+
+The same retentions apply to the original Gibbs-reduced flow. Replace each row by $b_k^{a,*}=\pi_k\exp(-D_k^a/T_a)/\sum_l\pi_l\exp(-D_l^a/T_a)$ and use the matter metric. The envelope identity in \cref{eq:dyn-envelope} gives the displayed profile force with these weights, including its incoming term. All symmetry and response arguments below remain unchanged.
+
+The inherited cost is still a relative entropy. Let
+\begin{equation}
+ J_k(dr,du,dv)=A(dr)f(r,u)U_d(du)P_k(u,dv),
+\end{equation}
+and let $J_k^{\mathrm{rev}}$ exchange $u,v$. Reversibility gives
+$D_k(f)=\KL(J_k\Vert J_k^{\mathrm{rev}})$.
+It is generally different from the divergence to the averaged source law:
+\begin{equation}
+ D_k(f)-\KL(f A\otimes U_d\Vert(P_kf) A\otimes U_d)
+ =\int f[\log(P_kf)-P_k\log f],dA dU_d\ge0.
+ \label{eq:boundary-tree-jensen}
+\end{equation}
+Replacing the exact inherited cost by the latter divergence would discard this term and change the dynamics.
+
+\section{Recursive retention and the response process}
+\label{sec:boundary-tree-inheritance}
+
+At each base point, arrange the values of $f(r,u)$ in their binary profile tree. Retain this tree with unordered children at every internal node. Its leaves still carry density values, and its nested grouping is retained. Flattening it into a multiset would lose which values share a prefix and could change $D_k$.
+
+For a physical subtree rooted at depth $l$, apply this retention only to its descendant values, keeping the dependence on the base and physical ancestor coordinates. This defines its parent descriptor. Include the corresponding model descriptor, the shared row-class data, primitive counts, and the remaining tree connections. At a lowest pair, the unordered values $x,y$ can equivalently be written as a mean $m=(x+y)/2$ and a squared contrast $v=((x-y)/(x+y))^2$. A first parent therefore retains more than its mixture law, but does not retain the two full child laws on their original circle coordinates.
+
+\theoremheading{Recursive boundary inheritance on the supplied hierarchy}{thm:boundary-tree-inheritance}
+These parent descriptors inherit the joint controlled dynamics at every level of the same fine system. Joining two sibling descriptors gives their unordered pair. The join commutes with evolution and with fresh uniform-descendant response kernels. Common record likelihoods depending on the base preserve these statements under arbitrary finite adaptive sequences, whenever the updates remain in the regular domain.
+
+\begin{proof}
+At a fixed physical point, changing an internal sign exchanges the two branches below that node. Thus the map from physical leaf labels to their bit strings is an automorphism of the rooted binary tree. Forgetting its realization removes the phase at the joined node and leaves exactly the unordered profile subtree.
+
+Tree automorphisms preserve common-prefix length, $U_d$, and every $P_k$. They consequently preserve \cref{eq:boundary-tree-energy,eq:boundary-tree-metric} and commute with \cref{eq:boundary-tree-flow,eq:boundary-tree-rows}. This remains true for measurable base-dependent branch exchanges: the equations have no derivatives of the base coordinate, the local evaluator reads only $f_0,g_0$, and the global integrals are unchanged. The quotient flow is therefore independent of the chosen ordered representatives. The finite tree quotient admits measurable representatives, for example by recursively ordering the finite tuples of its values. This also establishes measurability of the descended updates.
+
+For partial retentions, the same argument applies to the product of automorphism groups of the retained subtrees. The complement supplies the retained sibling and ancestor data needed for their interactions; the joint parent network closes. Thus this is controlled closure for complements in the stated prepared family, rather than autonomy under every external law. Combining sibling trees and then forgetting their ordering is the same operation as retaining their union directly. Repeated compatible joins give the same descriptor, and joins of disjoint subtrees commute. These are representation changes inside one fixed $N$-agent interaction graph. They do not add or delete fine edges, and do not authorize an arbitrary reassociation of the leaves into another hierarchy.
+
+For a response at a node of depth $l$, choose a descendant freshly and uniformly, draw its full original public sample, and conceal its label. At every physical sample point the descendant labels run through every suffix bit string. The response density is exactly
+\begin{equation}
+ f_l(r,u_1,\ldots,u_l)
+ =\E_{u_{l+1},\ldots,u_d}f(r,u_1,\ldots,u_d).
+ \label{eq:boundary-tree-response}
+\end{equation}
+It is the mean of the retained subtree values, with all unused Haar factors left in the original output space. At the root it is $f_0(r)$. Choosing a sibling parent uniformly and then a descendant uniformly gives exactly the same full sample law. The model sector follows the same rule with a separate fresh label.
+
+Fix a normalized positive record kernel $L_e^q(do\mid r)$ with bounded positive density on the admitted update domain. It may be applied to the original sample as a readout. Every child has base marginal $f_0A$, so a common record has the same component normalization
+\begin{equation}
+ Z_o=\int f_0(r)L_e^q(o\mid r) dA(r).
+\end{equation}
+Conditioning every mixture component preserves uniform labels and gives
+\begin{equation}
+ f^+(r,u)=\frac{L_e^q(o\mid r)f(r,u)}{Z_o}.
+ \label{eq:boundary-tree-feedback}
+\end{equation}
+This multiplies every value in a profile tree at the given base point by the same factor. It therefore commutes with all retentions and joins. The model update is identical in form, and rows remain unchanged at the record update. Equality of retained states gives equality of the next response law and the retained update. Induction, using the inherited continuous flow between records, proves equality of every finite history law under policies choosing the next admitted experiment from the observed history. At a representation join, the already observed history is carried forward as controller state; no past record is erased.
+\end{proof}
+
+The fresh-sampling condition matters. For a pair $q_\pm=m(1\pm a\sigma)$, two samples from one reused child have joint density
+\begin{equation}
+ m(k)m(k')[1+a(k)a(k')\sigma(k)\sigma(k')],
+ \label{eq:boundary-tree-reuse}
+\end{equation}
+which can reveal the discarded phase. A shared child label for a joint belief/model response can likewise expose a relative contrast. Unrestricted external identity-channel probes can distinguish these laws, as in \cref{ch:public-compression}. These protocols are outside the stated inherited interface.
+
+\section{Public information lost at every depth}
+\label{sec:boundary-tree-loss}
+
+Choose, only as an initial witness,
+\begin{equation}
+ f(r,u)=f_0(r)\prod_{j=1}^d[1+a_j(r)u_j],\qquad 0<a_j(r)<1,
+ \label{eq:boundary-tree-witness}
+\end{equation}
+with regular bounds and $\int f_0 dA=1$. The evolution subsequently uses the unrestricted positive profile $f$, and is not assumed to preserve this product. Before joining at depth $l$, the two child-parent response densities differ by their factor $1\pm a_{l+1}\sigma_v$. Rotating $\alpha_v$ changes these full public laws, while their joined unordered profile tree stays fixed. Strict differences persist on a nonzero regular time interval by continuity. The same construction works at every depth and in both sectors.
+
+These losses are continuous in total variation. For a small phase shift $\delta$, the sign disagreement has Haar mass $|\delta|/\pi$. If two branch response densities at a node are $x,y$, then, including the base and ancestor integrations, the total variation distance induced in one child-parent response is
+\begin{equation}
+ \frac{|\delta|}{2\pi}\int\E_{U_l}|x(r,U_l)-y(r,U_l)|dA(r).
+ \label{eq:boundary-tree-tv}
+\end{equation}
+Each phase can be an arbitrary measurable function of the base. The quotient therefore discards spatial patterns in the original public laws, beyond a permutation of primitive agents. It retains the amplitude profile tree, whose size can grow with the number of descendants; no fixed-size parent representation is asserted.
+
+The sample-coordinate density is piecewise constant in these circles, while the law-valued Fisher evolution remains smooth in time on the regular profile domain. Squared Hellinger distance along a nontrivial phase rotation is of order $|\delta|$, so these paths have no finite Fisher tangent and are not continuous in the bounded-log-density norm. The result does not give a smooth dimension reduction on an open law chart. It gives exact recursive public compression on a prepared invariant class, with general base laws, a coupled evaluator, identity interactions, and no prescribed erasure gate. The tree and the class are supplied, and no endogenous formation time has been derived.
+
+\section{Why ordinary response completion can remove all compression}
+\label{sec:boundary-observability}
+
+The preceding restrictions cannot generally be removed by adding a few response moments to the phase parent. Observation derivatives can already recover a whole fine configuration, as in the local observability method of \citet{HermannKrener1977}. The following calculation uses only the inverse function theorem.
+
+\propositionheading{Fresh responses locally identify a binary pair}{prop:boundary-observable}
+For two original identity-peer agents with the coupled binary evaluator $G_J(k\mid m)=e^{Jkm}/(2\cosh J)$, $|J|<1/4$, there is an open heterogeneous region where any retention preserving both fresh belief/model mixture responses and their future evolution is locally injective.
+
+\begin{proof}
+Write $q_i=b_{x_i}$, $s_i=b_{y_i}$, where $b_x(k)=(1+kx)/2$. The exact original equations, including incoming derivatives, are
+\begin{equation}
+ \dot x_i=-(1-x_i^2)[2\operatorname{atanh}x_i-\operatorname{atanh}x_j-Jy_i]-(x_i-x_j),
+ \label{eq:boundary-binary-flow}
+\end{equation}
+and the exchanged equation for $y$. Set $x_{1,2}=m\pm a$, $y_{1,2}=n\pm b$. Fresh mixture responses are $b_m,b_n$. Their velocities have the convergent local expansions
+\begin{equation}
+ \begin{aligned}
+ F_x&=-(1-m^2)(\operatorname{atanh}m-Jn)+(6m-Jn)a^2-2Jmab+O(5),\\
+ F_y&=-(1-n^2)(\operatorname{atanh}n-Jm)+(6n-Jm)b^2-2Jnab+O(5).
+ \end{aligned}
+ \label{eq:boundary-response-derivatives}
+\end{equation}
+Here $O(5)$ denotes terms of total degree at least five. To check the coefficient, the uncoupled part of $F_x$ is
+\begin{equation}
+ -\tfrac12\sum_{\pm}[1-(m\pm a)^2]\operatorname{atanh}(m\pm a)
+ +2ma[\operatorname{atanh}(m+a)-\operatorname{atanh}(m-a)],
+\end{equation}
+whose expansion is $-m+2m^3/3+6ma^2+O(5)$.
+
+For $\mathcal H=(m,n,F_x,F_y)$, its Jacobian determinant at $m=n=\epsilon c_1$, $a=b=\epsilon c_2$, $c_1c_2\ne0$, is
+\begin{equation}
+ \det D\mathcal H
+ =4\epsilon^4c_1^2c_2^2(6-3J)(6-J)+O(\epsilon^6).
+ \label{eq:boundary-observability-det}
+\end{equation}
+Indeed, the lower-right block is $2\epsilon^2c_1c_2$ times the matrix with diagonal $6-2J$ and off-diagonal $-J$, plus $O(\epsilon^4)$. Its determinant is positive for sufficiently small nonzero $\epsilon$, and remains nonzero nearby. If two states in that neighborhood have the same inherited parent, their response curves agree. Equality at time zero and of their first derivatives gives equality of $\mathcal H$, hence equality of the states by local invertibility. No differentiability assumption on the retention is needed.
+\end{proof}
+
+This is a local obstruction in one original model. It neither removes the global child-exchange ambiguity nor excludes the selective protocols and invariant classes constructed above.
