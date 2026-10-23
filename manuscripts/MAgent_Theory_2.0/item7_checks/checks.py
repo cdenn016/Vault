@@ -2,7 +2,9 @@ r"""Numerical checks for Item_7_formation_feedback.tex (float64, tiny sizes, sin
 
 Per-agent Gibbs-row dynamics with parents created by a wall handoff. Each block prints a residual, an
 event list or a root; agreement supports the statements at the tested instances only. Blocks (1)-(5) test
-general-law identities on finite alphabets; blocks (6)-(13) use the Gaussian location instance.
+general-law identities on finite alphabets; blocks (6)-(17) use the Gaussian location instance with the declared
+selector. Blocks (18)-(20) test the general-law identities and bounds of the derived selector, and blocks (21)-(26)
+run the derived selector in the same instance.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1"); os.environ.setdefault("MKL_NUM_THREADS", "1")
@@ -406,3 +408,273 @@ for gi in [list(range(3 * b_, 3 * b_ + 3)) for b_ in range(4)]:
     print(f"(17) group {gi}: t_c = {tc:.3f}, entry slope of bottleneck margin = {slope:.4f}, "
           f"min bottleneck margin = {win[:, 0].min():.4f}, min wall margin = {win[:, 1].min():.4f} over [t_c+0.05, t_c+2]")
 print("     handoffs:", short(Pm))
+
+
+# Derived selector ------------------------------------------------------------------------------------------
+# The structure free energy F(P) of a coarsening P of the current units is the sum over its blocks of the block
+# free energy at its Gibbs row (records omitted: they are the same for every P at fixed laws). The derived selector
+# selects the blocks of the minimizer of F that persist for a window Tp. Blocks (18)-(20) test general-law
+# identities and bounds; blocks (21)-(26) use the Gaussian location instance with the fixed draw y0 of (7)-(10).
+import itertools
+rngd = np.random.default_rng(20261024)
+pp = (1 - ps) / 11                                            # peer prior of the instance
+
+
+def F_batch(M, Nn, W):
+    r"""Structure free energy of B coarsenings (rows): unit means M, sizes Nn (0 marks padding) and within sums of
+    squares W, all of shape (B, K). Unit U pays lam/2 W_U - log[(n_U - 1) pp + ps e^{-n_U lam/2 (m_U - g)^2}
+    + sum_V n_V pp e^{-n_U lam/2 (m_U - m_V)^2}]."""
+    B, K = M.shape; ii = np.arange(K)
+    C = lam / 2 * Nn[:, :, None] * (M[:, :, None] - M[:, None, :]) ** 2               # (B, K, K) receiver x source
+    with np.errstate(divide="ignore"):
+        Lp = np.broadcast_to(np.log(Nn * pp)[:, None, :], (B, K, K)).copy()
+        Lp[:, ii, ii] = np.where(Nn > 1, np.log(np.maximum(Nn - 1, 1) * pp), -np.inf)  # own parent
+    C[:, ii, ii] = 0.0
+    L = np.concatenate([Lp - C, (np.log(ps) - lam / 2 * Nn * (M - g) ** 2)[:, :, None]], 2)
+    mx = L.max(2); lse = mx + np.log(np.exp(L - mx[:, :, None]).sum(2))
+    return np.where(Nn > 0, lam / 2 * W - lse, 0.0).sum(1)
+
+
+def block_stats(y, rgs):
+    r"""Means, sizes and within sums of squares of the partitions coded by restricted growth strings (B, n)."""
+    B, n = rgs.shape; idx = (np.arange(B)[:, None] * n + rgs).ravel()
+    Nn = np.bincount(idx, minlength=B * n).reshape(B, n).astype(float)
+    S = np.bincount(idx, weights=np.tile(y, B), minlength=B * n).reshape(B, n)
+    SS = np.bincount(idx, weights=np.tile(y * y, B), minlength=B * n).reshape(B, n)
+    M = np.where(Nn > 0, S / np.maximum(Nn, 1), 0.0)
+    return M, Nn, np.maximum(SS - Nn * M * M, 0.0)
+
+
+def all_rgs(n):
+    R = np.zeros((1, 1), np.int64); mx = np.zeros(1, np.int64)
+    for k in range(1, n):
+        parts, mxs = [], []
+        for v in range(k + 1):
+            sel = mx + 1 >= v
+            parts.append(np.concatenate([R[sel], np.full((sel.sum(), 1), v)], 1)); mxs.append(np.maximum(mx[sel], v))
+        R = np.concatenate(parts); mx = np.concatenate(mxs)
+    return R
+
+
+def rgs_blocks(r):
+    return sorted(tuple(int(i) for i in np.nonzero(r == b)[0]) for b in range(r.max() + 1) if np.any(r == b))
+
+
+_ivl = {}
+def interval_coarsenings(Ku):
+    r"""One-hot assignments E[p, b, u] of the 2^(Ku-1) interval coarsenings of Ku ordered units."""
+    if Ku not in _ivl:
+        E = np.zeros((2 ** (Ku - 1), Ku, Ku))
+        for p, cuts in enumerate(itertools.product([0, 1], repeat=Ku - 1)):
+            b = 0; E[p, 0, 0] = 1
+            for u in range(1, Ku):
+                b += cuts[u - 1]; E[p, b, u] = 1
+        _ivl[Ku] = E
+    return _ivl[Ku]
+
+
+def interval_minimizer(y, units):
+    r"""Minimizer of F over interval coarsenings of the units (ordered by mean), and the margin to the next one."""
+    units = sorted(units, key=lambda u: y[list(u)].mean())
+    nu = np.array([len(u) for u in units], float); mu = np.array([y[list(u)].mean() for u in units])
+    Wu = np.array([np.sum((y[list(u)] - y[list(u)].mean()) ** 2) for u in units])
+    E = interval_coarsenings(len(units)); Nn = E @ nu
+    M = np.where(Nn > 0, (E @ (nu * mu)) / np.maximum(Nn, 1), 0.0)
+    W = E @ (Wu + nu * mu * mu) - Nn * M * M
+    Fv = F_batch(M, Nn, np.maximum(W, 0.0)); o2 = np.argsort(Fv)
+    p = o2[0]; blocks = [frozenset().union(*[units[u] for u in np.nonzero(E[p, b])[0]]) for b in range(len(units))
+                         if Nn[p, b] > 0]
+    return blocks, Fv[o2[1]] - Fv[o2[0]] if len(Fv) > 1 else np.inf
+
+
+def Fpart(y, blocks):
+    rg = np.zeros(len(y), int)
+    for b, u in enumerate(blocks): rg[list(u)] = b
+    return F_batch(*block_stats(y, rg[None, :]))[0]
+
+
+class DerivedPop(SharedPop):
+    r"""Shared-label flow with the derived selector: a block of the minimizer of F over interval coarsenings of the
+    current units is a candidate; it is selected after Tp without interruption. In the null mode a block's shared
+    row weighs the evaluator, with the members' self costs added, against the deleted peer costs."""
+
+    def vel(s, y):
+        if s.mode == "null":
+            Cg = s.lam / 2 * (s.A * s.n[:, None]) @ ((y - s.g) ** 2)
+            bG = s.ps * np.exp(-Cg) / (s.ps * np.exp(-Cg) + 1 - s.ps)
+            return bG[s.lab] * (s.g - y) + s.rho * (s.o - y)
+        return SharedPop.vel(s, y)
+
+    def select(s, y, t):
+        best, _ = interval_minimizer(y, s.top); new = [b_ for b_ in best if b_ not in s.top]
+        for b_ in list(s.cand):
+            if b_ not in new: del s.cand[b_]
+        chosen = []
+        for b_ in new:
+            s.cand.setdefault(b_, t)
+            if t - s.cand[b_] >= s.Tp - 1e-9: chosen.append(b_)
+        for b_ in chosen:
+            mem = [u for u in s.top if u <= b_]
+            s.top = [u for u in s.top if not u <= b_] + [b_]; s.level[b_] = 1 + max(s.level[u] for u in mem)
+            s.hist.append((round(t, 2), s.level[b_], tuple(sorted(b_)))); del s.cand[b_]
+        if chosen: s._refresh()
+
+
+def dpop(oo, Tp_, mode):
+    return DerivedPop(oo, lam, rho, ps, g, delta, Delta, Tp_, mode=mode)
+
+
+# (18) Structure free energy, general laws: at its Gibbs row the block free energy of a unit is
+#      sum_i KL(q_i||qbar) - T log(pi_A + sum_nu pi_nu e^{-n KL(qbar||nu)/T}); with a moment-projected parent P in an
+#      exponential family containing the sources, sum_i KL(q_i||P) - T log(pi_A + sum_nu pi_nu e^{-n KL(P||nu)/T}).
+k, n, Tt = 6, 4, 0.7
+Q = [simplex(k) for _ in range(n)]; qbar = sum(Q) / n
+srcs = [simplex(k) for _ in range(5)]; pri = simplex(6)
+def gibbs_fe(prior, cost, T_):
+    w = prior * np.exp(-(cost - cost.min()) / T_); b_ = w / w.sum(); return b_ @ cost + T_ * kl(b_, prior)
+c_dir = np.array([sum(kl(q, qbar) for q in Q)] + [sum(kl(q, nu) for q in Q) for nu in srcs])
+f_form = sum(kl(q, qbar) for q in Q) - Tt * np.log(pri[0] + np.sum(pri[1:] * np.exp(-n * np.array([kl(qbar, nu) for nu in srcs]) / Tt)))
+nus = [ef(rngd.standard_normal(2) * np.array([1.0, 0.2])) for _ in range(5)]
+Pst = ef(mproj(T.T @ qbar))
+c_ef = np.array([sum(kl(q, Pst) for q in Q)] + [sum(kl(q, nu) for q in Q) for nu in nus])
+f_ef = sum(kl(q, Pst) for q in Q) - Tt * np.log(pri[0] + np.sum(pri[1:] * np.exp(-n * np.array([kl(Pst, nu) for nu in nus]) / Tt)))
+print("(18) |F_U(Gibbs row) - formula|: linear pool", abs(gibbs_fe(pri, c_dir, Tt) - f_form),
+      "; moment projection", abs(gibbs_fe(pri, c_ef, Tt) - f_ef))
+
+# (19) Mutual attention bound for two singletons i, j merged into one shared-label unit (linear-pool parent):
+#      F_i + F_j - F_ij >= T log(beta_ij beta_ji pi_A / (pi_ij pi_ji)) + max(D_ij, D_ji), pi_A = (pi_ij + pi_ji)/2;
+#      an outsider V that attended to i and j now attends to the pool with prior pi_Vi + pi_Vj, and
+#      F_V' - F_V <= -T log(1 - beta_V{ij} (1 - e^{-|D_Vi - D_Vj|/(2T)})).
+slack_m = slack_o = np.inf
+for _ in range(2000):
+    kk = 5; T_ = 0.3 + rngd.random(); qi, qj, qv = simplex(kk), simplex(kk), simplex(kk); oth = [simplex(kk) for _ in range(3)]
+    pi_i, pi_j, pi_v = simplex(4), simplex(4), simplex(5)
+    Di = np.array([kl(qi, qj)] + [kl(qi, x) for x in oth]); Dj = np.array([kl(qj, qi)] + [kl(qj, x) for x in oth])
+    Zi, Zj = np.sum(pi_i * np.exp(-Di / T_)), np.sum(pi_j * np.exp(-Dj / T_))
+    bij, bji = pi_i[0] * np.exp(-Di[0] / T_) / Zi, pi_j[0] * np.exp(-Dj[0] / T_) / Zj
+    qb = (qi + qj) / 2; piA = (pi_i[0] + pi_j[0]) / 2
+    Zij = piA * np.exp(-(kl(qi, qb) + kl(qj, qb)) / T_) + np.sum((pi_i[1:] + pi_j[1:]) / 2 * np.exp(-(Di[1:] + Dj[1:]) / T_))
+    gain = -T_ * np.log(Zi) - T_ * np.log(Zj) + T_ * np.log(Zij)
+    slack_m = min(slack_m, gain - T_ * np.log(bij * bji * piA / (pi_i[0] * pi_j[0])) - max(Di[0], Dj[0]))
+    Dv = np.array([kl(qv, qi), kl(qv, qj)] + [kl(qv, x) for x in oth]); Zv = np.sum(pi_v * np.exp(-Dv / T_))
+    Zv2 = (pi_v[0] + pi_v[1]) * np.exp(-kl(qv, qb) / T_) + np.sum(pi_v[2:] * np.exp(-Dv[2:] / T_))
+    bv = np.sum(pi_v[:2] * np.exp(-Dv[:2] / T_)) / Zv
+    slack_o = min(slack_o, -T_ * np.log(1 - bv * (1 - np.exp(-abs(Dv[0] - Dv[1]) / (2 * T_)))) - (T_ * np.log(Zv / Zv2)))
+print("(19) min slack over 2000 draws: member bound", slack_m, "; outsider bound", slack_o, "(both must be >= 0)")
+
+# (20) Gaussian location: F_batch equals the sum of unit free energies computed from explicit Gibbs rows, and for
+#      the partition into singletons it is the sum of the agents' current free energies (records omitted).
+def F_direct(y, blocks):
+    tot = 0.0
+    for a_, u in enumerate(blocks):
+        yu = y[list(u)]; mu_ = yu.mean(); pr, co = [ps], [lam / 2 * np.sum((yu - g) ** 2)]
+        if len(u) > 1: pr.append((len(u) - 1) * pp); co.append(lam / 2 * np.sum((yu - mu_) ** 2))
+        for b_, v_ in enumerate(blocks):
+            if b_ != a_: pr.append(len(v_) * pp); co.append(lam / 2 * np.sum((yu - y[list(v_)].mean()) ** 2))
+        tot += gibbs_fe(np.array(pr), np.array(co), 1.0)
+    return tot
+res = []
+for _ in range(5):
+    rg = rngd.integers(0, 5, 12); bl = [frozenset(np.nonzero(rg == b_)[0].tolist()) for b_ in range(5) if np.any(rg == b_)]
+    res.append(abs(F_direct(y0, bl) - Fpart(y0, bl)))
+Dm = lam / 2 * (y0[:, None] - y0[None, :]) ** 2; np.fill_diagonal(Dm, lam / 2 * (y0 - g) ** 2)
+prm = np.full((12, 12), pp); np.fill_diagonal(prm, ps)
+F_ind = sum(gibbs_fe(prm[i], Dm[i], 1.0) for i in range(12))
+print("(20) max |F_batch - explicit Gibbs rows| over 5 random partitions =", max(res),
+      "; |F(singletons) - sum_i F_i| =", abs(Fpart(y0, [frozenset([i]) for i in range(12)]) - F_ind))
+
+# (21) The instance at t = 0 (fixed draw). Mutual attention within the groups exceeds the peer prior, so merging
+#      lowers the free energy; the minimizer of F over all 4,213,597 partitions of the twelve agents is the four groups.
+Wr = prm * np.exp(-(Dm - Dm.min(1, keepdims=True))); Wr /= Wr.sum(1, keepdims=True)
+print("(21) beta_01 beta_10 =", round(Wr[0, 1] * Wr[1, 0], 4), ", beta_12 beta_21 =", round(Wr[1, 2] * Wr[2, 1], 4),
+      ", beta_23 beta_32 =", round(Wr[2, 3] * Wr[3, 2], 5), "; peer prior pp =", round(pp, 4))
+sing = [frozenset([i]) for i in range(12)]
+pair = [frozenset([0, 1])] + [frozenset([i]) for i in range(2, 12)]
+F_pair_unit = gibbs_fe(np.array([ps, pp] + [pp] * 10), np.array([lam / 2 * np.sum((y0[:2] - g) ** 2),
+                       lam / 2 * np.sum((y0[:2] - y0[:2].mean()) ** 2)] + [lam / 2 * np.sum((y0[:2] - y0[j]) ** 2) for j in range(2, 12)]), 1.0)
+gain_mem = gibbs_fe(prm[0], Dm[0], 1.0) + gibbs_fe(prm[1], Dm[1], 1.0) - F_pair_unit
+bound_mem = np.log(Wr[0, 1] * Wr[1, 0] / pp) + max(Dm[0, 1], Dm[1, 0])
+gain_pop = Fpart(y0, sing) - Fpart(y0, pair)
+print("    merging agents 0 and 1: members' gain", round(gain_mem, 4), ">= bound", round(bound_mem, 4),
+      "; outsiders' change", round(gain_mem - gain_pop, 4), "; gain of F", round(gain_pop, 4))
+RG = all_rgs(12); best_f, best_r, second = np.inf, None, np.inf
+for c0 in range(0, len(RG), 20000):
+    fv = F_batch(*block_stats(y0, RG[c0:c0 + 20000])); j = int(np.argmin(fv)); fs = np.sort(fv)
+    if fv[j] < best_f: second = min(best_f, fs[1]); best_f, best_r = fv[j], RG[c0 + j]
+    else: second = min(second, fs[0])
+print(f"    {len(RG)} partitions; minimizer {rgs_blocks(best_r)}, F = {best_f:.4f}, margin to the next {second - best_f:.4f}")
+
+# (22) Minimizer of F along the flow with individual rows (no handoffs), the gap of the left groups, and the null box.
+du_ = sorted(brentq(Fd, a_, b_, args=(3 * lam / 2,)) for a_, b_ in ((0.5, 1.0), (1.0, 1.1)))[0]
+yv = y0.copy(); tv = 0.0; prev = None; t_cross = None; switch = []
+Pind = SharedPop(o, lam, rho, ps, g, delta, Delta, Tp, mode="off")
+snap = {}; mg_early = np.inf
+while tv < 2.2 - 1e-9:
+    bl, mg = interval_minimizer(yv, sing); key = sorted(tuple(sorted(u)) for u in bl if len(u) > 1)
+    if key != prev: switch.append((round(tv, 2), key, round(float(mg), 4))); prev = key
+    if tv <= 1.3 + 1e-9: mg_early = min(mg_early, mg)
+    if t_cross is None and yv[3:6].mean() - yv[:3].mean() < du_ - 0.005: t_cross = round(tv, 2)
+    for tt in (0.5, 1.0, 1.7, 1.78, 2.0):
+        if abs(tv - tt) < 5e-3: snap[tt] = yv.copy()
+    yv = rk(Pind.vel, yv, 0.01, 1); tv += 0.01
+print("(22) interval minimizer along the flow with individual rows (time, blocks, margin to the next):", switch)
+print("     smallest margin of the four-group minimizer on [0, 1.3] =", round(float(mg_early), 4))
+print("     left gap below d_u - 0.005 =", round(du_ - 0.005, 4), "from t =", t_cross)
+R6 = all_rgs(6); side = np.array([np.concatenate([a_, b_ + 6]) for a_ in R6 for b_ in R6])
+for tt, ys in sorted(snap.items()):
+    fv = F_batch(*block_stats(ys, side)); bi, _ = interval_minimizer(ys, sing)
+    print(f"     t = {tt}: minimizer over the {len(side)} side-respecting partitions {rgs_blocks(side[np.argmin(fv)])}"
+          f" agrees with the interval minimizer: {rgs_blocks(side[np.argmin(fv)]) == sorted(tuple(sorted(u)) for u in bi)}")
+mgs = []; ok = True
+for _ in range(200):
+    yb = o + 0.005 * (2 * rngd.random(12) - 1); bi, mg = interval_minimizer(yb, sing); mgs.append(mg)
+    ok &= sorted(tuple(sorted(u)) for u in bi) == [(0, 1, 2), (3, 4, 5), (6, 7, 8), (9, 10, 11)]
+print("     null box |y_i - o_i| <= 0.005, 200 states: minimizer is the four groups at all:", ok,
+      "; smallest margin", round(min(mgs), 4))
+
+# (23) Derived-selector histories on the fixed draw for three windows; null and feedback-off controls.
+for Tp_ in (0.5, 1.25, 2.0):
+    row_ = []
+    for mode in ("full", "null") + (("off",) if Tp_ == 1.25 else ()):
+        Pd = dpop(o, Tp_, mode); yf = Pd.run(y0, 300.0 if mode != "null" else 100.0)
+        row_.append((mode, short(Pd), round(float(yf[3:6].mean() - yf[:3].mean()), 4)))
+    print(f"(23) Tp = {Tp_}:", row_)
+
+# (24) Robustness on the admitted class, Tp = 1.25: partition sequences without event times.
+seqs = set(); t2s = []
+for _ in range(12):
+    yy = o + 0.005 * (2 * rngd.random(12) - 1)
+    Pf = dpop(o, 1.25, "full"); Pf.run(yy, 300.0); Pz = dpop(o, 1.25, "null"); Pz.run(yy, 60.0)
+    seqs.add((tuple(sorted((h[1], h[2]) for h in Pf.hist)), tuple(sorted((h[1], h[2]) for h in Pz.hist))))
+    t2s += [h[0] for h in Pf.hist if h[1] == 2]
+print("(24) distinct (shared-label, null) partition sequences over 12 draws:", len(seqs))
+for s_ in seqs: print("     ", s_)
+print("     union times in [%.2f, %.2f]" % (min(t2s), max(t2s)))
+
+# (25) Union radius. For two synchronized parents of size n at gap d, with the evaluator and far units dropped,
+#      F(separate) - F(union) = Gamma_n(d) = -log pp + log(2n-1) - 2 log(n-1 + n e^{-n lam d^2/2}) - n lam d^2/4.
+def Gam(d, nn=3):
+    return -np.log(pp) + np.log(2 * nn - 1) - 2 * np.log(nn - 1 + nn * np.exp(-nn * lam * d * d / 2)) - nn * lam * d * d / 4
+for nn in (2, 3, 4, 6):
+    ds = np.linspace(1e-4, 3.0, 300001); v_ = Gam(ds, nn)
+    zs = [brentq(Gam, ds[j], ds[j + 1], args=(nn,)) for j in range(len(ds) - 1) if v_[j] * v_[j + 1] < 0]
+    print(f"(25) n = {nn}: zeros of Gamma_n on (0, 3] {np.round(zs, 4)}, Gamma_n(0) = -log((2n-1) pp) = {Gam(0.0, nn):.4f}")
+dst = brentq(Gam, 0.5, 1.0); errs = []
+for d in np.linspace(0.05, 1.2, 24):
+    for cL in (-2.5, -2.3, -2.7):                       # parent means stay in [-3.3, -1.7]
+        m4 = np.array([cL - d / 2, cL + d / 2, 2.4, 2.6])[None, :]
+        Fsep = F_batch(m4, np.full((1, 4), 3.0), np.zeros((1, 4)))[0]
+        Fun = F_batch(np.array([[cL, 2.4, 2.6]]), np.array([[6.0, 3.0, 3.0]]), np.array([[1.5 * d * d, 0, 0]]))[0]
+        errs.append(abs(Fsep - Fun - Gam(d)))
+print("     d_* =", round(dst, 5), "; max |F(sep) - F(union) - Gamma_3| over 72 configurations in range =", max(errs),
+      "; d_m < d_* < d_u - 0.005:", roots["exact Bayes"][0] < dst < du_ - 0.005 if "roots" in globals() else None)
+
+# (26) Counterfactual first-stage handoffs under the derived selector (Tp = 1.25): shift L1 and L2 apart after stage 1.
+for mode, shifts in (("full", (-0.15, -0.05, 0.0, 0.025, 0.05, 0.1, 0.25)), ("off", (0.0, 0.1, 0.25, 0.4))):
+    Pb = dpop(o, 1.25, mode); yb = Pb.run(y0, 1.35); out = []
+    for s_ in shifts:
+        Qc = copy.deepcopy(Pb); yc = yb.copy(); yc[[0, 1, 2]] -= s_; yc[[3, 4, 5]] += s_
+        yf = Qc.run(yc, 2000.0); un = [h[0] for h in Qc.hist if h[1] == 2 and min(h[2]) == 0]
+        out.append((round(float(yc[3:6].mean() - yc[:3].mean()), 3), un[0] if un else None,
+                    round(float(yf[3:6].mean() - yf[:3].mean()), 4)))
+    print(f"(26) {mode}: first stage {short(Pb)}; (gap at handoff, union time, final gap)", out)
