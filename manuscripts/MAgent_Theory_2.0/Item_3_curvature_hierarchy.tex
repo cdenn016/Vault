@@ -1,0 +1,178 @@
+\documentclass[11pt,letterpaper]{report}
+\input{preamble}
+\hypersetup{pdftitle={MAgent Theory 2.0 Working Document: Curvature and Hierarchy},pdfauthor={Robert C. Dennis},pdfsubject={How consensus penalizes curvature and where dissonance survives in a hierarchy of meta-agents}}
+\newcommand{\inn}{\operatorname{in}}
+\begin{document}
+\hypersetup{pageanchor=false}
+\magenttitle{MAgent Theory 2.0}{Curvature and Hierarchy:\\Where Dissonance Lives}
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\chapter*{Status and summary}
+\addcontentsline{toc}{chapter}{Status and summary}
+This is a working document for the third item of the future-work list. It is not part of the main manuscript and is not cited by it. The item originally asked for records through which agents observe holonomy. The author's view, recorded on 2026-10-23, is different: agents need not observe holonomy at all; they evolve toward consensus, and the emergence of meta-agents with top-down influence, together with bottom-up observations, keeps consensus incomplete; consensus clusters form meta-agents with cross-scale couplings, meta-agents form clusters of their own, and the process repeats. This document reframes the item accordingly. It asks whether curvature is penalized and by what, where dissonance survives at a stationary state, and how both relate to meta-agents. It works in the tangent communication model of the Item~2 working document and uses the declared Gaussian star of the earlier MultiAgentELBO theory as its model of a meta-agent.
+
+The main results are these. Curvature is penalized without being observed: integrating out the contents that agents hold gives the dictionaries a penalty on the class of their coded reinterpretations in the first cohomology of the code sheaf, which for injective codes vanishes exactly when every loop holonomy fixes the shared content to first order (\cref{it3:induced}). The penalty acts only on what agents talk about and only through their codes; the explicit loop prior of Items~1 and~2 is an additional assumption, needed only in the directions that matter leaves free. At a stationary state every dictionary is a rank-one reinterpretation of the disagreement on its edge, so the holonomy of a loop acts only on the shared content and equals the loop sum of gain-weighted disagreements (\cref{it3:rank-one,it3:dissonance}). Dissonance therefore needs two ingredients: disagreement that persists, which only conflicting anchors such as bottom-up observations sustain, and parties who reinterpret it with different gains, through different codes, noise or charity.
+
+Meta-agents organize both ingredients. A top-down coupling to a parent concentrates disagreement on the bridges between clusters, a wall, while reinterpretation by the members caps how tightly they can be bound to their parent. In the rigid limit the parents form a tangent communication model of the same kind, whose self terms pool their members' observations and whose edges are the bridges with their codes, so the analysis repeats one scale up (\cref{it3:rigid}). A wall is flat exactly when all bridges in one direction carry one dictionary and those in the other direction its inverse; then the two meta-agents have a single dictionary of each other, read through the stacked codes of their boundary members, and curvature at a wall is precisely the obstruction to such a meta-level dictionary (\cref{it3:flat-wall}).
+
+The theory is meant for general probability laws, and the Gaussian tangent model used here is a computational simplification. The conclusions split as follows. That the links' marginal carries an induced action, the log-evidence of the contents at fixed links, holds for any joint (\cref{it3:general-induced}); the restriction of a hierarchy to rigid clusters holds for any self densities and any record kernels that read coded discrepancies, with the Gaussian precision sum as the instance of a product of experts (\cref{it3:rigid}); and the characterization of flat walls holds at the group level without linearization (\cref{it3:flat-wall}). The cohomological form of the penalty, the rank-one stationary dictionaries, the gain-weighted holonomy formula and the hierarchy profiles are Gaussian and tangent-model statements. Extensions to general laws are posed in \cref{it3:open-general}.
+
+Every identity was checked numerically at small sizes, in \texttt{item3\_checks/checks.py}; the checks support the instances tested and are not proofs. The statements about hierarchy profiles are numerical observations, labeled as such.
+
+\begingroup
+\small
+\tableofcontents
+\endgroup
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Setting}
+\label{it3:ch-setting}
+
+The tangent communication model of Item~2 has agents $i\in\mathcal V$ with contents $y_i\in\R^K$, directed edges $e:j\to i$ with receiver-owned dictionary generators $\omega_e\in\mathfrak{gl}(K,\R)$, attending codes $\bar T_e$, noise covariances $R_e$, operating contents $c_i$ with $\kappa_i\omega=\omega c_i$, and comparison records $o_e=\bar T_e(y_i-y_j-\kappa_i\omega_e)+\varepsilon_e$. Each agent has a self term $\mathcal N(m_i,P_i^{-1})$, the Gaussian summary of its own model and its own observations. These self terms are the bottom-up anchors. Write $\Delta_e=y_i-y_j$ for the disagreement on $e$, and note that the disagreements telescope: $\sum_{e\in\gamma}\Delta_e=0$ for every closed walk $\gamma$. The global joint has energy
+\begin{equation}
+E=\sum_i\tfrac12\Vert y_i-m_i\Vert_{P_i}^2+\sum_e\Bigl(\tfrac1{2\sigma^2}\Vert\omega_e\Vert^2+\tfrac12\bigl\Vert o_e-\bar T_e(\Delta_e-\kappa_i\omega_e)\bigr\Vert_{R_e^{-1}}^2\Bigr)+\tfrac\lambda2\sum_\gamma\Vert(B\omega)_\gamma\Vert_{W_\gamma}^2,
+\label{it3:energy}
+\end{equation}
+with the notation of Item~2. Throughout this document $\lambda=0$ unless stated otherwise, so that no curvature penalty is declared, and there are no grounded terms. Write $\delta:(\R^K)^{\mathcal V}\to\bigoplus_eH_e$ for the coboundary of the code sheaf of Item~1, $(\delta y)_e=\bar T_e(y_i-y_j)$, and $\mathcal V:\omega\mapsto(\bar T_e\kappa_i\omega_e)_e$ for the coded reinterpretation, so that the record term is $\frac12\Vert o-\delta y+\mathcal V\omega\Vert_{R^{-1}}^2$ with $R=\bigoplus_eR_e$.
+
+\definitionheading{Declared meta-agents}{it3:hierarchy}
+Let the agents be partitioned into clusters, and give each cluster $I$ a parent agent $A_I$ with content $y_{A}$, a self term $\mathcal N(m_A,P_A^{-1})$, and a cross-scale edge $A\to i$ to every member $i\in I$, with dictionary $\omega_{iA}$ and factor
+\begin{equation}
+\exp\bigl(-\tfrac\tau2\Vert y_i-y_A-\kappa_A\omega_{iA}\Vert^2\bigr),
+\label{it3:top-down}
+\end{equation}
+the tangent form of the conditional law $y_i\mid y_A\sim\mathcal N(e^{\omega_{iA}}y_A,\tau^{-1}I)$. Edges between members of different clusters are bridges.
+
+This is the one-level declared Gaussian star with link transports of the earlier MultiAgentELBO theory (its main manuscript, remark on a declared Gaussian hierarchy with link transports), written at the tangent point; there the parent law makes the children's prior a marginal of the declared joint, so the parent is a latent variable inside the model and its influence on the members is the top-down influence. Formally \cref{it3:top-down} is a comparison record with the identity code and noise $\tau^{-1}I$, so every statement below about records applies to the cross-scale edges as well.
+
+\chapter{Matter penalizes curvature}
+\label{it3:ch-induced}
+
+\theoremheading{Matter penalizes curvature on the shared content}{it3:induced}
+In the global tangent communication model with $\lambda=0$, the marginal law of the dictionaries is Gaussian with precision
+\begin{equation}
+\sigma^{-2}I+\mathcal V^T\bigl(R+\delta P^{-1}\delta^T\bigr)^{-1}\mathcal V,\qquad P=\bigoplus_iP_i.
+\label{it3:marginal}
+\end{equation}
+\begin{enumerate}
+\item[(i)] If the self precisions tend to zero, $P=\epsilon\bar P$ with $\epsilon\to0$, the record part converges to $\mathcal V^T\Pi_H\mathcal V$, where $\Pi_H=R^{-1}-R^{-1}\delta(\delta^TR^{-1}\delta)^+\delta^TR^{-1}$. Its value at $\omega$ is the squared $R^{-1}$-distance from the coded reinterpretation $\mathcal V\omega$ to $\operatorname{im}\delta$, the squared norm of the class of $\mathcal V\omega$ in the first cohomology $H^1=\bigl(\bigoplus_eH_e\bigr)/\operatorname{im}\delta$ of the code sheaf.
+\item[(ii)] The limiting penalty vanishes exactly when some re-reading $a\in(\R^K)^{\mathcal V}$ of the contents explains every coded reinterpretation: $\bar T_e\kappa_i\omega_e=\bar T_e(a_i-a_j)$ on every edge.
+\item[(iii)] If every code is injective, $\Gamma$ is connected, and every receiver has the same operating content $c\neq0$, the limiting penalty vanishes exactly when $\sum_{e\in\gamma}\omega_ec=0$ for every closed walk $\gamma$, that is, when every loop holonomy fixes $c$ to first order, and its rank is $K(\vert\mathcal E\vert-\vert\mathcal V\vert+1)$.
+\item[(iv)] For $P$ positive definite, a reinterpretation that a re-reading explains, $\mathcal V\omega=\delta a$, is penalized at most by the self cost of that re-reading: $(\delta a)^T(R+\delta P^{-1}\delta^T)^{-1}\delta a\leq a^TPa$.
+\end{enumerate}
+\begin{proof}
+The contents enter \cref{it3:energy} through the self terms and the records only. For fixed $\omega$, the vector $u=o+\mathcal V\omega$ is, under $y\sim\mathcal N(m,P^{-1})$, the record value of a Gaussian model with mean $\delta m$ and covariance $R+\delta P^{-1}\delta^T$, so integrating out $y$ leaves the factor $\exp(-\frac12(u-\delta m)^T(R+\delta P^{-1}\delta^T)^{-1}(u-\delta m))$, whose quadratic part in $\omega$ gives \cref{it3:marginal}. (i) Writing the matrix as the precision of the Gaussian marginal, the exponent equals $\min_y[\frac12\Vert y-m\Vert_P^2+\frac12\Vert u-\delta y\Vert_{R^{-1}}^2]$; as $P\to0$ this minimum tends to $\frac12\min_y\Vert u-\delta y\Vert_{R^{-1}}^2$, the squared distance to $\operatorname{im}\delta$, which is the quadratic form of $\Pi_H$ because $R^{-1}\delta(\delta^TR^{-1}\delta)^+\delta^TR^{-1}$ is the form of the $R^{-1}$-orthogonal projection onto $\operatorname{im}\delta$. On a graph there are no two-cells, so $\bigl(\bigoplus_eH_e\bigr)/\operatorname{im}\delta$ is the first cohomology of the code sheaf \citep{HansenGhrist2021}. (ii) The distance vanishes exactly on $\operatorname{im}\delta$. (iii) With injective codes, $\bar T_e(\omega_ec-(a_i-a_j))=0$ means $\omega_ec=a_i-a_j$, so the condition is that the $\R^K$-valued cochain $(\omega_ec)_e$ is a coboundary, which on a connected graph holds exactly when it vanishes on every cycle, by the spanning-tree argument of Item~1. The map $\omega\mapsto(\omega_ec)_e$ is onto $(\R^K)^{\mathcal E}$, so the rank is $K\vert\mathcal E\vert$ minus the dimension $K(\vert\mathcal V\vert-1)$ of the coboundaries. (iv) With $m=0$ and $o=0$, the exponent at $u=\delta a$ is $\min_y[\frac12y^TPy+\frac12\Vert\delta a-\delta y\Vert_{R^{-1}}^2]$, at most its value $\frac12a^TPa$ at $y=a$.
+\end{proof}
+
+Agents therefore need neither observe holonomy nor carry a declared penalty on it: the contents they hold penalize it. A reinterpretation that a common re-reading of everyone's beliefs could explain costs at most what moving the beliefs costs, and nothing as the anchors weaken; a reinterpretation that no re-reading explains, which is curvature, costs the full record precision. The penalty acts only on the shared content and only through the codes. In the directions that it leaves free, which are the directions of the holonomy that do not move what agents talk about and those that no code reads, a loop prior such as that of Items~1 and~2 is an additional assumption. By the complementarity of Item~1, those are also the directions in which such an assumption cannot be checked.
+
+The tangent model keeps the records to first order in the dictionaries, so it sees only the mean part of the induced penalty. Outside it the contents also contribute the fluctuation part, one half the log-determinant of the link-dependent precision; the earlier MultiAgentELBO theory computes this induced action and expands it in closed walks, each walk contributing the trace of its holonomy with a weight at every vertex (Supplement~G, propositions on the induced action of undirected Gaussian matter and on its hopping expansion). That expansion is a sum of weighted Wilson loops \citep{Wilson1974}, present even when every mean vanishes. The two parts penalize curvature for different reasons: the mean part because it moves the shared content, the fluctuation part because it changes how uncertainty propagates around loops.
+
+In the numerical check, with three agents in complete exchange, injective codes in $K=2$ and a common operating content, \cref{it3:marginal} agrees with the Schur complement of the joint precision to $2\times10^{-15}$, the record part approaches $\mathcal V^T\Pi_H\mathcal V$ at rate $\epsilon$ ($5.1\times10^{-4}$ and $5.1\times10^{-7}$ at $\epsilon=10^{-3}$ and $10^{-6}$), the limiting penalty has rank $8=K(\vert\mathcal E\vert-\vert\mathcal V\vert+1)$, and it vanishes to $10^{-15}$ on the $16$-dimensional space of dictionaries whose loop sums fix $c$.
+
+\remarkheading{The induced action for general laws}{it3:general-induced}
+The mechanism of \cref{it3:induced} does not depend on Gaussianity. In any joint law of links $\omega$, contents $y$ and records $o$ of the form $\pi(d\omega)\,p(dy)\,\ell(o\mid y,\omega)$, the marginal law of the links given the records is proportional to $\pi(d\omega)Z(\omega)$ with $Z(\omega)=\int\ell(o\mid y,\omega)p(dy)$, the evidence of the contents and records at fixed links, so the links carry the induced action $-\log Z(\omega)$ whatever the laws. When every record kernel reads $(y,\omega)$ only through coded discrepancies, $Z$ depends on the links only through what the codes read, and curvature enters the induced action only through the reinterpretations it forces on the shared contents. \Cref{it3:induced} computes its mean part in the Gaussian tangent model, and the earlier theory computes its fluctuation part for Gaussian contents. Whether, for general laws, $-\log Z$ is unchanged by reinterpretations that a re-reading of the contents explains, and increases with the cohomology class of the rest, is \cref{it3:open-general}.
+
+\remarkheading{Observation is optional}{it3:observation}
+Holonomy becomes observable only through a record that carries one sample around a loop, such as a message relayed through every agent of the loop and compared with its original by the sender; the main manuscript's proposition on law comparisons and shared samples shows that law-level comparisons cannot do this inside the stabilizer of the compared law. Such a record exists in the code framework and would read the holonomy in the directions that every code on the loop reads. \Cref{it3:induced} shows that it is not needed for consensus to suppress curvature on the shared content. It would be needed only by an agent that represents dissonance explicitly, for example to decide whom to trust.
+
+\chapter{Where dissonance survives}
+\label{it3:ch-stationary}
+
+\propositionheading{Stationary reinterpretation is rank one}{it3:rank-one}
+At every stationary point of the global joint with $\lambda=0$ and no grounded terms,
+\begin{equation}
+\omega_e=\sigma^2\bar T_e^T\bigl(R_e+\sigma^2\vert c_i\vert^2\bar T_e\bar T_e^T\bigr)^{-1}\bigl(\bar T_e\Delta_e-o_e\bigr)\,c_i^T
+\label{it3:rank-one-eq}
+\end{equation}
+on every edge $e:j\to i$. In particular $\omega_e$ has rank at most one, and with registered agreement, $o_e=0$,
+\begin{equation}
+\kappa_i\omega_e=F_e\Delta_e,\qquad F_e=\sigma^2\vert c_i\vert^2\bar T_e^T\bigl(R_e+\sigma^2\vert c_i\vert^2\bar T_e\bar T_e^T\bigr)^{-1}\bar T_e.
+\label{it3:gain}
+\end{equation}
+The same holds at the stationary points of the per-agent models of Item~2, with $R_e$ replaced by $\tilde R_e=R_e+\bar T_e\Sigma_j\bar T_e^T$ in the law-level model and with $\Delta_e=y_i-\mu_j$, and at those of the reciprocal potential, with $R_e$ replaced by $S_{j,e}/\beta_e$.
+\begin{proof}
+With $\lambda=0$ and no grounded terms, $\omega_e$ appears in \cref{it3:energy} only in its anchor and in its record. Stationarity in $\omega_e$ reads $(\sigma^{-2}I+\kappa_i^T\bar T_e^TR_e^{-1}\bar T_e\kappa_i)\omega_e=\kappa_i^T\bar T_e^TR_e^{-1}(\bar T_e\Delta_e-o_e)$, and the push-through identity gives $\omega_e=\sigma^2\kappa_i^T\bar T_e^T(R_e+\sigma^2\bar T_e\kappa_i\kappa_i^T\bar T_e^T)^{-1}(\bar T_e\Delta_e-o_e)$. Since $\kappa_i^Tv=vc_i^T$ and $\kappa_i\kappa_i^T=\vert c_i\vert^2I$, this is \cref{it3:rank-one-eq}, and applying $\kappa_i$ gives \cref{it3:gain}. In the per-agent models a dictionary appears only in its owner's anchor and record, with the noise of that model, by Item~2's proposition on the per-agent flow; in the reciprocal potential its mean appears only in the global energy with the widened noise, by Item~2's proposition on forces in the reciprocal potential.
+\end{proof}
+
+\corollaryheading{Dissonance needs disagreement and unequal gains}{it3:dissonance}
+Let every receiver have the same operating content $c$ and let $o=0$. At a stationary point as in \cref{it3:rank-one}, the linearized holonomy of a closed walk $\gamma$ is $(B\omega)_\gamma=g_\gamma c^T$ with $g_\gamma=\sum_{e\in\gamma}\sigma^2\bar T_e^T(R_e+\sigma^2\vert c\vert^2\bar T_e\bar T_e^T)^{-1}\bar T_e\Delta_e$, and
+\begin{equation}
+(B\omega)_\gamma\,c=\sum_{e\in\gamma}F_e\Delta_e=\sum_{e\in\gamma}(F_e-\bar F)\Delta_e\qquad\text{for every }K\times K\text{ matrix }\bar F.
+\label{it3:holonomy-gain}
+\end{equation}
+\begin{enumerate}
+\item[(a)] The holonomy acts trivially on $c^\perp$: stationary dissonance is confined to the shared content.
+\item[(b)] If every edge of $\gamma$ has the same gain, the holonomy of $\gamma$ vanishes to first order, however large the disagreements.
+\item[(c)] If every disagreement on $\gamma$ vanishes, so does the holonomy.
+\item[(d)] On a two-cycle $e:j\to i$, $e':i\to j$ the holonomy acts on $c$ by $(F_e-F_{e'})\Delta_e$.
+\end{enumerate}
+\begin{proof}
+Sum \cref{it3:rank-one-eq} over $\gamma$ and apply it to $c$; the second form of \cref{it3:holonomy-gain} follows from $\sum_{e\in\gamma}\Delta_e=0$. (a) to (d) are read off, with $\Delta_{e'}=-\Delta_e$ in (d).
+\end{proof}
+
+Dissonance at a stationary state therefore needs two things. The first is disagreement that persists. By Item~2, conversation fixes beliefs only relative to one another, so disagreement persists only where the anchors conflict: where the agents' own observations, or the priors their meta-agents impose on them, point in different directions. The second is that the parties to a disagreement reinterpret it with different gains: through different codes, different noise, different charity $\sigma^{-2}$, or different topics. Equal gains turn disagreement into a pure re-reading, which is consonant; unequal gains turn it into curvature. On a two-cycle across a disagreement, unequal charity of the two agents is mutual misunderstanding.
+
+Both statements are tangent-model statements. The rank of a stationary dictionary is one because the records probe each dictionary at a single operating content; when the contents carry a spread law, the data probe a dictionary along the second moment of that law, as for the grounded messages of Item~1, and the stationary dictionary need not have rank one. The gain-weighted form of the holonomy and its telescoping depend on the linear Gaussian gain. The qualitative conclusion, that dissonance needs persistent disagreement and unequal reinterpretation of it, is expected for general laws and is part of \cref{it3:open-general}.
+
+In the numerical check, with conflicting anchors and edge-dependent codes, \cref{it3:gain} holds to $3\times10^{-15}$ in the global, plug-in and law-level pictures, and the second singular value of every stationary dictionary is below $1.2\times10^{-15}$. The loop formula \cref{it3:holonomy-gain} holds to $2\times10^{-15}$. With one code and one noise on every edge, disagreements up to $6.2$ leave every loop holonomy below $10^{-15}$; with a fivefold noise on one edge of a two-cycle, its holonomy is $1.42$ and agrees with (d) to $2\times10^{-16}$.
+
+\chapter{Meta-agents and walls}
+\label{it3:ch-hierarchy}
+
+\remarkheading{Reinterpretation caps top-down influence}{it3:cap}
+A member that can reinterpret its meta-agent is bound to it less tightly than the coupling $\tau$ suggests. Integrating out the cross-scale dictionary $\omega_{iA}$ in \cref{it3:top-down}, with its anchor $\mathcal N(0,\sigma^2I)$, leaves a coupling between $y_i$ and $y_A$ with precision $(\tau^{-1}+\sigma^2\vert c_A\vert^2)^{-1}I$, which is at most $(\sigma^2\vert c_A\vert^2)^{-1}I$ however large $\tau$ is; this is the persuasion and reinterpretation split of Item~2 applied to the cross-scale edge. Top-down influence is strong only where the members' dictionaries of their meta-agent are themselves pinned, for example by grounding within the cluster.
+
+The numerical check uses two clusters of three agents, each internally in complete exchange, joined by two bridges in each direction, with anchors near $+u$ in one cluster and near $-u$ in the other, and a parent per cluster. As the top-down coupling grows from $\tau=0$ to $\tau=100$, the mean disagreement on internal edges falls from $0.129$ to $0.089$ and that on bridges rises from $1.037$ to $1.066$ when the cluster dictionaries are free; when they are pinned, the internal disagreement falls from $0.106$ to $0.0041$ and the bridge disagreement rises from $1.042$ to $1.105$. In both cases the hierarchy concentrates the disagreement on the bridges, a wall between the clusters, and the free dictionaries weaken the effect as \cref{it3:cap} predicts. These profiles are numerical observations for one configuration, not a theorem.
+
+\propositionheading{Rigid clusters form a model of the same kind}{it3:rigid}
+Fix the internal and cross-scale dictionaries at the identity, and let the agents have self densities $p_i$ and the records and cross-scale factors have kernels that read the contents only through coded discrepancies. On the rigid manifold $\{y_i=y_{A(i)}\text{ for every member }i\}$ the joint density of the hierarchy equals, up to a constant factor, that of a communication model whose agents are the parents, with
+\begin{enumerate}
+\item[(i)] self densities proportional to $p_A\prod_{i\in I}p_i$, a product of experts, which for the Gaussian self terms of the tangent model is $\mathcal N(m_A',P_A'^{-1})$ with $P_A'=P_A+\sum_{i\in I}P_i$ and $P_A'm_A'=P_Am_A+\sum_{i\in I}P_im_i$;
+\item[(ii)] one edge $A(j)\to A(i)$ for every bridge $e:j\to i$, with the bridge's code, record kernel, dictionary and operating content $c_i$.
+\end{enumerate}
+In the Gaussian tangent model, as $\tau\to\infty$, with the internal and cross-scale dictionaries held at the identity and every $P_i$ positive definite, the stationary point of the hierarchy converges to that of the parent model at rate $1/\tau$.
+\begin{proof}
+On the rigid manifold every internal record reads the discrepancy $\bar T_e(y_A-y_A)=0$, so its likelihood is a constant; every cross-scale factor reads zero discrepancy and is constant as well. The self densities of a cluster and its parent evaluated at one point multiply, and in the Gaussian case their product is $\mathcal N(m_A',P_A'^{-1})$ up to a constant by completing the square. A bridge record reads $\bar T_e(y_{A(i)}-y_{A(j)}-\kappa_i\omega_e)$, or $\bar T_e(\bar\theta_e^{-1}y_{A(i)}-y_{A(j)})$ without linearization. For the limit, the energy is $\frac\tau2\sum_i\Vert y_i-y_{A(i)}\Vert^2$ plus a strictly convex quadratic independent of $\tau$, and the block elimination used for the grounded limit of Item~2 shows that the minimizer converges to the minimizer on the manifold at rate $1/\tau$.
+\end{proof}
+
+At the next scale, then, a meta-agent pools its members' observations in its self term, which is the bottom-up direction, and shares its content with them, which is the top-down direction. Two meta-agents communicate through the bridges between their clusters, each a record with its own code: in the language of Item~1 the boundary members are the meta-agents' modalities, and their stacked codes can read more than any one member's. In the numerical check the hierarchy approaches the parent model with errors $2.7\times10^{-4}$ at $\tau=10^3$ and $2.7\times10^{-7}$ at $\tau=10^6$.
+
+\propositionheading{A flat wall is a meta-level dictionary}{it3:flat-wall}
+Let two clusters $I$ and $J$ have their internal and cross-scale dictionaries at the identity. A closed walk that enters $I$ from $J$ through a bridge $e$, returns to $J$ through a bridge $g$, and otherwise moves inside the clusters has holonomy $\bar\theta_g\bar\theta_e$, with linearization $\omega_e+\omega_g$.
+\begin{enumerate}
+\item[(i)] All such walks are flat exactly when every bridge from $J$ to $I$ carries one dictionary $\bar\theta_D$ and every bridge from $I$ to $J$ carries $\bar\theta_D^{-1}$; to first order, exactly when the generators are $D$ and $-D$. This holds in $G$ without linearization and for any laws. Then the parent model of \cref{it3:rigid} has a single dictionary in each direction, the two mutually inverse, read through the stacked codes of the bridges, and by Item~1 it is identified from grounded messages up to the intersection of the stabilizers of those codes for every location family of noise.
+\item[(ii)] At a stationary point as in \cref{it3:dissonance}, the walk's holonomy acts on $c$ by $(F_e-F_g)\Delta_e+F_g(\Delta_e+\Delta_g)$, where $-(\Delta_e+\Delta_g)$ is the sum of the internal disagreements along the walk. For rigid clusters the internal disagreements vanish and the curvature at the wall is $(F_e-F_g)\Delta_e$.
+\end{enumerate}
+\begin{proof}
+Internal dictionaries at the identity contribute identity factors to the holonomy and nothing to the sum of generators. (i) The conditions $\bar\theta_g\bar\theta_e=I$ for every pair with $e$ from $J$ to $I$ and $g$ from $I$ to $J$ say that every $\bar\theta_e$ equals the inverse of every $\bar\theta_g$, hence all $\bar\theta_e$ are equal, to some $\bar\theta_D$, and all $\bar\theta_g$ equal $\bar\theta_D^{-1}$; conversely these give flat walks. The linearized statement is the same argument for $\omega_e+\omega_g=0$. The parent model's edges in one direction then carry one dictionary, and several records through one dictionary are the several modalities of Item~1. (ii) Apply \cref{it3:gain} to $e$ and $g$ and use $\sum_{\gamma}\Delta=0$ along the walk.
+\end{proof}
+
+Curvature at a wall is therefore the obstruction to a meta-level dictionary. Two meta-agents whose boundary members reinterpret the disagreement between the clusters with equal gains acquire one translation of each other, and the wall is a frame difference between two consensual clusters, consonant at the meta-level. Unequal gains across the wall leave several incompatible translations, and the difference shows up as holonomy on every loop that crosses the wall through two bridges. In the numerical check, with free cluster dictionaries at $\tau=10$ and equal gains on the bridges and inside the clusters, the wall-crossing loop, a bridge two-cycle and an internal triangle are flat to $10^{-16}$; a sixfold noise on one pair of bridges gives holonomy $0.40$ on the wall-crossing loop, while the bridge two-cycle with equal gains and an internal triangle stay flat to $10^{-16}$. With pinned cluster dictionaries, the two bridges from $J$ to $I$ carry dictionaries that differ by $0.013$ with equal bridge gains, the remainder coming from the small internal disagreement of (ii), and by $0.135$ with unequal gains, with wall-loop holonomy $0.026$ and $0.28$.
+
+\remarkheading{The tower}{it3:tower}
+In the rigid limit the parents form a tangent communication model of the same kind as the agents, so every statement of Items~1 to~3 applies one scale up: meta-agents reach partial consensus, their remaining disagreement is sustained by their pooled observations and by the priors of their own parents, walls form between clusters of meta-agents, and a flat wall between such clusters is a dictionary between meta-meta-agents. This is the author's picture of recursive meta-agent formation, with dissonance located on the walls at every scale. The recursion is exact only in the rigid limit. At finite coupling, integrating out the members gives the parents a Schur complement that generally leaves the class of comparison-record models; the earlier theory shows that this Kron reduction is not closed in general and records when it is, and it leaves a multilevel declared hierarchy with dressed links as an open problem. The tangent model with rigid clusters is a first-order version of that hierarchy, not a solution of it.
+
+\chapter{Next steps}
+\label{it3:ch-next}
+
+\openproblemheading{Formation with top-down feedback}{it3:open-formation}
+Here the meta-agents are declared. The earlier theory's contrast formation asks for internally coherent blocks with large boundary divergence, which is the wall structure above, and the hierarchy sharpens walls once parents exist. Determine whether this feedback makes formation self-reinforcing: whether a dynamics in which parents are created when a wall forms, and then sharpen it, selects clusters endogenously, and how it interacts with the loss of certainty under disagreement found for the reciprocal potential in Item~2.
+
+\openproblemheading{The fluctuation part in the tangent model}{it3:open-fluctuation}
+The tangent model sees only the mean part of the matter-induced penalty. Expand the full model to second order in the dictionaries and compare the fluctuation part, the earlier theory's induced action, with the mean part of \cref{it3:induced} on the same graphs, including the off-topic directions that the mean part leaves free.
+
+\openproblemheading{General laws}{it3:open-general}
+The Gaussian tangent model is a computational simplification. For general content laws and record kernels that read coded discrepancies, decide whether the induced action $-\log Z$ of \cref{it3:general-induced} is unchanged by reinterpretations that a re-reading of the contents explains and grows with the class of the rest in the first cohomology of the code sheaf; whether stationary dissonance still requires persistent disagreement and unequal reinterpretation of it, now that stationary dictionaries need not have rank one; and whether top-down coupling to a parent concentrates disagreement on walls for non-Gaussian self laws, where the parent's self term is a product of experts that need not be log-concave.
+
+\openproblemheading{Gains as data}{it3:open-gains}
+By \cref{it3:dissonance} the curvature on a loop is the gain-weighted disagreement, so the pattern of curvature encodes the differences between how agents interpret. Decide what an agent can infer about its peers' codes, noise and charity from the dissonance it can detect, through the relay records of \cref{it3:observation} or through the detectable part of Item~1.
+
+\begingroup
+\small
+\setlength{\bibsep}{3pt}
+\bibliographystyle{plainnat}
+\bibliography{references,item1_refs,item2_refs}
+\endgroup
+\end{document}
