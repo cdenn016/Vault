@@ -1,0 +1,183 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{From Agent Links to Base Transport}
+\label{comp:link-base-transport}
+
+Agent frames can select a connection over the contextual base if the model says how to compare them at neighboring contexts. Declaring one marked frame parallel gives flat local transport. A collection of law-derived vectors and linked messages can instead give curvature, because its members need not fit into one parallel frame. A second construction aligns entire link configurations and can be curved even when every directed pair is reciprocal. In both cases the comparison rule is part of the model.
+
+\section{What a frame supplies}
+
+Let $\mathcal C$ be a smooth contextual base and let $V=\R^K$ be one content fiber in reference coordinates. Agent $i$ presents it through $U_i(c):V\to E_i$. A passive change in the agent's displayed coordinates sends $U_i$ to $g_iU_i$. A change of common reference instead sends $U_i$ to $U_i h$ and every reference vector $v$ to $h^{-1}v$. All these maps are assumed twice continuously differentiable on the patch considered.
+
+A marked frame is a matrix $Q(c)$ whose columns are a basis of actual retained vectors. Comparing the same columns at two contexts gives
+\begin{equation}
+T_Q(c',c)=Q(c')Q(c)^{-1},\qquad
+a_Q=-dQ Q^{-1}.
+\label{comp:ibt:frame}
+\end{equation}
+Here the reference derivative is $D^a=d+a$. The map equals identity at zero displacement, and differentiating the first endpoint gives $T_Q(c+\delta c,c)=I-a_Q(\delta c)+O(|\delta c|^2)$. It also composes exactly: the intermediate $Q(c')^{-1}Q(c')$ cancels. Since $D^{a_Q}Q=0$, every marked column is parallel. Differentiating $Q^{-1}$ gives $da_Q+a_Q\wedge a_Q=0$.
+
+Under reference rechoice $Q'=h^{-1}Q$, this construction gives
+\begin{equation}
+a'=h^{-1}ah+h^{-1}dh,\qquad
+B_i=U_i aU_i^{-1}-dU_iU_i^{-1}.
+\label{comp:ibt:affine}
+\end{equation}
+The displayed connection $B_i$ is independent of the common reference and transforms as $B_i'=g_iB_ig_i^{-1}-dg_i g_i^{-1}$ under passive agent re-expression. Using only a coordinate presentation and setting $B_i=-dU_iU_i^{-1}$ is the special choice $a=0$. Resetting $a$ to zero after a context-dependent reference change changes the connection. A choice of coordinates alone therefore supplies no reference-independent comparison.
+
+Several marked frames can disagree about parallelism. If $a_1,a_2$ are flat connections on the same bundle, $\Delta=a_1-a_2$, and $\lambda$ is a smooth scalar weight, the affine average has
+\begin{equation}
+a=a_2+\lambda\Delta,\qquad
+F^a=d\lambda\wedge\Delta-\lambda(1-\lambda)\Delta\wedge\Delta.
+\end{equation}
+Weight variation and noncommuting disagreements can produce curvature. This uses a declared comparison of already defined connections; averaging square frames and applying \cref{comp:ibt:frame} still gives a flat connection.
+
+\section{Turning messages into a displacement map}
+
+At a context, write an invertible directed agent link as $\Theta_{ij}=U_iK_{ij}U_j^{-1}$, where $K_{ij}'=h^{-1}K_{ij}h$. It maps the source agent's fiber coordinates to the receiver's at the same context. Contextual transport needs a map from the reference fiber at $c$ to the reference fiber at $c'$. The following construction supplies one from smoothly varying contextual messages.
+
+Choose a fixed labeled message space $H=\R^r$ with a stated Euclidean metric. Its labels persist across contexts. For example, if a normalized law $\nu_j$ has a finite mean $\mu_j$, its reference mean is $\bar \mu_j=U_j^{-1}\mu_j$. The vectors $\bar \mu_j$, $K_{ij}\bar \mu_j$, and columns of receiving maps $O_i:H_i\to V$ can be assembled into a matrix
+\begin{equation}
+X(c):H\longrightarrow V,\qquad X'=h^{-1}X.
+\end{equation}
+Column selection, weights, and message metric are constitutive data. Smooth law-dependent weights are allowed, but their derivatives then contribute to $dX$. Finite moments and smooth moment fields do not require Gaussian laws. They also do not follow merely from normalization.
+
+Assume $X$ is $C^2$ and has row rank $K$ on an open region. Define
+\begin{equation}
+H_X=XX^T,\qquad Q_X=X^T H_X^{-1},\qquad P_X=Q_XX.
+\label{comp:ibt:inverse}
+\end{equation}
+The map $Q_X$ lifts a vector $v$ into its minimum-norm message coordinates, and $XQ_Xv=v$. The projector $P_X$ selects the part of message space that can be read in the content fiber. Lift at the source context and decode at the target context:
+\begin{equation}
+C(c',c)=X(c')Q_X(c),\qquad C(c,c)=I.
+\label{comp:ibt:cross}
+\end{equation}
+This identity is exact. Continuity makes $C$ invertible near each diagonal point. Since $Q_X'=Q_Xh$, its endpoint law is
+\begin{equation}
+C'(c',c)=h(c')^{-1}C(c',c)h(c).
+\end{equation}
+Taylor expansion now derives the reference connection:
+\begin{equation}
+C(c+\delta c,c)=I-a(\delta c)+O(|\delta c|^2),\qquad
+a=-dXQ_X.
+\label{comp:ibt:connection}
+\end{equation}
+The first derivative is linear in the displacement. Inserting $h^{-1}X$ in this formula produces the inhomogeneous term $h^{-1}dh$ in \cref{comp:ibt:affine}. Compatible reference expressions on overlaps therefore give a connection on the bundle. A global surjection from a trivial message bundle can exist even when the content bundle is nontrivial; redundancy $r>K$ leaves room for a nontrivial moving subspace. A global square frame would trivialize it.
+
+The minimum-norm choice in \cref{comp:ibt:inverse} uses the fixed message metric. If message coordinates are changed by $w'=s(c)w$, the metric must transform too. A message-bundle connection $\Gamma$ then gives the intrinsic form
+\begin{equation}
+a=-(dX-X\Gamma)Q_X,\qquad
+\Gamma'=s\Gamma s^{-1}-ds s^{-1}.
+\end{equation}
+Fixed labels with $\Gamma=0$ recover \cref{comp:ibt:connection}. Setting $\Gamma$ to zero again after a varying coordinate change introduces a different comparison rule.
+
+\section{Why redundant messages can be curved}
+
+The residual $dX+aX=dX(I-P_X)$ is the part of the changing message matrix that cannot be absorbed by moving the content frame. Direct differentiation gives
+\begin{equation}
+F^a=da+a\wedge a
+=dX\wedge(I-P_X)dX^TH_X^{-1}.
+\label{comp:ibt:curvature}
+\end{equation}
+To see the projection, differentiate $XQ_X=I$ and $P_X=Q_XX$. The resulting identity $dP_XQ_X=dQ_X+Q_XdXQ_X$ combines $da$ and $a\wedge a$. The component of $dQ_X$ proportional to $X^T$ is killed by $I-P_X$, leaving \cref{comp:ibt:curvature}. This is induced subbundle geometry, related to the classical universal connection construction \citep{Narasimhan1962,MassambaThompson2003}; the agent-specific choice is how laws and links supply $X$.
+
+For a square invertible $X$, $P_X=I$ and curvature vanishes. With redundant columns, changing the readable subspace can give curvature. On a two-dimensional base, take
+\begin{equation}
+X=\begin{pmatrix}1&0&x\\0&1&y\end{pmatrix},\qquad
+v=\begin{pmatrix}x\\y\end{pmatrix},\qquad s=1+x^2+y^2.
+\end{equation}
+Then
+\begin{equation}
+a=-\frac{(dv)v^T}{s},\qquad
+F^a=\frac{1}{s^2}
+\begin{pmatrix}-xy&1+x^2\\-(1+y^2)&xy\end{pmatrix}dx\wedge dy.
+\end{equation}
+At the origin the connection coefficients vanish while the curvature is a nonzero rotation generator. The value of a connection at one point does not determine its curvature there.
+
+A law-and-link realization uses receiving columns $e_1,e_2$, a product Laplace source law with unit coordinate variances and mean $(x,1)^T$, and the reciprocal shear pair
+\begin{equation}
+K_{ij}=\exp(yE_{21})=\begin{pmatrix}1&0\\y&1\end{pmatrix},\qquad
+K_{ji}=K_{ij}^{-1}.
+\end{equation}
+Its linked mean is $(x,1+xy)^T$. Use this as the third column of $X$. The map $(x,y)\mapsto(x,1+xy)$ has Jacobian determinant $x$, so the pulled-back curvature above is nonzero wherever $x\ne0$. Receiving axes, labels, and link rules are declared data. The example uses general normalized laws without a Gaussian closure assumption.
+
+This selector preserves the induced fiber metric $H_X^{-1}$, because
+\begin{equation}
+dH_X+aH_X+H_Xa^T=0,\qquad
+\Tr a=-\frac12 d\log\det H_X,\qquad \Tr F^a=0.
+\end{equation}
+Consequently the explicit rule does not generate every general-linear connection. Its induced metric is not automatically the Fisher metric of the agent's normalized statistical experiment.
+
+\section{Reversal and information in directed pairs}
+
+Independent attending edges need not be inverses. Where the spectrum of $N_{ij,j}=\Theta_{ji}\Theta_{ij}$ avoids $(-\infty,0]$, the principal matrix square root defines
+\begin{equation}
+S_{ij,j}=N_{ij,j}^{1/2},\qquad
+\Omega_{ij}=\Theta_{ij}S_{ij,j}^{-1},\qquad
+\Theta_{ij}=\Omega_{ij}S_{ij,j}.
+\label{comp:ibt:backtrack}
+\end{equation}
+Similarity covariance of the principal root gives $\Omega_{ji}=\Omega_{ij}^{-1}$ \citep{Higham2008}. Keeping $\Omega$ and $S$ retains the original directed pair. A message matrix can include both $U_i^{-1}\Omega_{ij}\mu_j$ and $U_i^{-1}\Theta_{ij}\mu_j$. Raw links can also be used directly, without a square-root branch.
+
+For example, let the scalar links satisfy $\Theta_{ij}=\Theta_{ji}=s(c)>0$ and take unit seed and source means. Then $\Omega_{ij}=1$ while the backtrack is $s^2$. Raw messages give $X=[1,s]$ and $a=-sds/(1+s^2)$; reciprocal-only messages give $X=[1,1]$ and $a=0$. Both connections are flat, but their transports differ when $s$ varies. A backtrack can affect the derived connection, although one connection need not encode every distinction in the input links.
+
+Reversal of a contextual path has a different meaning. The finite cross-map $C$ in \cref{comp:ibt:cross} need not obey reversal or composition. Near the diagonal set
+\begin{equation}
+N(c',c)=C(c,c')C(c',c),\qquad
+T(c',c)=C(c',c)N(c',c)^{-1/2}.
+\end{equation}
+The same root calculation gives $T(c,c')=T(c',c)^{-1}$ and the endpoint covariance law. The linear terms in $N$ cancel, so $N=I+O(|\delta c|^2)$ and $T=I-a(\delta c)+O(|\delta c|^2)$. This contextual reconstruction defect is not the agent backtrack in \cref{comp:ibt:backtrack}.
+
+For a piecewise $C^2$ path $\gamma$, exact transport solves
+\begin{equation}
+\dot{\mathcal T}=-a(\dot\gamma)\mathcal T,\qquad \mathcal T(0)=I.
+\end{equation}
+Continuity gives a unique invertible solution, and uniqueness gives concatenation and inverse reversal. Ordered products of either $C$ or $T$ converge to it: each factor differs from the exact short propagator by $O(\Delta t^2)$, while bounded coefficients control product norms. The sum of the local errors is bounded by a constant times the largest partition step. This is the local relation between discrete and continuous connections \citep{LeokMarsdenWeinstein2005}. An unrefined endpoint map need not already be exact transport along a chosen path.
+
+\section{One structure group for both sectors}
+
+The formula $a=-dXQ_X$ takes values in $\mathfrak{gl}(K)$. A prescribed smaller structure group $G$ requires a different minimization. Let $M$ be a positive fiber metric with $M'=h^TMh$. For a tangent direction $Y$, choose $a(Y)\in\mathfrak g$ to minimize
+\begin{equation}
+\frac12\Tr\left[M(dX(Y)+\xi X)(dX(Y)+\xi X)^T\right],
+\qquad \xi\in\mathfrak g.
+\end{equation}
+Full row rank makes its Hessian positive, because $\xi X=0$ implies $\xi=0$. Its unique solution is linear in $Y$ and obeys the affine transformation law. For the unrestricted algebra the normal equation is $(dX+aX)X^T=0$, recovering \cref{comp:ibt:connection}. For a proper subalgebra, the explicit curvature and induced-metric formulas above need not remain valid.
+
+Belief and model sectors carry representations $\varrho_q,\varrho_s$ of one principal group. Sum their comparison costs and minimize over one $\xi\in\mathfrak g$, using $d\varrho_q(\xi)X^q$ and $d\varrho_s(\xi)X^s$. The required condition is that their common infinitesimal kernel is zero. Separate minimization over unrelated sector generators would not automatically define one principal connection. Belief and model interaction links may remain distinct; tying them is a separate assumption.
+
+\section{A curved connection from reciprocal links alone}
+
+One can align a target of complete link data without first choosing spanning vector columns. Let $Z(c)$ lie in a finite-dimensional Riemannian target with smooth metric $\mathcal H$ and an isometric left $G$-action. Reference changes act by $Z'=h^{-1}\cdot Z$. Write $J_Z\xi$ for its infinitesimal action and assume $J_Z$ is injective. In normal neighborhoods, align nearby contexts by the local minimizing branch through identity of
+\begin{equation}
+\frac12d_{\mathcal H}(Z(c'),g\cdot Z(c))^2.
+\end{equation}
+At coincident endpoints the group Hessian is the positive form $\mathcal H(J_Z\xi,J_Z\eta)$. The implicit-function theorem supplies the local branch. Isometry gives endpoint covariance and, together with symmetry of distance, inversion under reversal. Its first derivative is the mechanical connection \citep{LittlejohnReinsch1997}:
+\begin{equation}
+\mathcal H(J_Za(Y),J_Z\eta)=-\mathcal H(dZ(Y),J_Z\eta).
+\label{comp:ibt:alignment}
+\end{equation}
+The metric may depend on coordinates of the augmented target, but it must be one smooth invariant metric on that target. Injectivity identifies the identity branch; it excludes neither distant competing minima nor later singularities.
+
+Take $G=SO(3)$ and two reference links on a three-agent star,
+\begin{equation}
+Q_1=R_x(x),\qquad Q_2=R_z(y)R_x(\beta)R_z(-y),
+\qquad (x,y)\in(0,\pi)^2,
+\end{equation}
+with fixed $\beta\in(0,\pi)$. Set opposite links to their inverses, so every agent backtrack is identity. Use the product bi-invariant metric on $SO(3)^2$. Under common reference change the pair transforms by simultaneous conjugation. Identify $\mathfrak{so}(3)$ with vectors by $\widehat v w=v\times w$ and normalize the metric by $\langle\widehat v,\widehat w\rangle=v\cdot w$.
+
+For $C_r=I-\operatorname{Ad}_{Q_r}$ and $V_r=dQ_rQ_r^{-1}$, the infinitesimal conjugation is $C_r\xi$. Thus \cref{comp:ibt:alignment} becomes
+\begin{equation}
+\mathcal K a=-\sum_{r=1}^2 C_r^*V_r,\qquad
+\mathcal K=\sum_{r=1}^2 C_r^*C_r.
+\end{equation}
+The two rotation axes are $e_1$ and $(\cos y,\sin y,0)^T$. They are nonparallel, so no nonzero infinitesimal rotation fixes both links and $\mathcal K$ is positive definite. Let $w_x=4\sin^2(x/2)$ and $w_\beta=4\sin^2(\beta/2)$. Since $C_1^*V_1=0$, $C_2^*V_2=w_\beta\widehat e_3dy$, and $\mathcal K\widehat e_3=(w_x+w_\beta)\widehat e_3$, one obtains
+\begin{equation}
+a=-\frac{w_\beta}{w_x+w_\beta}\widehat e_3dy,\qquad
+F^a=\frac{2w_\beta\sin x}{(w_x+w_\beta)^2}\widehat e_3dx\wedge dy\ne0.
+\end{equation}
+This curvature concerns changes of the link configuration across the contextual base. It exists with trivial graph backtracks and no agent cycle of length three. Normalized rotationally invariant laws can be attached without changing the calculation, because their infinitesimal orbit terms vanish. The declared link metric, rather than those invariant laws, determines the comparison.
+
+\section{What remains to be selected}
+
+Conjugation cannot reveal a continuous gauge subgroup that fixes every input link. If a nonzero $Z\in\mathfrak g$ commutes with all admitted link fields, $h(c)=\exp(f(c)Z)$ leaves those fields and all their contextual derivatives unchanged. At a point where $f=0$ but $df\ne0$, affine covariance would nevertheless require $a'=a+Zdf$. No selector of those unchanged inputs alone can satisfy that equation. Scalar gauge motion is therefore invisible to defining general-linear conjugation links, while the two nonparallel $SO(3)$ axes above have no common infinitesimal stabilizer. Laws or labeled interfaces can remove an ambiguity only when their combined action identifies it.
+
+Even on a regular region, different column sets and target metrics can select different connections. These choices require a declared agent model. They also determine whether the connection equals the actual-law Fisher selector of \cref{comp:geometry}. The contextual-flow theorem in \cref{comp:contextual-coupling} does not apply to a substituted selector merely because both obey the connection transformation law: the full dependence on laws, rows, interfaces, and links must be included in the energy variation. Rank preservation, singular continuation, inheritance of the link sector, and selection of the comparison rule by dynamics remain separate problems. The base and its topology and dimension are supplied throughout.
