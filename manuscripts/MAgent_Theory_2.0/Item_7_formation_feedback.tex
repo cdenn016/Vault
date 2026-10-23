@@ -1,0 +1,310 @@
+\documentclass[11pt,letterpaper]{report}
+\input{preamble}
+\hypersetup{pdftitle={MAgent Theory 2.0 Working Document: Formation with Top-Down Feedback},pdfauthor={Robert C. Dennis},pdfsubject={Parents created by a wall handoff that act back on their members, tested against the formation standard}}
+\begin{document}
+\hypersetup{pageanchor=false}
+\magenttitle{MAgent Theory 2.0}{Formation with Top-Down Feedback:\\Shared Labels and Exact Parents}
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\chapter*{Status and summary}
+\addcontentsline{toc}{chapter}{Status and summary}
+This is a working document for the seventh item of the future-work list, consequences for formation. It takes up the open problem on formation with top-down feedback left by the Item~3 working document. It is not part of the main manuscript and is not cited by it. The question is whether parents created by a state-determined handoff when a wall forms, and then acting back on their members, give an inherited recursive formation in the sense of the standard in chapter~5 of the main manuscript, clauses (F1) to (F6), with the null flow as the control for interaction necessity. The constructions are stated for general probability laws. The Gaussian location family is the computational instance, and every statement that depends on it says so.
+
+Feedback of the obvious kinds does not change what forms. A parent added as one more source in its members' rows multiplies the row part of each member's force by a common factor when the member agrees with it, leaves record forces unchanged, and alters no exponent of the rows (\cref{it7:capture}); in an example without records the same blocks form and only the second stage is delayed. In an objective with a gradient flow, such as the global joint of Items~2 and~3 or the reciprocal potential with fixed rows, a top-down cost invariant under the collective motion of a block exerts no force on the block's momentum whenever that motion has a momentum function, as it does in the Gaussian location family (\cref{it7:momentum}). An exactly inherited pooled parent therefore does not see it; the sharpening of walls reported in Item~3 passes through the distribution of that momentum among the members, which sparse bridges read. A post-handoff flow with a globally attracting equilibrium cannot meet the counterfactual clause (F6b) (\cref{it7:attractor}), and the Gaussian tangent global joint of Items~2 and~3 is strictly convex, so no declared Gaussian hierarchy in it can.
+
+What changes outcomes is the pooling of evidence. When a block forms, its members share one source label: they infer jointly which source to trust, with the prior over sources applied once and their costs added. For general laws the shared row depends on the block only through the linear pool of the members' laws, and it equals the Gibbs row of a single receiver holding that pool at temperature $T/n$ (\cref{it7:pool}); for sources in an exponential family it depends only on the pooled mean parameter. The parent presents the pool to its members and to every receiver outside the block. A tempered label, which averages the members' costs instead of adding them, reproduces the dynamics without feedback on internally synchronized configurations (\cref{it7:tempered}), so the factor $n$ in the exponent is the operative part of the feedback.
+
+In the Gaussian location family the shared-label parent is exactly inherited and compresses. The pooled mean of every block evolves autonomously, by the per-agent law of a single agent at temperature $T/n$ with one additional source at its own law, while the members' deviations from the pool relax at a fixed rate to offsets determined by their records, whatever the spread within the block (\cref{it7:exact}). External equitable partitions give exact block-mean dynamics for linear consensus on a fixed graph \citep{OClery2013}; here the rows are state-dependent Gibbs rows. The result does not extend beyond this family: if the pooled parent of a two-member block closes for every configuration and every target, the Fisher metric is constant and the family is a Gaussian location family (\cref{it7:characterization}). For Bernoulli laws it fails.
+
+In a twelve-agent instance with four groups of three conflicting records, the null flow never selects a block (\cref{it7:null}). The shared-label flow selects the four groups and then, on each side, the union of two first-stage parents. The second stage reduces to a one-dimensional equation for the gap between two parents, with a stable merged state, an unstable middle root, and a stable separated state held by the records. The union forms exactly when the first stage leaves the parents inside the middle root (\cref{it7:reduced,it7:counterfactual}). Counterfactual handoffs outside it never unite, while the control without feedback unites from every tested handoff. At slightly larger record gaps the hierarchy stops at depth one in the separated state, and the distance from which two blocks still unite shrinks with block size roughly as $n^{-1/2}$.
+
+Measured against the standard, the instance meets (F1) to (F6) (\cref{it7:ch-standard}). The qualifications are these. The selector thresholds and the label-sharing handoff are declared, and the compression interface is derived from that rule, not from dynamics that are unchanged at the handoff. The compressed coordinates are transient and converge to record-determined offsets. Exactness holds only in the Gaussian location family. The first-stage events and the unions from the actual handoffs come from fixed-step numerical integration with explicit margins, not from validated arithmetic. The strong form of (F5) fails, and the parameter window is narrow. For general laws the pooled parent is not exactly inherited, and the inheritance clause of the general-law construction is open. A bounded literature search found exact quotients of linear consensus, Bayesian inference of latent social groups, representative agents for coherent groups, and Bayesian structure learning of hierarchies, but no construction combining shared-label pooling, exact block-mean closure away from synchrony, and merging that depends on the state at formation (\cref{it7:ch-prior}). This is not a priority claim.
+
+Every identity was checked numerically at small sizes in \texttt{item7\_checks/checks.py}, whose output is \texttt{checks\_output.txt}; the checks support the instances tested and are not proofs. Statements that rest on numerical integration are labeled as such.
+
+\begingroup
+\small
+\tableofcontents
+\endgroup
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Setting}
+\label{it7:ch-setting}
+
+The agents $i\in\mathcal V$, $|\mathcal V|=N$, hold belief laws $q_i$ on a standard Borel space $\mathsf Y$. The model sector is trivial in this document; it enters only through a common evaluator $G$, a law on $\mathsf Y$ shared by agents of one species. In the per-agent mixture-source model of chapter~3 of the main manuscript, agent $i$ has a finite source set $\mathcal N_i$ containing its own label, with positive prior row $\pi_i$. Its self cost is $D_{ii}=\KL(q_i\Vert G)$, its cost for a peer $j$ is $D_{ij}=\KL(q_i\Vert\nu_{ij})$ with $\nu_{ij}$ the law of $j$ as compared by $i$, and its records $o_i$ enter through a likelihood $\ell_i(o_i\mid k)$ that persists in the objective. At temperature $T$ the per-agent free energy is
+\begin{equation}
+\mathcal F_i=\sum_{\nu\in\mathcal N_i}\beta_{i\nu}D_{i\nu}+T\KL(\beta_i\Vert\pi_i)+\int-\log\ell_i(o_i\mid k)q_i(dk),
+\label{it7:fe}
+\end{equation}
+and its minimizing row is the Gibbs row $\beta_{i\nu}=\pi_{i\nu}e^{-D_{i\nu}/T}/Z_i$. The main manuscript's per-agent model has $T=1$; another temperature corresponds to tempered factors. Each agent follows the Fisher gradient flow of its own $\mathcal F_i$, with the laws of the other agents held as data. By the envelope identity, the differential of $\mathcal F_i$ at its Gibbs row is $\sum_\nu\beta_{i\nu}dD_{i\nu}$ plus the differential of the record term, so the force on $q_i$ is a row-weighted sum of divergence forces plus a record force that no row weights.
+
+\definitionheading{Units, presented laws and the wall selector}{it7:selector}
+At each time the agents are partitioned into units: the blocks selected so far that are contained in no later block, and the agents that belong to no block. Each unit $U$ presents a law $P_U$, which is the agent's own law for an agent and is declared by the handoff of \cref{it7:handoff} for a block. Fix thresholds $0<\delta_c<\delta_w$ and a window $\tau_p>0$. Units $U\ne V$ are coherent if $\KL(P_U\Vert P_V)<\delta_c$ and $\KL(P_V\Vert P_U)<\delta_c$. A set $C$ of at least two units is a candidate if it is a connected component of the coherence graph and if $\KL(P_U\Vert P_V)>\delta_w$ and $\KL(P_V\Vert P_U)>\delta_w$ for every $U\in C$ and every unit $V\notin C$. A handoff selects the union of the agents of $C$ as a block once $C$ has been a candidate without interruption for a time $\tau_p$. A selected block is never dissolved.
+
+The selector reads only the current presented laws and their recent history, so each handoff is a measurable function of accessible history, as (F2) requires. It is a declared threshold selector of the kind used in chapters~11 to~13 of the main manuscript. Its block relation, internal coherence together with a wall, is the contrast structure that Item~3 found at stationary states with parents.
+
+\definitionheading{Controls}{it7:controls}
+The null flow $\Phi^0$ is that of chapter~5 of the main manuscript. Every cost $D_{ij}$ with $j\ne i$ is deleted, while labels and priors are kept, so the null self row is
+\begin{equation}
+\beta^0_{ii}=\frac{\pi_{ii}e^{-D_{ii}/T}}{\pi_{ii}e^{-D_{ii}/T}+1-\pi_{ii}},
+\label{it7:null-row}
+\end{equation}
+the convention of chapter~13 of the main manuscript. The control without feedback $\Phi^{\rm off}$ uses the same selector and records the same handoffs, but every agent keeps its individual row, sources and channels after a handoff, so the parents are passive.
+
+The control without feedback is not part of the standard. It answers a different question: whether the action of a parent on its members changes what forms.
+
+\chapter{What top-down feedback cannot do}
+\label{it7:ch-negative}
+
+\propositionheading{A parent as one more source}{it7:capture}
+Let receiver $i$ have the Gibbs row $\beta_i$ over a finite source set $\mathcal N_i$ at temperature $T$, and add a source $A$ with prior share $a\in(0,1)$, multiplying the other priors by $1-a$. The new row satisfies
+\begin{equation}
+\beta'_{i\nu}=(1-\beta'_{iA})\beta_{i\nu},\qquad\nu\in\mathcal N_i.
+\label{it7:capture-rows}
+\end{equation}
+If the first variation of $D_{iA}$ vanishes at the current law of $i$, as it does when the compared law of $A$ equals $q_i$, then the force on $q_i$ is $1-\beta'_{iA}$ times its row part before the addition, plus the unchanged record force.
+\begin{proof}
+With $Z'_i=(1-a)Z_i+ae^{-D_{iA}/T}$ we have $\beta'_{i\nu}=(1-a)\pi_{i\nu}e^{-D_{i\nu}/T}/Z'_i=\beta_{i\nu}(1-a)Z_i/Z'_i$ and $1-\beta'_{iA}=(1-a)Z_i/Z'_i$, which is \cref{it7:capture-rows}. By the envelope identity the row part of $d\mathcal F'_i$ is $\sum_\nu\beta'_{i\nu}dD_{i\nu}+\beta'_{iA}dD_{iA}$, which equals $(1-\beta'_{iA})\sum_\nu\beta_{i\nu}dD_{i\nu}$ where $dD_{iA}=0$. The record term is weighted by no row, and the Fisher field is linear in the differential.
+\end{proof}
+
+The exponents of the row are unchanged, so the parent does not change which of the old sources the member trusts. Without records, the parent only rescales each member's velocity by a positive factor at agreement. With records, it raises the weight of the records relative to the row part by the factor $(1-\beta'_{iA})^{-1}$, a form of stubbornness. Away from agreement it also pulls the member toward its compared law, which reduces the spread inside the block. Check~(2) confirms \cref{it7:capture-rows} and the force decomposition. Check~(15) runs twelve agents in four groups without records, each agent's evaluator target in its own row and each member adding its pooled parent with share $a$; for $a=0$, $0.3$ and $0.6$ the same four blocks and the same two unions are selected, and the unions occur at $t\approx40$, $100$ and $245$.
+
+\propositionheading{Top-down costs are internal forces}{it7:momentum}
+Let $\mathcal E=\mathcal E_0+\tau\mathcal E_{\rm td}$ be continuously differentiable on a Riemannian manifold $(\mathsf S,g)$, and let $x(t)$ solve $\dot x=-\operatorname{grad}_g\mathcal E$. Let $J$ be continuously differentiable on $\mathsf S$ with $\xi=\operatorname{grad}_gJ$. If $\mathcal E_{\rm td}$ is invariant along $\xi$, that is $d\mathcal E_{\rm td}(\xi)=0$, then
+\begin{equation}
+\frac{d}{dt}J(x(t))=-d\mathcal E_0(\xi)\bigl(x(t)\bigr),
+\label{it7:momentum-rate}
+\end{equation}
+which does not involve $\tau$.
+\begin{proof}
+$\frac{d}{dt}J(x)=dJ(\dot x)=g(\xi,\dot x)=-g(\xi,\operatorname{grad}_g\mathcal E)=-d\mathcal E(\xi)=-d\mathcal E_0(\xi)$.
+\end{proof}
+
+In the Gaussian location family with laws $\mathcal N(y_i,P_i^{-1})$, the Fisher metric on the means is $\bigoplus_iP_i$. The common translation of the members of a block $I$ and of a parent $A$ by $u\in\R^K$ is $\xi_u=\operatorname{grad}J_u$ with $J_u=u^T(\sum_{i\in I}P_iy_i+P_Ay_A)$. The top-down factor of Item~3 depends on $y_i-y_A$ and on the cross-scale dictionary, so its cost is invariant under $\xi_u$, and the block momentum $\sum_{i\in I}P_iy_i+P_Ay_A$ has a rate independent of $\tau$ at every configuration (check~(3a)). Suppose in addition that the parent is the pool, with top-down cost $\frac\tau2\sum_{i\in I}\Vert y_i-\bar y_I\Vert^2$, that the members have equal precisions, and that every member of a block attends to every member of every other block with one weight. Then the block sums form a closed linear system, the external equitable partition of \citet{OClery2013}, and their trajectories do not depend on $\tau$ (check~(3b), residual $6\times10^{-16}$). With sparse bridges, or with a parent that has its own state and prior, the block sums do depend on $\tau$ (checks~(3b) and~(3c)). The top-down cost moves momentum between the parent and the members and among the members, and the bridges read where it sits. The sharpening of walls under top-down coupling found in Item~3 is of this kind, and it is not available to a parent that is exactly inherited through the block momentum.
+
+For general laws the proposition needs a momentum function for the collective motion. In natural coordinates of an exponential family the common shift of natural parameters has momentum $\sum_i\mu_i$, the sum of mean parameters. A Kullback--Leibler cost between members of the family is a Bregman divergence of the log-partition $\psi$, and differentiating it along a common shift shows that it is invariant for every pair exactly when $\nabla\psi$ is affine. Outside the Gaussian location family the proposition therefore applies to costs constructed to be invariant, not to the divergences of the theory.
+
+\propositionheading{A globally attracting equilibrium excludes counterfactual recursion}{it7:attractor}
+Fix the first-stage blocks of a construction and let $\mathcal C$ be a set of post-handoff states, the counterfactual handoffs of (F6b). Suppose the post-handoff flow is deterministic and every trajectory starting in $\mathcal C$ converges to one equilibrium $z^*$. Let the relation that some second-stage block $B$ is a candidate be given by strict inequalities between continuous functions of the state, defining an open set $S$, and let persistence mean that the relation holds at all later times. If $z^*\in S$, the block $B$ is selected from every state in $\mathcal C$ and (F6b) fails for $B$. If $z^*\notin\bar S$, no state in $\mathcal C$ leads to a persistent selection of $B$.
+\begin{proof}
+If $z^*\in S$, some neighborhood of $z^*$ lies in $S$, and every trajectory from $\mathcal C$ remains in it after a finite time, so the candidate persists beyond any window $\tau_p$. If the relation holds at all times after some $t_0$ along a trajectory converging to $z^*$, then $z^*$ is a limit of points of $S$.
+\end{proof}
+
+The Gaussian tangent global joint of Items~2 and~3 has a positive definite quadratic energy in the contents and the dictionaries whenever the content anchors and the dictionary priors are positive definite. Declared Gaussian parents add positive semidefinite cross-scale terms and a parent anchor. The gradient flow of this energy in any constant metric therefore converges to its unique minimizer from every state, every counterfactual handoff with the same first-stage blocks leads to the same limit, and (F6b) fails for every persistent second stage that is selected at all. Counterfactual recursion needs several stable states after a handoff, hence a nonconvex objective: Gibbs rows, dictionaries acting through the exponential map, or non-Gaussian laws. The construction below uses Gibbs rows.
+
+\chapter{Shared labels}
+\label{it7:ch-shared}
+
+\definitionheading{Shared-label handoff}{it7:handoff}
+Let a handoff select a block $I$ of $n=|I|\ge2$ agents. Suppose that every member compares each source outside $I$ through the same channel, so that a source $\nu$ presents one compared law $\nu_\nu$ to all members, and that the members share the evaluator $G$. From the handoff on:
+\begin{enumerate}
+\item[(a)] The members carry one source label $J_I$. Its sources are the evaluator, a parent $A_I$, and the units outside $I$. Its prior $\pi_I$ is the average of the members' priors, with the mass that the members gave to one another assigned to $A_I$ and the mass that they gave to the agents of an outside unit assigned to that unit. Each member descends, with respect to its own law and with all other laws as data, the block free energy
+\begin{equation}
+\mathcal F_I=\sum_\nu\beta_{I\nu}\sum_{i\in I}D_{i\nu}+T\KL(\beta_I\Vert\pi_I)+\sum_{i\in I}\int-\log\ell_i(o_i\mid k)q_i(dk),
+\label{it7:block-fe}
+\end{equation}
+whose minimizing row is $\beta_{I\nu}=\pi_{I\nu}\exp(-\sum_{i\in I}D_{i\nu}/T)/Z_I$.
+\item[(b)] The parent presents the linear pool $\bar q_I=n^{-1}\sum_{i\in I}q_i$ or, when the compared laws lie in a declared family $\mathsf E$, its moment projection $P_I$ onto $\mathsf E$. The members compare themselves to it, $D_{iA}=\KL(q_i\Vert P_I)$, and every receiver outside $I$ replaces the agents of $I$ in its source set by $A_I$, with their total prior.
+\item[(c)] A later handoff that selects a set of units replaces them in the same way by one block whose members are all their agents. The parents of the replaced blocks are then no longer sources.
+\end{enumerate}
+The tempered label replaces $T$ by $nT$ in the row of (a).
+
+Part (a) is top-down attention: a member no longer decides alone which source to trust; the block decides, with every member's evidence. Part (b) is top-down prediction and routing: members are pulled toward what the block presents, and the block speaks to the rest of the population through its parent. The rule is declared once, before any selection, and applies at every level, so a second stage uses it without a new parameter.
+
+\propositionheading{The shared row reads the pool}{it7:pool}
+Under \cref{it7:handoff}, for every source $\nu$ whose costs are finite,
+\begin{equation}
+\sum_{i\in I}\KL(q_i\Vert\nu_\nu)=\sum_{i\in I}\KL(q_i\Vert\bar q_I)+n\KL(\bar q_I\Vert\nu_\nu).
+\label{it7:compensation}
+\end{equation}
+Hence
+\begin{equation}
+\beta_{I\nu}=\frac{\pi_{I\nu}\exp\bigl(-n\KL(\bar q_I\Vert\nu_\nu)/T\bigr)}{\sum_\mu\pi_{I\mu}\exp\bigl(-n\KL(\bar q_I\Vert\nu_\mu)/T\bigr)},
+\label{it7:pooled-row}
+\end{equation}
+the Gibbs row at temperature $T/n$ of a single receiver with law $\bar q_I$, and the parent presenting $\bar q_I$ has relative cost zero. If every compared law lies in a regular exponential family $\mathsf E$ with sufficient statistic $t$, and the parent presents the moment projection $P_I$, defined by $\E_{P_I}t=\bar\mu_I=n^{-1}\sum_i\E_{q_i}t$, then for every $p\in\mathsf E$
+\begin{equation}
+\KL(\bar q_I\Vert p)=\KL(\bar q_I\Vert P_I)+\KL(P_I\Vert p),
+\label{it7:pythagoras}
+\end{equation}
+and the shared row is the Gibbs row at temperature $T/n$ of the costs $\KL(P_I\Vert\nu_\nu)$. It depends on the block only through $\bar\mu_I$, and $A_I$ again has relative cost zero.
+\begin{proof}
+Write $\log(q_i/\nu)=\log(q_i/\bar q_I)+\log(\bar q_I/\nu)$, integrate against $q_i$, and sum over $i$, using $\sum_iq_i=n\bar q_I$; this is the receiver-pool identity of chapter~3 of the main manuscript with equal weights. The term $\sum_i\KL(q_i\Vert\bar q_I)$ is the same for every source and cancels from the normalized row, and with the parent presenting $\bar q_I$ it is the whole cost of $A_I$. For \cref{it7:pythagoras}, write $p=p_\theta$ with log density $\theta\cdot t-\psi(\theta)$ relative to a base measure; then $\KL(\bar q_I\Vert p_\theta)=-H(\bar q_I)-\theta\cdot\bar\mu_I+\psi(\theta)$ with $H$ the entropy relative to that measure. Subtracting the same expression at $\theta^*$ with $\nabla\psi(\theta^*)=\bar\mu_I$ gives $\psi(\theta)-\psi(\theta^*)-(\theta-\theta^*)\cdot\nabla\psi(\theta^*)=\KL(p_{\theta^*}\Vert p_\theta)$, the Pythagorean identity of \citet{Csiszar1975}. The cost of $A_I$ is then the common term plus $n\KL(\bar q_I\Vert P_I)$, which is also common to all sources.
+\end{proof}
+
+Check~(1) confirms \cref{it7:compensation,it7:pooled-row,it7:pythagoras} on a six-point alphabet, including that two blocks with the same pool and different members have the same row.
+
+\remarkheading{When the shared row is a posterior}{it7:posterior}
+In the registered-agreement model of chapter~3 of the main manuscript, an agent's Gibbs row is the posterior of the source it heard, given that it registered agreement with that source, at temperature equal to the reciprocal message count. If the members of $I$ heard one common source $J_I$ and their registrations are conditionally independent given $J_I$, the posterior of $J_I$ is $\pi_I$ times the product of the members' registration probabilities, and the source-independent factors cancel; it is the row of \cref{it7:handoff}(a). The shared row is then the exact posterior of a common cause. Members that have influenced one another do not in general supply conditionally independent evidence, and the row is then a Gibbs row of summed losses, a generalized-Bayes update in the sense of \citet{BissiriHolmesWalker2016}, not a posterior. It adds the members' costs, unlike a logarithmic opinion pool with weights summing to one \citep{GenestZidek1986}; the tempered label is the pool that averages them.
+
+\propositionheading{A tempered label is neutral at synchrony}{it7:tempered}
+Suppose the priors are homogeneous, $\pi_{ii}=\pi_s$ and $\pi_{ij}=\pi_p$ for $j\ne i$, and all channels are identity channels. At a configuration where every block is internally synchronized, $q_i=\bar q_I$ for $i\in I$, the force on every agent under the shared-label handoff with the tempered label equals its force under the control without feedback. With the untempered label, every cost in the row of a block of $n$ members is $n$ times the corresponding cost in the control.
+\begin{proof}
+At synchrony, in the control, member $i$ of $I$ has the evaluator cost $\KL(\bar q_I\Vert G)$, cost zero to each of the other $n-1$ members with total prior $(n-1)\pi_p$, and cost $\KL(\bar q_I\Vert\bar q_V)$ to each of the $n_V$ agents of an outside unit $V$, with total prior $n_V\pi_p$; the sources at cost zero exert no force. The tempered shared row has costs $n^{-1}\sum_{i\in I}D_{i\nu}$, which at synchrony are $\KL(\bar q_I\Vert G)$, zero for $A_I$ with prior $(n-1)\pi_p$, and $\KL(\bar q_I\Vert P_V)=\KL(\bar q_I\Vert\bar q_V)$ for $V$ with prior $n_V\pi_p$, because $P_V=\bar q_V$ at synchrony. The rows, the compared laws and the record forces coincide. Without tempering each cost is the sum of $n$ equal member costs.
+\end{proof}
+
+Check~(6) gives a difference of $2\times10^{-16}$ between the tempered label and the control at a synchronized configuration, and $0.06$ for the untempered label. At synchrony the whole effect of the shared label is evidence accumulation: a block of $n$ members is $n$ times as selective as one of its members. The tempered label differs from the control only through the spread inside blocks.
+
+\remarkheading{Dictionaries}{it7:dictionaries}
+With receiver-owned dictionaries, as in Items~1 to~3, member $i$ reads source $\nu$ through its own dictionary $\bar\theta_{i\nu}$, acting by push-forward, and the compared laws differ across members. Relative entropy is invariant under one measurable bijection applied to both arguments, so if there are frame changes $g_i$ of the members with $g_i\bar\theta_{i\nu}=\Theta_\nu$ for every source $\nu$ outside $I$, then $\sum_i\KL(q_i\Vert\bar\theta_{i\nu}\nu)=\sum_i\KL(g_iq_i\Vert\Theta_\nu\nu)$, and \cref{it7:pool} applies to the laws $g_iq_i$. Such frame changes exist exactly when $\bar\theta_{j\nu}\bar\theta_{i\nu}^{-1}$ does not depend on $\nu$ for all members $i,j$: then $g_j=\bar\theta_{1\nu}\bar\theta_{j\nu}^{-1}$ works for every $\nu$, and conversely $g_j^{-1}g_i=\bar\theta_{j\nu}\bar\theta_{i\nu}^{-1}$. Equivalently, every loop through two members and two outside sources has trivial holonomy. In the language of Item~3 the block is flat toward its sources, and $\Theta_\nu$ is the meta-level dictionary of its flat-wall proposition. For a block that is curved toward its sources the shared row is not a function of the pool of any frame-changed members.
+
+\chapter{Exact parents in the Gaussian location family}
+\label{it7:ch-exact}
+
+\theoremheading{Exact inheritance of shared-label parents}{it7:exact}
+Let $\mathsf Y=\R^K$, let every agent law, compared law, presented law and the evaluator be Gaussian with one fixed precision matrix $\Lambda$, recognition being restricted to the location family $\mathcal N(y,\Lambda^{-1})$ whose Fisher metric on the means is $\Lambda$, let all channels be identity channels, and let each record have the likelihood $\mathcal N(o_i;k,R^{-1})$; write $\rho=\Lambda^{-1}R$. The parent of a block presents $\mathcal N(\bar y_U,\Lambda^{-1})$, the moment projection of its pool onto the location family. After any sequence of shared-label handoffs, let $\mathcal U$ be the set of units, $n_U$ their sizes, $\bar y_U$ and $\bar o_U$ the averages of the members' means and records, and $m_\nu$ the mean of source $\nu$: $m_G$ for the evaluator, $\bar y_U$ for the unit's own parent, and $\bar y_V$ for a unit $V\ne U$. Then for every $U\in\mathcal U$ and $i\in U$:
+\begin{enumerate}
+\item[(i)] $\beta_{U\nu}=\pi_{U\nu}\exp\bigl(-\tfrac{n_U}{2T}\Vert\bar y_U-m_\nu\Vert_\Lambda^2\bigr)/Z_U$;
+\item[(ii)] $\dot y_i=\sum_\nu\beta_{U\nu}(m_\nu-y_i)+\rho(o_i-y_i)$;
+\item[(iii)] $\frac{d}{dt}\bar y_U=\sum_\nu\beta_{U\nu}(m_\nu-\bar y_U)+\rho(\bar o_U-\bar y_U)$;
+\item[(iv)] $\frac{d}{dt}(y_i-\bar y_U)=-(I+\rho)(y_i-\bar y_U)+\rho(o_i-\bar o_U)$.
+\end{enumerate}
+Consequently the retention $R(x)=(\bar y_U)_{U\in\mathcal U}$ satisfies, on every set of post-handoff states, the dynamical condition (D), the response condition (B) for every protocol in which a receiver outside a block attends to its parent, and the channel condition (C) of the definition of an inherited parent in chapter~5 of the main manuscript, with parent flow (iii). The retention is not injective when some unit has $n_U\ge2$, and two configurations in one fiber remain distinct and in one fiber at all later times.
+\begin{proof}
+(i) For a source with mean $m$,
+\begin{equation}
+\sum_{i\in U}\KL\bigl(\mathcal N(y_i,\Lambda^{-1})\Vert\mathcal N(m,\Lambda^{-1})\bigr)=\frac{n_U}2\Vert\bar y_U-m\Vert_\Lambda^2+\frac12\sum_{i\in U}\Vert y_i-\bar y_U\Vert_\Lambda^2,
+\end{equation}
+and the second term, which is the whole cost of the own parent, does not depend on the source; it cancels from the normalized row. (ii) The derivative of \cref{it7:block-fe} with respect to $y_i$ is $\sum_\nu\beta_{U\nu}\Lambda(y_i-m_\nu)+R(y_i-o_i)$, since the record term is $\frac12\Vert o_i-y_i\Vert_R^2$ plus a constant. The Fisher flow multiplies by $-\Lambda^{-1}$, and the rows sum to one. (iii) Average (ii) over $i\in U$; the rows and the source means do not depend on $i$. (iv) Subtract (iii) from (ii) and use $\sum_\nu\beta_{U\nu}=1$.
+
+By (i) the rows of every unit are functions of the unit means. By the routing of \cref{it7:handoff}(b) every compared law is the evaluator or a presented law $\mathcal N(\bar y_V,\Lambda^{-1})$, so (iii) is a closed system in $(\bar y_U)_U$ and $R\circ\Phi_t=\Phi^c_t\circ R$ for the flow $\Phi^c$ of (iii). A receiver outside $U$ that attends to $A_U$ receives $\mathcal N(\bar y_U,\Lambda^{-1})$, a function of $R$; the rows, channels and evaluator read by (iii) are functions of $R$. The deviations $(y_i-\bar y_U)_{i\in U}$ with zero sum span a subspace of dimension $(n_U-1)K$ on which $R$ is constant. By (iv) they evolve by an invertible affine flow that does not depend on the unit means, so distinct deviations stay distinct while the unit means move together by (iii).
+\end{proof}
+
+Check~(7) integrates the twelve-agent instance of \cref{it7:ch-instance} for twenty time units after its first-stage handoffs. The block means agree with the solution of (iii) to $8\times10^{-15}$, and the deviations agree with the closed form of (iv) to $1.4\times10^{-15}$. The external equitable partitions of linear consensus give exact block-mean dynamics on a fixed graph \citep{OClery2013}, and for nonlinear networks the quotient over such partitions describes the synchronized states \citep{SchaubEtAl2016}. Here the rows depend on the state, the closure holds for every spread inside the blocks, and it is created by the handoff rule.
+
+\corollaryheading{Composition and type}{it7:type}
+The parent flow (iii) is the per-agent flow of a single Gaussian location agent with mean $\bar y_U$ and record $\bar o_U$, at temperature $T/n_U$, whose source set contains, besides the evaluator and the other units, a source at its own law with prior $\pi_{UA}$. The class of such agents, with any temperature and any prior on a source at the agent's own law, is closed under shared-label handoffs, and successive retentions compose by the composition proposition of chapter~5 of the main manuscript. A block formed from blocks $I$ and $J$ has temperature $T/(n_I+n_J)$, and the retention from the two parents to their union, $(\bar y_I,\bar y_J)\mapsto(n_I\bar y_I+n_J\bar y_J)/(n_I+n_J)$, is again not injective.
+\begin{proof}
+The first statement is (iii) read as the flow (ii) of a single agent with the stated rows; a single agent is the case $n_U=1$, with prior zero on the source at its own law. A handoff applied to units of this class adds their costs, by (i), and returns a unit of the class with the summed size. Composition is the composition of the two exact retentions.
+\end{proof}
+
+\theoremheading{Exact pooled parents characterize the Gaussian location family}{it7:characterization}
+Let the members' laws and all compared laws lie in a regular exponential family with sufficient statistic $t:\mathsf Y\to\R^d$, natural parameter $\theta$ in an open set $\Theta$, log-partition $\psi$, and mean parameter $\mu=\nabla\psi(\theta)$. Let the dynamics be the per-agent Fisher flow of the block free energy \cref{it7:block-fe} without records, with the parent presenting the moment projection of the pool. Suppose that for blocks of two members the velocity of the pooled mean parameter $\bar\mu=(\mu_1+\mu_2)/2$ is, at every configuration, a function of $\bar\mu$ and of the row-weighted source parameter $c=\sum_\nu\beta_\nu\theta_\nu$, for every value of $c$ in $\Theta$. Then $\nabla^2\psi$ is constant on $\Theta$, and the laws of $t$ form a Gaussian family with one covariance and varying mean; when $t$ is the identity on $\mathsf Y=\R^d$, the family is the Gaussian location family.
+\begin{proof}
+In natural coordinates the Fisher flow is $\dot\theta_i=-\partial_{\mu_i}\mathcal F_I$, and $\partial_\mu\KL(p_\theta\Vert p_{\theta'})=\theta-\theta'$, so $\dot\theta_i=c-\theta_i$, the rows summing to one. With $H(\mu)=\nabla^2\psi(\theta(\mu))$, the covariance of $t$, the pooled velocity is $\frac12\sum_iH(\mu_i)(c-\theta(\mu_i))$. It is affine in $c$. Requiring it to be constant on each fiber $\{(\mu_1,2\bar\mu-\mu_1)\}$ for every $c$ in the open set $\Theta$ makes both $H(\mu_1)+H(2\bar\mu-\mu_1)$ and $K(\mu_1)+K(2\bar\mu-\mu_1)$ independent of $\mu_1$, where $K(\mu)=H(\mu)\theta(\mu)$. The mean-parameter domain is open and convex. The first condition gives $DH(\mu_1)=DH(\mu_2)$ for all $\mu_1,\mu_2$, so $H$ is affine. Since $D\theta=H^{-1}$, $DK(\mu)[v]=DH[v]\theta(\mu)+v$, and the second condition makes $DH[v]\theta(\mu)$ independent of $\mu$; as $\theta(\mu)$ ranges over the open set $\Theta$, $DH[v]=0$ for every $v$. Hence $\nabla^2\psi$ is constant and $\psi$ is quadratic. The Laplace transform of the law of $t$ under the base measure is $e^{\psi}$, so by its uniqueness the laws of $t$ are Gaussian with covariance $\nabla^2\psi$; for $d=1$ this is the constant-variance case of the classification of \citet{Morris1982}.
+\end{proof}
+
+For Bernoulli laws $H(p)=p(1-p)$. Two members with $p=(0.5,0.5)$ and $p=(0.2,0.8)$ have the same pool and the same rows, and with a single source of natural parameter $1$ their pooled velocities are $0.25$ and $0.16$ (check~(4)); no update of the pool reproduces both. The theorem concerns the pooled parent only. Another retention, such as the canonical parent of chapter~5 of the main manuscript for the routed interface, may still be exact for general laws; whether it compresses is open (\cref{it7:open-general}).
+
+\remarkheading{What the parent forgets}{it7:forgets}
+The fibers of $R$ are transient. By (iv) each member's deviation converges at the rates of $I+\rho$ to $(I+\rho)^{-1}\rho(o_i-\bar o_U)$, so on the attracting set each member's law is determined by its parent's mean and its own record. The parent forgets the members' records except their mean, and the transient part of their deviations; it forgets nothing that the members' own records do not restore. The fibers are inert in the sense used in chapter~11 of the main manuscript: no presented law, row or record depends on them. The interface on which $R$ is exact does not exist before the handoff. While the members attend individually, their Gibbs rows, and the rows of every receiver attending to them, depend on each member's own mean, and the block mean is not autonomous. The handoff creates this operational equivalence; it is not present for every partition beforehand, which distinguishes the construction from the quotients supplied before membership in chapters~12 and~13 of the main manuscript. It is created by a declared rule, however, not by dynamics that are unchanged at the handoff.
+
+\chapter{An instance}
+\label{it7:ch-instance}
+
+Take $N=12$, $K=1$, $\Lambda=\lambda=6$, $T=1$, homogeneous priors $\pi_s=0.05$ and $\pi_p=0.95/11$, evaluator mean $m_G=0$, and $\rho=0.005$. The records form four groups of three, $L_1=(-3.2,-3.05,-2.9)$, $L_2=(-2.1,-1.95,-1.8)$, $R_1=-L_2$ and $R_2=-L_1$, held by agents $0$ to $2$, $3$ to $5$, $6$ to $8$, and $9$ to $11$. The thresholds are $\delta_c=0.05$, $\delta_w=0.5$ and $\tau_p=2$. Every cost is $\frac\lambda2$ times a squared difference of means, so two units are coherent when their means differ by less than $0.129$ and walled when they differ by more than $0.408$. The admitted class is
+\begin{equation}
+\mathcal A=\{y(0)\in\R^{12}:|y_i(0)-o_i|<0.005\text{ for all }i\},
+\label{it7:admitted}
+\end{equation}
+which is open. No pair is coherent at $t=0$, since adjacent records differ by $0.15$ and $\frac\lambda2(0.14)^2=0.0588>\delta_c$. The members of a group disagree in their records, so a group becomes coherent only if the interaction contracts it; this is the device of chapter~13 of the main manuscript. The flows are those of \cref{it7:exact}(ii) after the handoffs and of the per-agent Gibbs flow with individual rows before them.
+
+\propositionheading{The null flow never selects}{it7:null}
+From every state in $\mathcal A$ the null flow never selects a block, so its partition sequence is the initial partition alone.
+\begin{proof}
+Under $\Phi^0$ each agent follows $\dot y_i=\beta^0_{ii}(y_i)(m_G-y_i)+\rho(o_i-y_i)$ with $\beta^0_{ii}$ of \cref{it7:null-row} and $D_{ii}=\frac\lambda2y_i^2$, so $\beta^0_{ii}(y)\le\frac{\pi_s}{1-\pi_s}e^{-3y^2}$. On $|y|\ge1.795$ this is at most $3.3\times10^{-6}$, and the evaluator term is at most $1.1\times10^{-5}$ in absolute value for $|y|\le3.205$. At $y=o_i\pm0.005$ the record term has magnitude $2.5\times10^{-5}$ and points toward $o_i$, so the interval $[o_i-0.005,o_i+0.005]$ is forward invariant. Every pair of agents then stays at distance at least $0.14$, with divergence at least $0.0588>\delta_c$, so no pair is ever coherent and no candidate exists.
+\end{proof}
+
+Check~(8) integrates the null flow to $t=1000$: the agents end within $0.0012$ of their records, and the smallest divergence between adjacent agents is $0.0675$.
+
+\remarkheading{Selections of the shared-label flow (numerical)}{it7:events}
+From every tested state in $\mathcal A$, fifteen in all (the fixed draw of checks~(7) to~(10), twelve uniform draws in check~(12), and one draw each in checks~(11) and~(14)), the shared-label flow selects $L_1$, $L_2$, $R_1$ and $R_2$ between $t=2.14$ and $t=2.35$, and then $L_1\cup L_2$ and $R_1\cup R_2$ between $t=6.95$ and $t=8.05$. The selected blocks are the same for every state. Along the fixed-draw trajectory each group enters the candidate condition transversally, the slope of its coherence margin being at least $0.092$ at entry, and over the rest of its persistence window the coherence margin, $\delta_c$ minus the largest edge of the group's minimum spanning tree, stays above $0.0046$ while the wall margin stays above $0.50$ (check~(17)). The gap between the left parents after the first stage lies $0.35$ below $d_u-0.005$ (check~(9) and \cref{it7:counterfactual}). By continuous dependence on initial data, which holds across the switching times of the handoffs, the same blocks are selected on an open neighborhood of the fixed draw, provided the integration error stays below these margins. The integration is fourth-order Runge--Kutta with fixed steps between $0.005$ and $0.05$; it was not validated by interval arithmetic.
+
+\propositionheading{The second stage reduces to a gap equation}{it7:reduced}
+After the four first-stage handoffs write $m_1=\bar y_{L_1}$, $m_2=\bar y_{L_2}$, $d=m_2-m_1$, and $s=\bar o_{L_2}-\bar o_{L_1}=1.1$. While the left parent means lie in $[-3.3,-1.7]$ and the right ones in $[1.7,3.3]$,
+\begin{equation}
+\dot d=F(d)+r(t),\qquad F(d)=\rho(s-d)-2w_3(d)d,\qquad w_n(d)=\frac{ne^{-ad^2}}{n-1+ne^{-ad^2}},
+\label{it7:gap}
+\end{equation}
+with $a=n\lambda/(2T)=9$ for $n=3$ and $|r(t)|\le10^{-10}$.
+\begin{proof}
+By \cref{it7:exact}(i) the row of $L_1$ has the evaluator with prior $\pi_s$ and cost $9m_1^2$, its own parent with prior $2\pi_p$ and cost zero, $L_2$ with prior $3\pi_p$ and cost $9d^2$, and $R_1,R_2$ with prior $3\pi_p$ each and cost $9(m_1-\bar y_R)^2$. On the stated ranges the evaluator weight relative to $2\pi_p$ is at most $\frac{\pi_s}{2\pi_p}e^{-26.0}<1.5\times10^{-12}$, and the right-side weights are below $e^{-100}$. Dropping these weights from (iii) leaves $\dot m_1=w_3(d)(m_2-m_1)+\rho(\bar o_{L_1}-m_1)$, the prior $\pi_p$ cancelling from $w_3$, and the same for $m_2$ with the roles exchanged; the dropped terms contribute less than $10^{-10}$ to $\dot d$. Subtracting the two equations gives \cref{it7:gap}. The stated ranges are forward invariant up to these terms, since each parent is pulled toward the other left parent and toward its own record mean, both inside the range.
+\end{proof}
+
+The function $F$ has exactly three zeros in $(0,\infty)$, $d_m=0.00456$, $d_u=0.96304$ and $d_s=1.08312$, with $F'(d_m)=-1.205$, $F'(d_u)=0.0062$ and $F'(d_s)=-0.0034$ (check~(9)). For $d>s$ both terms of $F$ are negative, and the zeros below $s$ were located by sign changes on a grid of spacing $3\times10^{-6}$ and refined by bisection. The merged state $d_m$ and the separated state $d_s$ are stable, and the middle root $d_u$ separates their basins. The separated state is an equilibrium held by the records: without them, $\rho=0$, the only zero is $d=0$.
+
+\corollaryheading{Counterfactual handoffs}{it7:counterfactual}
+Consider post-handoff states in which $L_1,L_2,R_1,R_2$ are the selected blocks and the left parent means lie in $[-3.3,-1.7]$ with gap $d_0$. If $d_0<d_u-0.005$, the union $L_1\cup L_2$ is selected. If $d_0>d_u+0.005$, it is never selected, and $d(t)\to d_s$.
+\begin{proof}
+By check~(16), $F<-3.2\times10^{-5}$ on $[0.129,d_u-0.005]$, $F>1.6\times10^{-5}$ on $[d_u+0.005,d_s-0.005]$, and $F<-1.7\times10^{-5}$ on $[d_s+0.005,1.6]$, while $|r|\le10^{-10}$. In the first case $d$ decreases through $0.129$ in finite time and then stays below it near $d_m$, where $F$ is positive below $d_m$ and negative above. The units $L_1$ and $L_2$ are then coherent and walled from the right side, so the union is selected after the window $\tau_p$. In the second case the same signs keep $d$ above $d_u+0.005$ for all time and drive it to within $10^{-7}$ of $d_s$, so $L_1$ and $L_2$ are never coherent.
+\end{proof}
+
+The three handoffs whose gap was recorded have gaps between $0.59$ and $0.63$ at $t=2.6$, after all four first-stage handoffs (checks~(9), (10) and~(14)), and so lie in the first case; all fifteen tested states unite. The counterfactual handoffs of check~(10) shift $L_1$ and $L_2$ apart after the first stage. Gaps of $0.595$, $0.795$ and $0.895$ unite, at $t=7.6$, $18.4$ and $61.6$; gaps of $1.095$ and $1.395$ converge to the separated state $1.0831$. Every one of these states is walled, since its gap exceeds $0.408$, so all of them lie in the inherited class.
+
+\remarkheading{Controls and depth (numerical)}{it7:depth}
+The control without feedback unites from every shifted handoff of check~(10), gaps $0.45$ to $1.25$, at times between $5.9$ and $11.4$. At synchrony its gap equation is \cref{it7:gap} with $a=\lambda/(2T)=3$, which has only the merged zero (check~(9)), as \cref{it7:tempered} predicts; the tempered label produces the same events as the control (check~(8)). With record gap $s=1.2$ or $1.3$ the first stage is the same, but the handoff gap, $0.996$ or $1.226$, exceeds the middle root, $0.917$ or $0.893$, and the parents converge to the separated zero, $1.198$ or $1.300$ (check~(14)). The hierarchy stops at depth one there, while the control unites (check~(11)). With $s=1.0$ the members of $L_1$ and $L_2$ become coherent with one another before either group is walled, and a single block of six forms at the first stage. With $s=1.1$ the middle root is $0.963$ for $n=3$, $0.771$ for $n=4$ and $0.593$ for $n=6$, and there is no separated zero for $n=2$ (check~(13)). For large $n$, replacing $w_n$ by $\frac n{n-1}e^{-ad^2}$ in $F=0$ gives
+\begin{equation}
+d_u^2\approx\frac{2T}{n\lambda}\log\frac{2nd_u}{(n-1)\rho(s-d_u)},
+\label{it7:capture-distance}
+\end{equation}
+which reproduces $0.593$ at $n=6$. The capture distance falls roughly as $n^{-1/2}$: larger blocks unite only with nearer partners. This suggests that a hierarchy whose higher-level clusters are farther apart stops at finite depth under exact label sharing; we have not proved it.
+
+\chapter{The formation standard}
+\label{it7:ch-standard}
+
+Each clause of the definition of an inherited recursive formation in chapter~5 of the main manuscript is checked for the instance of \cref{it7:ch-instance}.
+
+(F1) The admitted class \cref{it7:admitted} is a nonempty open subset of $\R^{12}$, and its states are initially unpartitioned.
+
+(F2) The selector of \cref{it7:selector} is declared, with persistence window $\tau_p$, and each handoff is a measurable function of accessible history. The selected blocks are nontrivial and are never dissolved. After a handoff each difference between two members' deviations moves, by \cref{it7:exact}(iv), along a segment from its value at the handoff to its record-determined limit, which is at most $0.0015$ in absolute value in the first stage and $0.007$ in the unions, far below the coherence radius $0.129$.
+
+(F3) By \cref{it7:exact} the retention to unit means satisfies (D), (B) for the routed protocols, in which a receiver outside a block attends to its parent, and (C). The protocol class is fixed by \cref{it7:handoff} before the retention. Condition (G) is not declared.
+
+(F4) The first-stage retention forgets the deviations of each block, a subspace of dimension $n_U-1$, and the second-stage retention forgets the relative coordinate $\bar y_{L_1}-\bar y_{L_2}$. Configurations in one fiber stay distinct. A child-level probe, a receiver attending to one member through an identity channel as before the handoff, reads $y_i$ and distinguishes them; at the second stage a receiver attending to $A_{L_1}$, as before the union, does the same. The fibers are transient and inert (\cref{it7:forgets}).
+
+(F5) By \cref{it7:null} the null flow never selects, while the shared-label flow selects six blocks (\cref{it7:events}), so $P\ne P^0$ on the tested states and, by the margins of \cref{it7:events}, on an open neighborhood of the fixed draw. The strong form fails: the final partition is $\{L_1\cup L_2,R_1\cup R_2\}$ on every tested state, and a constant is a function of any statistic. Amplification, as defined, compares event ratios along $\Phi$ and $\Phi^0$, and $\Phi^0$ has no events, so it is not assessed.
+
+(F6) The parents $A_{L_1}$ and $A_{L_2}$ select their union under the inherited parent flow (iii), with no reset of their source data and no new parameter, which is (F6a). By \cref{it7:counterfactual} the union is not selected from counterfactual handoffs in the inherited class with gap above $d_u+0.005$, which is (F6b). The dependence of the second stage on the first is a selection between two basins by the state that the first stage produces; the control without feedback shows no such dependence on the tested handoffs.
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.09\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}}
+\hline
+Clause & Gaussian location instance & General laws\\
+\hline
+(F1) & holds & holds for the same class\\
+(F2) & holds (declared thresholds) & holds (declared thresholds)\\
+(F3) & holds exactly, \cref{it7:exact} & fails for the pooled parent, \cref{it7:characterization}; open\\
+(F4) & holds; fibers transient and inert & open\\
+(F5) & holds (open set by numerical margins); strong form fails & not established\\
+(F6a) & holds (open set by numerical margins) & not established\\
+(F6b) & holds, \cref{it7:counterfactual} & not established\\
+\hline
+\end{tabular}
+\end{center}
+
+In the instance the construction satisfies the six clauses as they are stated, the open-set parts of (F5) and (F6a) resting on the numerical margins of \cref{it7:events}. With that proviso it is an inherited recursive formation in that instance, subject to qualifications that also mark where it falls short of the preferred form of the open problem on recursive formation in chapter~5 of the main manuscript, which asks for a derived selector and a derived interface. The selector thresholds are declared. The label-sharing handoff is declared, and the compression interface is derived from it; the operational equivalence on which the parent is exact appears at the handoff and is absent before it, but it is created by the declared change of model, not by unchanged dynamics. The compressed coordinates are transient, and on the attracting set the members are determined by their parent and their own records. Exactness is a property of the Gaussian location family (\cref{it7:characterization}). The first-stage events and the unions from the actual handoffs are established by fixed-step numerical integration, with explicit margins but without validated arithmetic, while the counterfactual statement rests on \cref{it7:gap}, whose neglected terms are bounded explicitly and whose zeros and sign margins were computed numerically. The parameter window is narrow: with record gap $1.0$ the first stage already fuses the two groups, and with gaps $1.2$ and $1.3$ the hierarchy stops at depth one.
+
+For general laws the selector, the shared row and its $n$-fold sharpening are unchanged (\cref{it7:pool}). The pooled parent is not exactly inherited outside the Gaussian location family, so (F3) is open there, (F4) depends on it, and (F5) and (F6) have not been established beyond the instance.
+
+\chapter{Prior work and open problems}
+\label{it7:ch-prior}
+
+The ingredients have precedents. Inferred group membership that feeds back on individual updating appears in the meta-contrast model of \citet{Salzarulo2006}, where categories are recomputed from the opinion context and agents move toward prototypes. It also appears in the latent-group model of \citet{GershmanPouncyGweon2017}, where an observer infers group structure with shared choice parameters and the posterior determines social influence. Replacing locally coherent groups by representatives that act at the next stage is the hierarchical consensus scheme of \citet{PeronyEtAl2012}, with prescribed stages and no feedback to the members. \citet{Martins2009} derived bounded confidence from Bayesian updating, with stubbornness from shrinking individual uncertainty. Normalized state-dependent weights are the setting of \citet{MotschTadmor2014}, and anchoring of opinions to fixed data is the model of \citet{FriedkinJohnsen1990}. Exact block-mean dynamics of linear consensus over an external equitable partition is due to \citet{OClery2013}, and \citet{SchaubEtAl2016} used these partitions for cluster synchronization in nonlinear networks. Multilevel selection has been written as Bayesian inference, with the formation of new levels as structure learning \citep{CzegelEtAl2019}. A literature search on 2026-10-23, a research run of the Exa agent followed by checking each cited entry against its DOI record or publisher page, found no work that combines a shared source label for dynamically formed groups, exact block-mean closure for state-dependent rows away from synchrony, and merging that depends on the state at formation. The search was bounded and does not establish priority.
+
+\openproblemheading{General laws}{it7:open-general}
+Find an exactly inherited compressive parent for shared-label blocks outside the Gaussian location family. Candidates are a retention other than the pool, such as the canonical parent of chapter~5 of the main manuscript for the routed interface, or an approximate inheritance whose defect is controlled by the spread inside the block. Alternatively, show that no exact compressive parent exists for Bernoulli blocks with Gibbs rows.
+
+\openproblemheading{A derived selector}{it7:open-selector}
+Replace the declared thresholds by a comparison between the block free energy \cref{it7:block-fe} under a shared label and the sum of the members' free energies \cref{it7:fe} under independent labels, a structure-learning criterion in the sense of \citet{CzegelEtAl2019}. Decide whether it selects the same blocks, and whether the null control and the counterfactual dependence survive.
+
+\openproblemheading{Persistent compression}{it7:open-persistent}
+The coordinates discarded here are transient. Combine the shared label with the code-invisible sectors of Items~1 to~3, or with the flatness condition of \cref{it7:dictionaries}, so that the parent forgets coordinates that persist and that an admitted child-level probe still reads.
+
+\openproblemheading{The reciprocal potential}{it7:open-reciprocal}
+In the per-agent model a source feels no force from the receivers that attend to it. Under the reciprocal potential a parent that presents a pool receives source-role forces from every receiver, and Item~2 found that disagreement makes sources less certain there. Determine whether this loss of certainty offsets the $n$-fold sharpening of the shared row, and whether exact inheritance survives the source-role terms. This is the question about certainty raised in Item~3.
+
+\openproblemheading{Depth}{it7:open-depth}
+By \cref{it7:capture-distance} the capture distance falls roughly as $n^{-1/2}$. Determine the depth reached from random records, and whether partial pooling, with the members' costs added with weight $n^{p-1}$ for some $0<p<1$, allows any finite depth while keeping counterfactual dependence at every stage.
+
+\openproblemheading{Validated numerics}{it7:open-validated}
+Certify the first-stage events and the unions from the actual handoffs on an explicit open subset of $\mathcal A$ by interval integration, and with it the open-set form of (F5) and (F6a).
+
+\begingroup
+\small
+\setlength{\bibsep}{3pt}
+\bibliographystyle{plainnat}
+\bibliography{references,item1_refs,item2_refs,item7_refs}
+\endgroup
+\end{document}
