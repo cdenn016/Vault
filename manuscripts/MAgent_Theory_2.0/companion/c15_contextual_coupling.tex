@@ -1,0 +1,241 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Coupling Statistical Change Across Contexts}
+\label{comp:contextual-coupling}
+
+A context-local law flow can change a statistical section without comparing its values at neighboring contexts. Giving the connection a dynamical role requires an energy that reads those comparisons. The construction here penalizes the change of collective statistical shape after a common frame motion has been removed. Its gradient then adds a neighboring-context force to the reciprocal law dynamics. On a finite contextual graph this force is a sum of aligned geodesic displacements. On a continuum base it becomes a diffusion of shape coupled to local frame and routing equations.
+
+\section{The statistical material and its local forces}
+
+At each context, agent $i$ has normalized laws $q_i$ and $s_i$ on standard Borel state and model spaces. Restrict its joint law to $\zeta_i=q_i\otimes s_i$, with each factor in a finite-dimensional smooth statistical family. Assume quadratic-mean differentiability, centered square-integrable directional scores $\ell_U$, and a smooth positive-definite Fisher tensor after redundant coordinates have been removed. The family need not be Gaussian. Fixed bimeasurable comparisons place the agent laws in compatible target spaces, giving $p=(p_i)_i\in\mathcal N$. Use the actual normalized product experiment and its metric:
+\begin{equation}
+ P_p=\bigotimes_i p_i,\qquad
+ \mathsf G_p(U,W)=\sum_i g^F_{p_i}(U_i,W_i),\qquad
+ g^F_p(U,W)=\E_p[\ell_U\ell_W].
+ \label{comp:ctx:metric}
+\end{equation}
+Product scores add and their cross expectations vanish. Within each agent, the declared product restriction gives the sum of belief and model Fisher metrics. An unrestricted joint law would also carry dependence directions. The restriction is part of this dynamical model; the unrestricted law flow need not preserve it.
+
+Choose proper references $r_i(dm)$, normalized evaluators $G_i(m,dk)$, and normalized channels $\mathcal K^q_{ij}[p]$, $\mathcal K^s_{ij}[p]$. The channel rules may depend on all current laws but not on source rows. Put $R_i=r_iG_i$, $D^q_{ij}=\KL(q_i\Vert q_j\mathcal K^q_{ij}[p])$, and $D^s_{ij}=\KL(s_i\Vert s_j\mathcal K^s_{ij}[p])$. For finite nonempty source sets, positive normalized prior rows $\pi_i^q,\pi_i^s$, and temperatures $T_q,T_s>0$, the local potential is
+\begin{equation}
+ \begin{aligned}
+ V(p,\beta,\gamma)={}&\sum_i\KL(q_i\otimes s_i\Vert R_i)\\
+ &+\sum_i\left[\sum_j\beta_{ij}D^q_{ij}
+                         +T_q\KL(\beta_i\Vert\pi_i^q)\right]\\
+ &+\sum_i\left[\sum_j\gamma_{ij}D^s_{ij}
+                         +T_s\KL(\gamma_i\Vert\pi_i^s)\right].
+ \end{aligned}
+ \label{comp:ctx:potential}
+\end{equation}
+All displayed terms must be finite and sufficiently smooth on the chosen chart. Smooth Fisher geometry alone does not imply smooth KL costs. Data are fixed in evolution time; every declared law dependence is differentiated. In a justified density calculation this includes
+\begin{equation}
+ d\KL(a\Vert b)=\int\log(a/b)da-\int(a/b)db,\qquad
+ d(q_j\mathcal K[p])=(dq_j)\mathcal K[p]+q_jD\mathcal K[p](dp).
+ \label{comp:ctx:roles}
+\end{equation}
+Thus a source moves in response to its receivers as well as its own costs. This is the reciprocal law potential. The product experiment in \cref{comp:ctx:metric} specifies its mobility; it does not make this potential an ELBO of a fixed population model. Own-block per-agent updates omit some of \cref{comp:ctx:roles} and have no general total-energy dissipation identity.
+
+One finite-dimensional Lie group $G$ acts diagonally on $\mathcal N$ by sample pushforward, with its respective actions on the two sectors. Assume the family is stable under this action. Sample bijections preserve Fisher inner products, so the action is isometric. Write $J_p\xi=\left.\partial_a\right|_{a=0}\exp(a\xi)\cdot p$ for its fundamental tangent. Comparisons remain fixed in the evolution. Making them state dependent would change both the metric pullback and the variation.
+
+\section{A finite graph of contextual comparisons}
+
+Let the contextual vertices have masses $m_v>0$ and the unoriented edges have weights $w_e>0$. Choose one orientation $e:u\to v$ and an auxiliary group element $U_e$ carrying target coordinates from $u$ to $v$. Define
+\begin{equation}
+ c_e(p_u,p_v,U_e)=\frac12d_{\mathcal N}(p_v,U_e\cdot p_u)^2,
+ \qquad \mathcal C=\sum_e w_e c_e.
+ \label{comp:ctx:edge}
+\end{equation}
+The distance is intrinsic to the admitted Fisher family. Reversing this geometric edge uses $U_e^{-1}$ and leaves its cost unchanged. Independent attending links between agents at one context remain separate data; their opposite directions need not be inverses. Finite edge transports are group elements rather than connection one-forms \citep{LeokMarsdenWeinstein2005}.
+
+\hypothesisheading{A regular finite alignment branch}{comp:ctx:finite-branch}
+For every edge, choose a stationary transport where the compared endpoints have a unique minimizing geodesic, squared distance is smooth, and the transport Hessian is positive definite in group coordinates. Continue only the resulting local minimizing branch $U_e^*(p_u,p_v)$ while these conditions hold.
+
+The first variation of half squared distance at an endpoint is minus the geodesic logarithm toward the other endpoint. Varying $U_e$ as $\exp(a\xi)U_e$ therefore gives
+\begin{equation}
+ \mathsf G_{U_ep_u}\bigl(\operatorname{Log}_{U_ep_u}p_v,
+                                      J_{U_ep_u}\xi\bigr)=0.
+ \label{comp:ctx:finite-normal}
+\end{equation}
+The residual is orthogonal to a common frame motion. The implicit-function theorem supplies the smooth branch in \cref{comp:ctx:finite-branch}. Its transport derivative vanishes, so differentiation of $\mathcal C_*(p)=\mathcal C(p,U^*(p))$ keeps only endpoint derivatives. A local minimizing branch need not realize the global infimum over $G$.
+
+Give each interior source row its categorical Fisher metric and use
+\begin{equation}
+ \begin{aligned}
+ \mathbb G&=\sum_v m_v\left(\mathsf G_{p_v}
+                      +\sum_i g^F_{\beta_{iv}}+\sum_i g^F_{\gamma_{iv}}\right),\\
+ \mathcal F_*&=\sum_v m_v V_v+\lambda\mathcal C_*,\qquad\lambda\geq0.
+ \end{aligned}
+ \label{comp:ctx:finite-total}
+\end{equation}
+Up to the constant $\sum_vm_v$, this metric is the Fisher metric of an experiment that first samples the context with probability proportional to $m_v$, then samples its product laws and independent source labels. Its natural-gradient velocity \citep{Amari1998} is
+\begin{equation}
+ \dot p_v=-\operatorname{grad}_{\mathsf G}V_v
+ +\frac{\lambda}{m_v}\sum_{e=\{u,v\}}w_e
+       \operatorname{Log}_{p_v}(U^*_{v\leftarrow u}\cdot p_u).
+ \label{comp:ctx:finite-flow}
+\end{equation}
+Here the reversed orientation uses the inverse transport. The contextual force points toward aligned neighbors. The masses cancel from the local force, so zero coupling recovers the chosen unit-mobility reciprocal flow.
+
+For either sector, write its row as $\eta$, its temperature as $T$, and $h_j=D_j+T\log(\eta_j/\pi_j)$. Its equation and the total dissipation are
+\begin{equation}
+ \dot\eta_j=-\eta_j\left(h_j-\sum_l\eta_lh_l\right),\qquad
+ \frac{d\mathcal F_*}{dt}=-\|\dot p,\dot\beta,\dot\gamma\|_{\mathbb G}^2.
+ \label{comp:ctx:finite-dissipation}
+\end{equation}
+Pairing the centered row force with a mass-zero row variation gives minus its energy derivative. Pairing the full velocity with $d\mathcal F_*$ proves the second identity. With $C^3$ local potentials, the reduced field is $C^1$ in ordinary law and interior-row coordinates, so the integral equation is a contraction on a sufficiently short interval. This gives a unique local solution and its maximal continuation in the regular domain. Energy decrease does not prevent escape from that domain.
+
+Free action alone does not supply the branch hypothesis. For two planar Gaussian location means, let $SO(2)$ act on both columns and take $X_\epsilon=(e_1,(1+\epsilon)e_2)$ and $Y=(e_1,-e_2)$. Both configurations have trivial stabilizer near zero, but direct rotation gives
+\begin{equation}
+ \min_R\frac12\|X_\epsilon-RY\|_F^2
+       =2+\epsilon+\frac12\epsilon^2-|\epsilon|.
+ \label{comp:ctx:cusp}
+\end{equation}
+The minimizer switches from $I$ to $-I$, with every rotation minimizing at zero. The reduced energy is not differentiable there. Conversely, for compact $G$ acting freely at $p_0$, agreement of the contextual endpoints at $(p_0,p_0)$ has a unique minimizer and positive Hessian $\mathsf G(J\cdot,J\cdot)$; regular alignments exist near that agreement.
+
+\section{A continuum energy and its auxiliary connection}
+
+Supply the base $\mathcal C=\mathbb T^d=\R^d/(2\pi\mathbb Z)^d$ with its flat metric, normalized measure $d\mu=(2\pi)^{-d}d^dx$, and periodic data. Work in the trivial principal bundle, with comparisons independent of $x$ in this trivialization. For a periodic Lie-algebra-valued one-form $A=A_\mu dx^\mu$, set
+\begin{equation}
+ \begin{aligned}
+ D^A_\mu p&=\partial_\mu p+J_pA_\mu,\\
+ \mathcal F[p,b,A]&=\int_{\mathcal C}
+ \left[V(x,p,b)+\frac\lambda2\sum_\mu
+                  \|D^A_\mu p\|_{\mathsf G}^2\right]d\mu.
+ \end{aligned}
+ \label{comp:ctx:continuum-energy}
+\end{equation}
+where $b$ collects row log odds and $\lambda>0$. The connection has no separate kinetic term or evolution law. Assume a free proper isometric action on an invariant open region $\mathcal N_0$. Then the locked inertia $\mathfrak k_p(\xi,\eta)=\mathsf G_p(J_p\xi,J_p\eta)$ is positive, and the auxiliary equation is the strictly convex quadratic minimization
+\begin{equation}
+ \mathfrak k_p(A^*_\mu,\xi)
+       =-\mathsf G_p(\partial_\mu p,J_p\xi),\qquad
+ D^{A^*}_\mu p=P_H\partial_\mu p.
+ \label{comp:ctx:continuum-normal}
+\end{equation}
+Here $P_H$ is Fisher-orthogonal projection off the group orbit. This is the mechanical connection, familiar from separating rotations and internal shape \citep{LittlejohnReinsch1997}. Expanding a finite alignment as $U^*(\epsilon)=\exp[-\epsilon A(X)+O(\epsilon^2)]$ gives the residual $\epsilon(dp(X)+J_pA(X))+O(\epsilon^2)$, and \cref{comp:ctx:finite-normal} reduces to \cref{comp:ctx:continuum-normal}. This local expansion establishes consistency, without supplying a graph-refinement theorem.
+
+Use one adapted chart $p=\Psi(u,r)$, where $u$ parametrizes the quotient $\mathcal N_0/G$ and $r$ the group fiber. The metric has the form
+\begin{equation}
+ \mathsf G=h_{ab}(u)du^adu^b
+ +k_{\alpha\beta}(u,r)
+       (dr^\alpha+C^\alpha_a du^a)(dr^\beta+C^\beta_b du^b).
+ \label{comp:ctx:adapted-metric}
+\end{equation}
+Both $h$ and $k$ are positive. The horizontal vectors are $H_a=\partial_{u^a}-C^\alpha_a\partial_{r^\alpha}$, and $h$ is the quotient metric of the Riemannian submersion \citep{ONeill1966}. Auxiliary elimination gives
+\begin{equation}
+ \mathcal F_*[u,r,b]=\int_{\mathcal C}
+ \left[V(x,u,r,b)+\frac\lambda2h_{ab}(u)
+                         \partial_\mu u^a\partial_\mu u^b\right]d\mu.
+ \label{comp:ctx:reduced}
+\end{equation}
+Thus contextual energy sees shape variation. Pure common frame variation costs zero, and a transitive group action leaves no shape directions to regularize.
+
+\section{Diffusion of shape coupled to frame and row motion}
+
+For a row with $l$ entries, take $b_j=\log(\beta_j/\beta_l)$, $j<l$. Its Fisher matrix is $B_{jk}=\beta_j\delta_{jk}-\beta_j\beta_k$; collect these positive blocks for all rows. The field metric is the integral of \cref{comp:ctx:adapted-metric} and $db^TBdb$. It is the Fisher metric of a normalized experiment that samples $x\sim\mu$ and then the local product laws and source labels. Define the quotient tension
+\begin{equation}
+ \tau_h(u)^a=\Delta u^a+
+          \Gamma^a_{bc}(u)\partial_\mu u^b\partial_\mu u^c,
+ \label{comp:ctx:tension}
+\end{equation}
+with $\Gamma$ the Levi-Civita coefficients of $h$. Periodic integration by parts gives the energy derivatives $V_u-\lambda h\tau_h$, $V_r$, and $V_b$. The metric-gradient equations are
+\begin{equation}
+ \begin{aligned}
+ h u_t+C^Tk(r_t+Cu_t)&=-V_u+\lambda h\tau_h,\\
+ k(r_t+Cu_t)&=-V_r,\qquad B b_t=-V_b.
+ \end{aligned}
+\end{equation}
+Solving these equations yields
+\begin{equation}
+ \begin{aligned}
+ u_t&=\lambda\Delta u+\lambda\Gamma(u)(\partial_\mu u,\partial_\mu u)
+                           -h^{-1}(V_u-C^TV_r),\\
+ r_t&=-C(u,r)u_t-k(u,r)^{-1}V_r,\qquad
+ b_t=-B(b)^{-1}V_b.
+ \end{aligned}
+ \label{comp:ctx:coupled-pde}
+\end{equation}
+Fixed references may distinguish a frame direction, so $V_r$ need not vanish. The $C^TV_r$ term is then required by the Fisher metric. Transforming references, evaluators, and channels together with the laws is a passive covariance statement; it supplies no active symmetry with those data held fixed. A smooth frame change fixed in evolution time obeys $A'=gAg^{-1}-(dg)g^{-1}$ and carries the equations covariantly. A time-dependent change adds its coordinate velocity.
+
+The shape operator is the harmonic-map heat operator \citep{EellsSampson1964}. The complete law equation is degenerate in frame directions: its frame equation contains $u_t$ rather than an independent frame Laplacian. For each source row, \cref{comp:ctx:coupled-pde} reads
+\begin{equation}
+ \partial_t b_j=-(D_j-D_l)
+       -T\left(b_j-\log\frac{\pi_j}{\pi_l}\right).
+ \label{comp:ctx:log-odds}
+\end{equation}
+Bounded costs on a finite interval bound the log odds and keep rows positive. They do not provide a separate spatial smoothing estimate for rows. Instantaneous Gibbs rows $\beta_j^*\propto\pi_j e^{-D_j/T}$ instead replace their energy by $-T\log\sum_j\pi_j e^{-D_j/T}$, producing a different law-only flow.
+
+\theoremheading{Local continuum evolution}{comp:ctx:local-theorem}
+Assume the periodic geometry above, the declared regular finite-dimensional product family, a free proper action, and one adapted chart with smooth metric coefficients and finite smooth $V(x,u,r,b)$ on a neighborhood of the initial image. Fix $\lambda>0$, an integer $s>d/2+2$, and $m=s-1$. If $u_0\in H^s(\mathbb T^d)$, $r_0,b_0\in H^m(\mathbb T^d)$, and their pointwise image lies in a compact subset of the regular interior chart, then a unique local solution satisfies
+\begin{equation}
+ \begin{aligned}
+ u&\in C_tH^s_x\cap L^2_tH^{s+1}_x\cap H^1_tH^m_x,\\
+ r,b&\in C_tH^m_x\cap H^1_tH^m_x,\qquad b\in C^1_tH^m_x.
+ \end{aligned}
+ \label{comp:ctx:solution-class}
+\end{equation}
+It depends locally Lipschitz-continuously on the initial data in these norms on a common short interval, and continues while $\|u\|_{H^s}+\|r\|_{H^m}+\|b\|_{H^m}$ stays bounded and its image remains in a fixed compact subset of the chart.
+
+\begin{proof}
+Write the first equation as $u_t-\lambda\Delta u=F(z)$ with $z=(u,r,b)$, and the others as $r_t=-C(z)u_t+Q(z)$ and $b_t=L(z)$. Since $m>d/2$, products are bounded in $H^m$. Smooth composition on bounded sets with compact image is locally Lipschitz. The gradient product in $F$ also lies in $H^m$, because $u\in H^s$ gives $\partial_\mu u\in H^m$. Thus $F,C,Q,L$ are bounded and locally Lipschitz from $H^s\times H^m\times H^m$ into $H^m$.
+
+Fourier expansion of the forced heat equation gives, for $T\leq1$,
+\begin{equation}
+ \|v\|_{C_tH^s_x}+\|v\|_{L^2_tH^{s+1}_x}
+       +\|v_t\|_{L^2_tH^m_x}
+ \leq K_\lambda\bigl(\|v_0\|_{H^s}+\|f\|_{L^2_tH^m_x}\bigr).
+ \label{comp:ctx:heat-estimate}
+\end{equation}
+For each nonzero Fourier mode, multiply its equation by the $H^s$ weight times its conjugate and apply Young's inequality; $|k|^2(1+|k|^2)^s$ controls the $H^{s+1}$ weight. The zero mode is bounded by integrating its forcing. The equation itself bounds $v_t$, proving the estimate. Fourier approximation gives continuity at the initial time.
+
+On continuous paths in $H^s\times H^m\times H^m$, first solve the heat equation with forcing $F(z)$ to obtain $u^+$. Then define
+\begin{equation}
+ r^+(t)=r_0+\int_0^t[-C(z)u_t^++Q(z)]da,\qquad
+ b^+(t)=b_0+\int_0^tL(z)da.
+ \label{comp:ctx:iteration}
+\end{equation}
+The new heat derivative appears here, so the input path needs no time derivative. The heat estimate bounds $\|u_t^+\|_{L^2H^m}$ by a constant $A_T$ bounded as $T\downarrow0$. For two inputs at distance $D$ in the continuous-path norm, the zero-initial heat estimate bounds their output heat difference and derivative difference by $K_\lambda L_F\sqrt T D$. Splitting the fiber difference as $C(z)(u_t^+-\widetilde u_t^+)+(C(z)-C(\widetilde z))\widetilde u_t^+$ then bounds it by a constant times $(T+\sqrt T A_T)D$; the row difference is bounded by $TL_LD$. The map is therefore a contraction for small $T$.
+
+It preserves a bounded path set with small displacement in $H^m$: the homogeneous heat displacement is at most $\sqrt{\lambda T}\|u_0\|_{H^s}$, the forced displacement is $O(T)$, and the fiber displacement is $O(\sqrt T A_T+T)$. Sobolev embedding preserves the interior chart. The fixed point has \cref{comp:ctx:solution-class} by the heat estimate and the two integral equations. Keeping initial-data differences proves the stated dependence and uniqueness. Bounded norms and a fixed compact image make all these constants uniform, giving a uniform restart interval and hence the continuation assertion.
+\end{proof}
+
+The energy chain rule is valid in \cref{comp:ctx:solution-class}. Pairing the gradient equations with their velocities gives, almost everywhere in time,
+\begin{equation}
+ \frac{d\mathcal F_*}{dt}
+ =-\int_{\mathcal C}
+ \left[u_t^Thu_t+V_r^Tk^{-1}V_r+V_b^TB^{-1}V_b\right]d\mu.
+ \label{comp:ctx:continuum-dissipation}
+\end{equation}
+The energy is absolutely continuous and the integrated identity holds from the initial time. Its decrease controls the total energy, without supplying the higher Sobolev bounds in the continuation criterion. Setting $\lambda=0$ instead gives a locally Lipschitz ODE in $H^m$ for all coordinates. The extra derivative assigned to $u$ need not persist in that ODE, and the positive-coupling heat estimates are not uniform as $\lambda\downarrow0$.
+
+\section{An exact amplitude that diffuses across contexts}
+
+Take two agents on $\mathcal C=S^1$, with $q_i=\mathcal N(\mu_i,I_2)$, $s_i=\mathcal N(\nu_i,I_2)$, $r_i=\mathcal N(0,I_2)$, and $G_i(m,dk)=\mathcal N(m,I_2)(dk)$. Each agent attends only to the other through an identity channel in each sector. The rows are therefore singleton rows. Direct integration gives the local contribution $\frac12\|\mu_i-\nu_i\|^2+\frac12\|\nu_i\|^2+1$, so both sectors participate. With $P=(\mu_1,\nu_1,\mu_2,\nu_2)$ the full reciprocal potential is
+\begin{equation}
+ V(P)=2+\frac12\langle P,PH\rangle_F,\qquad
+ H=\begin{pmatrix}
+ 3&-1&-2&0\\-1&4&0&-2\\-2&0&3&-1\\0&-2&-1&4
+ \end{pmatrix}.
+ \label{comp:ctx:gaussian-potential}
+\end{equation}
+The Fisher metric is Frobenius. A common $SO(2)$ rotation acts on all columns and is free whenever $P\ne0$. For $J=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$, write $A_x=\alpha J$. The auxiliary equation and law flow become
+\begin{equation}
+ \alpha_*=-\frac{\langle P_x,JP\rangle_F}{\|P\|_F^2},\qquad
+ P_t=-PH+\lambda(\partial_x+\alpha_*J)^2P.
+ \label{comp:ctx:matrix-flow}
+\end{equation}
+The derivative in the last expression acts on $\alpha_*$ as well as $P$. It follows by first varying with $\alpha$ fixed, using skew adjointness of $\partial_x+\alpha J$, and then substituting its auxiliary minimizer.
+
+Put $\tau=(\sqrt5-1)/2$, $\kappa=5-\tau$, $v=(1,\tau,-1,-\tau)^T$, and $P_0=e_1v^T$. Let $R_\varphi=\exp(\varphi J)$. Since $Hv=\kappa v$, the field $P(t,x)=R_{\varphi(x)}a(t,x)P_0$, with smooth periodic phase $|\varphi|<\pi/4$ and positive amplitude $a$, obeys
+\begin{equation}
+ \alpha_*=-\varphi_x,\qquad
+ a_t=\lambda a_{xx}-\kappa a,\qquad \varphi_t=0.
+ \label{comp:ctx:amplitude}
+\end{equation}
+The connection removes phase variation from the spatial derivative. The remaining amplitude is gauge invariant: $a=\|P\|_F/\|P_0\|_F$. For $n\geq1$ and $a_0>|a_1|>0$, an exact solution is
+\begin{equation}
+ a(t,x)=a_0e^{-\kappa t}
+              +a_1e^{-(\kappa+\lambda n^2)t}\cos(nx).
+ \label{comp:ctx:exact-amplitude}
+\end{equation}
+It remains positive at every finite time. Relative to the constant mode, the oscillatory mode decays by $e^{-\lambda n^2t}$; without contextual coupling that ratio stays fixed. Initial profiles with frequencies one and two have identical laws and first derivatives at $x=0$, but their local velocities differ by $-3\lambda a_1R_{\varphi(0)}P_0$. Neighboring contextual variation has become a force. The statistical shape approaches the singular zero-mean orbit only at infinite time in this explicit solution.
+
+This example uses a restricted Gaussian location family and singleton rows; it supplies no invariant Gaussian family for the full density flow and no test of nontrivial row dynamics. The continuum theorem concerns a supplied torus, one regular chart, fixed comparisons, and a fixed agent census. It leaves unrestricted density families, singular orbit changes, nontrivial base bundles, boundary problems, graph refinement, and global continuation open. Independent rows and communication links acquire no separate diffusion, and pure common frame variation remains unpenalized. Deriving contextual displacement transports from the agents' communication links is a further construction.
