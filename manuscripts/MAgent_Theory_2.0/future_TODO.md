@@ -6,7 +6,7 @@ Recorded 2026-10-22. This file is a planning note, not part of the scientific te
 
 At each context c, the current manuscript has the shape of a lattice gauge theory on the directed agent graph. Agents are sites; directed edges carry links Θ_ij = U_i e^{L_ij} U_j^{-1}, or equivalently Lie-algebra generators L_ij; the frames U_i act as site gauge transformations; the source rows β_ij, γ_ij are routing weights on edges; and the belief and model laws are statistical matter on sites. Agents interact only where their domains overlap. With L_ij = 0 a link is pure gauge, so all curvature comes from the generators.
 
-It is not yet a lattice gauge theory in the dynamical sense. The links are constitutive functions of the agent laws (`def:int-generator`), with no inference, no dynamics of their own, and no gauge-invariant loop action. Per-agent frame covariance is a dressing statement that constrains nothing (chapter 1); the only substantive symmetry requirement is reference equivariance (`hyp:int-reference-consistency`), imposed where a result uses it. All dynamics is pointwise at a single context: nothing couples neighboring contexts, smoothness of the sections along the base is an assumption rather than a consequence, and the base connection is computed from the evolved sections afterwards as a diagnostic.
+It is not yet a lattice gauge theory in the dynamical sense. The links are constitutive functions of the agent laws (`def:int-generator`), with no inference, no dynamics of their own, and no gauge-invariant loop action. Per-agent frame covariance is a dressing statement that constrains nothing (chapter 1); the only substantive symmetry requirement is reference equivariance (`hyp:int-reference-consistency`), imposed where a result uses it. The original context-local and formation dynamics remain pointwise. The contextual-coupling chapter added on 2026-10-23 supplies finite-graph and periodic continuum forces for law shape under explicit regularity hypotheses; the broader smoothness and independent-sector targets below remain open.
 
 ## Standing decision
 
@@ -74,6 +74,8 @@ Working document: `Item_3_curvature_hierarchy.tex` (contents penalize curvature 
 ### 4. Coupling neighboring contexts
 
 Add a covariant gradient energy along the base, so that smoothness of beliefs, models, rows, links and frames is produced by the dynamics instead of assumed. The candidate is a contextual energy of the form ∫ |D^ω ζ|² over the base with the connection ω entering the covariant derivative, which makes the collective normal equation of chapter 2 the auxiliary-field equation of a gauged sigma model (`open:geo-gauged-flow`). Required: the continuum and finite-design versions, compatibility with the per-context dynamics, well-posedness on a declared chart, and a statement of what the connection now does dynamically.
+
+Integrated partial result (2026-10-23): `chapters/15_contextual_coupling.tex` and `companion/c15_contextual_coupling.tex` give finite regular-branch Fisher dynamics and a continuum local Sobolev theorem on a supplied flat torus, including nonbasic reference forces, exact total-energy dissipation, and explicit two-sector witnesses. The connection is algebraically eliminated and its alignment now contributes to law velocity. This establishes shape coupling only. Independent row, link, and frame smoothing, global and singular-regime analysis, nontrivial base bundles, and refinement remain open. Items 5, 6, and 7 are not settled by this result.
 
 ### 5. From agent links to base transport
 
