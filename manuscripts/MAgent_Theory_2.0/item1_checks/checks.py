@@ -441,3 +441,19 @@ for eps in (1e-2, 1e-3):
     xs = [eps * d for d in dirs]
     H = expm(xs[2]) @ expm(xs[1]) @ expm(xs[0])
     print("(9k) eps =", eps, ": |log H - sum x| / eps^2 =", np.abs(logm(H).real - sum(xs)).max() / eps ** 2)
+
+# (10) Location families beyond Gaussian noise: Student-t noise, Fisher form tr(J_f T delta C delta^T T^T).
+nu, Kt, rt, ns = 5.0, 3, 2, 400000
+Tt = rng.standard_normal((rt, Kt)); th_t = expm(0.3 * rng.standard_normal((Kt, Kt)))
+Mt = spd(Kt) / Kt; Lt = np.linalg.cholesky(Mt)
+Ct = np.linalg.inv(th_t) @ Mt @ np.linalg.inv(th_t).T
+dl_t = rng.standard_normal((Kt, Kt))
+ys_t = rng.standard_normal((ns, Kt)) @ Lt.T
+eps_t = rng.standard_t(nu, size=(ns, rt))
+grad_logf = -(nu + 1) * eps_t / (nu + eps_t ** 2)
+dmu = ys_t @ np.linalg.inv(th_t).T @ dl_t.T @ Tt.T                      # rows: T delta theta^{-1} y
+score = np.sum(grad_logf * dmu, axis=1)
+Jf = (nu + 1) / (nu + 3) * np.eye(rt)
+pred_t = np.trace(Jf @ Tt @ dl_t @ Ct @ dl_t.T @ Tt.T)
+print("(10) Student-t location family: Monte Carlo Fisher", np.mean(score ** 2), " formula", pred_t,
+      " relative difference", abs(np.mean(score ** 2) - pred_t) / pred_t)
