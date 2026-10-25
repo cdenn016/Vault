@@ -11,7 +11,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-10-03
+updated: 2026-10-25
 ---
 
 # Template routing
@@ -19,6 +19,16 @@ updated: 2026-10-03
 ## Unified inference and implementation boundary, October 3, 2026
 
 [[dennis-2026-attention-unified]] preserves both constructions: mean-field responsibilities $\rho_a\propto\pi_a e^{-\mathrm{KL}(q\Vert p_a)}$ and the different structured posterior produced by a Gaussian evidence message. The implemented block is a local-coordinate, untied-value mean readout with covariance passthrough and configured training dropout. It is not the structured posterior or the reference-coordinate covariant variant. Tying values alone is insufficient for a universal natural-gradient claim; the stated metric, covariance assumptions, and step rule matter. The main GL(K) manuscript's arbitrary MLP is therefore not retrospectively derived by this replacement candidate.
+
+## Prototype layer as an agent generative model, October 24, 2026
+
+The `prototype_agents` block (the minimal-agent form of template routing) is an exact instance of the MAgent definition of an agent's generative model at one context: reference law $\pi$ on template labels, evaluator $\mathcal N(\nu_a,\Lambda_a)$, and record kernel $\mathcal N(o;k,C_i)$ observed at the token's incoming mean. This is the identity-projection case of extreme deconvolution ([[bovy-2011-extreme-deconvolution]]); the exact block's mean and covariance are the second-order form of Tweedie's formula ([[efron-2011-tweedie-formula]]), and its moment collapse is one assumed-density-filtering step ([[minka-2001-expectation-propagation]]). The `gaussian_template` gate is the generative gate of [[xu-1995-alternative-mixtures-of-experts]] with constant experts.
+
+The session analysis (VFE_3.0 `docs/research/2026-10-24-mlp-generative-models/report.md` and its geometry memo) adds conditions. The species condition of the theory also requires equal record kernels, so a shared reference bank alone does not make a layer one species. The free energy equals negative log evidence only at the full correlated posterior, not for the product law the diagnostic evaluates. The incoming record is the layer-normed mean, which pairs with the pre-norm covariance unless the norm's covariance pushforward is enabled.
+
+Two exact readings of a feed-forward block are distinguished. A normalized, tied, shared-covariance softmax gate is the exact one-of-$M$ mixture posterior mean. A factorial latent-feature model gives an MLP after one inference step from zero: MAP with a proximal activation ([[gregor-2010-lista]]) or mean field with a posterior-mean activation, which is monotone because its derivative is a variance. GELU is non-monotone, so it is neither; its exact reading is the stochastic gate of [[hendrycks2016gaussian]].
+
+> [!note] Editorial: Extensions discussed but not implemented include a persistent label belief across depth (the switching-model structure of [[ghahramani-2000-switching-state-space]]), and templates as meta-agents refit in context from the causal prefix, with precedents in EM routing ([[hinton-2018-matrix-capsules-em-routing]]), slot attention ([[locatello-2020-slot-attention]]), streaming Bayesian updates ([[broderick-2013-streaming-variational-bayes]]) and fast weight memories ([[schlag-2021-fast-weight-programmers]]). The "not implemented" status lines in the Gauge status and Structured posterior sections below predate VFE_3.0's `block_coordinates="reference"` path and the exact `prototype_agents` inference, both of which are now implemented and opt-in.
 
 Template routing replaces the residual block MLP of the [[VFE Transformer Program|vfe3 transformer]] with variational inference over a bank of learned Gaussian templates ("concept agents"). It answers the question the [[dennis-2026-glk-matrix-links-2026-09-20|matrix-links manuscript]] left open, namely what the GELU MLP after each attention step computes and why it is there, by deriving a block of the same shape from a mixture-prior free energy. The derivations and their scope are recorded in [[dennis-2026-template-routing]].
 
@@ -68,10 +78,10 @@ Reading the attention output as a Gaussian message about the state, the exact po
 
 ## Open questions
 
-Whether template routing matches the GELU MLP at matched parameters and seeds; whether softmax competition needs more templates than independent gates; whether trained templates are interpretable (inspect top-responsibility tokens); whether routing correlates with $\mathrm{tr}\,\Sigma_i$ as predicted. The last is uncertain in practice because the belief covariance in recent runs has behaved as a near-static prior (see [[VFE Transformer Program]], 2026-06-29 finding). Extensions not built: covariant form, regression blocks $B_a$, independent gates, covariance update, joint softmax over peers and templates.
+Whether template routing matches the GELU MLP at matched parameters and seeds; whether softmax competition needs more templates than independent gates; whether trained templates are interpretable (inspect top-responsibility tokens); whether routing correlates with $\mathrm{tr}\,\Sigma_i$ as predicted. The last is uncertain in practice because the belief covariance has no data-precision term and acts as a learned prior (see [[Precision weighting]]). Extensions not built: covariant form, regression blocks $B_a$, independent gates, covariance update, joint softmax over peers and templates.
 
 A different objective-based answer to the same MLP question is the conditional neuron-free construction of [[dennis-2026-neuron-free-agent-theory]], where nonlinearity comes from inference over source labels and Gamma-distributed record precisions rather than from a template bank; that report is inconclusive for the full replacement question.
 
 ## Sources
 
-[[dennis-2026-template-routing]], [[hoover-2023-energy-transformer]], [[yu-2023-white-box-transformers-sparse-rate-reduction]], [[sukhbaatar-2019-persistent-memory]], [[geva-2021-ffn-key-value-memories]], [[ramsauer2021hopfield]], [[ghahramani-1994-incomplete-data-em]], [[jacobs-1991-mixtures-of-local-experts]], [[hershey-2007-kl-gmm]], [[elfwing-2018-silu]], [[hendrycks2016gaussian]], [[friston2008hierarchical]]
+[[dennis-2026-template-routing]], [[hoover-2023-energy-transformer]], [[yu-2023-white-box-transformers-sparse-rate-reduction]], [[sukhbaatar-2019-persistent-memory]], [[geva-2021-ffn-key-value-memories]], [[ramsauer2021hopfield]], [[ghahramani-1994-incomplete-data-em]], [[jacobs-1991-mixtures-of-local-experts]], [[hershey-2007-kl-gmm]], [[elfwing-2018-silu]], [[hendrycks2016gaussian]], [[friston2008hierarchical]], [[bovy-2011-extreme-deconvolution]], [[xu-1995-alternative-mixtures-of-experts]], [[efron-2011-tweedie-formula]], [[minka-2001-expectation-propagation]], [[gregor-2010-lista]], [[ghahramani-2000-switching-state-space]], [[hinton-2018-matrix-capsules-em-routing]], [[locatello-2020-slot-attention]], [[broderick-2013-streaming-variational-bayes]], [[schlag-2021-fast-weight-programmers]]

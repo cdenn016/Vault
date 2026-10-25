@@ -10,6 +10,11 @@ updated: 2026-10-20
 
 # CS-ML MOC
 
+
+## Stepwise EM and filtering references, October 25, 2026
+
+[[cappe-2009-online-em]], [[albert-1993-probit-data-augmentation]], [[rauch-1965-rts-smoother]], [[meng-1994-em-convergence-rates]], [[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]], [[varadhan-2008-squarem]] and [[barber-2006-expectation-correction]] support the backprop-free local-learner test [[vfe3-2026-10-25-local-learner-test]] and its switching follow-up; see [[Variational EM]].
+
 ## Transformer layers derived from an objective, October 6, 2026
 
 [[yang-2022-transformers-optimization-perspective]] (NeurIPS 2022) gives an energy whose majorization-minimization and alternating gradient steps reproduce softmax self-attention, a symmetric feed-forward map and ReLU, with descent theorems and energy-descent curves as evidence. [[hoover-2023-energy-transformer]] (NeurIPS 2023) builds a recurrent block as gradient descent of an engineered attention-plus-Hopfield energy and reports masked-image completion and graph benchmarks. [[yu-2023-white-box-transformers-sparse-rate-reduction]] (NeurIPS 2023) derives attention and a sparse-coding MLP from sparse rate reduction and comes within 1.6 top-1 points of ViT-S on ImageNet-1K at about 22M parameters. All three train by backpropagation. Synthesis: [[Attention mechanisms — theory and positional structure]], [[GL(K) gauge-equivariant attention]].
@@ -24,17 +29,21 @@ updated: 2026-10-20
 
 [[multiagentelbo-2026-10-04-lie-algebra-links]] (2026-10-04) brings latent Lie-algebra links into the multi-agent theory. Their natural-gradient recognition flow has the Bayesian learning rule as its Euler step, and their field equation has the delta-rule current. It does not claim an identification with a trained fast-weight architecture. Drafted by Claude Opus 5.5 and cross-checked by Claude Fable 5.1; nothing trained.
 
-[[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) derives the standard multi-head value path as the first-order channel of a group-valued exponential link, with order zero a head-routed flat transport and order two cross-head mixing, and states the implemented `content_link_chart` options as three charts of the same tiled mean maps. In the matched single-seed $K=20$ runs of [[vfe3-2026-10-03-link-charts-and-channel-receiver]] the charts reached test cross-entropies within 0.0037 nats, while the trained links differed in singular-set crossing and conditioning; the closed-form channel receiver was 0.0276 nats worse in a configuration that does not isolate it.
+[[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) derives the standard multi-head value path as the first-order channel of a group-valued exponential link, with order zero a head-routed flat transport and order two cross-head mixing, and states the implemented `content_link_chart` options as three charts of the same tiled mean maps.
 
-[[vfe3-2026-10-05-k30-multiseed]] (2026-10-05) measures the seed noise floor of one VFE_3.0 configuration ($K=30$, four layers, one epoch) over three seeds: test PPL 87.19 with SD 0.33 and test CE SD 0.0037 nats, so single-seed differences under about 0.9 PPL are not established there.
-
-[[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) presents attention as communication among statistical agents, with a standard transformer layer as the affine chart of a routed group-link transport, and anchors its language model on [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] (2026-10-05): a $K=128$ exponential-chart model at test perplexity 34.48 (one seed). The October 7 revision ([[dennis-2026-glk-attention-v2-review-2026-10-07]]) compares it with a per-type read-table transformer of nearly equal size trained under the same protocol ([[vfe3-2026-10-06-block-read-baseline]], 55.10, one seed); the earlier pairs against plain transformers (39.77 against 90.15, 52.91 against 117.63) were an earlier study and are not paper results.
+[[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) presents attention as communication among statistical agents, with a standard transformer layer as the affine chart of a routed group-link transport. Its October 7 revision is [[dennis-2026-glk-attention-v2-review-2026-10-07]].
 
 [[barbero-2022-sheaf-attention-networks]] (2022; abstract only) extends graph attention networks to cellular sheaves and reports gains over GAT on oversmoothing and heterophily benchmarks. [[barbero-2022-sheaf-neural-networks-connection-laplacians]] (2022) precomputes orthogonal sheaf restriction maps by local PCA and SVD alignment, giving a discrete $O(d)$-bundle with a connection Laplacian, and nears learned-sheaf diffusion at lower cost on nine node-classification sets. [[disipio-2025-curved-spacetime-transformers]] (2025) reads attention as a discrete connection by analogy with general relativity and measures layerwise turning angles of token trajectories against a random-direction null. [[favoni-2022-lattice-gauge-equivariant-cnns]] (2022) builds gauge-equivariant convolution and bilinear layers on $\mathrm{SU}(N_c)$ lattice links that generate Wilson loops.
 
 ## vfe3 projected attention routes, October 2, 2026
 
-[[dennis-2026-projected-gradient]] derives the receiver energies, cut-model routing, closed-form natural-parameter updates and profiled self-coupling of the gradient attention route; [[vfe3-2026-10-02-projected-route-consolidation]] records their implementation and the retirement of transported attention (CPU tests only, no training). [[dennis-2026-phi-natgrad]] gives the frame-table optimizers, and [[dennis-2026-neuron-free-agent-theory]] a conditional neuron-free construction (inconclusive for the full target). Synthesis: [[Projected gradient attention]].
+[[dennis-2026-projected-gradient]] derives the receiver energies, cut-model routing, closed-form natural-parameter updates and profiled self-coupling of the gradient attention route; their implementation and the retirement of transported attention are recorded in `VFE_3.0/docs/2026-10-02.md`. [[dennis-2026-phi-natgrad]] gives the frame-table optimizers, and [[dennis-2026-neuron-free-agent-theory]] a conditional neuron-free construction (inconclusive for the full target). Synthesis: [[Projected gradient attention]].
+
+## vfe3 minimal-agent readout, October 6, 2026
+
+## Feed-forward blocks as generative-model inference, October 24, 2026
+
+[[xu-1995-alternative-mixtures-of-experts]], [[gregor-2010-lista]], [[hinton-2018-matrix-capsules-em-routing]], [[locatello-2020-slot-attention]], [[schlag-2021-fast-weight-programmers]], [[ghahramani-2000-switching-state-space]], [[minka-2001-expectation-propagation]] and [[broderick-2013-streaming-variational-bayes]] support the generative-model reading of the prototype block MLP in [[Template routing]] and the template-as-meta-agent reading in [[Meta-agents and hierarchical emergence]].
 
 ## Feed-forward memory and mixture-of-experts references, September 27, 2026
 

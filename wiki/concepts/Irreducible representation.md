@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-10-02
+updated: 2026-10-25
 ---
 
 # Irreducible representation
@@ -41,7 +41,7 @@ This matters concretely for the model's gauge machinery. Per-token beliefs and g
 
 ## In this work
 
-> [!note] Status (2026-10-02). In the VFE_3.0 implementation `gauge_group='so_n'` is reconnected to both projected attention routes, but only with `n_heads` equal irrep blocks, one per head, because the operators, scorer and per-head priors read the irrep dimensions per head. Unequal irrep towers would require decoupling heads from irrep blocks and remain open. Measured so_n equivariance residuals were about $1.5\times10^{-13}$ on tiny CPU configurations ([[vfe3-2026-10-02-projected-route-consolidation]]). The `tied_block_glk`, `so_k`, `sp` and `sp_n` groups mentioned elsewhere in the wiki are retired there.
+> [!note] Status (2026-10-02). In the VFE_3.0 implementation `gauge_group='so_n'` is reconnected to both projected attention routes, but only with `n_heads` equal irrep blocks, one per head, because the operators, scorer and per-head priors read the irrep dimensions per head. Unequal irrep towers would require decoupling heads from irrep blocks and remain open. Tiny CPU configurations check its equivariance (`VFE_3.0/docs/2026-10-02.md`). The `tied_block_glk`, `so_k`, `sp` and `sp_n` groups mentioned elsewhere in the wiki are retired there.
 
 Irreps surface wherever the config's gauge-theoretic vocabulary touches typed, coupled features:
 

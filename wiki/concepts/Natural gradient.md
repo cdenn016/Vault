@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-10-25
 ---
 
 # Natural gradient
@@ -78,15 +78,10 @@ positive scale.
 
 Natural gradient surfaces wherever the VFE transformer optimizes a distribution:
 
-- **Frame M-step.** The committed gate at each recorded SHA routes the frame table through AdamW, subject to the dirty-provenance caveat. Optional per-block conditioning and heavy-ball are inactive fields, not an identified Fisher/K-FAC natural gradient; the BCH retraction dispatcher is a separate optional in-E-step route.
-- **Opt-in frame pullback group descent.** The rebuilt 2026-07-18 route is a stateless
-  exponential-coordinate Frobenius-pullback solve followed by a right group update. Its first
-  retained K=10 run was numerically healthy but optimized outer cross-entropy slowly: validation
-  PPL fell from 456.32 at step 1,500 to 365.57 at step 9,000, while the pulled-back direction stayed
-  0.991 cosine-aligned with the raw covector, the median generalized condition number stayed near
-  1.90, and no trust/backtracking reduction activated. This is evidence about an extrinsic frame
-  optimizer, not a Fisher natural gradient. The exact K=10 AdamW gap is not reconstructable from
-  the retained artifacts, and the registered pullback learning-rate sweep remains incomplete.
+- **Frame M-step.** The frame table is trained by AdamW by default. Optional per-block conditioning and heavy-ball are inactive fields, not an identified Fisher/K-FAC natural gradient; the BCH retraction dispatcher is a separate optional in-E-step route.
+- **Opt-in frame pullback group descent.** The 2026-07-18 route is a stateless exponential-coordinate
+  Frobenius-pullback solve followed by a right group update. It is an extrinsic frame optimizer, not a
+  Fisher natural gradient.
 - **E-step / online belief updates.** The per-token Gaussian beliefs $(\mu,\Sigma)$ are refined with the belief-family Fisher geometry. [[khan-rue-2023-bayesian-learning-rule]] supplies a related exponential-family natural-parameter update, but it does not identify the entire program or its separate decode/frame M-steps with one Bayesian learning rule. Adaptive-optimizer cautions must therefore be assessed per optimizer rather than transferred from the belief update to every channel.
 - **SPD covariance geometry.** The covariance $\Sigma$ lives on the SPD
   manifold under the `spd_affine` retraction. For a zero-mean Gaussian, the
@@ -129,7 +124,7 @@ Two later notes give the program natural gradients with a stated statistical mod
 
 ## Fisher metric of a link and the singular boundary (2026-10-02)
 
-[[dennis-2026-link-curvature]] pulls the Fisher-Rao metric back through the action $N(\mu,\Sigma)\mapsto N(g\mu,g\Sigma g^\top)$ of a group element: for $\delta g=Ag$ and output Cholesky factor $L'$, $ds^2=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$ with $Z=L'^{-1}AL'$ and $\eta=L'^{-1}\mu'$, the same metric as in [[dennis-2026-phi-natgrad]] but for a link acting on a source belief. In the exponential chart $A=\frac{e^{\mathrm{ad}_X}-1}{\mathrm{ad}_X}\delta X$. Along $g_t=\mathrm{diag}(e^{-t},1,\dots,1)$ the divergence is $\mathrm{KL}(q_t\|q_0)\sim t=-\log\sigma_{\min}$ and the Fisher-Rao distance is at least $\sqrt2\,t$, so the singular boundary of $\mathrm{GL}(K)$ is at infinite Fisher distance, while in the affine chart with Euclidean metric it is at finite distance $\sigma_{\min}$. An additive update $M\leftarrow M-\eta\Delta$ can cross $\det=0$ in one step when $\eta\|\Delta\|_2\ge\sigma_{\min}(M)$ with $\Delta$ aligned to the smallest singular direction; a multiplicative update $g\leftarrow e^{-\eta A}g$ cannot, since $\det(e^{-\eta A}g)=e^{-\eta\,\mathrm{tr}A}\det g\neq0$. The loss does not diverge there (covariance floors), so the barrier is a property of the update geometry. The note compares with the finished run 54.73 (content learning rate $2.5\times10^{-3}$, AdamW, $\sigma_{\min}$ of the stacked operator $10^{-5}$ to $4\times10^{-3}$) as an order-of-magnitude estimate only, not a measurement of crossings, and states that the link actually applied in that run ($I+M$) stayed far from the boundary. Multiplicative, Fisher-preconditioned updates for the content maps are suggested and not implemented or tested.
+[[dennis-2026-link-curvature]] pulls the Fisher-Rao metric back through the action $N(\mu,\Sigma)\mapsto N(g\mu,g\Sigma g^\top)$ of a group element: for $\delta g=Ag$ and output Cholesky factor $L'$, $ds^2=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$ with $Z=L'^{-1}AL'$ and $\eta=L'^{-1}\mu'$, the same metric as in [[dennis-2026-phi-natgrad]] but for a link acting on a source belief. In the exponential chart $A=\frac{e^{\mathrm{ad}_X}-1}{\mathrm{ad}_X}\delta X$. Along $g_t=\mathrm{diag}(e^{-t},1,\dots,1)$ the divergence is $\mathrm{KL}(q_t\|q_0)\sim t=-\log\sigma_{\min}$ and the Fisher-Rao distance is at least $\sqrt2\,t$, so the singular boundary of $\mathrm{GL}(K)$ is at infinite Fisher distance, while in the affine chart with Euclidean metric it is at finite distance $\sigma_{\min}$. An additive update $M\leftarrow M-\eta\Delta$ can cross $\det=0$ in one step when $\eta\|\Delta\|_2\ge\sigma_{\min}(M)$ with $\Delta$ aligned to the smallest singular direction; a multiplicative update $g\leftarrow e^{-\eta A}g$ cannot, since $\det(e^{-\eta A}g)=e^{-\eta\,\mathrm{tr}A}\det g\neq0$. The loss does not diverge there (covariance floors), so the barrier is a property of the update geometry. Multiplicative, Fisher-preconditioned updates for the content maps are suggested and not implemented or tested.
 
 ## Latent links and the link Fisher (2026-10-03)
 

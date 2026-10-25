@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-10-24
 ---
 
 # Meta-agents and hierarchical emergence
@@ -177,6 +177,12 @@ It is exercised by the `'hierarchy'` preset (species × coalition gated membersh
 
 [[dennis-2026-backprop-free-vfe-language-architecture]] gives a causal language-oriented criterion that sharpens the existing operational parent contract. A proposed word, phrase, or idea parent must retain enough of the consumed prefix to predict future tokens at a declared memory budget; internal coherence, sharp membership, or a higher coarse ELBO is insufficient. For a deterministic retained prefix statistic, the excess one-step log loss decomposes into discarded conditional mutual information plus decoder error. The source treats explicit-duration parents, finite grammar/tree hypotheses, and Bayesian context memory as candidate non-neural parent laws. It leaves activation rules, practical retention tests, and semantic composition open, and does not convert finite formation constructions into a general language-hierarchy result.
 
+## Gaussian template banks as meta-agents, October 24, 2026
+
+A learned Gaussian template bank in the vfe3 block MLP can be read as a population of parents. The EM M-step of a template, given responsibilities $w_{ia}$ and component posteriors $\mathcal N(m_{ia},P_{ia})$, is the forward-KL barycenter $\arg\min_q\sum_iw_{ia}\mathrm{KL}(\mathcal N(m_{ia},P_{ia})\Vert q)$ with between-child dispersion retained, the definition above at $\lambda=0$; the top-down step is the template acting as each token's prior. The closest published precedents run both directions inside a forward pass: parents fitted to children's votes by EM ([[hinton-2018-matrix-capsules-em-routing]]) and slots competing for inputs ([[locatello-2020-slot-attention]]). A causal in-context version, needed for a language model, would update the parent from the prefix only, by the sequential rule of [[broderick-2013-streaming-variational-bayes]], keeping a fast weight memory of sufficient statistics ([[schlag-2021-fast-weight-programmers]]).
+
+> [!note] Editorial: The barycenter identity was checked numerically in the 2026-10-24 session (single-threaded numpy, two dimensions). The vfe3 bank is currently refit only across the training corpus, so it is a corpus-level population of parents rather than meta-agents formed from the current population. The separate model frame used on this page comes from the earlier participatory framework; MAgent Theory 2.0 (`01_foundations.tex`, presentation-and-probability section) uses one structure-group element for both sectors and does not admit independent model frames.
+
 ## Sources
 
 - [[participatory-it-from-bit]] — source manuscript: gauge-covariant multi-agent variational inference on a $GL(K)$-bundle, with the Ouroboros meta-agent emergence simulation that this construction implements.
@@ -186,6 +192,8 @@ It is exercised by the `'hierarchy'` preset (species × coalition gated membersh
 - [[dietrich-list-2016-opinion-pooling]], [[genest-zidek-1986-pooling]] — probabilistic opinion-pooling theory (linear vs logarithmic pools) the gauge-covariant moment averaging generalizes.
 - [[waade-2025-as-one-and-many]] — collective active inference treating a group as a single agent, the active-inference framing of the meta-agent / top-down feedback loop.
 - [[newman-girvan-2004-community-structure]] — modularity-based community detection, the graph-theoretic precedent for the pair-edge `find_clusters` consensus-graph scheme.
+- [[hinton-2018-matrix-capsules-em-routing]], [[locatello-2020-slot-attention]] — EM-style parent formation (capsules) and slot competition inside a forward pass, precedents for templates as meta-agents.
+- [[broderick-2013-streaming-variational-bayes]], [[schlag-2021-fast-weight-programmers]] — sequential posterior updating and fast weight memories for causal in-context parents.
 - [[geshkovski-2023-mathematical-transformers]] — clustering/condensation dynamics of tokens in transformers, a mathematical analogue of the meta-agent condensation phase transition.
 - [[simon-1962-architecture-complexity]], [[maynard-smith-1995-major-transitions]] — staged assembly through stable subassemblies as the canonical account of why hierarchies exist.
 - [[zhou-2005-discrete-hierarchy-group-sizes]], [[palla-2007-social-group-evolution]] — empirical layering (branching ratio near three) and accretion dynamics of human groups.

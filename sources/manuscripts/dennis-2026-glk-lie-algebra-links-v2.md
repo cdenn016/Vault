@@ -25,7 +25,7 @@ With categorical routing kept outside the exponent, the complement split $\exp(O
 
 A new Section 7 reads the same channels as evidence about the receiver. With channel covariance $R_{hj}=T_h\bar C_jT_h^\top+Q_h^{\mathrm{ch}}$, routing weights as likelihood powers and a Gaussian prior, the receiver energy has the unique minimizer $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\lambda_\alpha\Lambda^{-1}$, which is the Gaussian power posterior; with the tied measurement $\mathsf P_h=\widetilde O_h^\top$ it reduces to the predictive head sum in a stated flat-prior limit, it gives a precision-weighted fusion residual at finite prior precision, and its Fisher flow is solved exactly in natural parameters. The profiled coupling $\lambda_\alpha^\star=c_0/(b_0+D)$ gives a majorize–minimize step. Because the implemented layer prior equals the incoming state at every episode start, the implemented closed-form step is a Kalman update and the profiled coupling stays at $c_0/b_0$.
 
-Section 8 adds inverse-edge triangle holonomy for invertible links (flat fields are recurrent, invertible flat fields are pure gauge, a constant reference link $G\ne I$ is never flat, a second-order BCH formula) and shows that the triangle holonomy of tiled routed links is similar to $\boldsymbol\rho_{ijk}T\widetilde O$, which is $\boldsymbol\rho_{ijk}TO$, $\boldsymbol\rho_{ijk}(I+TO)$ and $\boldsymbol\rho_{ijk}e^{TO}$ in the three charts. It states the latent-link model of [[dennis-2026-dynamic-links]] with the implemented exponential chart as its zero-width static limit, the blindness of continuous class functions to unipotent holonomy for $K\ge2$, and the link field equation; that subsection is theory only. Section 9.3 reports the matched $K=20$ runs of [[vfe3-2026-10-03-link-charts-and-channel-receiver]], and Appendix G records the numerical checks.
+Section 8 adds inverse-edge triangle holonomy for invertible links (flat fields are recurrent, invertible flat fields are pure gauge, a constant reference link $G\ne I$ is never flat, a second-order BCH formula) and shows that the triangle holonomy of tiled routed links is similar to $\boldsymbol\rho_{ijk}T\widetilde O$, which is $\boldsymbol\rho_{ijk}TO$, $\boldsymbol\rho_{ijk}(I+TO)$ and $\boldsymbol\rho_{ijk}e^{TO}$ in the three charts. It states the latent-link model of [[dennis-2026-dynamic-links]] with the implemented exponential chart as its zero-width static limit, the blindness of continuous class functions to unipotent holonomy for $K\ge2$, and the link field equation; that subsection is theory only. Appendix G records the numerical checks.
 
 ## Verification as executed
 
@@ -33,7 +33,7 @@ The script `manuscripts/Attention/glk_lie_links_checks/checks.py` (SHA-256 `a5e7
 
 ## Open obligations
 
-The chart comparison is a single seed at $K=20$ with two layers. The seed-to-seed standard deviation it is compared against (about 1.5 perplexity points near perplexity 120) is the author's earlier estimate and was not measured on these arms; the manuscript marks paired replicate seeds as pending. The receiver arm differs from the exponential predictive arm also in its covariance contract, so its gap does not isolate the receiver, and its profiled coupling was inert. The final-protocol baselines, frozen interventions and learning curves of the earlier placeholders remain pending.
+The final-protocol baselines, frozen interventions and learning curves of the earlier placeholders remain pending.
 
 ## Relevance to this research
 

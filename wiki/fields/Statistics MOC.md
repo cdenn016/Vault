@@ -10,6 +10,11 @@ updated: 2026-10-20
 
 # Statistics MOC
 
+
+## Stepwise EM and filtering references, October 25, 2026
+
+[[cappe-2009-online-em]], [[albert-1993-probit-data-augmentation]], [[rauch-1965-rts-smoother]], [[meng-1994-em-convergence-rates]], [[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]], [[varadhan-2008-squarem]] and [[barber-2006-expectation-correction]] support the backprop-free local-learner test [[vfe3-2026-10-25-local-learner-test]] and its switching follow-up; see [[Variational EM]].
+
 ## October 2 completed square-root parent-budget study
 
 Three tiny tests and an independent recomputation of 36 summaries support a reporting-only fix for self-term standard errors near 1e-216. Raw zero-variance summaries remain archived beside corrected values. These are finite-grid sufficient-budget measurements, not retained-path KL values or small controlled error bounds. The original dense failure remains unresolved. The next recorded task is sharper conditional retained-law error accounting; O1/O4, endogenous feedback and recursive formation remain open. The earlier checkpoint below is historical: its pending saved-tape validation has now completed.
@@ -25,6 +30,10 @@ The posthoc saved-score functional estimates retained path KL plus a nonnegative
 ## Cut routing and tempered Gaussian posteriors, October 2, 2026
 
 [[dennis-2026-projected-gradient]] reads routing by a comparison divergence alone as exact inference in a cut model (modular Bayesian inference) and shows that a channel-likelihood receiver has the exact tempered Gaussian posterior as minimizer, counting the receiver entropy once. [[dennis-2026-phi-natgrad]] derives a Fisher natural gradient for frame parameters from the reference-prior family. [[dennis-2026-neuron-free-agent-theory]] uses Gamma-precision (Student-t) records and a KL-budget constraint in one constrained ELBO.
+
+## Deconvolution, Tweedie, and sequential-posterior references, October 24, 2026
+
+[[bovy-2011-extreme-deconvolution]], [[efron-2011-tweedie-formula]], [[minka-2001-expectation-propagation]], [[broderick-2013-streaming-variational-bayes]], [[ghahramani-2000-switching-state-space]] and [[xu-1995-alternative-mixtures-of-experts]] support the record-model reading of the prototype block MLP in [[Template routing]].
 
 ## Mixture references, September 27, 2026
 
@@ -101,4 +110,4 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 
 [[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) states the channel-likelihood receiver of the projected-gradient route in the main GL(K) manuscript. With routing weights as likelihood powers, the frozen receiver energy is minimized by the Gaussian power posterior $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\lambda_\alpha\Lambda^{-1}$; it reduces to the predictive head sum in a flat-prior limit, gives a precision-weighted fusion residual at finite prior precision, and its Fisher flow is solved exactly in natural parameters. The profiled coupling $c_0/(b_0+D)$ gives a majorize–minimize step; in the implemented configuration the layer prior equals the incoming state, so the step is a Kalman update.
 
-[[dennis-2026-minimal-agent-model]] (2026-10-05) derives an attention round as exact Bayesian conditioning: the source posterior is an expected-likelihood weight, the receiving map is the Gaussian gain, and the residual is precision weighted; divergence-based Gibbs routing is the first label step of a structured mean-field approximation. [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) keeps the exact source-posterior and predictive-mean status of routing and content and moves the channel-likelihood receiver to its supplement.
+[[dennis-2026-minimal-agent-model]] (2026-10-05) derives an attention round as exact Bayesian conditioning: the source posterior is an expected-likelihood weight, the receiving map is the Gaussian gain, and the residual is precision weighted; divergence-based Gibbs routing is the first label step of a structured mean-field approximation. It is implemented in VFE_3.0 as a selectable readout (`VFE_3.0/docs/2026-10-06.md`), with no controlled evaluation. [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) keeps the exact source-posterior and predictive-mean status of routing and content and moves the channel-likelihood receiver to its supplement.

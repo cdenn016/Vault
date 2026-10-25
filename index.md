@@ -10,7 +10,7 @@ updated: 2026-10-20
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **25** manuscripts · **14** themes · **13** maps of content · **288** concepts · **15** methods · **730** papers · **187** references · **6** runs · **7** web/methodology
+> **3** projects · **25** manuscripts · **14** themes · **13** maps of content · **288** concepts · **15** methods · **730** papers · **187** references · **7** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -24,11 +24,11 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[VFE Transformer Program]]
 
 ## 📝 Manuscripts (in preparation)
-- [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — main GL(K) attention manuscript rebuilt on October 5, 2026: agents on a bundle over one context, four head interfaces, comparison link, routed-transport theorem with a standard layer as the affine chart, $K=128$ anchor with parameter accounting; supplement revived as S1 to S10
-- [[dennis-2026-glk-attention-v2-review-2026-10-07]] — October 7, 2026 peer review and revision of the GL(K) manuscript: covariance scoped to the attention operator, exactness rescoped, trained-link claims limited to working precision, comparison now the October 6 read-table baseline with a stated retraction rule
+- [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — main GL(K) attention manuscript rebuilt on October 5, 2026: agents on a bundle over one context, four head interfaces, comparison link, routed-transport theorem with a standard layer as the affine chart; supplement revived as S1 to S10
+- [[dennis-2026-glk-attention-v2-review-2026-10-07]] — October 7, 2026 peer review and revision of the GL(K) manuscript: covariance scoped to the attention operator, exactness rescoped, trained-link claims limited to working precision
 - [[dennis-2026-edge-latent-links]] — working note: edge-dependent links $G_{ij}=g_ie^{L}E_{ij}$ (curved rank-$r$ mode and pure-gauge control), closed-form message and covariance, causal latent receiver factors with natural-gradient inference and a depth-loop prior; implemented in vfe3, no training result
-- [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; declared and unevaluated
-- [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks and single-seed K=20 chart runs
+- [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; implemented in VFE_3.0 on October 6, unevaluated
+- [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
 - [[dennis-2026-attention-unified]] — unified six-note companion, primary exponential group links, implementation crosswalk, and future GL(K) integration map
 - [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
@@ -138,8 +138,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Quantum reference frames]]
 
 ### Information geometry, divergences & natural gradient
-- [[Diagonal truncation as gauge regularization]]
-- [[Divergence clamp saturation]]
 - [[Fisher information metric]]
 - [[Hamiltonian belief dynamics]]
 - [[Information Geometry]]
@@ -418,6 +416,28 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[hershey-2007-kl-gmm|Approximating the KL Divergence Between Gaussian Mixture Models]]
 - [[jacobs-1991-mixtures-of-local-experts|Adaptive Mixtures of Local Experts]]
 - [[sukhbaatar-2019-persistent-memory|Augmenting Self-attention with Persistent Memory]]
+
+### Stepwise EM and filtering references (2026-10-25)
+- [[cappe-2009-online-em|Online EM Algorithm for Latent Data Models]] (stepwise EM)
+- [[albert-1993-probit-data-augmentation|Bayesian Analysis of Binary and Polychotomous Response Data]] (probit augmentation)
+- [[rauch-1965-rts-smoother|Maximum Likelihood Estimates of Linear Dynamic Systems]] (RTS smoother)
+- [[meng-1994-em-convergence-rates|On the Global and Componentwise Rates of Convergence of the EM Algorithm]] (EM rate)
+- [[liu-1998-px-em|Parameter Expansion to Accelerate EM: The PX-EM Algorithm]] (PX-EM)
+- [[salakhutdinov-2003-overrelaxed-bound-optimization|Adaptive Overrelaxed Bound Optimization Methods]] (overrelaxed EM)
+- [[varadhan-2008-squarem|Simple and Globally Convergent Methods for Accelerating the Convergence of Any EM Algorithm]] (SQUAREM)
+- [[barber-2006-expectation-correction|Expectation Correction for Smoothed Inference in Switching Linear Dynamical Systems]] (switching smoother)
+
+### MLP slot as generative model references (2026-10-24)
+- [[bovy-2011-extreme-deconvolution|Extreme Deconvolution]] (Gaussian mixture through heterogeneous Gaussian noise)
+- [[xu-1995-alternative-mixtures-of-experts|An Alternative Model for Mixtures of Experts]] (generative gating)
+- [[efron-2011-tweedie-formula|Tweedie's Formula and Selection Bias]] (posterior moments from the log evidence)
+- [[minka-2001-expectation-propagation|Expectation Propagation for Approximate Bayesian Inference]] (ADF and EP)
+- [[ghahramani-2000-switching-state-space|Variational Learning for Switching State-Space Models]] (label belief through a sequence)
+- [[gregor-2010-lista|Learning Fast Approximations of Sparse Coding]] (MLP as one sparse-coding step)
+- [[hinton-2018-matrix-capsules-em-routing|Matrix Capsules with EM Routing]] (parents fitted by EM in the forward pass)
+- [[locatello-2020-slot-attention|Object-Centric Learning with Slot Attention]] (slot competition)
+- [[broderick-2013-streaming-variational-bayes|Streaming Variational Bayes]] (sequential posterior updating)
+- [[schlag-2021-fast-weight-programmers|Linear Transformers Are Secretly Fast Weight Programmers]] (fast weight memory)
 
 ### Meta-agent formation timescale-separation references (2026-09-28)
 - [[simon-1961-aggregation-variables-dynamic-systems|Aggregation of Variables in Dynamic Systems]] (one aggregate per block; short-run vs long-run)
@@ -1323,16 +1343,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
-- [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting|VFE_3.0 K=128 exponential-chart run and parameter accounting, October 5, 2026]] — test PPL 34.48 (one seed, 614.4M tokens); earlier baseline pairs (39.77 vs 90.15, 52.91 vs 117.63) superseded by the October 6 read-table study; trained links numerically low rank
-- [[vfe3-2026-10-06-block-read-baseline|VFE_3.0 per-type read-table transformer baseline at K=128, October 6, 2026]] — conventional transformer with a per-type read table of nearly the frame table's size under the 34.48 protocol: test PPL 55.10 (one seed), learning rate selected on validation; the GL(K) paper's comparison
-
-- [[vfe3-2026-10-05-k30-multiseed|VFE_3.0 three-seed noise floor at K=30, October 5, 2026]] — seeds 6, 54, 271: test PPL 87.19 ± 0.33, test CE SD 0.0037 nats; current multi-seed noise floor for the VFE_3.0 line (shared data order, mixed code identity accepted)
-
-- [[vfe3-2026-10-03-link-charts-and-channel-receiver|VFE_3.0 link charts and channel receiver at K=20, October 3, 2026]] — four matched single-seed WikiText-103 runs: affine, first-order and exponential content-link charts within 0.0037 nats on test; exponential transfers stay in GL+(K) and better conditioned; closed-form channel receiver +0.0276 nats in a configuration that does not isolate it.
-
-- [[2026-09-28-k20-ablation-set|K=20 ablation set, 2026-09-28 to 2026-09-29]] — fifteen single-seed runs; decoder, positional frames, covariance, and frame-optimizer findings.
-
-- [[vfe3-2026-10-02-projected-route-consolidation|VFE_3.0 projected-route consolidation, October 1 to 2, 2026]] — implementation record for PRs #34 to #39: gradient-route receiver laws and closed-form updates, profiled alpha, retired transported attention and gauge groups, so_n reconnected; CPU tests only, no training.
+- [[vfe3-2026-10-25-local-learner-test|VFE_3.0 backprop-free local-learner test, October 21 to 25, 2026]] — stepwise EM through one filter reaches 0.925 / 0.906 of backpropagation's gain at d = 32 / 64 and shares its optimum; the gap is speed; exp-chart transitions cost 0.039 / 0.018 bits per byte
 
 ## MultiAgentELBO research ingestion — September 11, 2026
 

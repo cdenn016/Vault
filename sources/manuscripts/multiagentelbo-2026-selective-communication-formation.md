@@ -23,7 +23,7 @@ The note concerns the connection to collective formation. The separate [[dennis-
 
 ## Mechanism inherited from the manuscripts
 
-The live [GL(K) main manuscript](https://github.com/cdenn016/Vault/blob/4406ebebaf4f94b26c2ad24f19ebadee15f988dd/manuscripts/GL(K)_attention.tex), Section `sec:relational_communication`, distinguishes the full local frame $U_i$, receiving/sending comparison maps $S_Q,S_K$, content extraction $T_h$ and insertion $O_h$. A head sends $T_hU_j^{-1}\mu_j$ and has unweighted communication map
+The GL(K) main manuscript (`GL(K)_attention.tex`), Section `sec:relational_communication`, distinguishes the full local frame $U_i$, receiving/sending comparison maps $S_Q,S_K$, content extraction $T_h$ and insertion $O_h$. A head sends $T_hU_j^{-1}\mu_j$ and has unweighted communication map
 
 $$L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}.$$
 
@@ -31,7 +31,7 @@ The rectangular maps act on represented states. They do not project the gauge gr
 
 The source's read-only trace of the V3_Transformer working tree at `e028f71`, including the current launcher WIP, reports 96-dimensional frames and three 32-dimensional interfaces per layer, with each head reading the full input. The $S_Q,S_K,T,O$ maps are learned and shared over tokens within each layer/head. This is a dated source-reported configuration, not a new model run or a statement that each edge learns an arbitrary independent map.
 
-At the fixed base point $c_*$, the [live supplement](https://github.com/cdenn016/Vault/blob/c2cd46d86a5424339bf2284fd07782db6d921335/manuscripts/GL(K)_supplementary.tex), Appendix `app:matrix_links`, already supplies the relevant independent-link extension. For an invertible represented link $B_e=\rho(\Theta_e):E_j\to E_i$ and receiver processing $F_i=U_iOTU_i^{-1}$
+At the fixed base point $c_*$, the supplement (`GL(K)_supplementary.tex`), Appendix `app:matrix_links`, already supplies the relevant independent-link extension. For an invertible represented link $B_e=\rho(\Theta_e):E_j\to E_i$ and receiver processing $F_i=U_iOTU_i^{-1}$
 
 $$\mathcal L_e=F_iB_e,\qquad \mathcal L_e'=g_i\mathcal L_eg_j^{-1}.$$
 

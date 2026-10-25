@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-08-10
+updated: 2026-10-25
 ---
 
 # Expected Free Energy
@@ -208,14 +208,10 @@ identically zero, so the first version is a pragmatic preference-matching rerank
 machinery stays inert until belief-uncertainty enters the rollout (or the $\sigma$ signal passes a pre-registered
 validation gate). Nothing is implemented and no efficacy is claimed.
 
-As of 2026-06-29 that pre-registered $\sigma$-validation gate has been measured, and it FAILed.
-On the prior-bank decode checkpoint the belief-covariance trace is
-*anti-correlated* with realized cross-entropy ($\rho=-0.137$) and near-constant (cv $0.0445$), so $\sigma$ is not a
-usable epistemic signal — the information-gain / ambiguity arm stays inert *empirically*, not only by the $H{=}1$
-scope argument. The cause is structural: the vfe3 belief E-step carries no observation/data-precision term (a
+Structurally, the vfe3 belief E-step carries no observation/data-precision term (a
 [[Variational EM|target-blind E-step]]; the canonical $-\mathbb{E}_q[\log p(o\mid x)]$ term is a gated stub with no
-live caller), so the covariance is a near-static learned prior the [[Precision weighting|precision]] machinery never
-contracts toward data. Making the EFE epistemic term live would require wiring an observation-precision term into
+live caller), so the covariance is a learned prior that the [[Precision weighting|precision]] machinery never
+contracts toward data, and the information-gain / ambiguity arm has no per-token epistemic signal to read. Making the EFE epistemic term live would require wiring an observation-precision term into
 the E-step covariance gradient — the canonical-vs-reduced choice the manuscripts lay out.
 
 > [!note] Editorial: The risk/ambiguity and epistemic/pragmatic decompositions, the

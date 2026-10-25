@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-10-25
 ---
 
 # Inference machinery — variational EM and filtering
@@ -122,8 +122,7 @@ turns the structural-EM caveats above into a constructive prescription: restore 
 term to the belief update (the [[participatory-it-from-bit|PIFB]]-canonical placement) in a pair
 of symmetric target-nudged continuations of the free E-step, and estimate the through-$q^*$
 credit that fixed-$q^*$ M-steps drop by the [[scellier-bengio-2017-equilibrium-propagation|equilibrium-propagation]]
-contrast of analytic envelope statistics. The adjudicated post-mortem of VFE_2.0's target-blind
-clean-EM attempt (~25000 PPL) is the negative result motivating this: at a target-blind fixed
+contrast of analytic envelope statistics. At a target-blind fixed
 point, the envelope theorem fails for the decode term by construction, and a provable temperature
 degeneracy ($\partial F_{red}/\partial\tau = \mathrm{KL}(\beta\|\pi)\ge 0$) makes several
 hyperparameters unlearnable by any free-energy descent. Design stage only; the EqProp theorem's
@@ -163,16 +162,6 @@ Rényi bound of [[li-turner-2016-renyi-vi]]. The decoder is trained by a separat
 cross-entropy objective, so no single ELBO or Rényi bound is jointly ascended by
 the two inner refinements and the outer update. The inference machinery is structural EM
 with distinct inner and decode objectives.
-
-> [!note] Structural correction (2026-07-25): the two inner refinements are two attention layers.
-> `_refine_s` is not merely a preparatory step — it runs its own E-step with `lambda_gamma`
-> coupling, its own causal-ALiBi attention prior and its own temperature, and its output *is* the
-> belief's prior. Measured on two checkpoints, the model channel injects essentially all of the
-> representation's context dependence (relative displacement 0.000 raw → 0.812 after the $s$
-> refinement → 0.872 after the belief E-step at $K=300$), and the two channels are heavily
-> redundant, contributing 1.343 and 1.854 nats individually but 1.947 jointly. Despite `n_layers=1`
-> the trained route is therefore `token lookup → s-channel attention → belief attention → linear
-> decode`, which is why `prior_source='token'` with `s_e_step=False` reaches comparable perplexity.
 
 > [!note] Editorial (2026-07-10): The literal `"filtering"` label denotes the target-blind
 > belief-refinement component; the retained route precedes it with one model-channel refinement.
@@ -236,9 +225,28 @@ Distributed variational methods differ chiefly in how they declare and update a 
 
 Privacy and robustness change the target as well as the protocol. [[heikkila-2023-dp-partitioned-vi]] perturbs site updates for differential privacy; [[mildner-2025-fedgvi]] permits generalized local losses and divergences; [[wu-uribe-2025-distributed-inference-guarantees]] studies frequentist guarantees for networked Bayesian learning. [[cao-2024-multi-robot-slam-vi]] and [[rao-2026-federated-variational-mixtures]] show the application boundary in cooperative localization and mixture modeling. The mixture setting's discrete permutation alignment is not continuous gauge transport, and agreement among sites is not evidence of centralized-posterior correctness when factor ancestry permits information recycling.
 
+## Moment-matched Gaussian-mixture steps and streaming posteriors (2026-10-24)
+
+The exact prototype block of the vfe3 transformer conditions a Gaussian content variable on a record through a mixture prior and then collapses the posterior to one Gaussian. Three classical results locate that step. In [[bovy-2011-extreme-deconvolution]] the same model, a Gaussian mixture observed through point-specific Gaussian noise, is fitted by EM, and its E-step conditional moments are the block's component posteriors. In [[minka-2001-expectation-propagation]] the collapse is assumed-density filtering, and expectation propagation is what revisits it; a depth stack of such blocks is sequential ADF without that revisiting. [[efron-2011-tweedie-formula]] supplies the posterior mean and variance as derivatives of the log evidence. Carrying a discrete label belief through a sequence of such steps is the inference problem of [[ghahramani-2000-switching-state-space]], whose exact posterior is a growing mixture, and treating the posterior after one batch as the prior of the next is the recursion of [[broderick-2013-streaming-variational-bayes]].
+
+## Learning through a fixed filter without backpropagation (2026-10-25)
+
+[[vfe3-2026-10-25-local-learner-test]] compared two ways of learning the parameters of one sequence model through one assumed-density filter. Backpropagation differentiates the filter's predictive likelihood; the local rule is stepwise EM ([[cappe-2009-online-em]]) on filtered and RTS-smoothed posterior moments ([[rauch-1965-rts-smoother]]) with probit augmentation at the readout ([[albert-1993-probit-data-augmentation]]). On WikiText-103 bytes the local rule kept about nine tenths of backpropagation's one-pass gain and shared its optimum as a fixed point, and the filter agreed with a particle estimate of the exact predictive within 0.007 bits per byte, so the approximation did not limit either rule. The gap is the slow linear rate of EM where information is missing ([[meng-1994-em-convergence-rates]]), which parameter expansion and overrelaxation reduce only slightly ([[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]]). The next test recorded in VFE_3.0's TODO is the switching case, where the filter and smoother become Gaussian-sum approximations ([[ghahramani-2000-switching-state-space]], [[barber-2006-expectation-correction]]) and a local rule must learn through a mixture collapse.
+
 ## Sources synthesized
 
+- [[vfe3-2026-10-25-local-learner-test]] — stepwise EM versus backpropagation through one assumed-density filter.
+- [[cappe-2009-online-em]] — online EM on running sufficient statistics.
+- [[rauch-1965-rts-smoother]] — the fixed-interval linear-Gaussian smoother.
+- [[barber-2006-expectation-correction]] — Gaussian-sum smoothing for switching linear dynamical systems.
+- [[albert-1993-probit-data-augmentation]] — latent-utility augmentation of the probit model.
+- [[meng-1994-em-convergence-rates]], [[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]], [[varadhan-2008-squarem]] — EM rates and accelerations.
 - [[hasenclever-2017-snep-posterior-server]] — asynchronous distributed EP with site ownership.
+- [[bovy-2011-extreme-deconvolution]] — Gaussian mixtures fitted through heterogeneous Gaussian noise by EM.
+- [[minka-2001-expectation-propagation]] — assumed-density filtering and expectation propagation.
+- [[efron-2011-tweedie-formula]] — posterior mean and variance from the log marginal density.
+- [[ghahramani-2000-switching-state-space]] — structured variational inference for Markov-switching linear-Gaussian models.
+- [[broderick-2013-streaming-variational-bayes]] — sequential Bayesian updating with an approximate batch primitive.
 - [[hua-li-2016-distributed-variational-bayes]] — distributed variational Bayes for sensor networks.
 - [[masegosa-2016-distributed-vmp]] — distributed variational message passing.
 - [[vehtari-2020-ep-partitioned-data]] — EP as a partitioned-data inference framework.
