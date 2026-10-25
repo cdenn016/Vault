@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-10-25
 ---
 
 # Variational EM
@@ -101,6 +101,8 @@ non-convex bound only guarantees a local optimum.
 
 ## Relation to this work
 
+**Stepwise EM as a backprop-free learner (2026-10-25).** The local-learner test of [[vfe3-2026-10-25-local-learner-test]] trained a linear-Gaussian byte model through a fixed assumed-density filter by stepwise EM ([[cappe-2009-online-em]]): probit-augmented node statistics ([[albert-1993-probit-data-augmentation]]), smoothed lag-one transition moments ([[rauch-1965-rts-smoother]]) and closed-form M-steps, with no derivative of the filter. One pass reached 0.925 and 0.906 of backpropagation's held-out gain at state sizes 32 and 64. Started at backpropagation's solution the rule stayed there, so the shortfall is EM's slow convergence along poorly informed directions ([[meng-1994-em-convergence-rates]]), not a different fixed point. Parameter expansion ([[liu-1998-px-em]]) and overrelaxation ([[salakhutdinov-2003-overrelaxed-bound-optimization]]) together sped it up about 1.2-fold; extrapolation ([[varadhan-2008-squarem]]) is untested.
+
 The VFE transformer uses a structural-EM skeleton. In the retained sweep, its inner
 forward stage performs one target-blind model-channel refinement and then one
 target-blind Fisher-preconditioned belief refinement with
@@ -141,9 +143,8 @@ decode objective.
   enters only the M-step loss, so the E-step is target-blind"; "rather than coordinate-
   ascent steps on a single shared free energy"), a deliberate deviation from the
   canonical [[participatory-it-from-bit|PIFB]] functional, where the observation term
-  lives in the fast belief subsystem the beliefs descend. The measured consequence is
-  that the belief covariance gets no per-token data precision and collapses to a near-
-  constant learned prior, failing the $\sigma$-validation gate.
+  lives in the fast belief subsystem the beliefs descend. As a consequence the
+  belief covariance gets no per-token data precision and acts as a learned prior.
 
 > [!note] Editorial (2026-07-10): “Structural EM” names the alternating schedule,
 > not a proof that the two inner refinements and outer decode optimize one ELBO. The
@@ -153,6 +154,10 @@ decode objective.
 
 ## Sources
 
+- [[vfe3-2026-10-25-local-learner-test]] — stepwise EM against backpropagation through one filter: about nine tenths of the gain, same fixed point, slower.
+- [[cappe-2009-online-em]] — online (stepwise) EM by stochastic approximation on sufficient statistics.
+- [[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]], [[varadhan-2008-squarem]] — EM accelerations that use only the EM map.
+- [[meng-1994-em-convergence-rates]] — EM's linear rate as the fraction of missing information.
 - [[neal-1998-variational-em]] — EM as coordinate ascent on one free-energy/ELBO
   functional; incremental and partial updates retain the guarantee only when both
   coordinates optimize that same functional.

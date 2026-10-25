@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-09-23
+updated: 2026-10-25
 ---
 
 # Active Inference
@@ -76,16 +76,14 @@ the expected-information-gain term vanishes identically, so version one reduces 
 preference-matching reranker*; genuine information-seeking active inference is deferred until belief-uncertainty
 enters the rollout.
 
-A 2026-06-29 finding sharpens what the perceptual half actually does here.
 The vfe3 belief E-step is **target-blind**: it carries no observation/likelihood term (the canonical
 $-\mathbb{E}_q[\log p(o\mid x)]$ is a gated stub with no live caller), so beliefs are *not* conditioned on observations
 in the canonical free-energy sense — a [[Variational EM|structural EM]] in which the E-step and the M-step descend
 distinct objectives. This is the [[gl-k-attention|GL(K) manuscript]]'s own design (its Algorithm 1 states "the
 observation enters only the M-step loss, so the E-step is target-blind"), and it deviates from the canonical
 [[participatory-it-from-bit|PIFB]] functional, which places the observation term in the fast belief subsystem that
-beliefs descend. The empirical signature is the failed $\sigma$-validation gate: the belief covariance carries no
-data precision, so it is a near-static learned prior, anti-correlated with surprise, rather than a live epistemic
-quantity.
+beliefs descend. Because the belief covariance carries no
+data precision, it is a learned prior rather than a live epistemic quantity.
 
 > [!note] Editorial: The map from active inference's policy selection onto a sequence model is loose;
 > the transformer borrows the belief-updating/precision-as-attention reading, while EFE-style planning

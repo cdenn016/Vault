@@ -21,7 +21,7 @@ Token agents carry $q_i=\mathcal N(\mu_i,\Sigma_i)$ and block-diagonal frames $U
 
 ## The covariance
 
-**Passthrough (default, all evaluated runs):** $\Sigma_i^+=\Sigma_i$, so the covariance is the encoded token-type lookup at every depth. The saved calibration probes of the two K=64 runs (validation perplexity 53.3 at 30k steps, 53.9 at 15k) label the covariance "input_token_variance", with CV(tr Σ) 0.033 and 0.023.
+**Passthrough (default, all evaluated runs):** $\Sigma_i^+=\Sigma_i$, so the covariance is the encoded token-type lookup at every depth.
 
 **Moment matched (new, opt-in):** under the predictive kernel $k_i'\mid k,J\sim\mathcal N(rk_i+\sum_hL_{iJ^h}^hk_{J^h},Q_i)$ with independent head labels and independent sources,
 $$C_i^{\mathrm{att}}=\widetilde Q_i+r\Big[C_i+\sum_h\beta_{ii}^h(M_hC_i+C_iM_h^\top)\Big]+\sum_j\sum_{h,h'}c_{ij}^{hh'}M_hC_jM_{h'}^\top+\sum_h\Big[\sum_j\beta_{ij}^hn_{ij}^hn_{ij}^{h\top}-\bar n_i^h\bar n_i^{h\top}\Big],$$

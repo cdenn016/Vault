@@ -5,7 +5,7 @@ aliases: [Backprop-free VFE learning, EqProp-contrast EM, nudged two-phase EM]
 tags: [cluster/vfe, cluster/info-geometry, cluster/gauge-theory, project/transformer]
 status: draft
 created: 2026-07-11
-updated: 2026-07-11
+updated: 2026-10-25
 ---
 
 # Nudged two-phase EM
@@ -28,13 +28,13 @@ with $\partial F/\partial\theta$ the analytic envelope expression through the re
 
 ## Strengths / limitations
 
-It restores exactly the credit path whose absence killed the target-blind clean-EM attempt (VFE_2.0 `pure_fep`, stalled ~25000 PPL: the fixed-$q^*$ M-step drops the through-$q^*$ term, reducing the model to a reservoir with a Gaussian-prototype readout). It needs no backward graph (~2-3x forward cost, no activation storage), preserves gauge equivariance and the pure path, and every analytic gradient is pinned against an autograd-of-$F$ oracle in tests only.
+It restores the credit path that a target-blind fixed-$q^*$ M-step drops (the through-$q^*$ term), without which the model reduces to a reservoir with a trained readout. It needs no backward graph (~2-3x forward cost, no activation storage), preserves gauge equivariance and the pure path, and every analytic gradient is pinned against an autograd-of-$F$ oracle in tests only.
 
 The honest limits: the [[scellier-bengio-2017-equilibrium-propagation|EqProp]] theorem's premises do not hold here — settling is truncated and the stack is a feedforward prior-handoff cascade, not a single joint energy — so no gradient-equality guarantee is claimed; it is replaced by stationarity-residual gates, $\lambda$-consistency and finite-difference oracle checks, and per-family signal-to-noise monitors with fallbacks (held-out 1-D search, honest freezing). Contrast SNR at feasible $\lambda$ and batch size is the load-bearing risk for the frame and temperature families. Calibration from the literature: the only published backprop-free transformer LM sits at 1.7-3x its backprop twin ([[launay-2020-dfa-transformers]]); [[hinton-2022-forward-forward|Forward-Forward]] has no working LM result, and PC-trained transformers exist only at 1-block scale.
 
 ## Relation to this work
 
-This is the program's answer to the [[gl-k-attention]] manuscript's named extension (backprop-free learning via local VFE gradients plus a delta rule on the output projection) and it realizes the [[participatory-it-from-bit|PIFB]]-canonical placement of the observation term inside the belief subsystem — the deviation whose measured cost was the 2026-06-29 sigma collapse: a target-aware E-step gives $\Sigma_q$ its missing evidence-contraction channel, predicting the sign flip of corr(tr $\Sigma_q$, CE) as a science gate. Implementation lands as a `vfe3/fep/` subpackage behind V3's registry seams; milestone gates run measured BPE unigram → KenLM 5-gram → the DFA band (≤100) → 2x matched-K backprop vfe3 (66-155 band), with a pre-registered frame falsifier (contrast-φ vs frozen-random-φ ≥ 10% PPL gap or frame learning is declared dead weight).
+This is the program's answer to the [[gl-k-attention]] manuscript's named extension (backprop-free learning via local VFE gradients plus a delta rule on the output projection) and it realizes the [[participatory-it-from-bit|PIFB]]-canonical placement of the observation term inside the belief subsystem: a target-aware E-step gives $\Sigma_q$ its missing evidence-contraction channel. Implementation lands as a `vfe3/fep/` subpackage behind V3's registry seams; milestone gates run measured BPE unigram → KenLM 5-gram → the DFA band (≤100) → 2x matched-K backprop vfe3 (66-155 band), with a pre-registered frame falsifier (contrast-φ vs frozen-random-φ ≥ 10% PPL gap or frame learning is declared dead weight).
 
 ## Sources
 

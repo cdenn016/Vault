@@ -2,7 +2,7 @@
 type: schema
 title: LLM-Wiki Schema & Operating Manual
 aliases: [LLM-Wiki Schema, Schema, Wiki Schema]
-updated: 2026-10-08
+updated: 2026-10-25
 ---
 
 # LLM-Wiki Schema
@@ -38,7 +38,7 @@ Plus two navigation files at the vault root: **`index.md`** (catalog) and **`log
 │   ├── papers/         ←   one note per paper (arXiv etc.), with bibtex
 │   ├── refs/           ←   curated references cited by the manuscripts (type: reference)
 │   ├── manuscripts/    ←   NOTES about our manuscripts (type: manuscript) — the .tex lives in top-level manuscripts/
-│   ├── runs/           ←   one note per experiment run (frozen config + metrics)
+│   ├── runs/           ←   one note per experiment run, only on explicit request (rule 0)
 │   └── web/            ←   gists, blog posts, docs
 ├── wiki/               ← LLM-owned synthesis (rewrite freely)
 │   ├── concepts/       ←   one idea per page (e.g. "Natural gradient")
@@ -226,9 +226,30 @@ geometry sources of physics origin. MOC pages are `type: moc`.
 These are the three core workflows. Each one **ends by appending to `log.md`** and, if pages
 were added/removed, **updating `index.md`**.
 
+### 0. Experimental results and repositories: only on explicit request (2026-10-25)
+
+Two kinds of material enter the vault only when the user explicitly asks for that specific item to be
+ingested:
+
+- **Experimental results** of the author's own work: training runs, ablations, sweeps, seed studies,
+  benchmarks, checkpoint or probe measurements, and the perplexities, losses, timings and other
+  metrics they produce, whether they come from run directories, session analyses, review reports or a
+  manuscript's results section.
+- **Code repositories**: local checkout paths, GitHub repository links, commits, branches and pull
+  requests, including the vault's own remote and the author's retired or archived repositories.
+
+A general request ("ingest this", "update the wiki", "record the findings", "ingest the manuscript")
+does not authorize either. When such a request covers a source that contains results or repository
+references, ingest its theory and leave the numbers, run identifiers and repository references out. An
+offer to ingest is allowed; writing waits for the explicit request. The restriction binds delegated
+agents, workflows and scheduled tasks. When the user does request a result or a repository reference,
+record only what was named and note in `log.md` that it was user-requested. Results reported by
+third-party papers, and the code links those papers publish, are ordinary source content and are not
+affected.
+
 ### 1. Ingest — add a new source
 
-> Trigger: "ingest <paper/url/run>", or a new file dropped in `sources/`.
+> Trigger: "ingest <paper/url/run>", or a new file dropped in `sources/`. A run, result or repository needs the explicit request of rule 0.
 
 1. Create the immutable source note in the right `sources/` subfolder, using the matching
    template. Capture: full citation + bibtex, the core claim/contribution, method, key

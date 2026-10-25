@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-06
+updated: 2026-10-25
 ---
 
 # Information geometry and natural gradient
@@ -73,17 +73,7 @@ semiconjugacy.
 
 ## How it lands in this work
 
-In the VFE transformer, Gaussian belief updates use information geometry. At each recorded source SHA, the committed gate and stored configuration route the frame table through AdamW; every provenance record marks a dirty worktree, so the exact executed optimizer cannot be reconstructed. Heavy-ball belongs only to the disabled custom outer optimizer. The exponential-coordinate pullback can condition either optional frame route, but both are off; BCH/retraction belongs only to the disabled in-E-step route. Optional Cartan/Killing or pullback conditioning is extrinsic and is not a Fisher, K-FAC, or reparameterization-invariant natural gradient.
-
-The rebuilt opt-in `pullback_group` route now supplies a cleaner empirical separation. Its first
-retained K=10 run used a stateless Frobenius-pullback direction and BCH group update on the existing
-outer cross-entropy covector. Through validation step 9,000, PPL improved from 456.32 to 365.57, but
-the user observed substantially poorer performance than AdamW. The geometry diagnostics remained
-benign: direction cosine 0.991, median damped generalized condition number 1.90, and accepted update
-scale 1.0. Thus this partial result points toward stochastic optimizer dynamics and learning-rate
-scale rather than a singular pullback solve. It is not yet a controlled AdamW comparison because no
-matching K=10 AdamW artifact is retained and the registered pullback learning-rate sweep is
-incomplete.
+In the VFE transformer, Gaussian belief updates use information geometry. The frame table is trained by AdamW by default. Heavy-ball belongs only to the disabled custom outer optimizer. The exponential-coordinate pullback can condition either optional frame route, but both are off; BCH/retraction belongs only to the disabled in-E-step route. Optional Cartan/Killing or pullback conditioning is extrinsic and is not a Fisher, K-FAC, or reparameterization-invariant natural gradient.
 
 The configured `renyi` family supplies a pairwise belief-side Rényi discrepancy with KL at order one. It is not, without an additional derivation, the variational Rényi bound of [[li-turner-2016-renyi-vi]], the separate decode cross-entropy, or an Amari alpha-divergence connection. The Gaussian belief update independently retains its Fisher geometry.
 
@@ -99,7 +89,7 @@ The main gap is not a missing proof that one joint natural gradient covers the
 whole model; the deployed system uses different optimizers for different
 objects. Joint Gaussian Fisher geometry is established for the belief update,
 with a covariance block equal to one-half conventional AIRM. The frame M-step
-is routed through AdamW by the committed gate at the recorded SHAs, subject to the dirty-provenance caveat, and the decode optimizer is separate. Any future claim
+is routed through AdamW by default, and the decode optimizer is separate. Any future claim
 that the frame conditioner is Fisher, K-FAC, or reparameterization invariant
 would require a statistical frame family and a derivation of its Fisher matrix.
 Likewise, changing an order-Rényi discrepancy changes its local Fisher scale but
@@ -107,11 +97,9 @@ does not sweep Amari alpha-connections. Fisher-equals-Gauss–Newton statements
 still require the output-distribution and loss-matching hypotheses specified by
 [[martens-2020-natural-gradient-insights]].
 
-For the frame route, the immediate empirical gap is now a matched optimizer study: preserve the
-same K=10 model and outer objective, compare AdamW against the registered pullback learning-rate
-grid, and carry only surviving settings to multiple seeds. Until that control is complete, the
-current negative signal supports AdamW as the default without establishing that tuned group descent
-is intrinsically inferior.
+For the frame route, the empirical gap is a matched optimizer study: on one model and outer objective,
+compare AdamW against the registered pullback learning-rate grid and carry only surviving settings
+to multiple seeds.
 
 ## Recovery, quotients, and constrained flows (2026-08-10)
 
@@ -200,12 +188,10 @@ of the picture lives in the same group's bundle papers and is recorded under
 
 A Fisher natural gradient for the frame tables exists once the frame is read as a parameter of the reference belief $U^{-1}\cdot q$: with $U\mapsto Ue^{X}$ the pulled-back Fisher-Rao metric is $g(X,X)=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$ with $Z=L^{-1}XL$, $LL^\top=C$, $\eta=L^{-1}\xi$. Its kernel is the stabilizer algebra of the reference Gaussian, and a covariant completion (default $C^{-1}X(2C+\xi\xi^\top)$) makes it invertible. In the EM reading $\varphi$ stays a slow M-step variable evaluated at the layer-0 prior rows, so only the preconditioner changes. The existing Frobenius-pullback step is projected Euclidean descent on $U$ and has a closed form via the Frechet derivative of the principal logarithm; neither it nor the Killing conditioner (a scalar multiple of the identity on the Frobenius-orthonormal basis) is a Fisher metric. The derivations were verified numerically at small block size and adversarially (Fable 5.1 against Opus 5.5) and are written up in [[dennis-2026-phi-natgrad]] (consolidated in `manuscripts/Attention/attention_unified.tex`, which the author removed from the vault on 2026-10-06; [[dennis-2026-attention-unified]] keeps its record). Implemented opt-in as `m_phi_update_mode='fisher_group'` and `m_phi_group_retraction='group_log'`. The default completion is the Kronecker product $C^{-1}X(2C+\xi\xi^\top)$, which also changes the metric on mean-visible skew directions, and the Fisher route, unlike AdamW and the pullback, makes the realized frame trajectory independent of the arbitrary split of each frame into type and positional factors. The same design record shows that the gauge-invariant content of the matrix links is the simultaneous similarity class of the content maps $M_h=O_hT_h$, so singular-value norms of $M_h$ are basis dependent.
 
-> [!note] Editorial: first test. In [[2026-09-28-k20-ablation-set]] the Fisher route finished $+11.1$ PPL behind AdamW, but it differs from AdamW in three coupled ways (stateless, count-normalized, untuned learning rate), and the belief Fisher is near-isotropic there (sigma almost uniform), so this is not evidence about the metric. The earlier K=10 pullback run cited above is regarded by the user as too old to be informative.
-
 ## Receiver energies and closed-form natural-parameter updates (2026-10-02)
 
-The gradient attention route ([[Projected gradient attention]]) gives a second, inference-time use of Gaussian natural parameters. Every receiver energy considered by [[dennis-2026-projected-gradient]] is quadratic, $\tfrac12\mathrm{Tr}(\Lambda C)+\tfrac12\xi^\top\Lambda\xi-\eta^\top\xi-\tfrac\kappa2\log\det C$, and its Fisher flow has the exact solution $J(t)=(1-\rho)J(0)+\rho\Lambda/\kappa$, $h(t)=(1-\rho)h(0)+\rho\eta/\kappa$ in natural parameters, which stays SPD and is monotone for every $\rho$. The explicit Euler Fisher step is stable only for $\varepsilon\lambda_{\max}(C\Lambda)<2$, and the entropy multiplicity $\kappa$ sets that bound; an energy that counts the receiver entropy once ($\kappa=\alpha$) is the exact tempered Gaussian posterior. Monotone damping is a property of the full family: along the natural-parameter segment the frozen energy $\kappa\mathrm{KL}(q\Vert q^\star)$ decreases, but a coordinatewise diagonal interpolation can raise a dense quadratic (explicit instance, 1.500 to 2.503). With a profiled self-coupling $\alpha^\star=c_0/(b_0+D)$, the frozen-$\alpha$ closed form is a majorize-minimize step. Implemented in VFE_3.0 on 2026-10-02 ([[vfe3-2026-10-02-projected-route-consolidation]]); no training run.
+The gradient attention route ([[Projected gradient attention]]) gives a second, inference-time use of Gaussian natural parameters. Every receiver energy considered by [[dennis-2026-projected-gradient]] is quadratic, $\tfrac12\mathrm{Tr}(\Lambda C)+\tfrac12\xi^\top\Lambda\xi-\eta^\top\xi-\tfrac\kappa2\log\det C$, and its Fisher flow has the exact solution $J(t)=(1-\rho)J(0)+\rho\Lambda/\kappa$, $h(t)=(1-\rho)h(0)+\rho\eta/\kappa$ in natural parameters, which stays SPD and is monotone for every $\rho$. The explicit Euler Fisher step is stable only for $\varepsilon\lambda_{\max}(C\Lambda)<2$, and the entropy multiplicity $\kappa$ sets that bound; an energy that counts the receiver entropy once ($\kappa=\alpha$) is the exact tempered Gaussian posterior. Monotone damping is a property of the full family: along the natural-parameter segment the frozen energy $\kappa\mathrm{KL}(q\Vert q^\star)$ decreases, but a coordinatewise diagonal interpolation can raise a dense quadratic (explicit instance, 1.500 to 2.503). With a profiled self-coupling $\alpha^\star=c_0/(b_0+D)$, the frozen-$\alpha$ closed form is a majorize-minimize step. Implemented in VFE_3.0 on 2026-10-02 (`VFE_3.0/docs/2026-10-02.md`); no training run.
 
 ## Fisher metric of a link and the singular boundary (2026-10-02)
 
-The Fisher-Rao metric pulled back through the action of $g\in\mathrm{GL}(K)$ on a Gaussian belief is $ds^2=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$, $Z=L'^{-1}AL'$ with $\delta g=Ag$, the same metric as the frame-table pullback above ([[dennis-2026-link-curvature]]). It implies that the singular boundary $\det g=0$ lies at infinite Fisher distance (the divergence grows as $-\log\sigma_{\min}$ and the Fisher-Rao distance is at least $\sqrt2\,|\log\sigma_{\min}|$), whereas the affine chart with Euclidean metric places it at finite distance $\sigma_{\min}$. Additive affine updates can therefore cross it in a single step, and multiplicative group updates $e^{-\eta A}g$ never do. This is a statement about the geometry of candidate designs; it is checked in float64 at small dimension, compared with a trained run only by order of magnitude, and has not been tested in training ([[Natural gradient]], [[Holonomy]]).
+The Fisher-Rao metric pulled back through the action of $g\in\mathrm{GL}(K)$ on a Gaussian belief is $ds^2=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$, $Z=L'^{-1}AL'$ with $\delta g=Ag$, the same metric as the frame-table pullback above ([[dennis-2026-link-curvature]]). It implies that the singular boundary $\det g=0$ lies at infinite Fisher distance (the divergence grows as $-\log\sigma_{\min}$ and the Fisher-Rao distance is at least $\sqrt2\,|\log\sigma_{\min}|$), whereas the affine chart with Euclidean metric places it at finite distance $\sigma_{\min}$. Additive affine updates can therefore cross it in a single step, and multiplicative group updates $e^{-\eta A}g$ never do. This is a statement about the geometry of candidate designs; it is checked in float64 at small dimension and has not been tested in training ([[Natural gradient]], [[Holonomy]]).

@@ -14,12 +14,12 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-02
+updated: 2026-10-25
 ---
 
 # GL(K) gauge group
 
-> [!note] Implementation status (2026-10-02). The VFE_3.0 transformer now supports only the untied `block_glk` group ($\prod_h\mathrm{GL}(d)$ block frames) and `so_n`; the full `glk`, `tied_block_glk`, `so_k`, `sp` and `sp_n` options are retired, and the transport exponential raises on any frame generator with $\|M\|_F>20$ (one fail-closed chart radius) instead of rescaling through a surrogate clamp ([[vfe3-2026-10-02-projected-route-consolidation]]). Optimizer geometry for the block frame tables is in [[dennis-2026-phi-natgrad]].
+> [!note] Implementation status (2026-10-02). The VFE_3.0 transformer now supports only the untied `block_glk` group ($\prod_h\mathrm{GL}(d)$ block frames) and `so_n`; the full `glk`, `tied_block_glk`, `so_k`, `sp` and `sp_n` options are retired, and the transport exponential raises on any frame generator with $\|M\|_F>20$ (one fail-closed chart radius) instead of rescaling through a surrogate clamp (`VFE_3.0/docs/2026-10-02.md`). Optimizer geometry for the block frame tables is in [[dennis-2026-phi-natgrad]].
 
 ## Definition
 

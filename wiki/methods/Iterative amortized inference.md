@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-07-25
+updated: 2026-10-25
 ---
 
 # Iterative amortized inference
@@ -47,38 +47,15 @@ How it **differs**: the belief covariance uses an `spd_affine` retraction and be
 
 > [!note] Editorial: The mapping "one transformer block = one iterative-inference step" is an interpretive bridge offered by this program; the original paper frames the method for VAE-style latent-variable models, not sequence transformers.
 
-## Measured: the amortization gap the program actually has
+## The amortization gap the program actually has
 
-The accuracy/compute trade-off that motivates iterative refinement was measured directly on two
-trained checkpoints in 2026-07-25, and
-there is almost none to trade on the belief channel. One belief E-step is worth roughly 1.3 to 1.4
-nats of cross-entropy standing alone, while depths 2 through 8 are worth 0.012 to 0.013 nats in
-total and free energy moves 0.04 nats across the whole sweep.
-
-The reason is that the deployed update rule is not a learned gradient step. `e_step_update='mm_exact'`
+The deployed update rule is not a learned gradient step. `e_step_update='mm_exact'`
 computes the **closed-form stationary point** of the objective with attention weights frozen, so
-one-step convergence is by construction rather than a degenerate optimizer, and reading "free energy
-flat after step 1" as pathological was a misdiagnosis. The iteration is nonetheless a genuine and
-well-conditioned contraction: the belief moves 20% of its norm at $K=20$ and 32% at $K=300$, step 1
-covers 70 to 73% of the total displacement, and the direction at depth 8 has cosine 0.96 to 0.98
-with the direction at step 1.
+one-step convergence holds by construction rather than through a degenerate optimizer.
 
-What the fixed point *is* matters more than how many steps reach it. The fusion places 80 to 85% of
-the fused precision on the prior and 15 to 20% on the gauge-transported neighbors, so the converged
-belief is a convex blend -- an attention layer with a dominant residual path, computed as a
-variational stationary point rather than a dot-product softmax. The share carried by the aggregation
-rises with width across the two measured points (0.153 at $K=20$, 0.196 at $K=300$), but that pair
-is confounded with training length and head geometry, so the rise is supported rather than isolated.
-This is a concrete instance of the amortization question turning out to be the
-wrong axis: the gap is not between one step and many, but between what a single precision-weighted
-aggregation can express and what the task needs.
-
-Removing the upstream consensus channel does not restore an amortization gap either. On a checkpoint
-trained with that channel gated off, the belief loop's depth sensitivity rises from 0.012 to 0.099
-nats out to depth 8 — eight times larger, but still two orders below the 3.48 the consensus channel
-alone produced, and still concentrated almost entirely in the first step, which takes 99.8% of the
-total displacement. Whatever the
-iteration contributes, it is not depth.
+What the fixed point *is* matters more than how many steps reach it: a precision-weighted convex
+blend of the prior and the gauge-transported neighbors, an attention layer with a residual path,
+computed as a variational stationary point rather than a dot-product softmax.
 
 > [!warning] Diagnostic caution
 > An earlier version of this program's depth diagnostic swept a single configuration field that two

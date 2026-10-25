@@ -20,7 +20,7 @@ updated: 2026-06-18
 # A Gauge-Theoretic Framework Toward a Participatory "It From Bit" Program: Mathematical Foundations and Computational Implementation
 
 > [!info] Manuscript
-> File: `Participatory_it_from_bit.tex` (Manuscripts-Theory) · Author: Robert C. Dennis (Independent Researcher, Leander, TX) · Status: **in preparation**. Open-source implementation referenced at the `Gauge-theory-of-machine-learning` repository.
+> File: `Participatory_it_from_bit.tex` (Manuscripts-Theory) · Author: Robert C. Dennis (Independent Researcher, Leander, TX) · Status: **in preparation**.
 
 ## Abstract
 

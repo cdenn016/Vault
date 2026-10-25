@@ -13,7 +13,7 @@ created: 2026-10-02
 
 ## Source and scope
 
-The live source is [projected_gradient.tex](../../manuscripts/Attention/projected_gradient.tex) (12 pages, compiled PDF beside it), a technical note dated October 2026 that works out the theory of `attention_mode="projected_gradient"` in the `vfe3` transformer, the gradient counterpart of [[dennis-2026-projected-predictive]]. It was agent-drafted at the author's request between 2026-10-01 and 2026-10-02, in response to the projected-gradient audit `VFE_3.0/docs/audits/projected-gradient-pr30-32-audit-2026-10-01.md`. Every identity was checked in float64 against automatic differentiation of the literal energies at small dimension ($K\le6$); these checks establish the algebra, not behavior at scale or in training. No training result appears in the note. Its "Implementation map" section still says that the note implements nothing; that sentence predates the implementation, which landed in VFE_3.0 PRs #34 and #38 on 2026-10-02 ([[vfe3-2026-10-02-projected-route-consolidation]]). The local file may change after this dated record.
+The live source is [projected_gradient.tex](../../manuscripts/Attention/projected_gradient.tex) (12 pages, compiled PDF beside it), a technical note dated October 2026 that works out the theory of `attention_mode="projected_gradient"` in the `vfe3` transformer, the gradient counterpart of [[dennis-2026-projected-predictive]]. It was agent-drafted at the author's request between 2026-10-01 and 2026-10-02, in response to the projected-gradient audit `VFE_3.0/docs/audits/projected-gradient-pr30-32-audit-2026-10-01.md`. Every identity was checked in float64 against automatic differentiation of the literal energies at small dimension ($K\le6$); these checks establish the algebra, not behavior at scale or in training. No training result appears in the note. Its "Implementation map" section still says that the note implements nothing; that sentence predates the implementation, which landed in VFE_3.0 PRs #34 and #38 on 2026-10-02. The local file may change after this dated record.
 
 ## Setting
 
@@ -53,4 +53,4 @@ This note supplies the first derivation-backed receiver for the gradient route o
 
 ## Related
 
-[[Projected gradient attention]], [[Projected predictive attention]], [[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[vfe3-2026-10-02-projected-route-consolidation]], [[amari-1998-natural-gradient]], [[blei-2017-variational-inference]], [[bishop-2006-pattern-recognition-machine-learning]]
+[[Projected gradient attention]], [[Projected predictive attention]], [[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[amari-1998-natural-gradient]], [[blei-2017-variational-inference]], [[bishop-2006-pattern-recognition-machine-learning]]

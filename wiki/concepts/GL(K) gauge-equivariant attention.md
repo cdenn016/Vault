@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-20
+updated: 2026-10-25
 ---
 
 # GL(K) gauge-equivariant attention
@@ -39,10 +39,7 @@ A literature check on the bundle and lattice-gauge language of the October 5 rew
 
 The central result is a routed-transport theorem: with tiled heads, the shared generator $L=OT$ and routing outside the exponent, the message is $m_i=\sum_jU_if(L)\Pi(\boldsymbol\beta_{ij})U_j^{-1}\mu_j$ with oblique head projectors $\Pi_h$ and $f(L)=L$, $I+L$, $e^L$ in the affine, first-order and exponential charts. [[Multi-head attention]] is therefore a routed oblique projection followed by link transport; when all heads share one routing pattern the exponential chart gives the lattice hopping term $\sum_j\beta_{ij}\Theta_{ij}\mu_j$, and a standard transformer layer is the affine chart with residual coefficient 1. Matrix-valued and group-valued links share the endpoint law and covariance; they differ in invertibility (a groupoid rather than a monoid, hence inverse edges and [[Holonomy]]), in the reachable component $\mathrm{GL}^+(K)$ and in optimization geometry. Whether $OT\in\mathrm{GL}(K)$ in a standard transformer is the wrong question: single heads are singular, the stacked product is generically invertible but unconstrained, and the group-valued objects are $e^{OT}$ and $I+OT$. Receiver inference and latent links moved to the supplement.
 
-The language-model section is anchored on the $K=128$ exponential-chart run of [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] (test perplexity 34.48, one seed), with a parameter accounting of the comparison with conventional transformers: each vocabulary entry stores $K(d_b+2)$ numbers, mostly a block frame that acts on the queries, keys, values and outputs of every layer. Since the October 7 revision ([[dennis-2026-glk-attention-v2-review-2026-10-07]]) the comparison is the October 6 per-type read-table transformer of nearly equal table size ([[vfe3-2026-10-06-block-read-baseline]]): 55.10 against 34.48 at $K=128$ in one seed, with its learning rate selected on validation and its confounds stated (read-only table, ALiBi, different AdamW settings). The earlier pairs (39.77 against 90.15, 52.91 against 117.63) were an earlier study and are not paper results. No run yet isolates frame geometry from table size with a write-side table, frozen frames, or replicate seeds.
-
-> [!warning] Tension (scale-scoped)
-> [[vfe3-2026-10-03-link-charts-and-channel-receiver]] found the exponential-chart transfers at $K=20$ (two layers) in $\mathrm{GL}^+(K)$ and better conditioned than those of the first-order chart, which [[dennis-2026-glk-lie-algebra-links-v2]] used to motivate group links. In the $K=128$ run of [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] the trained $e^L$ is invertible in exact arithmetic but numerically low rank ($\sigma_{\min}\le e^{-39.5}$, numerical rank 47 to 90 of 128). Both are single runs; whether the near-singularity is specific to long training at larger width is open.
+The October 7 peer review and revision of the manuscript is [[dennis-2026-glk-attention-v2-review-2026-10-07]].
 
 A tied variant with $S_K=T$ and a Bayesian receiver, in which the receiving map and the residual follow from conditioning, is a separate note, [[dennis-2026-minimal-agent-model]], and is not part of the paper.
 
@@ -53,8 +50,6 @@ A tied variant with $S_K=T$ and a Bayesian receiver, in which the receiving map 
 ## Lie-algebra links in the main manuscript, October 4, 2026
 
 [[dennis-2026-glk-lie-algebra-links-v2]] (revision drafted by Claude Opus 5.5, float64 identity checks, no cross-model review) carries Option A into the main GL(K) manuscript. The link $\Theta_{ij}=U_i\exp(X_{ij})U_j^{-1}$ is the primary communication object; the frames dress the generator, so $X_{ij}$ is reference data that changes only by the adjoint action under a common reference change. For the stored value and output maps, $\exp(OT)=I+O\varphi_1(TO)T$ splits the link into the flat identification and a channel term whose first-order part is the projected matrix link, and on the principal-logarithm domain the linear and exponential links are an exact change of coordinates rather than a truncation. With routing outside the exponent and tiled heads, the message resums into the receiving map $\widetilde O=e^{OT}T^{-1}=T^{-1}+O\varphi_1(TO)$: order zero is a head-routed flat transport, order one the standard value path, order two cross-head mixing. The implemented `content_link_chart` options are $\widetilde O=O$ (affine), $T^{-1}+O$ (first order) and $e^{OT}T^{-1}$ (exponential), which represent the same tiled mean maps up to the real-logarithm domain. Read as evidence, the same channels give the closed-form channel-likelihood receiver of [[Projected gradient attention]], a Gaussian power posterior.
-
-In matched single-seed runs at $K=20$ ([[vfe3-2026-10-03-link-charts-and-channel-receiver]]) the three charts reached test cross-entropies within 0.0037 nats per token of one another, consistent with their common function class, while the first-order arm's layer-0 transfer crossed the singular set and the exponential arms stayed in $\mathrm{GL}^+(K)$ with better-conditioned transfers. The receiver arm was 0.0276 nats worse, in a configuration where its profiled coupling was inert and its covariance contract also differed.
 
 ## Latent link generators, October 3, 2026
 
@@ -75,7 +70,7 @@ The program studies Gaussian routing and predictive communication between locall
 
 ## Retained routes and the gradient receiver, October 2, 2026
 
-The VFE_3.0 implementation now executes only the two projected routes, [[Projected predictive attention]] and [[Projected gradient attention]]; transported attention through the flat identification $\Omega_{ij}=U_iU_j^{-1}$, which the historical sections below describe, is retired, and the structure groups are `block_glk` and `so_n` ([[vfe3-2026-10-02-projected-route-consolidation]]). [[dennis-2026-projected-gradient]] supplies the gradient route's receiver: under cut routing (source labels inferred from the comparison record only), a channel likelihood that compares the receiver's measurement $O_h^\top x$ with the sender's message $T_h\bar\xi_j$ in the value space counts the receiver entropy once and has the tempered Gaussian posterior as its exact minimizer. The gauge-equivariance report figure now tests the projected score, routing, readout and receiver under a random passive frame action, with float64 residuals about $10^{-13}$. A design record behind [[dennis-2026-phi-natgrad]] shows that the complete gauge-invariant content of the link field is the simultaneous similarity class of the content maps $M_h=O_hT_h$ (given self-links), so the frames carry no invariant information of their own.
+The VFE_3.0 implementation now executes only the two projected routes, [[Projected predictive attention]] and [[Projected gradient attention]]; transported attention through the flat identification $\Omega_{ij}=U_iU_j^{-1}$, which the historical sections below describe, is retired, and the structure groups are `block_glk` and `so_n` (`VFE_3.0/docs/2026-10-02.md`). [[dennis-2026-projected-gradient]] supplies the gradient route's receiver: under cut routing (source labels inferred from the comparison record only), a channel likelihood that compares the receiver's measurement $O_h^\top x$ with the sender's message $T_h\bar\xi_j$ in the value space counts the receiver entropy once and has the tempered Gaussian posterior as its exact minimizer. The gauge-equivariance report figure now tests the projected score, routing, readout and receiver under a random passive frame action, with float64 residuals about $10^{-13}$. A design record behind [[dennis-2026-phi-natgrad]] shows that the complete gauge-invariant content of the link field is the simultaneous similarity class of the content maps $M_h=O_hT_h$ (given self-links), so the frames carry no invariant information of their own.
 
 ## Group-valued origin of the matrix links, October 2, 2026
 
@@ -121,7 +116,7 @@ Under independent passive site changes, with all moments and frames transformed 
 
 A head may be rank deficient while the routed sum is full rank. Attention heads describe communication channels and need not coincide with frame blocks. Sending and receiving subspaces may overlap; the maps also specify gains and correspondence. The frame transport $\Omega_{ij}=U_iU_j^{-1}$ remains flat, while the communication links need not obey its composition law. See [[Lattice gauge theory]] and [[Holonomy]] for the precise loop and path scope.
 
-The matrix-link algebra is established by the displayed factorization. It does not select an invariant action, a normalized population model, or an MLP theory. The user has left the MLP interpretation open. Earlier sections below describe historical constructions and their dated evidence; they are not a specification of the September predictive-content architecture. In particular, the older identification of heads with gauge blocks and the older width sweep should not be carried over to this full-width, independently parameterized layer construction. [[dennis-2026-glk-matrix-links-2026-09-20]]
+The matrix-link algebra is established by the displayed factorization. It does not select an invariant action, a normalized population model, or an MLP theory. The user has left the MLP interpretation open. Earlier sections below describe historical constructions and their dated evidence; they are not a specification of the September predictive-content architecture. In particular, the older identification of heads with gauge blocks should not be carried over to this full-width, independently parameterized layer construction. [[dennis-2026-glk-matrix-links-2026-09-20]]
 
 ## Setup: tokens as Gaussian agents on a bundle
 
@@ -398,54 +393,6 @@ $p(y_i\mid j_i=\varnothing)=p_i(y_i)$ contributes $D_{\mathrm{KL}}(q_i\Vert p_i)
 self-coupling and the peer couplings are competing slots of **one** simplex and folding the self term
 inside costs exactly one belief entropy. See [[Multi-agent variational free energy]].
 
-### Empirical anchor (audited development evidence)
-
-The retained numerical record is the fixed-$\mathrm{GL}^+(10)$ WikiText-103 width sweep over
-$K=10,20,\ldots,120$ with three development records per width and 491.52 million tokens per run.
-Mean test perplexity decreases from $219.0\pm1.3$ to $74.1\pm0.3$. The sweep spans ten source
-commits, activates the head mixer only from $K=20$ onward, and is neither iso-compute nor a matched
-architecture comparison. All 36 provenance records mark dirty worktrees, and no dirty diff survives.
-The archived configurations and committed code at their recorded SHAs reconstruct the same-scale
-$s\to q$ route, but the SHAs do not identify the exact executed bytes. The trend is therefore
-development-provenance evidence, not a frozen benchmark or transferable scaling law. Historical
-matched-baseline and frozen-BERT numerical claims are not retained; only the shared-frame algebraic
-score comparison survives.
-
-### Measured: how much of the score the derived energy actually carries (2026-07-25)
-
-Two checkpoint-only decompositions put numbers on the construction's central claims.
-
-**The precision blend is real and quantified.** The covariance fixed point above says each agent's
-precision is a $\beta$-weighted blend of its prior precision and its neighbors' transported
-precisions. Measured on the mean update at the trained operating point,
-that blend puts **80 to 85% of the
-fused precision on the prior** and 15 to 20% on the transported neighbors, so the converged belief
-is $\mu^*\approx0.8\mu_p+0.2(\text{attention-weighted transported neighbors})$ -- the derived
-attention operates as a layer with a dominant residual path. The neighbor share rises with width
-(0.153 at $K=20$ to 0.196 at $K=300$), though that pair is confounded with training length and
-head geometry and is not an isolated width effect.
-
-> [!warning] Superseded numbers
-> The shares first published here (70-81% prior; 0.190 -> 0.298 with width) came from a probe that
-> read the MODEL channel's fusion as the belief's, and anchored on the token-uniform centroid $r$
-> rather than the belief's prior. Corrected in the 2026-07-26 B-01 re-measurement;
-> the single-batch share is sample-sensitive, so quote it with its sample size.
-
-**The divergence score is a weaker router than the positional prior.** Under
-$\beta_{ij}=\mathrm{softmax}_j(\log\pi_{ij}-E_{ij}/\tau)$, ablating the entire belief-coupling
-energy $E$ costs 0.210 nats while flattening the positional prior $\log\pi$ costs 0.612.
-The additive $+\log\pi_j$ prior — the slot
-the manuscript identifies with ALiBi/T5/causal biases — carries roughly three times what the derived
-KL score does. Zeroing the frame table costs about nine times what the whole content channel is
-worth, which locates the gauge's contribution in the **value** path (transporting $\mu_j$ into the
-query frame) rather than in the scores it also feeds.
-
-The mechanism behind the weak score is structural rather than a tuning failure: the E-step descends
-$\alpha\mathrm{KL}(q\Vert p)+\sum_j\beta\mathrm{KL}(q\Vert\Omega q)+\text{entropy}$ with no data
-term, so $E_{ij}$ measures belief *agreement* and nothing in the objective asks it to be
-discriminative for the next token. Moving the temperature toward the ELBO-exact $\tau=1$ was
-measured and is monotonically worse, so the "starved for content signal" reading is not supported.
-
 ## KL vs Bures: which distortion measures belief distance?
 
 The manuscript's load-bearing distortion is the **KL divergence** between transported Gaussians,
@@ -524,7 +471,7 @@ October 6, 2026 prior readings: [[barbero-2022-sheaf-attention-networks]] · [[b
 
 October 6, 2026 edge and latent links: [[dennis-2026-edge-latent-links]]
 
-October 5, 2026 rework: [[dennis-2026-glk-attention-v2-rework-2026-10-05]] · [[dennis-2026-minimal-agent-model]] · [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]]
+October 5, 2026 rework: [[dennis-2026-glk-attention-v2-rework-2026-10-05]] · [[dennis-2026-minimal-agent-model]]
 
 [[dennis-2026-dynamic-links]] · [[dennis-2026-link-curvature]] · [[dennis-2026-link-origin]] · [[gl-k-attention]] · [[vaswani-2017-attention]] · [[bronstein-2021-geometric-deep-learning]] ·
 [[cohen-2019-gauge-cnn]] · [[wang-2023-riemannian-self-attention-spd]] ·

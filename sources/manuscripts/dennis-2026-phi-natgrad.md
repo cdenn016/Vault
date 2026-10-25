@@ -39,7 +39,7 @@ The design document's third track is not in the tex. It shows that with $L_{ij}^
 
 ## Implementation and evidence status
 
-Per the design source's amendments, the routes were implemented opt-in on 2026-09-28 as `m_phi_update_mode='fisher_group'` (with the pullback alternatives) and `m_phi_group_retraction='group_log'`, with a frame-condition gate $\max_h\kappa_2(U_h)\le10^3$ on the closed-form pullback (a routing proxy, not derived), rejection of off-strip rows on the Fisher route, and the link-spectrum diagnostic. Not established, per the tex: whether either route trains better than AdamW; the stabilizer leak at production shape; the effect of count normalization and of $\lambda_a$; GPU wall-clock cost; behavior of the pooled positional operator on trained statistics. The first training comparison is in [[2026-09-28-k20-ablation-set]] (Fisher route $+11.1$ PPL behind a matched AdamW run, with three coupled differences).
+Per the design source's amendments, the routes were implemented opt-in on 2026-09-28 as `m_phi_update_mode='fisher_group'` (with the pullback alternatives) and `m_phi_group_retraction='group_log'`, with a frame-condition gate $\max_h\kappa_2(U_h)\le10^3$ on the closed-form pullback (a routing proxy, not derived), rejection of off-strip rows on the Fisher route, and the link-spectrum diagnostic. Not established, per the tex: whether either route trains better than AdamW; the stabilizer leak at production shape; the effect of count normalization and of $\lambda_a$; GPU wall-clock cost; behavior of the pooled positional operator on trained statistics.
 
 ## Relevance to this research
 
@@ -47,4 +47,4 @@ This is the program's first natural gradient for the frame parameters with an ac
 
 ## Related
 
-[[2026-09-28-k20-ablation-set]], [[dennis-2026-projected-predictive]], [[absil-2008-optimization-matrix-manifolds]], [[higham-2008-functions-of-matrices]], [[skovgaard-1984-riemannian-geometry-normal-model]], [[amari-1998-natural-gradient]], [[milnor-1976-left-invariant-metrics]], [[culver-1966-existence]], [[cencov-1982-statistical-decision-rules]], [[martens-2015-kfac]], [[dempster-1977-em-algorithm]], [[neal-1998-variational-em]]
+[[dennis-2026-projected-predictive]], [[absil-2008-optimization-matrix-manifolds]], [[higham-2008-functions-of-matrices]], [[skovgaard-1984-riemannian-geometry-normal-model]], [[amari-1998-natural-gradient]], [[milnor-1976-left-invariant-metrics]], [[culver-1966-existence]], [[cencov-1982-statistical-decision-rules]], [[martens-2015-kfac]], [[dempster-1977-em-algorithm]], [[neal-1998-variational-em]]
