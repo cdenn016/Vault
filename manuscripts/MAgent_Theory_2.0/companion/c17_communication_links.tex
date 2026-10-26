@@ -1,0 +1,268 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Communication Codes and Learned Alignment}
+\label{c17:communication-links}
+
+A receiver can infer more variables than a message directly describes because its own model relates the measured and unmeasured variables. That additional structure belongs to the receiver's model. It need not reproduce the sender's structure. A second uncertainty concerns alignment: even when the agents use content spaces of the same dimension, the receiver must learn how the sender uses those coordinates. A code describes what is expressed, a dictionary describes the proposed alignment, and a conditional law describes how a receiver reconstructs what was left unsaid.
+
+All comparisons here occur at one context. There is one principal frame group $G$, acting on belief and model contents through two representations $\varrho_q$ and $\varrho_s$. The matrix examples use the belief representation $V=\R^K$ and suppress its sector superscript. The model representation can have a different dimension. One frame change acts in both representations, but a shared dictionary between the sectors is an additional tied-link assumption. This common group does not make the two laws or their communication rules identical.
+
+\section{What the receiver supplies}
+
+Let $q$ be the sender's law in coordinates already aligned with the receiver, and let $p$ be the receiver's prior law. Both are probability measures on a standard Borel content space $E$. A noiseless code is a measurable map $T:E\to H$. The message law is the pushforward $\mu=T_\#q$, meaning that $\mu(A)=q(T^{-1}A)$ for a measurable set $A$ of messages. If the receiver knows this whole message law, it can construct
+\begin{equation}
+\widehat q(dy)=\int p(dy\mid h)\mu(dh).
+\label{c17:reconstruction}
+\end{equation}
+The conditional law $p(dy\mid h)$ comes from the receiver. Regular conditional laws exist on the stated spaces \citep{Kallenberg2021}; if $q\ll p$, their versions agree at all message values needed, up to a $\mu$-null set.
+
+The reconstruction has the sender's message marginal and the receiver's conditional distribution inside each message fiber. For finite $\KL(q\Vert p)$, the chain rule gives
+\begin{equation}
+\KL(q\Vert\widehat q)
+=\KL(q\Vert p)-\KL(T_\#q\Vert T_\#p).
+\label{c17:loss}
+\end{equation}
+To read this identity, factor each law into its message marginal and its conditional law given the message. The logarithm of a density ratio becomes the sum of a marginal logarithm and a conditional logarithm. The two laws $q$ and $\widehat q$ share the marginal, so their divergence contains only the conditional part. This is the information-projection form of Jeffrey conditioning \citep{DiaconisZabell1982,Csiszar1975}. Nothing in the argument assumes Gaussian contents.
+
+A small Gaussian example makes the missing information visible. Take
+\begin{equation}
+p=\mathcal N(0,I_2),\qquad
+q=\mathcal N((a,b)^T,I_2),\qquad
+T(y_1,y_2)=y_1.
+\end{equation}
+The message law is $\mathcal N(a,1)$. Under $p$, the second coordinate is independent of the first and has law $\mathcal N(0,1)$, so
+\begin{equation}
+\widehat q=\mathcal N((a,0)^T,I_2),\qquad
+\KL(q\Vert\widehat q)=\frac{b^2}{2}.
+\label{c17:loss-example}
+\end{equation}
+The full prior disagreement is $(a^2+b^2)/2$ and the visible disagreement is $a^2/2$. The receiver obtains the first shift exactly and has no message evidence for the second.
+
+Now replace the receiver covariance by
+\begin{equation}
+\Sigma_p=\begin{pmatrix}1&r\\r&1\end{pmatrix},
+\qquad |r|<1.
+\end{equation}
+Its conditional model says $y_2\mid y_1=h\sim\mathcal N(rh,1-r^2)$. Receiving the same message law $\mathcal N(a,1)$ produces a reconstructed mean $(a,ra)^T$ and covariance $\Sigma_p$. The second mean has changed, although only the first coordinate was sent. It changed because the receiver supplied a correlation. The sender's actual second mean remains $b$, and these agree only when $b=ra$.
+
+Receiving a single value $h$ is a different experiment from receiving its entire law. With a linear noisy observation $h=Ay+\varepsilon$, a Gaussian receiver prior $\mathcal N(m,\Sigma_p)$, and independent noise $\varepsilon\sim\mathcal N(0,R)$ with $R>0$, the posterior mean is
+\begin{equation}
+m^+=m+O(h-Am),\qquad
+O=\Sigma_pA^T(A\Sigma_pA^T+R)^{-1}.
+\label{c17:gain}
+\end{equation}
+The posterior covariance is $\Sigma_p-OA\Sigma_p$, and its precision is $\Sigma_p^{-1}+A^TR^{-1}A$. This is Gaussian conditioning, the same gain mechanism used in the Kalman filter \citep{Kalman1960}. The gain depends on the receiver's correlations and on its model of the code. Its linearity and the absence of the observed value from the posterior covariance are Gaussian features.
+
+For a general noisy Markov kernel $\mathcal K:E\rightsquigarrow H$, reconstructing from the message law gives $\widehat q=\int p^h(q\mathcal K)(dh)$, where $p^h$ is the receiver's posterior given $h$. The corresponding finite-divergence statement is
+\begin{equation}
+\KL(q\Vert\widehat q)
+\leq\KL(q\Vert p)-\KL(q\mathcal K\Vert p\mathcal K).
+\label{c17:noisy}
+\end{equation}
+The chain rule first computes the mean conditional discrepancy. Mixing the conditional laws can reduce it, which explains why the noiseless identity becomes an inequality.
+
+\section{An invertible link does something different}
+
+In a linear realization, let $U_i\in G$ be agent $i$'s displayed frame. Sender $j$ has a reference code $\bar T_j:V\to H$. Receiver $i$ assigns it a reference dictionary $\bar\theta_{ij}\in G$, with displayed link and effective code
+\begin{equation}
+\theta_{ij}=U_i\bar\theta_{ij}U_j^{-1},\qquad
+A_{ij}=\bar T_j\bar\theta_{ij}^{-1}.
+\label{c17:dictionary}
+\end{equation}
+The first map takes sender coordinates to receiver coordinates. The second asks what message the sender would emit if the content had the receiver's coordinates. This accounts for the inverse in $A_{ij}$.
+
+Under a passive change $U_i\mapsto g_iU_i$, the displayed link changes as $\theta_{ij}\mapsto g_i\theta_{ij}g_j^{-1}$ and the displayed code as $T_j\mapsto T_jg_j^{-1}$. The message value is unchanged. Changing the common reference requires re-expressing $\bar T_j$ and $\bar\theta_{ij}$ together. Endpoint covariance alone does not choose a dictionary or prove that its data are independent of that common reference choice.
+
+The loss in a code is not reproduced by exponentiating a code-shaped generator. For the two-dimensional maps
+\begin{equation}
+T=\begin{pmatrix}1&0\end{pmatrix},\qquad
+O=\begin{pmatrix}1\\0\end{pmatrix},\qquad
+P=OT=\begin{pmatrix}1&0\\0&0\end{pmatrix},
+\end{equation}
+the direct map sends $(y_1,y_2)$ to $(y_1,0)$. In contrast,
+\begin{equation}
+e^P=\begin{pmatrix}e&0\\0&1\end{pmatrix}.
+\label{c17:code-link-example}
+\end{equation}
+It dilates the first coordinate and preserves the second. It is invertible. More generally,
+\begin{equation}
+e^{OT}=I+O\varphi_1(TO)T,\qquad
+\varphi_1(z)=\frac{e^z-1}{z},\qquad\varphi_1(0)=1,
+\end{equation}
+so the exponential acts as identity on $\ker T$ \citep{Higham2008}. In the earlier reconstruction example, the mean update was instead $(I-P)m+Pa$, combining sender and receiver data through a noninvertible projector.
+
+An unrestricted dictionary is a group element. Writing it as $e^\omega$ is an extra parameterization, useful near identity. A single real matrix exponential does not cover every element of $\GL^+(K,\R)$ \citep{Culver1966}. The exact dictionary-identification statements use their declared group domain. Restricting them to an exponential image means restricting their solution sets accordingly.
+
+\section{What a grounded message identifies}
+
+To learn an alignment, suppose the receiver knows a referent vector $y$ and observes a message
+\begin{equation}
+h=\bar T\bar\theta^{-1}y+\varepsilon.
+\label{c17:grounded}
+\end{equation}
+The noise has a fixed law independent of the referent. Referents explore the space with finite positive-definite second moment $M=\E[yy^T]$. This experiment differs from observing one average content repeatedly.
+
+Two dictionaries give the same conditional law for every referent precisely when their effective codes agree. Equivalently,
+\begin{equation}
+\bar\theta''=\bar\theta's,\qquad
+s\in\operatorname{Stab}_G(\bar T)
+=\{s\in G:\bar Ts=\bar T\}.
+\label{c17:stabilizer}
+\end{equation}
+This statement holds for every additive-noise law on $\R^r$: a probability law has no nonzero translation symmetry. Its characteristic function is nonzero near the origin, where invariance under translation by $a$ would force $e^{\mathrm i\langle t,a\rangle}=1$ for all small $t$, hence $a=0$.
+
+For $G=\GL(K,\R)$ and a rank-$r$ code, the stabilizer has dimension $K(K-r)$. Indeed, $\bar T(s-I)=0$ says that every column of $s-I$ lies in the $(K-r)$-dimensional kernel of the code, and invertibility is an open condition. The remaining $Kr$ parameters are identifiable. In $K=2$ with $\bar T=(1,0)$,
+\begin{equation}
+s=\begin{pmatrix}1&0\\u&v\end{pmatrix},\qquad v\neq0.
+\end{equation}
+No number of messages from this code can distinguish $\bar\theta$ from $\bar\theta s$ under the declared experiment.
+
+Gaussian noise with covariance $R>0$ gives an explicit local information form. For the perturbation $\bar\theta e^\delta$,
+\begin{equation}
+F(\delta,\delta)
+=\Tr(R^{-1}\bar T\delta C\delta^T\bar T^T),\qquad
+C=\bar\theta^{-1}M\bar\theta^{-T}.
+\label{c17:information}
+\end{equation}
+Because $R$ and $C$ are positive definite, this vanishes exactly when $\bar T\delta=0$. For regular non-Gaussian location noise, the same formula uses its location Fisher matrix instead of $R^{-1}$, with the same kernel when that matrix is positive definite.
+
+The record experiment matters. Let $T=I_2$, let every observed referent equal $c=e_1$, and perturb by $\delta=E_{22}$, the matrix with only its lower-right entry nonzero. Then $\delta c=0$, so that one referent sees no change. But $T\delta\neq0$, and referents with positive-definite second moment detect it. A direction invisible at one operating content is not necessarily invisible to a grounded code.
+
+\section{Several modalities and one shared dictionary}
+
+Suppose speech, diagrams, or other modalities have codes $\bar T^c$ and use the same dictionary. The unresolved subgroup is the intersection of their stabilizers. If $r_c$ is the rank of code $c$, their identifiable dimension in $\GL(K,\R)$ is
+\begin{equation}
+K\dim\left(\sum_c\operatorname{row}\bar T^c\right)
+\leq K\min\left(K,\sum_c r_c\right).
+\label{c17:modalities}
+\end{equation}
+When the total width is at most $K$, reaching this bound requires independent row spaces. When the total width is at least $K$, it requires only that the combined rows span $V^*$. Two identical full-rank codes already saturate the dimension $K^2$, although their row spaces coincide.
+
+Learning a separate reading $S_c$ for every code does not always produce one shared dictionary. Write $T_*$ and $S_*$ for the stacked matrices. There is an invertible $\theta$ with $T_*\theta^{-1}=S_*$ precisely when
+\begin{equation}
+\ker(T_*^T)=\ker(S_*^T).
+\label{c17:row-relations}
+\end{equation}
+These kernels contain the linear relations among rows. An invertible change of content coordinates preserves every such relation. Conversely, matching relations define an isomorphism of the row spaces that can be extended to the full dual space.
+
+For example, $T_1=T_2=(1,0)$ requires identical readings. The choice $S_1=(1,0)$ and $S_2=(2,0)$ has the same stacked rank, one, but violates that requirement. Equal rank is therefore insufficient. If both stacks have full row rank with total width at most $K$, their relation spaces are both zero and a shared dictionary does exist.
+
+Routing also controls what is learned. If modality $c$ listens to sender $j$ with probability $\beta_{ij}^{(c)}$, observed source labels give information $\sum_c\beta_{ij}^{(c)}F_c^{(j)}$. Conditional independence of messages makes the information add. A modality with zero source weight contributes nothing about that sender. If source labels are hidden, their uncertainty reduces information in the positive-semidefinite order, by the missing-information identity \citep{Louis1982}. Extra modalities help only through the distinctions their actual observations resolve.
+
+\section{Loops, agreement, and the chosen observable}
+
+The dictionary $\bar\theta_{ij}$ belongs to receiver $i$ and the opposite dictionary $\bar\theta_{ji}$ belongs to receiver $j$. They can be learned independently. Traversing the opposite attending edge therefore need not undo the first dictionary. Geometric reversal of the first map would use its inverse instead.
+
+For a directed loop $\gamma=(i_0\to i_1\to\cdots\to i_k=i_0)$, its ordered product is
+\begin{equation}
+H_\gamma=\bar\theta_{i_ki_{k-1}}\cdots\bar\theta_{i_1i_0}.
+\end{equation}
+It compares the interpretation obtained after returning along the loop with the starting interpretation. Such loops belong to the communication graph at one context; they do not by themselves define a connection between contexts.
+
+If the directed graph is strongly connected, a transported consensus law obeying $q_i=(\bar\theta_{ij})_\#q_j$ on every edge is determined by a base law invariant under every loop based there. To see why, transport that law along a directed path to each vertex. Two paths give the same result because a return path closes each into a loop, and transport along the return path is invertible. Strong connectivity supplies the required return paths. For means, the allowed base values are the common fixed vectors of the matrices $H_\gamma$. This is the same fixed-section mechanism underlying connection Laplacians \citep{SingerWu2012,BandeiraSingerSpielman2013}.
+
+There are two distinct ways to measure a loop. The law divergence $\KL(q\Vert(H_\gamma)_\#q)$ vanishes when the loop stabilizes the law. A link observable dressed by a positive-definite covariance is instead
+\begin{equation}
+Q(H;\Sigma)
+=\frac12\left\|\Sigma^{-1/2}(I-H)\Sigma^{1/2}\right\|_F^2.
+\label{c17:loop-defect}
+\end{equation}
+It vanishes only at $H=I$ and remains unchanged when $H$ and $\Sigma$ are re-expressed together. For the quarter-turn
+\begin{equation}
+H=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad q=\mathcal N(0,I_2),
+\end{equation}
+the transported law equals $q$, so the law divergence is zero. But $\|I-H\|_F^2=4$, giving $Q(H;I_2)=2$. Stabilizer blindness belongs to the law comparison, not to this dressed link defect.
+
+Grounded edge records can identify the dictionaries, and hence their loop product, without relaying one realized sample around the entire loop. Identifiability from these records, comparison of transported marginal laws, and observation of one sample along several routes are different experiments.
+
+\section{Message count and source confidence}
+
+Let $J$ be a source label with prior probabilities $\pi_j>0$. Conditional on $J=j$, suppose the receiver models $n$ messages as independent draws with density $\nu_j$. Bayes' rule gives
+\begin{equation}
+\mathbb P(J=j\mid h_{1:n})
+=\frac{\pi_j e^{-nC_{j,n}}}{\sum_k\pi_k e^{-nC_{k,n}}},
+\qquad
+C_{j,n}=-\frac1n\sum_{t=1}^n\log\nu_j(h_t).
+\label{c17:source-posterior}
+\end{equation}
+The temperature $1/n$ is an exact rewriting of this likelihood model. It counts conditionally independent messages; the width of a real vector alone is not a bit rate.
+
+If the actual messages are independent with law $\nu$ and every candidate log density is integrable under $\nu$, the strong law gives
+\begin{equation}
+\frac1n\log
+\frac{\mathbb P(J=j\mid h_{1:n})}{\mathbb P(J=k\mid h_{1:n})}
+\longrightarrow \E_\nu[\log\nu_j-\log\nu_k].
+\label{c17:source-limit}
+\end{equation}
+Only when both candidate KL divergences are finite may this be written as $\KL(\nu\Vert\nu_k)-\KL(\nu\Vert\nu_j)$. The expected log-likelihood ratio remains meaningful under the stated integrability even when a difference of two infinite divergences would be undefined. This is the relative-rate aspect of Bayesian concentration under possible model misspecification \citep{Berk1966}.
+
+For a concrete example, take two candidate Bernoulli message laws with probabilities $3/4$ and $1/4$ of message $1$, and equal source priors. If $k$ of $n$ messages are ones, the log posterior odds in favor of the first source are $(2k-n)\log3$. If the true message probability is $p$, the normalized log odds approach $(2p-1)\log3$. Repetition sharpens confidence about the message law; it supplies no evidence about content distinctions the code never expresses.
+
+\section{What a loop prior fills in}
+
+Dictionary learning in a Gaussian tangent model can be solved exactly. Write $\bar\theta_e=e^{\omega_e}$ on edge $e$ and linearize at $\omega_e=0$. Grounded messages then depend on $\bar T_e\omega_e$. Stack all edge generators into $\omega$ and define the invisible space
+\begin{equation}
+N=\{\nu:\bar T_e\nu_e=0\text{ on every edge}\}.
+\end{equation}
+Let $B\omega$ collect the sums of generators around a declared finite set of directed loops. It is the first-order loop generator. With a positive-definite anchor precision $\Pi_0$ and positive-definite loop metric $W$, choose the normalized Gaussian prior
+\begin{equation}
+p_0(\omega)\propto
+\exp\left[-\frac12\omega^T\Lambda_0\omega\right],
+\qquad
+\Lambda_0=\Pi_0+\lambda B^TWB,\qquad\lambda\geq0.
+\label{c17:loop-prior}
+\end{equation}
+The anchor is needed to control directions the loop term does not penalize. This is a declared prior over dictionaries.
+
+As grounded observations accumulate on every edge, with positive limiting sampling rates and the stated referent condition, they identify the affine set $\omega^\star+N$, where $\omega^\star$ is the true tangent generator. They cannot distinguish points within it. If the columns of $Z$ form an orthonormal basis of $N$, define $S=Z^T\Lambda_0Z$. The limiting mean and covariance are
+\begin{equation}
+\omega_\infty
+=\omega^\star-ZS^{-1}Z^T\Lambda_0\omega^\star,\qquad
+\operatorname{Cov}_\infty=ZS^{-1}Z^T.
+\label{c17:limit}
+\end{equation}
+These are the prior mean and covariance conditioned on the identified affine set. In the observed directions, covariance falls as $1/n$. In invisible directions, uncertainty is controlled by the prior.
+
+A one-coordinate example isolates the mechanism. Suppose the observed data fix one contribution $a$ to a loop, while an invisible coordinate $z$ supplies the other contribution. With isotropic anchor variance $\sigma^2$, the conditional density of $z$ is proportional to
+\begin{equation}
+\exp\left[-\frac{z^2}{2\sigma^2}
+-\frac{\lambda}{2}(a+z)^2\right].
+\end{equation}
+Completing the square gives
+\begin{equation}
+\E[z\mid a]=-\frac{\lambda\sigma^2}{1+\lambda\sigma^2}a,\qquad
+\operatorname{Var}(z\mid a)=\frac{\sigma^2}{1+\lambda\sigma^2}.
+\label{c17:completion-example}
+\end{equation}
+If the truth is flat, so $z^\star=-a$, increasing the loop weight recovers that truth. If the actual invisible coordinate is different, the same prior still drives the estimate toward $-a$. The messages cannot decide between these cases. A recovered flat interpretation and evidence for flatness are different conclusions.
+
+In the full tangent model, changing the invisible coordinates changes the loop value only through $B(N)$. If $Q$ is the $W$-orthogonal projection onto the complement of that subspace, the message-identifiable residual is
+\begin{equation}
+\mathcal D(\omega)=\min_{\nu\in N}\|B(\omega+\nu)\|_W^2
+=\|QB\omega\|_W^2.
+\label{c17:detectable}
+\end{equation}
+A strong loop prior removes the component it can change within the identified affine set. The remaining residual is the part the messages force it to keep.
+
+\section{Reciprocity, inaccessible directions, and exact scope}
+
+For a reciprocal pair, write $\mathcal K_0,\mathcal K_1$ for the kernels of its two codes. The invisible changes in the loop have matrix columns in $\mathcal K_0+\mathcal K_1$. Invisible changes that preserve the loop have opposite edge generators with columns in $\mathcal K_0\cap\mathcal K_1$. With the Frobenius loop metric, the detectable residual lies in the intersection of the two code row spaces.
+
+For example, in $K=2$ take the two codes $(1,0)$ and $(0,1)$. Their kernel intersection is zero, so a flat truth has no invisible flat freedom. Their kernel sum is all of $\R^2$, so every loop discrepancy can nevertheless be canceled by invisible changes. The flat-truth hypothesis permits complete recovery in the strong-prior limit, while the grounded data alone cannot reject flatness. If both codes instead read only the first coordinate, opposite changes along the unread second coordinate remain inaccessible to both messages and the loop prior.
+
+For a larger connected graph, the same question is expressed by
+\begin{equation}
+H^0=\{u=(u_i)_i:\bar T_e(u_i-u_j)=0
+\text{ for every }e:j\to i\}.
+\label{c17:sections}
+\end{equation}
+These are compatible assignments of content vectors through the codes, the global sections of a cellular sheaf \citep{HansenGhrist2021}. If the chosen loop chains span the signed cycle space of the underlying multigraph, the invisible flat-generator space for $\mathfrak{gl}(K,\R)$ has dimension $K(\dim H^0-K)$. The subtracted $K$ is the space of constant vector assignments. Mere connectedness does not ensure the cycle-spanning hypothesis for directed loops. One must supply enough directed return paths or explicitly use signed geometric reversals, keeping them distinct from independent opposite attending edges.
+
+Some identification statements survive without linearization. For two unrestricted $\GL(K,\R)$ dictionaries whose truth is reciprocal, exact message laws and reciprocity leave
+\begin{equation}
+\bar\theta_{01}=\bar\theta^\star_{01}s,\qquad
+s\in\operatorname{Stab}(\bar T_1)
+\cap\operatorname{Stab}(\bar T_0\bar\theta^\star_{01}).
+\end{equation}
+The stacked map $(\bar T_1;\bar T_0\bar\theta^\star_{01})$ is injective exactly when that residual set is a singleton. This is a global algebraic statement about the declared dictionary group. It does not imply a Gaussian posterior, convergence of a nonlinear learning flow, or exact agreement among the global, per-agent, and reciprocal objectives.
+
+The remaining learning problem is to determine conditional limits and dynamics for nonlinear dictionaries, non-Gaussian priors, latent source labels, and codes beyond location families. Those extensions must keep their observable experiment explicit. The exact Gaussian completion above supplies a model of what a prior can infer within an unresolved dictionary class; it supplies no theorem of endogenous parent formation.

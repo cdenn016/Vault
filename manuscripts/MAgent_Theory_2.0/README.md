@@ -13,7 +13,9 @@ Copy-Item -LiteralPath build/MAgent_Theory_2.0_supplement.pdf -Destination MAgen
 Copy-Item -LiteralPath build/MAgent_Theory_2.0_companion.pdf -Destination MAgent_Theory_2.0_companion.pdf
 ```
 
-## Current state (2026-10-23)
+## Current state (2026-10-26)
+
+The communication, link-dynamics, and curvature-hierarchy chapters integrate the supported results of Items 1–3 after the directed-graph, identifiability, normalization, and objective-scope corrections. General-law reconstruction precedes its Gaussian examples. The normalized anchored loop prior and exact learning calculations are stated on their tangent model; the three objectives retain their distinct ownership, covariance, and Fisher-metric assumptions. Curvature costs keep the affine record term, and rigid-parent statements require the declared partition, normalization, and internal connectivity. The companion gives self-contained explanations and analytic examples. Nonlinear link learning, joint mean/covariance/row dynamics, and formation with an inherited link sector remain open. The corrected standalone working documents remain available, and Item 7 is unchanged.
 
 The base-transport main and companion chapters integrate the conditional Item 5 construction. Regular contextual messages give displacement maps with identity on the diagonal, a derived affine connection, a curvature formula, and a path-product limit. Local alignment gives a second construction and a curved reciprocal-link SO(3) example. Directed backtracks remain available input data. The comparison rule is declared, rank or orbit degeneracy is excluded, and link-only central gauge ambiguity is explicit. These connections need not equal the law-Fisher selector used by Item 4; no new dynamical or formation theorem is claimed.
 
