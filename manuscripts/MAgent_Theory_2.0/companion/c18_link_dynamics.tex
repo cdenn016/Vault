@@ -1,0 +1,187 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\chapter{Learning Directed Links under Three Objectives}
+\label{c18:link-dynamics}
+
+A message can change a receiver's belief about the subject or its understanding of the speaker. These are separate variables. If one agent reports a higher temperature than another expects, the receiver may revise its temperature estimate, revise the conversion between their scales, or share the correction between the two. A comparison record alone may not distinguish those responses. The distinction becomes mathematical once the dictionary is included among the uncertain quantities.
+
+\section{What changes when a dictionary changes}
+
+Work at one context in reference coordinates. Agent $i$ represents content $y_i\in\R^K$. On a directed edge $e:j\to i$, the sender has a fixed code $T_e:\R^K\to\R^{r_e}$ of full row rank. The receiver owns an invertible dictionary $\theta_e=e^{\omega_e}$, where $\omega_e$ is a $K\times K$ matrix. According to this dictionary, the receiver's content $y_i$ would be expressed by the sender as $\theta_e^{-1}y_i$. A comparison record therefore reads
+\begin{equation}
+ o_e=T_e(\theta_e^{-1}y_i-y_j)+\varepsilon_e.
+ \label{c18:nonlinear-record}
+\end{equation}
+The code can discard content coordinates even though the dictionary is invertible. The independently owned dictionary on the opposite attending edge need not be $\theta_e^{-1}$.
+
+Fix an operating content $c_i$ and expand at the identity dictionary. Dropping terms quadratic in $\omega_e$ and $y_i-c_i$ gives
+\begin{equation}
+ o_e=T_e(y_i-y_j-\kappa_i\omega_e)+\varepsilon_e,
+ \qquad \kappa_i\omega_e=\omega_ec_i,
+ \qquad \varepsilon_e\sim\mathcal N(0,R_e),
+ \label{c18:tangent-record}
+\end{equation}
+with $R_e$ positive definite. The Gaussian noise and tangent approximation make the following calculations explicit; the theory of normalized communication kernels does not require them.
+
+Suppose $c_i\neq0$. For arbitrary content shifts, choose
+\begin{equation}
+ \delta\omega_e=(\delta y_i-\delta y_j)c_i^T/|c_i|^2.
+ \label{c18:compensation}
+\end{equation}
+Then $\kappa_i\delta\omega_e=\delta y_i-\delta y_j$, so the comparison record has exactly the same law. This is an observational ambiguity of the declared record. Other records and priors can distinguish its two explanations. At $c_i=0$ this first-order dictionary response vanishes, which will matter in the ring example.
+
+The ambiguity is not confined to Gaussian noise. If a record kernel depends only on $T_e(\theta_e^{-1}y_i-y_j)$, every change preserving that discrepancy preserves its law. For $K\geq2$ and dictionaries in $\GL^+(K,\R)$, put $v_e=\theta_e^{-1}y_i+y_j'-y_j$. Whenever $v_e$ and $y_i'$ are nonzero, an orientation-preserving invertible map can send $v_e$ to $y_i'$. Taking that map as $\theta_e'$ preserves the discrepancy. This is a pointwise statement; it does not prove a global nonlinear learning flow or its convergence.
+
+\section{How one record divides the adjustment}
+
+Take independent Gaussian priors for $y_i$, $y_j$, and $\omega_e$, with means $m_i$, $m_j$, $a_e$ and covariances $\Sigma_i^0$, $\Sigma_j^0$, $V_e$. Matrix coordinates of $\omega_e$ use the Frobenius inner product. The uncertainty in its action on the receiver's operating content is $C_\rho=\kappa_iV_e\kappa_i^T$. Define the record residual and its covariance by
+\begin{equation}
+ \begin{aligned}
+ r&=o_e-T_e(m_i-m_j-\kappa_i a_e),\\
+ S&=R_e+T_e(\Sigma_i^0+\Sigma_j^0+C_\rho)T_e^T.
+ \end{aligned}
+ \label{c18:residual}
+\end{equation}
+Gaussian conditioning multiplies each variable's covariance with the record by $S^{-1}r$. These cross-covariances have opposite signs for receiver and sender, giving
+\begin{equation}
+ \begin{aligned}
+ \delta y_i&=\Sigma_i^0T_e^TS^{-1}r,\qquad
+ \delta y_j=-\Sigma_j^0T_e^TS^{-1}r,\\
+ \kappa_i\delta\omega_e&=-C_\rho T_e^TS^{-1}r.
+ \end{aligned}
+ \label{c18:shares}
+\end{equation}
+The receiver adjusts its content, the sender adjusts its content, and the dictionary changes the receiver's predicted message. The noise covariance accounts for the remaining residual, so the three adjustments need not fit the record exactly. With isotropic dictionary uncertainty $V_e=\sigma^2I$, one has $C_\rho=\sigma^2|c_i|^2I$. Reinterpretation can then absorb more of the discrepancy farther from the reference origin.
+
+In a per-agent model, the sender's law is data. Integrating $y_j$ out of \cref{c18:tangent-record} adds $T_e\Sigma_j^0T_e^T$ to the noise covariance. The receiver and dictionary updates in \cref{c18:shares} remain the same for this one-record calculation, but the sender is not updated by the receiver's inference. This exact agreement of two conditional means in the isolated Gaussian example does not equate population dynamics.
+
+Grounded messages provide information about the dictionary by pairing a message with an independently specified referent. If the referents span the content space, their unobserved dictionary directions are $N_e=\{\delta:T_e\delta=0\}$. Give the observed directions precision $gG_e$ with $\ker G_e=N_e$, on top of a fixed positive-definite prior precision. Let $\Pi_e$ project onto $N_e^\perp$. Block inversion then gives
+\begin{equation}
+ \Pi_eV_e\Pi_e=O(g^{-1}),\qquad
+ T_eC_\rho T_e^T
+ =T_e\kappa_i\Pi_eV_e\Pi_e\kappa_i^TT_e^T=O(g^{-1}).
+ \label{c18:grounding}
+\end{equation}
+Grounding suppresses reinterpretation through the identified coordinates. A direction satisfying only $T_e\delta c_i=0$ is invisible to the single operating content, but it can be visible to these varied grounded referents. The two experiments must be kept distinct.
+
+\section{Objective derivatives and actual velocities}
+
+A population model also needs self information and a prior on dictionaries. Give each content a self precision $P_i>0$ about $m_i$, each dictionary an anchor precision $s>0$, and the dictionaries a loop penalty. If $B\omega$ collects sums of generators around a declared finite set of simple directed loops, take the prior precision to be $sI+\lambda B^TWB$, where $W$ is positive definite and $\lambda\geq0$. Grounding adds its edgewise quadratic terms. Combining this proper prior with the Gaussian record likelihoods gives a proper global posterior
+\begin{equation}
+ p(x\mid o)\propto\exp\{-\tfrac12x^TJx+\eta^Tx\},
+ \qquad x=(y,\omega),\quad J>0.
+ \label{c18:global}
+\end{equation}
+The prior is a declared model of loop consistency, not evidence that conversation has measured every loop coordinate.
+
+Group the variables into receiver blocks $x_i=(y_i,\omega_{\operatorname{in}(i)})$ and use product recognition $Q=\bigotimes_i\mathcal N(u_i,S_i)$. The global free energy, up to a constant, is
+\begin{equation}
+ \mathcal F_G=\tfrac12(u-u^*)^TJ(u-u^*)
+ +\tfrac12\sum_i[\Tr(J_{ii}S_i)-\log\det S_i],
+ \qquad u^*=J^{-1}\eta.
+ \label{c18:global-vfe}
+\end{equation}
+Thus $S_i=J_{ii}^{-1}$ at its covariance optimum, and the factor means equal the exact posterior mean. The exact marginal covariance is larger because integrating other blocks subtracts a positive-semidefinite term from the marginal precision. Factorization has removed correlations, not made the underlying variables better measured.
+
+The Fisher metric for a Gaussian mean is its inverse covariance. With these optimized covariances held fixed, put $D=\bigoplus_iJ_{ii}$. Then
+\begin{equation}
+ \dot u=-D^{-1}J(u-u^*).
+ \label{c18:global-flow}
+\end{equation}
+The relaxation matrix is similar to the symmetric positive-definite matrix $D^{-1/2}JD^{-1/2}$. Every mode therefore decays with a real rate. Each record contributes derivatives at the receiver, the sender, and the receiver's dictionary.
+
+The per-agent model contains received records only. In its plug-in version, peers are replaced by their current means. Its dictionary derivative equals the corresponding global derivative because the same edge likelihood, anchor, grounding, and loop factors occur in the owner's model. Its content derivative omits records for which that agent is the sender. Integrating peer laws instead gives the law-level version. For a record and a loop through receiver $i$, its effective covariances and precisions are
+\begin{equation}
+ \widetilde R_e=R_e+T_e\Sigma_jT_e^T,
+ \qquad
+ \Omega_{i\gamma}=\left[(\lambda W_\gamma)^{-1}
+       +\sum_{f\in\gamma\setminus\operatorname{in}(i)}V_f\right]^{-1}.
+ \label{c18:widening}
+\end{equation}
+The loop expression assumes $\lambda>0$ and the declared product of peer dictionary marginals; at $\lambda=0$ the loop term is absent. This widening changes dictionary derivatives as well. With one scalar edge, $T=c=R=\Sigma_j=1$, zero record, unit content difference, and zero dictionary mean, the global record derivative in the dictionary is $-1$, whereas the law-level derivative is $-1/2$.
+
+Even the plug-in equality is an equality of covectors. If $A_i$ is the own-block Hessian of the per-agent model, its optimized Gaussian recognition has covariance $A_i^{-1}$, and its velocity multiplies the derivative by that covariance. The global covariance $J_{ii}^{-1}$ need not equal $A_i^{-1}$; both can mix content and dictionary components. Matching derivative rows alone therefore does not match dictionary velocities.
+
+\section{A ring that cannot be a gradient flow}
+
+Consider $\ell\geq3$ scalar agents, each receiving from its successor. Let the self precision be $p>0$, the effective record precision be $q>0$, the dictionary anchor be $s>0$, and the common operating content be $c$. Omit grounding and loop penalties in this example. The receiver's quadratic energy is
+\begin{equation}
+ E_i=\tfrac12p(y_i-m_i)^2+\tfrac12s\omega_i^2
+      +\tfrac12q(o_i-y_i+y_{i+1}+c\omega_i)^2.
+ \label{c18:ring-energy}
+\end{equation}
+With the Gaussian own-block covariance at its optimum, the Hessian and the off-diagonal coupling are
+\begin{equation}
+ A=\begin{pmatrix}p+q&-qc\\-qc&s+qc^2\end{pmatrix},
+ \qquad C=\begin{pmatrix}-q&0\\qc&0\end{pmatrix}.
+ \label{c18:ring-blocks}
+\end{equation}
+For a Fourier mode $x_i=\zeta^iv$ with $\zeta^\ell=1$, the linear flow is $-(I+\zeta A^{-1}C)v$. The second column of $A^{-1}C$ vanishes, and its first diagonal entry is $-w$, where
+\begin{equation}
+ w=\frac{qs}{ps+pqc^2+qs}
+   =\frac{q_{\mathrm{eff}}}{p+q_{\mathrm{eff}}},
+ \qquad q_{\mathrm{eff}}=(q^{-1}+c^2/s)^{-1}.
+ \label{c18:ring-coupling}
+\end{equation}
+The two rates in each Fourier sector are $-1$ and $-(1-\zeta w)$. Since $0<w<1$, all modes decay, but nonreal roots give damped oscillation. The Jacobian of a Riemannian gradient flow at an equilibrium is self-adjoint in the metric there and has real spectrum. This ring therefore supplies a stable per-agent dynamics that cannot be made a gradient flow by choosing another metric, a familiar effect of non-reciprocal coupling \citep{FruchartEtAl2021}.
+
+The formula also quantifies reinterpretation. For $c\neq0$, dictionary uncertainty adds effective variance $c^2/s$, and $w\to0$ as $s\downarrow0$. For $c=0$, however, the dictionary is absent from the record and $w=q/(p+q)$ for every positive $s$. The weak-anchor limit is taken from proper models with $s>0$; it does not assert normalization of a zero-anchor dictionary prior. In a strongly grounded population, the global and plug-in equations instead approach their known-dictionary limits. One retains sender and receiver derivatives and the other retains receiver derivatives only, so their limiting content estimates need not agree. Coupled law-level covariance updates require a separate limit argument.
+
+\section{Why an unread loop can look certain}
+
+Let one unread scalar dictionary coordinate $z_e$ live on each of $\ell\geq2$ edges with different owners. Give each an anchor variance $\sigma^2$ and use one factor $\exp[-\lambda(\sum_ez_e)^2/2]$, with $\lambda>0$. The exact precision and its marginal variance are
+\begin{equation}
+ J=\sigma^{-2}I+\lambda\mathbf1\mathbf1^T,
+ \qquad
+ v_{\mathrm{exact}}=\sigma^2\frac{1+(\ell-1)\lambda\sigma^2}
+                                      {1+\ell\lambda\sigma^2}.
+ \label{c18:loop-exact}
+\end{equation}
+This follows by inverting the rank-one perturbation. As $\lambda\to\infty$, the sum is pinned but $\ell-1$ independent directions remain, leaving marginal variance $\sigma^2(\ell-1)/\ell$. The constraint permits correlated fluctuations of opposite sign.
+
+Product recognition instead gives variance $(\sigma^{-2}+\lambda)^{-1}$, which tends to zero. Its independent factors cannot carry the compensating fluctuations. In a symmetric law-level per-agent fixed point, each receiver convolves the loop factor with $\ell-1$ peer laws of variance $v$, obtaining
+\begin{equation}
+ v^{-1}=\sigma^{-2}+[\lambda^{-1}+(\ell-1)v]^{-1}.
+ \label{c18:echo}
+\end{equation}
+Writing $\epsilon=\lambda^{-1}$ turns this into
+$(\ell-1)\sigma^{-2}v^2+(\epsilon\sigma^{-2}+2-\ell)v-\epsilon=0$.
+Its roots have opposite signs, so it has one positive symmetric solution. For $\ell\geq3$ that solution tends to $\sigma^2(\ell-2)/(\ell-1)$. For two edges it satisfies $v^2+\epsilon v-\epsilon\sigma^2=0$ and hence $v\sim\sigma\lambda^{-1/2}$. Each owner has recycled information that previously reached the partner through the same constraint.
+
+A cavity message excludes the factor to which it is being sent. There is only one factor here, so the peer cavity laws are their anchors. The resulting variance is
+\begin{equation}
+ v_{\mathrm{cavity}}
+ =\left[\sigma^{-2}+(\lambda^{-1}+(\ell-1)\sigma^2)^{-1}\right]^{-1}
+ =v_{\mathrm{exact}}.
+ \label{c18:cavity}
+\end{equation}
+This exactness is the tree property of the factor graph with one central factor and $\ell$ variable leaves \citep{Pearl1988}. It is consistent with a loop in the communication graph: the communication graph and factor graph are different objects. Overlapping loop factors need their own analysis. All three approximate schemes here agree on the zero mean, so a point-estimate comparison would miss their disagreement about uncertainty.
+
+\section{The reciprocal potential and source uncertainty}
+
+Now treat the content and dictionary laws as configuration variables of a reciprocal potential. Let $q_i=\mathcal N(\mu_i,\Sigma_i)$ and let the dictionary laws be independent Gaussians $\mathcal N(a_e,V_e)$. For edge $e:j\to i$, compare
+\begin{equation}
+ m_e^{\mathrm{rec}}(\omega_e)
+ =\mathcal N(T_e(\mu_i-\kappa_i\omega_e),S_{i,e}),
+ \qquad m_e^{\mathrm{src}}=\mathcal N(T_e\mu_j,S_{j,e}),
+ \label{c18:message-laws}
+\end{equation}
+where $S_{k,e}=R_e+T_e\Sigma_kT_e^T$. Add their expected divergence with weight $\beta_e>0$ to content self divergences and the dictionary divergence from the declared prior. There is no registered comparison record in this potential.
+
+At fixed covariances and fixed weights, its mean-dependent part is a quadratic global energy with zero comparison values and record covariances $S_{j,e}/\beta_e$. Its Gaussian mean flow consequently has real decay rates. This equality of mean quadratics does not equate the complete objectives or their covariance dynamics. Gibbs-optimized rows give the same pointwise derivative with the current weights, but moving weights do not yield the same constant-coefficient flow. A dictionary enters only its edge cost and its prior. A source content enters every edge on which it is heard, producing reciprocal source-role derivatives.
+
+The covariance derivative exposes the distinction. Put $d_e=T_e(\mu_i-\mu_j-\kappa_i a_e)$ and $U_e=T_e\kappa_iV_e\kappa_i^TT_e^T$. The unweighted edge cost has sender-covariance derivative
+\begin{equation}
+ \frac12T_e^TS_{j,e}^{-1}
+       [S_{j,e}-S_{i,e}-d_ed_e^T-U_e]
+       S_{j,e}^{-1}T_e.
+ \label{c18:source-covariance}
+\end{equation}
+Indeed, its relevant terms are $[\Tr(S_{j,e}^{-1}(S_{i,e}+d_ed_e^T+U_e))+\log\det S_{j,e}]/2$. Differentiation gives \cref{c18:source-covariance}. The source covariance is compared with the receiver's predicted second moment about the source mean, which includes their disagreement. More generally, for an exponential-family source $q_\eta$ with statistic $t$, one has $\partial_\eta\KL(p\Vert q_\eta)=\E_{q_\eta}t-\E_pt$ under regularity and finite moments. Source stationarity matches those expected statistics.
+
+There is a precise scalar conclusion. Freeze the means, the receiver variance $v_k$, the noise $R>0$, and a deterministic dictionary. Let the sender have only its self term of precision $p_j$ and one outgoing edge of unit weight. Its stationary variance satisfies
+\begin{equation}
+ f(v,d^2)=p_j-v^{-1}+(v+R)^{-1}
+                  -(v_k+R+d^2)(v+R)^{-2}=0.
+ \label{c18:variance-stationary}
+\end{equation}
+At a nondegenerate minimum, $\partial_v f>0$, whereas $\partial_{d^2}f=-(v+R)^{-2}<0$. Implicit differentiation gives $dv/d(d^2)>0$. This establishes an increasing stationary uncertainty under these frozen conditions. It does not establish a monotone covariance increase along a flow in which means, other edge costs, and source rows all move. In linear-Gaussian inference the optimizing covariance is record-independent because the precision matrix is fixed; non-Gaussian Bayesian uncertainty can depend on the observed data. Comparing those general-law updates, and controlling the simultaneous evolution of means, covariances, and rows, remain separate problems.
