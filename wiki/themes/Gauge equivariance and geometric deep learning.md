@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # Gauge equivariance and geometric deep learning
+
+## Learned frames tested against capacity, October 26, 2026
+
+The first registered test of whether the VFE transformer's per-token frames do work beyond their parameter count is [[vfe3-2026-10-26-paper-arms]]. Learned $GL(K)$ frames beat identity frames by 0.212 nats, random frozen frames by 0.207, and an equal-size additive per-type table by 0.154, so the frame fibre carries learned structure that neither random group elements nor additive capacity reproduce. Whether the group structure itself matters, as opposed to any learned per-type multiplicative map, is still open; see [[GL(K) gauge-equivariant attention]].
 
 ## Prior readings of attention as a sheaf, connection or gauge theory, October 6, 2026
 

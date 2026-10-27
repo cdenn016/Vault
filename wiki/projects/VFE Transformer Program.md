@@ -14,10 +14,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # VFE Transformer Program
+
+## Paper arms: frames against capacity and baselines, October 25 to 26, 2026
+
+[[vfe3-2026-10-26-paper-arms]] is the registered main-results comparison at $K=128$, six layers, ALiBi without rotary encoding, one epoch of WikiText-103, three seed pairs per arm. The frame decision rule stands on all three clauses: the per-type read-table comparator is worse by 0.361 nats of test CE, frames frozen at random initialization by 0.207, and an identity-frame model with a per-type additive table of the frame table's size by 0.154, against a 0.03-nat margin. Random frames recover almost none of the 0.212-nat cost of removing frames and the equal-size table recovers about 27%, so the advantage belongs to learned frame structure and not to additive capacity; a per-type multiplicative map without gauge structure remains untested. Two results bound the broader claim. A conventional transformer of matched total parameters ([[vaswani-2017-attention]]) beats the VFE model by 0.160 nats, and giving the read-table comparator the VFE model's optimizer shrinks its gap from 0.361 to 0.119 nats. Per step, the VFE model leads every conventional arm early (by 0.153 nats of train CE over the matched-total transformer at step 1,000) and is overtaken by the matched-total transformer near step 4,700 on validation; that arm's hidden-matrix learning rate was untuned. Covariance-blind (mean-distance) routing matches Gaussian-KL routing within 0.002 nats.
 
 ## Backprop-free local learning test, October 21 to 25, 2026
 
@@ -153,7 +157,7 @@ state-level mean-field obstruction.
 
 ## Experiments
 
-Run artifacts persist under `VFE_3.0/vfe3_runs/` and are not catalogued here. On October 25, 2026 the author removed the earlier run notes and their results from the vault; the only ingested run is [[vfe3-2026-10-25-local-learner-test]].
+Run artifacts persist under `VFE_3.0/vfe3_runs/` and are not catalogued here. On October 25, 2026 the author removed the earlier run notes and their results from the vault; the runs ingested since, each at the user's request, are [[vfe3-2026-10-25-local-learner-test]] and [[vfe3-2026-10-26-paper-arms]].
 
 ## Status & next steps
 

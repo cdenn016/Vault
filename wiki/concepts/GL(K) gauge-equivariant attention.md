@@ -14,10 +14,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # GL(K) gauge-equivariant attention
+
+## Learned frames against capacity controls, October 26, 2026
+
+In [[vfe3-2026-10-26-paper-arms]], at $K=128$ and one epoch, removing the learned per-type $GL(K)$ frames cost 0.212 nats of test cross-entropy. Frames frozen at their random initialization recovered 0.005 nats of that, and replacing the frames by a per-type additive hidden-layer table with as many parameters as the frame table recovered 0.058. The gain therefore comes from frames learned per type, acting multiplicatively, and not from random group elements or from the parameter count of the frame table. The frame gap widens through training, and part of its late train-set advantage does not transfer to validation. A per-type multiplicative map without the group structure is the control this run did not include.
 
 ## Transformer layers derived from an objective: prior art, October 6, 2026
 
