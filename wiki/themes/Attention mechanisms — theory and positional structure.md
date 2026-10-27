@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # Attention mechanisms — theory and positional structure
+
+## Covariance in the routing cost and conventional baselines, October 26, 2026
+
+In [[vfe3-2026-10-26-paper-arms]], replacing the Gaussian-KL routing cost of the VFE transformer by a mean-distance cost that ignores the covariance changed test cross-entropy by +0.002 nats (interval [−0.010, +0.015]) at 61% of the wall time, with ALiBi ([[press2022-alibi]]) as the positional prior. At this operating point the routing reads nothing measurable from the covariance; the decoder, which also reads it, was not tested. The same run found a conventional transformer of matched total parameters ([[vaswani-2017-attention]]) 0.160 nats better, and found that the per-type read-table transformer gains 0.242 nats from the VFE model's Adam settings ([[kingma-ba-2015-adam]]: $\beta_2=0.999$, no matrix decay) alone.
 
 ## Attention as communication among statistical agents, October 5, 2026
 

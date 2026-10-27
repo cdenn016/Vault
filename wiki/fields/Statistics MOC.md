@@ -11,6 +11,10 @@ updated: 2026-10-20
 # Statistics MOC
 
 
+## Paper arms run, October 26, 2026
+
+[[vfe3-2026-10-26-paper-arms]] is the registered main-results comparison of the VFE transformer against frame-free, frozen-frame, equal-capacity and conventional-transformer arms at $K=128$, one epoch, three seed pairs, with paired-difference decision rule; see [[VFE Transformer Program]] and [[GL(K) gauge-equivariant attention]].
+
 ## Stepwise EM and filtering references, October 25, 2026
 
 [[cappe-2009-online-em]], [[albert-1993-probit-data-augmentation]], [[rauch-1965-rts-smoother]], [[meng-1994-em-convergence-rates]], [[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]], [[varadhan-2008-squarem]] and [[barber-2006-expectation-correction]] support the backprop-free local-learner test [[vfe3-2026-10-25-local-learner-test]] and its switching follow-up; see [[Variational EM]].

@@ -1344,6 +1344,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 ## 🧪 Sources — experiment runs
 
 - [[vfe3-2026-10-25-local-learner-test|VFE_3.0 backprop-free local-learner test, October 21 to 25, 2026]] — stepwise EM through one filter reaches 0.925 / 0.906 of backpropagation's gain at d = 32 / 64 and shares its optimum; the gap is speed; exp-chart transitions cost 0.039 / 0.018 bits per byte
+- [[vfe3-2026-10-26-paper-arms|VFE_3.0 paper arms at K = 128, one epoch, October 25 to 26, 2026]] — frame decision rule stands (+0.361 / +0.207 / +0.154 nats); matched-total transformer better by 0.160; tuned read table gap 0.119; mean-distance routing equal to Gaussian-KL
 
 ## MultiAgentELBO research ingestion — September 11, 2026
 
