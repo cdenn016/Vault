@@ -4,7 +4,7 @@
 
 The receiver-owned dictionaries of \cref{it1:dictionary} can be uncertain and learned together with the contents they interpret. Their dynamics depends on which of the three objectives in \cref{ch:dynamics} is chosen. A global model differentiates every comparison record at both endpoints. A per-agent model updates only the receiver's variables while treating the source law as data. A reciprocal potential differentiates both arguments of a divergence between communicated laws. These distinctions concern the objective; the recognition family supplies the Fisher metric that turns its derivatives into velocities.
 
-The general dependency statements and the pointwise record invariance below do not require Gaussian laws. Explicit mean flows, grounding rates, and confidence formulas are derived on a linear-Gaussian tangent family with fixed operating contents. The reciprocal mean-flow theorem also fixes covariances and source rows. This is a restricted-family calculation in the sense of \cref{def:dyn-restricted-flow}; it does not assert that a full law-space flow preserves Gaussianity.
+The general dependency statements and the pointwise record invariance below do not require Gaussian laws. Explicit mean flows, grounding rates, and confidence formulas use a linear-Gaussian tangent family with fixed operating contents. The fixed-covariance reciprocal mean theorem is followed by the coupled flow of all content and dictionary means and covariances, with either relaxing or Gibbs-optimized source rows. Its global-existence theorem and exact stability example concern the restricted family of \cref{def:dyn-restricted-flow}; they do not assert that a full law-space flow preserves Gaussianity.
 
 \section{The tangent communication model}
 \label{it2:ch-model}
@@ -12,7 +12,7 @@ The general dependency statements and the pointwise record invariance below do n
 Two agents who exchange messages about something they both represent can register whether a message matches what the receiver expected. A comparison record is a noisy linear function $A_iy_i-B_{ij}y_j+\epsilon$ of the two agents' contents. With codes and receiver-owned dictionaries the natural choice is $B_{ij}=\bar T_e$, the sender's code, and $A_i=\bar T_e\bar\theta_e^{-1}$, the receiver's prediction of the message from its own content translated into the sender's coordinates. The following construction linearizes that record and places it in the two free energies.
 
 \definitionheading{Tangent communication model}{it2:model}
-Let $\mathcal V$ be a finite set of agents and $\mathcal E$ a set of directed edges $e:j\to i$ with receiver $i$ and sender $j$, and write $\operatorname{in}(i)$ for the edges received by $i$. Agent $i$ has content $y_i\in\R^K$ in its reference coordinates. Edge $e$ carries the receiver's dictionary $\bar\theta_e=e^{\omega_e}$ with $\omega_e\in\mathfrak g=\mathfrak{gl}(K,\R)$, the sender's attending code $\bar T_e:\R^K\to H_e=\R^{r_e}$ of full row rank $r_e\leq K$ and a positive-definite noise covariance $R_e$. Fix operating contents $c_i\in\R^K$ and write $\kappa_i\omega=\omega c_i$. The dictionary is a receiver-owned hypothesis about the sender's coordinates; the independently owned opposite dictionary need not be its inverse. Define $N_e=\{\delta\in\mathfrak g:\bar T_e\delta=0\}$, the directions invisible to grounded referents that span the content space. These can be fewer than the directions invisible at a single operating content, which satisfy only $\bar T_e\delta c_i=0$. The comparison record of $e$ is
+Let $\mathcal V$ be a finite set of agents and $\mathcal E$ a set of directed edges $e:j\to i$ with receiver $i$ and sender $j$, and write $\operatorname{in}(i)$ for the edges received by $i$. Agent $i$ has content $y_i\in\R^K$ in its reference coordinates. Edge $e$ carries the receiver's dictionary $\bar\theta_e=e^{\omega_e}$ with $\omega_e\in\mathfrak g=\mathfrak{gl}(K,\R)$, the sender's attending code $\bar T_e:\R^K\to H_e=\R^{n_e}$ of full row rank $n_e\leq K$ and a positive-definite noise covariance $R_e$. Fix operating contents $c_i\in\R^K$ and write $\kappa_i\omega=\omega c_i$. The dictionary is a receiver-owned hypothesis about the sender's coordinates; the independently owned opposite dictionary need not be its inverse. Define $N_e=\{\delta\in\mathfrak g:\bar T_e\delta=0\}$, the directions invisible to grounded referents that span the content space. These can be fewer than the directions invisible at a single operating content, which satisfy only $\bar T_e\delta c_i=0$. The comparison record of $e$ is
 \begin{equation}
 o_e=\bar T_e\bigl(y_i-y_j-\kappa_i\omega_e\bigr)+\varepsilon_e,\qquad\varepsilon_e\sim\mathcal N(0,R_e),
 \label{it2:record}
@@ -209,6 +209,45 @@ The recycled-information mechanism can occur for non-Gaussian laws as well. The 
 
 The reciprocal potential is a function of agent laws. It moves each source through the costs of receivers that attend to it. The following extension includes dictionary laws as configuration variables. Registered comparison records are absent from this potential; adding persistent likelihood terms would define another objective.
 
+\definitionheading{Dictionary laws and source rows}{it2:law-potential}
+Consider one content sector, with singleton model-presentation spaces. Let $q_i$ and $r_e$ be laws on standard Borel content and dictionary spaces, let $p_i$ be fixed proper content references, and let $\pi_\omega$ be a fixed proper joint dictionary reference. Recognition is restricted to the product $r=\bigotimes_e r_e$, even when $\pi_\omega$ correlates edges. Fixed normalized kernels give laws $A_e(\omega_e)=q_i\mathcal K_e^{\mathrm{rec}}(\omega_e)$ and $B_e=q_j\mathcal K_e^{\mathrm{src}}$ on a common message space for each $e:j\to i$. Put
+\begin{equation}
+ \begin{aligned}
+ C_e&=\int\Delta_e(\omega_e)r_e(d\omega_e),
+ &\Delta_e(\omega_e)&=\KL(A_e(\omega_e)\Vert B_e),\\
+ F_0&=\sum_i\KL(q_i\Vert p_i)+\KL(r\Vert\pi_\omega).
+ \end{aligned}
+ \label{it2:law-cost}
+\end{equation}
+All displayed relative entropies and expected costs are required to be finite. Each nonempty candidate set $\mathcal I_i=\operatorname{in}(i)$ has a positive normalized prior $\pi_i=(\pi_e)_{e\in\mathcal I_i}$, a temperature $T_i>0$, and a positive normalized row $\beta_i$. Rows with no candidates are omitted. The variable-row potential and its minimum over rows are
+\begin{equation}
+ \begin{aligned}
+ \mathcal E_T&=F_0+\sum_i\left[\sum_{e\in\mathcal I_i}\beta_e C_e
+                         +T_i\KL(\beta_i\Vert\pi_i)\right],\\
+ Z_i&=\sum_{e\in\mathcal I_i}\pi_e e^{-C_e/T_i},
+ \qquad \beta_e^*=\frac{\pi_e e^{-C_e/T_i}}{Z_i},
+ \qquad E_T=F_0-\sum_iT_i\log Z_i.
+ \end{aligned}
+ \label{it2:row-objectives}
+\end{equation}
+All reference laws, kernels, priors, and temperatures are fixed in the variation. The dictionary expectation is outside the message divergence. Averaging receiver laws before taking the divergence defines a different cost.
+
+On regular dominated charts with positive message densities and integrable envelopes justifying differentiation, \cref{eq:dyn-kl-differential} gives
+\begin{equation}
+ dC_e=\int\Delta_e dr_e+
+ \int r_e(d\omega_e)\left[\int\log(A_e/B_e)dA_e-\int(A_e/B_e)dB_e\right].
+ \label{it2:law-cost-variation}
+\end{equation}
+Here $dA_e=(dq_i)\mathcal K_e^{\mathrm{rec}}(\omega_e)$ and $dB_e=(dq_j)\mathcal K_e^{\mathrm{src}}$. The term in $dr_e$ accounts for changing dictionary recognition. In density notation its own-block first variation is $\delta\mathcal E_T/\delta r_e=\log r_e-\E_{r_{-e}}\log\pi_\omega+\beta_e\Delta_e$, up to a sample-independent constant, whenever the displayed conditional expectation and split variation are integrable. This follows by differentiating the product entropy and the expected log joint prior, and retains the prior's correlations. For a parametric Fisher flow the family must additionally have finite positive-definite Fisher tensor. None of these regularity conditions follows from standard Borel measurability alone.
+
+\Cref{prop:dyn-gibbs} applies to these expected costs and gives
+\begin{equation}
+ \mathcal E_T=E_T+\sum_iT_i\KL(\beta_i\Vert\beta_i^*),
+ \qquad dE_T=dF_0+\sum_e\beta_e^*dC_e.
+ \label{it2:row-gap}
+\end{equation}
+The second identity differentiates the complete row objective, including entropy. Substitution of $\beta^*(x)$ into the entropy-free weighted sum does not give this derivative.
+
 \definitionheading{Tangent reciprocal potential}{it2:potential}
 Let a configuration consist of content laws $q_i=\mathcal N(\mu_i,\Sigma_i)$ and a factorized dictionary law $r=\bigotimes_e\mathcal N(a_e,V_e)$. For an edge $e:j\to i$ put $S_{i,e}=\bar T_e\Sigma_i\bar T_e^T+R_e$ and $S_{j,e}=\bar T_e\Sigma_j\bar T_e^T+R_e$, and define the message laws
 \begin{equation}
@@ -223,7 +262,7 @@ the law of the message the receiver would send about its own content read in the
 \end{equation}
 where $\pi_\omega$ is the normalized dictionary prior with density proportional to $\exp(-\frac12\omega^T(\sigma^{-2}I+\lambda B^TWB)\omega-\frac12\sum_e\Vert\omega_e-\hat\omega_e\Vert_{G_e}^2)$.
 
-The receiver's law comes first and the source's second, as in a directed peer divergence, and the costs are divergences between message laws, rather than comparisons between independent content samples. The self term replaces the local term $\mathcal E_0$ by its tangent form. The last term makes the dictionary laws configuration variables whose part of the potential is a recognition free energy over dictionaries. With Gibbs rows in place of fixed rows, the Gibbs envelope identity gives the same derivatives with the rows evaluated at their Gibbs values, so the derivative statements below apply pointwise with those weights inserted. State-dependent Gibbs weights do not preserve the constant-coefficient mean-flow theorem.
+The receiver's law comes first and the source's second, as in a directed peer divergence, and the costs are divergences between message laws, rather than comparisons between independent content samples. The self term replaces the local term $\mathcal E_0$ by its tangent form. The last term makes the dictionary laws configuration variables whose part of the potential is a recognition free energy over dictionaries. For normalized variable rows, use $\mathcal E_T=\mathcal E+\sum_iT_i\KL(\beta_i\Vert\pi_i)$ from \cref{it2:row-objectives}. Its Gibbs reduction has the pointwise derivative \cref{it2:row-gap}, so the derivative statements below apply with the current Gibbs weights inserted. State-dependent weights do not preserve the constant-coefficient mean-flow theorem.
 
 \propositionheading{Forces in the reciprocal potential}{it2:potential-forces}
 Hold the covariances $\Sigma_i$ and $V_e$ fixed. Let $E^S$ be the global energy \cref{it2:global-energy} with every $R_e$ replaced by $S_{j,e}/\beta_e$ and every registered value $o_e$ by zero, with precision $J^S$ and information vector $\eta^S$.
@@ -236,7 +275,7 @@ Hold the covariances $\Sigma_i$ and $V_e$ fixed. Let $E^S$ be the global energy 
 \begin{proof}
 (i) For Gaussian laws $\KL(\mathcal N(\alpha,A)\Vert\mathcal N(\beta',B))=\frac12[\Tr(B^{-1}A)-r+(\alpha-\beta')^TB^{-1}(\alpha-\beta')+\log\det B-\log\det A]$. Under $r$ the mean of $m_e^{\mathrm{rec}}$ is $\bar T_e(\mu_i-\kappa_ia_e)-\bar T_e\kappa_i(\omega_e-a_e)$, so the averaged cost is
 \begin{equation}
-\tfrac12\bigl[\Tr(S_{j,e}^{-1}S_{i,e})-r_e+d_e^TS_{j,e}^{-1}d_e+\Tr(S_{j,e}^{-1}\bar T_e\kappa_iV_e\kappa_i^T\bar T_e^T)+\log\det S_{j,e}-\log\det S_{i,e}\bigr]
+\tfrac12\bigl[\Tr(S_{j,e}^{-1}S_{i,e})-n_e+d_e^TS_{j,e}^{-1}d_e+\Tr(S_{j,e}^{-1}\bar T_e\kappa_iV_e\kappa_i^T\bar T_e^T)+\log\det S_{j,e}-\log\det S_{i,e}\bigr]
 \end{equation}
 with $d_e=\bar T_e(\mu_i-\mu_j-\kappa_ia_e)=L_e(\mu,a)$. The self term is $\frac12(\mu_i-m_i)^TP_i(\mu_i-m_i)$ plus covariance terms. Since $r$ is a product and $\E_r[\omega^TA\omega]=a^TAa+\Tr(AV)$, $\KL(r\Vert\pi_\omega)$ is $\frac12a^T(\sigma^{-2}I+\lambda B^TWB)a+\frac12\sum_e(a_e-\hat\omega_e)^TG_e(a_e-\hat\omega_e)$ plus covariance terms and a constant. The mean-dependent terms sum to $E^S$. (ii) In \cref{it2:potential-eq} the variable $\omega_e$ appears only in the cost of $e$ and in $\pi_\omega$. (iii) The Fisher metric of $q_i$ in $\mu_i$ is $\Sigma_i^{-1}$ and that of $\mathcal N(a_e,V_e)$ in $a_e$ is $V_e^{-1}$, so the Fisher gradient is $M\nabla E^S=MJ^S((\mu,a)-x^S)$, and $MJ^S$ is similar to $M^{1/2}J^SM^{1/2}$, which is positive definite because the self terms and the anchor are. (iv) In the per-agent law-level model $\tilde R_e=R_e+\bar T_e\Sigma_j\bar T_e^T=S_{j,e}$; the rest is \cref{it2:per-agent-flow}(iii).
 \end{proof}
@@ -262,11 +301,226 @@ For a regular exponential-family source $q_\eta$ with sufficient statistic $t$, 
 
 For product dictionary laws in \cref{it2:potential}, covariance stationarity gives $V_e^{-1}=\sigma^{-2}I+\lambda(B^TWB)_{ee}+G_e+\beta_e\kappa_i^T\bar T_e^TS_{j,e}^{-1}\bar T_e\kappa_i$. The grounded and record information vanish on $N_e$. When $W_\gamma=I$, the loop diagonal block is the number of simple loops containing $e$ times the identity, so $N_e$ is invariant under this precision. In the single-loop setting of \cref{it2:echo}, the variance on an unread coordinate is $(\sigma^{-2}+\lambda)^{-1}$, the same value as factorized global recognition. No general marginal-variance formula for overlapping loops is implied.
 
+\section{Coupled means, covariances, and rows}
+\label{it2:ch-coupled}
+
+All content and dictionary parameters now vary within the Gaussian product family. The codes and operating contents remain fixed. Identify $\mathfrak g$ with its $d_\omega=K^2$ reference-coordinate vector space and write
+\begin{equation}
+ \begin{aligned}
+ A_\omega&=\sigma^{-2}I+\lambda B^TWB+\operatorname{diag}(G_e),&
+ b_\omega&=(G_e\hat\omega_e)_e,& a_0&=A_\omega^{-1}b_\omega,\\
+ K_e&=\bar T_e\kappa_i,& J_e&=S_{j,e}^{-1},&
+ Q_e&=S_{i,e}+d_ed_e^T+K_eV_eK_e^T .
+ \end{aligned}
+ \label{it2:coupled-data}
+\end{equation}
+Thus $\pi_\omega=\mathcal N(a_0,A_\omega^{-1})$ is a normalized joint prior. Its recognition covariance is $V=\operatorname{diag}(V_e)$ and its mean is $a=(a_e)_e$. The expected edge cost and dictionary KL are
+\begin{equation}
+ \begin{aligned}
+ C_e&=\tfrac12[\Tr(J_eQ_e)-n_e+\log\det S_{j,e}-\log\det S_{i,e}],\\
+ \KL(r\Vert\pi_\omega)
+ &=\tfrac12[(a-a_0)^TA_\omega(a-a_0)+\Tr(A_\omega V)
+                      -\log\det(A_\omega V)-d_{\mathrm{tot}}],
+ \end{aligned}
+ \label{it2:coupled-costs}
+\end{equation}
+where $d_{\mathrm{tot}}=|\mathcal E|d_\omega$. Since $V$ is block diagonal, $\Tr(A_\omega V)=\sum_e\Tr((A_\omega)_{ee}V_e)$ and $\log\det(A_\omega V)=\log\det A_\omega+\sum_e\log\det V_e$. Off-diagonal prior blocks still couple the dictionary means.
+
+\propositionheading{Complete Gaussian Fisher equations}{it2:coupled-flow}
+Use the fixed data of \cref{it2:model} and positive rows and temperatures of \cref{it2:law-potential}. Let $g_{\mu_i},g_{a_e}$ be mean derivatives and $G_{\Sigma_i},G_{V_e}$ symmetric covariance derivatives under the trace pairing. In the full flow $\beta$ is independent; in the reduced flow it is $\beta^*(x)$. Then
+\begin{equation}
+ \begin{aligned}
+ g_{\mu_i}&=P_i(\mu_i-m_i)
+  +\sum_{e\in\operatorname{in}(i)}\beta_e\bar T_e^TJ_ed_e
+  -\sum_{e\in\operatorname{out}(i)}\beta_e\bar T_e^TJ_ed_e,\\
+ g_{a_e}&=(A_\omega a-b_\omega)_e-\beta_eK_e^TJ_ed_e,\\
+ 2G_{\Sigma_i}&=P_i-\Sigma_i^{-1}
+  +\sum_{e\in\operatorname{in}(i)}\beta_e\bar T_e^T(J_e-S_{i,e}^{-1})\bar T_e\\
+ &+\sum_{e\in\operatorname{out}(i)}
+             \beta_e\bar T_e^T(J_e-J_eQ_eJ_e)\bar T_e,\\
+ 2G_{V_e}&=(A_\omega)_{ee}-V_e^{-1}+\beta_eK_e^TJ_eK_e .
+ \end{aligned}
+ \label{it2:coupled-derivatives}
+\end{equation}
+Here $\operatorname{out}(i)$ consists of edges on which $i$ is the source. The unit-mobility product Fisher equations are
+\begin{equation}
+ \begin{aligned}
+ \dot\mu_i&=-\Sigma_i g_{\mu_i},&
+ \dot\Sigma_i&=-2\Sigma_iG_{\Sigma_i}\Sigma_i,\\
+ \dot a_e&=-V_eg_{a_e},&
+ \dot V_e&=-2V_eG_{V_e}V_e .
+ \end{aligned}
+ \label{it2:coupled-velocities}
+\end{equation}
+For full row relaxation, append
+\begin{equation}
+ h_e=C_e+T_i(\log(\beta_e/\pi_e)+1),\qquad
+ \dot\beta_e=-\beta_e\left(h_e-\sum_{f\in\mathcal I_i}\beta_fh_f\right).
+ \label{it2:coupled-row-flow}
+\end{equation}
+For Gibbs reduction this row ODE is absent. Its kinetic metric is the matter-family Fisher metric, not the pullback of the full metric to $x\mapsto(x,\beta^*(x))$.
+\begin{proof}
+Differentiate \cref{it2:coupled-costs}. Its mean derivatives are $\bar T_e^TJ_ed_e$, $-\bar T_e^TJ_ed_e$, and $-K_e^TJ_ed_e$ for receiver, source, and dictionary. Varying $S_{i,e}$ gives $(J_e-S_{i,e}^{-1})/2$. Using $dJ_e=-J_e(dS_{j,e})J_e$ gives $(J_e-J_eQ_eJ_e)/2$ in the source covariance; varying $V_e$ gives $K_e^TJ_eK_e/2$. Add the self KL derivatives and the prior derivatives $A_\omega a-b_\omega$ and $((A_\omega)_{ee}-V_e^{-1})/2$ to obtain \cref{it2:coupled-derivatives}. For a Gaussian perturbation $(u,U)$ the Fisher quadratic form is $u^T\Sigma^{-1}u+\Tr(\Sigma^{-1}U\Sigma^{-1}U)/2$, obtained by averaging the product of the Gaussian scores. Inverting these blocks gives \cref{it2:coupled-velocities}, as in \cref{eq:dyn-gaussian-flow}. The categorical score metric is $\sum_e(d\beta_e)^2/\beta_e$ on zero-sum tangents, whose gradient centers $h_e$ as in \cref{it2:coupled-row-flow}. Finally \cref{it2:row-gap} gives the reduced derivatives without an extra $d\beta^*$ term.
+\end{proof}
+
+The full energy dissipation is
+\begin{equation}
+ \begin{aligned}
+ -\dot{\mathcal E}_T={}&
+ \sum_i[g_{\mu_i}^T\Sigma_i g_{\mu_i}
+                  +2\Tr(\Sigma_iG_{\Sigma_i}\Sigma_iG_{\Sigma_i})]\\
+ &+\sum_e[g_{a_e}^TV_eg_{a_e}+2\Tr(V_eG_{V_e}V_eG_{V_e})]
+   +\sum_i\operatorname{Var}_{\beta_i}(h).
+ \end{aligned}
+ \label{it2:coupled-dissipation}
+\end{equation}
+Each covariance trace is nonnegative: $\Tr(\Sigma G\Sigma G)=\Tr((\Sigma^{1/2}G\Sigma^{1/2})^2)$. For $E_T$ the same identity omits the last sum and uses the current Gibbs weights. This does not give a sign to an individual edge cost or covariance velocity.
+
+Since every Fisher block is positive definite, stationarity sets all four derivatives in \cref{it2:coupled-derivatives} to zero, and full row stationarity also imposes $\beta=\beta^*$. In particular,
+\begin{equation}
+ \begin{aligned}
+ V_e^{-1}&=(A_\omega)_{ee}+\beta_eK_e^TJ_eK_e,\\
+ [A_\omega+\operatorname{diag}(\beta_eK_e^TJ_eK_e)]a
+ &=b_\omega+(\beta_eK_e^TJ_e\bar T_e(\mu_i-\mu_j))_e .
+ \end{aligned}
+ \label{it2:coupled-stationarity}
+\end{equation}
+The latter system determines a unique dictionary mean for fixed content means, content covariances, and rows. It does not prove uniqueness of the complete stationary configuration, because the rows and source precisions depend on that configuration.
+
+\theoremheading{Global flow in the Gaussian tangent family}{it2:coupled-global}
+Fix a finite graph, fixed codes and operating maps $\kappa_i$, proper Gaussian content references with $P_i\succ0$, a fixed normalized dictionary prior with $A_\omega\succ0$, message noises $R_e\succ0$, and positive fixed normalized source priors and temperatures. From every finite initial mean, positive-definite content and dictionary covariance, and interior initial row, \cref{it2:coupled-velocities,it2:coupled-row-flow} has a unique solution for every $t\geq0$. The means remain bounded, all covariance eigenvalues remain bounded above and away from zero, and all row entries have positive uniform lower bounds depending on the initial state and fixed data. The Gibbs-reduced convention has the same conclusions. Both potentials have an interior stationary point; along either flow the squared Fisher-gradient norm is integrable and tends to zero, and every accumulation point is stationary.
+\begin{proof}
+The vector fields are smooth on the product of mean spaces, positive-definite covariance cones, and simplex interiors, so they have unique maximal interior solutions. All terms of $\mathcal E_T$ are nonnegative. Since $C_e\geq0$ and the priors are normalized, $0<Z_i\leq1$, so $E_T\geq F_0\geq0$ as well. Energy dissipation therefore bounds each content self KL and the dictionary KL by the initial energy.
+
+If $\lambda_k$ are the eigenvalues of $P_i^{1/2}\Sigma_iP_i^{1/2}$, the content KL is
+\begin{equation}
+ \tfrac12\|\mu_i-m_i\|_{P_i}^2+
+ \tfrac12\sum_k(\lambda_k-\log\lambda_k-1).
+ \label{it2:coupled-coercivity}
+\end{equation}
+The scalar summand is nonnegative and diverges at zero and infinity. Thus the means are bounded and the covariances are spectrally bounded in the interior. The same argument applies to the eigenvalues of $A_\omega^{1/2}VA_\omega^{1/2}$ and the mean $a-a_0$ in \cref{it2:coupled-costs}. Fixed positive-definite $A_\omega$ converts these to bounds on $V$, and hence on every $V_e$. The product-covariance restriction is closed within these bounds. The matter variables therefore stay in a compact interior set $\mathcal K$, on which every continuous cost lies in $[0,M]$ for some finite $M$.
+
+For Gibbs rows, $\beta_e^*\geq\pi_e e^{-M/T_i}$. For a full row put $\eta_{ef}=\log(\beta_e/\pi_e)-\log(\beta_f/\pi_f)$. Subtracting \cref{it2:coupled-row-flow} in logarithmic form gives
+\begin{equation}
+ \dot\eta_{ef}=-T_i\eta_{ef}-(C_e-C_f),\qquad
+ |\eta_{ef}(t)|\leq
+ \max\{|\eta_{ef}(0)|,M/T_i\}.
+ \label{it2:coupled-row-floor}
+\end{equation}
+The bound follows by variation of constants. Let $L_i$ be the maximum of these bounds over the row. With $u_e=\beta_e/\pi_e$, one has $u_f\leq e^{L_i}u_e$ and $\sum_f\pi_fu_f=1$, so $\beta_e\geq\pi_e e^{-L_i}>0$. Singleton rows are identically one. The full trajectory stays in a compact subset of its smooth domain; ordinary finite-dimensional continuation excludes a finite maximal time. The reduced field is smooth on $\mathcal K$ and has the same conclusion.
+
+The reduced potential attains a global minimum on a nonempty compact sublevel by \cref{it2:coupled-coercivity}; the minimum lies in the interior. Its Gibbs rows give a full stationary point by \cref{it2:row-gap}. Finally let $\mathcal D$ be the right side of \cref{it2:coupled-dissipation}, with the row term omitted in the reduced convention. Integrating dissipation gives $\int_0^\infty\mathcal D(t)dt\leq E_{\mathrm{init}}$. On the compact trajectory closure $\mathcal D$ and its derivative along the smooth vector field are bounded, so $\mathcal D$ is uniformly continuous. A nonnegative uniformly continuous integrable function tends to zero: otherwise disjoint intervals of fixed positive width would each contribute a fixed positive amount to its integral. Continuity and the positive-definite Fisher metric then make every accumulation point stationary.
+\end{proof}
+
+These bounds need not be uniform as temperature tends to zero or reference precisions become singular. The theorem concerns a fixed finite Gaussian family; it neither proves uniqueness of the stationary point nor asserts convergence to one particular point. Its hypotheses exclude moving operating contents and changes of the reference laws.
+
+\propositionheading{Source adaptation and the complete Hessian}{it2:coupled-critical-structure}
+On any regular finite-dimensional matter family where $F_0$ and all $C_e$ are twice differentiable, let $c_e=\nabla C_e$ and $\bar c_i=\sum_{e\in\mathcal I_i}\beta_e^*c_e$. The reduced Hessian is
+\begin{equation}
+ H_{\mathrm{red}}=\nabla^2F_0+\sum_e\beta_e^*\nabla^2C_e
+ -\sum_iT_i^{-1}\left[
+       \sum_{e\in\mathcal I_i}\beta_e^*c_ec_e^T-\bar c_i\bar c_i^T\right].
+ \label{it2:coupled-hessian}
+\end{equation}
+At a critical point the full and reduced Hessians have the same negative and zero indices. With either positive-definite Fisher metric, a positive-definite Hessian gives local exponential stability, while a negative direction gives instability. The linearized eigenvalues are real; a zero Hessian mode requires a separate nonlinear analysis.
+\begin{proof}
+Differentiating the normalized Gibbs row gives $d\beta_e^*[\xi]=-\beta_e^*(dC_e[\xi]-\sum_f\beta_f^*dC_f[\xi])/T_i$. Differentiate \cref{it2:row-gap} once more to obtain \cref{it2:coupled-hessian}. For a row tangent $v_i$ with $\sum_ev_e=0$, write $z_e=dC_e[\xi]$ and $\bar z_i=\sum_e\beta_e^*z_e$. At a critical point, direct completion of squares gives
+\begin{equation}
+ \delta^2\mathcal E_T[(\xi,v),(\xi,v)]
+ =\xi^TH_{\mathrm{red}}\xi
+  +\sum_iT_i\sum_{e\in\mathcal I_i}
+       \frac{[v_e+\beta_e^*(z_e-\bar z_i)/T_i]^2}{\beta_e^*}.
+ \label{it2:coupled-inertia}
+\end{equation}
+The shift of $v_i$ has zero sum, so this is an invertible tangent change of variables plus a positive row form. It is the Schur-complement identity behind \cref{prop:dyn-morse} and Haynsworth's inertia relation \citep{Haynsworth1968}. At a stationary point the flow Jacobian is $-g^{-1}H$, because the metric derivative multiplies a vanished gradient. It is similar to the symmetric matrix $-g^{-1/2}Hg^{-1/2}$. Positive definiteness gives a negative spectrum and local exponential stability; a negative Hessian direction gives a positive eigenvalue and instability. A zero eigenvalue is not classified by this argument.
+\end{proof}
+
+The last term of \cref{it2:coupled-hessian} lowers the quadratic form relative to rows frozen at the same state and weights, by $-\sum_iT_i^{-1}\operatorname{Var}_{\beta_i^*}(dC_e[\xi])$ in direction $\xi$. This is not a general ordering in temperature: changing temperature usually changes the weights and the stationary point. Nor does finite row relaxation create a Hopf bifurcation at an interior stationary point of this exact gradient system.
+
+\section{An exact stability threshold with changing uncertainty}
+\label{it2:ch-threshold}
+
+The following example keeps every content and dictionary mean and variance dynamic. It shows why the fixed-covariance mean theorem does not decide stability after source selection and uncertainty are allowed to respond.
+
+\theoremheading{A three-agent coupled threshold}{it2:coupled-threshold}
+Take three scalar content laws $q_i=\mathcal N(\mu_i,v_i)$, $i=0,1,2$, and two scalar dictionary laws $r_j=\mathcal N(a_j,V_j)$ on edges $j\to0$, $j=1,2$. Set $\bar T_e=1$, $R_e=1$, $\kappa_0=1$, and $\lambda=0$. Use content reference precisions $(P_0,P_1,P_2)=(1,5/4,5/4)$ and means $(m_0,m_1,m_2)=(0,-23/15,23/15)$, and independent dictionary references $\mathcal N(0,4/3)$. Receiver $0$ has exactly the two peer candidates, with prior $(1/2,1/2)$ and temperature $T>0$; no identity self candidate is added to this row. The source agents may have singleton identity self rows, with zero contribution. In the coordinate order
+\begin{equation}
+ x=(\mu_0,\mu_1,\mu_2,a_1,a_2,v_0,v_1,v_2,V_1,V_2),
+ \label{it2:threshold-coordinates}
+\end{equation}
+the point
+\begin{equation}
+ x_*=(0,-4/3,4/3,1/3,-1/3,1,1,1,1,1),\qquad
+ \beta_*=(1/2,1/2)
+ \label{it2:threshold-point}
+\end{equation}
+is stationary for every $T>0$. For both the Gibbs-reduced flow and full unit-mobility row relaxation it is locally exponentially stable when $T>T_c=3269/10118$, and a hyperbolic saddle with one unstable direction when $0<T<T_c$. At $T=T_c$ the Hessian has exactly one zero mode. If all five variances are instead held at one, the mean-only stability threshold is $T_{\mathrm{mean}}=31/122<T_c$.
+\begin{proof}
+Put $S_i=v_i+1$ and $d_j=\mu_0-\mu_j-a_j$. The costs and full objective are
+\begin{equation}
+ \begin{aligned}
+ C_j&=\tfrac12[(S_0+d_j^2+V_j)/S_j-1+\log S_j-\log S_0],\\
+ \mathcal E_T(x,b)&=F_0(x)+bC_1+(1-b)C_2
+          +T[b\log(2b)+(1-b)\log(2(1-b))],
+ \end{aligned}
+ \label{it2:threshold-objective}
+\end{equation}
+where $F_0$ is the sum of the five Gaussian self KL terms with the references just specified. At $x_*$, $S_i=2$, $d_1=1$, $d_2=-1$, and $C_1=C_2=1/2$, so $b_*=1/2$. The two source self mean derivatives are $(1/4,-1/4)$ and their weighted edge derivatives are $(-1/4,1/4)$; the dictionary mean derivatives have the same cancellation, and the two receiver mean forces cancel each other. Each source variance has self and weighted edge derivatives $1/8$ and $-1/8$, each dictionary variance has $-1/8$ and $1/8$, and the receiver variance derivatives vanish. Thus all ten matter derivatives vanish.
+
+Let $H=\nabla^2(F_0+(C_1+C_2)/2)(x_*)$ and $g=\nabla(C_1-C_2)(x_*)$. Separate the first and last five coordinates by a semicolon; then
+\begin{equation}
+ g=(1,-1/2,-1/2,-1/2,-1/2;0,-1/4,1/4,1/4,-1/4)^T .
+ \label{it2:threshold-g}
+\end{equation}
+For an arbitrary perturbation $\xi=(u_0,u_1,u_2,b_1,b_2,h_0,h_1,h_2,k_1,k_2)$, set $z_j=u_0-u_j-b_j$ and $\epsilon_1=1$, $\epsilon_2=-1$. Direct differentiation of \cref{it2:threshold-objective} gives
+\begin{equation}
+ \begin{aligned}
+ \xi^TH\xi={}&u_0^2+\tfrac54(u_1^2+u_2^2)
+      +\tfrac34(b_1^2+b_2^2)+\tfrac12h_0^2\\
+ &+\sum_{j=1}^2\left[
+   \tfrac14(z_j-\epsilon_jh_j/2)^2+\tfrac1{16}(h_0-h_j)^2
+   +\tfrac{71}{128}h_j^2+\tfrac12(k_j-h_j/8)^2\right].
+ \end{aligned}
+ \label{it2:threshold-positive}
+\end{equation}
+For completeness, one weighted edge contributes $z_j^2/4-\epsilon_jz_jh_j/4+h_0^2/16-h_0h_j/8+3h_j^2/16-h_jk_j/8$. Adding the self mean terms and the five self variance terms $\sum_i h_i^2/2+\sum_j k_j^2/2$ and completing squares gives \cref{it2:threshold-positive}. Its vanishing forces all ten components of $\xi$ to vanish, proving $H\succ0$ without restricting the tangent space.
+
+Solving the linear equations specified by this quadratic form gives, in the same two blocks,
+\begin{equation}
+ \begin{aligned}
+ (H^{-1}g)_{\mu,a}&=(2400,-960,-960,-1600,-1600)^T/5059,\\
+ (H^{-1}g)_{v,V}&=(0,-716,716,2440,-2440)^T/5059,\\
+ g^TH^{-1}g&=6538/5059.
+ \end{aligned}
+ \label{it2:threshold-inverse}
+\end{equation}
+These rational values are checked by multiplying with the symmetric matrix of \cref{it2:threshold-positive}. At the equal-cost point, \cref{it2:coupled-hessian} becomes $H_T=H-gg^T/(4T)$. Congruence by $H^{-1/2}$ gives the identity minus one rank-one matrix, with nine positive eigenvalues and the remaining sign determined by $1-g^TH^{-1}g/(4T)$. Hence $T_c=g^TH^{-1}g/4=3269/10118$, with the stated positive, negative, and zero indices.
+
+The inverse matter Fisher metric is
+\begin{equation}
+ M(x)=\operatorname{diag}(v_0,v_1,v_2,V_1,V_2,
+                         2v_0^2,2v_1^2,2v_2^2,2V_1^2,2V_2^2).
+ \label{it2:threshold-mobility}
+\end{equation}
+For full row relaxation the inverse metric is $\operatorname{diag}(M(x),b(1-b))$ and the stationary Hessian is
+\begin{equation}
+ \mathbb H_T=\begin{pmatrix}H&g\\g^T&4T\end{pmatrix},\qquad
+ (\xi,\delta b)^T\mathbb H_T(\xi,\delta b)
+ =\xi^TH_T\xi+4T(\delta b+g^T\xi/(4T))^2 .
+ \label{it2:threshold-full}
+\end{equation}
+It has the same negative and zero indices, with an additional positive direction. \Cref{it2:coupled-critical-structure} therefore gives the asserted stability classifications in all ten or eleven coordinates.
+
+To freeze the variances, set $h_i=k_j=0$ in \cref{it2:threshold-positive}. Put $t=u_0-(u_1+u_2+b_1+b_2)/2=g_{\mathrm{mean}}^T\xi_{\mathrm{mean}}$. Convexity and exchange of the two sources put the minimum of the mean quadratic at fixed $t$ in $u_1=u_2=y$, $b_1=b_2=z$. Minimizing there gives $(u_0,y,z)=(15,-6,-10)t/31$ and value $61t^2/62$. The minimum of $\xi^TH_{\mathrm{mean}}\xi$ under $g_{\mathrm{mean}}^T\xi=t$ is also $t^2/(g_{\mathrm{mean}}^TH_{\mathrm{mean}}^{-1}g_{\mathrm{mean}})$ by completing a positive quadratic square. Thus the inverse quadratic form is $62/61$ and $T_{\mathrm{mean}}=31/122$.
+\end{proof}
+
+The exact inequality $31/122<3/10<3269/10118$ means that at $T=3/10$ the frozen-variance mean system is stable while both complete coupled systems have one unstable direction. At $T_c$ the reduced null vector is $H^{-1}g$, and the full null vector is $(H^{-1}g,-1)$. Source and dictionary uncertainty participate in the neutral mode. The result is an exact example of the declared tangent model; it proves neither monotone uncertainty growth nor a nonlinear bifurcation type, stable selected branches, or formation.
+
 \section{Scope and open problems}
 \label{it2:ch-next}
 
-\openproblemheading{Rows and covariances in the reciprocal potential}{it2:open-reciprocal}
-With Gibbs rows the costs select sources and also affect sender covariances. Determine the stationary points and stability of the coupled restricted-family dynamics of means, covariances, and rows. The constant-coefficient mean-flow results do not settle this problem, and the scalar certainty result does not establish grouping or formation.
+\openproblemheading{Coupled dynamics beyond the finite example}{it2:open-reciprocal}
+\Cref{it2:coupled-flow,it2:coupled-global} give the complete Gaussian tangent flow and global forward existence, and \cref{it2:coupled-threshold} classifies one stationary branch away from its critical temperature. Determine the nonlinear behavior at that zero mode, the possible stationary branches and long-time destinations on graphs with cycles, and well-posedness beyond regular finite-dimensional law families. The scalar certainty result and the loss of local stability do not establish grouping or formation.
 
 \openproblemheading{Convergence of per-agent flows}{it2:open-convergence}
 Find conditions on the self, record, and loop precisions under which the per-agent fixed point is unique and its mean flow converges. Determine whether the law-level covariance updates have a unique fixed point. The directed ring supplies one stable non-gradient example, not a general convergence theorem.

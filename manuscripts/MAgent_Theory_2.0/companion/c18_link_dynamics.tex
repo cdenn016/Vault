@@ -184,4 +184,162 @@ There is a precise scalar conclusion. Freeze the means, the receiver variance $v
                   -(v_k+R+d^2)(v+R)^{-2}=0.
  \label{c18:variance-stationary}
 \end{equation}
-At a nondegenerate minimum, $\partial_v f>0$, whereas $\partial_{d^2}f=-(v+R)^{-2}<0$. Implicit differentiation gives $dv/d(d^2)>0$. This establishes an increasing stationary uncertainty under these frozen conditions. It does not establish a monotone covariance increase along a flow in which means, other edge costs, and source rows all move. In linear-Gaussian inference the optimizing covariance is record-independent because the precision matrix is fixed; non-Gaussian Bayesian uncertainty can depend on the observed data. Comparing those general-law updates, and controlling the simultaneous evolution of means, covariances, and rows, remain separate problems.
+At a nondegenerate minimum, $\partial_v f>0$, whereas $\partial_{d^2}f=-(v+R)^{-2}<0$. Implicit differentiation gives $dv/d(d^2)>0$. This establishes an increasing stationary uncertainty under these frozen conditions. It does not establish a monotone covariance increase along a flow in which means, other edge costs, and source rows all move. In linear-Gaussian inference the optimizing covariance is record-independent because the precision matrix is fixed; non-Gaussian Bayesian uncertainty can depend on the observed data. The coupled Gaussian calculation below allows source selection and all uncertainties to move, while retaining fixed codes, operating contents, and proper references.
+
+\section{When content, interpretation, and attention all move}
+\label{c18:coupled}
+
+The expectation defining an edge cost has a general-law meaning. For a dictionary law $r_e$ and normalized message kernels, write $C_e=\E_{r_e}\KL(A_e(\omega_e)\Vert B_e)$, where $A_e$ is the receiver's conditional message law and $B_e$ is the source's law. Changing content changes either argument of the divergence, and changing the dictionary law changes the expectation. Averaging message laws before computing their divergence would erase part of this uncertainty cost. These definitions do not require Gaussian laws; the differentiable dynamics requires regular families and justified differentiation.
+
+Take one content sector, with singleton model-presentation spaces, and set $F_0=\sum_i\KL(q_i\Vert p_i)+\KL(r\Vert\pi_\omega)$, where $r=\bigotimes_e r_e$ is product recognition and $\pi_\omega$ is a fixed proper joint dictionary prior. For each nonempty source set $\mathcal I_i$ choose a positive normalized prior $\pi_i$ and temperature $T_i>0$. The complete row objective is
+\begin{equation}
+ \begin{aligned}
+ \mathcal E_T&=F_0+\sum_i\left[\sum_{e\in\mathcal I_i}\beta_eC_e
+                         +T_i\KL(\beta_i\Vert\pi_i)\right],\\
+ \beta_e^*&=\frac{\pi_e e^{-C_e/T_i}}{\sum_{f\in\mathcal I_i}\pi_f e^{-C_f/T_i}},
+ \qquad
+ E_T=F_0-\sum_iT_i\log\sum_{e\in\mathcal I_i}\pi_e e^{-C_e/T_i}.
+ \end{aligned}
+ \label{c18:coupled-objectives}
+\end{equation}
+The row prior and entropy oppose concentrating all attention on the cheapest source. Substituting $\log(\beta_e^*/\pi_e)=-C_e/T_i-\log\sum_f\pi_fe^{-C_f/T_i}$ gives $\mathcal E_T-E_T=\sum_iT_i\KL(\beta_i\Vert\beta_i^*)$ and $dE_T=dF_0+\sum_e\beta_e^*dC_e$. The row entropy is therefore part of the reduced scalar potential, even though its optimized derivative takes the weighted-cost form.
+
+For the Gaussian tangent family, put $K_e=T_e\kappa_i$, $J_e=S_{j,e}^{-1}$, $d_e=T_e(\mu_i-\mu_j)-K_ea_e$, and $Q_e=S_{i,e}+d_ed_e^T+K_eV_eK_e^T$. Then
+\begin{equation}
+ C_e=\tfrac12[\Tr(J_eQ_e)-n_e+\log\det S_{j,e}-\log\det S_{i,e}],
+ \label{c18:coupled-cost}
+\end{equation}
+where $n_e$ is the message dimension. The uncertainty of the dictionary contributes to the receiver's second moment through $K_eV_eK_e^T$; it does not enter the receiver covariance's log determinant because the conditional divergence was computed first.
+
+Write the fixed joint dictionary prior as $\mathcal N(a_0,A_\omega^{-1})$ with $A_\omega\succ0$, and set $b_\omega=A_\omega a_0$. It may correlate different dictionaries even though recognition factors over edges. With $\operatorname{in}(i)$ and $\operatorname{out}(i)$ denoting receiver and source roles, differentiation gives the complete forces
+\begin{equation}
+ \begin{aligned}
+ g_{\mu_i}&=P_i(\mu_i-m_i)
+ +\sum_{e\in\operatorname{in}(i)}\beta_eT_e^TJ_ed_e
+ -\sum_{e\in\operatorname{out}(i)}\beta_eT_e^TJ_ed_e,\\
+ g_{a_e}&=(A_\omega a-b_\omega)_e-\beta_eK_e^TJ_ed_e,\\
+ 2G_{\Sigma_i}&=P_i-\Sigma_i^{-1}
+ +\sum_{e\in\operatorname{in}(i)}\beta_eT_e^T(J_e-S_{i,e}^{-1})T_e\\
+ &+\sum_{e\in\operatorname{out}(i)}\beta_eT_e^T(J_e-J_eQ_eJ_e)T_e,\\
+ 2G_{V_e}&=(A_\omega)_{ee}-V_e^{-1}+\beta_eK_e^TJ_eK_e .
+ \end{aligned}
+ \label{c18:coupled-forces}
+\end{equation}
+The $G$ symbols are symmetric trace-pairing covariance derivatives. The source term follows from $dJ_e=-J_e(dS_{j,e})J_e$; it includes receiver uncertainty, mean disagreement, and dictionary uncertainty together. The prior's full matrix acts on the dictionary means, while only its diagonal block enters a product factor's covariance derivative.
+
+The Gaussian score metric has mean block $\Sigma_i^{-1}$ and covariance quadratic form $\Tr(\Sigma_i^{-1}\delta\Sigma_i\Sigma_i^{-1}\delta\Sigma_i)/2$. Its inverse converts the forces to velocities:
+\begin{equation}
+ \begin{aligned}
+ \dot\mu_i&=-\Sigma_i g_{\mu_i},&
+ \dot\Sigma_i&=-2\Sigma_iG_{\Sigma_i}\Sigma_i,\\
+ \dot a_e&=-V_eg_{a_e},&
+ \dot V_e&=-2V_eG_{V_e}V_e .
+ \end{aligned}
+ \label{c18:coupled-flow}
+\end{equation}
+This is the natural-gradient rule applied to the product of the declared Gaussian laws \citep{Amari1998}. At full row relaxation one also evolves
+\begin{equation}
+ \dot\beta_e=-\beta_e(h_e-\E_{\beta_i}h),\qquad
+ h_e=C_e+T_i(\log(\beta_e/\pi_e)+1).
+ \label{c18:coupled-rows}
+\end{equation}
+Instantaneous Gibbs reduction instead reevaluates $\beta^*$ at every state and uses \cref{c18:coupled-flow} with the same matter metric. Pulling back the full metric to the graph of the Gibbs row would add $\sum_e(d\beta_e^*)^2/\beta_e^*$ and give a different mobility. Finite-rate row relaxation and this reduced convention generally follow different paths.
+
+At a stationary point every force in \cref{c18:coupled-forces} vanishes, and the full row is Gibbs. For example,
+\begin{equation}
+ V_e^{-1}=(A_\omega)_{ee}+\beta_eK_e^TJ_eK_e.
+ \label{c18:coupled-variance}
+\end{equation}
+It is a coupled condition: source covariance determines $J_e$, and the row depends on costs that themselves contain $V_e$. Freezing either input changes the stationary problem.
+
+\section{Why the Gaussian flow stays in its regular domain}
+\label{c18:coupled-global}
+
+For a finite graph with fixed codes and operating contents, positive-definite content reference precisions and joint dictionary precision, positive-definite message noises, and positive fixed source priors and temperatures, both conventions have unique solutions for all forward time from every interior initial state. The mechanism is the proper reference cost. Contracting \cref{c18:coupled-forces} with \cref{c18:coupled-flow} gives a negative squared Fisher-gradient norm; full row relaxation adds $-\sum_i\operatorname{Var}_{\beta_i}(h)$. Every self and dictionary KL remains bounded by the initial energy, since the full row terms and the reduced terms $-T_i\log Z_i$ are nonnegative.
+
+For a content covariance let $\lambda_k$ be the eigenvalues of $P_i^{1/2}\Sigma_iP_i^{1/2}$. Its self KL is
+\begin{equation}
+ \tfrac12\|\mu_i-m_i\|_{P_i}^2+
+ \tfrac12\sum_k(\lambda_k-\log\lambda_k-1).
+ \label{c18:coercivity}
+\end{equation}
+The scalar function diverges when an eigenvalue collapses to zero or grows without bound. The mean quadratic also diverges at large displacement. The joint dictionary KL applies the same argument to $a-a_0$ and $A_\omega^{1/2}VA_\omega^{1/2}$, where $V=\operatorname{diag}(V_e)$. Thus all matter coordinates stay in a compact subset of the Gaussian domain. This conclusion does not assert a monotone change of any covariance.
+
+Costs are bounded there, say $0\leq C_e\leq M$. Gibbs rows satisfy $\beta_e^*\geq\pi_e e^{-M/T_i}$. For relaxing rows, the adjusted log-ratio $\eta_{ef}=\log(\beta_e/\pi_e)-\log(\beta_f/\pi_f)$ obeys
+\begin{equation}
+ \dot\eta_{ef}=-T_i\eta_{ef}-(C_e-C_f).
+ \label{c18:log-ratio}
+\end{equation}
+Variation of constants bounds its magnitude by $L_i=\max\{M/T_i,\max_{e,f}|\eta_{ef}(0)|\}$. Normalization gives $\beta_e\geq\pi_e e^{-L_i}$, so no row reaches the boundary. The vector field is smooth near the resulting compact trajectory closure and can therefore be continued for every forward time.
+
+The reduced energy attains an interior minimum on a compact sublevel; its Gibbs row gives a full stationary point. Integrated dissipation is finite. On the compact trajectory closure its time derivative is bounded, so dissipation is uniformly continuous and tends to zero: sustained positive pulses would otherwise have infinite total area. Every accumulation point is consequently stationary. These conclusions require neither a unique equilibrium nor a claim of convergence to one particular point. They apply to this fixed Gaussian restriction and provide no uniform limit at zero temperature or singular reference precision.
+
+\section{Uncertainty can change the stability verdict}
+\label{c18:threshold}
+
+Source selection adds a feedback to the curvature of the potential. If $H_{\mathrm{fixed}}=\nabla^2F_0+\sum_e\beta_e^*\nabla^2C_e$ is the Hessian with the current weights fixed, differentiating the Gibbs formula gives
+\begin{equation}
+ H_{\mathrm{red}}=H_{\mathrm{fixed}}
+       -\sum_iT_i^{-1}\operatorname{Cov}_{\beta_i^*}(\nabla C_e).
+ \label{c18:row-curvature}
+\end{equation}
+A perturbation that makes competing costs change differently causes attention to shift toward the decreasing cost. The shift subtracts a positive-semidefinite form from the fixed-row curvature. This compares the same state and weights; it does not order arbitrary stationary branches by temperature.
+
+An explicit example makes the difference measurable without freezing uncertainty. There are three scalar content laws and two dictionaries on edges $1\to0$ and $2\to0$. Take unit codes and message noises, fixed $\kappa_0=1$, no loop penalty, content reference precisions $(1,5/4,5/4)$, content reference means $(0,-23/15,23/15)$, and dictionary references $\mathcal N(0,4/3)$. Receiver $0$ chooses exactly between these two peers with prior $(1/2,1/2)$ and temperature $T>0$. Its row has no identity self candidate. The two sources need no nontrivial rows; singleton identity self rows contribute zero.
+
+Write $q_i=\mathcal N(\mu_i,v_i)$ and $r_j=\mathcal N(a_j,V_j)$, and order the ten matter coordinates as
+\begin{equation}
+ x=(\mu_0,\mu_1,\mu_2,a_1,a_2,v_0,v_1,v_2,V_1,V_2).
+ \label{c18:threshold-order}
+\end{equation}
+Every mean and variance varies. With $S_i=v_i+1$ and $d_j=\mu_0-\mu_j-a_j$, the costs are $C_j=[(S_0+d_j^2+V_j)/S_j-1+\log S_j-\log S_0]/2$. For every temperature,
+\begin{equation}
+ x_*=(0,-4/3,4/3,1/3,-1/3,1,1,1,1,1),\qquad b_*=1/2
+ \label{c18:threshold-point}
+\end{equation}
+is stationary. Here $b$ is the weight of source $1$. Both costs equal $1/2$. Each source mean and dictionary mean has a self force canceled by its weighted edge force. The source variance forces cancel as $1/8-1/8$, the dictionary variance forces as $-1/8+1/8$, and receiver forces cancel or vanish.
+
+Put $H=\nabla^2(F_0+(C_1+C_2)/2)(x_*)$ and $g=\nabla(C_1-C_2)(x_*)$. The complete ten-dimensional positive-definiteness check can be written as a sum of squares. For $\xi=(u_0,u_1,u_2,b_1,b_2,h_0,h_1,h_2,k_1,k_2)$, let $z_j=u_0-u_j-b_j$ and $\epsilon_1=1$, $\epsilon_2=-1$. Differentiation of the preceding cost gives
+\begin{equation}
+ \begin{aligned}
+ \xi^TH\xi={}&u_0^2+\tfrac54(u_1^2+u_2^2)
+       +\tfrac34(b_1^2+b_2^2)+\tfrac12h_0^2\\
+ &+\sum_{j=1}^2\left[
+       \tfrac14(z_j-\epsilon_jh_j/2)^2+\tfrac1{16}(h_0-h_j)^2
+       +\tfrac{71}{128}h_j^2+\tfrac12(k_j-h_j/8)^2\right].
+ \end{aligned}
+ \label{c18:threshold-positive}
+\end{equation}
+Every nonzero perturbation has positive cost in this quadratic form. With a semicolon separating the mean and variance blocks,
+\begin{equation}
+ g=(1,-1/2,-1/2,-1/2,-1/2;0,-1/4,1/4,1/4,-1/4)^T.
+ \label{c18:threshold-gradient}
+\end{equation}
+Solving the linear equations from \cref{c18:threshold-positive} gives
+\begin{equation}
+ \begin{aligned}
+ (H^{-1}g)_{\mu,a}&=(2400,-960,-960,-1600,-1600)^T/5059,\\
+ (H^{-1}g)_{v,V}&=(0,-716,716,2440,-2440)^T/5059.
+ \end{aligned}
+ \label{c18:threshold-direction}
+\end{equation}
+Thus $g^TH^{-1}g=6538/5059$. At the equal-cost point \cref{c18:row-curvature} is the rank-one correction $H_T=H-gg^T/(4T)$. Changing tangent coordinates by $H^{-1/2}$ leaves nine positive directions and one sign determined by $1-g^TH^{-1}g/(4T)$. The exact critical temperature is
+\begin{equation}
+ T_c=\frac{3269}{10118}.
+ \label{c18:critical-temperature}
+\end{equation}
+The stationary Fisher Jacobian is similar to a symmetric matrix with the opposite Hessian inertia. Hence the equilibrium is exponentially stable for $T>T_c$ and has exactly one unstable direction for $0<T<T_c$.
+
+Full row relaxation adds the Hessian row block $4T$ and mixed block $g$. Its quadratic form completes to
+\begin{equation}
+ \xi^TH_T\xi+4T\left(\delta b+\frac{g^T\xi}{4T}\right)^2.
+ \label{c18:full-threshold}
+\end{equation}
+It has the same threshold and one extra positive direction, although the two flows have different rates. At $T_c$ the reduced null vector is $H^{-1}g$, while the full vector is $(H^{-1}g,-1)$. The covariance components in \cref{c18:threshold-direction} show that the neutral displacement includes changes of source and dictionary uncertainty.
+
+If all five variances are fixed at one, only the first five coordinates remain. At fixed $t=g_{\mathrm{mean}}^T\xi_{\mathrm{mean}}$, exchange symmetry and convexity reduce the minimum of their quadratic form to $u_1=u_2=y$, $b_1=b_2=z$. Its minimizing values are $(u_0,y,z)=(15,-6,-10)t/31$ and its value is $61t^2/62$. Thus $g_{\mathrm{mean}}^TH_{\mathrm{mean}}^{-1}g_{\mathrm{mean}}=62/61$, giving the lower threshold $T_{\mathrm{mean}}=31/122$. Consequently
+\begin{equation}
+ \frac{31}{122}<\frac3{10}<\frac{3269}{10118}.
+ \label{c18:threshold-contrast}
+\end{equation}
+At $T=3/10$ the frozen-variance model is stable and the complete model is unstable. Allowing uncertainty to respond changes the available perturbations and the response to source selection. This is a local statement for the declared Gaussian tangent potential. The nonlinear behavior at the critical point, the eventual destinations below it, and any formation of an inherited parent remain unresolved.
