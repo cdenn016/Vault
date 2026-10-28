@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-10-28
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -213,6 +213,12 @@ For meta-agents, the source adds an explicit predictive-retention criterion: a p
 ## Matrix communication interface
 
 The attention manuscript record [[dennis-2026-glk-matrix-links-2026-09-20]] supplies a related interaction construction for full Gaussian agents: covariant sending/receiving maps compose into potentially singular matrix links. A normalized affine-Gaussian channel permits such low-rank mean maps when its noise covariance is positive definite. Independent connection links and local processing can be kept distinct. This is a theoretical interface with [[Lattice gauge theory]], not a change to the MultiAgentELBO model, its normalized population law, or its formation results. An MLP interpretation remains undecided.
+
+## Interacting cue/result inference
+
+[[dennis-2026-interacting-cue-result]] constructs a normalized two-agent realization of [[Cue-result generative memory]] with a supplied common prior and cross-agent coupling, private initial records, known posterior-sampling encoders, and a reliably shared transcript. Each agent retains its presentation/content dependence. Receiving a peer's fresh posterior sample requires integrating over the peer's unknown evidence; it is a different experiment from measuring the represented result. A binary construction gives a reply whose distribution changes after reception.
+
+The common posterior has the exact form $\Gamma_t(dz,dd)=W(d,dz)\lambda_t(dd)$, where $W=P(Z\in\cdot\mid D)$ is fixed preparation data and $\lambda_t=P(D_0,D_1\mid H_{1:t})$ evolves by the actual message likelihood. The joint private-record law, fixed reconstruction, private value, and schedule suffice for future inference; actual past-record queries retain the transcript as well. An affine singleton-component specialization closes as a joint Gaussian filter, but finite Gaussian-mixture closure is not universal. A public-parity counterexample shows why the pair of local joint beliefs alone can lose the information needed for the next update. These results establish one supplied communication protocol, without identifying it with reciprocal Fisher dynamics, the transformer stack, learned models, or endogenous formation. [[dennis-2026-interacting-cue-result]]
 
 ## Cross-links
 
