@@ -1,0 +1,233 @@
+% !TeX root = ../MAgent_Theory_2.0_companion.tex
+\section{Two agents exchanging their conditional predictions}
+\label{comp:interacting-memory}
+
+To compose conditional predictors, the receiver must model how its input was produced. A peer who samples its current prediction is using private evidence that the receiver may not possess. The transmitted sample can reveal that evidence, and the receiver's reply can then reveal its own. The common-information approach to decentralized systems organizes this distinction between shared history and private information \citep{Nayyar2013CommonInformation}. Here the transmission policy is supplied explicitly, so its joint law and Bayesian updates can be derived without solving a control problem.
+
+Let each agent $i\in\{0,1\}$ represent $Z_i=(A_i,X_i,Y_i)$, with local bank
+\begin{equation}
+\pi_i(da_i,dx_i,dy_i)
+=r_i(da_i)\mu_{i,a_i}(dx_i)K_{i,a_i}(x_i,dy_i).
+\label{comp:eq-interaction-bank}
+\end{equation}
+All spaces are standard Borel and all kernels normalized and measurable. Choose a common joint preparation $P_0(dz_0,dz_1)$ with these local marginals. It specifies how the two represented systems are related; identical local banks alone would not specify that relation. Independently conditional on the cues, produce private records through normalized kernels $L_i(x_i,dd_i)$. The preparation law is
+\begin{equation}
+\Lambda_0(dz,dd)
+=P_0(dz_0,dz_1)L_0(x_0,dd_0)L_1(x_1,dd_1),
+\label{comp:eq-interaction-preparation}
+\end{equation}
+where $Z=(Z_0,Z_1)$ and $D=(D_0,D_1)$. Each agent knows this model and its own realized $D_i$, but not the other's private value. The represented variables may describe concealed internal preparation values. Alternatively, one can sample only the marginal law of $D$ and use the conditional represented-state laws in the same protocol; that produces exactly the same messages. Normalization alone makes no assertion that the represented variables are external objects.
+
+Both agents receive and retain every transmitted message. Write $H_{1:t}$ for this common transcript, and fix an alternating speaker schedule. Their common and private posteriors are
+\begin{equation}
+\Gamma_t=P(Z,D\mid H_{1:t}),\qquad
+\Pi_{i,t}=P(Z,D\mid D_i,H_{1:t}).
+\label{comp:eq-interaction-posteriors}
+\end{equation}
+The local $Z_i$ marginal retains the dependence between presentation and content. There is no product restriction between $A_i$ and $(X_i,Y_i)$.
+
+Speaker $j$ draws a fresh $\widetilde Y$ from $P(Y_j\mid D_j,H_{1:t})$ and passes it through a fixed normalized encoder $C_j(y,dh)$. The sample uses fresh randomization independent of $(Z,D)$ given the speaker's available information. Thus
+\begin{equation}
+\kappa_j(\Gamma_t,d_j;dh)
+=\int C_j(y,dh)P(Y_j\in dy\mid D_j=d_j,H_{1:t}).
+\label{comp:eq-interaction-message}
+\end{equation}
+The fresh $\widetilde Y$ and the represented $Y_j$ have the same conditional distribution but are distinct, conditionally independent variables. A direct sensor $C_j(Y_j,dh)$ would define a different experiment.
+
+For density formulas assume $C_j(y,dh)=c_j(h\mid y)\tau(dh)$, and write $k_j(h\mid d_j,\Gamma_t)$ for the density of \cref{comp:eq-interaction-message}. At a positive finite predictive density, the exact common update is
+\begin{equation}
+\Gamma_{t+1}(dz,dd)
+=\frac{k_j(h_{t+1}\mid d_j,\Gamma_t)\Gamma_t(dz,dd)}
+{\int k_j(h_{t+1}\mid d_j',\Gamma_t)\Gamma_t(dz',dd')}.
+\label{comp:eq-interaction-update}
+\end{equation}
+To verify this rule, condition the joint law of the next message and preparation on the old transcript. It is precisely $\Gamma_t(dz,dd)\kappa_j(\Gamma_t,d_j;dh)$. Its message marginal is the denominator; division gives the posterior. Multiplying these normalized conditional kernels in time gives total mass one at every finite history, since integration of the last message gives one. This proves both normalization and the recursion by induction. Conditional versions and normalized extensions on null histories are fixed as part of the protocol. On general spaces the same construction uses disintegration; it does not assign an ordinary density to a deterministic echo.
+
+The sender's own private posterior is unchanged by its transmission. Once $D_j=d_j$ is given, the likelihood factor in \cref{comp:eq-interaction-update} is constant in the remaining variables and cancels. For the receiver $i=1-j$, however, the likelihood of the message at a proposed local state $z_i$ is
+\begin{equation}
+\ell_{i\leftarrow j,t}(h\mid z_i)
+=\int k_j(h\mid d_j,\Gamma_t)
+P(dd_j\mid Z_i=z_i,D_i,H_{1:t}).
+\label{comp:eq-interaction-effective}
+\end{equation}
+Bayes' rule multiplies the old local recognition by this factor and normalizes. The unknown peer record and its dependence on the receiver's represented state are part of the calculation. A local posterior mean does not provide that conditional law.
+
+\section{Four changing weights and a fixed reconstruction}
+\label{comp:interaction-retention}
+
+The full joint posterior is larger than the state that must change during communication. Disintegrate the preparation as
+\begin{equation}
+\Lambda_0(dz,dd)=W(d,dz)\lambda_0(dd),\qquad
+W(d,dz)=P(Z\in dz\mid D=d).
+\end{equation}
+At a fixed transcript, every message likelihood is a function of the private-record pair $d$. Reweighting by these factors therefore leaves $W$ unchanged. It follows at every finite time that
+\begin{equation}
+\Gamma_t(dz,dd)=W(d,dz)\lambda_t(dd),\qquad
+\lambda_t=P(D\in\cdot\mid H_{1:t}).
+\label{comp:eq-interaction-retention}
+\end{equation}
+This identity can be checked by multiplying $W\lambda_0$ by the history likelihood and integrating first over $z$. The resulting normalized private-record marginal is $\lambda_t$, while its conditional law of $Z$ remains $W$.
+
+Define a fixed encoded-result kernel
+\begin{equation}
+V_j(d,dh)=\int C_j(y,dh)W^{Y_j}(d,dy).
+\end{equation}
+The speaker's current message distribution is its conditional average
+\begin{equation}
+\kappa_j^{\lambda_t}(d_j,dh)
+=\int V_j(d,dh)\lambda_t(dd\mid D_j=d_j).
+\end{equation}
+With density $k_j^{\lambda_t}(h\mid d_j)$, only the private-record law needs the update
+\begin{equation}
+\lambda_{t+1}(dd)
+=\frac{k_j^{\lambda_t}(h_{t+1}\mid d_j)\lambda_t(dd)}
+{\int k_j^{\lambda_t}(h_{t+1}\mid d_j')\lambda_t(dd')}.
+\label{comp:eq-interaction-private-update}
+\end{equation}
+Each agent reconstructs its own full local recognition by averaging $W^{Z_i}(d,dz_i)$ against $\lambda_t(dd\mid D_i=d_i)$. The joint law of the two private records is needed; replacing it by its marginal product changes the averaging.
+
+Binary private records require four masses, or three independent probabilities. Their number does not grow with the number of exchanges. The fixed reconstruction $W$ can still be large. The retained state also includes the actual private value, known encoders and preparation, and next speaker. When queries of past records are admitted, the transcript remains a separate persistent register. Four probabilities do not generally reconstruct its literal sequence. \Cref{comp:eq-interaction-retention,comp:eq-interaction-private-update} give exact statistical sufficiency for this protocol, rather than a theorem that these are the smallest possible coordinates.
+
+There is a corresponding exact free-energy reduction. At an observed transcript let $\mathcal L_t(d)$ be its likelihood and $Z_t=\int\mathcal L_t(d)\lambda_0(dd)$. Historical policies in this likelihood are those specified by the preparation and observed prefixes. They are held fixed when a candidate recognition law is varied. Under the absolute-continuity and finiteness conditions needed for the displayed terms,
+\begin{equation}
+\begin{aligned}
+\mathcal F_t^D(\nu)
+&=\KL(\nu\Vert\lambda_0)-\E_\nu\log\mathcal L_t(D)\\
+&=\KL(\nu\Vert\lambda_t)-\log Z_t.
+\end{aligned}
+\label{comp:eq-interaction-free-energy}
+\end{equation}
+Insert $d\lambda_t/d\lambda_0=\mathcal L_t/Z_t$ into the logarithmic density ratio to obtain the identity. For a full candidate $Q(dz,dd)=Q^Z(d,dz)\nu(dd)$, the remaining term is
+\begin{equation}
+\int\KL\bigl(Q^Z(d,\cdot)\Vert W(d,\cdot)\bigr)\nu(dd).
+\end{equation}
+The chain rule for relative entropy gives this term, which is minimized exactly by $Q^Z=W$. The changing private-record representation therefore loses no variational information within the admitted family. This fixed-history objective is distinct from the reciprocal law potential and from a claim that a sum of private free energies decreases as new random messages arrive.
+
+\section{An exchange that changes the reply}
+\label{comp:interaction-example}
+
+Let $X_0$ be a fair bit and $P(X_1=X_0)=3/4$. Conditional on the cues, independently prepare
+\begin{equation}
+P(A_i=X_i\mid X_i)=\frac34,\quad
+P(Y_i=1-X_i\mid X_i)=\frac34,\quad
+P(D_i=X_i\mid X_i)=\frac34.
+\label{comp:eq-interaction-bits}
+\end{equation}
+Each $A_i$ is fair and $P(X_i=A_i\mid A_i)=3/4$, so this preparation has the local cue/result bank form. Its presentation and cue are correlated, and its result tends to reverse the cue. If an agent's current cue probability is $p=P(X_i=1\mid D_i,H)$, its marginals and correlations are
+\begin{equation}
+\begin{aligned}
+P(A_i=1\mid D_i,H)&=\frac14+\frac p2,\\
+P(Y_i=1\mid D_i,H)&=\frac34-\frac p2,\\
+\operatorname{Cov}(A_i,X_i\mid D_i,H)&=\frac{p(1-p)}2,\\
+\operatorname{Cov}(Y_i,X_i\mid D_i,H)&=-\frac{p(1-p)}2.
+\end{aligned}
+\label{comp:eq-interaction-correlations}
+\end{equation}
+These follow by conditioning first on $X_i$ in \cref{comp:eq-interaction-bits}. The protocol's likelihoods depend on the prepared state through its private records, so those conditional laws at fixed cue remain valid.
+
+Use the identity encoder: a message is a fresh sample of the speaker's result prediction. Agent 1 initially has cue probability $1/4$ at $D_1=0$ and $3/4$ at $D_1=1$. Its probability of sending a one is therefore $5/8$ or $3/8$, respectively. Integrating its unknown private record gives
+\begin{equation}
+P(H_1=1\mid X_1=0)=\frac9{16},\qquad
+P(H_1=1\mid X_1=1)=\frac7{16}.
+\end{equation}
+For example, the first probability is $(3/4)(5/8)+(1/4)(3/8)$. Integrating the cue coupling gives the receiver likelihoods $17/32$ at $X_0=0$ and $15/32$ at $X_0=1$. For a receiver whose private record is $D_0=1$, reception of $H_1=1$ changes its cue probability to
+\begin{equation}
+P(X_0=1\mid D_0=1,H_1=1)
+=\frac{(3/4)(15/32)}{(3/4)(15/32)+(1/4)(17/32)}
+=\frac{45}{62}.
+\end{equation}
+Its new probability of sending a one is $3/4-(45/62)/2=12/31$. At the alternative private value $D_0=0$, the same reception gives cue probability $5/22$ and reply probability $7/11$. Both outgoing laws have changed because of the incoming message.
+
+For actual private values $D_0=1,D_1=0$ and transcript $H_1=H_2=1$, the two agents' cue probabilities evolve as follows. Each column conditions only on that agent's own private value and the common transcript.
+\begin{center}
+\begin{tabular}{lcc}
+Stage & Agent 0 & Agent 1\\
+Before communication & $3/4$ & $1/4$\\
+After agent 1 sends & $45/62$ & $1/4$\\
+After agent 0 replies & $45/62$ & $437/1918$
+\end{tabular}
+\end{center}
+Neither learns about the represented state from its own random sample. Each learns when receiving the other's sample.
+
+The four-weight calculation makes the last fraction explicit. In the order $(D_0,D_1)=(00,01,10,11)$, the initial and first-message weights are
+\begin{equation}
+\lambda_0=\frac1{32}(9,7,7,9),\qquad
+\lambda_1=\frac1{128}(45,21,35,27).
+\end{equation}
+Multiply the first two entries of $\lambda_1$ by $7/11$ and the last two by $12/31$, then normalize. This gives
+\begin{equation}
+\lambda_2=
+\left(\frac{105}{242},\frac{49}{242},\frac{70}{341},\frac{54}{341}\right).
+\end{equation}
+At $D_1=0$, the conditional probability of $D_0=1$ is $308/959$. The fixed preparation gives $P(X_1=1\mid D_0=0,D_1=0)=1/6$ and $P(X_1=1\mid D_0=1,D_1=0)=5/14$. Thus the peer's final cue probability is
+\begin{equation}
+\frac{651}{959}\frac16+\frac{308}{959}\frac5{14}
+=\frac{437}{1918}.
+\end{equation}
+The weights and the fixed conditional kernel reconstruct every represented-variable posterior, including the model/content dependence of \cref{comp:eq-interaction-correlations}.
+
+A direct observation of the represented $Y_1=1$ would instead give the receiver probability $9/14$ after the first message. Even though both protocols have the same unconditional fair-bit output, they have different correlations with the represented state. Fresh samples from the same peer also share a hidden cause. If agent 1 speaks twice before a reply, their joint one-one likelihood is $21/64$ at $X_1=0$ and $13/64$ at $X_1=1$, obtained by averaging $(5/8)^2$ and $(3/8)^2$ over $D_1$. The receiver probability is then $45/64$. Squaring the once-marginalized likelihoods $9/16$ and $7/16$ gives $171/244$ instead. A literal echo $H_2=H_1$ is different again: its conditional likelihood after the first bit is one and it changes neither posterior.
+
+\section{When Gaussian communication closes}
+\label{comp:interaction-gaussian}
+
+Suppose there is one presentation per agent and the preparation of $(Z,D)$ is jointly Gaussian. Let the result kernels be affine Gaussian and the encoders linear with independent Gaussian noise. The fixed $W=P(Z\mid D)$ then has affine mean and constant covariance. If $\lambda_t$ is jointly Gaussian, reconstructing $W\lambda_t$ and conditioning on the speaker's $D_j$ gives a Gaussian result prediction whose mean is affine in $D_j$ and whose covariance is independent of its value. The fresh result sample and encoder produce a Gaussian likelihood with affine mean in $D_j$. Multiplication in \cref{comp:eq-interaction-private-update} preserves Gaussianity. Since $\lambda_0$ is Gaussian, this proves closure at every finite step without moment projection. The full joint covariance of the private-record pair is retained.
+
+Even in this closed case, sampling a prediction differs from measuring its represented result. For a scalar sender, let $X\sim\mathcal N(\nu,L)$, $D=X+\epsilon$ with $\epsilon\sim\mathcal N(0,C)$, and
+\begin{equation}
+Y\mid X\sim\mathcal N\bigl(\omega+f(X-\nu),Q\bigr),
+\qquad L,C,Q>0.
+\end{equation}
+The cue posterior has gain $g=L/(L+C)$ and variance $P=LC/(L+C)$. A fresh result sample followed by $H=b\widetilde Y+\eta$, with independent $\eta\sim\mathcal N(0,R)$, has the representation
+\begin{equation}
+\begin{aligned}
+H&=b\omega+bfg(X-\nu)+bfg\epsilon+b\xi+\eta,\\
+\xi&\sim\mathcal N(0,Q+f^2P),\qquad R>0.
+\end{aligned}
+\end{equation}
+The noises here are independent of the prepared $X$, and $\xi$ is fresh conditional sampling noise. Conditional on $X$, the signal gain is $bfg$ and the noise variance is
+\begin{equation}
+(bfg)^2C+b^2(Q+f^2P)+R.
+\end{equation}
+A direct sensor $bY+\eta$ has gain $bf$ and noise variance $b^2Q+R$. The unconditional message variances agree because $g^2(L+C)+P=L$, but their correlations with a peer's cue differ. The receiver must use the likelihood of the actual transmission mechanism.
+
+With multiple presentations there is no universal finite Gaussian-mixture closure. For a concrete case let $B\in\{-1,+1\}$ be fair, $X_0\sim\mathcal N(0,L_0)$ independent of $B$, and
+\begin{equation}
+X_1\mid X_0=x,B=b
+\sim\mathcal N\left(b\alpha+\frac{S}{L_0}x,
+L_1-\frac{S^2}{L_0}\right),
+\end{equation}
+where $\alpha,S>0$ and $S^2<L_0L_1$. Let $D_i=X_i+\epsilon_i$, with independent Gaussian sensor noises of positive variances $C_i$. Let $Y_1\mid B=b\sim\mathcal N(bm,Q)$ independently of the cues conditional on $B$, with $m,Q>0$, and use a unit encoder with positive Gaussian noise variance $R$. The speaker's posterior weight for $B=+1$ is
+\begin{equation}
+w_+(d)=\frac{1}{1+\exp[-2\alpha d/(L_1+C_1)]}.
+\end{equation}
+At a received $h>0$ the message density is
+\begin{equation}
+\kappa(h\mid d)=c_-+(c_+-c_-)w_+(d),\qquad
+c_\pm=\mathcal N(h;\pm m,Q+R),
+\end{equation}
+with $c_+>c_->0$. Conditional on $X_0=x,B=b$, the private $D_1$ is Gaussian with mean $b\alpha+(S/L_0)x$ and fixed positive variance. Averaging $\kappa$ over that law and the two labels gives a receiver likelihood $\ell(h\mid x)$ tending to $c_+$ as $x\to+\infty$ and to $c_-$ as $x\to-\infty$. Bounded convergence justifies the limits since $0<w_+<1$.
+
+Before communication, $X_0\mid D_0$ has a Gaussian density $g_0$. Afterward its density is proportional to $g_0(x)\ell(h\mid x)$, so its ratio to $g_0$ has unequal positive finite limits in the two tails. No finite positive Gaussian mixture has this property. A wider component diverges relative to $g_0$ in both tails; an equal-variance shifted component diverges in one tail; a narrower component vanishes in both; and an identical component contributes equal limits. Positive weights prevent cancellation. The exact posterior is therefore outside every finite Gaussian-mixture family in this example. The normalized inference still exists; a chosen Gaussian approximation would be a later operation.
+
+\section{Why complete local beliefs can still be insufficient}
+\label{comp:interaction-local-loss}
+
+The missing information need not be local non-Gaussian structure. Consider a different finite preparation: $X_0$ is fair, an independent bit $C$ has both outcomes with positive probability, and $X_1=X_0\mathbin{\mathrm{xor}}C$. Register the parity $C$ publicly. Use the presentation and negative-result kernels of \cref{comp:eq-interaction-bits}, but let agent 0's private record be uninformative and let $P(D_1=X_1)=3/4$.
+
+At either value of $C$, each cue is fair. Hence both agents' local represented-variable laws are identical for the two public histories. The sender's local law at any fixed private $D_1=d$ is also independent of $C$. Nevertheless, the parity determines whether evidence about $X_1$ is evidence in the same or opposite direction about $X_0$. A fresh posterior-result message has the same probabilities $9/16$ and $7/16$ conditional on $X_1=0$ and $1$ as before. For the identical received bit $H=1$,
+\begin{equation}
+P(X_0=1\mid C=0,H=1)=\frac7{16},\qquad
+P(X_0=1\mid C=1,H=1)=\frac9{16}.
+\end{equation}
+The corresponding model probabilities are $15/32$ and $17/32$, and the result probabilities are $17/32$ and $15/32$. The next local inference and the next prediction both differ.
+
+A retention that keeps only the two local joint recognition laws, their private values, and their fixed banks, while deleting $C$ and its cross-agent dependence, therefore identifies two reachable states that require different next updates. Keeping $C$ resolves this example. In the reduced representation it must remain in the preparation conditional $W_C=P(Z\mid D,C)$ or in the retained preparation coordinates. Storing the complete reconstructible transcript also differs from deleting that information. This is an obstruction to the stated local-only retention, with no moment projection used in its proof.
+
+Finally, the protocol redistributes evidence from a fixed preparation. Conditional on the pair $D$, all its message likelihoods are independent of $Z$. Expanding conditional mutual information in two orders, when the terms are finite, gives
+\begin{equation}
+I(Z;H_{1:t}\mid D_i)
+=I(Z;D_{1-i}\mid D_i)
+-I(Z;D_{1-i}\mid D_i,H_{1:t}).
+\end{equation}
+Communication can reveal private information; it supplies no new measurement beyond this pair. New observations over time, learned policies, different agent models, and formation require additional mechanisms. The exact interacting experiment specifies what a later projection must preserve: future message laws and the receiver's conditional updates, together with every admitted record query.

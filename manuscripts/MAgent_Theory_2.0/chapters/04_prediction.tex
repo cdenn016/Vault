@@ -68,7 +68,22 @@ Returning only a Gaussian with the result moments is a further operation: it min
  =I_{\Pi^o}(M;Y)+\KL(p_Y^o\Vert q_G),
  \label{eq:conditional-prediction-loss}
 \end{equation}
-whenever these terms are finite. The chain rule proves the split; \cref{cmem:projection} supplies the Gaussian projection proof. This local moment-matching operation is familiar from assumed-density filtering \citep{Minka2001EP}. A later Gaussian observation can distinguish the exact mixture from its carrier (\cref{cmem:readout-loss}), so the retained interface must name which predictions it preserves. \Cref{app:conditional-memory} gives the self-contained construction, its frame laws, and an exact sequential filtering case. Repeated use with communication-generated records additionally requires a specified history-conditioned likelihood and retained state, as in \cref{app:records}.
+whenever these terms are finite. The chain rule proves the split; \cref{cmem:projection} supplies the Gaussian projection proof. This local moment-matching operation is familiar from assumed-density filtering \citep{Minka2001EP}. A later Gaussian observation can distinguish the exact mixture from its carrier (\cref{cmem:readout-loss}), so the retained interface must name which predictions it preserves. \Cref{app:conditional-memory} gives the self-contained construction, its frame laws, and an exact sequential filtering case.
+
+\section{Communication between conditional predictors}
+\label{sec:interacting-prediction}
+
+A message sampled from a peer's current prediction depends on that peer's private evidence. \Cref{app:interacting-memory} supplies a two-agent realization with a common preparation law for represented states $Z_i=(A_i,X_i,Y_i)$, private records $D_i$, known encoders, and a reliably shared transcript $H_{1:t}$. The local marginals are the cue/result models above, and recognition retains model/content dependence. A fixed alternating schedule chooses the speaker, which samples a fresh result from its conditional prediction. The receiver integrates the resulting message likelihood over the unknown peer record conditional on its own represented state and available information. The speaker's own random output leaves its private posterior unchanged; an incoming message can change its next outgoing distribution.
+
+The common posterior has an exact reduced representation. If $W(d,dz)=P(Z\in dz\mid D=d)$ is the fixed preparation conditional, with $D=(D_0,D_1)$, then
+\begin{equation}
+\Gamma_t(dz,dd)=W(d,dz)\lambda_t(dd),\qquad
+\lambda_t=P(D\in\cdot\mid H_{1:t}).
+\label{eq:interacting-prediction-retention}
+\end{equation}
+Every communication likelihood at a fixed history depends on the prepared variables only through $D$, so it reweights $\lambda_t$ and leaves $W$ unchanged. Each agent conditions $\lambda_t$ on its own private value and reconstructs its local joint law with $W$. The retained state also includes the known policy, next speaker, and persistent transcript whenever past-record queries are admitted. This is statistical sufficiency within the declared family, without moment projection or a minimality claim. The appendix gives its normalized finite-history law, correlated local and reduced free-energy identities, and a binary two-way exchange whose expanded posterior is reconstructed from four private-record weights.
+
+The same construction has exact finite-dimensional Gaussian closure for one presentation per agent with affine Gaussian kernels. Multiple presentations can produce a posterior outside every finite Gaussian-mixture family after one message. A separate pair of reachable histories has identical local joint beliefs but different next receiver updates, showing why local dependence alone need not preserve cross-agent evidence. These conclusions concern a supplied common-model protocol. Its fixed-history free energy does not identify the three population objectives, and its fixed preparation supplies no new measurements during communication. The common/private information organization is classical \citep{Nayyar2013CommonInformation}; the appendix derives the specified transmission and retention directly.
 
 \section{What the receiver reconstructs}
 

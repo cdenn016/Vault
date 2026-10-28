@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-20
+updated: 2026-10-28
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-10-20
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **25** manuscripts · **14** themes · **13** maps of content · **288** concepts · **15** methods · **730** papers · **187** references · **7** runs · **7** web/methodology
+> **3** projects · **27** manuscripts · **14** themes · **13** maps of content · **288** concepts · **15** methods · **730** papers · **187** references · **7** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -28,6 +28,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-glk-attention-v2-review-2026-10-07]] — October 7, 2026 peer review and revision of the GL(K) manuscript: covariance scoped to the attention operator, exactness rescoped, trained-link claims limited to working precision
 - [[dennis-2026-edge-latent-links]] — working note: edge-dependent links $G_{ij}=g_ie^{L}E_{ij}$ (curved rank-$r$ mode and pure-gauge control), closed-form message and covariance, causal latent receiver factors with natural-gradient inference and a depth-loop prior; implemented in vfe3, no training result
 - [[dennis-2026-cue-result-memory]] — standalone note: cue/result generative memory as an MLP replacement; exact posterior, moment projection, response identity, mixture-of-experts reduction, diagonal-record form, gauge structure, regime prior through depth; theory only
+- [[dennis-2026-interacting-cue-result]] — supplied two-agent posterior-sampling protocol; normalized finite histories, correlated inference, exact joint-private-record retention with fixed reconstruction, four-weight exchange, Gaussian closure and retention limits; theory only
 - [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; implemented in VFE_3.0 on October 6, unevaluated
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
