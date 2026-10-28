@@ -38,6 +38,38 @@ The second term is the model distinction that the record leaves unresolved. Its 
 
 If the model link depends on the current laws, \cref{thm:predictive-chain} applies to the resulting fixed comparison at that configuration, provided \cref{eq:evaluator-compatibility} holds there. Preservation of compatibility during an update is a separate condition on the dynamics and the evaluator.
 
+\section{Conditional prediction within an agent}
+\label{sec:conditional-prediction}
+
+An evaluator can relate a cue to a different result, so that a record of one changes predictions for the other. On standard Borel presentation, cue, result, and record spaces, choose normalized kernels $\mu_m(du)$, $K_m(u,dv)$, and $\mathcal L(u,do)$, with a proper presentation reference $r(dm)$. The joint
+\begin{equation}
+ P(dm,du,dv,do)=r(dm)\mu_m(du)K_m(u,dv)\mathcal L(u,do)
+ \label{eq:conditional-prediction-model}
+\end{equation}
+is an instance of \cref{def:generative-model}, with represented contents $(u,v)$ and evaluator $G(m,d(u,v))=\mu_m(du)K_m(u,dv)$. For a record likelihood $l(o\mid u)$ with finite positive evidence, the posterior has the correlated form $w^o(dm)\Pi_m^o(du,dv)$ of \cref{cmem:posterior}. The result prediction averages the component-conditional results using the posterior model belief. The presentation selects a mechanism; its posterior probability is distinct from the parameters defining that mechanism.
+
+The local free energy retains this dependence. Under the finiteness conditions of \cref{cmem:free-energy}, a candidate $s(dm)q_m(dk)$ satisfies
+\begin{equation}
+ \mathcal F=\KL(s\Vert w^o)+\int\KL(q_m\Vert\Pi_m^o)s(dm)-\log Z(o).
+ \label{eq:conditional-prediction-energy}
+\end{equation}
+Exact conditioning minimizes this functional. Requiring one content law independent of the presentation changes the optimization, as in \cref{rem:dyn-product}. Thus the general joint agent law supports a concrete local inference operation beyond the product-family flows.
+
+For an additive Gaussian cue record $O=X+\epsilon$, $\epsilon\sim\mathcal N(0,C)$, the fixed-model response is
+\begin{equation}
+ D_\xi\E[Y\mid O=\xi]=\operatorname{Cov}(Y,X\mid O=\xi)C^{-1}.
+ \label{eq:conditional-prediction-response}
+\end{equation}
+\Cref{cmem:response} states the moment and differentiation hypotheses and proves the identity. The cross-covariance permits a negative or rotating response. This is conditional prediction through a statistical relation, while the Fisher tensor measures distinguishability of the posterior law. Gaussian mixture regression gives an explicit realization \citep{Calinon2016}.
+
+Returning only a Gaussian with the result moments is a further operation: it minimizes $\KL(p_Y^o\Vert q_G)$, not in general the reverse divergence of variational free energy. The exact loss of a product carrier consisting of model weights and that Gaussian is
+\begin{equation}
+ \KL(\Pi_{M,Y}^o\Vert w^o\otimes q_G)
+ =I_{\Pi^o}(M;Y)+\KL(p_Y^o\Vert q_G),
+ \label{eq:conditional-prediction-loss}
+\end{equation}
+whenever these terms are finite. The chain rule proves the split; \cref{cmem:projection} supplies the Gaussian projection proof. This local moment-matching operation is familiar from assumed-density filtering \citep{Minka2001EP}. A later Gaussian observation can distinguish the exact mixture from its carrier (\cref{cmem:readout-loss}), so the retained interface must name which predictions it preserves. \Cref{app:conditional-memory} gives the self-contained construction, its frame laws, and an exact sequential filtering case. Repeated use with communication-generated records additionally requires a specified history-conditioned likelihood and retained state, as in \cref{app:records}.
+
 \section{What the receiver reconstructs}
 
 A sending map $T_j:E_j\to\mathsf H$ induces the message law $\mu_j=(T_j)_\#q_j$. Different laws can have the same message law. Messages travel from source to receiver. The reciprocal flow of \cref{ch:dynamics} also moves each source by the likelihood ratio of its receivers, so a communication model that realizes that flow must include this reverse message; the per-agent dynamics of \cref{def:dyn-per-agent-flow} needs only the forward one. For linear maps $T_j:E_j\to\mathsf H$ and $O_i:\mathsf H\to E_i$,

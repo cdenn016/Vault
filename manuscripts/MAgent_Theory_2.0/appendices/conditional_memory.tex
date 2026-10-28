@@ -1,0 +1,229 @@
+\chapter{Conditional Prediction and Generative Memory}
+\label{app:conditional-memory}
+
+A generative model can relate a cue to a different result. Evidence about the cue then changes the predicted result through that relation. This appendix realizes the general agent model of \cref{def:generative-model} with correlated recognition, derives its exact local inference, and separates that inference from a subsequent compression of the posterior. The construction begins with general probability laws. Gaussian mixture regression supplies an explicit finite-dimensional example \citep{Calinon2016}; its use here makes the model-presentation sector and the retained information explicit.
+
+\section{A normalized cue and result model}
+
+\constructionheading{Conditional prediction model}{cmem:model}
+Fix a context. Let $\mathsf M,\mathsf X,\mathsf Y,\mathsf O$ be standard Borel spaces. Choose a proper presentation reference $r(dm)$, a normalized cue kernel $\mu_m(du)$, a normalized result kernel $K_m(u,dv)$, and a normalized record kernel $\mathcal L(u,do)$. All kernels are jointly measurable in their conditioning variables. Define
+\begin{equation}
+ P(dm,du,dv,do)=r(dm)\mu_m(du)K_m(u,dv)\mathcal L(u,do).
+ \label{cmem:joint}
+\end{equation}
+Successive integration gives total mass one. In the agent notation, take $\mathsf K=\mathsf X\times\mathsf Y$, evaluator $G(m,d(u,v))=\mu_m(du)K_m(u,dv)$, and record kernel $\ell((u,v),m;do)=\mathcal L(u,do)$. Thus \cref{cmem:joint} is precisely $rG\ell$. It declares conditional independence of the result and record given the cue and presentation.
+
+Assume $\mathcal L(u,do)=l(o\mid u)\lambda(do)$ for a fixed reference measure. At a specified record $o$, suppose
+\begin{equation}
+ \begin{aligned}
+ 0<Z_m(o)&:=\int l(o\mid u)\mu_m(du)<\infty
+ &&r\text{-almost everywhere},\\
+ 0<Z(o)&:=\int Z_m(o)r(dm)<\infty.
+ \end{aligned}
+ \label{cmem:evidence}
+\end{equation}
+Bayes' rule gives the presentation posterior and component conditional
+\begin{equation}
+ w^o(dm)=\frac{Z_m(o)}{Z(o)}r(dm),\qquad
+ \Pi_m^o(du,dv)=\frac{l(o\mid u)\mu_m(du)K_m(u,dv)}{Z_m(o)}.
+ \label{cmem:posterior}
+\end{equation}
+The joint recognition law is $\zeta^o(dm,du,dv)=w^o(dm)\Pi_m^o(du,dv)$. It has the general disintegration of \cref{eq:agent-disintegration}. Dependence between presentation and contents is retained. Since $K_m(u,\mathsf Y)=1$, the presentation evidence depends on the cue and record mechanism, while the conditional result kernel determines what each selected presentation predicts.
+
+The represented content can instead be the result alone. Disintegrate $\mu_m(du)K_m(u,dv)=G_Y(m,dv)R_m(v,du)$ and set
+\begin{equation}
+ \ell_Y(v,m;do)=\int\mathcal L(u,do)R_m(v,du).
+ \label{cmem:result-model}
+\end{equation}
+Disintegration on standard Borel spaces supplies measurable versions, with arbitrary extensions on null sets \citep{Kallenberg2021}. The kernel $\ell_Y$ is normalized, and $rG_Y\ell_Y$ is the $(M,Y,O)$ marginal of \cref{cmem:joint}. Both representations therefore give the same result posterior. A presentation-dependent likelihood is allowed by \cref{def:generative-model}.
+
+\propositionheading{Correlated local free energy}{cmem:free-energy}
+At a record satisfying \cref{cmem:evidence}, let a candidate joint recognition law be $\mathcal Q(dm,dk)=s(dm)q_m(dk)$, where $k=(u,v)$. Assume the absolute continuity, finite relative entropies, and integrable log likelihood needed below. Then
+\begin{equation}
+ \mathcal F(\mathcal Q;o)
+ =\KL(s\Vert w^o)+\int\KL(q_m\Vert\Pi_m^o)s(dm)-\log Z(o).
+ \label{cmem:free-energy-split}
+\end{equation}
+Consequently the unrestricted minimum is $-\log Z(o)$, attained uniquely by the posterior up to null sets.
+\begin{proof}
+The unnormalized joint at the observed record is $Z(o)\zeta^o$. Substituting this into the logarithmic density ratio defining free energy gives $\mathcal F=\KL(\mathcal Q\Vert\zeta^o)-\log Z(o)$. Disintegration splits the joint relative entropy into the two terms of \cref{cmem:free-energy-split}; their nonnegativity and equality conditions prove the minimum statement.
+\end{proof}
+
+For a finite presentation space with $r(a)=\hat\pi_a>0$, fixing the content conditionals gives
+\begin{equation}
+ s_a\propto\hat\pi_a e^{-f_a},\qquad
+ f_a=\KL(q_a\Vert G_a)-\E_{q_a}\log l(o\mid X).
+ \label{cmem:gibbs}
+\end{equation}
+At the exact conditionals, $f_a=-\log Z_a(o)$. These are Gibbs weights for optimized component free energies. They are distinct from the peer-source rows of \cref{ch:dynamics}: the label here chooses a model presentation.
+
+The product restriction changes the inference problem. For the structured family $s_aq_X(du)K_a(u,dv)$, the result conditional cancels from the density ratio, and the label update is
+\begin{equation}
+ s_a\propto\hat\pi_a\exp[-\KL(q_X\Vert\mu_a)].
+ \label{cmem:product-label}
+\end{equation}
+The record term is common to the labels at fixed $q_X$. With cue densities $\mu_a(u)$, varying $q_X$ gives $q_X(u)\propto l(o\mid u)\exp(\sum_a s_a\log\mu_a(u))$, whenever the normalizer is finite. This is a product over $(A,X)$, while retaining the result conditional; it is not a product over $(A,(X,Y))$. It illustrates the expected-log restriction described in \cref{rem:dyn-product} and classical mean-field inference \citep{BleiEtAl2017}. Exact conditioning, this structured approximation, and the product-family Fisher flow are separately specified operations.
+
+\section{A Gaussian realization and its response}
+
+Let $\mathsf M=\{1,\ldots,M\}$ and $\mathsf X=\mathsf Y=\mathsf O=\R^d$. Fix $\hat\pi_a>0$, $\sum_a\hat\pi_a=1$, vectors $\nu_a,\omega_a$, positive-definite matrices $L_a,Q_a,C$, and arbitrary matrices $F_a$. Set
+\begin{equation}
+ \begin{aligned}
+ X\mid A=a&\sim\mathcal N(\nu_a,L_a),\\
+ Y\mid X=u,A=a&\sim\mathcal N(\omega_a+F_a(u-\nu_a),Q_a),\\
+ O\mid X=u&\sim\mathcal N(u,C).
+ \end{aligned}
+ \label{cmem:gaussian-model}
+\end{equation}
+The record covariance is fixed side information for this model. Each evaluator is the joint Gaussian with mean $(\nu_a,\omega_a)$ and covariance
+\begin{equation}
+ \begin{pmatrix}
+ L_a&L_aF_a^T\\ F_aL_a&F_aL_aF_a^T+Q_a
+ \end{pmatrix}.
+ \label{cmem:joint-covariance}
+\end{equation}
+Its Schur complement is $Q_a\succ0$, so arbitrary, including singular, regressions are allowed.
+
+\propositionheading{Exact component and result posteriors}{cmem:gaussian-posterior}
+At $O=\xi$, put $W_a=L_a+C$. Then
+\begin{equation}
+ \begin{aligned}
+ Z_a(\xi)&=\mathcal N(\xi;\nu_a,W_a),&
+ w_a&=\frac{\hat\pi_a Z_a(\xi)}{\sum_b\hat\pi_bZ_b(\xi)},\\
+ m_{X,a}&=\nu_a+L_aW_a^{-1}(\xi-\nu_a),&
+ P_{X,a}&=(L_a^{-1}+C^{-1})^{-1},\\
+ m_{Y,a}&=\omega_a+F_a(m_{X,a}-\nu_a),&
+ P_{Y,a}&=Q_a+F_aP_{X,a}F_a^T.
+ \end{aligned}
+ \label{cmem:gaussian-posterior-formula}
+\end{equation}
+The result marginal is $p_Y^\xi=\sum_aw_a\mathcal N(m_{Y,a},P_{Y,a})$, with moments
+\begin{equation}
+ \bar m=\sum_aw_am_{Y,a},\qquad
+ S=\sum_aw_a\left[P_{Y,a}+(m_{Y,a}-\bar m)(m_{Y,a}-\bar m)^T\right].
+ \label{cmem:result-moments}
+\end{equation}
+\begin{proof}
+The cue and independent record noise sum to a Gaussian with covariance $W_a$, giving $Z_a$. Completing the cue's quadratic log density gives precision $L_a^{-1}+C^{-1}$ and information vector $L_a^{-1}\nu_a+C^{-1}\xi$. Solving for the mean gives the displayed gain. Applying the affine result kernel gives its conditional moments and cross-covariance $\operatorname{Cov}(X,Y\mid\xi,a)=P_{X,a}F_a^T$. Total expectation and total covariance give \cref{cmem:result-moments}. These are conditional-mixture identities, as in Gaussian mixture regression \citep{Calinon2016}.
+\end{proof}
+
+For the result-only representation \cref{cmem:result-model}, let $V_a=F_aL_aF_a^T+Q_a$, $B_a=L_aF_a^TV_a^{-1}$, and $S_a=L_a-L_aF_a^TV_a^{-1}F_aL_a$. Then
+\begin{equation}
+ \begin{aligned}
+ G_Y(a,dv)&=\mathcal N(dv;\omega_a,V_a),\\
+ \ell_Y(v,a;do)&=\mathcal N(do;\nu_a+B_a(v-\omega_a),C+S_a).
+ \end{aligned}
+ \label{cmem:result-only-gaussian}
+\end{equation}
+Conditioning the joint evaluator on $Y=v$ gives cue covariance $S_a\succ0$, and adding independent record noise proves the likelihood formula.
+
+\propositionheading{Cross-prediction response and posterior Fisher tensor}{cmem:response}
+Hold the prior joint law of $(A,X,Y)$ and $C\succ0$ fixed, with record $O=X+\epsilon$ for independent $\epsilon\sim\mathcal N(0,C)$. Suppose the posterior moments used below exist and differentiation can be passed through their integrals on an open set of records. Then
+\begin{equation}
+ D_\xi\E[Y\mid\xi]=\operatorname{Cov}(Y,X\mid\xi)C^{-1},\qquad
+ I_\xi=C^{-1}\operatorname{Cov}(X\mid\xi)C^{-1},
+ \label{cmem:response-fisher}
+\end{equation}
+where $I_\xi$ is the Fisher tensor of the complete posterior family in record coordinates. These assumptions hold for the finite Gaussian model above.
+\begin{proof}
+The gradient of the log record likelihood is $C^{-1}(X-\xi)$. Subtracting its posterior expectation, the gradient of the log normalizer, gives posterior score $C^{-1}(X-\E[X\mid\xi])$. Multiplying the score by $Y$ and integrating proves the response identity. Its score second moment gives $I_\xi$. Finite Gaussian mixtures have smooth finite component moments and locally dominated Gaussian integrands, which justify these operations.
+\end{proof}
+
+For same-state prediction $Y=X$, the whitened Jacobian is $C^{-1/2}\operatorname{Cov}(X\mid\xi)C^{-1/2}$, positive definite in the Gaussian example. For a distinct result the cross-covariance can have either sign and need not be symmetric. Already with one component, $D_\xi\E[Y\mid\xi]=FL(L+C)^{-1}$. For any prescribed dense response $H$, choosing $F=H(L+C)L^{-1}$ gives $H$ exactly. The result center sets the affine intercept. This conditional response is not a gradient step on the cue, and its sign places no conflict with the positive Fisher tensor. The identity is a partial derivative at fixed bank and record covariance; it does not differentiate a larger computation in which those data also vary.
+
+\section{Retained moments and statistical geometry}
+
+\propositionheading{Gaussian projection and the loss of dependence}{cmem:projection}
+For the positive finite Gaussian mixture $p_Y^\xi$ above, $q_G=\mathcal N(\bar m,S)$ uniquely minimizes $\KL(p_Y^\xi\Vert q)$ over nondegenerate Gaussians. If $\Pi_{A,Y}^\xi$ is the exact label/result joint, then
+\begin{equation}
+ \KL(\Pi_{A,Y}^\xi\Vert w\otimes q_G)
+ =I_{\Pi^\xi}(A;Y)+\KL(p_Y^\xi\Vert q_G).
+ \label{cmem:projection-loss}
+\end{equation}
+For the diagonal carrier $q_D=\mathcal N(\bar m,\operatorname{diag}S)$,
+\begin{equation}
+ \KL(p_Y^\xi\Vert q_D)-\KL(p_Y^\xi\Vert q_G)
+ =\frac12\log\frac{\prod_k S_{kk}}{\det S}.
+ \label{cmem:diagonal-loss}
+\end{equation}
+\begin{proof}
+The expectation of a Gaussian log density depends only on the mean and covariance of the sampling law. Consequently, for every nondegenerate Gaussian $q$,
+$\KL(p_Y^\xi\Vert q)-\KL(p_Y^\xi\Vert q_G)=\KL(q_G\Vert q)$.
+This proves the minimum and its uniqueness. Inserting $w\otimes p_Y^\xi$ into the joint logarithmic ratio proves \cref{cmem:projection-loss}. Subtracting the two Gaussian log densities and using $\E[(Y-\bar m)(Y-\bar m)^T]=S$ gives \cref{cmem:diagonal-loss}. All entropies and relative entropies here are finite for the stated positive finite mixtures.
+\end{proof}
+
+This inclusive-divergence projection is the local moment-matching operation used in assumed-density filtering \citep{Minka2001EP}. It generally differs from minimizing the reverse divergence of variational free energy. For example, let $p_a=\tfrac12\mathcal N(-a,1)+\tfrac12\mathcal N(a,1)$ and $q_a=\mathcal N(0,1+a^2)$. The component $\mathcal N(a,1)$ has reverse divergence at most $\log2$ from $p_a$, whereas
+\begin{equation}
+ \KL(q_a\Vert p_a)
+ \ge a^2-a\sqrt{\frac{2(1+a^2)}{\pi}}-\frac12\log(1+a^2)
+ \longrightarrow\infty.
+ \label{cmem:reverse-counterexample}
+\end{equation}
+Indeed, $p_a(y)\le(2\pi)^{-1/2}e^{-(|y|-a)^2/2}$; integrate its negative logarithm under $q_a$ and subtract the Gaussian entropy. Thus moment matching does not even minimize the reverse divergence for sufficiently separated components.
+
+\propositionheading{Moments need not preserve later Gaussian records}{cmem:readout-loss}
+For $0<t<1$, the admissible result mixture
+\begin{equation}
+ p_t=\tfrac12\mathcal N(t,1-t^2)+\tfrac12\mathcal N(-t,1-t^2)
+ \label{cmem:constant-moments}
+\end{equation}
+has constant Gaussian carrier $q_G=\mathcal N(0,1)$, but a later record kernel $K_c(y,do)=\mathcal N(do;y,c)$, $c>0$, distinguishes $p_t$ from $q_G$.
+\begin{proof}
+Identical cue components, equal weights, $F_1=F_2=0$, result centers $\pm t$, and result noise $1-t^2$ realize $p_t$. Its mean is zero and variance one. Convolution with the record noise gives densities at zero
+\begin{equation}
+ (p_tK_c)(0)=\frac{e^{-t^2/[2(1-t^2+c)]}}{\sqrt{2\pi(1-t^2+c)}},\qquad
+ (q_GK_c)(0)=\frac1{\sqrt{2\pi(1+c)}}.
+\end{equation}
+They agree at $t=0$, while the derivative of the logarithm of the first is $-t^3/(1-t^2+c)^2<0$. Their densities therefore differ for every $t>0$; continuity gives a differing probability on a small interval about zero.
+\end{proof}
+
+Moments preserve expectations of affine and quadratic readouts. \Cref{cmem:readout-loss} shows that this does not imply preservation of every later observation law. It concerns the chosen projection, not an obstruction to richer retained states or to general-law parents. Exact inheritance still requires the complete configuration retention and interface of \cref{inh:two-retentions,inh:deterministic-descent}.
+
+For a regular family $\zeta_\theta(a,dv)=w_a\mathcal N(dv;m_a,P_a)$, the score split underlying \cref{geo:joint-fisher} gives
+\begin{equation}
+ \begin{split}
+ g_\zeta^F(u,v)={}&\sum_a\frac{(d_uw_a)(d_vw_a)}{w_a}\\
+ &+\sum_aw_a\left[(d_um_a)^TP_a^{-1}(d_vm_a)
+ +\frac12\Tr(P_a^{-1}d_uP_aP_a^{-1}d_vP_a)\right].
+ \end{split}
+ \label{cmem:joint-fisher}
+\end{equation}
+The mixed term vanishes because each conditional Gaussian score has conditional mean zero. Null parameter directions must be removed before calling this tensor a metric. For the label/result family producing \cref{cmem:constant-moments}, its coefficient along $t$ is $(1+t^2)/(1-t^2)^2>0$, while the Gaussian carrier has zero coefficient. The result marginal itself also varies, with fourth moment $3-2t^4$. Joint statistical geometry therefore cannot be recovered from the moment carrier in general. These are admissible model families, not assertions about a particular evolution.
+
+\section{Frames, sharing, and sequential records}
+
+One group $\GL(d)$ acts on the doubled content by $h\cdot(u,v)=(hu,hv)$ and trivially on the finite labels. Re-expressing the evaluator and record data requires
+\begin{equation}
+ \begin{gathered}
+ \nu_a'=h\nu_a,\quad \omega_a'=h\omega_a,\quad
+ L_a'=hL_ah^T,\quad Q_a'=hQ_ah^T,\\
+ F_a'=hF_ah^{-1},\quad C'=hCh^T,\quad \xi'=h\xi.
+ \end{gathered}
+ \label{cmem:frame-laws}
+\end{equation}
+The evidence densities acquire the same factor $|\det h|^{-1}$, so the weights are invariant; the conditional means and covariances transform by $h$ and congruence. This follows directly by substitution into \cref{cmem:gaussian-posterior-formula}. In local token frames $U_i$, the reference cue $(U_i^{-1}\mu_i,U_i^{-1}\Sigma_iU_i^{-T})$ is invariant under a simultaneous passive change of frame and local moments. A singular $F_a$ still defines a normalized response kernel; it is not a group-valued dictionary.
+
+Sharing a bank supplies common reference and evaluator data. Sharing a generative model in the sense of \cref{def:shared-model} also requires matched record kernels under the declared frame maps. Different covariances $C_i$ instead give a shared family of conditional mechanisms indexed by supplied side information. The distinction must be stated if uncertainty varies between agents. A diagonal reference parametrization is not closed under arbitrary rebasing: if $hDh^T$ is diagonal for every positive diagonal $D$, its off-diagonal entries force $h_{ik}h_{jk}=0$ for $i\ne j$, so invertibility makes $h$ a permutation times an invertible diagonal matrix. This restriction on the reference parametrization does not remove local passive covariance with that reference fixed.
+
+\constructionheading{An exact carried-presentation filter}{cmem:sequential}
+Let the finite label evolve by a fixed row-stochastic matrix $T$. At step $l$, draw a fresh cue from $\mu_{A_l}$, a result from $K_{A_l}$, and a record from $\mathcal L_{C_l}$, with draws at distinct steps conditionally independent given the label sequence. For fixed positive record covariances, the finite law is
+\begin{equation}
+ \begin{split}
+ &P(a_{0:n},du_{0:n},dv_{0:n},do_{0:n})\\
+ &\quad=\hat\pi_{a_0}\prod_{l=1}^nT_{a_{l-1}a_l}
+ \prod_{l=0}^n\left[\mu_{a_l}(du_l)K_{a_l}(u_l,dv_l)
+ \mathcal L_{C_l}(u_l,do_l)\right].
+ \end{split}
+ \label{cmem:history}
+\end{equation}
+Integration and summation of the last step give one conditional on the previous label, proving normalization and consistency. If $w_l(a)=P(A_l=a\mid O_{0:l})$, marginalization and Bayes' rule give
+\begin{equation}
+ v_l(b)=\sum_aw_{l-1}(a)T_{ab},\qquad
+ w_l(b)=\frac{v_l(b)Z_b(o_l;C_l)}{\sum_c v_l(c)Z_c(o_l;C_l)}.
+ \label{cmem:filter}
+\end{equation}
+This is a hidden Markov emission model. The label vector suffices for its next label prediction because the next cue is fresh given the next label. A later interaction that reads the current result or its dependence on the label requires a different sufficiency argument. The continuous result law can still be needed for current readouts even in this model.
+
+A modified prior proportional to $\hat\pi_bv_l(b)^\vartheta$ has a separate one-step interpretation. With baseline prior $\hat\pi$ and a record $o\mid B=b\sim\operatorname{Dir}(\alpha\mathbf1+\vartheta e_b)$, where $\alpha>0$ and $\vartheta\ge0$, its normalizer is independent of $b$, and the density at an interior simplex value $o=v_l$ is proportional to $v_l(b)^\vartheta$. Conditioning gives the modified prior. It equals the prediction in \cref{cmem:filter} for uniform $\hat\pi$ and $\vartheta=1$. Combining this record with a cue requires declaring their joint conditional law; the algebra alone does not supply conditional independence.
+
+\Cref{app:records} distinguishes normalization of a history from exact Bayesian assimilation under its record mechanism. That distinction applies here. If $O_2=f(O_1)$ and $O_1$ is already registered, conditioning on $(O_1,O_2)$ is the same as conditioning on $O_1$; an independent-replicate likelihood would count the evidence again. Communication may bring information that is new to one receiver even in a deterministic population computation. A repeated conditional-prediction agent must therefore specify its accessible history, communication-generated record, retained joint law, and any projection. The local identities above establish neither a common free energy for an arbitrary composition nor a new formation result.
