@@ -5,10 +5,14 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-20
+updated: 2026-10-28
 ---
 
 # Mathematics MOC
+
+## Cue/result generative memory, October 28, 2026
+
+[[dennis-2026-cue-result-memory]] (2026-10-28) proves the response identity $D_\xi\bar m_Y=\mathrm{Cov}(Y,X\mid\xi)C^{-1}$ by an exponential-family argument, the monotonicity of same-state retrieval, the rebasing law of the component bank, and that diagonal banks are stabilized exactly by the monomial subgroup.
 
 ## October 2 completed square-root parent-budget study
 

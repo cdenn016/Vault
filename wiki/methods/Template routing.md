@@ -11,10 +11,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-10-25
+updated: 2026-10-28
 ---
 
 # Template routing
+
+## Cue/result memory successor, October 28, 2026
+
+[[dennis-2026-cue-result-memory]] derives the successor to the same-state prototype block, the [[Cue-result generative memory]]: each component adds an affine Gaussian result law to its cue law, and the block returns the moment projection of the result posterior. The note proves that the same-state block's whitened Jacobian is symmetric positive definite (the multivariate Tweedie response of [[efron-2011-tweedie-formula]]), so it cannot reverse or rotate a direction, while the cue/result regression reaches any affine map and, with shared cue variances, every softmax-gated mixture of affine experts. The persistent label belief across depth listed below as not implemented is part of that construction as a carried regime prior.
 
 ## Unified inference and implementation boundary, October 3, 2026
 

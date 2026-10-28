@@ -27,6 +27,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — main GL(K) attention manuscript rebuilt on October 5, 2026: agents on a bundle over one context, four head interfaces, comparison link, routed-transport theorem with a standard layer as the affine chart; supplement revived as S1 to S10
 - [[dennis-2026-glk-attention-v2-review-2026-10-07]] — October 7, 2026 peer review and revision of the GL(K) manuscript: covariance scoped to the attention operator, exactness rescoped, trained-link claims limited to working precision
 - [[dennis-2026-edge-latent-links]] — working note: edge-dependent links $G_{ij}=g_ie^{L}E_{ij}$ (curved rank-$r$ mode and pure-gauge control), closed-form message and covariance, causal latent receiver factors with natural-gradient inference and a depth-loop prior; implemented in vfe3, no training result
+- [[dennis-2026-cue-result-memory]] — standalone note: cue/result generative memory as an MLP replacement; exact posterior, moment projection, response identity, mixture-of-experts reduction, diagonal-record form, gauge structure, regime prior through depth; theory only
 - [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; implemented in VFE_3.0 on October 6, unevaluated
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
@@ -396,6 +397,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Projected predictive attention]]
 - [[Projected gradient attention]]
 - [[Template routing]]
+- [[Cue-result generative memory]]
 - [[Free-energy principle active inference]]
 - [[Gauge equivariant CNN]]
 - [[Group equivariant CNN (G-CNN)]]
@@ -429,6 +431,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ### MLP slot as generative model references (2026-10-24)
 - [[bovy-2011-extreme-deconvolution|Extreme Deconvolution]] (Gaussian mixture through heterogeneous Gaussian noise)
+- [[nguyen-2016-moe-universal-approximation|A Universal Approximation Theorem for Mixture-of-Experts Models]] (MoE mean functions dense in C(X))
 - [[xu-1995-alternative-mixtures-of-experts|An Alternative Model for Mixtures of Experts]] (generative gating)
 - [[efron-2011-tweedie-formula|Tweedie's Formula and Selection Bias]] (posterior moments from the log evidence)
 - [[minka-2001-expectation-propagation|Expectation Propagation for Approximate Bayesian Inference]] (ADF and EP)

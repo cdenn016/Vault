@@ -1,0 +1,426 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{microtype,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{url}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\tr}{\operatorname{tr}}
+\providecommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Gauss}{\mathcal N}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Cat}{\operatorname{Cat}}
+\newcommand{\Dir}{\operatorname{Dir}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\pihat}{\hat\pi}
+
+\title{A Cue/Result Generative Memory:\\Exact Conditioning of a Switching Linear-Gaussian Bank in Place of the MLP}
+\author{Robert C. Dennis}
+\date{Working note, October 28, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The position-wise MLP of a transformer is the one sublayer in which an agent computes privately, and in a gauge-covariant Gaussian attention model it is also the sublayer with no probabilistic reading. We replace it by exact Bayesian conditioning in a declared generative model, a bank of $M$ components, each carrying a Gaussian law of a cue, an affine Gaussian law of a result given the cue, and a prior weight. The incoming working belief of a token enters as a Gaussian record of the cue whose covariance is the token's own uncertainty. The block returns the first two moments of the exact result marginal, a mixture of $M$ Gaussians, so its output is the moment projection of a posterior and no residual connection is added. We state and prove the exact posterior; a response identity that gives the Jacobian of the block's mean map as the posterior cross-covariance of result and cue times the record precision; the consequence that same-state retrieval, the special case in which every result equals its cue, has a symmetric positive definite whitened Jacobian and so cannot produce a negative slope or a rotation, while the cue/result model produces any affine map in a diffuse-cue limit and, with shared cue variances, contains every softmax-gated mixture of affine experts; the elementwise form of the posterior for diagonal records and a low-rank regression, with the diagonal moment projection it returns; the passive gauge covariance of the block in reference coordinates, the transformation law of the bank under a rebasing of the reference space, and the monomial subgroup that a diagonal bank singles out; and a per-token prior that carries the component posterior through depth as a hidden Markov regime by a Dirichlet record, which reduces to the regime step of a first-order generalized pseudo-Bayesian filter under two stated conditions. The construction is the joint-density regression of Ghahramani and Jordan and the generative gate of Xu, Jordan and Hinton, read as one switching linear-Gaussian step with an assumed-density collapse. It has been implemented as a selectable block of the author's model. No experimental result is reported here; float64 checks at small dimension confirm the identities on the instances computed.
+\end{abstract}
+
+\section{Introduction}
+\label{crm:sec:intro}
+
+A transformer block alternates communication and private computation. Attention decides which tokens a receiver hears and what it takes from them \citep{vaswani2017attention}; the position-wise MLP then transforms each token's state with shared weights and no interaction among tokens. In the gauge-covariant Gaussian attention model, each token is an agent holding a Gaussian belief $q_i=\Gauss(\mu_i,\Sigma_i)$ and a frame $U_i\in\GL(K)$, and the attention sublayer has an exact probabilistic reading: its routing weights are the posterior of a declared record and its content is the mean of a declared predictive kernel. The MLP has no such reading. It acts on the mean alone, its feature directions, output directions and signs are free parameters, and its residual connection is fixed by architecture rather than derived. The MLP has been read empirically as a key-value memory, with first-layer rows acting as keys that detect input patterns and second-layer columns as values that write output directions \citep{Geva2021KeyValue}, and it can be replaced by attention to a bank of persistent key-value vectors \citep{Sukhbaatar2019Persistent}. Both readings suggest that the private computation is retrieval from a memory shared by all tokens. This note gives that retrieval a generative model.
+
+The simplest candidate conditions the token's state on agreement with one of $M$ persistent templates. If the token's reference mean $\xi$ is read as a Gaussian record with covariance $C$ of a latent state $X$, and $X$ is drawn from a finite Gaussian mixture of templates, the posterior mean pulls $\xi$ toward the templates that explain it. This same-state retrieval is exact and inexpensive, and it is the prototype block that preceded the present construction. Its weakness is structural: the posterior mean of a state under a fixed Gaussian measurement kernel is the gradient of a convex function of the natural parameter, the identity behind Tweedie's formula \citep{Robbins1956Empirical,Efron2011Tweedie}, so its Jacobian is a positive definite matrix in whitened coordinates (Corollary~\ref{crm:cor:same_state}). It cannot reverse or rotate a direction, which a GELU MLP does routinely. Adding templates does not remove the obstruction.
+
+The remedy is to infer one variable from a different, correlated one. Each component carries a cue law for $X$ and an affine Gaussian law for a result $Y$ given $X$; the token's record is a measurement of the cue, and the block returns the posterior of the result. The joint-density approach to regression of \citet{GhahramaniJordan1994Incomplete} computes conditional expectations from a fitted Gaussian mixture over input and output in exactly this way, and the generative gating network of \citet{Xu1995AlternativeMoE} replaces the softmax gate of a mixture of experts \citep{Jacobs1991LocalExperts,JordanJacobs1994HME} by the posterior of a Gaussian mixture over inputs. Read as dynamics, a component is a regime of a switching linear-Gaussian transition from cue to result \citep{GhahramaniHinton2000Switching}, the regime is selected by Bayes' rule from the record, and collapsing the result mixture to one Gaussian is one step of assumed-density filtering \citep{Minka2001Thesis}. The component regression lifts the obstruction of same-state retrieval, and the record covariance enters the gate, so a token's own uncertainty softens its evidence for every component.
+
+Section~\ref{crm:sec:setting} fixes the setting. Section~\ref{crm:sec:model} declares the model and states its exact posterior. Section~\ref{crm:sec:output} defines the block output as a moment projection. Section~\ref{crm:sec:response} derives the response identity and its consequences for expressiveness. Section~\ref{crm:sec:diagonal} gives the diagonal-record form used with a frame-diagonal belief family. Section~\ref{crm:sec:gauge} treats gauge structure, Section~\ref{crm:sec:depth} the regime belief carried through depth, and Section~\ref{crm:sec:param} parametrization and cost. Section~\ref{crm:sec:relations} relates the block to attention and to a mean-field alternative, and Section~\ref{crm:sec:open} records what is not established. Appendix~\ref{crm:app:checks} summarizes the float64 checks.
+
+\section{Setting}
+\label{crm:sec:setting}
+
+Token $i$ holds a Gaussian belief $q_i=\Gauss(\mu_i,\Sigma_i)$ in its local coordinates and a frame $U_i\in\GL(K)$ identifying those coordinates with a shared reference space $\R^K$. Its reference moments are
+\begin{equation}
+\xi_i=U_i^{-1}\mu_i,\qquad C_i=U_i^{-1}\Sigma_iU_i^{-\top}.
+\label{crm:eq:reference}
+\end{equation}
+A passive frame change $U_i\mapsto g_iU_i$, $\mu_i\mapsto g_i\mu_i$, $\Sigma_i\mapsto g_i\Sigma_ig_i^\top$ with $g_i\in\GL(K)$ leaves $(\xi_i,C_i)$ unchanged. A block that reads $(\xi_i,C_i)$ and returns reference moments $(\xi_i^+,C_i^+)$ produces the local belief
+\begin{equation}
+\mu_i^+=U_i\xi_i^+,\qquad \Sigma_i^+=U_iC_i^+U_i^\top,
+\label{crm:eq:return}
+\end{equation}
+which obeys the passive law $\mu_i^+\mapsto g_i\mu_i^+$, $\Sigma_i^+\mapsto g_i\Sigma_i^+g_i^\top$. Two covariance families are treated. In the full family $C_i$ is a dense symmetric positive definite matrix. In the frame-diagonal family the stored covariance is $\Sigma_i=U_i\diag(c_i)U_i^\top$ with reference variances $c_i\in\R^K_{>0}$, so $C_i=\diag(c_i)$ and the block reads and writes $c_i$ directly.
+
+The block sits where a transformer places its MLP, after the attention sublayer, and acts on each token separately. Any normalization applied to $\xi_i$ before the block is outside the model; the record value is whatever arrives. Indices $i$ are suppressed when one token is considered.
+
+\section{The cue/result model and its exact posterior}
+\label{crm:sec:model}
+
+\begin{definition}[Cue/result component model]
+\label{crm:def:model}
+Fix $M\ge1$ components. Component $a$ carries a cue mean $\nu_a\in\R^K$, diagonal cue covariance $L_a=\diag(\lambda_a)$ with $\lambda_a\in\R^K_{>0}$, a result offset $\omega_a\in\R^K$, a regression $F_a\in\R^{K\times K}$, diagonal result noise $Q_a=\diag(q_a)$ with $q_a\in\R^K_{>0}$, and a prior weight $\pihat_a>0$ with $\sum_a\pihat_a=1$. Given a record covariance $C\succ0$, the joint law of a component label $A$, cue $X$, result $Y$ and record $O$ is
+\begin{equation}
+\begin{gathered}
+A\sim\Cat(\pihat),\qquad X\mid A=a\sim\Gauss(\nu_a,L_a),\qquad O\mid X\sim\Gauss(X,C),\\
+Y\mid X,A=a\sim\Gauss\bigl(\omega_a+F_a(X-\nu_a),Q_a\bigr).
+\end{gathered}
+\label{crm:eq:model}
+\end{equation}
+The record covariance $C$ is side information supplied with the record, not a generated variable. The block conditions on $O=\xi$.
+\end{definition}
+
+Every factor of Eq.~\eqref{crm:eq:model} is a normalized density with respect to counting measure on the label and Lebesgue measure on $\R^K$, so iterated integration gives total mass one. Under component $a$ the triple $(X,Y,O)$ is jointly Gaussian with mean $(\nu_a,\omega_a,\nu_a)$ and covariance
+\begin{equation}
+\begin{pmatrix}
+L_a & L_aF_a^\top & L_a\\
+F_aL_a & F_aL_aF_a^\top+Q_a & F_aL_a\\
+L_a & L_aF_a^\top & L_a+C
+\end{pmatrix}.
+\label{crm:eq:joint_cov}
+\end{equation}
+In the notation of \citet{GhahramaniJordan1994Incomplete} the cue/result block of Eq.~\eqref{crm:eq:joint_cov} has cross-covariance $B_a=F_aL_a$ and result covariance $V_a=F_aL_aF_a^\top+Q_a$, whose Schur complement $V_a-B_aL_a^{-1}B_a^\top=Q_a$ is positive definite by construction. Every regression $F_a$ is therefore admissible, including negative, rotating and singular ones; the parametrization by $(L_a,F_a,Q_a)$ rather than by $(L_a,B_a,V_a)$ removes the positive-definiteness constraint from the free parameters.
+
+\begin{proposition}[Exact posterior]
+\label{crm:prop:posterior}
+Let $W_a=L_a+C$. Conditioning Eq.~\eqref{crm:eq:model} on $O=\xi$ gives the component weights
+\begin{equation}
+w_a=\frac{\pihat_a\Gauss(\xi;\nu_a,W_a)}{\sum_b\pihat_b\Gauss(\xi;\nu_b,W_b)},
+\label{crm:eq:weights}
+\end{equation}
+the component cue posterior
+\begin{equation}
+m_{X,a}=\nu_a+L_aW_a^{-1}(\xi-\nu_a),\qquad P_{X,a}=CW_a^{-1}L_a=(C^{-1}+L_a^{-1})^{-1},
+\label{crm:eq:cue_post}
+\end{equation}
+the component result posterior
+\begin{equation}
+m_{Y,a}=\omega_a+F_a(m_{X,a}-\nu_a),\qquad P_{Y,a}=Q_a+F_aP_{X,a}F_a^\top,
+\label{crm:eq:result_post}
+\end{equation}
+and the result-cue cross-covariance $\Cov(Y,X\mid O=\xi,A=a)=F_aP_{X,a}$. The result marginal is the mixture
+\begin{equation}
+p(y\mid O=\xi)=\sum_aw_a\Gauss(y;m_{Y,a},P_{Y,a}).
+\label{crm:eq:mixture}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Under component $a$ the record marginal is $O\sim\Gauss(\nu_a,W_a)$ by the last row and column of Eq.~\eqref{crm:eq:joint_cov}, so Bayes' rule over the label gives Eq.~\eqref{crm:eq:weights}. Gaussian conditioning \citep[Sec.~2.3]{Bishop2006} of $(X,Y)$ on $O$ within component $a$ gives
+\[
+\E[X\mid\xi,a]=\nu_a+L_aW_a^{-1}(\xi-\nu_a),\qquad
+\Cov(X\mid\xi,a)=L_a-L_aW_a^{-1}L_a=L_aW_a^{-1}C,
+\]
+using $W_a-L_a=C$, and $L_aW_a^{-1}C=CW_a^{-1}L_a=(C^{-1}+L_a^{-1})^{-1}$ because $C^{-1}W_aL_a^{-1}=L_a^{-1}W_aC^{-1}=L_a^{-1}+C^{-1}$. The result rows give
+\[
+\E[Y\mid\xi,a]=\omega_a+F_aL_aW_a^{-1}(\xi-\nu_a)=\omega_a+F_a(m_{X,a}-\nu_a),
+\]
+\[
+\Cov(Y\mid\xi,a)=F_aL_aF_a^\top+Q_a-F_aL_aW_a^{-1}L_aF_a^\top=Q_a+F_aP_{X,a}F_a^\top,
+\]
+and $\Cov(Y,X\mid\xi,a)=F_aL_a-F_aL_aW_a^{-1}L_a=F_aP_{X,a}$. Summing over the label gives Eq.~\eqref{crm:eq:mixture}.
+\end{proof}
+
+The weight of Eq.~\eqref{crm:eq:weights} is an overlap integral,
+\begin{equation}
+\Gauss(\xi;\nu_a,L_a+C)=\int\Gauss(x;\xi,C)\Gauss(x;\nu_a,L_a)dx,
+\label{crm:eq:overlap}
+\end{equation}
+the expected-likelihood kernel between the token's belief in reference coordinates and the component's cue law \citep{Jebara2004ProbabilityProduct}. A token with a large record covariance sees a broad overlap with every component, so its weights are softer than those of a precise token at the same mean. The gain $L_aW_a^{-1}$ of Eq.~\eqref{crm:eq:cue_post} is a Kalman gain \citep{Kalman1960} that trusts the record where the record is precise relative to the cue law, and the result inherits that trust through $F_a$.
+
+\begin{remark}[Status of the record]
+\label{crm:rem:record}
+The record is a declared modeling event, as in the probabilistic reading of routing: the incoming mean is treated as a measurement of a latent cue and its covariance as the measurement noise. This does not establish that the upstream network generated an independent observation, and the same covariance is not also used as a prior on the cue, which would count it twice. The model is a normalized kernel from the record and its declared covariance to a result law, applied once per layer.
+\end{remark}
+
+\section{Block output as a moment projection}
+\label{crm:sec:output}
+
+The block replaces the token's reference moments by those of the result marginal.
+
+\begin{definition}[Cue/result memory block]
+\label{crm:def:block}
+For the full family the block returns
+\begin{equation}
+\xi^+=\bar m_Y=\sum_aw_am_{Y,a},\qquad
+C^+=\sum_aw_a\bigl[P_{Y,a}+(m_{Y,a}-\bar m_Y)(m_{Y,a}-\bar m_Y)^\top\bigr],
+\label{crm:eq:block}
+\end{equation}
+and the local belief by Eq.~\eqref{crm:eq:return}. For the frame-diagonal family it returns $\xi^+$ and the variances $c^+_k=(C^+)_{kk}$, computed without forming $C^+$ (Section~\ref{crm:sec:diagonal}).
+\end{definition}
+
+\begin{proposition}[Moment projection]
+\label{crm:prop:mproj}
+Let $p$ be the mixture of Eq.~\eqref{crm:eq:mixture}. Among Gaussian laws $\Gauss(m,S)$ on $\R^K$ with $S\succ0$, the minimizer of $\KL(p\|\Gauss(m,S))$ is $\Gauss(\xi^+,C^+)$ of Eq.~\eqref{crm:eq:block}. Among Gaussian laws with diagonal covariance, the minimizer is $\Gauss(\xi^+,\diag(c^+))$ with $c^+_k=(C^+)_{kk}$. Both covariances are positive definite.
+\end{proposition}
+
+\begin{proof}
+For any $q=\Gauss(m,S)$, $\KL(p\|q)=-H(p)+\tfrac12\log\det(2\pi S)+\tfrac12\E_p[(Y-m)^\top S^{-1}(Y-m)]$, and $\E_p[(Y-m)^\top S^{-1}(Y-m)]=\tr(S^{-1}\Cov_p Y)+(\E_pY-m)^\top S^{-1}(\E_pY-m)$. The minimizer is $m=\E_pY$ and $S=\Cov_pY$, the moment-matching property of exponential families \citep{Minka2001Thesis}. The law of total covariance gives $\E_pY=\bar m_Y$ and $\Cov_pY=C^+$. Over diagonal $S$, the objective separates into $K$ one-dimensional terms $\tfrac12\log s_k+\tfrac12(\Cov_pY)_{kk}/s_k$ plus the mean term, minimized at $s_k=(\Cov_pY)_{kk}$. Each $P_{Y,a}\succeq Q_a\succ0$, and the spread terms are positive semidefinite, so $C^+\succeq\sum_aw_aQ_a\succ0$ and $c^+>0$.
+\end{proof}
+
+The projection of Proposition~\ref{crm:prop:mproj} is the collapse step of assumed-density filtering: the exact posterior of one switching step is a mixture, and it is replaced by the closest Gaussian in the inclusive divergence before the next operation. Multimodality is lost at this step, not approximated; a token whose cue is ambiguous between two components receives a single broad Gaussian whose covariance includes the between-component spread. The covariance of Eq.~\eqref{crm:eq:block} is a sum of positive semidefinite terms, so it is evaluated without subtracting two large matrices.
+
+\begin{corollary}[Same-state reduction and the derived residual]
+\label{crm:cor:reduction}
+If $\omega_a=\nu_a$ and $F_a=I$ for every $a$, then $\xi^+=\E[X\mid O=\xi]$, the posterior mean of same-state retrieval under the template mixture $\sum_a\pihat_a\Gauss(\nu_a,L_a)$, and $C^+=\Cov(X\mid O=\xi)+\sum_aw_aQ_a$.
+\end{corollary}
+
+\begin{proof}
+With $F_a=I$ and $\omega_a=\nu_a$, Eq.~\eqref{crm:eq:result_post} gives $m_{Y,a}=m_{X,a}$ and $P_{Y,a}=P_{X,a}+Q_a$, and Eq.~\eqref{crm:eq:block} becomes the law of total covariance for $X$ plus the weighted noise.
+\end{proof}
+
+The block therefore has no additive residual connection. Its identity-like behavior comes from the model: writing $\xi^+=\xi+\sum_aw_aC W_a^{-1}(\nu_a-\xi)$ in the same-state case exhibits an inferred residual coefficient, the record's share $L_aW_a^{-1}$ of each component's gain, which is close to one where the record is precise and close to zero where it is vague.
+
+\section{Response of the block and what it can express}
+\label{crm:sec:response}
+
+\begin{theorem}[Response identity]
+\label{crm:thm:response}
+Hold $C\succ0$ and all component parameters fixed. The block mean $\bar m_Y(\xi)$ is smooth in $\xi$ and
+\begin{equation}
+D_\xi\bar m_Y=\Cov(Y,X\mid O=\xi)C^{-1},
+\label{crm:eq:response}
+\end{equation}
+where
+\begin{equation}
+\Cov(Y,X\mid O=\xi)=\sum_aw_a\bigl[F_aP_{X,a}+(m_{Y,a}-\bar m_Y)(m_{X,a}-\bar m_X)^\top\bigr],\qquad \bar m_X=\sum_aw_am_{X,a}.
+\label{crm:eq:cross_cov}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The posterior of $(A,X)$ given $O=\xi$ is
+\[
+p(a,x\mid\xi)\propto\pihat_a\Gauss(x;\nu_a,L_a)\exp\bigl(-\tfrac12x^\top C^{-1}x+\eta^\top x\bigr),\qquad \eta=C^{-1}\xi,
+\]
+after the factor $\exp(-\tfrac12\xi^\top C^{-1}\xi)$, constant in $(a,x)$, is cancelled. This is an exponential family in $\eta$ with sufficient statistic $x$ and base measure $h(a,x)=\pihat_a\Gauss(x;\nu_a,L_a)\exp(-\tfrac12x^\top C^{-1}x)$. The base measure is a finite sum of Gaussian densities times a Gaussian factor, so the log partition function $\Lambda(\eta)=\log\sum_a\int h(a,x)e^{\eta^\top x}dx$ is finite and analytic on all of $\R^K$, and differentiation under the integral is justified. For any $g$ of at most polynomial growth, $\nabla_\eta\E[g(A,X)\mid\eta]=\Cov(g(A,X),X\mid\eta)$. Because $Y$ is conditionally independent of $O$ given $(X,A)$, $\bar m_Y=\E[g(A,X)\mid\xi]$ with $g(a,x)=\omega_a+F_a(x-\nu_a)$, and $\Cov(g(A,X),X\mid\xi)=\Cov(Y,X\mid\xi)$ because $Y-g(A,X)$ has mean zero given $(A,X)$. The chain rule $D_\xi=D_\eta C^{-1}$ gives Eq.~\eqref{crm:eq:response}. Expanding the covariance over the label with Proposition~\ref{crm:prop:posterior} gives Eq.~\eqref{crm:eq:cross_cov}.
+\end{proof}
+
+The identity holds for any record covariance, dense or diagonal, and it isolates where the block's nonlinearity lives: within a component the response is the linear map $F_aP_{X,a}C^{-1}=F_aL_aW_a^{-1}$, and the between-component term carries the derivative of the weights.
+
+\begin{corollary}[Same-state retrieval is monotone]
+\label{crm:cor:same_state}
+In the same-state case of Corollary~\ref{crm:cor:reduction}, $D_\xi\bar m_Y=\Cov(X\mid\xi)C^{-1}$. In whitened coordinates $y=C^{-1/2}\xi$ the map $G(y)=C^{-1/2}\bar m_Y(C^{1/2}y)$ has Jacobian $C^{-1/2}\Cov(X\mid\xi)C^{-1/2}$, which is symmetric positive definite, and $G$ is the gradient of a strictly convex function. In particular, for $K=1$ the slope $\Cov(X\mid\xi)/C$ is positive everywhere, and no same-state block at fixed $C$ agrees on a neighborhood of $0$ with the residual GELU map $f(x)=x-4\mathrm{GELU}(x)$ \citep{hendrycks2016gaussian}, whose slope at $0$ is $1-4\Phi(0)=-1$.
+\end{corollary}
+
+\begin{proof}
+With $F_a=I$ and $\omega_a=\nu_a$, $Y-X$ is independent noise given $(A,X)$, so $\Cov(Y,X\mid\xi)=\Cov(X\mid\xi)$, which is positive definite because the posterior has a density. The whitened Jacobian is a congruence of it. The map $\eta\mapsto\E[X\mid\eta]=\nabla\Lambda(\eta)$ is the gradient of the strictly convex log partition function, and $G$ is its composition with the linear changes of variable $\eta=C^{-1/2}y$ and $\bar m\mapsto C^{-1/2}\bar m$, which preserve gradient structure and convexity. The GELU slope follows from $\mathrm{GELU}(x)=x\Phi(x)$.
+\end{proof}
+
+The restriction concerns the posterior mean of a state under a fixed Gaussian measurement kernel with any prior of finite moments, not the Gaussian form of the templates; it is the multivariate form of the response identity behind Tweedie's formula \citep{Robbins1956Empirical,Efron2011Tweedie}. It does not say that same-state retrieval is a contraction: the between-template spread can make the whitened Jacobian exceed the identity in some direction. It does not apply to an input-dependent $C$ or to a composite network.
+
+\begin{corollary}[Affine maps]
+\label{crm:cor:affine}
+For $M=1$ the block mean is affine, $\bar m_Y=\omega+FL W^{-1}(\xi-\nu)$, with Jacobian $FLW^{-1}$. For fixed $\nu$, $\omega$, $F$ and $C$, letting $L=sL_0$ with $s\to\infty$ gives $FLW^{-1}\to F$, so every affine map $\xi\mapsto\omega+F(\xi-\nu)$ is a limit of single-component blocks. With $F=I+UV^\top$ of rank-$r$ departure, $r=1$ contains the reflection $I-2ee^\top$ of a unit direction $e$, and $r=2$ contains every rotation of a coordinate plane, since $R-I$ vanishes off the plane of a plane rotation $R$.
+\end{corollary}
+
+\begin{proof}
+The first statement is Proposition~\ref{crm:prop:posterior} with $M=1$, where $w_1=1$. For the limit, $sL_0(sL_0+C)^{-1}=(I+s^{-1}CL_0^{-1})^{-1}\to I$. The reflection and rotation statements are the ranks of $-2ee^\top$ and of $R-I$.
+\end{proof}
+
+\begin{proposition}[Shared cue variances give softmax-gated affine experts]
+\label{crm:prop:moe}
+Let $L_a=L$ for every $a$ and hold $C$ fixed, so $W_a=W=L+C$. Then
+\begin{equation}
+w_a=\softmax_a\bigl(\log\pihat_a-\tfrac12\nu_a^\top W^{-1}\nu_a+\nu_a^\top W^{-1}\xi\bigr),\qquad
+m_{Y,a}=\omega_a+F_aLW^{-1}(\xi-\nu_a),
+\label{crm:eq:moe}
+\end{equation}
+a mixture of affine experts with a softmax gate whose logits are affine in $\xi$. If each $F_a$ is a free dense matrix, every softmax gate with affine logits and every set of $M$ affine experts is realized: given gate slopes $\sigma_a$, gate intercepts $\kappa_a$, expert slopes $G_a$ and expert intercepts $b_a$, the choice $\nu_a=W\sigma_a$, $\log\pihat_a=\kappa_a+\tfrac12\nu_a^\top W^{-1}\nu_a+\mathrm{const}$, $F_a=G_aWL^{-1}$ and $\omega_a=b_a+G_a\nu_a$ gives logits $\kappa_a+\sigma_a^\top\xi$ and expert means $b_a+G_a\xi$.
+\end{proposition}
+
+\begin{proof}
+Expanding $\log\Gauss(\xi;\nu_a,W)$ gives $-\tfrac12\xi^\top W^{-1}\xi+\nu_a^\top W^{-1}\xi-\tfrac12\nu_a^\top W^{-1}\nu_a$ plus a term independent of $a$; the quadratic term is common to all components and cancels in the softmax. The substitutions are direct: $\nu_a^\top W^{-1}\xi=\sigma_a^\top\xi$, the constant is absorbed by the softmax, and $\omega_a+G_aWL^{-1}LW^{-1}(\xi-\nu_a)=b_a+G_a\xi$.
+\end{proof}
+
+\begin{remark}[Approximation]
+\label{crm:rem:approx}
+For a scalar output, the mean functions of softmax-gated mixtures of affine experts are dense in the continuous functions on any compact set \citep{Nguyen2016MoEUniversal}. By Proposition~\ref{crm:prop:moe}, each coordinate of the block mean at a fixed record covariance and with dense regressions therefore approximates any continuous function on a compact set as $M$ grows. A vector-valued statement with one shared gate is not claimed, nor is any statement for the low-rank regressions $F_a=I+U_aV_a^\top$, nor for token-dependent $C_i$, where the gate becomes quadratic in $\xi$ and the record covariance is a second input.
+\end{remark}
+
+\section{Diagonal records}
+\label{crm:sec:diagonal}
+
+In the frame-diagonal family the record covariance is $C=\diag(c)$. Then every $W_a$ is diagonal, and the posterior is elementwise except for the regression.
+
+\begin{proposition}[Diagonal-record posterior]
+\label{crm:prop:diagonal}
+Let $C=\diag(c)$ and write vector operations elementwise. Then
+\begin{equation}
+\log w_a=\log\pihat_a-\tfrac12\sum_k\Bigl[\frac{(\xi_k-\nu_{ak})^2}{\lambda_{ak}+c_k}+\log\bigl(2\pi(\lambda_{ak}+c_k)\bigr)\Bigr]-\log Z,
+\label{crm:eq:diag_weights}
+\end{equation}
+\begin{equation}
+m_{X,a}-\nu_a=\frac{\lambda_a}{\lambda_a+c}\odot(\xi-\nu_a),\qquad P_{X,a}=\diag(p_a),\quad p_a=\frac{\lambda_ac}{\lambda_a+c}.
+\label{crm:eq:diag_cue}
+\end{equation}
+With $F_a=I+U_aV_a^\top$, $U_a,V_a\in\R^{K\times r}$,
+\begin{equation}
+\diag(F_aP_{X,a}F_a^\top)_k=p_{ak}+2p_{ak}\sum_rU_{a,kr}V_{a,kr}+\sum_{r,s}U_{a,kr}U_{a,ks}(V_a^\top P_{X,a}V_a)_{rs},
+\label{crm:eq:diag_sandwich}
+\end{equation}
+and for a dense $F_a$, $\diag(F_aP_{X,a}F_a^\top)_k=\sum_lF_{a,kl}^2p_{al}$. The block output for the frame-diagonal family is
+\begin{equation}
+\xi^+=\sum_aw_am_{Y,a},\qquad c^+=\sum_aw_a\bigl[q_a+\diag(F_aP_{X,a}F_a^\top)+(m_{Y,a}-\xi^+)^{\odot2}\bigr],
+\label{crm:eq:diag_block}
+\end{equation}
+the diagonal moment projection of Proposition~\ref{crm:prop:mproj}. A (token, component) pair costs $O(Kr^2)$ with a low-rank regression and $O(K^2)$ with a dense one.
+\end{proposition}
+
+\begin{proof}
+Equations~\eqref{crm:eq:diag_weights} and~\eqref{crm:eq:diag_cue} are Proposition~\ref{crm:prop:posterior} with diagonal $W_a$. Expanding $F_aP_{X,a}F_a^\top=P_{X,a}+U_aV_a^\top P_{X,a}+P_{X,a}V_aU_a^\top+U_a(V_a^\top P_{X,a}V_a)U_a^\top$ and reading the diagonal gives Eq.~\eqref{crm:eq:diag_sandwich}, since $(U_aV_a^\top P_{X,a})_{kk}=p_{ak}\sum_rU_{a,kr}V_{a,kr}$. The $r\times r$ matrix $V_a^\top P_{X,a}V_a$ costs $O(Kr^2)$ and the last sum $O(Kr^2)$. Equation~\eqref{crm:eq:diag_block} is the diagonal of Eq.~\eqref{crm:eq:block}, which by Proposition~\ref{crm:prop:mproj} is the diagonal moment projection.
+\end{proof}
+
+The diagonal projection discards two kinds of correlation. Within a component, a regression that rotates a plane turns diagonal cue uncertainty into correlated result uncertainty, $F_aP_{X,a}F_a^\top$, and only its diagonal survives. Between components, the spread $(m_{Y,a}-\xi^+)(m_{Y,a}-\xi^+)^\top$ is reduced to its diagonal. The mean is unaffected: the regression rotates and reverses the result mean in full, and Theorem~\ref{crm:thm:response} holds unchanged with $C=\diag(c)$. The projection is the frame-diagonal family's own definition of its state, so it is the exact output of the block in that family, not an approximation to the dense output; the dense and diagonal blocks are different models, the first of which is closed on full covariances and the second on diagonal ones. With a diagonal record the trust in the record is also per coordinate: a token uncertain along one reference axis is pulled toward the cue means along that axis alone, while in the full family the same uncertainty may lie along an oblique direction and be read as such.
+
+\section{Gauge structure}
+\label{crm:sec:gauge}
+
+\begin{proposition}[Passive covariance]
+\label{crm:prop:passive}
+Under a passive frame change $U_i\mapsto g_iU_i$ with arbitrary $g_i\in\GL(K)$ for each token, the block output in reference coordinates is unchanged and the local output of Eq.~\eqref{crm:eq:return} obeys the passive law, in the full family and in the frame-diagonal family.
+\end{proposition}
+
+\begin{proof}
+The block reads only $(\xi_i,C_i)$, which are invariant (Section~\ref{crm:sec:setting}), and the component bank is shared data in reference space, untouched by the frame change. In the frame-diagonal family the stored $c_i$ are themselves the reference variances and are invariant. The local output $U_i\xi_i^+$, $U_iC_i^+U_i^\top$ then transforms with $g_i$.
+\end{proof}
+
+The bank lives in the reference space, so it is one global object rather than a field over tokens; per-token frames are absorbed into the reference coordinates before the bank is consulted. The remaining symmetry question is how the bank transforms under a change of the reference space itself.
+
+\begin{proposition}[Rebasing of the reference space]
+\label{crm:prop:rebasing}
+Let $h\in\GL(K)$ act on the reference space by $\xi\mapsto h\xi$, $C\mapsto hCh^\top$, and transform the bank by
+\begin{equation}
+\nu_a\mapsto h\nu_a,\quad L_a\mapsto hL_ah^\top,\quad \omega_a\mapsto h\omega_a,\quad F_a\mapsto hF_ah^{-1},\quad Q_a\mapsto hQ_ah^\top,\quad \pihat_a\mapsto\pihat_a.
+\label{crm:eq:rebasing}
+\end{equation}
+Then the weights are invariant and $(\xi^+,C^+)\mapsto(h\xi^+,hC^+h^\top)$. The low-rank form is preserved: $h(I+U_aV_a^\top)h^{-1}=I+(hU_a)(h^{-\top}V_a)^\top$.
+\end{proposition}
+
+\begin{proof}
+Each component density transforms as $\Gauss(h\xi;h\nu_a,hW_ah^\top)=|\det h|^{-1}\Gauss(\xi;\nu_a,W_a)$, and the common factor cancels in Eq.~\eqref{crm:eq:weights}. The gain transforms as $hL_ah^\top(hW_ah^\top)^{-1}=hL_aW_a^{-1}h^{-1}$, so $m_{X,a}\mapsto hm_{X,a}$ and $P_{X,a}\mapsto hP_{X,a}h^\top$; then $m_{Y,a}\mapsto hm_{Y,a}$ and $P_{Y,a}\mapsto hP_{Y,a}h^\top$, and the mixture moments follow. The low-rank identity is direct.
+\end{proof}
+
+\begin{lemma}[The stabilizer of a diagonal bank]
+\label{crm:lem:monomial}
+For $h\in\GL(K)$, $hDh^\top$ is diagonal for every positive diagonal $D$ if and only if $h$ is monomial, a permutation matrix times an invertible diagonal matrix.
+\end{lemma}
+
+\begin{proof}
+If $h=\Pi\Delta$ with $\Pi$ a permutation and $\Delta$ diagonal, $hDh^\top=\Pi(\Delta D\Delta)\Pi^\top$ is diagonal. Conversely, for $i\ne j$ the entry $(hDh^\top)_{ij}=\sum_kh_{ik}h_{jk}d_k$ vanishes for all positive $d$ only if $h_{ik}h_{jk}=0$ for every $k$, so each column of $h$ has at most one nonzero entry; invertibility then makes $h$ monomial.
+\end{proof}
+
+The diagonal cue and noise covariances are therefore a declaration of a reference chart, determined up to permutations, axis scalings and sign changes of the reference coordinates. This is a global choice about the shared space, not a breaking of the local passive covariance of Proposition~\ref{crm:prop:passive}; the frame-diagonal family makes the same declaration for the beliefs. A bank with dense cue and noise covariances would be closed under all of $\GL(K)$ at the cost of a dense $W_a$ per pair even for diagonal records.
+
+\section{Regime belief carried through depth}
+\label{crm:sec:depth}
+
+When one bank is shared by every layer, its component labels mean the same thing at every depth, and the component posterior of one layer is information about the next. Depth then plays the role of time in a switching system whose regime is the component label.
+
+\begin{definition}[Carried regime prior]
+\label{crm:def:carried}
+Let $T\in\R^{M\times M}$ be row stochastic and $\vartheta\ge0$. With $w^\ell_i$ the component posterior of token $i$ at layer $\ell$, layer $\ell+1$ uses the per-token prior
+\begin{equation}
+\pihat^{\ell+1}_{ib}\propto\pihat_b\Bigl(\sum_aw^\ell_{ia}T_{ab}\Bigr)^\vartheta
+\label{crm:eq:carried}
+\end{equation}
+in place of $\pihat$ in Eq.~\eqref{crm:eq:weights}. Layer $0$ uses $\pihat$. Two transitions are considered: the sticky transition $T=sI+(1-s)\mathbf 1\pihat^\top$ with stay probability $s\in(0,1)$, which needs no $M\times M$ table and has $\pihat$ as a stationary law, and a learned row-stochastic table.
+\end{definition}
+
+\begin{proposition}[Dirichlet record of the predicted regime]
+\label{crm:prop:dirichlet}
+Let $\tilde s=w^\ell T$ be the predicted regime law, fix $\alpha>0$, and declare a record $o\mid B=b\sim\Dir(\alpha\mathbf 1+\vartheta e_b)$ of the regime $B$ at layer $\ell+1$, with prior $\pihat$ on $B$. Then $P(B=b\mid o=\tilde s)\propto\pihat_b\tilde s_b^\vartheta$, which is Eq.~\eqref{crm:eq:carried}.
+\end{proposition}
+
+\begin{proof}
+The Dirichlet density at $o$ is
+\[
+\frac{\Gamma(M\alpha+\vartheta)}{\Gamma(\alpha)^{M-1}\Gamma(\alpha+\vartheta)}\prod_ko_k^{\alpha-1}\cdot o_b^\vartheta,
+\]
+whose normalizer does not depend on $b$. As a function of $b$ the likelihood at $o=\tilde s$ is proportional to $\tilde s_b^\vartheta$, and Bayes' rule gives the claim. The record is defined for $\tilde s$ in the open simplex; a row-stochastic $T$ with positive entries keeps $\tilde s$ there.
+\end{proof}
+
+The exponent $\vartheta$ is a declared trust in the carried belief, and $\vartheta=0$ recovers the shared prior. The record is the network's own earlier belief and is not independent of the current cue record, which was computed from the same token through the layers in between; $\vartheta<1$ tempers that reuse but is not derived to correct it.
+
+\begin{remark}[Relation to switching filters]
+\label{crm:rem:gpb}
+In a switching linear system with regime chain $T$, the first-order generalized pseudo-Bayesian filter predicts the regime law $w^tT$, weights each regime by its evidence and collapses the continuous mixture to one Gaussian \citep{AckersonFu1970Switching}; the interacting multiple model filter keeps one Gaussian per regime instead \citep{BlomBarShalom1988IMM}. With $\vartheta=1$ and uniform $\pihat$, Eqs.~\eqref{crm:eq:weights} and~\eqref{crm:eq:carried} reproduce the regime step of the first-order filter exactly: prior $(w^\ell T)_b$, evidence $\Gauss(\xi;\nu_b,W_b)$. With nonuniform $\pihat$ the static prior multiplies the prediction a second time, a factor a homogeneous chain would contain only at its initial step. The analogy covers the discrete regime alone. The continuous record at layer $\ell+1$ is whatever the intervening attention sublayer produced, not the result of the regime's own dynamics, so the stack is not a switching linear system, and depth is time only for the memory's regime.
+\end{remark}
+
+\section{Parametrization, initialization and cost}
+\label{crm:sec:param}
+
+The parameters of one bank are $\nu,\log\lambda,\omega,\log q\in\R^{M\times K}$, $\log\pi\in\R^M$ with $\pihat=\softmax(\log\pi)$, and either a dense offset $D_a$ with $F_a=I+D_a$ or factors $U_a,V_a\in\R^{K\times r}$ with $F_a=I+U_aV_a^\top$; the carried prior adds the logit of $s$ or an $M\times M$ logit table. The identity sits outside the learned parameters in both regression forms, so weight decay on the regression pulls $F_a$ toward the identity rather than toward zero; the log variances, log weights and transition logits are left undecayed, since decay would act on them as a prior toward unit variance, uniform weights or a stay probability of one half. A rank-$r$ departure from the identity differs from a rank-$r$ regression, which would discard directions even at initialization.
+
+At initialization $\omega_a=\nu_a$, $F_a=I$ and $Q_a=\rho L_a$ with a small ratio $\rho$. By Corollary~\ref{crm:cor:reduction} the initial block is same-state retrieval plus a small noise, so training starts from a derived near-identity map rather than from a random one. For the low-rank form $U_a=0$ and $V_a$ is drawn small and nonzero, so both factors receive a gradient from the first step. A data-dependent initialization places $\nu_a$ at sampled block inputs and sets $\lambda_a=\bar c(1-p)/p$ from the mean working variance $\bar c$, which makes the initial same-state pull $\bar c/(\bar c+\lambda_a)$ equal to a declared target $p\in(0,1)$. All parameters are trained by backpropagation of the next-token loss through the exact posterior; no expectation-maximization term fits the bank to the cues, so nothing requires the components to be a density model of the records they receive.
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+Quantity & Full family, dense $C$ & Frame-diagonal family \\
+\midrule
+Per (token, component) & one $K\times K$ Cholesky factor, $O(K^3)$ & elementwise, $O(Kr^2)$ \\
+Per token & $O(MK^3)$ & $O(MKr^2)$ \\
+Carried regime, learned $T$ & $O(M^2)$ & $O(M^2)$ \\
+Bank parameters & \multicolumn{2}{l}{$4MK+M$; plus $2MKr$ (low rank) or $MK^2$ (dense);} \
+ & \multicolumn{2}{l}{plus $M^2$ (learned $T$)} \\
+\bottomrule
+\end{tabular}
+\caption{Arithmetic cost per layer and parameter count of one bank with $M$ components, width $K$ and regression rank $r$.}
+\label{crm:tab:cost}
+\end{table}
+
+Table~\ref{crm:tab:cost} summarizes the cost. In the full family the evidence, the gain and $W_a^{-1}L_a$ are triangular solves against one Cholesky factor of $W_a$ per pair, which is the dominant cost; components are processed in tiles, and tile moments are merged by the law of total covariance with log-sum-exp weights, so no tensor of size tokens by $M$ by $K^2$ is retained. In the frame-diagonal family the same formulas run elementwise, and the variance merge across component tiles is a weighted sum of nonnegative terms, so it has no cancellation. With $M=8K$ components a learned transition table holds $64K^2$ entries and is multiplied by the posterior once per layer; the sticky transition avoids it.
+
+\section{Relations}
+\label{crm:sec:relations}
+
+\paragraph{Attention to persistent agents.} By Eq.~\eqref{crm:eq:overlap} the component weights are expected-likelihood routing from the token to $M$ persistent, context-free agents whose beliefs are the cue laws $\Gauss(\nu_a,L_a)$, the routing rule that arises from exact conditioning in the minimal agent model with tied key and content. The memory differs from attention in two ways: its senders are a fixed bank shared by all tokens rather than other tokens of the context, so it computes privately, and what a sender contributes is an affine Gaussian response to the receiver's cue rather than its own state. It is a probabilistic counterpart of the persistent key-value vectors of \citet{Sukhbaatar2019Persistent}, with Gaussian keys whose width enters the score and affine values whose noise enters the output covariance.
+
+\paragraph{Mixtures of experts.} Proposition~\ref{crm:prop:moe} places the block among mixtures of experts with a generative gate \citep{Xu1995AlternativeMoE}. In a conventional mixture of experts the gate is a discriminative softmax and the experts are separately parametrized; here gate and experts come from one joint law of cue and result, and the record covariance enters both the gate, through $W_a$, and the expert gains, through $L_aW_a^{-1}$.
+
+\begin{remark}[A structured mean-field alternative]
+\label{crm:rem:meanfield}
+The dense cost of Table~\ref{crm:tab:cost} comes from conditioning on a dense record within every component. A structured mean-field approximation $q(A,X)=q(A)q(X)$ reduces it to one dense factorization per token. Coordinate ascent alternates
+\[
+w_a\propto\pihat_a\exp\Bigl(-\tfrac12\bigl[(m_X-\nu_a)^\top L_a^{-1}(m_X-\nu_a)+\tr(L_a^{-1}\Sigma_X)+\log\det L_a\bigr]\Bigr),
+\]
+\[
+\Sigma_X^{-1}=C^{-1}+\sum_aw_aL_a^{-1},\qquad \Sigma_X^{-1}m_X=C^{-1}\xi+\sum_aw_aL_a^{-1}\nu_a,
+\]
+and the result moments follow from $\E[Y\mid X,A]$ under $q$. With diagonal $L_a$ the label step reads only $\diag\Sigma_X$. The approximation shares one cue posterior across components, where the exact posterior has one per component; its labels use the expected log likelihood rather than the overlap of Eq.~\eqref{crm:eq:overlap} and are sharper; and $\Sigma_X\prec C$ in Loewner order, so the cue posterior cannot express ambiguity. It is a different model from the exact block, not an inexpensive evaluation of it, and it is not implemented.
+\end{remark}
+
+\section{What is not established}
+\label{crm:sec:open}
+
+The construction is exact for one layer at fixed input moments. It is not a joint law of the stack: the record of each layer is the moment projection of the previous computation, the carried regime prior reuses the network's own belief as an independent record, and no free energy is shown to decrease through depth. The parameters are learned by backpropagation of the task loss, not by local inference; an expectation-maximization or sufficient-statistic learner for the bank would need a predictive observation through which next-token evidence reaches the components, and none is specified here. The approximation statement of Remark~\ref{crm:rem:approx} is scalar, at fixed record covariance and with dense regressions; the expressive power of the low-rank regressions and of token-dependent record covariances is not characterized. The moment projection after every layer removes multimodality, and whether retaining a few components per token would pay for its cost is untested. The diagonal projection removes all result correlations in the reference chart, and its effect relative to the dense block is unmeasured in this note. Training stability of the bank, including collapse of the weights onto few components, is not analyzed.
+
+\appendix
+
+\section{Float64 checks}
+\label{crm:app:checks}
+
+The identities were checked in float64 at $K=4$ and $M=3$ with random parameters, a random dense record covariance and random dense regressions. Central finite differences of the block mean agree with Eq.~\eqref{crm:eq:response} to $5\times10^{-10}$. The single-component gain at a cue variance scaled by $10^8$ agrees with $F$ to $6\times10^{-8}$. The diagonal sandwich of Eq.~\eqref{crm:eq:diag_sandwich} at rank $2$ agrees with the dense diagonal to $2\times10^{-15}$. Under the rebasing of Eq.~\eqref{crm:eq:rebasing} with random $h$, the weights agree to $6\times10^{-16}$ and the transformed mean and covariance to $10^{-14}$ and $6\times10^{-14}$. With shared cue variances the second differences of the logit differences vanish to $5\times10^{-15}$, confirming affine logits. In the same-state case the whitened Jacobian is symmetric to $4\times10^{-10}$ with smallest eigenvalue $0.26$. These checks support the instances computed; the proofs above supply the general statements.
+
+\bibliographystyle{plainnat}
+\bibliography{../references}
+
+\end{document}

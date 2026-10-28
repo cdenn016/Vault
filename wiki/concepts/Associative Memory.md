@@ -6,7 +6,7 @@ tags:
   - project/transformer
 status: stub
 created: 2026-06-21
-updated: 2026-10-24
+updated: 2026-10-28
 ---
 
 # Associative Memory
@@ -18,6 +18,8 @@ An associative (content-addressable) memory stores a set of patterns and retriev
 [[hoover-2023-energy-transformer]] (NeurIPS 2023) makes a whole transformer block an associative memory: attention is a log-sum-exp energy whose keys evolve with the queries (unlike a modern Hopfield network, whose keys are fixed memories), and the MLP is a Hopfield module over learned memories with tied weights, run in parallel with attention. With a softmax activation that module is retrieval against a learned bank, the role [[Template routing]] plays with Gaussian templates.
 
 Two further readings bear on the template bank (2026-10-24). In the generative-gating mixture of experts of [[xu-1995-alternative-mixtures-of-experts]] the gate weight is the posterior probability of the component given the input, which is the `gaussian_template` routing rule with constant values. In [[schlag-2021-fast-weight-programmers]] linear attention is a fast weight memory written by additive key-value outer products and corrected by a delta rule; a template bank refit in context from the causal prefix would keep a memory of the same kind, with responsibilities as write weights.
+
+The [[Cue-result generative memory]] (2026-10-28, [[dennis-2026-cue-result-memory]]) retrieves a different variable from the one used to address the memory: the cue law addresses a component by expected-likelihood overlap with the token's belief, and the component's affine result law supplies what is written back, so retrieval can rotate or reverse a direction, which same-state retrieval cannot.
 
 ## Related
 [[Template routing]], [[Attention Mechanism]], [[Energy-Based Models]], [[Variational Free Energy]]
