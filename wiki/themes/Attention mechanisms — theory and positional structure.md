@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-27
+updated: 2026-10-28
 ---
 
 # Attention mechanisms — theory and positional structure
+
+## Feed-forward block as switching linear-Gaussian memory, October 28, 2026
+
+[[dennis-2026-cue-result-memory]] extends the template reading of the feed-forward sublayer (see the September 27 section below) to a joint cue/result model: weights are expected-likelihood overlaps of a token's belief with Gaussian cue laws, values are affine Gaussian responses, and the output is a moment projection with no residual. This places the block among generative-gate mixtures of experts ([[xu-1995-alternative-mixtures-of-experts]]) and switching state-space models ([[ghahramani-2000-switching-state-space]]); see [[Cue-result generative memory]].
 
 ## Covariance in the routing cost and conventional baselines, October 26, 2026
 

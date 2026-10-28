@@ -5,11 +5,15 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-20
+updated: 2026-10-28
 ---
 
 # Statistics MOC
 
+
+## Cue/result generative memory, October 28, 2026
+
+[[dennis-2026-cue-result-memory]] (2026-10-28): exact conditioning of a switching linear-Gaussian component bank as an MLP replacement, with a Tweedie-type response identity, a moment-projection output, a mixture-of-experts reduction ([[nguyen-2016-moe-universal-approximation]]), and a Dirichlet-record regime prior related to generalized pseudo-Bayesian filtering. Method page: [[Cue-result generative memory]].
 
 ## Paper arms run, October 26, 2026
 

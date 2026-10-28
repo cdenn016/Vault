@@ -14,10 +14,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-27
+updated: 2026-10-28
 ---
 
 # VFE Transformer Program
+
+## Cue/result memory derivation, October 28, 2026
+
+[[dennis-2026-cue-result-memory]] writes up the theory of the cue/result memory block MLP: exact posterior, moment projection, response identity and expressiveness, diagonal-record form for the frame-diagonal family, gauge structure, and the regime prior carried through depth. See [[Cue-result generative memory]].
 
 ## Paper arms: frames against capacity and baselines, October 25 to 26, 2026
 

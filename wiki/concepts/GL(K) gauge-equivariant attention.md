@@ -14,10 +14,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-27
+updated: 2026-10-28
 ---
 
 # GL(K) gauge-equivariant attention
+
+## A generative reading of the MLP, October 28, 2026
+
+[[dennis-2026-cue-result-memory]] is a working note, intended for integration into the main manuscript, that replaces the MLP the paper's non-neural section leaves uninterpreted by exact conditioning of a cue/result component bank in reference coordinates ([[Cue-result generative memory]]). The block is passively gauge covariant, its weights are expected-likelihood routing to persistent agents, and its mean response is the posterior result-cue cross-covariance times the record precision.
 
 ## Learned frames against capacity controls, October 26, 2026
 
