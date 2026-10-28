@@ -4,6 +4,67 @@
 
 Sending a few observables can change an agent's description of many variables. The extra structure comes from the receiver's conditional model. This is familiar in physics: measuring one coordinate of a correlated system can change predictions for another coordinate without measuring it directly. The distinction between transmitted information and inferred structure is explicit here.
 
+\section{Conditional prediction within an agent}
+\label{comp:conditional-prediction}
+
+An agent can use its model to infer a result from a different, correlated cue. Let $A\in\{1,\ldots,M\}$ be a finite model presentation with prior weights $\pi_a>0$ summing to one. On standard Borel cue and result spaces, presentation $a$ supplies a cue law $\mu_a(du)$ and a normalized result kernel $K_a(u,dv)$. A normalized record kernel $\mathcal L(u,do)$ measures the cue. The joint law is
+\begin{equation}
+P(a,du,dv,do)=\pi_a\mu_a(du)K_a(u,dv)\mathcal L(u,do).
+\label{comp:eq-cue-result-joint}
+\end{equation}
+Successive integration of the kernels and summation over $a$ give total mass one. In the agent description, $a$ is the model presentation, $(u,v)$ is the represented content, and $\mu_a(du)K_a(u,dv)$ is its evaluator. The kernels and prior weights constitute the stored model; the posterior after a record describes the agent's current beliefs.
+
+Suppose $\mathcal L(u,do)=l(o\mid u)\lambda(do)$ and the observed $o$ has finite positive evidence $Z_a(o)=\int l(o\mid u)\mu_a(du)$ in every component. Bayes' rule gives
+\begin{equation}
+\begin{aligned}
+w_a&=\frac{\pi_aZ_a(o)}{\sum_b\pi_bZ_b(o)},\\
+\Pi_a^o(du,dv)&=\frac{l(o\mid u)\mu_a(du)K_a(u,dv)}{Z_a(o)}.
+\end{aligned}
+\label{comp:eq-cue-result-posterior}
+\end{equation}
+The exact recognition law is $w_a\Pi_a^o$, so the model belief $s(a)=w_a$ is generally correlated with the contents. A product restriction would replace the component-dependent content laws by one common law. Conditioning revises these beliefs without changing the stored kernels. This construction uses general probability laws; Gaussian conditioning makes a particular realization explicit.
+
+For a scalar example, choose one presentation and independent variables
+\begin{equation}
+X\sim\mathcal N(0,1),\qquad
+\epsilon\sim\mathcal N(0,1/4),\qquad
+\eta\sim\mathcal N(0,1),
+\end{equation}
+with result $Y=-2X+\epsilon$ and record $O=X+\eta$. Observe $O=\xi$. The cue posterior follows by completing the square:
+\begin{equation}
+p(x\mid\xi)\propto
+\exp\left[-\frac{x^2+(\xi-x)^2}{2}\right]
+\propto\exp[-(x-\xi/2)^2],
+\end{equation}
+hence $X\mid O=\xi\sim\mathcal N(\xi/2,1/2)$. Since the result noise is independent of the cue and record,
+\begin{equation}
+Y\mid O=\xi\sim\mathcal N(-\xi,9/4).
+\label{comp:eq-negative-result}
+\end{equation}
+The variance is $4(1/2)+1/4=9/4$. Increasing the observed cue increases the inferred cue but decreases the predicted result. The negative response comes from the model's conditional relation between two variables. Estimating the cue itself in this example would instead have positive slope $1/2$. Conditional prediction therefore gives a statistical account of a transformation that reverses a direction. Conditioning a joint Gaussian mixture to predict one group of variables from another is Gaussian mixture regression \citep{Calinon2016}.
+
+With several presentations, uncertainty also concerns which relation applies. For vector-valued results with finite second moments, let $m_a=\E[Y\mid o,A=a]$ and $S_a=\operatorname{Cov}(Y\mid o,A=a)$. The result marginal $p_Y^o$ has moments
+\begin{equation}
+\begin{aligned}
+\bar m&=\sum_a w_am_a,\\
+S&=\sum_a w_a\left[S_a+(m_a-\bar m)(m_a-\bar m)^\top\right].
+\end{aligned}
+\label{comp:eq-result-ambiguity}
+\end{equation}
+The first covariance contribution is uncertainty within a presentation. The second is uncertainty from the disagreement of its predictions with those of other presentations. These terms follow by writing $Y-\bar m=(Y-m_a)+(m_a-\bar m)$ and taking the conditional expectation; the cross terms vanish.
+
+If the result is a finite mixture of nonsingular Gaussians, one possible carrier is $q_G=\mathcal N(\bar m,S)$. It minimizes $\KL(p_Y^o\Vert q_G)$ over Gaussian laws. Indeed, the expected negative Gaussian log density depends on $p_Y^o$ only through its first two moments, and its minimum occurs at their matching mean and covariance. This is the moment projection used in assumed-density filtering \citep{Minka2001EP}. The variational free energy instead contains the divergence with recognition in the first slot. Minimizing $\KL(q\Vert p_Y^o)$ over Gaussians is a different problem and need not return the moment carrier.
+
+Retaining $w$ alongside $q_G$ still does not preserve their original dependence. If the retained description is the product $w\otimes q_G$, the exact label/result posterior $\Pi_{A,Y}^o$ obeys
+\begin{equation}
+\KL(\Pi_{A,Y}^o\Vert w\otimes q_G)
+=I_{\Pi^o}(A;Y)+\KL(p_Y^o\Vert q_G).
+\label{comp:eq-memory-retention-loss}
+\end{equation}
+Here $I_{\Pi^o}(A;Y)=\KL(\Pi_{A,Y}^o\Vert w\otimes p_Y^o)$ is mutual information. Insert $w\otimes p_Y^o$ into the logarithmic density ratio to obtain the identity. It separates the loss of model/content dependence from the loss of non-Gaussian result information. Neither loss is determined by the accuracy of the mean alone.
+
+A later step may carry the component belief forward, for example as $wT$ under a declared stochastic transition matrix $T$. An interpretation as Bayesian filtering also needs the conditional law of the next record given the retained history and presentation. A deterministic function of a record already available to the agent supplies no further evidence conditional on that record; treating it as an independent observation would change the model. Communication can supply information new to the receiver, but its record kernel must be specified. The local conditioning construction therefore provides an agent computation, while repeated assimilation, model learning, and population dynamics require their own declared mechanisms.
+
 \section{Selective sending and conditional reconstruction}
 
 A sender uses a measurable map $T_j:E_j\to\mathsf H$ into a message space. If its content has law $q_j$, possible messages have law
