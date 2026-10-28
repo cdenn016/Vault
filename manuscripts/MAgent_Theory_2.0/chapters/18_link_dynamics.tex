@@ -514,13 +514,119 @@ It has the same negative and zero indices, with an additional positive direction
 To freeze the variances, set $h_i=k_j=0$ in \cref{it2:threshold-positive}. Put $t=u_0-(u_1+u_2+b_1+b_2)/2=g_{\mathrm{mean}}^T\xi_{\mathrm{mean}}$. Convexity and exchange of the two sources put the minimum of the mean quadratic at fixed $t$ in $u_1=u_2=y$, $b_1=b_2=z$. Minimizing there gives $(u_0,y,z)=(15,-6,-10)t/31$ and value $61t^2/62$. The minimum of $\xi^TH_{\mathrm{mean}}\xi$ under $g_{\mathrm{mean}}^T\xi=t$ is also $t^2/(g_{\mathrm{mean}}^TH_{\mathrm{mean}}^{-1}g_{\mathrm{mean}})$ by completing a positive quadratic square. Thus the inverse quadratic form is $62/61$ and $T_{\mathrm{mean}}=31/122$.
 \end{proof}
 
-The exact inequality $31/122<3/10<3269/10118$ means that at $T=3/10$ the frozen-variance mean system is stable while both complete coupled systems have one unstable direction. At $T_c$ the reduced null vector is $H^{-1}g$, and the full null vector is $(H^{-1}g,-1)$. Source and dictionary uncertainty participate in the neutral mode. The result is an exact example of the declared tangent model; it proves neither monotone uncertainty growth nor a nonlinear bifurcation type, stable selected branches, or formation.
+The exact inequality $31/122<3/10<3269/10118$ means that at $T=3/10$ the frozen-variance mean system is stable while both complete coupled systems have one unstable direction. At $T_c$ the reduced null vector is $H^{-1}g$, and the full null vector is $(H^{-1}g,-1)$. Source and dictionary uncertainty participate in the zero linear mode. The following nonlinear calculation classifies that mode within this Gaussian tangent model.
+
+\section{The local subcritical pitchfork}
+\label{it2:ch-critical-mode}
+
+Retain all hypotheses, references, coordinates, and Fisher mobilities of \cref{it2:coupled-threshold}. Write $s=b-1/2$, $\delta=T-T_c$, and
+\begin{equation}
+ \begin{aligned}
+ A(x)&=F_0(x)+(C_1(x)+C_2(x))/2,\qquad \Delta(x)=C_1(x)-C_2(x),\\
+ G(x,s)&=A(x)+s\Delta(x),\\
+ h(s)&=(1/2+s)\log(1+2s)+(1/2-s)\log(1-2s).
+ \end{aligned}
+ \label{it2:critical-functions}
+\end{equation}
+Thus $\mathcal E_T=G+Th$. The scalar $s$ is the actual row imbalance for full relaxation, and the Gibbs row imbalance $s=b^*(x,T)-1/2$ for the reduced flow. Both reductions below use the original time variable.
+
+\theoremheading{Critical dynamics and nearby branches}{it2:critical-pitchfork}
+There are local parameter-dependent invariant center manifolds on which
+\begin{equation}
+ \dot s=-\frac{4\delta s+c s^3}{d}
+       +O(\delta^2|s|+|\delta||s|^3+|s|^5),\qquad
+ d=\begin{cases}D,&\text{Gibbs reduction},\\D+4,&\text{full row relaxation},\end{cases}
+ \label{it2:critical-normal-form}
+\end{equation}
+where the remainder is uniform near $(s,\delta)=(0,0)$ and
+\begin{equation}
+ c=-\frac{657534393590529472}{6223404588394626861}<0,\qquad
+ D=\frac{19189456}{25593481}>0.
+ \label{it2:critical-constants}
+\end{equation}
+In sufficiently small state and temperature neighborhoods, the symmetric equilibrium is the only equilibrium for $\delta\leq0$. For each sufficiently small $\delta>0$ there are exactly two additional equilibria, common to the full and reduced systems, with
+\begin{equation}
+ s_\pm(\delta)=\pm\sqrt{-4\delta/c}+O(\delta^{3/2}).
+ \label{it2:critical-branches}
+\end{equation}
+Each asymmetric equilibrium has one unstable direction, with eigenvalue $8\delta/d+O(\delta^2)$, and nine reduced or ten full stable directions. At $T=T_c$ the symmetric equilibrium is nonlinearly unstable. With destabilizing parameter $T_c-T$, this is a subcritical pitchfork; it creates no locally stable asymmetric branch.
+\begin{proof}
+The reflection and source exchange
+\begin{equation}
+ R x=(-\mu_0,-\mu_2,-\mu_1,-a_2,-a_1,v_0,v_2,v_1,V_2,V_1)
+ \label{it2:critical-reflection}
+\end{equation}
+fixes $x_*$, preserves $A$, and sends $\Delta$ to $-\Delta$. The mobility satisfies $M(Rx)=RM(x)R^T$. Since $H=A_{xx}(x_*)\succ0$, the implicit-function theorem gives a unique analytic stationary matter curve $X(s)$ near $x_*$ with
+\begin{equation}
+ G_x(X(s),s)=0,\qquad X(0)=x_*,\qquad p=X'(0)=-H^{-1}g.
+ \label{it2:critical-stationary-curve}
+\end{equation}
+Uniqueness gives $X(-s)=RX(s)$. The stationary scalar potential $\Phi(s,T)=G(X(s),s)+Th(s)$ is therefore even. This curve solves the matter stationary equations at each fixed row; invariance under either flow has not been asserted.
+
+All tensor derivatives in the next calculation are at $x_*$. Put $k=A_{xxx}[p,p]+2\Delta_{xx}p$. Differentiating \cref{it2:critical-stationary-curve} twice gives $X''(0)=-H^{-1}k$. Four derivatives of $\Phi$ then give
+\begin{equation}
+ \Phi_{ssss}(0,T_c)
+ =A_{xxxx}[p,p,p,p]+4\Delta_{xxx}[p,p,p]-3k^TH^{-1}k+32T_c=6c.
+ \label{it2:critical-quartic}
+\end{equation}
+For the explicit costs in \cref{it2:threshold-objective} and the tangent $p$ in \cref{it2:threshold-inverse}, the three matter contractions are
+\begin{equation}
+ \begin{aligned}
+ A_{xxxx}[p,p,p,p]&=\frac{236914859731152}{655026269697361},\\
+ \Delta_{xxx}[p,p,p]&=-\frac{31633266640}{129477420379},\\
+ 3k^TH^{-1}k&=\frac{21485600170644766720}{2074468196131542287}.
+ \end{aligned}
+ \label{it2:critical-contractions}
+\end{equation}
+These values follow by differentiating the rational costs and Gaussian self terms; together with $32T_c$ they give \cref{it2:critical-constants}. The negative stable-response term in \cref{it2:critical-quartic} would be absent if one restricted the potential to the straight line $x_*+ps$. Since $\Phi_{ss}(0,T)=4(T-T_c)$ and $h$ is even,
+\begin{equation}
+ \Phi_s(s,T_c+\delta)=4\delta s+c s^3+O(|\delta||s|^3+|s|^5).
+ \label{it2:critical-stationary-force}
+\end{equation}
+
+Analyticity and evenness give $\Phi_s=sQ(s^2,\delta)$ with $Q(0,\delta)=4\delta$ and $Q_z(0,0)=c<0$. A second implicit-function argument gives the unique small root $z(\delta)=-4\delta/c+O(\delta^2)$. It is positive precisely for small positive $\delta$, proving the complete local equilibrium count and \cref{it2:critical-branches}. At these points $G_{xx}$ remains positive definite, whereas $\Phi_{ss}=-8\delta+O(\delta^2)<0$. The latter is its Schur complement in the full stationary Hessian. Thus that Hessian has one negative and ten positive directions. Eliminating the positive row block gives one negative and nine positive directions in the reduced Hessian. Positive Fisher mobilities preserve these stability indices.
+
+It remains to compute the actual center velocity. The fields are analytic on the interior and equivariant under the orthogonal reflection above. At $T_c$ each has a simple zero eigenvalue and all remaining eigenvalues are negative. The parameter-dependent equivariant center-manifold theorem \citep[Theorem~1.2]{Ruelle1973Symmetry} therefore supplies a local $C^7$ invariant reduction containing the nearby equilibria; no analytic center manifold is required. The full coordinate $s=b-1/2$ is regular on its center tangent $(p,1)$. For the reduced flow,
+\begin{equation}
+ D_xs^*(x_*,T_c)p=-g^Tp/(4T_c)=1,
+ \label{it2:critical-reduced-coordinate}
+\end{equation}
+so its Gibbs imbalance also supplies a regular coordinate. Reflection makes the scalar field $f(s,\delta)=\dot s$ odd in $s$.
+
+Write $Y(s,\delta)$ for the matter coordinates on either invariant manifold. Its matter equation is
+\begin{equation}
+ Y_s f=-M(Y)G_x(Y,s).
+ \label{it2:critical-invariance}
+\end{equation}
+At $\delta=0$, $Y_s(0,0)=p$ and $f=O(s^3)$, so comparison through quadratic order gives $Y_{ss}(0,0)=X''(0)$. Set $B=H^{-1}M_*^{-1}p$, with $M_*=M(x_*)$, and let $w=Y-X$. Then
+\begin{equation}
+ D=p^TM_*^{-1}p=\frac{19189456}{25593481},\qquad g^TB=-D.
+ \label{it2:critical-metric-length}
+\end{equation}
+If $f=\alpha\delta s+\eta s^3+O(\delta^2|s|+|\delta||s|^3+|s|^5)$, the coefficients of \cref{it2:critical-invariance} give $w_{\delta s}=-\alpha B$ and $w_{s^3}=-\eta B$. Variation of $M$ contributes only at higher orders. Consequently the row force $\Delta(Y)+(T_c+\delta)h'(s)$ has coefficients $4+D\alpha$ and $c+D\eta$ at $\delta s$ and $s^3$.
+
+For the reduced flow this force is identically zero, so $\alpha=-4/D$ and $\eta=-c/D$. Full relaxation instead obeys
+\begin{equation}
+ f=-(1/4-s^2)[\Delta(Y)+(T_c+\delta)h'(s)],
+ \label{it2:critical-full-row}
+\end{equation}
+giving $\alpha=-(4+D\alpha)/4$ and $\eta=-(c+D\eta)/4$. These yield the denominator $D+4$ in \cref{it2:critical-normal-form}. Odd $C^7$ regularity gives its stated uniform remainder. In particular,
+\begin{equation}
+ Y(s,0)-X(s)=\frac{c}{d}B s^3+O(s^4),
+ \label{it2:critical-graph-difference}
+\end{equation}
+which exhibits the nonzero difference between stationary elimination and dynamical invariance.
+
+At either asymmetric branch, differentiation of the center field gives $8\delta/d+O(\delta^2)>0$. At criticality it gives $\dot s=(-c/d)s^3+O(s^5)$, pointing away from zero on both sides. Arbitrarily small nonzero center data therefore leave a fixed small interval, proving nonlinear instability at the threshold. The stable transverse spectrum persists from the Hessian calculation.
+\end{proof}
+
+The additional $4$ is the Fisher squared length of the row tangent at $b=1/2$. Thus full relaxation has $D/(D+4)=4797364/30390845$ times the leading center speed of matter-metric Gibbs reduction, or a leading time scale about $6.34$ times longer. This comparison identifies the leading scalar polynomials after a constant time rescaling; it does not identify higher-order trajectories or stable transients. Distant stable equilibria, folds, and the destinations of trajectories leaving this neighborhood require separate arguments. The local result establishes neither monotone uncertainty growth, hysteresis, grouping, nor formation of an inherited parent.
 
 \section{Scope and open problems}
 \label{it2:ch-next}
 
 \openproblemheading{Coupled dynamics beyond the finite example}{it2:open-reciprocal}
-\Cref{it2:coupled-flow,it2:coupled-global} give the complete Gaussian tangent flow and global forward existence, and \cref{it2:coupled-threshold} classifies one stationary branch away from its critical temperature. Determine the nonlinear behavior at that zero mode, the possible stationary branches and long-time destinations on graphs with cycles, and well-posedness beyond regular finite-dimensional law families. The scalar certainty result and the loss of local stability do not establish grouping or formation.
+\Cref{it2:coupled-flow,it2:coupled-global} give the complete Gaussian tangent flow and global forward existence, and \cref{it2:critical-pitchfork} resolves the local critical mode of the three-agent example as a subcritical pitchfork with nearby asymmetric saddles. Determine its distant stationary branches and long-time destinations, the corresponding behavior on graphs with cycles, and well-posedness beyond regular finite-dimensional law families. Neither the scalar certainty result nor this local instability establishes grouping or formation.
 
 \openproblemheading{Convergence of per-agent flows}{it2:open-convergence}
 Find conditions on the self, record, and loop precisions under which the per-agent fixed point is unique and its mean flow converges. Determine whether the law-level covariance updates have a unique fixed point. The directed ring supplies one stable non-gradient example, not a general convergence theorem.
