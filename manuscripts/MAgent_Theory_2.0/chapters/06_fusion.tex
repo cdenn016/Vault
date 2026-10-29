@@ -1,9 +1,9 @@
 \chapter{Finite Fusion with Exact Statistical Inheritance}
 \label{ch:fusion}
 
-This chapter constructs a population whose dynamics makes agents coincide at finite times and whose coincident blocks carry exact inherited laws, evaluator, metric, and responses. The dynamics is a nonsmooth modification of the reciprocal law potential of \cref{def:dyn-potential}: each peer divergence is replaced by the square root of twice that divergence, source rows are fixed, and the laws are restricted to a lognormal family with fixed variances. It is not a free energy of any normalized model, and its conclusions do not transfer to the smooth potential or to the per-agent and global free energies of \cref{ch:dynamics}.
+This chapter constructs a population whose dynamics makes agents coincide at finite times and whose coincident blocks carry exact inherited laws, evaluator, metric, and responses. The dynamics is a nonsmooth modification of the reciprocal law potential of \cref{def:dyn-potential}, made by four constitutive changes stated in \cref{sec:fus-dynamics}: each peer divergence is replaced by the square root of twice a divergence, the receiver's law is restored to unit log variance before it is compared, the peer term carries a multiplicity-weighted coefficient, and source rows are fixed. The laws are restricted to a lognormal family with fixed variances. The potential is not, on any open set of means that meets a coincidence hyperplane $\{\mu_i^\alpha=\mu_j^\alpha\}$, the free energy of a normalized model whose log density is integrable against these laws: in logarithmic coordinates such a free energy is, up to a constant, the convolution of the negative log density with a fixed Gaussian kernel, hence real analytic in the means, whereas the potential has a corner on every coincidence hyperplane. Its conclusions do not transfer to the smooth potential or to the per-agent and global free energies of \cref{ch:dynamics}.
 
-Pairwise fusion penalties occur in convex clustering \cite{Hocking2011}, and suitable nonsmooth consensus protocols produce finite-time agreement \cite{Cortes2006}. On the restricted family the square-root interaction is exactly the absolute-value kernel, so in each sector the population is a weighted particle solution of the one-dimensional aggregation equation with attractive kernel $\lambda|x|$, whose sticky collisions and finite-time total collapse are known \cite{CarrilloEtAl2011,BonaschiEtAl2015}. What the construction adds is the inheritance bookkeeping: represented laws, model evaluator, transport, parent metric, and boundary kernels descend exactly through each collision. Its dynamical outcome is a finite coalescence tree that ends in global consensus for every initial datum (\cref{fus:sync}); persistent heterogeneous organization does not occur. \Cref{sec:fus-status} reports the construction against the formation standard of \cref{inh:recursive-formation}.
+Pairwise fusion penalties occur in convex clustering \cite{Hocking2011}, and suitable nonsmooth consensus protocols produce finite-time agreement \cite{Cortes2006}. On the restricted family the square-root interaction is exactly the absolute-value kernel. The population is a weighted particle solution of the two-dimensional aggregation equation with kernel $\lambda\|x\|_1$ in a quadratic external potential; on the common-offset family of \cref{fus:sticking}, after a rescaling of positions and a change of time, each sector is the one-dimensional aggregation equation with kernel $\lambda|z|$, whose sticky collisions and finite-time total collapse are known \cite{CarrilloEtAl2011,BonaschiEtAl2015}. What the construction adds is the inheritance bookkeeping: represented laws, model evaluator, transport, parent metric, and boundary kernels descend exactly through each collision. Its dynamical outcome is a finite coalescence tree that ends in global consensus for every initial datum (\cref{fus:sync}); persistent heterogeneous organization does not occur. On the common-offset family the tree is a linkage dendrogram of the initial data that does not depend on the coupling strength (\cref{fus:ncl}). \Cref{sec:fus-status} reports the construction against the formation standard of \cref{inh:recursive-formation}.
 
 \section{A law family closed under geometric averaging}
 
@@ -68,8 +68,7 @@ Then
  g_n=n\bigl((d\mu^q)^2+(d\mu^s)^2\bigr).
  \label{fus:local-formulas}
 \end{equation}
-
-\noindent\emph{Proof.}
+\begin{proof}
 The logarithm is a measurable bijection, so it preserves KL divergence.
 The recognition law in log coordinates has covariance $I_2/n$, while the
 reference has covariance $A^{-1}/n$. The Gaussian KL formula gives
@@ -80,7 +79,8 @@ reference has covariance $A^{-1}/n$. The Gaussian KL formula gives
 \end{equation}
 which is the stated expression. The score for either mean is
 $n(Z-\mu)$, whose squared expectation is $n$. The product law has zero
-cross score expectation, giving the displayed Fisher metric. $\square$
+cross score expectation, giving the displayed Fisher metric.
+\end{proof}
 
 For independent synchronized children of multiplicities $n_j$, set
 $n_I=\sum_{j\in I}n_j$. Their retained reference samples are
@@ -116,18 +116,18 @@ conditional law of one child sample given the parent sufficient statistic
 messages descend exactly.
 
 Model prediction also commutes with this interface. Put
-$h=(c/a)^2+1/a$ and define
-$B_n^h(k,dw)=\operatorname{LN}(\log k,h(1-1/n))(dw)$, again using the
+$h_G=(c/a)^2+1/a$ and define
+$B_n^{h_G}(k,dw)=\operatorname{LN}(\log k,h_G(1-1/n))(dw)$, again using the
 identity at $n=1$. Both routes in the kernel identity
 \begin{equation}
- G_nB_n^h=B_nG_1
+ G_nB_n^{h_G}=B_nG_1
  \label{fus:evaluator-square}
 \end{equation}
 have conditional log mean $(c/a)\log m$ and variance
-$h-(c/a)^2/n$. Integrating against $s_n$ gives
+$h_G-(c/a)^2/n$. Integrating against $s_n$ gives
 \begin{equation}
- (s_nB_n)G_1=(s_nG_n)B_n^h
- =\operatorname{LN}\left(\frac ca\mu^s,h\right).
+ (s_nB_n)G_1=(s_nG_n)B_n^{h_G}
+ =\operatorname{LN}\left(\frac ca\mu^s,h_G\right).
  \label{fus:predictive-square}
 \end{equation}
 Thus a parent can emit the original predictive message by either normalized
@@ -149,7 +149,7 @@ transport is a law-dependent change of frame of the trivial connection.
 
 Transport of the reference message from $j$ shifts its log mean to
 $\mu_j^\alpha+\chi_\alpha(\mu_i^\alpha-\mu_j^\alpha)$. Consequently the directed
-comparison cost
+comparison cost between restored messages
 \begin{equation}
  d_{ij}^\alpha=
  \frac{\sqrt{2\KL\bigl(
@@ -176,6 +176,7 @@ link fixed while differentiating would replace the coupling $\lambda$
 below by $\lambda/(1-\chi_\alpha)$.
 
 \section{The continuous subgradient dynamics}
+\label{sec:fus-dynamics}
 
 For multiplicities $n_i$ with total $N=\sum_i n_i$, choose $\lambda>0$ and
 the potential
@@ -191,26 +192,35 @@ $\beta_{ij}=\gamma_{ij}=n_j/N$, including self entries. Summing child
 entries gives exactly the same parent row. Self comparison costs vanish,
 while their row mass records the corresponding contact multiplicity.
 There is no Gibbs row adaptation. Relative to \cref{def:dyn-potential},
-the local term is $\sum_iE_{0,n_i}$ up to the constant $\sum_i(n_i-1)C$,
-while the peer term $\sum_j\beta_{ij}D_{ij}^\alpha$ of agent $i$ is replaced
-by $\tfrac12\lambda Nn_i\sum_j\beta_{ij}d_{ij}^\alpha$, where
-$d_{ij}^\alpha=\sqrt{2D_{ij}^\alpha}/(1-\chi_\alpha)$ is the normalized
-square-root cost of \cref{fus:distance}; this is the nonsmooth
-modification. The local term has the stated KL origin;
-the flow below is a declared gradient flow, not inference in a normalized
-model, and no fixed sample-model ELBO identity is asserted for the entire
-potential.
+the local term is $\sum_iE_{0,n_i}$ up to the constant $\sum_i(n_i-1)C$.
+The peer term $\sum_j\beta_{ij}D_{ij}^\alpha$ of agent $i$ is modified in
+four constitutive ways. The divergence is replaced by its normalized square
+root $d_{ij}^\alpha$ of \cref{fus:distance}; the receiver's law $q_i$ is
+replaced by its restored message $q_iB_{n_i}=\operatorname{LN}(\mu_i^\alpha,1)$
+before the comparison; the term is multiplied by
+$\tfrac12\lambda Nn_i$, so that it becomes
+$\tfrac12\lambda Nn_i\sum_j\beta_{ij}d_{ij}^\alpha$; and the rows are fixed.
+The restoration matters for $n_i\geq2$: with the unrestored receiver law
+$\operatorname{LN}(\mu_i^\alpha,1/n_i)$ one has
+$2D_{ij}^\alpha=(1/n_i-1+\log n_i)+(1-\chi_\alpha)^2(\mu_i^\alpha-\mu_j^\alpha)^2$,
+whose constant is positive, so its square root would be smooth at
+coincidence and would depend on $\chi_\alpha$, and parents of multiplicity at
+least two could not stick. The local term has the stated KL origin; the flow
+below is a declared gradient flow, not inference in a normalized model, and
+no fixed sample-model ELBO identity is asserted for the entire potential.
 
 With $W=\operatorname{diag}(n_1,n_1,n_2,n_2,\ldots)$, define the flow on
 $\R^{2r}$, for $r$ current agents, by
 \begin{equation}
- W\dot{\boldsymbol\mu}\in-\partial\mathcal F(\boldsymbol\mu).
+ W\dot{\boldsymbol\mu}\in-\partial\mathcal F(\boldsymbol\mu),
  \label{fus:inclusion}
 \end{equation}
-Solutions are absolutely continuous in the external time $t\geq0$ and
-satisfy this inclusion almost everywhere. There are no boundaries or
-stochastic driving terms. Both law sectors have the same basic mobility;
-the factor $1/n_i$ comes from their inherited Fisher metric. In coordinates,
+where $\partial\mathcal F$ is the subdifferential of $\mathcal F$ as a
+function of the whole configuration. Solutions are absolutely continuous in
+the external time $t\geq0$ and satisfy this inclusion almost everywhere.
+There are no boundaries or stochastic driving terms. Both law sectors have
+the same basic mobility; the factor $1/n_i$ comes from their inherited Fisher
+metric. In coordinates,
 \begin{align}
  \dot\mu_i^q&=-a\mu_i^q+c\mu_i^s
  -\lambda\sum_{j\ne i}n_j\epsilon_{ij}^q,\\
@@ -220,11 +230,16 @@ the factor $1/n_i$ comes from their inherited Fisher metric. In coordinates,
 \end{align}
 where $\epsilon_{ij}^\alpha=-\epsilon_{ji}^\alpha$ belongs to
 $\operatorname{Sign}(\mu_i^\alpha-\mu_j^\alpha)$ and
-$\operatorname{Sign}(0)=[-1,1]$. The multiplicity cancels from an agent's
-own velocity, which depends only on the multiplicities of the others. The
-system is overdamped one-dimensional motion in a harmonic trap under the
-pair potential $n_in_j|x_i-x_j|$, so a multiplicity acts as a friction
-weight and as an interaction charge; it is not an inertia.
+$\operatorname{Sign}(0)=[-1,1]$. Every pair uses one antisymmetric selection;
+letting each agent choose its own element of $\operatorname{Sign}(0)$, as a
+product of partial subdifferentials would, admits spurious solutions, for
+example two coincident unit agents that move together under any constant
+selection, and is not the Filippov regularization. The multiplicity cancels
+from an agent's own velocity, which depends only on the multiplicities of the
+others. Each agent performs overdamped planar motion, in the coordinates
+$(\mu_i^q,\mu_i^s)$, in a harmonic trap under the pair potential
+$n_in_j\|x_i-x_j\|_1$, so a multiplicity acts as a friction weight and as an
+interaction charge; it is not an inertia.
 
 \lemmaheading{Global well-posedness, contraction, and persistence}{fus:uniqueness}
 For every multiplicity vector and every initial datum, \cref{fus:inclusion}
@@ -237,17 +252,17 @@ with the same multiplicities obey
  \label{fus:contraction}
 \end{equation}
 Synchronized unit-multiplicity children remain synchronized in both sectors.
-
-\noindent\emph{Proof.}
+\begin{proof}
 The potential $\mathcal F$ is convex and finite on $\R^{2r}$, so
 $W^{-1}\partial\mathcal F$ is a maximal monotone operator in the $W$ inner
 product. The theory of maximal monotone operators gives a unique global
 absolutely continuous solution for every initial datum, whose right
-derivative is the element of minimal norm in
-$-W^{-1}\partial\mathcal F(\boldsymbol\mu)$ \cite{Brezis1973}. The
-quadratic part is $(a-c)$-strongly convex in the $W$ metric and the
-absolute-value part is convex. For subgradients $\xi,\widetilde\xi$ at
-two configurations, monotonicity gives
+derivative is the element of $-W^{-1}\partial\mathcal F(\boldsymbol\mu)$ of
+minimal norm in the $W$ norm \cite{Brezis1973}; the Euclidean minimal
+element would in general not stick coincident agents of unequal
+multiplicities. The quadratic part is $(a-c)$-strongly convex in the $W$
+metric and the absolute-value part is convex. For subgradients
+$\xi,\widetilde\xi$ at two configurations, monotonicity gives
 \begin{equation}
  \langle\xi-\widetilde\xi,
  \boldsymbol\mu-\widetilde{\boldsymbol\mu}\rangle
@@ -257,7 +272,8 @@ Substitution from \cref{fus:inclusion} and integration proves
 \cref{fus:contraction}. Swapping two equal unit-multiplicity children
 preserves the initial configuration, potential, and metric. Uniqueness
 therefore preserves their equality. This argument concerns the full
-two-sector system, not a restricted scalar equation. $\square$
+two-sector system, not a restricted scalar equation.
+\end{proof}
 
 Because the subdifferential of a convex function is its Clarke generalized
 gradient, \cref{fus:inclusion} coincides with the Filippov regularization of
@@ -268,69 +284,72 @@ semigroup and not a group, which is what permits finite-time sticking.
 
 \propositionheading{Complete synchronization in finite time}{fus:sync}
 Fix any multiplicity vector and any initial datum. Put
-$R_0=\|\boldsymbol\mu(0)\|_W$, $\kappa=a-c$, and
-$t_0=\kappa^{-1}\log\max\{1,4cR_0/(\lambda N)\}$. Then
-$\max_{i,\alpha}|\mu_i^\alpha(t)|\leq e^{-\kappa t}R_0$, and there is a time
+$R_0=\|\boldsymbol\mu(0)\|_W$, $\kappa=a-c$, and let
+$D^\alpha=\max_i\mu_i^\alpha-\min_i\mu_i^\alpha$ be the spread of sector
+$\alpha$. Then $\max_{i,\alpha}|\mu_i^\alpha(t)|\leq e^{-\kappa t}R_0$, and
+there is a time
 \begin{equation}
- T_*\leq t_0+\frac{4R_0e^{-\kappa t_0}}{\lambda N}
+ T_*\leq\frac1\kappa\log\left(1+\frac{\kappa\max_\alpha D^\alpha(0)}{\lambda N}\right)
  \label{fus:sync-time}
 \end{equation}
 such that all agents have equal means in both sectors for every
 $t\geq T_*$. Every solution therefore produces a finite sequence of
 synchronization events, at most $r-1$ of them, ending in a single block.
-
-\noindent\emph{Proof.}
+\begin{proof}
 The zero configuration is stationary, because $0\in\partial\mathcal F(0)$.
 \Cref{fus:contraction} with this stationary solution gives
 $\|\boldsymbol\mu(t)\|_W\leq e^{-\kappa t}R_0$, and
 $|\mu_i^\alpha|\leq\|\boldsymbol\mu\|_W$ because $n_i\geq1$. Fix a sector
-$\alpha$, write $\alpha'$ for the other sector, and let
-$D^\alpha=\max_i\mu_i^\alpha-\min_i\mu_i^\alpha$, which is absolutely
-continuous. At almost every $t$ all coordinates and both extrema are
-differentiable. At such a time every maximizer $i$ has $\dot\mu_i^\alpha$
-equal to the derivative of the maximum, because the maximum minus
-$\mu_i^\alpha$ is nonnegative and vanishes at $t$. Let $T$ be the set of
-maximizers, with multiplicity $n_T$, and average the coordinate equation
-over $T$ with weights $n_i/n_T$. Antisymmetry of $\epsilon_{ij}^\alpha$
-cancels the internal terms, and $\epsilon_{ij}^\alpha=1$ for $j\notin T$.
-Hence
+$\alpha$ and write $\alpha'$ for the other sector. The spread $D^\alpha$ is
+absolutely continuous. At almost every $t$ all coordinates and both extrema
+are differentiable. At such a time every maximizer $i$ has
+$\dot\mu_i^\alpha$ equal to the derivative of the maximum, because the
+maximum minus $\mu_i^\alpha$ is nonnegative and vanishes at $t$. Let $T_+$
+be the set of maximizers, with multiplicity $n_+$, and average the
+coordinate equation over $T_+$ with weights $n_i/n_+$. Antisymmetry of
+$\epsilon_{ij}^\alpha$ cancels the internal terms, and
+$\epsilon_{ij}^\alpha=1$ for $j\notin T_+$. Hence
 \begin{equation}
  \frac{d}{dt}\max_i\mu_i^\alpha
- =-a\max_i\mu_i^\alpha+c\,\overline{\mu^{\alpha'}}_T-\lambda(N-n_T),
+ =-a\max_i\mu_i^\alpha+c\overline{\mu^{\alpha'}}_{T_+}-\lambda(N-n_+),
 \end{equation}
-where $\overline{\mu^{\alpha'}}_T$ is the weighted average over $T$. The
-same argument for the minimizing set $B$ gives the opposite sign of the last
-term. While $D^\alpha>0$ the sets $T$ and $B$ are disjoint, so
-$n_T+n_B\leq N$ and
+where $\overline{\mu^{\alpha'}}_{T_+}$ is the weighted average over $T_+$.
+The same argument for the minimizing set $T_-$, with multiplicity $n_-$,
+gives the opposite sign of the last term. While $D^\alpha>0$ the sets $T_+$
+and $T_-$ are disjoint, so $n_++n_-\leq N$, and both weighted averages of
+$\mu^{\alpha'}$ lie in the range of the $\alpha'$ means. Therefore
 \begin{equation}
- \dot D^\alpha\leq-aD^\alpha+2cR_0e^{-\kappa t}-\lambda N
+ \dot D^\alpha\leq-aD^\alpha+cD^{\alpha'}-\lambda N
  \quad\text{almost everywhere on }\{D^\alpha>0\}.
 \end{equation}
-For $t\geq t_0$ the middle term is at most $\lambda N/2$, so
-$\dot D^\alpha\leq-\lambda N/2$ wherever $D^\alpha>0$. An absolutely
-continuous nonnegative function with this property reaches zero within
-$2D^\alpha(t_0)/(\lambda N)$ and cannot become positive afterward. Since
-$D^\alpha(t_0)\leq2R_0e^{-\kappa t_0}$, both sectors are synchronized by
-the stated time. Agents that coincide in both sectors remain coincident:
-expanding integer multiplicities into unit children and applying
-\cref{fus:uniqueness} proves this. The number of distinct agents therefore
-decreases at each event. $\square$
+Let $M=\max(D^q,D^s)$. At almost every $t$ where $M>0$, the derivative of
+$M$ equals $\dot D^\alpha$ for a sector $\alpha$ with $D^\alpha=M$ (where
+$D^q=D^s$ the two derivatives agree almost everywhere), so
+$\dot M\leq-\kappa M-\lambda N$ almost everywhere on $\{M>0\}$. Hence
+$e^{\kappa t}M(t)\leq M(0)-\lambda N(e^{\kappa t}-1)/\kappa$ as long as $M$
+stays positive, so $M$ vanishes by the time \cref{fus:sync-time}. Agents
+that coincide in both sectors remain coincident: expanding integer
+multiplicities into unit children and applying \cref{fus:uniqueness} proves
+this, so $M$ stays zero afterward. The number of distinct agents therefore
+decreases at each event.
+\end{proof}
 
-The common-offset family studied next provides explicit event times; it is
-not needed for finite-time synchronization. The following estimate controls
-a single pair off that family.
+The bound depends only on the initial spreads; it does not involve $R_0$ or
+$c$, and it is attained by two blocks on the common-offset family below. The
+common-offset family studied next provides explicit event times; it is not
+needed for finite-time synchronization. The following estimate controls a
+single pair off that family.
 
 \lemmaheading{Isolated pairs synchronize}{fus:isolated-pair}
-Let $i\neq j$ and let $J$ be a time interval on which, in each sector
-$\alpha$, no third agent has a mean in the closed interval between
+Let $i\neq j$ and let $\mathcal T$ be a time interval on which, in each
+sector $\alpha$, no third agent has a mean in the closed interval between
 $\mu_i^\alpha$ and $\mu_j^\alpha$. Put
-$S=|\mu_i^q-\mu_j^q|+|\mu_i^s-\mu_j^s|$. Then, for $s<t$ in $J$,
+$S=|\mu_i^q-\mu_j^q|+|\mu_i^s-\mu_j^s|$. Then, for $s<t$ in $\mathcal T$,
 \begin{equation}
  S(t)\leq\max\{0,S(s)-\lambda(n_i+n_j)(t-s)\}.
  \label{fus:pair-decay}
 \end{equation}
-
-\noindent\emph{Proof.}
+\begin{proof}
 For a third agent $k$, the hypothesis gives
 $\epsilon_{ik}^\alpha=\epsilon_{jk}^\alpha$, so its terms cancel from the
 equation for $\Delta^\alpha=\mu_i^\alpha-\mu_j^\alpha$, leaving
@@ -342,7 +361,8 @@ the derivative of $|\Delta^\alpha|$ vanishes almost everywhere. Adding the
 two sectors gives $\dot S\leq-\kappa S-2\lambda(n_i+n_j)$ when both
 differences are nonzero, and $\dot S\leq-\lambda(n_i+n_j)$ when exactly one
 is nonzero. Hence $\dot S\leq-\lambda(n_i+n_j)$ almost everywhere on
-$\{S>0\}$, which proves \cref{fus:pair-decay}. $\square$
+$\{S>0\}$, which proves \cref{fus:pair-decay}.
+\end{proof}
 
 \section{An invariant class with explicit global solutions}
 
@@ -363,13 +383,13 @@ sectors, the form
 \end{equation}
 Blocks formed by equal $u_i$ persist and follow the multiplicity-weighted
 version of the same equation.
-
-\noindent\emph{Proof.}
-Set $\kappa=a-c>0$. Equal sector orderings reduce
-\cref{fus:coordinate-flow} to
+\begin{proof}
+Set $\kappa=a-c>0$. Equal sector orderings, with the same antisymmetric
+selection $\epsilon_{ij}=\epsilon_{ij}^q=\epsilon_{ij}^s$ in both sectors,
+reduce \cref{fus:coordinate-flow} to
 \begin{equation}
- \dot u_i\in-\kappa u_i-\lambda\sum_{j\ne i}n_j
- \operatorname{Sign}(u_i-u_j),\qquad
+ \dot u_i=-\kappa u_i-\lambda\sum_{j\ne i}n_j\epsilon_{ij},\qquad
+ \epsilon_{ij}=-\epsilon_{ji}\in\operatorname{Sign}(u_i-u_j),\qquad
  \dot v=-(a+c)v.
 \end{equation}
 Introduce the increasing auxiliary time and rescaled positions
@@ -380,7 +400,8 @@ Introduce the increasing auxiliary time and rescaled positions
 \end{equation}
 Since $\dot\tau=e^{\kappa t}>0$, direct differentiation gives
 \begin{equation}
- z_i'\in-\lambda\sum_{j\ne i}n_j\operatorname{Sign}(z_i-z_j).
+ z_i'=-\lambda\sum_{j\ne i}n_j\epsilon_{ij},\qquad
+ \epsilon_{ij}=-\epsilon_{ji}\in\operatorname{Sign}(z_i-z_j).
  \label{fus:sticky-flow}
 \end{equation}
 This is the sticky-particle solution of the one-dimensional aggregation
@@ -397,14 +418,63 @@ subgradients verifies the original inclusion for every constituent child
 after collision. Each event reduces the number of blocks, so at most
 $N-1$ events occur, and the resulting piecewise-linear curve exists for
 all $\tau\geq0$. Reversing \cref{fus:time-change} constructs a global
-full-system solution. \Cref{fus:uniqueness} makes it the solution. $\square$
+full-system solution. \Cref{fus:uniqueness} makes it the solution.
+\end{proof}
 
 The class \cref{fus:admitted-class} has a common difference between its
 two sector means. This is an initial-data restriction, not an imposed
 constraint force. It is an invariant affine subspace of codimension $r-1$
 in $\R^{2r}$. The two laws of each agent remain distinct at every finite
-time because $v(t)\ne0$. The auxiliary $\tau$ is a monotone
-reparameterization of this solution, not a geometric or operational clock.
+time because $v(t)\ne0$. The passage to $(z,\tau)$ is a rescaling of
+positions by the common positive factor $e^{\kappa t}$ combined with a
+monotone change of time; it preserves coincidence, and $\tau$ is not a
+geometric or operational clock.
+
+The merge order on this family has a closed form. For a set $G$ of
+consecutive sorted agents, write $n_G$ for its multiplicity and $c_G$ for
+the multiplicity-weighted mean of the initial offsets $u_i^0$, $i\in G$.
+The normalized-centroid linkage of the initial offsets starts from the
+singletons and repeatedly merges the pair of adjacent current blocks
+$G<H$ that minimizes
+\begin{equation}
+ \varrho_{GH}=\frac{c_H-c_G}{n_G+n_H}.
+ \label{fus:ncl-height}
+\end{equation}
+
+\propositionheading{The coalescence tree is a coupling-independent linkage of the initial data}{fus:ncl}
+In \cref{fus:sticking}, allowing arbitrary initial multiplicities, the
+membership history consists exactly of the merges of the normalized-centroid
+linkage of the initial offsets, in its order, and the $k$-th merge, of
+height $\varrho_k$, occurs at
+\begin{equation}
+ \tau_k=\frac{\varrho_k}\lambda,\qquad
+ t_k=\frac1\kappa\log\left(1+\frac{\kappa\varrho_k}{\lambda}\right).
+ \label{fus:ncl-times}
+\end{equation}
+The heights are nondecreasing. Consequently the partition sequence is the
+same for every $\lambda>0$ and every $a>c>0$; only the event times depend on
+these constants.
+\begin{proof}
+Work in the $z$ frame of \cref{fus:sticky-flow}, where the order of the
+agents is preserved and contact is sticky. Let $G$ be a current block at
+auxiliary time $\tau$. No agent outside $G$ has touched a member of $G$
+before $\tau$, since by stickiness it would then belong to $G$. Hence, at
+every earlier time, the signs between members of $G$ and outsiders are single
+valued and constant, the internal terms cancel by antisymmetry, and
+$\frac{d}{d\tau}\sum_{i\in G}n_iz_i=\lambda n_G(n_{\rm right}(G)-n_{\rm left}(G))$
+from $\tau=0$. For adjacent current blocks $G<H$ one has
+$n_{\rm left}(H)=n_{\rm left}(G)+n_G$ and $n_{\rm right}(G)=n_{\rm right}(H)+n_H$,
+so the distance of their weighted centroids, which is their gap, equals
+$(c_H-c_G)-\lambda(n_G+n_H)\tau$. They therefore meet at
+$\tau=\varrho_{GH}/\lambda$ unless an earlier event involves one of them, and
+the next event is a merge of the adjacent current pair with the smallest
+$\varrho_{GH}$. Induction on the number of blocks proves the first claim.
+When $G$ and $H$ merge into $K$ at $\tau_k$, the gap between $K$ and a
+neighbor $L$ is still nonnegative at $\tau_k$, so
+$\varrho_{KL}\geq\lambda\tau_k=\varrho_k$, which gives monotonicity.
+Inverting \cref{fus:time-change} gives $t_k$. The heights are computed from
+the initial offsets and multiplicities alone.
+\end{proof}
 
 \section{Two fusion stages without a supplied partition}
 
@@ -420,70 +490,98 @@ they fuse under their inherited equations, with
  t_2=\frac1\kappa\log\left(1+\frac{5\kappa d}{4\lambda}\right).
  \label{fus:collision-times}
 \end{equation}
-
-\noindent\emph{Proof.}
-In sorted order, the initial $z$ velocities are
-$(3\lambda,\lambda,-\lambda,-3\lambda)$. The two outer gaps close at
-$\tau_1=d/(2\lambda)$, leaving parent positions $-3d/2$ and $3d/2$.
-Their inherited multiplicities are two and their velocities are $2\lambda$
-and $-2\lambda$. Their gap closes after another $3d/(4\lambda)$, giving
-$\tau_2=5d/(4\lambda)$. Inverting \cref{fus:time-change} gives
-\cref{fus:collision-times}. $\square$
+\begin{proof}
+The adjacent heights \cref{fus:ncl-height} of the singletons are $d/2$,
+$2d$, and $d/2$, so the two outer pairs merge first, at height $d/2$. The
+two resulting blocks have centroids $\mp5d/2$ and multiplicity two, so their
+height is $5d/4$. \Cref{fus:ncl} gives \cref{fus:collision-times}.
+Equivalently, in sorted order the initial $z$ velocities are
+$(3\lambda,\lambda,-\lambda,-3\lambda)$, the outer gaps close at
+$\tau_1=d/(2\lambda)$ at the parent positions $\mp3d/2$, and the parents,
+with velocities $\pm2\lambda$, meet after another $3d/(4\lambda)$.
+\end{proof}
 
 Exact reflection symmetry is unnecessary. For four sorted initial positions,
 let their adjacent gaps be $g_1,g_2,g_3>0$, and put $H=\max(g_1,g_3)$. The
 two outer pairs form first and then fuse if and only if
 \begin{equation}
- D=g_2+\frac{g_1+g_3}{2}-2H>0.
+ \Gamma=g_2+\frac{g_1+g_3}{2}-2H>0.
  \label{fus:open-gap-condition}
 \end{equation}
 Suppose $g_1\leq g_3$; the other case is the reflected calculation. Before
 the first outer collision the middle gap decreases at speed $2\lambda$, so
 at $g_1/(2\lambda)$ it equals $g_2-g_1$; afterward it decreases at speed
 $3\lambda$ until the other outer pair collides at $g_3/(2\lambda)$, where
-the same linear expression has the value $D$. If $D>0$, then $g_2>H$, the
-middle gap stays positive until both outer pairs have formed by
+the same linear expression has the value $\Gamma$. If $\Gamma>0$, then
+$g_2>H$, the middle gap stays positive until both outer pairs have formed by
 $\tau_*=H/(2\lambda)$, and the two parent gap then decreases at speed
 $4\lambda$, so the final time is
 \begin{equation}
- \tau_{\rm final}=\tau_*+\frac{D}{4\lambda}
+ \tau_{\rm final}=\tau_*+\frac{\Gamma}{4\lambda}
  =\frac{2g_2+g_1+g_3}{8\lambda}.
 \end{equation}
-If $D\leq0$, the middle gap closes no later than the second outer
-collision, and the pattern fails; at $D=0$ three or four agents merge at
-once. Condition \cref{fus:open-gap-condition} is strict and defines an open
-set relative to the ordered common-offset family. Taking all label
-permutations gives an admitted class with no assigned labels for blocks.
-The initial laws are unequal across agents, and the interaction rule
+If $\Gamma\leq0$, the middle gap closes no later than the second outer
+collision, and the pattern fails; at $\Gamma=0$ all four agents merge in one
+event, as three current blocks if $g_1\neq g_3$ and as four singletons if
+$g_1=g_3$. In the language of \cref{fus:ncl}, $\Gamma>0$ is the statement
+that the normalized-centroid linkage merges the two outer pairs before
+either joins the middle. Condition \cref{fus:open-gap-condition} is strict
+and defines an open set relative to the ordered common-offset family. Taking
+all label permutations gives an admitted class with no assigned labels for
+blocks. The initial laws are unequal across agents, and the interaction rule
 contains no partition. Membership is selected by attained equality.
 
 \corollaryheading{The two-stage pattern is open in the full space}{fus:open-two-stage}
 Let $\bar x\in\R^8$ be a four-agent configuration of unit multiplicities in
 the common-offset class satisfying \cref{fus:open-gap-condition}, and let
-$A$ and $B$ be its two outer pairs. There is $\varepsilon>0$ such that
-every initial configuration within distance $\varepsilon$ of $\bar x$ has
-the following membership history: $A$ and $B$ synchronize in both sectors,
-in some order and before any other synchronization, and the two resulting
-parents then synchronize. The set of initial data with this history
-therefore contains an open subset of $\R^8$ that contains the open-gap set.
-
-\noindent\emph{Proof.}
+$\mathcal O_1$ and $\mathcal O_2$ be its two outer pairs. There is
+$\varepsilon>0$ such that every initial configuration within distance
+$\varepsilon$ of $\bar x$ has the following membership history:
+$\mathcal O_1$ and $\mathcal O_2$ synchronize in both sectors, in some order
+and before any other synchronization, and the two resulting parents then
+synchronize. The set of initial data with this history therefore contains an
+open subset of $\R^8$ that contains the open-gap set. Explicitly, with the
+gaps ordered so that $g_1\leq g_3$ and $t_{\rm f}$ the final time of
+$\bar x$, every $\varepsilon<\Gamma e^{-\kappa t_{\rm f}}/16$ suffices, and
+no radius larger than $(2\sqrt2/5)\Gamma$ does.
+\begin{proof}
 Let $\bar{\boldsymbol\mu}$ be the solution from $\bar x$, let $t_*$ be its
 second outer collision time and $t_{\rm f}>t_*$ its final time, and choose
-$\eta>0$ with $t_*+\eta<t_{\rm f}$. On $[0,t_*+\eta]$ every mean of $A$ lies
-below every mean of $B$ in each sector, with a margin $m>0$. By
-\cref{fus:contraction}, a solution from a configuration within
-$\varepsilon$ of $\bar x$ stays within $\varepsilon$ of
-$\bar{\boldsymbol\mu}$ in every coordinate. If $2\varepsilon<m$, both pairs
-are isolated in the sense of \cref{fus:isolated-pair} on $[0,t_*+\eta]$,
-and no agent of $A$ meets an agent of $B$ in either sector there. At the
-collision time of $A$ along $\bar{\boldsymbol\mu}$, the perturbed pair has
+$\eta>0$ with $t_*+\eta<t_{\rm f}$. On $[0,t_*+\eta]$ every mean of
+$\mathcal O_1$ lies below every mean of $\mathcal O_2$ in each sector, with a
+margin $\sigma_0>0$. By \cref{fus:contraction}, a solution from a
+configuration within $\varepsilon$ of $\bar x$ stays within $\varepsilon$
+of $\bar{\boldsymbol\mu}$ in every coordinate. If $2\varepsilon<\sigma_0$,
+both pairs are isolated in the sense of \cref{fus:isolated-pair} on
+$[0,t_*+\eta]$, and no agent of $\mathcal O_1$ meets an agent of
+$\mathcal O_2$ in either sector there. At the collision time of
+$\mathcal O_1$ along $\bar{\boldsymbol\mu}$, the perturbed pair has
 $S\leq4\varepsilon$, so \cref{fus:pair-decay} synchronizes it within
-$2\varepsilon/\lambda$; the same holds for $B$. If also
+$2\varepsilon/\lambda$; the same holds for $\mathcal O_2$. If also
 $2\varepsilon/\lambda\leq\eta$, both pairs synchronize before
 $t_*+\eta$ and no other event occurs before then. \Cref{fus:uniqueness}
 keeps each pair synchronized, and \cref{fus:sync} synchronizes the two
-parents at a finite later time. $\square$
+parents at a finite later time.
+
+For the explicit radius, choose $\eta$ by
+$\tau(t_*+\eta)=\tau_*+\Gamma/(8\lambda)$, which is below $\tau_{\rm final}$.
+Along $\bar{\boldsymbol\mu}$ the gap between the two pairs is
+$e^{-\kappa t}$ times the $z$ gap, a product of two decreasing positive
+factors, and at $\tau_*+\Gamma/(8\lambda)$ the $z$ gap is $\Gamma/2$; hence
+$\sigma_0\geq e^{-\kappa t_{\rm f}}\Gamma/2$. Since
+$\eta=\kappa^{-1}\log\bigl(1+\kappa\Gamma/(8\lambda(1+\kappa\tau_*))\bigr)$
+and $\log(1+y)\geq y/(1+y)$, one has
+$\eta\geq\Gamma/(8\lambda(1+\kappa\tau_{\rm final}))=\Gamma e^{-\kappa t_{\rm f}}/(8\lambda)$.
+Both requirements hold when $\varepsilon<\Gamma e^{-\kappa t_{\rm f}}/16$.
+Conversely, lowering the third sorted offset by $\delta$ in both sectors
+changes $(g_2,g_3)$ to $(g_2-\delta,g_3+\delta)$ and $\Gamma$ to
+$\Gamma-5\delta/2$, which vanishes at $\delta=2\Gamma/5$; that configuration
+lies at distance $(2\sqrt2/5)\Gamma$ from $\bar x$ and has a four-agent
+merger.
+\end{proof}
+
+The admissible radius is therefore of order $\Gamma$, and the open set
+shrinks toward the boundary $\{\Gamma=0\}$ of the open-gap set.
 
 \corollaryheading{Coalescence of any finite depth}{fus:dyadic}
 Place $N=2^k$ unit agents in the common-offset class with sorted initial
@@ -491,26 +589,34 @@ positions $u^0$, and assign to the gap between sorted agents $p$ and $p+1$
 the level of the smallest dyadic block of indices containing both. If, for
 each level $\ell<k$,
 \begin{equation}
- \frac N2\max\{\text{gaps of level }\ell\}
- <\min\{\text{gaps of level }\ell+1\},
+ 2^\ell\max\{\text{gaps of level }\ell\}
+ <\min\{\text{gaps of level greater than }\ell\},
  \label{fus:dyadic-condition}
 \end{equation}
 then all dyadic blocks of size $2^\ell$ form before any event that joins two
 of them, for $\ell=1,\ldots,k$, and each stage is inherited exactly. The
 condition is strict, so the $k$-stage history holds on an open subset of the
 common-offset class.
-
-\noindent\emph{Proof.}
+\begin{proof}
 In the $z$ frame, adjacent blocks with multiplicities $n_I,n_J$ approach at
-speed $\lambda(n_I+n_J)\in[2\lambda,\lambda N]$, whatever lies outside them.
-A gap of initial size $g$ between two sorted agents therefore closes at an
-auxiliary time in $[g/(\lambda N),g/(2\lambda)]$. By
-\cref{fus:dyadic-condition}, every gap of level $\ell$ has closed before any
-gap of level $\ell+1$ can close. Event times are
-$t=\kappa^{-1}\log(1+\kappa\tau)$, and inheritance at every stage is the
-handoff identity of the next section. $\square$
+speed $\lambda(n_I+n_J)\geq2\lambda$, so a gap of initial size $g$ between
+two sorted agents closes by the auxiliary time $g/(2\lambda)$. By
+\cref{fus:dyadic-condition} at the lower levels, the maximal gap of level
+$\ell$ exceeds every gap of lower level, so every gap of level at most
+$\ell$ has closed by $\max\{\text{gaps of level }\ell\}/(2\lambda)$. Before
+the first closure of a gap of level greater than $\ell$, every current block
+lies inside a dyadic block of size $2^\ell$, so adjacent blocks approach at
+speed at most $\lambda2^{\ell+1}$, and no gap of level greater than $\ell$
+closes before $\min\{\text{gaps of level greater than }\ell\}/(\lambda2^{\ell+1})$,
+which by \cref{fus:dyadic-condition} is later. Induction on $\ell$ proves
+the ordering. Event times are $t=\kappa^{-1}\log(1+\kappa\tau)$, and
+inheritance at every stage is the handoff identity of the next section.
+\end{proof}
 
-Every such hierarchy ends in one block, by \cref{fus:sync}.
+The condition $\frac N2\max\{\text{gaps of level }\ell\}<\min\{\text{gaps of
+level }\ell+1\}$ for every $\ell$ implies \cref{fus:dyadic-condition},
+because $N/2\geq2^\ell$ and the inequalities chain across levels. Every such
+hierarchy ends in one block, by \cref{fus:sync}.
 
 \section{The inherited handoff and its scope}
 
@@ -539,50 +645,61 @@ on every synchronized stratum reached by the construction, for all future
 times. Weighted geometric averaging is associative, so later collisions
 give the same retained laws as direct averaging. The state is continuous
 at a collision; the velocity changes through the inherited multiplicity sum.
-Exact inheritance holds only for blocks of synchronized agents; for a
-partition into unsynchronized blocks the block average does not determine
-the external sign forces. In this construction, unlike an architecture in
-which inheritance holds for every partition, the selected partition is
-therefore distinguished by inheritance itself.
 
-Along every solution, ordinary differentiation on each interval between
-collisions gives
+The averaged dynamics alone does not single out synchronized blocks. Call a
+partition separated if, in each sector and for every pair of blocks, all
+means of one block lie strictly below all means of the other. Then every
+external sign is single valued and constant, the internal terms cancel by
+antisymmetry, and the weighted block averages obey the coarse equation until
+two blocks interleave, whether or not the blocks are synchronized. What
+holds only on synchronized strata is forward invariance of the retained
+structure and inheritance of the declared responses: for unsynchronized
+children the log samples given the retained log mean have a law that depends
+on the discarded deviations, so fresh child messages and the joint
+reconstruction below do not descend. The selected partition is therefore
+distinguished by response inheritance and invariance, not by the averaged
+dynamics.
+
+Along every solution the convex chain rule for absolutely continuous curves
+\cite{Brezis1973} gives
 \begin{equation}
  \frac{d\mathcal F}{dt}
  =-\sum_i n_i\bigl((\dot\mu_i^q)^2+(\dot\mu_i^s)^2\bigr)
- \quad\text{almost everywhere}.
+ \quad\text{almost everywhere},
 \end{equation}
-The objective is continuous at collisions when the constants above are
+including intervals on which pairs slide together in one sector only. The
+objective is continuous at collisions when the constants above are
 retained. By \cref{fus:sync}, every solution converges to the stationary
 configuration with every mean zero, after complete synchronization at a
 finite time.
 
 \remarkheading{A discrete update that keeps exact sticking}{fus:prox}
-The natural time discretization is the proximal step
+The natural time discretization with step $\Delta t>0$ is the proximal step
 \begin{equation}
- \boldsymbol\mu^{k+1}=\operatorname*{arg\,min}_{x}
- \left\{\mathcal F(x)+\frac1{2h}\|x-\boldsymbol\mu^k\|_W^2\right\},
+ \boldsymbol\mu^{k+1}=\operatorname*{argmin}_{x}
+ \left\{\mathcal F(x)+\frac1{2\Delta t}\|x-\boldsymbol\mu^k\|_W^2\right\},
  \label{fus:prox-step}
 \end{equation}
 whose minimizer is unique because the objective is strongly convex. Its
 optimality condition
-$W(\boldsymbol\mu^k-\boldsymbol\mu^{k+1})/h\in\partial\mathcal F(\boldsymbol\mu^{k+1})$
+$W(\boldsymbol\mu^k-\boldsymbol\mu^{k+1})/\Delta t\in\partial\mathcal F(\boldsymbol\mu^{k+1})$
 and strong monotonicity give the discrete contraction
 $\|\boldsymbol\mu^{k+1}-\widetilde{\boldsymbol\mu}^{k+1}\|_W\leq
-(1+h\kappa)^{-1}\|\boldsymbol\mu^k-\widetilde{\boldsymbol\mu}^k\|_W$, and
-comparing the objective at its minimizer with its value at
+(1+\kappa\Delta t)^{-1}\|\boldsymbol\mu^k-\widetilde{\boldsymbol\mu}^k\|_W$,
+and comparing the objective at its minimizer with its value at
 $\boldsymbol\mu^k$ gives
-$\mathcal F(\boldsymbol\mu^{k+1})+(2h)^{-1}\|\boldsymbol\mu^{k+1}-\boldsymbol\mu^k\|_W^2
+$\mathcal F(\boldsymbol\mu^{k+1})+(2\Delta t)^{-1}\|\boldsymbol\mu^{k+1}-\boldsymbol\mu^k\|_W^2
 \leq\mathcal F(\boldsymbol\mu^k)$. Uniqueness and the exchange symmetry of
 equal-multiplicity agents keep synchronized blocks synchronized, and the
 step creates exact ties: for two unit agents under the pair term alone, the
 step returns equal means exactly when the gap before the step is at most
-$2h\lambda$. The iterates converge to the solution of \cref{fus:inclusion}
-uniformly on bounded time intervals as $h\to0$
+$2\lambda\Delta t$. The iterates converge to the solution of
+\cref{fus:inclusion} uniformly on bounded time intervals as $\Delta t\to0$
 \cite{CrandallLiggett1971}. An explicit Euler step with sign selections
-instead oscillates around coincidence and never sticks exactly, so
-equality-based membership is only meaningful for the proximal scheme or for
-an event-driven integration of \cref{fus:sticky-flow}.
+keeps ties that are already present but does not create exact ties
+generically; it oscillates around coincidence, so equality-based membership
+is only meaningful for the proximal scheme or for an event-driven
+integration of \cref{fus:sticky-flow}.
 
 Sample retention is genuinely noninjective: different positive sample
 vectors have the same geometric mean. For $n$ synchronized unit children,
@@ -606,36 +723,54 @@ state-independent information loss under the reference comparison.
 \remarkheading{Sufficiency beyond the lognormal family}{fus:sufficiency}
 The kernel \cref{fus:reconstruction} is the conditional law of the
 children given their sufficient statistic, and it is free of the parameter
-for that reason. The same holds for any family with a sufficient statistic
-for independent children: the parent law is the law of the statistic, the
-Fisher metric of the children restricted to equal parameters is multiplied
-by the multiplicity, and the parameter-free conditional law supplies both
-the message kernel and the joint reconstruction. For Gamma children of
-shape $k$, for example, one child given the sum $S$ of $n$ children is
-$S$ times a $\operatorname{Beta}(k,(n-1)k)$ variable. The ingredient
-specific to Gaussian location families is that the square-root divergence
-between restored messages is the convex function $|\Delta\mu|$; on a general
-regular family it equals the Fisher distance only to leading order near the
-diagonal, and global uniqueness would need semiconvexity estimates in place
-of convexity.
+for that reason. For an exponential family with sufficient statistic $T$,
+the same holds for independent children of equal parameter: the parent law
+is the law of $\sum_jT(X_j)$, the Fisher metric of the children restricted to
+equal parameters is multiplied by the multiplicity, and the parameter-free
+conditional law supplies both the message kernel and the joint
+reconstruction. Under fixed support and the usual regularity, a sufficient
+statistic of fixed dimension for every number of children exists only for
+exponential families, by the Pitman--Koopman--Darmois theorem, so this is the
+scope of the remark. For Gamma children of shape $k$, for example, one child
+given the sum $S$ of $n$ children is $S$ times a
+$\operatorname{Beta}(k,(n-1)k)$ variable. Two ingredients are specific to
+Gaussian location families with fixed covariances. First, by the chain rule
+for relative entropy, $\sum_{i\in I}E_{0,n_i}-E_{0,n_I}$ equals the expected
+KL divergence between the parameter-free recognition conditional of the
+children given $T$ and the conditional of the reference given $T$; for
+Gaussian location families both conditionals are Gaussian with the same
+mean and state-independent covariances, which gives the constant $(n_I-1)C$
+above, and the residual vanishes when the joint reference belongs to an
+exponential family for which $T$ is sufficient. In general it depends on the
+state, for example for Bernoulli children with an evaluator proportional to
+$e^{Jkm}$, and the restricted energy is then the parent's own KL plus a
+state-dependent term, so the parent is not an agent of the children's type
+in the sense of the local energy. Second, the square-root divergence between
+restored messages is the convex function $|\Delta\mu|$; on a general regular
+family it equals the Fisher distance only to leading order near the
+diagonal. Global uniqueness would then need semiconvexity of the square-root
+divergence along Fisher geodesics on a forward-invariant compact set; this
+fails near the boundary of the Bernoulli family, its constant grows with
+$\lambda$, and semiconvexity gives uniqueness but not the contraction used in
+\cref{fus:sync}.
 
 Parameter retention has a narrower meaning. On an exactly synchronized
 stratum, child means are redundant copies; retaining their common value
 does not identify different nonsynchronized configurations. Away from that
-stratum, a block average need not determine its external sign forces.
-\Cref{fus:flow-square} makes no claim about such hidden parameter
-fibers.
+stratum, the weighted average closes the dynamics only on separated
+partitions, as explained above. \Cref{fus:flow-square} makes no claim about
+such hidden parameter fibers.
 
 The admitted boundary protocol draws fresh messages through $B_n$, fresh
 predictive messages through \cref{fus:predictive-square}, or complete
 fresh represented samples through the joint reconstruction. To type an
 accessible stored readout, augment the complete population configuration by
 $o\in\mathsf O=(0,\infty)$ and set $\rho(\boldsymbol\mu,\boldsymbol n,o)=o$.
-At declared epochs, the transition $\Gamma$ advances the deterministic
-parameter flow and overwrites $o$ using the selected normalized scalar
-output kernel. Between epochs, $o$ is fixed, and it never enters the mean
-equation. Retention copies this accessible $o$ exactly; it does not claim
-access to cached private residual samples. For vector readouts the same
+At declared epochs, the transition $\Gamma_{\rm rd}$ advances the
+deterministic parameter flow and overwrites $o$ using the selected normalized
+scalar output kernel. Between epochs, $o$ is fixed, and it never enters the
+mean equation. Retention copies this accessible $o$ exactly; it does not
+claim access to cached private residual samples. For vector readouts the same
 definition uses the corresponding finite product space and joint kernel.
 Equal parameter trajectories and conditional output kernels imply equal
 joint accessible readout laws for every finite sequence of such queries,
@@ -645,50 +780,93 @@ samples or introducing record feedback requires another state specification.
 \section{Status against the formation standard}
 \label{sec:fus-status}
 
-We now check the clauses of \cref{inh:recursive-formation}. The admitted
-class of \cref{fus:open-gap-condition}, with all label permutations, is open
-in the declared invariant common-offset family, and by
-\cref{fus:open-two-stage} the same history holds on an open subset of the
-full space, so (F1) holds. Blocks are selected by attained equality in both
-sectors, they persist by \cref{fus:uniqueness}, and the handoff is the
-partition of the current state into coincident agents, so (F2) holds.
-Laws, evaluator, metric, rows, contacts, and the declared fresh-message,
-predictive, reconstruction, and stored-readout responses are inherited
-exactly on synchronized strata, with the probe class fixed before the
-retention, so (F3) holds.
+We report the construction by the scheme following
+\cref{inh:recursive-formation}. The objective is the nonsmooth modification
+\cref{fus:potential} of the reciprocal law potential; the dynamics is the
+subdifferential inclusion \cref{fus:inclusion}, a declared restricted-family
+flow on the parameter space $\R^{2r}$ of log means, well posed by
+\cref{fus:uniqueness}. (F1) holds in the full grade: the admitted class is
+the open subset of $\R^8$ given by \cref{fus:open-two-stage}, with all label
+permutations, and its trace on the common-offset family, an invariant family
+of codimension three, is open there. The selector is the partition of the
+current state into agents with equal means in both sectors. It has no real
+constant, so the declared family is a single selector; it reads laws only,
+it is a Borel function of the state, and its persistence criterion is the
+invariant block relation of \cref{fus:uniqueness}; (F2) holds. The parent
+protocol rule $A_I$ consists of fresh messages through $B_{n_I}$, fresh
+predictive messages through \cref{fus:predictive-square}, complete fresh
+represented samples through the joint reconstruction, and the stored readout,
+each addressing the block as a whole. The child-level probe rule $B_I$
+consists of these protocols applied to individual members and the peer
+channels applied to each member, with response laws the restored messages
+of that member. On synchronized strata the laws, evaluator, metric, rows,
+contacts, and every protocol of $A_I$ are inherited exactly, and the parent
+flow is the multiplicity-weighted inclusion, well posed by
+\cref{fus:uniqueness}, so (F3) holds; the geometric clause is not declared,
+since the links are pure gauge.
 
-The null flow of \cref{inh:null-flow} deletes the pair terms, which is the
-case $\lambda=0$. Each agent then follows the linear equation
-$\dot\mu_i=-A\mu_i$, whose flow is invertible, so distinct agents never
-coincide and $H^0$ contains no event. By \cref{fus:sync}, every
-configuration with two distinct agents has at least one event along
-$\Phi$. Hence $H\neq H^0$ on the whole admitted class, and (F5) holds. The
-strong form of (F5) fails trivially, because the final partition is the
-single block for every initial datum. The construction is amplifying only
-in the degenerate sense that within-block diameters vanish at each event.
+Clause (F4) fails. The reachable post-handoff set consists of configurations
+whose block members are identical copies, so the retention of common means
+and multiplicity is injective there, and no probe of $B_I$ has a pair of
+distinct configurations to separate. Child frames are fixed passive data.
+The geometric mean is noninjective on sample vectors, but samples are not
+configurations, and the conditional law of the child samples given the
+retained sample is the parameter-free kernel \cref{fus:reconstruction}.
 
-Clause (F4) fails. On the post-handoff invariant set the children of a
-block are identical copies, so the retention of common means and
-multiplicity is injective there; child frames are fixed passive data that
-no admitted probe reads in reference coordinates. The geometric mean is
-noninjective on sample vectors, but samples are not configurations, and the
-conditional law of the child samples given the retained sample is the
-parameter-free kernel \cref{fus:reconstruction}, so no admitted child-level
-probe distinguishes two configurations with the same retained value. Clause
-(F6a) holds: by \cref{fus:two-stages} and \cref{fus:open-two-stage}, the two
-first-stage parents select their union under the inherited interaction,
-with no reset of their data and no retuned coupling. Clause (F6b) fails. By
-\cref{fus:sync} applied to multiplicities two, every configuration of two
-first-stage parents, whatever their means, fuses at a finite time, so the
-second-stage selection occurs from every counterfactual handoff in the
-inherited class; the order of the stages is the order of the initial gaps
-fixed by \cref{fus:open-gap-condition}.
+For the controls of \cref{inh:null-flow}, the peer costs are the pair terms
+of \cref{fus:potential}, whose compared laws depend on another agent's law,
+and the self costs vanish identically. Deleting the peer costs, with or
+without their labels, gives the same flow, the case $\lambda=0$, so the
+label-preserving and renormalized nulls coincide. Each agent then follows the
+linear equation $\dot\mu_i=-A\mu_i$, which is globally well posed and
+invertible, so distinct agents never coincide and $P^0$ contains no event.
+By \cref{fus:sync}, every configuration with two distinct agents has at
+least one event along $\Phi$, so $P\neq P^0$ at every point of the admitted
+class. For the declared selector (F5) therefore holds against both nulls,
+in the strong grade. This verdict measures the exactness of the selector
+rather than which blocks the interaction forms. No backward-unique null flow
+produces an attained equality, so every finite-time sticking interaction
+read by an exact-equality selector passes in this way. On the common-offset
+family the partition sequence along $\Phi$ is the normalized-centroid
+linkage of the initial offsets and is the same for every $\lambda>0$
+(\cref{fus:ncl}). Along both nulls every difference of means is
+$e^{-\kappa t}$ times its initial value in both sectors, so a selector that
+joins two adjacent current groups when the normalized centroid distance
+\cref{fus:ncl-height} of their current offsets reaches $\delta$ from above
+gives, for every $\delta$ below the smallest linkage height, the same
+linkage sequence along the nulls; along $\Phi$ it gives that sequence as
+well, since by the proof of \cref{fus:ncl} the threshold is reached for the
+pair of height $\varrho$ at $t=\kappa^{-1}\log\bigl((\kappa\varrho+\lambda)/(\kappa\delta+\lambda)\bigr)$,
+an increasing function of $\varrho$, before the corresponding coincidence.
+For such a threshold family, with constants in an interval below the
+smallest linkage height, $P=P^0$ on the family-grade admitted class, and
+(F5) fails there. The interaction determines the event times and the
+exactness of coincidence, not which blocks form. The selector-free
+discrepancy between $\Phi$ and the nulls is the finite-time attainment of
+equality; both converge to the zero configuration. The frozen-environment
+control decouples the agents into single-agent subgradient flows of strongly
+convex functions, well posed by the argument of \cref{fus:uniqueness}; its
+partition sequence is not determined here. Whether the partition sequence
+depends on $\lambda$ off the common-offset family is open.
 
-The construction is therefore not a recursive formation. It satisfies
-(F1), (F2), (F3), (F5), and (F6a) and fails (F4) and (F6b), so it is a
-two-stage selection with exact inheritance: a finite coalescence in which
-the interaction is necessary for the grouping, the grouping is a
-coalescence tree ordered by the initial gaps, and the tree always ends in
+Clause (F6a) holds: by \cref{fus:two-stages} and \cref{fus:open-two-stage},
+the two first-stage parents select their union under the inherited
+interaction, with the same selector and constitutive data, no reset of their
+data, and no retuned coupling. Clause (F6b) fails for every counterfactual
+class of \cref{inh:counterfactual-class}: by \cref{fus:sync} applied to
+multiplicities two, every configuration of two first-stage parents, whatever
+their means, fuses at a finite time, so the second-stage event occurs from
+every counterfactual handoff, and the stages form a supplied-scale sequence
+ordered by the initial gaps of \cref{fus:open-gap-condition}. The
+amplifying grade holds only in the degenerate sense of
+\cref{inh:recursive-formation}, since within-block diameters vanish at every
+event of $\Phi$.
+
+The construction satisfies (F1), (F2), (F3), and (F6a), and (F4) and
+(F6b) are shown to fail, so it is a two-stage selection with exact
+inheritance and not a recursive formation. Its (F5) verdict holds only
+through the exact-equality selector; its coalescence tree is a
+coupling-independent linkage of the initial data, and the tree always ends in
 one block.
 
 \remarkheading{Smooth peer KL dynamics and persistent parents}{fus:smooth-open}
@@ -700,8 +878,19 @@ constructions need a different selection criterion; the threshold
 selectors of \cref{ch:conditional-formation,ch:open-formation} are such
 criteria, and the remaining problem is \cref{inh:formation-open}. Persistent
 parents are excluded here by \cref{fus:sync}. A contact range, for example
-$\lambda_{ij}=\lambda\mathbf 1\{|\mu_i-\mu_j|<\rho\}$ as in bounded-confidence
-dynamics \cite{HegselmannKrause2002}, or a multiwell local reference would
-let separated blocks stop interacting. Both destroy the convexity on which
-uniqueness rests, and well-posedness and inheritance for such variants have
-not been established.
+$\lambda_{ij}=\lambda\mathbf 1\{|\mu_i-\mu_j|<\varrho_{\rm c}\}$ as in
+bounded-confidence dynamics \cite{HegselmannKrause2002}, or a multiwell local
+reference would let separated blocks stop interacting. Both destroy the
+convexity on which uniqueness rests, and well-posedness and inheritance for
+such variants have not been established. Persistence does not by itself
+require giving up convexity: agent-specific single-well references
+$n_i\mathcal U(\mu_i-x_i)$ keep the potential $(a-c)$-strongly convex, so
+\cref{fus:uniqueness} and \cref{fus:contraction} hold verbatim, and the
+unique minimizer can have several blocks. Under any strongly convex
+potential, however, every solution converges to that minimizer whatever the
+initial datum, so the limiting partition is a function of the declared data
+alone and a final-stage counterfactual dependence (F6b) needs several minima.
+For such references, finite-time arrival at the limiting partition, and the
+behavior of blocks before it, are not established here; synchronized blocks
+need not persist before arrival, since agent-specific references break the
+exchange symmetry used in \cref{fus:uniqueness}.

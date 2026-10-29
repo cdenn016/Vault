@@ -10,7 +10,7 @@ Let $O:\R^r\to\R^d$ be a receiving map and $T:\R^d\to\R^r$ a sending map. Define
 \begin{equation}
 \varphi_1(Z)=\sum_{n=1}^{\infty}\frac{Z^{n-1}}{n!}.
 \end{equation}
-When $Z$ is invertible this equals $(e^Z-I)Z^{-1}$, but the series defines it also at singular $Z$ \citep{Higham2008}.
+When $Z$ is invertible this equals $(e^Z-I)Z^{-1}$, but the series defines it also at singular $Z$; it is the first of the $\varphi$ functions of exponential integrators \citep[Chapter~10]{Higham2008}.
 
 \lemmaheading{Exponential through the message space}{lem:sgeom-lowrank}
 The following identity holds for all $O,T$:
@@ -21,6 +21,7 @@ e^{OT}=I_d+O\varphi_1(TO)T.
 \begin{proof}
 Associativity gives $(OT)^n=O(TO)^{n-1}T$ for every integer $n\geq1$. Absolute convergence of the finite-dimensional exponential series permits summation and yields \cref{eq:sgeom-lowrank}.
 \end{proof}
+This is the classical relation between $f(AB)$ and $f(BA)$ for $f=\exp$, in the form $f(AB)=f(0)I+Ag(BA)B$ with $g(z)=(f(z)-f(0))/z$, which needs no nonsingularity hypothesis \citep[Section~1.8]{Higham2008}.
 In particular, the correction to identity has image in $\operatorname{im}O$ and vanishes on $\ker T$. The image of the full exponential need not be low dimensional. Indeed its inverse is $e^{-OT}$, so the identity contribution preserves all input dimensions even when the communicated correction is selective.
 
 The identity also applies to several interfaces simultaneously. For maps $O_h,T_h$, stack $O=[O_1\ \cdots\ O_H]$ and stack the $T_h$ vertically to form $T$. Then $OT=\sum_hO_hT_h$ and the same formula holds. The smaller matrix $TO$ includes all cross-interface products $T_hO_k$; replacing it by its diagonal blocks would require additional vanishing conditions.
@@ -37,7 +38,7 @@ The first identity is \cref{eq:sgeom-lowrank} with a one-dimensional message spa
 $\frac{d}{ds}\det X(s)=\Tr(A)\det X(s)$.
 Since $X(0)=I$, its determinant is $e^{s\Tr(A)}$. Set $A=L$, $s=1$, and use $\Tr(uv^T)=v^Tu$. Finally $L^2=u(v^Tu)v^T$ proves the nilpotent case.
 \end{proof}
-This result distinguishes a singular generator from a singular interaction: a rank-one generator gives an invertible exponential in every dimension. It does not assert that every invertible real matrix is one exponential: a real matrix is a real exponential exactly when it is invertible and each Jordan block for a negative eigenvalue occurs an even number of times \citep{Culver1966}.
+This result distinguishes a singular generator from a singular interaction: a rank-one generator gives an invertible exponential in every dimension. It does not assert that every invertible real matrix is one exponential: a real matrix is a real exponential exactly when it is invertible and, for every negative eigenvalue $\lambda$ and every size $k$, the Jordan blocks $J_k(\lambda)$ occur an even number of times \citep{Culver1966}. Counting all blocks of a negative eigenvalue together gives wrong answers: $J_1(-1)\oplus J_3(-1)$ and $\operatorname{diag}(-1,-2)$ have no real logarithm.
 
 \section{Differentiating a law-dependent link}
 
@@ -52,7 +53,7 @@ Let $X_\epsilon(t)=e^{t(L+\epsilon H)}$. Differentiating its matrix differential
 $\dot Y=LY+He^{tL}$, $Y(0)=0$.
 Multiplying by $e^{-tL}$ and integrating gives
 $Y(t)=\int_0^t e^{(t-s)L}He^{sL}ds$.
-Evaluation at $t=1$ proves the formula. Smooth dependence is also obtained directly by differentiating the locally uniformly convergent exponential series. The integral representation is standard \citep{Higham2008}.
+Evaluation at $t=1$ proves the formula. Smooth dependence is also obtained directly by differentiating the locally uniformly convergent exponential series. The integral representation is the Duhamel formula of \citet{Wilcox1967}; see also \citet[Chapter~10]{Higham2008}.
 \end{proof}
 If $[L,H]=0$, this derivative reduces to $e^LH$. Without that hypothesis the replacement is invalid in general. For a link $\Theta=U_i e^L U_j^{-1}$ with fixed endpoint frames, its variation is $U_iD\exp_L[dL]U_j^{-1}$. If the frames vary, the product rule supplies their two additional terms, including $d(U_j^{-1})=-U_j^{-1}(dU_j)U_j^{-1}$.
 
@@ -66,6 +67,6 @@ dL=\lambda\bigl[&(d\mu_i)\mu_j^T\Sigma_j^{-1}
 \end{split}
 \label{eq:sgeom-moment-derivative}
 \end{equation}
-Here a differentiable family of laws is assumed to have differentiable first and second moments; differentiation under their defining integrals requires the corresponding domination or integrability hypotheses. Positive-definite covariance makes inversion smooth. Combining \cref{eq:sgeom-moment-derivative,eq:sgeom-frechet} gives the complete link derivative on this admitted family, with no assumption about the shape of its densities. That statement concerns $d\Theta$ only. Differentiating a cost such as $\KL(\nu_i\Vert\Theta_\#\nu_j)$ in $\Theta$ requires in addition that $\Theta\mapsto\Theta_\#\nu_j$ be differentiable in quadratic mean, which is a shape assumption, namely finite location-scale Fisher information. Within the admitted moment family it can fail: if $\nu_j$ is uniform on $[1,2]\times[0,1]$ and $\nu_i=(\Theta_0)_\#\nu_j$, then for $\Theta=(1\pm\epsilon)\Theta_0$ the support of $\nu_i$ is not contained in that of $\Theta_\#\nu_j$, so the divergence is infinite arbitrarily close to $\Theta_0$, where it vanishes.
+Here a differentiable family of laws is assumed to have differentiable first and second moments; differentiation under their defining integrals requires the corresponding domination or integrability hypotheses. Positive-definite covariance makes inversion smooth. Combining \cref{eq:sgeom-moment-derivative,eq:sgeom-frechet} gives the complete link derivative on this admitted family, with no assumption about the shape of its densities. That statement concerns $d\Theta$ only. Differentiating a cost such as $\KL(\nu_i\Vert\Theta_\#\nu_j)$ in $\Theta$ at $\Theta_0$ needs hypotheses on the shapes of the laws. Sufficient conditions are that $\nu_i\ll\Theta_\#\nu_j$ with finite divergence for $\Theta$ near $\Theta_0$, that $\nu_j$ has a continuously differentiable positive density $p_j$ on the relevant region, and that $\E_{\nu_i}\sup_{\Theta}\bigl|\partial_\Theta\bigl[\log p_j(\Theta^{-1}Y)-\log|\det\Theta|\bigr]\bigr|<\infty$ over a neighborhood of $\Theta_0$; dominated differentiation then applies to the only $\Theta$-dependent term $-\E_{\nu_i}\log\bigl(p_j(\Theta^{-1}Y)/|\det\Theta|\bigr)$. Differentiability in quadratic mean of the family $\Theta_\#\nu_j$, which for linear $\Theta$ is the scale-and-shear orbit of $\nu_j$, is the condition for the second-order expansion at the diagonal; it is not sufficient for first differentiability of the cost, since a two-point $\nu_i$ is singular to every $\Theta_\#\nu_j$ of a Gaussian $\nu_j$, and the sufficient conditions above do not require it. Without such hypotheses differentiability can fail within the admitted moment family: if $\nu_j$ is uniform on $[1,2]\times[0,1]$ and $\nu_i=(\Theta_0)_\#\nu_j$, then for $\Theta=(1\pm\epsilon)\Theta_0$ the support of $\nu_i$ is not contained in that of $\Theta_\#\nu_j$, so the divergence is infinite arbitrarily close to $\Theta_0$, where it vanishes.
 
-Under that additional hypothesis, the resulting terms enter a variational derivative whenever an interaction energy reads the link. Holding the generator fixed suppresses them and defines a different update convention. This algebra separates the constitutive choice of a law-dependent interaction from the kinetic choice used to evolve the laws; neither choice follows from the exponential parameterization alone.
+Under such hypotheses, the resulting terms enter a variational derivative whenever an interaction energy reads the link. Holding the generator fixed suppresses them and defines a different update convention. This algebra separates the constitutive choice of a law-dependent interaction from the kinetic choice used to evolve the laws; neither choice follows from the exponential parameterization alone.

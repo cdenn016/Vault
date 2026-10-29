@@ -32,36 +32,43 @@ Independence is sufficient to remove $\Sigma_{ij}$, but it is stronger than nece
 
 \section{Equal rows need not give equal covariance updates}
 
-For the next calculation let $AX_i\sim\mathcal N(a,V)$ and $BX_j\sim\mathcal N(b_j,W_j)$ be independent, with $V,W_j\succ0$, and take $o=0$. The likelihood score and the direct peer score are
+For the next calculation let the receiver law $p$ of $AX_i$ in the comparison space have mean $a$, covariance $V\succ0$, and finite differential entropy $H(p)$, let $BX_j\sim\mathcal N(b_j,W_j)$ with $W_j\succ0$, assume $A\Sigma_{ij}B^T=0$ (independence is sufficient), and take $o=0$. By \cref{prop:sup-residual-cost}, which needs only second moments, the likelihood score is
 \begin{equation}
  C_j=c_R+\tfrac12\left[(a-b_j)^TR^{-1}(a-b_j)
-                  +\Tr(R^{-1}(V+W_j))\right],
+                  +\Tr(R^{-1}(V+W_j))\right].
  \label{eq:sup-nll-score}
 \end{equation}
+The direct peer score is $D_j=\KL(p\Vert\mathcal N(b_j,W_j))=-H(p)+c_{W_j}+\tfrac12[(a-b_j)^TW_j^{-1}(a-b_j)+\Tr(W_j^{-1}V)]$. For a Gaussian receiver $p=\mathcal N(a,V)$ it reads
 \begin{equation}
  D_j=\tfrac12\left[(a-b_j)^TW_j^{-1}(a-b_j)
             +\Tr(W_j^{-1}V)-d+\log\frac{\det W_j}{\det V}\right].
  \label{eq:sup-peer-score}
 \end{equation}
-The second formula follows by taking the expectation of the log ratio of the two Gaussian densities. It is the divergence $\KL(A_\#q_i\Vert B_\#q_j)$ between the two laws in the common comparison space; it equals the peer divergence of the dynamics, the divergence from the receiver law to the channelled source law, only when $A$ is invertible and the channel is identified accordingly. Its receiver quadratic has expectation $d$, while its source quadratic has expectation $\Tr(W_j^{-1}V)+(a-b_j)^TW_j^{-1}(a-b_j)$.
+This is the divergence $\KL(A_\#q_i\Vert B_\#q_j)$ between the two laws in the common comparison space; it equals the peer divergence of the dynamics, the divergence from the receiver law to the channelled source law, only when $A$ is invertible and the channel is identified accordingly. Its receiver quadratic has expectation $d$, while its source quadratic has expectation $\Tr(W_j^{-1}V)+(a-b_j)^TW_j^{-1}(a-b_j)$.
 
 \propositionheading{A restricted routing equivalence}{prop:sup-row-equivalence}
 Suppose $W_j=W$ for every source, $W$ is held fixed, and $R=TW$ for $T>0$. Then
 \begin{equation}
  C_j-\frac{D_j}{T}
+ =c_{TW}+\frac d{2T}+\frac{H(p)-c_W}{T},
+ \label{eq:sup-row-constant-general}
+\end{equation}
+which does not depend on $j$. Consequently normalized rows proportional to $\pi_je^{-C_j}$ and to $\pi_je^{-D_j/T}$ coincide. For a Gaussian receiver, $H(p)=c_V+d/2$ and
+\begin{equation}
+ C_j-\frac{D_j}{T}
  =c_{TW}+\frac dT-\frac1{2T}\log\frac{\det W}{\det V}.
  \label{eq:sup-row-constant}
 \end{equation}
-Consequently normalized rows proportional to $\pi_je^{-C_j}$ and to $\pi_je^{-D_j/T}$ coincide. Their derivatives with respect to receiver covariance nevertheless differ by
+For every affine receiver family $AX_i=a+M\varepsilon$, with a fixed standardized $\varepsilon$ of finite entropy and $V=MM^T$, the derivatives of the two scores with respect to receiver covariance nevertheless differ by
 \begin{equation}
  d_VC_j-d_V(D_j/T)=\frac1{2T}\Tr(V^{-1}dV).
  \label{eq:sup-covariance-difference}
 \end{equation}
 \begin{proof}
-Insert $R=TW$ and $W_j=W$ into \cref{eq:sup-nll-score,eq:sup-peer-score}. The mean quadratic and $\Tr(W^{-1}V)$ cancel in their difference, leaving \cref{eq:sup-row-constant}, which is independent of $j$. A common additive score cancels on row normalization. Differentiating the remaining $\log\det V$ gives \cref{eq:sup-covariance-difference}.
+Insert $R=TW$ and $W_j=W$. The mean quadratic and $\Tr(W^{-1}V)$ cancel in $C_j-D_j/T$, leaving \cref{eq:sup-row-constant-general}, which is independent of $j$. A common additive score cancels on row normalization. For Gaussian $p$, substitution of $H(p)=\tfrac12\log\det(2\pi eV)$ gives \cref{eq:sup-row-constant}. In the affine family $H(p)=H(\varepsilon)+\tfrac12\log\det V$, and differentiating the remaining $\log\det V$ gives \cref{eq:sup-covariance-difference}.
 \end{proof}
 
-At $T=1$ the score difference is $H(\mathcal N(a,V))+d/2$, with entropy measured against Lebesgue measure. It is constant for source selection, but not for variation of the receiver law. The receiver-mean and source-mean derivatives agree for every $V$, since \cref{eq:sup-row-constant} contains neither $a$ nor $b_j$; only the receiver-covariance derivatives differ. If source covariances vary independently, or the comparison maps change them, the hypothesis of a common held $W$ no longer applies. These are restrictions on the optimization block, not alternative formulas for one universal interaction.
+The zero record is needed: for $o\neq0$ the difference acquires the term $-(a-b_j)^TW^{-1}o/T$, which depends on $j$. At $T=1$ the Gaussian-receiver score difference is $H(\mathcal N(a,V))+d/2$, with entropy measured against Lebesgue measure. It is constant for source selection, but not for variation of the receiver law. The receiver-mean and source-mean derivatives agree for every $V$, since \cref{eq:sup-row-constant-general} contains neither $a$ nor $b_j$; only the receiver-covariance derivatives differ. If source covariances vary independently, or the comparison maps change them, the hypothesis of a common held $W$ no longer applies. These are restrictions on the optimization block, not alternative formulas for one universal interaction.
 
 \section{Identity self-comparisons and independent snapshots}
 

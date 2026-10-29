@@ -11,7 +11,7 @@ K_i^{\mathrm{rec}}(m,A)=\int H_i(k,A)G_i(m,dk),
 \qquad p_i^{\mathrm{rec}}=s_iK_i^{\mathrm{rec}},
 \label{eq:predictive-evaluator}
 \end{equation}
-gives the model's predictive record law. An evaluator may also take a preparation, accessible history, or chosen interaction as input; these are held fixed when two predictions are compared. More general normalized evaluators need not factor through $G_i$ and $H_i$.
+gives the model's predictive record law. An evaluator may also take a preparation, accessible history, or chosen interaction as input; these are held fixed when two predictions are compared. More general normalized evaluators need not factor through $G_i$ and $H_i$. The model prediction $p_i^{\mathrm{rec}}$ pushes the model belief through the evaluator, so it predicts a record of freshly drawn content. The belief prediction $\zeta_iH_i$ instead uses the agent's current conditional $q_i(dk\mid m)$; the two agree when $q_i(dk\mid m)=G_i(m,dk)$, in particular before any record, and differ after one.
 
 Suppose a model link $\Theta^s_{ij}:\mathsf M_j\to\mathsf M_i$ is a bimeasurable bijection. Exact compatibility of the two evaluators, after identifying their record alphabets, means
 \begin{equation}
@@ -34,7 +34,7 @@ The common kernel cancels in the joint Radon--Nikodym derivative, giving $\KL(\m
 
 \Cref{thm:predictive-chain} is the chain rule for relative entropy \citep{KullbackLeibler1951,CoverThomas2006}, written for a joint law built from a common kernel. Without the finiteness assumption the identity still holds in $[0,\infty]$, both sides being infinite together \citep{Gray1990}. With a deterministic kernel $K(m,\cdot)=\delta_{T(m)}$ it decomposes a divergence into the divergence of the pushforwards and the expected divergence of the conditional laws given $T$, the form used in \cref{cor:pythagorean}.
 
-The second term is the model distinction that the record leaves unresolved. Its vanishing is an exact sufficiency condition: $\KL(sK\Vert tK)=\KL(s\Vert t)$ exactly when the Bayesian inverse of $K$ computed at $t$ returns $s$ from $sK$, the classical case of Petz's recovery theorem \citep{Petz1988}. A constant evaluator can make all predictions agree while retaining no model distinction at all. Useful agreement therefore requires a specified predictive task as well as a comparison of laws. For a common history kernel, the same identity holds with the full finite record history in place of $o$.
+The second term is the model distinction that the record leaves unresolved. Its vanishing is an exact sufficiency condition: when $\KL(s\Vert t)$ is finite, $\KL(sK\Vert tK)=\KL(s\Vert t)$ exactly when the Bayesian inverse of $K$ computed at $t$ returns $s$ from $sK$. This equality case of the data-processing inequality goes back to \citet{KullbackLeibler1951} and is the classical case of Petz's recovery theorem \citep{Petz1988}. Finiteness is needed here: for $s=(1/2,1/2,0)$, $t=(0,1/2,1/2)$ and a kernel that keeps the first point and merges the last two, both divergences are infinite but no version of the Bayesian inverse recovers $s$. A constant evaluator can make all predictions agree while retaining no model distinction at all. Useful agreement therefore requires a specified predictive task as well as a comparison of laws. For a common history kernel, the same identity holds with the full finite record history in place of $o$.
 
 If the model link depends on the current laws, \cref{thm:predictive-chain} applies to the resulting fixed comparison at that configuration, provided \cref{eq:evaluator-compatibility} holds there. Preservation of compatibility during an update is a separate condition on the dynamics and the evaluator.
 
@@ -48,7 +48,7 @@ An evaluator can relate a cue to a different result, so that a record of one cha
 \end{equation}
 is an instance of \cref{def:generative-model}, with represented contents $(u,v)$ and evaluator $G(m,d(u,v))=\mu_m(du)K_m(u,dv)$. For a record likelihood $l(o\mid u)$ with finite positive evidence, the posterior has the correlated form $w^o(dm)\Pi_m^o(du,dv)$ of \cref{cmem:posterior}. The result prediction averages the component-conditional results using the posterior model belief. The presentation selects a mechanism; its posterior probability is distinct from the parameters defining that mechanism.
 
-The local free energy retains this dependence. Under the finiteness conditions of \cref{cmem:free-energy}, a candidate $s(dm)q_m(dk)$ satisfies
+The local free energy retains this dependence. By \cref{cmem:free-energy}, a candidate $s(dm)q_m(dk)$ satisfies
 \begin{equation}
  \mathcal F=\KL(s\Vert w^o)+\int\KL(q_m\Vert\Pi_m^o)s(dm)-\log Z(o).
  \label{eq:conditional-prediction-energy}
@@ -62,7 +62,7 @@ For an additive Gaussian cue record $O=X+\epsilon$, $\epsilon\sim\mathcal N(0,C)
 \end{equation}
 \Cref{cmem:response} states the moment and differentiation hypotheses and proves the identity. The cross-covariance permits a negative or rotating response. This is conditional prediction through a statistical relation, while the Fisher tensor measures distinguishability of the posterior law. Gaussian mixture regression gives an explicit realization \citep{Calinon2016}.
 
-Returning only a Gaussian with the result moments is a further operation: it minimizes $\KL(p_Y^o\Vert q_G)$, not in general the reverse divergence of variational free energy. The exact loss of a product carrier consisting of model weights and that Gaussian is
+Returning only a Gaussian with the result moments is a further operation: $q_G$ minimizes $q\mapsto\KL(p_Y^o\Vert q)$ over Gaussian laws, not in general the reverse divergence of variational free energy. The exact loss of a product carrier consisting of model weights and that Gaussian is
 \begin{equation}
  \KL(\Pi_{M,Y}^o\Vert w^o\otimes q_G)
  =I_{\Pi^o}(M;Y)+\KL(p_Y^o\Vert q_G),
@@ -73,7 +73,7 @@ whenever these terms are finite. The chain rule proves the split; \cref{cmem:pro
 \section{Communication between conditional predictors}
 \label{sec:interacting-prediction}
 
-A message sampled from a peer's current prediction depends on that peer's private evidence. \Cref{app:interacting-memory} supplies a two-agent realization with a common preparation law for represented states $Z_i=(A_i,X_i,Y_i)$, private records $D_i$, known encoders, and a reliably shared transcript $H_{1:t}$. The local marginals are the cue/result models above, and recognition retains model/content dependence. A fixed alternating schedule chooses the speaker, which samples a fresh result from its conditional prediction. The receiver integrates the resulting message likelihood over the unknown peer record conditional on its own represented state and available information. The speaker's own random output leaves its private posterior unchanged; an incoming message can change its next outgoing distribution.
+A message sampled from a peer's current prediction depends on that peer's private evidence. \Cref{app:interacting-memory} supplies a two-agent realization with a common preparation law for represented states $Z_i=(A_i,X_i,Y_i)$, private records $D_i$, known encoders, and a reliably shared transcript $H_{1:t}$. The local marginals are the cue/result models above, and recognition retains model/content dependence. A fixed known schedule, alternating in the running example, chooses the speaker, which samples a fresh result from its conditional prediction. The receiver integrates the resulting message likelihood over the unknown peer record conditional on its own represented state and available information. The speaker's own random output leaves its private posterior unchanged; an incoming message can change its next outgoing distribution.
 
 The common posterior has an exact reduced representation. If $W(d,dz)=P(Z\in dz\mid D=d)$ is the fixed preparation conditional, with $D=(D_0,D_1)$, then
 \begin{equation}
@@ -81,9 +81,9 @@ The common posterior has an exact reduced representation. If $W(d,dz)=P(Z\in dz\
 \lambda_t=P(D\in\cdot\mid H_{1:t}).
 \label{eq:interacting-prediction-retention}
 \end{equation}
-Every communication likelihood at a fixed history depends on the prepared variables only through $D$, so it reweights $\lambda_t$ and leaves $W$ unchanged. Each agent conditions $\lambda_t$ on its own private value and reconstructs its local joint law with $W$. The retained state also includes the known policy, next speaker, and persistent transcript whenever past-record queries are admitted. This is statistical sufficiency within the declared family, without moment projection or a minimality claim. The appendix gives its normalized finite-history law, correlated local and reduced free-energy identities, and a binary two-way exchange whose expanded posterior is reconstructed from four private-record weights.
+Every communication likelihood at a fixed history depends on the prepared variables only through $D$, so it reweights $\lambda_t$ and leaves $W$ unchanged. Each message factor reads only its speaker's private record, so the history likelihood is a product of one function of $D_0$ and one of $D_1$, and $\lambda_t$ is a product tilt of $\lambda_0$ whose cross-agent dependence stays that of the preparation. Each agent conditions $\lambda_t$ on its own private value and reconstructs its local joint law with $W$. The retained state also includes the known policy, the time index with the fixed schedule, and the persistent transcript whenever past-record queries are admitted. This is statistical sufficiency within the declared family, without moment projection or a minimality claim. The appendix gives its normalized finite-history law, correlated local and reduced free-energy identities, and a binary two-way exchange whose expanded posterior is reconstructed from the fixed preparation and two changing private-record evidence ratios.
 
-The same construction has exact finite-dimensional Gaussian closure for one presentation per agent with affine Gaussian kernels. Multiple presentations can produce a posterior outside every finite Gaussian-mixture family after one message. A separate pair of reachable histories has identical local joint beliefs but different next receiver updates, showing why local dependence alone need not preserve cross-agent evidence. These conclusions concern a supplied common-model protocol. Its fixed-history free energy does not identify the three population objectives, and its fixed preparation supplies no new measurements during communication. The common/private information organization is classical \citep{Nayyar2013CommonInformation}; the appendix derives the specified transmission and retention directly.
+The same construction has exact finite-dimensional Gaussian closure for one presentation per agent with affine Gaussian kernels. Multiple presentations can produce, after one message with a nonzero received value, a receiver cue posterior and a common private-record posterior outside every finite Gaussian-mixture family. In a preparation enlarged by a registered public parity record, a separate pair of reachable histories has identical local joint beliefs but different next receiver updates, showing why local dependence alone need not preserve cross-agent evidence. These conclusions concern a supplied common-model protocol. Its fixed-history free energy does not identify the three population objectives, and its fixed preparation supplies no new measurements during communication. The common/private information organization is classical \citep{Nayyar2013CommonInformation}, common-prior dialogue goes back to \citet{Aumann1976} and \citet{GeanakoplosPolemarchakis1982}, and communication by fresh posterior samples with exact Bayesian receivers is studied, with its long-run agreement, by \citet{DeshpandeMosselSohn2022}; the appendix derives the specified finite-history transmission and retention directly.
 
 \section{What the receiver reconstructs}
 
@@ -119,7 +119,7 @@ In particular, $\widehat q=q$ exactly when the two conditional laws agree for $\
 Absolute continuity gives $\mu\ll T_\#p$, so the conditional version of $p$ is defined at every $h$ needed up to a $\mu$-null set. That conditional is supported on $T^{-1}(h)$ almost surely. Hence its mixture has pushforward $\mu$. The laws $q$ and $\widehat q$ have the same $h$-marginal and respective conditional laws $q(\cdot\mid h)$ and $p(\cdot\mid h)$. Factoring their density ratio by $h$ proves \cref{eq:conditional-lift-loss}. Nonnegativity and the equality condition of relative entropy give the last claim.
 \end{proof}
 
-The reconstruction \cref{eq:conditional-lift} is Jeffrey's rule of conditioning the prior $p$ on the marginal $\mu$ \citep{DiaconisZabell1982}. It preserves the communicated marginal and supplies the discarded conditional from $p$. It makes precise the sense in which a receiver contributes structure that the message alone does not specify. The proposition assumes a common content presentation; a link or a separately declared correspondence is needed before applying it across different fibers.
+The reconstruction \cref{eq:conditional-lift} is Jeffrey's rule of conditioning the prior $p$ on the marginal $\mu$, in the analysis of \citet{DiaconisZabell1982}. It preserves the communicated marginal and supplies the discarded conditional from $p$. It makes precise the sense in which a receiver contributes structure that the message alone does not specify. The proposition assumes a common content presentation; a link or a separately declared correspondence is needed before applying it across different fibers.
 
 \corollaryheading{Pythagorean identity and information projection}{cor:pythagorean}
 Under the hypotheses of \cref{prop:conditional-lift}, in $[0,\infty]$,
@@ -137,37 +137,37 @@ Apply the deterministic-kernel case of the chain rule to $(q,p)$, to $(\widehat 
 This is the Pythagorean identity for information projections \citep{Csiszar1975}, and the minimization property is the characterization of Jeffrey's rule by minimum relative entropy \citep{DiaconisZabell1982}. What \cref{prop:conditional-lift} adds to these sources is its use as a receiver mechanism: the loss term measures exactly what a receiver's prior conditional fails to restore.
 
 \propositionheading{Common recovery by likelihood descent}{prop:common-family-recovery}
-Let $C:\mathsf X\to\mathsf Z$ be a measurable map between standard Borel
+Let $\tau:\mathsf X\to\mathsf Z$ be a measurable map between standard Borel
 spaces. Let $P_0$ be a probability law and let
 $P_\alpha=L_\alpha P_0$ be a family of probability laws dominated by it.
 Choose the reference conditional
-$R_0(z,dx)=P_0(dx\mid C=z)$, and write
-$\bar L_\alpha(z)=\E_{P_0}[L_\alpha\mid C=z]$. Then
+$R_0(z,dx)=P_0(dx\mid \tau=z)$, and write
+$\bar L_\alpha(z)=\E_{P_0}[L_\alpha\mid \tau=z]$. Then
 \begin{equation}
- (C_\#P_\alpha)R_0(dx)
- =\bar L_\alpha(C(x))P_0(dx).
+ (\tau_\#P_\alpha)R_0(dx)
+ =\bar L_\alpha(\tau(x))P_0(dx).
  \label{eq:common-family-density}
 \end{equation}
 Consequently this one kernel recovers every $P_\alpha$ exactly when each
-$L_\alpha$ has a $\sigma(C)$-measurable version, that is, exactly when $C$
+$L_\alpha$ has a $\sigma(\tau)$-measurable version, that is, exactly when $\tau$
 is sufficient for the family $\{P_0\}\cup\{P_\alpha\}$. No finite-divergence
 assumption is needed.
 \begin{proof}
 For each measurable $A\subseteq\mathsf Z$,
-$P_\alpha(C^{-1}A)=\int_A\bar L_\alpha(z)(C_\#P_0)(dz)$, by the defining
+$P_\alpha(\tau^{-1}A)=\int_A\bar L_\alpha(z)(\tau_\#P_0)(dz)$, by the defining
 property of conditional expectation. For a measurable
 $B\subseteq\mathsf X$, disintegration therefore gives
 \begin{equation}
  \begin{aligned}
- ((C_\#P_\alpha)R_0)(B)
- &=\int\bar L_\alpha(z)R_0(z,B)(C_\#P_0)(dz)\\
- &=\int_B\bar L_\alpha(C(x))P_0(dx).
+ ((\tau_\#P_\alpha)R_0)(B)
+ &=\int\bar L_\alpha(z)R_0(z,B)(\tau_\#P_0)(dz)\\
+ &=\int_B\bar L_\alpha(\tau(x))P_0(dx).
  \end{aligned}
 \end{equation}
 Equality with $P_\alpha$ is equivalent to equality of their
 Radon--Nikodym densities,
-$L_\alpha=\bar L_\alpha\circ C$ almost surely. Conditional expectation
-fixes exactly the integrable $\sigma(C)$-measurable functions, proving
+$L_\alpha=\bar L_\alpha\circ \tau$ almost surely. Conditional expectation
+fixes exactly the integrable $\sigma(\tau)$-measurable functions, proving
 both directions.
 \end{proof}
 
@@ -176,11 +176,11 @@ its own marginal. It need not reconstruct the reference or other
 posteriors. The common kernel in \cref{prop:common-family-recovery}
 makes the stronger requirement explicit. Regular conditional laws and
 their almost-sure uniqueness are understood in the standard Borel
-sense \citep{Kallenberg2021}. The equivalence in \cref{prop:common-family-recovery} is the Halmos--Savage factorization criterion for a family dominated by one of its members \citep{HalmosSavage1949}; the common reference conditional is the kernel that defines sufficiency, compare the adequate subfields of \citet{Skibinsky1967}, and the statement is an instance of abstract sufficiency in the Markov category of standard Borel spaces \citep{Fritz2020}. What is used below is the explicit density \cref{eq:common-family-density} of the reconstruction when descent fails.
+sense \citep{Kallenberg2021}. The equivalence in \cref{prop:common-family-recovery} is the Halmos--Savage factorization criterion for a family dominated by one of its members \citep{HalmosSavage1949}; the common reference conditional is the kernel that defines sufficiency, and the statement is an instance of abstract sufficiency in the Markov category of standard Borel spaces \citep{Fritz2020}. What is used below is the explicit density \cref{eq:common-family-density} of the reconstruction when descent fails.
 
 \corollaryheading{Recovery without reading the exterior}{cor:local-family-recovery}
 Let $P_0$ now be a joint reference law of $(X,E)$ on standard Borel spaces,
-and let $Z=C(X)$. Retain $(Z,E)$ but reconstruct $X$ using only
+and let $Z=\tau(X)$. Retain $(Z,E)$ but reconstruct $X$ using only
 $R_0(z,dx)=P_0(dx\mid Z=z)$, leaving $E$ unchanged. This reconstructs
 $P_0$ exactly if and only if $X$ and $E$ are conditionally independent
 given $Z$. Under that condition it also reconstructs a dominated family
@@ -188,15 +188,15 @@ $P_\alpha=L_\alpha P_0$ exactly if and only if each likelihood ratio
 descends to $(Z,E)$.
 \begin{proof}
 The lifted reference has conditional law $R_0(z,dx)$ given $(z,e)$.
-Because $R_0$ is supported on $C^{-1}(z)$ almost surely, its joint law
+Because $R_0$ is supported on $\tau^{-1}(z)$ almost surely, its joint law
 with $(Z,E)$ agrees with the true law exactly when
 $P_0(dx\mid Z,E)=P_0(dx\mid Z)$ almost surely. This is the stated
 conditional independence. In that case the exterior-preserving lift is
-the reference conditional for the map $(x,e)\mapsto(C(x),e)$.
+the reference conditional for the map $(x,e)\mapsto(\tau(x),e)$.
 Apply \cref{prop:common-family-recovery} to that map.
 \end{proof}
 
-Descent of the likelihood ratios alone does not suffice. Let $P_0$ be uniform on $\{(0,0),(1,1)\}$ for $(X,E)$ and let $C$ be constant. The family $\{P_0\}$ has a trivially descending likelihood ratio, but the lift draws $X$ uniformly and independently of $E$, so it does not reconstruct $P_0$; here $X$ and $E$ are dependent given $Z$.
+Sufficiency together with conditional independence of the retained exterior given the statistic is the adequacy of a subfield in the sense of \citet{Skibinsky1967}. Descent of the likelihood ratios alone does not suffice. Let $P_0$ be uniform on $\{(0,0),(1,1)\}$ for $(X,E)$ and let $\tau$ be constant. The family $\{P_0\}$ has a trivially descending likelihood ratio, but the lift draws $X$ uniformly and independently of $E$, so it does not reconstruct $P_0$; here $X$ and $E$ are dependent given $Z$.
 
 \section{A predictive coding criterion}
 
