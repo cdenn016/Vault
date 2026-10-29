@@ -1,9 +1,9 @@
 \chapter{Interacting Conditional-Prediction Agents}
 \label{app:interacting-memory}
 
-The conditional model of \cref{app:conditional-memory} becomes an interacting system once a transmitted result has an actual record law. This appendix supplies one such law. Two agents share a normalized preparation and a communication protocol, receive separate private records, and exchange fresh samples from their current result predictions. The receiver conditions on the sender's sampling mechanism, including its inaccessible private evidence. For every finite history outside the usual conditioning null sets, the resulting posterior can be reconstructed from the joint posterior of the private records and one fixed conditional kernel. This is an exact representation before any moment projection.
+The conditional model of \cref{app:conditional-memory} becomes an interacting system once a transmitted result has an actual record law. This appendix supplies one such law. Two agents share a normalized preparation and a communication protocol, receive separate private records, and exchange fresh samples from their current result predictions. The receiver conditions on the sender's sampling mechanism, including its inaccessible private evidence. For every finite history outside the usual conditioning null sets, the resulting posterior can be reconstructed from the joint posterior of the private records and one fixed conditional kernel, and that joint posterior is itself a product tilt of the prepared private-record law by one evidence function per agent. This is an exact representation before any moment projection.
 
-The common preparation, its cross-agent coupling, the private sensors, and reliable registration of the transcript are constitutive assumptions. Sharing a local bank does not supply them. The distinction between common information and privately evaluated prescriptions is familiar from decentralized control \citep{Nayyar2013CommonInformation}. Here the prescription is fixed to posterior-predictive transmission; the results below concern its normalized law and Bayesian conditioning, without an optimal-control assertion. All variables are defined at one context. No connection, continuous-time flow, or identification with the reciprocal law potential is assumed.
+The common preparation, its cross-agent coupling, the private sensors, and reliable registration of the transcript are constitutive assumptions. Sharing a local bank does not supply them. The distinction between common information and privately evaluated prescriptions is familiar from decentralized control \citep{Nayyar2013CommonInformation}; the common posterior $\Gamma_t$ below is its common-information belief for the fixed randomized prescriptions of the protocol. Here the prescription is fixed to posterior-predictive transmission; the results below concern its normalized law and Bayesian conditioning, without an optimal-control assertion. Repeated exchange of posterior-derived messages under a common prior is the setting of the agreement theorems of \citet{Aumann1976} and \citet{GeanakoplosPolemarchakis1982}. Communication in which each agent sends a fresh sample from its current exact posterior and receivers condition exactly on the known sampling rule is studied on networks by \citet{DeshpandeMosselSohn2022}, who prove long-run agreement and efficiency results and show that receivers who treat incoming samples as independent signal draws become overconfident. The protocol here is a two-agent variant with distinct represented states joined by a supplied coupling, a fixed known schedule, and general encoders, and the results are exact finite-history identities rather than limits. All variables are defined at one context. No connection, continuous-time flow, or identification with the reciprocal law potential is assumed.
 
 \section{Preparation, information, and transmission}
 
@@ -36,7 +36,7 @@ Marginalizing the other agent before conditioning gives exactly the local bank p
 
 The preparation may be realized by concealed internal values $Z$ followed by their records. Alternatively, its record marginal can be sampled directly after integrating out $Z$. These realizations have the same communication law below; statements about represented variables refer to the augmented model \cref{imem:preparation}. Normalization does not require an external ontology for those variables.
 
-Let $\mathsf H$ be a standard Borel message space, let $j_t$ be a fixed known alternating sequence of speakers, and let
+Let $\mathsf H$ be a standard Borel message space, let $j_t$ be a fixed known sequence of speakers, alternating in the running examples, and let
 \begin{equation}
  \mathcal H_t=\sigma(H_1,\ldots,H_t),\qquad
  \mathcal I_{i,t}=\sigma(D_i,H_1,\ldots,H_t).
@@ -49,7 +49,7 @@ The common and private posteriors, and the local recognition, are
  \zeta_{i,t}=(Z_i)_\#\Pi_{i,t}.
  \label{imem:posteriors}
 \end{equation}
-The common posterior is determined from the common transcript; it does not disclose either private value. Regular conditional probabilities exist on these spaces \citep{Kallenberg2021}. Choose their measurable versions in the history and private-record variables, with fixed normalized extensions on conditioning null sets. Each finite history is constructed before its conditional kernels are used to generate the next message. An autonomous map on a larger family of law-valued states additionally requires a jointly measurable choice of disintegration on that family. Finite tables and the dominated formulas below provide it directly.
+The common posterior is determined from the common transcript; it does not disclose either private value. Regular conditional probabilities exist on these spaces \citep{Kallenberg2021}. Choose their measurable versions in the history and private-record variables, with fixed normalized extensions on conditioning null sets. Each finite history is constructed before its conditional kernels are used to generate the next message. The resulting history laws do not depend on the chosen versions, since versions that differ on a null set of the current history law give the same next stage; pathwise formulas below refer to the versions defined recursively by \cref{imem:bayes,imem:reduced-readouts}. An autonomous map on law-valued states needs a jointly measurable choice of disintegration on the family of such states. One always exists on all of $\operatorname{Prob}(\mathsf D_0\times\mathsf D_1)$, by the disintegration theorem for kernels applied to the identity kernel from that space of laws \citep{Kallenberg2021}; finite tables and the dominated formulas below also provide it directly.
 
 \constructionheading{Posterior-sampled communication}{imem:protocol}
 Fix normalized encoders $C_j:\mathsf Y_j\rightsquigarrow\mathsf H$. At the next step $j=j_{t+1}$, let
@@ -58,7 +58,7 @@ Fix normalized encoders $C_j:\mathsf Y_j\rightsquigarrow\mathsf H$. At the next 
  \kappa_{j,t}(d_j,dh)=\int C_j(y,dh)S_{j,t}(d_j,dy).
  \label{imem:message-kernel}
 \end{equation}
-The speaker draws a fresh $\widetilde Y_{t+1}$ with law $S_{j,t}(D_j,\cdot)$ and encodes it using $C_j$. Conditional on $(D_j,\mathcal H_t)$, both randomizations are independent of $E$. Both agents observe the delivered $H_{t+1}$ and append it to their persistent registers. Future policies read their private record and common transcript through the stated conditional laws; no additional access to old transmission randomization is included.
+The speaker draws a fresh $\widetilde Y_{t+1}$ with law $S_{j,t}(D_j,\cdot)$ and encodes it using $C_j$. Conditional on $(D_j,\mathcal H_t)$, both randomizations are independent of $E$. Both agents observe the delivered $H_{t+1}$ and append it to their persistent registers. Future policies read their private record and common transcript through the stated conditional laws; no additional access to old transmission randomization is included. This exclusion loses nothing: because later policies read $H_s$ and not the sample $\widetilde Y_s$, the joint law of $(E,\widetilde Y_s)$ given $(D_j,\mathcal H_t)$ factors into a function of $E$ and a function of $(\widetilde Y_s,d_j)$, so a speaker that retained its own past samples would have the same posterior and the same policy.
 
 The sampled $\widetilde Y_{t+1}$ and represented $Y_j$ have the same conditional distribution but are different variables. In particular,
 \begin{equation}
@@ -101,7 +101,7 @@ At every realized prefix where $0<\bar k_{j,t}(h)<\infty$, the exact common post
  =\frac{k_{j,t}(h_{t+1}\mid d_j(e))}{\bar k_{j,t}(h_{t+1})}\Gamma_t(de).
  \label{imem:bayes}
 \end{equation}
-The denominator condition holds for predictive-almost every next message. Without domination, the corresponding update is the disintegration of $\Gamma_t(de)\kappa_{j,t}(d_j(e),dh)$.
+The denominator condition holds for predictive-almost every next message. Equivalently, the update multiplies $\Gamma_t$ by the density of the message kernel $\kappa_{j,t}(d_j(e),\cdot)$ with respect to the predictive law of the next message, independently of $\tau$; a density form of the update exists exactly when that density exists for $\Gamma_t$-almost every prepared value, and an encoder density with respect to $\tau$ is one sufficient condition. Without domination, the corresponding update is the disintegration of $\Gamma_t(de)\kappa_{j,t}(d_j(e),dh)$.
 \begin{proof}
 Start from $\mathbb P_0=\Lambda_0$. At stage $t$, the previously chosen conditional kernels make the next policy a measurable normalized kernel of $(e,h_{1:t})$. Integrating its last message gives one. Induction proves normalization of \cref{imem:history-law} and consistency with each preceding marginal. Conditional on the existing transcript, the joint law of the prepared variables and next message is $\Gamma_t(de)\kappa_{j,t}(d_j(e),dh)$. Its message marginal is \cref{imem:calibration-formula}. Dividing the joint density by \cref{imem:message-density} proves \cref{imem:bayes}. A normalized nonnegative density is finite almost everywhere under its base measure and positive almost surely under its own law. This gives the denominator claim. Disintegrating the same joint measure proves the statement without densities.
 \end{proof}
@@ -122,7 +122,7 @@ If agent $j$ sends at step $t+1$, then $\Pi_{j,t+1}=\Pi_{j,t}$ almost surely. Fo
  =P(D_j\in dd_j\mid Z_i=z_i,D_i=d_i,\mathcal H_t).
  \label{imem:peer-private-conditional}
 \end{equation}
-Under the dominated hypotheses of \cref{imem:history-theorem}, its actual local likelihood and update are
+Under the dominated hypotheses of \cref{imem:history-theorem}, and wherever the receiver's own predictive density $\int\ell_{i\leftarrow j,t}(h_{t+1}\mid z_i')\zeta_{i,t}(dz_i')$ is positive and finite, which holds for almost every $(d_i,h_{1:t+1})$, its actual local likelihood and update are
 \begin{equation}
  \begin{aligned}
  \ell_{i\leftarrow j,t}(h\mid z_i)
@@ -139,14 +139,14 @@ Condition \cref{imem:bayes} further on $D_j=d_j$. Its message factor is constant
 
 The conditional law $R_{ij,t}$ carries the relationship between the receiver's represented state and the sender's evidence. A local marginal $\zeta_{i,t}$ does not in general specify it. If a message policy reads only common information, its factor is independent of both private values and cancels from the common posterior as well. A deterministic echo of an already registered message has this property in the kernel formulation. A fresh posterior sample can instead convey the speaker's private evidence to its peer, while leaving the speaker's own posterior unchanged.
 
-There is an exact information restriction for the fixed preparation. Every factor in \cref{imem:history-law} depends on $E$ only through $D$ at a fixed transcript. Thus $Z$ and $H_{1:n}$ are conditionally independent given $D$, and, when the mutual informations are finite,
+There is an exact information restriction for the fixed preparation. Every factor in \cref{imem:history-law} depends on $E$ only through $D$ at a fixed transcript. Thus $Z$ and $H_{1:n}$ are conditionally independent given $D$, and, whenever $I(Z;D_{1-i}\mid D_i)<\infty$,
 \begin{equation}
  I(Z;H_{1:n}\mid D_i)
  =I(Z;D_{1-i}\mid D_i)
  -I(Z;D_{1-i}\mid D_i,H_{1:n}).
  \label{imem:information-bound}
 \end{equation}
-Indeed, expand $I(Z;(D_{1-i},H_{1:n})\mid D_i)$ in the two possible orders; the term conditioned on both private records vanishes. The protocol redistributes evidence from the preparation. New measurements require an additional observation mechanism.
+Indeed, expand $I(Z;(D_{1-i},H_{1:n})\mid D_i)$ in the two possible orders by the chain rule for mutual information \citep{CoverThomas2006}; the term conditioned on both private records vanishes, so the expansion equals $I(Z;D_{1-i}\mid D_i)$ and both remaining terms are finite. In particular $I(Z;H_{1:n}\mid D_i)\leq I(Z;D_{1-i}\mid D_i)$. The protocol redistributes evidence from the preparation. New measurements require an additional observation mechanism.
 
 \section{A fixed reconstruction and the retained state}
 
@@ -202,17 +202,38 @@ At a fixed history, its likelihood $\mathcal L_t(d)$ is a function of $D$ alone.
 Products of bounded measurable functions determine the joint law by a monotone-class argument. Without domination, the same identity follows by integrating $f(z)$ first in \cref{imem:history-law}; its conditional history kernel depends on $d$ alone. This proves \cref{imem:reconstructed-posterior}. Conditioning it on the observed private coordinate and taking the indicated marginals gives \cref{imem:reduced-readouts}. Multiplication by the message density changes only $\lambda_t$, proving \cref{imem:reduced-update}. Conversely, marginalizing \cref{imem:bayes} gives that update. At each future step the reconstruction supplies the same message kernel and conditional update, so induction proves equality of every finite future joint law.
 \end{proof}
 
-The sufficient state for an agent includes the fixed preparation, reconstruction and encoders, its private value, the joint $\lambda_t$, and the next speaker. When queries of actual past records are admitted, take the retained state to be
+The sufficient state for an agent includes the fixed preparation, reconstruction and encoders, its private value, the joint $\lambda_t$, and the time index with the fixed schedule. When queries of actual past records are admitted, take the retained state to be
 \begin{equation}
  \mathcal R_{i,t}
- =\bigl(P_0,L_0,L_1,W,C_0,C_1,d_i,\lambda_t,j_{t+1},H_{1:t}\bigr).
+ =\bigl(P_0,L_0,L_1,W,C_0,C_1,(j_s)_s,d_i,\lambda_t,t,H_{1:t}\bigr).
  \label{imem:retention}
 \end{equation}
-Equality of these states gives the same current private posterior and, by \cref{imem:reduction}, the same joint conditional laws for all future protocol messages and represented-variable readouts. The last coordinate preserves the literal transcript; its values need not be recoverable from $\lambda_t$. This separates inferential sufficiency from persistence of the full admitted record interface.
+Equality of these states gives the same current private posterior and, by \cref{imem:reduction}, the same joint conditional laws for all future protocol messages and represented-variable readouts, for the policy versions chosen as functions of the reduced state in \cref{imem:reduced-readouts}. The last coordinate preserves the literal transcript; its values need not be recoverable from $\lambda_t$. This separates inferential sufficiency from persistence of the full admitted record interface.
 
-On the family $\{W\lambda\}$, the map $W\lambda\mapsto\lambda$ is invertible by the fixed reconstruction. It removes redundant changing coordinates, rather than asserting a lossy parent compression in the sense of \cref{inh:two-retentions}. The fixed $W$ can be large, and a law on continuous private-record spaces need not have a finite description. Keeping only the two private-record marginals would also discard the conditional pair law in \cref{imem:reduced-readouts}.
+The changing part of this state is smaller than a general law on $\mathsf D_0\times\mathsf D_1$, because each message factor reads only its speaker's private record. In the dominated case write, at a fixed history,
+\begin{equation}
+ \mathcal L_t(d;h)=\prod_{s=1}^tk_{j_s,s-1}(h_s\mid d_{j_s};h_{1:s-1}),\qquad
+ F_i^t(d_i)=\prod_{s\leq t:\ j_s=i}k_{i,s-1}(h_s\mid d_i;h_{1:s-1}).
+ \label{imem:evidence-factors}
+\end{equation}
 
-The supplied coupling has a separate role. If the preparation factorizes across $(Z_0,D_0)$ and $(Z_1,D_1)$, its fixed-history likelihood is a product of a function of $D_0$ and a function of $D_1$, even though the factors use the observed prefix. The common posterior consequently remains a product across the two agents. After conditioning on its own private record, an agent's own represented-state posterior cannot change when its peer speaks. It may learn about the peer, but information transfer to its own target requires a cross-agent relation supplied by the model.
+\propositionheading{Product-tilt representation}{imem:product-tilt}
+Under the dominated hypotheses of \cref{imem:history-theorem}, at every history with $0<Z_t=\int\mathcal L_t\,d\lambda_0<\infty$,
+\begin{equation}
+ \mathcal L_t(d;h)=F_0^t(d_0)F_1^t(d_1),\qquad
+ \lambda_t(dd)=\frac{F_0^t(d_0)F_1^t(d_1)}{Z_t}\lambda_0(dd).
+ \label{imem:product-tilt-formula}
+\end{equation}
+Consequently: (i) the private posterior of agent $i$ depends on the transcript only through the peer factor $F_{1-i}^t$, the own factor cancelling; (ii) a message from agent $j$ multiplies $F_j^t$ and leaves $F_{1-j}^t$ unchanged; (iii) the cross-agent dependence of $\lambda_t$ is that of $\lambda_0$: on finite tables every cross-ratio $\lambda_t(a,b)\lambda_t(a',b')/(\lambda_t(a,b')\lambda_t(a',b))$ equals that of $\lambda_0$, and in the nondegenerate Gaussian case of \cref{imem:gaussian-closure} the off-diagonal block of the precision of $\lambda_t$ equals that of $\lambda_0$. Moreover, two product tilts $P=f_0f_1\lambda_0/Z$ and $P'=g_0g_1\lambda_0/Z'$ with the same two marginals coincide whenever the private-record alphabets are finite, or more generally whenever $\log(g_0/f_0)$ and $\log(g_1/f_1)$ are integrable under the marginals.
+\begin{proof}
+Each factor of $\mathcal L_t$ depends on $d$ only through $d_{j_s}$, since the speaker's policy reads its own record and the common transcript; grouping the factors by speaker gives the first identity, and Bayes' formula the second. Conditioning $\lambda_t$ on $D_i=d_i$ divides out $F_i^t(d_i)$, which proves (i); (ii) is the grouping itself, together with (i) for the speaker's kernel. A product tilt multiplies each cross-ratio by $f_0(a)f_1(b)f_0(a')f_1(b')/(f_0(a)f_1(b')f_0(a')f_1(b))=1$, and in the Gaussian case each message adds $A_t^TR_t^{-1}A_t$ to the precision with $A_t$ supported on the speaker coordinate, which proves (iii). For uniqueness, let $S_i=\{f_i>0\}$. Since $P'(S_0^c\times\mathsf D_1)=P(S_0^c\times\mathsf D_1)=0$ and likewise for $S_1$, and $P$ has a positive density with respect to $\lambda_0$ on $S_0\times S_1$, $P'\ll P$, and symmetrically $P\ll P'$. Then $dP'/dP=a(d_0)b(d_1)$ with $a,b$ positive and finite almost everywhere, and under the integrability hypothesis, automatic on finite alphabets, $\KL(P'\Vert P)=\E_{\mu_0}\log a+\E_{\mu_1}\log b=-\KL(P\Vert P')$ because the marginals agree. Both divergences are nonnegative, so both vanish and $P'=P$.
+\end{proof}
+
+The factorization of the history likelihood is the rectangle property of two-party private-coin protocols \citep[Lemma 6.7]{BarYossefEtAl2004}. On the reachable family the exact changing state can therefore be taken as the pair of evidence classes $[F_0^t],[F_1^t]$, up to reciprocal positive scaling, with $\lambda_0$ and the other fixed data of \cref{imem:retention}. Equivalently, the two private-record marginals of $\lambda_t$ together with the fixed $\lambda_0$ determine $\lambda_t$ and every conditional pair law in \cref{imem:reduced-readouts} in all cases treated in this appendix, including the Gaussian case, where the log tilts are quadratic and integrable. The product of the two marginals alone does not, since it discards the fixed cross-agent dependence. Whether a smaller state serves a particular admitted interface is a separate minimality question, which this appendix does not settle.
+
+On the family $\{W\lambda\}$, the map $W\lambda\mapsto\lambda$ is invertible by the fixed reconstruction. It is the sample compression of the common posterior by the coordinate channel $E\mapsto D$, and as a configuration retention in the sense of \cref{inh:two-retentions} it is injective on this family, so it removes redundant changing coordinates and is not a lossy retention. The fixed $W$ can be large, and a law on continuous private-record spaces need not have a finite description.
+
+The supplied coupling has a separate role. At a fixed transcript the history likelihood is always a product of a function of $D_0$ and a function of $D_1$, by \cref{imem:product-tilt}. If the preparation also factorizes across $(Z_0,D_0)$ and $(Z_1,D_1)$, the common posterior consequently remains a product across the two agents. After conditioning on its own private record, an agent's own represented-state posterior cannot change when its peer speaks. It may learn about the peer, but information transfer to its own target requires a cross-agent relation supplied by the model.
 
 \section{Free energies for the declared information}
 
@@ -252,7 +273,7 @@ $\mathcal Z_{i,n}=\int\mathcal L_n(D;h)\Lambda_{0,i}^{d_i}(dE)$, assumed positiv
  \end{split}
  \label{imem:private-free-energy}
 \end{equation}
-Let $\zeta_{i,0}$ denote its initial local marginal and put
+Let $\zeta_{i,0}$ denote its initial local marginal, write $\zeta_{i,n}(da,dk)=s_{i,n}(da)q_{i,n}(dk\mid a)$ for the disintegration of the local posterior over the presentation, and put
 \begin{equation}
  b_{i,n}(z_i)=\E_{\Lambda_{0,i}^{d_i}}
  [\mathcal L_n(D;h)\mid Z_i=z_i].
@@ -320,7 +341,7 @@ For fixed $\nu$, the minimizing conditional is $W$ almost everywhere, whenever t
 Substitute $\Gamma_n=W\lambda_n$ into \cref{imem:full-free-energy-identity}. Splitting its logarithmic ratio over $D$ gives the marginal relative entropy and the averaged conditional relative entropy in \cref{imem:conditional-free-energy}. The latter is minimized uniquely by $Q^Z=W$, $\nu$-almost everywhere. Because $\mathcal L_n$ depends only on $D$, the defining expectation for $Q=W\nu$ reduces to the first line of \cref{imem:private-record-free-energy}. Bayes' formula for $\lambda_n$ gives its second line.
 \end{proof}
 
-These are unit-temperature inference objectives for a fixed observed history. Their evidence terms are constant in the candidate law within that optimization block. The agents condition on different private information, so their objectives have different minimizers. Recomputing historical policies from the candidate $Q$ inside \cref{imem:history-likelihood} would also vary the observation model and define a different optimization problem. No natural-gradient update, monotone sum during communication, or bank-learning rule follows from the variational identities alone.
+These are unit-temperature inference objectives for a fixed observed history, instances of the Gibbs variational principle with the chain rule for relative entropy \citep{DonskerVaradhan1975}. The local objective \cref{imem:local-free-energy} is a marginal objective, minimized by the exact marginal posterior $\zeta_{i,n}$; it is not the local free energy of \cref{prop:dyn-global-local}, which is a global free energy as a function of one mean-field block. Their evidence terms are constant in the candidate law within that optimization block. The agents condition on different private information, so their objectives have different minimizers. Recomputing historical policies from the candidate $Q$ inside \cref{imem:history-likelihood} would also vary the observation model and define a different optimization problem. No natural-gradient update, monotone sum during communication, or bank-learning rule follows from the variational identities alone.
 
 \section{An exact two-way binary exchange}
 
@@ -394,12 +415,12 @@ For the first table, each entry is the normalized sum over $X_1$ of the cue prio
 
 Take actual private values $D_0=1,D_1=0$ and delivered bits $H_1=H_2=1$. Each agent still conditions only on its own private value. The common weights give
 \begin{equation}
- P(D_0=1\mid D_1=0,H_1=H_2=1)=\frac{308}{959},
+ P(D_0=1\mid D_1=0,H_1=H_2=1)=\frac{44}{137},
 \end{equation}
 and hence agent 1's final cue probability is
 \begin{equation}
  P(X_1=1\mid D_1=0,H_1=H_2=1)
- =\frac{651}{959}\frac16+\frac{308}{959}\frac5{14}
+ =\frac{93}{137}\frac16+\frac{44}{137}\frac5{14}
  =\frac{437}{1918}.
  \label{imem:binary-second-posterior}
 \end{equation}
@@ -413,7 +434,7 @@ The accessible cue probabilities are therefore
  \end{array}
  \label{imem:binary-exchange}
 \end{equation}
-The sender invariance in each row follows from \cref{imem:sender-receiver}; the receiver changes at both receptions. Presentation and result probabilities follow from \cref{imem:binary-correlations}. The fixed reconstruction and four changing masses reproduce the full joint law, including its local correlations.
+The sender invariance, visible in each column at that agent's own transmission, follows from \cref{imem:sender-receiver}; the receiver changes at both receptions. Presentation and result probabilities follow from \cref{imem:binary-correlations}. The fixed reconstruction and the four masses of $\lambda_t$ reproduce the full joint law, including its local correlations. By \cref{imem:product-tilt} these masses are a redundant form of two changing numbers: the odds ratio of every $\lambda_t$ equals that of $\lambda_0$, namely $81/49$, so with $\lambda_0$ fixed the two marginals determine $\lambda_t$.
 
 The same preparation distinguishes two errors in message interpretation. A direct observation of represented $Y_1=1$ has cue likelihoods $5/8$ and $3/8$ conditional on $X_0=0,1$, respectively. It gives $P(X_0=1\mid D_0=1,Y_1=1)=9/14$, in place of $45/62$. If agent 1 instead sends two fresh samples before a reply, its private posterior is unchanged, so the samples are independent conditional on $D_1$. Their probabilities conditional only on $X_1$ are
 \begin{equation}
@@ -558,38 +579,38 @@ Let $m_H=b\omega_1+a(m_1^0-\nu_1)$ and $V_H=a^2v_1^0+N_{\mathrm{eff}}$. Conditio
 Both conditioning operations are completions of positive Gaussian quadratics. Positive sensor and encoder noise make their Schur complements positive. These formulas therefore give exact conditioning without a moment projection.
 
 \theoremheading{Repeated affine Gaussian closure}{imem:gaussian-closure}
-Suppose each agent has one presentation, the joint cue covariance is positive definite, and all result kernels, private sensors, and encoders are affine Gaussian with positive-definite noise covariances. For every finite protocol history, the common private-record posterior $\lambda_t$ is a nondegenerate joint Gaussian. Its mean and full covariance, together with the fixed Gaussian reconstruction $W$, determine every posterior and future message law in \cref{imem:reduction}.
+Suppose each agent has one presentation, the joint cue covariance is positive definite, and all result kernels, private sensors, and encoders are affine Gaussian with positive-definite noise covariances. For every finite protocol history, the common private-record posterior $\lambda_t$ is a nondegenerate joint Gaussian. Its mean and full covariance, together with the fixed Gaussian reconstruction $W$, determine every posterior and future message law in \cref{imem:reduction}. The covariance $\Sigma^D_t$ is a deterministic function of $t$, independent of the realized messages, and only the mean carries the history.
 \begin{proof}
-After the fixed singleton labels are suppressed, the preparation makes $(Z,D)$ jointly Gaussian and $\lambda_0$ nondegenerate. Completing its quadratic gives $W(d,dz)$ an affine mean in $d$ and a covariance independent of $d$. Suppose $\lambda_t=\mathcal N(m_t,S_t)$ with $S_t\succ0$. Then $W\lambda_t$ is jointly Gaussian. Conditioning its $Y_j$ coordinate on $D_j=d_j$ gives an affine mean and constant covariance. After fresh sampling and encoding, the message therefore has a representation
+After the fixed singleton labels are suppressed, the preparation makes $(Z,D)$ jointly Gaussian and $\lambda_0$ nondegenerate. Completing its quadratic gives $W(d,dz)$ an affine mean in $d$ and a covariance independent of $d$. Suppose $\lambda_t=\mathcal N(m_t,\Sigma^D_t)$ with $\Sigma^D_t\succ0$. Then $W\lambda_t$ is jointly Gaussian. Conditioning its $Y_j$ coordinate on $D_j=d_j$ gives an affine mean and constant covariance. After fresh sampling and encoding, the message therefore has a representation
 \begin{equation}
  H_{t+1}=b_t+A_tD+\eta_t,\qquad
  \eta_t\sim\mathcal N(0,R_t),\quad R_t\succ0,
  \label{imem:gaussian-reduced-observation}
 \end{equation}
-where $A_t$ reads only the speaker coordinate and $\eta_t$ is independent of $D$ at the fixed prefix. The coefficients are fixed by the current common state. Multiplying the Gaussian prior density by this likelihood completes a quadratic with
+where $A_t$ reads only the speaker coordinate and $\eta_t$ is independent of $D$ at the fixed prefix. The slope $A_t$ and the noise covariance $R_t$ depend on the current common state only through $\Sigma^D_t$, while $b_t$ depends on $m_t$. Multiplying the Gaussian prior density by this likelihood completes a quadratic with
 \begin{equation}
  \begin{aligned}
- S_{t+1}^{-1}&=S_t^{-1}+A_t^TR_t^{-1}A_t,\\
- m_{t+1}&=S_{t+1}\left[S_t^{-1}m_t+A_t^TR_t^{-1}(h_{t+1}-b_t)\right].
+ (\Sigma^D_{t+1})^{-1}&=(\Sigma^D_t)^{-1}+A_t^TR_t^{-1}A_t,\\
+ m_{t+1}&=\Sigma^D_{t+1}\left[(\Sigma^D_t)^{-1}m_t+A_t^TR_t^{-1}(h_{t+1}-b_t)\right].
  \end{aligned}
  \label{imem:gaussian-reduced-recursion}
 \end{equation}
-The precision remains positive definite. Induction gives the claimed closure for every finite stage; \cref{imem:reduction} gives the reconstruction and future-law assertion.
+The precision remains positive definite, and its recursion involves no message, so $\Sigma^D_t$ is history independent. Induction gives the claimed closure for every finite stage; \cref{imem:reduction} gives the reconstruction and future-law assertion.
 \end{proof}
 
-The retained covariance in this theorem is the joint covariance of $(D_0,D_1)$. Replacing it by separate-agent blocks changes the conditional averages in \cref{imem:reduced-readouts}. The Gaussian family is an exact special case of the general filter, rather than an assumed closure for multiple presentations.
+\Cref{imem:gaussian-reduced-recursion} is the information-form measurement update of the Kalman filter \citep{Kalman1960} for the static state $D$ observed through \cref{imem:gaussian-reduced-observation}, and the history independence of $\Sigma^D_t$ is the data independence of its Riccati recursion. The retained covariance in this theorem is the joint covariance of $(D_0,D_1)$; replacing it by separate-agent covariance blocks changes the conditional averages in \cref{imem:reduced-readouts}. In information coordinates the picture is different: since $A_t^TR_t^{-1}A_t$ lives on the speaker's diagonal block, the off-diagonal precision block is fixed model data, as \cref{imem:product-tilt} requires, and only the diagonal precision blocks and the information vector change. The Gaussian family is an exact special case of the general filter, rather than an assumed closure for multiple presentations.
 
 \section{Failure of finite-mixture closure}
 
 \propositionheading{A two-presentation nonclosure example}{imem:mixture-nonclosure}
-There is a preparation of the form \cref{imem:gaussian-coupling,imem:gaussian-results}, with one receiver presentation, two sender presentations, and strictly positive Gaussian noises, whose receiver cue posterior after one message is not any finite positive mixture of nondegenerate Gaussian laws.
+There is a preparation of the form \cref{imem:gaussian-coupling,imem:gaussian-results}, with one receiver presentation, two sender presentations, and strictly positive Gaussian noises, whose receiver cue posterior after one message, at every receiver private value $d_0$ and every received $h\neq0$, is not any finite positive mixture of nondegenerate Gaussian laws. At $h=0$ the posterior is the Gaussian prior.
 \begin{proof}
 Let the sender label be $b\in\{-1,1\}$ with probabilities $1/2$, receiver cue mean zero, sender cue means $b\alpha$, $\alpha>0$, common variances $L_0,L_1>0$, and cross-covariance $S>0$ with $S^2<L_0L_1$. Choose sender result means $bm$, $m>0$, common result variance $Q>0$, and slope $F_{1b}=0$. Use the identity encoder with noise variance $R>0$, and positive private-sensor variances $N_0,N_1$. The sender's positive-label posterior weight is
 \begin{equation}
  w_+(d)=\frac1{1+\exp[-2\alpha d/(L_1+N_1)]}.
  \label{imem:nonclosure-logistic}
 \end{equation}
-This follows by taking the ratio of the equal-variance Gaussian label evidences. For any received $h>0$, let $c_\pm=\mathcal N(h;\pm m,Q+R)$. Both constants are positive and $c_+>c_-$, so
+This follows by taking the ratio of the equal-variance Gaussian label evidences. For any received $h>0$, let $c_\pm=\mathcal N(h;\pm m,Q+R)$; for $h<0$ the roles of $c_+$ and $c_-$ exchange and the argument is the same, while at $h=0$ they coincide, the likelihood below is constant, and the posterior equals the prior. Both constants are positive and $c_+>c_-$, so
 \begin{equation}
  k(h\mid d)=c_-+(c_+-c_-)w_+(d).
  \label{imem:nonclosure-message}
@@ -612,45 +633,47 @@ The likelihood lies between $c_-$ and $c_+$, so $Z_h$ is positive and finite. Co
 Suppose instead $p^+=\sum_{r=1}^M a_r\mathcal N(\mu_r,v_r)$, with $a_r>0$ and $v_r>0$, and write $g_0=\mathcal N(\mu_0,v_0)$. A component with $v_r>v_0$ has density ratio to $g_0$ diverging at both tails, because its logarithm has positive quadratic coefficient. A component with $v_r=v_0$ and $\mu_r\ne\mu_0$ diverges at one tail, because its logarithmic ratio is nonconstant affine. Positive mixture weights prevent cancellation, so neither type is compatible with finite limits. Every component with $v_r<v_0$ has ratio tending to zero at both tails. The only remaining components with nonzero finite limits are identical to $g_0$, and their total weight contributes the same limit at both tails. This contradicts \cref{imem:nonclosure-tails}. Zero-weight components can be removed, so the argument covers every finite Gaussian mixture.
 \end{proof}
 
-This counterexample concerns closure in a specified finite-mixture family. The exact normalized posterior remains \cref{imem:nonclosure-posterior}; its integral representation and the general private-record filter remain valid. Gaussian prior components, sensors, and encoders alone do not imply a finite Gaussian-mixture posterior when the transmission policy contains posterior-dependent mixing weights.
+The same example concerns the common state of \cref{imem:gaussian-closure} as well. The $D_0$-marginal of $\lambda_1$ is $\lambda_0^{D_0}(d_0)P(H=h\mid D_0=d_0)/P(H=h)$, where $\lambda_0^{D_0}=\mathcal N(0,L_0+N_0)$ is a single Gaussian because the receiver cue mean is zero under both labels, and $P(H=h\mid D_0=d_0)=\E[\ell_0(h\mid X_0)\mid D_0=d_0]$ tends to $c_\pm$ as $d_0\to\pm\infty$ by bounded convergence. The tail argument above therefore shows that this marginal, and hence $\lambda_1$, is not a finite positive Gaussian mixture, since marginals of finite Gaussian mixtures are finite Gaussian mixtures. The $D_1$-marginal of $\lambda_1$ is instead an exact two-component mixture, so the nonclosure enters through the cross-agent conditional of $D_0$ given $D_1$.
+
+This counterexample concerns closure in a specified finite-mixture family. The exact normalized posterior remains \cref{imem:nonclosure-posterior}; its integral representation and the general private-record filter remain valid. Finite Gaussian sums are closed under likelihoods that are themselves finite Gaussian sums in the state \citep{SorensonAlspach1971}, and $k(h\mid d)=c_-+(c_+-c_-)w_+(d)$ is not one. Gaussian prior components, sensors, and encoders alone do not imply a finite Gaussian-mixture posterior when the transmission policy contains posterior-dependent mixing weights.
 
 \section{Local beliefs do not generally determine the next update}
 
 \propositionheading{A reachable collision of local-only retention}{imem:local-retention-failure}
-There is one fixed finite preparation, a public preparation record, and a posterior-sampling policy with two positive-probability registered histories having the same pair of complete local recognition laws and private values, but different receiver updates under the same next message. Thus retaining the local joint laws while deleting the distinguishing public record and cross-agent dependence does not define an exact closed assimilation rule.
+Enlarge the information fields of \cref{imem:information} to $\sigma(\chi,D_i,H_{1:t})$ by a registered public preparation record $\chi$, with policies conditioned on it, in the sense of \cref{def:registered-event}; equivalently, regard the two conditional preparations given $\chi$ as two initializations of the declared protocol with the same local banks. There is one fixed finite preparation, such a public record, and a posterior-sampling policy with two positive-probability registered histories having the same pair of complete local recognition laws and private values, but different receiver updates under the same next message. Thus retaining the local joint laws while deleting the distinguishing public record and cross-agent dependence does not define an exact closed assimilation rule.
 \begin{proof}
 Draw $X_0$ fairly and an independent bit $B$ with $P(B=0)=\rho$, $0<\rho<1$, and set $X_1=X_0\mathbin{\oplus}B$. Conditional on the cues, generate presentations and results as in \cref{imem:binary-preparation}. Each local bank is unchanged. Register the deterministic public preparation readout
 \begin{equation}
- C=X_0\mathbin{\oplus}X_1=B.
+ \chi=X_0\mathbin{\oplus}X_1=B.
  \label{imem:parity-record}
 \end{equation}
-Let $D_0=\ast$ be uninformative and let $P(D_1=X_1\mid X_1)=3/4$, with independent sensor noise. Both parity records occur with positive probability. Given either parity, each individual cue remains fair. The local laws of $(A_i,X_i,Y_i)$ are consequently identical under $C=0$ and $C=1$. The entire local law of $(A_1,X_1,Y_1,D_1)$ is independent of $C$, so the sender's local posterior at either fixed value $D_1=d$ is also identical. Agent 0's local posterior and the actual private values are the same in these two histories as well.
+Let $D_0=\ast$ be uninformative and let $P(D_1=X_1\mid X_1)=3/4$, with independent sensor noise. Both parity records occur with positive probability. Given either parity, each individual cue remains fair. The local laws of $(A_i,X_i,Y_i)$ are consequently identical under $\chi=0$ and $\chi=1$. The entire local law of $(A_1,X_1,Y_1,D_1)$ is independent of $\chi$, so the sender's local posterior at either fixed value $D_1=d$ is also identical. Agent 0's local posterior and the actual private values are the same in these two histories as well.
 
 Agent 1 sends a fresh posterior sample $H$ of $Y_1$. Its probabilities are
 \begin{equation}
- P(H=1\mid D_1=0,C)=\frac58,\qquad
- P(H=1\mid D_1=1,C)=\frac38.
+ P(H=1\mid D_1=0,\chi)=\frac58,\qquad
+ P(H=1\mid D_1=1,\chi)=\frac38.
  \label{imem:parity-message}
 \end{equation}
-Integrating the private sensor gives $P(H=1\mid X_1=0,C)=9/16$ and $P(H=1\mid X_1=1,C)=7/16$. Thus $P(H=1\mid C)=1/2$ for either parity. At the same received $h=1$, however,
+Integrating the private sensor gives $P(H=1\mid X_1=0,\chi)=9/16$ and $P(H=1\mid X_1=1,\chi)=7/16$. Thus $P(H=1\mid \chi)=1/2$ for either parity. At the same received $h=1$, however,
 \begin{equation}
- P(X_0=1\mid C=0,H=1)=\frac7{16},\qquad
- P(X_0=1\mid C=1,H=1)=\frac9{16}.
+ P(X_0=1\mid \chi=0,H=1)=\frac7{16},\qquad
+ P(X_0=1\mid \chi=1,H=1)=\frac9{16}.
  \label{imem:parity-collision}
 \end{equation}
-For $C=0$ the cues agree; for $C=1$ they are opposite. Applying \cref{imem:binary-correlations} yields distinct presentation and result marginals,
+For $\chi=0$ the cues agree; for $\chi=1$ they are opposite. Applying \cref{imem:binary-correlations} yields distinct presentation and result marginals,
 \begin{equation}
  \begin{array}{c|cc}
- &C=0&C=1\\ \hline
- P(A_0=1\mid C,H=1)&15/32&17/32\\
- P(Y_0=1\mid C,H=1)&17/32&15/32.
+ &\chi=0&\chi=1\\ \hline
+ P(A_0=1\mid \chi,H=1)&15/32&17/32\\
+ P(Y_0=1\mid \chi,H=1)&17/32&15/32.
  \end{array}
  \label{imem:parity-local-output}
 \end{equation}
-Let $\mathcal T$ retain the pair of local joint recognition laws, fixed local banks, private values, and schedule, while deleting $C$ and the corresponding cross-agent dependence. The two histories have equal $\mathcal T$. Their exact updates after the same admissible message have different $\mathcal T$ by \cref{imem:parity-collision,imem:parity-local-output}. They therefore violate the retained-fiber condition of \cref{inh:deterministic-descent}, which is necessary for an update defined solely on $\mathcal T$.
+Let $\mathcal T$ retain the pair of local joint recognition laws, fixed local banks, private values, and schedule, while deleting $\chi$ and the corresponding cross-agent dependence. The two histories have equal $\mathcal T$. Their exact updates after the same admissible message have different $\mathcal T$ by \cref{imem:parity-collision,imem:parity-local-output}. They therefore violate the retained-fiber condition of \cref{inh:deterministic-descent}, which is necessary for an update defined solely on $\mathcal T$.
 \end{proof}
 
-Keeping $C$ resolves this particular collision. In the private-record representation, one may first condition the preparation on $C$ and retain $W_C=P(Z\in\cdot\mid D,C)$ together with $P(D\in\cdot\mid C,H)$. Alternatively, one may include the preparation record among the retained coordinates. A complete common posterior also preserves its effect. The counterexample proves neither minimality of that posterior nor failure for every fixed initialization; it gives two reachable histories of the specified preparation. It uses exact local label/content laws throughout, so its lost information is cross-agent and historical even before any moment projection.
+Keeping $\chi$ resolves this particular collision. In the private-record representation, one may first condition the preparation on $\chi$ and retain $W_\chi=P(Z\in\cdot\mid D,\chi)$ together with $P(D\in\cdot\mid \chi,H)$. Alternatively, one may include the preparation record among the retained coordinates. A complete common posterior also preserves its effect. The counterexample proves neither minimality of that posterior nor failure for every fixed initialization; it gives two reachable histories of the specified preparation. It uses exact local label/content laws throughout, so its lost information is cross-agent and historical even before any moment projection.
 
 For comparison, if a local label/result posterior $\Pi_{A,Y}$ has label marginal $w$, finite second moments with nondegenerate covariance, and Gaussian result moment match $q_G$, then, whenever the relative entropies are finite,
 \begin{equation}
@@ -661,4 +684,4 @@ For comparison, if a local label/result posterior $\Pi_{A,Y}$ has label marginal
 Insert $w\otimes\Pi_Y$ into the logarithmic density ratio and integrate to obtain the identity. This separates local label/result dependence from non-Gaussian result information, as in \cref{cmem:projection}. It does not supply the additional private-evidence conditional in \cref{imem:peer-private-conditional}. An approximation to the common state must specify that reconstruction as well. A Gaussian output stored alongside a complete reconstructible transcript is a different retention from one that deletes the distinguishing information.
 
 \openproblemheading{Smaller sufficient states and changing preparations}{imem:open}
-For multiple presentations, determine a smaller protocol-specific state that preserves every admitted future message law and receiver update, or specify an approximation together with the conditional reconstruction it changes. The exact joint-private-record representation does not establish minimality or finite descriptive complexity on continuous spaces. New private observations, adaptation of the shared model, differing agent models, or unknown transmission policies require their own normalized mechanisms. These extensions, and any inherited recursive formation, are separate from the fixed-preparation communication theorem proved here.
+For multiple presentations, determine a compression of the two one-agent evidence functions $F_0^t,F_1^t$ of \cref{imem:product-tilt} that preserves every admitted future message law and receiver update, or specify an approximation together with the conditional reconstruction it changes. The exact product-tilt representation does not establish minimality for a given admitted interface or finite descriptive complexity on continuous spaces. Determine also whether posterior-sampling dialogues reveal the private evidence asymptotically, so that both agents' predictions of a common target agree in the limit, and under which encoders and schedules. New private observations, adaptation of the shared model, differing agent models, or unknown transmission policies require their own normalized mechanisms. These extensions, and any inherited recursive formation, are separate from the fixed-preparation communication theorem proved here.

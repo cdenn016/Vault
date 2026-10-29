@@ -6,7 +6,7 @@ A message can change a receiver's belief about the subject or its understanding 
 
 \section{What changes when a dictionary changes}
 
-Work at one context in reference coordinates. Agent $i$ represents content $y_i\in\R^K$. On a directed edge $e:j\to i$, the sender has a fixed code $T_e:\R^K\to\R^{r_e}$ of full row rank. The receiver owns an invertible dictionary $\theta_e=e^{\omega_e}$, where $\omega_e$ is a $K\times K$ matrix. According to this dictionary, the receiver's content $y_i$ would be expressed by the sender as $\theta_e^{-1}y_i$. A comparison record therefore reads
+Work at one context in reference coordinates. Agent $i$ represents content $y_i\in\R^K$. On a directed edge $e:j\to i$, the sender has a fixed code $T_e:\R^K\to\R^{n_e}$ of full row rank. The receiver owns an invertible dictionary $\theta_e=e^{\omega_e}$, where $\omega_e$ is a $K\times K$ matrix. According to this dictionary, the receiver's content $y_i$ would be expressed by the sender as $\theta_e^{-1}y_i$. A comparison record therefore reads
 \begin{equation}
  o_e=T_e(\theta_e^{-1}y_i-y_j)+\varepsilon_e.
  \label{c18:nonlinear-record}
@@ -80,7 +80,7 @@ Group the variables into receiver blocks $x_i=(y_i,\omega_{\operatorname{in}(i)}
  \qquad u^*=J^{-1}\eta.
  \label{c18:global-vfe}
 \end{equation}
-Thus $S_i=J_{ii}^{-1}$ at its covariance optimum, and the factor means equal the exact posterior mean. The exact marginal covariance is larger because integrating other blocks subtracts a positive-semidefinite term from the marginal precision. Factorization has removed correlations, not made the underlying variables better measured.
+Thus $S_i=J_{ii}^{-1}$ at its covariance optimum, and the factor means equal the exact posterior mean. This is a feature of the Gaussian target; for non-Gaussian posteriors the factor means generally differ from the exact means. The exact marginal covariance is larger because integrating other blocks subtracts a positive-semidefinite term from the marginal precision. Factorization has removed correlations, not made the underlying variables better measured.
 
 The Fisher metric for a Gaussian mean is its inverse covariance. With these optimized covariances held fixed, put $D=\bigoplus_iJ_{ii}$. Then
 \begin{equation}
@@ -176,15 +176,15 @@ The covariance derivative exposes the distinction. Put $d_e=T_e(\mu_i-\mu_j-\kap
        S_{j,e}^{-1}T_e.
  \label{c18:source-covariance}
 \end{equation}
-Indeed, its relevant terms are $[\Tr(S_{j,e}^{-1}(S_{i,e}+d_ed_e^T+U_e))+\log\det S_{j,e}]/2$. Differentiation gives \cref{c18:source-covariance}. The source covariance is compared with the receiver's predicted second moment about the source mean, which includes their disagreement. More generally, for an exponential-family source $q_\eta$ with statistic $t$, one has $\partial_\eta\KL(p\Vert q_\eta)=\E_{q_\eta}t-\E_pt$ under regularity and finite moments. Source stationarity matches those expected statistics.
+Indeed, its relevant terms are $[\Tr(S_{j,e}^{-1}(S_{i,e}+d_ed_e^T+U_e))+\log\det S_{j,e}]/2$. Differentiation gives \cref{c18:source-covariance}. The source covariance is compared with the receiver's predicted second moment about the source mean, which includes their disagreement. More generally, let an exponential-family source $q_\eta$ with statistic $t$ be compared through a fixed kernel $\mathcal K$. Under regularity and finite moments, $\partial_\eta\KL(p\Vert q_\eta\mathcal K)=\E_{q_\eta}t-\E_{\tilde p_\eta}t$, where $\tilde p_\eta=\int p(dh)q_\eta(\cdot\mid h)$ is the source's own posterior reconstruction of the compared message law. Source stationarity is therefore the fixed-point condition of an EM step; only for an identity kernel is it the plain moment match $\E_{q_\eta}t=\E_pt$.
 
-There is a precise scalar conclusion. Freeze the means, the receiver variance $v_k$, the noise $R>0$, and a deterministic dictionary. Let the sender have only its self term of precision $p_j$ and one outgoing edge of unit weight. Its stationary variance satisfies
+There is a precise scalar conclusion. Freeze the means, the receiver variance $v_k$, the noise $R>0$, and the dictionary variance $V_e\geq0$. Let the sender have only its self term of precision $p_j$ and one outgoing edge of unit weight. With $a=v_k+R+d^2+c_k^2V_e$, its stationary variance satisfies
 \begin{equation}
- f(v,d^2)=p_j-v^{-1}+(v+R)^{-1}
-                  -(v_k+R+d^2)(v+R)^{-2}=0.
+ f(v,a)=p_j-v^{-1}+(v+R)^{-1}
+                  -a(v+R)^{-2}=0.
  \label{c18:variance-stationary}
 \end{equation}
-At a nondegenerate minimum, $\partial_v f>0$, whereas $\partial_{d^2}f=-(v+R)^{-2}<0$. Implicit differentiation gives $dv/d(d^2)>0$. This establishes an increasing stationary uncertainty under these frozen conditions. It does not establish a monotone covariance increase along a flow in which means, other edge costs, and source rows all move. In linear-Gaussian inference the optimizing covariance is record-independent because the precision matrix is fixed; non-Gaussian Bayesian uncertainty can depend on the observed data. The coupled Gaussian calculation below allows source selection and all uncertainties to move, while retaining fixed codes, operating contents, and proper references.
+For every $v>0$, $\partial_vf=[R^3+3R^2v+4Rv^2+2(a-R)v^2]/[v^2(v+R)^3]>0$, and $f$ runs from $-\infty$ to $p_j>0$, so there is exactly one stationary variance and it is the global minimizer. Since $\partial_af=-(v+R)^{-2}<0$, implicit differentiation gives $dv/da>0$. This establishes an increasing stationary uncertainty under these frozen conditions. It does not establish a monotone covariance increase along a flow in which means, other edge costs, and source rows all move. In linear-Gaussian inference the optimizing covariance is record-independent because the precision matrix is fixed; non-Gaussian Bayesian uncertainty can depend on the observed data. The coupled Gaussian calculation below allows source selection and all uncertainties to move, while retaining fixed codes, operating contents, and proper references.
 
 \section{When content, interpretation, and attention all move}
 \label{c18:coupled}
@@ -243,7 +243,7 @@ This is the natural-gradient rule applied to the product of the declared Gaussia
  h_e=C_e+T_i(\log(\beta_e/\pi_e)+1).
  \label{c18:coupled-rows}
 \end{equation}
-Instantaneous Gibbs reduction instead reevaluates $\beta^*$ at every state and uses \cref{c18:coupled-flow} with the same matter metric. Pulling back the full metric to the graph of the Gibbs row would add $\sum_e(d\beta_e^*)^2/\beta_e^*$ and give a different mobility. Finite-rate row relaxation and this reduced convention generally follow different paths.
+Instantaneous Gibbs reduction instead reevaluates $\beta^*$ at every state and uses \cref{c18:coupled-flow} with the same matter metric. Pulling back the full metric to the graph of the Gibbs row would add $\sum_e(d\beta_e^*)^2/\beta_e^*$ and give a different mobility. Finite-rate row relaxation and this reduced convention generally follow different paths. Near the critical point below, pullback-metric reduction reproduces the leading center coefficients of full relaxation.
 
 At a stationary point every force in \cref{c18:coupled-forces} vanishes, and the full row is Gibbs. For example,
 \begin{equation}
@@ -272,7 +272,7 @@ Costs are bounded there, say $0\leq C_e\leq M$. Gibbs rows satisfy $\beta_e^*\ge
 \end{equation}
 Variation of constants bounds its magnitude by $L_i=\max\{M/T_i,\max_{e,f}|\eta_{ef}(0)|\}$. Normalization gives $\beta_e\geq\pi_e e^{-L_i}$, so no row reaches the boundary. The vector field is smooth near the resulting compact trajectory closure and can therefore be continued for every forward time.
 
-The reduced energy attains an interior minimum on a compact sublevel; its Gibbs row gives a full stationary point. Integrated dissipation is finite. On the compact trajectory closure its time derivative is bounded, so dissipation is uniformly continuous and tends to zero: sustained positive pulses would otherwise have infinite total area. Every accumulation point is consequently stationary. These conclusions require neither a unique equilibrium nor a claim of convergence to one particular point. They apply to this fixed Gaussian restriction and provide no uniform limit at zero temperature or singular reference precision.
+The reduced energy attains an interior minimum on a compact sublevel; its Gibbs row gives a full stationary point. Integrated dissipation is finite. On the compact trajectory closure its time derivative is bounded, so dissipation is uniformly continuous and tends to zero: sustained positive pulses would otherwise have infinite total area. Every accumulation point is consequently stationary. Because both potentials are real analytic on the interior and the Fisher metric is uniformly equivalent to the Euclidean one on the trajectory closure, the {\L}ojasiewicz inequality gives finite trajectory length, so every trajectory converges to one stationary point. The limit can depend on the initial state, since uniqueness of the equilibrium is not proved. They apply to this fixed Gaussian restriction and provide no uniform limit at zero temperature or singular reference precision.
 
 \section{Uncertainty can change the stability verdict}
 \label{c18:threshold}
@@ -380,7 +380,7 @@ The explicit costs give
  \end{aligned}
  \label{c18:critical-contractions}
 \end{equation}
-The negative response term accounts for the stable matter coordinates moving as the row changes. A calculation on the straight zero-mode line would omit it. The resulting stationary force is
+The negative response term accounts for the stable matter coordinates moving as the row changes. A calculation on the straight zero-mode line would omit it and give the positive fourth derivative $6368971071507328/655026269697361\approx9.72$, predicting a supercritical pitchfork; the response term exceeds $32T_c$ by less than $0.2$ percent and reverses the classification. The resulting stationary force is
 \begin{equation}
  \Phi_s(s,T_c+\delta)=4\delta s+c s^3+O(|\delta||s|^3+|s|^5).
  \label{c18:critical-force}
@@ -391,7 +391,7 @@ Evenness allows one to factor this as $sQ(s^2,\delta)$. Since $Q_z(0,0)=c<0$, th
               \simeq\pm6.15297\sqrt{\delta}.
  \label{c18:critical-branches}
 \end{equation}
-There are no additional nearby equilibria for small $\delta\leq0$. On either asymmetric branch $\Phi_{ss}=-8\delta+O(\delta^2)<0$. The matter Hessian remains positive definite, so each branch is a saddle with one unstable direction. These branches lie on the high-temperature side, where the symmetric state is still stable.
+There are no additional nearby equilibria for small $\delta\leq0$. On either asymmetric branch $\Phi_{ss}=-8\delta+O(\delta^2)<0$. The matter Hessian remains positive definite, so each branch is a saddle with one unstable direction. These branches lie on the high-temperature side, where the symmetric state is still stable. The sign of $c$ is a property of these reference data: a float64 continuation, not interval validated, gives $c\approx+0.023$ when the dictionary reference precision is $1$ instead of $3/4$, and then the pitchfork is supercritical.
 
 Stationary elimination determines the equilibrium positions but not the speed of a moving row. The Fisher metric enters that second calculation. At the symmetric point the matter Fisher metric is $M_*^{-1}=\operatorname{diag}(1,1,1,1,1,1/2,1/2,1/2,1/2,1/2)$, and
 \begin{equation}
@@ -407,6 +407,6 @@ Let $Y(s,\delta)$ be the matter coordinates on an invariant center manifold and 
  d=\begin{cases}D,&\text{Gibbs reduction},\\D+4,&\text{full relaxation}.\end{cases}
  \label{c18:critical-dynamics}
 \end{equation}
-The extra $4$ is the row's Fisher squared length at equal weights. Full relaxation has $4797364/30390845$ times the leading Gibbs-reduced center speed, corresponding to a time scale about $6.34$ times longer. Adding the Gibbs row's pullback metric to the reduced flow would change the specified dynamics.
+The extra $4$ is the row's Fisher squared length at equal weights. Full relaxation has $4797364/30390845$ times the leading Gibbs-reduced center speed, corresponding to a time scale about $6.34$ times longer. Adding the Gibbs row's pullback metric to the reduced flow changes the specified dynamics in a definite way: the row direction adds $1/(b_*(1-b_*))=4$ to the squared length of $p$, so the pullback-metric reduction has exactly the leading center coefficients of full relaxation. The factor $(D+4)/D$ is the kinetic cost of the row omitted by matter-metric reduction.
 
-At the threshold, $\dot s=(-c/d)s^3+O(s^5)$ points away from zero on either side. The symmetric equilibrium is therefore nonlinearly unstable even though its linear center rate vanishes. Each nearby asymmetric branch has an unstable eigenvalue $8\delta/d+O(\delta^2)$, with nine stable directions for Gibbs reduction and ten for full relaxation. This is a subcritical pitchfork with destabilizing parameter $T_c-T$. It supplies no nearby stable asymmetric group. The calculation compares local equilibria and leading center velocities; higher-order paths, distant attractors, folds, and inherited-parent formation remain separate questions.
+At the threshold, $\dot s=(-c/d)s^3+O(s^5)$ points away from zero on either side. The symmetric equilibrium is therefore nonlinearly unstable even though its linear center rate vanishes. Each nearby asymmetric branch has an unstable eigenvalue $8\delta/d+O(\delta^2)$, with nine stable directions for Gibbs reduction and ten for full relaxation. For these data this is a subcritical pitchfork with destabilizing parameter $T_c-T$. It supplies no nearby stable asymmetric group. The calculation compares local equilibria and leading center velocities; higher-order paths, distant attractors, folds, and inherited-parent formation remain separate questions.

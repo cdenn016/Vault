@@ -24,14 +24,15 @@ if and only if
 \end{equation}
 When it exists, it is unique.
 
-\noindent\emph{Proof.}
-If \eqref{sinh:linear-square} holds, every $v\in\ker C_j$ satisfies
+\begin{proof}
+If \cref{sinh:linear-square} holds, every $v\in\ker C_j$ satisfies
 $C_i(M_{ij}v)=0$. Conversely, define
 $M_{IJ}^c(C_jv)=C_i(M_{ij}v)$. Two choices $v,w$ with $C_jv=C_jw$ differ
-by an element of $\ker C_j$, which \eqref{sinh:kernel-condition}
+by an element of $\ker C_j$, which \cref{sinh:kernel-condition}
 annihilates. The definition is therefore independent of the representative.
 It is linear, and surjectivity of $C_j$ defines it everywhere. The same
-surjectivity proves uniqueness. $\square$
+surjectivity proves uniqueness.
+\end{proof}
 
 This is the factor theorem for linear maps. It covers deterministic linear
 retentions only. For a stochastic sample retention the parent channel must be
@@ -49,7 +50,7 @@ declared domain.
 The same criterion handles an additive-noise channel without requiring
 Gaussian noise. Suppose the receiver content is $M_{ij}v+\varepsilon$,
 where $\varepsilon$ has a fixed probability law $\nu$ independent of
-$v$. If \eqref{sinh:kernel-condition} holds, its retained law is the
+$v$. If \cref{sinh:kernel-condition} holds, its retained law is the
 distribution of
 \begin{equation}
  M_{IJ}^c C_jv+C_i\varepsilon.
@@ -93,23 +94,51 @@ multiplication by the corresponding $TP_z$ matrices and by $\mathbf 1$.
 The recursion is the forward algorithm for a function of a Markov chain
 \citep{BaumPetrie1966,EphraimMerhav2002}. The normalized vector
 $\widehat p_{h_n}$ is itself a Markov process on the simplex of laws on
-$\mathsf S$, moving to \eqref{sinh:filter-update} with probability
-\eqref{sinh:next-record}.
+$\mathsf S$, moving to \cref{sinh:filter-update} with probability
+\cref{sinh:next-record}; it is the information state of a partially
+observed Markov chain \citep{Astrom1965}. The proof uses the Markov
+property at every propagation step, and time-dependent transition matrices
+$T_n$ may replace $T$ without change.
 
-\noindent\emph{Proof.}
+\begin{proof}
 The $x$ component of $p_0P_{z_0}$ is the joint probability of
 $X_0=x$ and $Z_0=z_0$. Multiplication by $T$ propagates this joint mass
 one step; multiplication by $P_{z_1}$ restricts it to the next retained
 value. Induction gives the joint mass of $h_n$ and $X_n=x$ as the $x$
 component of $f_{h_n}$. Its sum is the probability of $h_n$, so division
 gives the conditional distribution. One further propagation and selection
-gives \eqref{sinh:next-record} and \eqref{sinh:filter-update}. Repeating
-the operation gives every future word probability. $\square$
+gives \cref{sinh:next-record,sinh:filter-update}. Repeating
+the operation gives every future word probability.
+\end{proof}
 
 A zero-probability history has zero unnormalized message and no conditional
 law supplied by this formula. Because all matrices are nonnegative, every
 extension of that history also has zero mass. The construction therefore
 needs no arbitrary prediction on an impossible history.
+
+\remarkheading{The filter beyond finite configuration spaces}{sinh:filter-general}
+Let $\mathsf S$ be a measurable space, let the retained space $\mathsf Z$ be
+countable, let $T_n$ be Markov kernels on $\mathsf S$, and let $R$ be
+measurable. For a retained history $h$ of positive probability define the
+measures $f_{(z_0)}(B)=p_0(B\cap R^{-1}\{z_0\})$ and
+$f_{(h,z)}(B)=\int f_h(dx)T_n(x,B\cap R^{-1}\{z\})$. The argument of
+\cref{sinh:filter} applies with measures in place of vectors: the normalized
+measure $f_h/f_h(\mathsf S)$ is the conditional law of the current
+configuration given $h$, the next retained value has probability
+$f_{(h,z)}(\mathsf S)/f_h(\mathsf S)$, and the update holds at every history
+of positive probability. When $\mathsf Z$ is uncountable, every history may
+have probability zero. On standard Borel spaces the conditional laws then
+exist as regular conditional distributions and the update is a jointly
+measurable disintegration of the one-step joint law of next state and next
+retained value \citep{Kallenberg2021}; the identities hold almost surely,
+choices of versions on null sets cannot be avoided, and the remark above on
+impossible histories has no analogue. The Markov property of the normalized
+filter holds once a jointly measurable version of the update is fixed. On an
+infinite configuration space the filter need not concentrate even when the
+retained history determines the initial configuration: for the doubling map
+$x\mapsto2x\bmod1$ with $R(x)=1_{\{x\geq1/2\}}$ and a uniform initial law,
+the conditional law of $X_n$ given its retained history is uniform on an
+interval of length $1/2$ for every $n$.
 
 The filter is sufficient even when the retained process is not Markov.
 For the deterministic cycle $1\to2\to3\to1$ with uniform initial law,

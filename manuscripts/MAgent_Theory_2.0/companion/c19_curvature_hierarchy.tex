@@ -36,11 +36,11 @@ S_{\mathrm{marg}}(\omega)
 \end{equation}
 where $\Vert v\Vert_A^2=v^TAv$. This is Gaussian elimination, equivalently a Schur complement of the joint precision. The extra dictionary precision is $\mathcal V^TC_P^{-1}\mathcal V$: dictionaries become statistically coupled because they share uncertain contents.
 
-The entire affine residual matters. Nonzero records can be better explained by nonzero dictionary loop sums. A positive quadratic penalty for perturbing dictionaries therefore does not establish a flat preferred state. In this tangent model $C_P$ is independent of $\omega$, so its determinant adds no dictionary force. Nonlinear models can have dictionary-dependent content precision and a corresponding log-determinant contribution; its effect requires its own calculation.
+The entire affine residual matters. Nonzero records can be better explained by nonzero dictionary loop sums. A positive quadratic penalty for perturbing dictionaries therefore does not establish a flat preferred state. In this tangent model $C_P$ is independent of $\omega$, so its determinant adds no dictionary force. Nonlinear models can have dictionary-dependent content precision and a corresponding log-determinant contribution. Keeping the dropped product already produces one: at fixed dictionaries the record $\bar T_e(e^{-\omega_e}y_i-y_j)+\varepsilon_e$ is still linear in the contents, so the integration remains exact, but its content precision now depends on $\omega$.
 
 \section{The part that changing contents cannot explain}
 
-Weaken every self precision by setting $P=\epsilon\bar P$ and taking $\epsilon\downarrow0$. Contents can then move almost freely. For a coded reinterpretation $v=\mathcal V\omega$, its remaining quadratic cost is
+Weaken every self precision by setting $P=\epsilon\bar P$ and taking $\epsilon\downarrow0$ inside the tangent model. Contents can then move almost freely. For a coded reinterpretation $v=\mathcal V\omega$, its remaining quadratic cost is
 \begin{equation}
 v^T\Pi_Hv=\min_a\Vert v-\delta a\Vert_{R^{-1}}^2,
 \qquad
@@ -49,7 +49,9 @@ v^T\Pi_Hv=\min_a\Vert v-\delta a\Vert_{R^{-1}}^2,
 \end{equation}
 The plus sign denotes the Moore--Penrose inverse. The vector $a$ is a proposed change of everyone's contents. Its coded effect is $\delta a$. Weighted least squares removes the part of $v$ that such a change can explain and retains the orthogonal residual.
 
-This residual has a cohomological description. The vertex spaces are $\R^K$, the edge spaces are $H_e$, and the two maps into each edge space are its code. These data form a cellular sheaf on the graph \citep{HansenGhrist2021}. Since the graph has no two-cells, its first cohomology is the quotient of all coded edge values by $\operatorname{im}\delta$. Equation \cref{c19:projection} gives the quotient norm. The term says exactly which reinterpretations cannot be absorbed by changes of contents; the terminology adds no further dynamical claim.
+The weak-anchor limit is a statement about the tangent model, and that model stops describing its own record in the limit. The common content shift is constrained by no record, so its spread grows like $\epsilon^{-1/2}$ and the dropped product of $\omega_e$ with $y_i-c_i$ is no longer small. Restoring that product, the log-determinant of the dictionary-dependent content precision grows like $\epsilon^{-1}$ in its dictionary dependence and charges every reinterpretation that a common content shift cannot absorb in some direction, including those with $\omega c=0$. The same cohomological form appears consistently in a different limit: shrink the record noise, $R=\rho\bar R$ with $\rho\downarrow0$, at fixed self precisions. Then $\rho$ times the record precision tends to the same projection formed with $\bar R$, and the determinant term is smaller by a factor of the order of the content prior variance divided by $|c|^2$. The window is noise variance much smaller than content prior variance, which is much smaller than $|c|^2$.
+
+This residual has a cohomological description. The vertex spaces are $\R^K$, the edge spaces are $H_e$, and the two maps into each edge space are its code. These data form a cellular sheaf on the graph \citep{HansenGhrist2019}, of the kind used for discourse by \citet{HansenGhrist2021}. Since the graph has no two-cells, its first cohomology is the quotient of all coded edge values by $\operatorname{im}\delta$. Equation \cref{c19:projection} gives the quotient norm, the norm of the harmonic representative in the weighted discrete Hodge decomposition \citep{HansenGhrist2019,Lim2020}. The term says exactly which reinterpretations cannot be absorbed by changes of contents; the terminology adds no further dynamical claim.
 
 For injective codes and common operating content $c\ne0$, zero residual means $\omega_ec=a_i-a_j$ on every edge. Such differences sum to zero around every signed cycle of the underlying undirected multigraph. They can be tested using directed closed walks only if the chains of those walks span that cycle space. Strong connectivity is sufficient when all directed closed walks are allowed. Opposite attending edges remain distinct variables; the graph convention does not replace one by the inverse of the other.
 
@@ -98,7 +100,7 @@ The last equality uses the telescoping sum of the content differences. Equal gai
 
 For plug-in per-agent models the same local equation uses peer means as data. A law-level per-agent model widens $R_e$ by the sender's coded covariance. At fixed covariances the reciprocal potential has another effective weight and registers agreement. These substitutions change the gains, so owner-local dependence is not equality of all dictionary forces. A spread content law can probe several independent directions, and the rank-one formula need not survive beyond the fixed-topic Gaussian model.
 
-\section{What a supplied parent inherits statically}
+\section{The static parent density of a supplied rigid cluster}
 
 Supply a partition into clusters and a parent content $y_A$ for each cluster. A cross-scale Gaussian factor of precision $\tau$ penalizes $y_i-y_A-\omega_{iA}c_A$. If its dictionary is free with anchor variance $\sigma^2$, integration leaves child-parent precision
 \begin{equation}
@@ -113,15 +115,15 @@ p_A'(z)=\frac{p_A(z)\prod_{i\in I}p_i(z)}{Z_A},\qquad
 Z_A=\int p_A(z)\prod_{i\in I}p_i(z)\mu(dz).
 \label{c19:rigid}
 \end{equation}
-This requires $0<Z_A<\infty$, finite positive internal record factors at zero discrepancy, and a finite positive normalizer after including the remaining bridges. Individual normalization is insufficient: two densities $\frac13z^{-2/3}$ on $(0,1)$ have a nonintegrable product. The construction defines a density on one parent coordinate per cluster using the chosen measure; it is not automatically the conditional law on a probability-zero diagonal.
+This requires $0<Z_A<\infty$, finite positive internal and cross-scale record factors at zero discrepancy, and a finite positive normalizer after including the remaining bridges, integrated against the parent self laws and the bridge-dictionary prior. Individual normalization is insufficient: two densities $\frac13z^{-2/3}$ on $(0,1)$ have a nonintegrable product. The construction defines a density on one parent coordinate per cluster using the chosen measure; it is not automatically the conditional law on a probability-zero diagonal.
 
-For Gaussian self laws, completing the square gives
+For Gaussian self laws and Lebesgue reference measure, completing the square gives
 \begin{equation}
 P_A'=P_A+\sum_{i\in I}P_i,\qquad
 P_A'm_A'=P_Am_A+\sum_{i\in I}P_im_i.
 \label{c19:pooling}
 \end{equation}
-Every bridge keeps its code, record, dictionary, and operating vector. The parent pools self information while retaining separate boundary factors. With pinned internal and cross-scale dictionaries, the Gaussian energy is a positive quadratic plus $\frac{\tau}{2}\sum_i|y_i-y_A|^2$. Splitting variables into equal-content and transverse directions shows that the transverse minimizer is $O(\tau^{-1})$, so the global minimizer tends to the rigid one. This is a Gaussian minimizer limit, not a convergence theorem for normalized general-law hierarchies.
+Every bridge keeps its code, record, dictionary, and operating vector. The parent pools self information while retaining separate boundary factors. With pinned internal and cross-scale dictionaries, the Gaussian energy is a positive quadratic plus $\frac{\tau}{2}\sum_i|y_i-y_A|^2$. Splitting variables into equal-content and transverse directions shows that the transverse minimizer is $O(\tau^{-1})$, so the global minimizer tends to the rigid one. The same block calculation shows that the normalized soft Gaussian law converges to the rigid restriction, with mean and covariance errors $O(\tau^{-1})$. The Gaussian cross-scale kernel selects Lebesgue measure here; this is not a convergence theorem for normalized general-law hierarchies, and another reference measure $g(z)dz$ would change the pooling formula by the factor $g^{-|I|}$.
 
 \section{When a wall carries one dictionary}
 

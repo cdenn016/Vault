@@ -4,7 +4,8 @@ Per-agent Gibbs-row dynamics with parents created by a wall handoff. Each block 
 event list or a root; agreement supports the statements at the tested instances only. Blocks (1)-(5) test
 general-law identities on finite alphabets; blocks (6)-(17) use the Gaussian location instance with the declared
 selector. Blocks (18)-(20) test the general-law identities and bounds of the derived selector, and blocks (21)-(26)
-run the derived selector in the same instance.
+run the derived selector in the same instance. Checks (27) to (29) are in certify.py (interval certificates),
+controls.py (the nulls and the frozen-environment control of the formation standard) and dwell.py.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1"); os.environ.setdefault("MKL_NUM_THREADS", "1")

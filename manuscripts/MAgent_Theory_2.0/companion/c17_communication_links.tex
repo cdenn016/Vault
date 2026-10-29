@@ -65,10 +65,10 @@ The chain rule first computes the mean conditional discrepancy. Mixing the condi
 In a linear realization, let $U_i\in G$ be agent $i$'s displayed frame. Sender $j$ has a reference code $\bar T_j:V\to H$. Receiver $i$ assigns it a reference dictionary $\bar\theta_{ij}\in G$, with displayed link and effective code
 \begin{equation}
 \theta_{ij}=U_i\bar\theta_{ij}U_j^{-1},\qquad
-A_{ij}=\bar T_j\bar\theta_{ij}^{-1}.
+\hat A_{ij}=\bar T_j\bar\theta_{ij}^{-1}.
 \label{c17:dictionary}
 \end{equation}
-The first map takes sender coordinates to receiver coordinates. The second asks what message the sender would emit if the content had the receiver's coordinates. This accounts for the inverse in $A_{ij}$.
+The first map takes sender coordinates to receiver coordinates. The second asks what message the sender would emit if the content had the receiver's coordinates. This accounts for the inverse in $\hat A_{ij}$.
 
 Under a passive change $U_i\mapsto g_iU_i$, the displayed link changes as $\theta_{ij}\mapsto g_i\theta_{ij}g_j^{-1}$ and the displayed code as $T_j\mapsto T_jg_j^{-1}$. The message value is unchanged. Changing the common reference requires re-expressing $\bar T_j$ and $\bar\theta_{ij}$ together. Endpoint covariance alone does not choose a dictionary or prove that its data are independent of that common reference choice.
 
@@ -123,7 +123,7 @@ F(\delta,\delta)
 C=\bar\theta^{-1}M\bar\theta^{-T}.
 \label{c17:information}
 \end{equation}
-Because $R$ and $C$ are positive definite, this vanishes exactly when $\bar T\delta=0$. For regular non-Gaussian location noise, the same formula uses its location Fisher matrix instead of $R^{-1}$, with the same kernel when that matrix is positive definite.
+Because $R$ and $C$ are positive definite, this vanishes exactly when $\bar T\delta=0$. For non-Gaussian location noise whose density has a square root in $H^1$, which includes Laplace noise, the same formula uses its location Fisher matrix instead of $R^{-1}$; that matrix is then positive definite and the kernel is the same. Uniform noise has no such Fisher form, and only the stabilizer statement remains. These identification statements assume that the receiver knows the sender's reference code. If it does not, messages depend only on $\bar T\bar\theta^{-1}$, which is unchanged when both factors are multiplied on the right by one group element.
 
 The record experiment matters. Let $T=I_2$, let every observed referent equal $c=e_1$, and perturb by $\delta=E_{22}$, the matrix with only its lower-right entry nonzero. Then $\delta c=0$, so that one referent sees no change. But $T\delta\neq0$, and referents with positive-definite second moment detect it. A direction invisible at one operating content is not necessarily invisible to a grounded code.
 
@@ -146,7 +146,7 @@ These kernels contain the linear relations among rows. An invertible change of c
 
 For example, $T_1=T_2=(1,0)$ requires identical readings. The choice $S_1=(1,0)$ and $S_2=(2,0)$ has the same stacked rank, one, but violates that requirement. Equal rank is therefore insufficient. If both stacks have full row rank with total width at most $K$, their relation spaces are both zero and a shared dictionary does exist.
 
-Routing also controls what is learned. If modality $c$ listens to sender $j$ with probability $\beta_{ij}^{(c)}$, observed source labels give information $\sum_c\beta_{ij}^{(c)}F_c^{(j)}$. Conditional independence of messages makes the information add. A modality with zero source weight contributes nothing about that sender. If source labels are hidden, their uncertainty reduces information in the positive-semidefinite order, by the missing-information identity \citep{Louis1982}. Extra modalities help only through the distinctions their actual observations resolve.
+Routing also controls what is learned. If modality $c$ listens to sender $j$ with probability $\beta_{ij}^{(c)}$, observed source labels give information $\sum_c\beta_{ij}^{(c)}F_c^{(j)}$. Conditional independence of messages makes the information add. A modality with zero source weight contributes nothing about that sender. If source labels are hidden, their uncertainty reduces information in the positive-semidefinite order: by the law of total variance for the complete-data score, the observed information is the complete-data information minus a positive-semidefinite term, as in the identity of \citet{Louis1982}. Extra modalities help only through the distinctions their actual observations resolve.
 
 \section{Loops, agreement, and the chosen observable}
 
@@ -158,7 +158,7 @@ H_\gamma=\bar\theta_{i_ki_{k-1}}\cdots\bar\theta_{i_1i_0}.
 \end{equation}
 It compares the interpretation obtained after returning along the loop with the starting interpretation. Such loops belong to the communication graph at one context; they do not by themselves define a connection between contexts.
 
-If the directed graph is strongly connected, a transported consensus law obeying $q_i=(\bar\theta_{ij})_\#q_j$ on every edge is determined by a base law invariant under every loop based there. To see why, transport that law along a directed path to each vertex. Two paths give the same result because a return path closes each into a loop, and transport along the return path is invertible. Strong connectivity supplies the required return paths. For means, the allowed base values are the common fixed vectors of the matrices $H_\gamma$. This is the same fixed-section mechanism underlying connection Laplacians \citep{SingerWu2012,BandeiraSingerSpielman2013}.
+If the directed graph is strongly connected, a transported consensus law obeying $q_i=(\bar\theta_{ij})_\#q_j$ on every edge is determined by a base law invariant under every loop based there. To see why, transport that law along a directed path to each vertex. Two paths give the same result because a return path closes each into a loop, and transport along the return path is invertible. Strong connectivity supplies the required return paths. For means, the allowed base values are the common fixed vectors of the matrices $H_\gamma$. This is the global-section condition of group synchronization \citep{Singer2011}. On undirected graphs with the inverse convention the corresponding quadratic form is the connection Laplacian of \citet{SingerWu2012}, whose least eigenvalue measures frustration \citep{BandeiraSingerSpielman2013}.
 
 There are two distinct ways to measure a loop. The law divergence $\KL(q\Vert(H_\gamma)_\#q)$ vanishes when the loop stabilizes the law. A link observable dressed by a positive-definite covariance is instead
 \begin{equation}
@@ -172,7 +172,7 @@ H=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad q=\mathcal N(0,I_2),
 \end{equation}
 the transported law equals $q$, so the law divergence is zero. But $\|I-H\|_F^2=4$, giving $Q(H;I_2)=2$. Stabilizer blindness belongs to the law comparison, not to this dressed link defect.
 
-Grounded edge records can identify the dictionaries, and hence their loop product, without relaying one realized sample around the entire loop. Identifiability from these records, comparison of transported marginal laws, and observation of one sample along several routes are different experiments.
+When the codes are injective, grounded edge records can identify the dictionaries, and hence their loop product, without relaying one realized sample around the entire loop. For lossy codes they identify each dictionary only modulo its code stabilizer, and the loop product only modulo products of stabilizer elements. Identifiability from these records, comparison of transported marginal laws, and observation of one sample along several routes are different experiments.
 
 \section{Message count and source confidence}
 
@@ -235,10 +235,10 @@ Completing the square gives
 \end{equation}
 If the truth is flat, so $z^\star=-a$, increasing the loop weight recovers that truth. If the actual invisible coordinate is different, the same prior still drives the estimate toward $-a$. The messages cannot decide between these cases. A recovered flat interpretation and evidence for flatness are different conclusions.
 
-In the full tangent model, changing the invisible coordinates changes the loop value only through $B(N)$. If $Q$ is the $W$-orthogonal projection onto the complement of that subspace, the message-identifiable residual is
+In the full tangent model, changing the invisible coordinates changes the loop value only through $B(N)$. If $Q_{\mathcal D}$ is the $W$-orthogonal projection onto the complement of that subspace, the message-identifiable residual is
 \begin{equation}
 \mathcal D(\omega)=\min_{\nu\in N}\|B(\omega+\nu)\|_W^2
-=\|QB\omega\|_W^2.
+=\|Q_{\mathcal D}B\omega\|_W^2.
 \label{c17:detectable}
 \end{equation}
 A strong loop prior removes the component it can change within the identified affine set. The remaining residual is the part the messages force it to keep.
@@ -255,7 +255,7 @@ H^0=\{u=(u_i)_i:\bar T_e(u_i-u_j)=0
 \text{ for every }e:j\to i\}.
 \label{c17:sections}
 \end{equation}
-These are compatible assignments of content vectors through the codes, the global sections of a cellular sheaf \citep{HansenGhrist2021}. If the chosen loop chains span the signed cycle space of the underlying multigraph, the invisible flat-generator space for $\mathfrak{gl}(K,\R)$ has dimension $K(\dim H^0-K)$. The subtracted $K$ is the space of constant vector assignments. Mere connectedness does not ensure the cycle-spanning hypothesis for directed loops. One must supply enough directed return paths or explicitly use signed geometric reversals, keeping them distinct from independent opposite attending edges.
+These are compatible assignments of content vectors through the codes, the global sections of a cellular sheaf \citep{HansenGhrist2019}, of the kind used for discourse by \citet{HansenGhrist2021}. If the chosen loop chains span the signed cycle space of the underlying multigraph, the invisible flat-generator space for $\mathfrak{gl}(K,\R)$ has dimension $K(\dim H^0-K)$. The subtracted $K$ is the space of constant vector assignments. Mere connectedness does not ensure the cycle-spanning hypothesis for directed loops. One must supply enough directed return paths or explicitly use signed geometric reversals, keeping them distinct from independent opposite attending edges.
 
 Some identification statements survive without linearization. For two unrestricted $\GL(K,\R)$ dictionaries whose truth is reciprocal, exact message laws and reciprocity leave
 \begin{equation}

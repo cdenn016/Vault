@@ -20,23 +20,29 @@ $\mathsf K_i,\mathsf M_i,\mathsf Y_i$ & Represented state contents, model presen
 $\mathcal B_i,E_i$ & Statistical bundle $P\times_G\Prob(\mathsf Y_i)$ and sample bundle $P\times_G\mathsf Y_i$. \\
 $\Prob(X)$ & Probability measures on a measurable space $X$. \\
 $\zeta_i,q_i,s_i$ & Joint agent law (recognition law) and its belief and model marginals. \\
-$r_i,G_i,\ell_i$ & Prior over presentations, evaluator, and record kernel of agent $i$'s generative model. \\
+$r_i,G_i,\ell_i$ & Presentation prior, evaluator, and record kernel of agent $i$'s generative model. The term reference law is reserved for the laws $\bar q_i,\bar s_i$ in reference coordinates. \\
+$l_i,\lambda_{\mathsf O_i}$ & Declared record density of $\ell_i$ and the declared sigma-finite reference measure on $\mathsf O_i$. \\
+$K_i^{(n)}$ & Composite kernel of $n$ records given a presentation, with $K_i^{(1)}=K_i^{\mathrm{rec}}$. \\
+$\mathbf g$ & A passive change, the tuple $(g_i)_i$ of elements of $G$ acting on the agents' frames. \\
+$\mathfrak A_{\mathrm{pop}},\mathfrak A_{\mathrm{prot}}$ & Population and protocol observable algebras. A distinction is gauge relative to an algebra when no element separates it at any time along the declared dynamics. \\
 $P_i,\mathcal F_i$ & Normalized generative model of agent $i$ and its single-agent or per-agent free energy. \\
 $R_i,\mathcal E_0$ & Reference joint $r_iG_i$ and the sum of local terms $\KL(q_i\otimes s_i\Vert R_i)$. \\
 $\phi,\psi$ & Presentation and content maps relating two agents that share a generative model. \\
 $\mathsf Z,P_0,Q$ & Coefficient space, prior, and recognition law of a content law on fields. \\
 $f_i,F_D,Q_D$ & Sample-section maps, a finite-design evaluation map, and its law. \\
-$\Pi_o,Z_o$ & Posterior and evidence of a fixed normalized model at record value $o$. \\
+$L_o,\Pi_o,Z_o$ & Likelihood, posterior, and evidence of a fixed normalized model at record value $o$. \\
 $g^F,\ell_v$ & Fisher metric of an admitted regular family and the score in tangent direction $v$. \\
 $D^\omega\zeta,h^\omega_\zeta$ & Covariant statistical derivative and its Fisher pullback on the context base. \\
 $J_{\boldsymbol p},H_{\boldsymbol p}$ & Infinitesimal collective group action and its Fisher-orthogonal complement. \\
 $\mathfrak k,A^F$ & Collective orbit metric and a representative of the minimizing connection class. \\
+$\theta^{\mathrm{mech}},\Omega^{\mathrm{mech}}$ & Mechanical connection of the declared comparison data and its curvature. \\
 $u_i,\sigma,U_i$ & Frame of agent $i$ in $P_{c_*}$, a reference point, and $U_i$ with $u_i=\sigma U_i^{-1}$. \\
 $V_a,E_i^a$ & Reference vector space of sector $a\in\{q,s\}$ and agent $i$'s coordinate copy of it. \\
 $U_i^q,U_i^s$ & Frame representatives in the two sectors. \\
 $\bar q_i,\bar s_i$ & Laws in common reference coordinates on a trivializing patch. \\
 $L^q_{ij},L^s_{ij}$ & Law-dependent interaction generators in the vector realization. \\
 $\Theta^q_{ij},\Theta^s_{ij}$ & Invertible source-to-receiver interaction maps. \\
+$N_{ij,j}$ & Backtrack loop $\Theta_{ji}\Theta_{ij}$ at $j$ of a directed pair. \\
 $\mathcal K^q_{ij},\mathcal K^s_{ij}$ & Normalized source-to-receiver comparison channels. \\
 $\nu^q_{ij},D^q_{ij}$ & Compared law $q_j\mathcal K^q_{ij}$ and peer divergence $\KL(q_i\Vert\nu^q_{ij})$; model sector analogous. \\
 $T_j^a,O_i^a$ & Sending and receiving maps in sector $a\in\{q,s\}$. \\
@@ -52,11 +58,19 @@ $\Gamma_{ij},\mathcal R_{ij}$ & Interaction transition on configurations and the
 $\mathcal E,\mathcal E_{\mathrm{red}}$ & Reciprocal law potential and its row-reduced form. \\
 $\mathcal E_o$ & Evidence-augmented reciprocal potential. \\
 $\mathcal F$ & Variational free energy for a specified normalized probabilistic model. \\
-$\Phi,\Phi^0$ & A flow of a construction and its null flow, with peer costs deleted. \\
-$H(x),P(x)$ & Membership history with event times and the partition sequence without them; $H^0,P^0$ along the null flow. \\
-(F1)--(F6) & Clauses of the formation standard; (F5) is interaction necessity, $P\neq P^0$ on an open set. \\
+$\Phi$ & The flow of a construction, on its declared chart or invariant family. \\
+$\Phi^0_{\mathrm{lp}},\Phi^0_{\mathrm{rn}}$ & Label-preserving and renormalized null flows: every peer cost is deleted, with the peer labels and priors kept, or with the deleted labels removed so that a self source has weight one. \\
+$\beta^0_{ii}$ & Self weight of a Gibbs row along the label-preserving null, below one when the self prior is below one. \\
+$\Phi^{\mathrm{fr}}$ & Frozen-environment control: nothing is deleted, and the laws of the other agents are held at their initial values in every force. \\
+$H(x),P(x)$ & Membership history with event times and the partition sequence without them, modulo exchange of consecutive merges of disjoint agent sets; $H^0_{\mathrm{lp}},P^0_{\mathrm{lp}}$, $H^0_{\mathrm{rn}},P^0_{\mathrm{rn}}$, and $H^{\mathrm{fr}},P^{\mathrm{fr}}$ along the controls. \\
+$S_c,\mathsf C$ & A declared selector family and its constant set, fixed before the flows are analyzed. \\
+$A_I,B_I,R_I$ & In the formation standard, the parent protocol class, the child-level probe class, and the retention of a block $I$. \\
+$\Omega_I^{\mathrm{reach}}$ & Reachable post-handoff set of a block $I$. \\
+$\mathcal C,\mathcal U$ & In the counterfactual clause, the declared counterfactual handoff class and the class of initial configurations that generates it. \\
+(F1)--(F6) & Clauses of the formation standard; (F5) is interaction necessity, $P\neq P^0$ pointwise on a nonempty open admitted set, against both nulls and for every constant in $\mathsf C$. \\
 $W_2(\nu,\mathsf P)$ & Matrix Wishart law with shape $\nu>1/2$ and precision $\mathsf P$ in the conditional formation example. \\
 $n_I,A_I,B_I$ & Primitive count and belief/model shape sums of a retained block in that example. \\
+$\beta_i$ & In that example, the self weight of agent $i$ along the label-preserving null. \\
 $\Lambda_q,C_q$ & Moment-dependent comparison precision and its complete force coefficient; the model sector uses $\Lambda_s,C_s$. \\
 $B^q_{IJ},B^s_{IJ}$ & Exact receiver-averaged, source-summed native rows of current blocks in the open-law construction. \\
 $\mathsf H_I,\phi_I$ & Discarded constant relative rotations and the retained local mean anchor phase. \\
@@ -64,7 +78,19 @@ $F,R,F^c$ & Fine deterministic update, retention map, and inherited update, with
 $a_i,B_i,F_i$ & Reference connection form, its local representative, and curvature. \\
 $X,U,Z,Y$ & Source, encoded representation, decoder information, and prediction target in the coding construction. \\
 $\mathcal T,\Delta$ & Encoder kernel and predictive decoder in the coding construction. \\
+$\alpha,\alpha_+$ & Dirichlet parameter of the record-process example and its total concentration. \\
+$\bar\sigma$ & Magnetization of the Ising example, solving $\bar\sigma=\tanh(J\bar\sigma)$. \\
+$\lambda_t,F_0^t,F_1^t$ & Joint private-record posterior after $t$ messages and its product-tilt factors, $\lambda_t\propto F_0^tF_1^t\lambda_0$. \\
+$\Sigma^D_t$ & Covariance of the private records in the Gaussian closure of the interacting protocol. \\
+$\ell_\psi,\mathcal X_{\mathrm{rich}}$ & Score of the common $\psi$ rotation and the rich preparation class of the collective construction. \\
+$\mathcal R,\mathcal R_{\mathrm{glob}}$ & Regular critical set of the finite contextual flow and its subset on which every transport is the unique global minimizer. \\
+$X,H_X,Q_X,P_X$ & Collective message matrix, $H_X=XX^T$, the right inverse $Q_X=X^TH_X^{-1}$, and the projector $P_X=Q_XX$; $H_X^{-1}$ is the induced fiber metric. \\
+$C(c',c),T(c',c)$ & Cross-context map $X(c')Q_X(c)$ and the direct rotation between message row spaces. \\
+$\bar\Theta_{ij},R_{ij}$ & A link and its reciprocal part in reference coordinates, $U_i^{-1}\Theta_{ij}U_j$ and $U_i^{-1}\Omega_{ij}U_j$. \\
+$J_Z,\mathcal H$ & Infinitesimal action on contextual link data and the locked form of the alignment selector. \\
+$\bar T,\bar\theta,\hat A$ & Code and dictionary in reference coordinates and the effective code $\hat A=\bar T\bar\theta^{-1}$ that messages identify. \\
+$O_0,Q_D$ & Noiseless gain of the Gaussian decoder and the projection onto the directions that a code reads. \\
 \end{longtable}
 
-The symbol $F$ for a discrete update and $F_i$ for curvature are used in separate constructions, and the calligraphic $\mathcal F_i$ denotes a free energy. The letter $B$ denotes a connection representative $B_i$, block shape sums $B_I$, and native rows $B^q_{IJ}$, each in its own construction. The symbol $\nu$ denotes a compared law $\nu_{ij}$ in the dynamics, a sector marginal $\nu_i^a$ in the interaction chapter, and a Wishart shape. A frame $U_i^a$ is an invertible map; the coding variable $U$ is a random representation. A Markov kernel returns a probability measure, whereas an ordinary map returns one value. The symbol $\circ$ composes maps and juxtaposition composes kernels, in the order in which a law traverses them.
+The symbol $F$ for a discrete update and $F_i$ for curvature are used in separate constructions, and the calligraphic $\mathcal F_i$ denotes a free energy. The letter $B$ denotes a connection representative $B_i$, block shape sums $B_I$ in the Wishart construction, the child-level probe class $B_I$ of the formation standard, and native rows $B^q_{IJ}$, each in its own construction; $A_I$ is likewise a shape sum in the Wishart construction and a protocol class in the standard, and $\mathcal C$ denotes a counterfactual class only inside the counterfactual clause. The symbol $\nu$ denotes a compared law $\nu_{ij}$ in the dynamics, a sector marginal $\nu_i^a$ in the interaction chapter, and a Wishart shape. A frame $U_i^a$ is an invertible map; the coding variable $U$ is a random representation. The letter $\Gamma$ denotes an interaction transition $\Gamma_{ij}$ and, in the causal-memory obstruction of the collective construction, the evolution map of a memory. A Markov kernel returns a probability measure, whereas an ordinary map returns one value. The symbol $\circ$ composes maps and juxtaposition composes kernels, in the order in which a law traverses them.
 \endgroup
