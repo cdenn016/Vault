@@ -1681,14 +1681,31 @@ $\mathcal F_i$ of \cref{prop:dyn-per-agent}, for the dynamics of
 rows are minimized exactly at unit temperature at every state; the self
 costs are $\KL(s_i\Vert r_i)$ and $\int\KL(q_i\Vert G_i(m,\cdot))s_i(dm)$,
 and (N1) keeps the echo labels. For the global free energy of
-\cref{sec:dyn-likelihood}, the null marginalizes every record whose
-likelihood factor depends on the contents of two or more agents, replaces
-$P_0$ by the product of its single-agent marginals, and keeps single-agent
-factors and records, with latent source labels at their priors; the
-frozen-environment control holds $Q_{-i}$ at its initial value in
-\cref{eq:dyn-mean-field-field}. No construction of this manuscript states a
-selection result for the global free energy, and no further convention is
-developed for it here.
+\cref{sec:dyn-likelihood}, write the coordinates of the model as the agent
+blocks $y_i$ and the non-agent coordinates $\nu$, such as structural latents,
+block latents, and source labels not attached to a single agent. Both nulls
+marginalize every record whose likelihood factor depends on the contents of
+two or more agents and keep single-agent factors and records. The
+label-preserving null replaces $P_0$ by the product over $i$ of the marginal
+of $P_0$ on $(y_i,\nu)$: each agent receives a private copy $\nu^{(i)}$ of the
+non-agent coordinates with their prior, so latent source labels and
+structural latents are kept at their priors and are read only by their own
+agent, and a single-agent factor that also reads $\nu$ reads that agent's
+copy. The renormalized null integrates the private copies out and replaces
+$P_0$ by the product of its marginals on the agent blocks alone. The two
+nulls coincide when the model has no non-agent coordinate and differ in
+general in their transients. The frozen-environment control gives every
+agent $i$ a private copy of the non-agent blocks, updated by the rule that
+updates them along the full flow, and holds the law of every agent $j\neq i$
+at its initial value in each factor that enters the force on $Q_i$ or on its
+copy; without non-agent coordinates this is $Q_{-i}$ held at its initial
+value in \cref{eq:dyn-mean-field-field}. A selector that reads a non-agent
+block, such as a structural recognition factor, reads along every control the
+block minimizer that the original objective gives at the control's agent
+laws, as a row-reading selector does. Every control is run in the
+recognition family and with the update schedule of the full flow.
+\Cref{ch:global-formation} states a selection result for the global free
+energy under these conventions.
 
 Each control is the flow of the modified objective in the chart or invariant
 family in which the construction declares $\Phi$, and the construction
@@ -2018,7 +2035,14 @@ formation. The per-agent constructions of \cref{ch:per-agent-inheritance}
 and \cref{ch:collective-local-parent} are one-stage results whose erased
 phase, respectively common rotation, is gauge relative to every algebra
 declared there, so their retentions fail (F4) as declared here. All the
-smooth constructions supply their compression architectures.
+smooth constructions supply their compression architectures. Under the
+global free energy, \cref{ch:global-formation} selects first-level blocks and
+then their union with a derived selector, the mode of the structure posterior
+of the agents' current means, through parents that are exact and type-closed
+for conjugate linear-Gaussian children; the label-preserving null and the
+frozen-environment control reproduce its partition sequence, so (F5) fails,
+and the union forms from every counterfactual handoff, so (F6b) fails, and
+it is a two-stage selection with exact inheritance.
 
 \openproblemheading{A recursive formation}{inh:formation-open}
 The normalized per-agent construction of \cref{ch:per-agent-inheritance}
@@ -2033,10 +2057,26 @@ predeclared and the parent retains primitive ports. Joining already
 canonical parents loses no new coordinate, so neither a second compressive
 handoff nor (F6b) follows.
 
-Construct a population dynamics under the reciprocal potential, the
-per-agent free energies, or a global free energy that satisfies (F1) to (F6),
-preferably in the strong and amplifying grades, and derive rather than
-declare its selector, in the sense that the selector family has no
-threshold, window, or other constant beyond those of the constitutive data.
-Determine also whether type closure and an action of the parent on its
-children should be required, and construct a formation that has them.
+The global construction of \cref{ch:global-formation} has a derived selector
+with no constant beyond the constitutive data, exact and type-closed parents
+for conjugate linear-Gaussian children, and a parent that acts on its
+children through the expected child kernel; it fails (F5) and (F6b). With
+block kernels that do not depend on the block and no multi-agent record, its
+first selection event is reproduced exactly by the label-preserving null
+(\cref{gf:first-event}), so interaction necessity can only come from later
+stages, and with a unique self-consistent second-level structure the union
+does not depend on the handoff.
+
+Construct a population dynamics under the global free energy that
+satisfies (F1) to (F6), preferably in the strong and amplifying grades, with
+a derived selector. The routes left open by that chapter are block priors
+that depend on the block or multi-agent records, so that the first event is
+not a null event; second-level multistability reached along nested paths, so
+that the union depends on the handoff; and dynamical inheritance for child
+and record kernels outside the conjugate linear-Gaussian family, where the
+block statistics of \cref{gf:structure-factor} still give static inheritance
+but the agent update is not affine in its record (\cref{gf:beyond}). The
+same problem stands for the per-agent free energies, and for the reciprocal
+potential as the configuration-level device it is. Determine also whether
+type closure and an action of the parent on its children should become
+clauses of the standard.

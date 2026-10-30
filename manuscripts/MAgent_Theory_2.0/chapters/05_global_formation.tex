@@ -1,0 +1,738 @@
+\chapter{Formation under the global free energy}
+\label{ch:global-formation}
+
+The global free energy of \cref{sec:dyn-likelihood} is the objective in which
+a block of agents has one generative model, and it is the objective in which
+formation is posed here. This chapter adds to that model a structural latent,
+a nested pair of partitions with a prior on a declared finite catalog, block
+latents at two levels, and single-agent records, and it measures the
+resulting construction against the standard \cref{inh:recursive-formation}
+with the objects that \cref{ch:inheritance} fixes before any flow is
+analyzed. The general-law statements come first: the structure factor of the
+recognition is a posterior of the structure in a model whose data are the
+expected child kernels (\cref{gf:structure-factor}), and for child kernels of
+exponential type it depends on the agents only through summed block
+statistics, so the second-level structure inherits exactly from the first in
+the static sense. Dynamical inheritance, type closure, and the closed forms
+are proved for conjugate linear-Gaussian children and are features of that
+family. The verdict is that the construction is a two-stage selection with
+exact inheritance: (F1) to (F4) and (F6a) hold, (F5) fails because the
+label-preserving null reproduces the partition sequence, and (F6b) fails
+because the union forms from every counterfactual handoff.
+
+The structure posterior is Bayesian model selection over a finite catalog
+\citep{KassRaftery1995}, the conjugate Gaussian hierarchy is that of
+\citet{LindleySmith1972}, and the structural recognition restricted to point
+masses gives the classification version of the EM algorithm
+\citep{CeleuxGovaert1992,DempsterLairdRubin1977}, read as coordinate descent
+of a free energy \citep{NealHinton1998}. Bayesian hierarchical clustering
+\citep{HellerGhahramani2005} computes a related structure posterior for a
+greedy tree on fixed data. What is new here is that the data of the
+structure posterior are the current laws of interacting agents, that the
+population dynamics is descent of one free energy in which the structure is
+a recognition factor, and that the resulting selection is measured against
+null flows, protocol classes, and counterfactual handoffs.
+
+\section{A two-level partition model}
+\label{gf:sec-model}
+
+\definitionheading{Nested structures and catalog}{gf:catalog}
+Let $[N]=\{1,\dots,N\}$ be the agents. A nested structure is a pair
+$\Pi=(\Pi^1,\Pi^2)$ in which $\Pi^1$ is a partition of $[N]$ into first-level
+blocks $B$ and $\Pi^2$ is a partition of the set of blocks of $\Pi^1$ into
+second-level blocks $C$. Write $B_\Pi(i)$ for the first-level block of agent
+$i$ and $C_\Pi(B)$ for the second-level block of $B$. The finest structure
+$\Pi_\perp$ has singleton blocks at both levels. A catalog is a finite set
+$\mathsf C$ of nested structures containing $\Pi_\perp$, and the structure
+prior is a law $\pi$ on $\mathsf C$ with $\pi(\Pi)>0$ for every
+$\Pi\in\mathsf C$. Two structures induce the same agent partitions when their
+first-level partitions agree and their second-level blocks contain the same
+agents.
+
+\constructionheading{Global model with a structural latent}{gf:model}
+Let $\mathsf Y_i$, $\mathsf Z$, $\mathsf W$ be standard Borel spaces with a
+sigma-finite reference $\lambda_i$ on $\mathsf Y_i$, let $r$ be a probability
+law on $\mathsf W$, $k:\mathsf W\rightsquigarrow\mathsf Z$ a normalized
+kernel, and $p_i(y\mid z)$ a jointly measurable probability density on
+$\mathsf Y_i$ with respect to $\lambda_i$ for each $z\in\mathsf Z$. The
+non-agent coordinate is $\nu=(\Pi,w,z)$ with $w=(w_C)_{C\in\Pi^2}$ and
+$z=(z_B)_{B\in\Pi^1}$; it ranges over the standard Borel space
+$\mathsf N=\bigsqcup_{\Pi\in\mathsf C}\mathsf W^{\Pi^2}\times\mathsf Z^{\Pi^1}$.
+The prior is
+\begin{equation}
+ P_0(d\nu,dy)=\pi(\Pi)\prod_{C\in\Pi^2}r(dw_C)
+ \prod_{B\in\Pi^1}k(w_{C_\Pi(B)},dz_B)
+ \prod_{i=1}^Np_i(y_i\mid z_{B_\Pi(i)})\lambda_i(dy_i),
+ \label{gf:prior}
+\end{equation}
+and agent $i$ has a single-agent record $o_i$ with a declared density
+$\ell_i(o_i\mid y_i)$, positive and jointly measurable. The kernels $r$, $k$
+and $p_i$ do not depend on the block, which is the homogeneity hypothesis
+used in \cref{gf:first-event}. The objective is the global free energy
+\cref{eq:dyn-fixed-vfe} of $\mathbb P=P_0\prod_i\ell_i$ at the record
+$o=(o_i)_i$,
+\begin{equation}
+ \mathcal F(Q;o)=\KL(Q\Vert P_0)-\E_Q\sum_i\log\ell_i(o_i\mid y_i).
+ \label{gf:free-energy}
+\end{equation}
+The conjugate linear-Gaussian instance takes
+$\mathsf Y_i=\mathsf Z=\mathsf W=\R$, $r=\mathcal N(0,\sigma^2)$,
+$k(w,\cdot)=\mathcal N(w,\tau^2)$, $p_i(\cdot\mid z)=\mathcal N(z,s_i^2)$, and
+$\ell_i(o_i\mid y_i)=\mathcal N(o_i;y_i,\rho_i^2)$, with positive constants.
+Given $\Pi$, the contents are then Gaussian with mean zero and covariance
+\begin{equation}
+ C_\Pi=S+\tau^2M^1_\Pi+\sigma^2M^2_\Pi,
+ \qquad S=\operatorname{diag}(s_i^2),
+ \label{gf:covariance}
+\end{equation}
+where $M^1_\Pi$ and $M^2_\Pi$ are the co-membership matrices of the first-level
+blocks and of the agent sets of the second-level blocks; put
+$R=\operatorname{diag}(\rho_i^2)$.
+
+Agents interact in this model only through the shared non-agent coordinates.
+No comparison record of the form \cref{eq:sample-comparison} is included,
+for two reasons. Selection does not need it, since the shared block latents
+already couple the agents of a block. And without factors that read two
+agents, the agent blocks are conditionally independent given $\nu$ under
+every product recognition, so their simultaneous update equals every
+sequential one and the dynamics below has no order dependence among agents;
+the nulls of \cref{inh:null-flow} then delete exactly the sharing of $\nu$.
+The records are part of the configuration: they are coordinates held fixed
+by the dynamics, so the admitted class below varies them with the initial
+laws. This is the global picture's reading of evidence, which differs from
+one population to another; the consequence of holding them fixed instead is
+stated with (F4).
+
+\definitionheading{Recognition families}{gf:recognition}
+The structured family $\mathcal Q_{\mathrm{st}}$ consists of
+$Q=Q_\nu\otimes\bigotimes_iQ_i$ with $Q_i=a_i\lambda_i$ and $Q_\nu$ an
+arbitrary law on $\mathsf N$. The committed family
+$\mathcal Q_{\mathrm{cm}}\subset\mathcal Q_{\mathrm{st}}$ restricts $Q_\nu$ to
+$\delta_\Pi\otimes Q_{w,z\mid\Pi}$, a point mass on one structure times an
+arbitrary law of the latents of that structure. Recognition is a product
+across agents, as in \cref{prop:dyn-global-local}, and a product between the
+agents and the non-agent block; inside the non-agent block it is not
+factorized, so that the structure and the block latents keep their
+dependence, which a factorization $Q(\Pi)\otimes Q(w,z)$ would discard. For
+a discrete structure a point mass has finite entropy, so
+$\mathcal F(\delta_\Pi\otimes Q_{w,z\mid\Pi}\otimes Q_y;o)\geq-\log\mathbb P(o)$
+is a valid bound.
+
+\propositionheading{The structure factor}{gf:structure-factor}
+Fix agent laws $Q_i=a_i\lambda_i$ with $\int|a_i\log a_i|d\lambda_i<\infty$
+and $\E_{Q_i}|\log\ell_i(o_i\mid\cdot)|<\infty$, and suppose that
+$\int|\log p_i(y\mid z)|Q_i(dy)<\infty$ for every $z$. Put
+\begin{equation}
+ g_i(z)=\exp\int\log p_i(y\mid z)Q_i(dy),
+ \qquad
+ Z_\Pi=\int\prod_{C\in\Pi^2}r(dw_C)\prod_{B\in\Pi^1}\int k(w_{C_\Pi(B)},dz_B)
+ \prod_{i\in B}g_i(z_B),
+ \label{gf:pseudo-evidence}
+\end{equation}
+and suppose $0<Z_\Pi<\infty$ for every $\Pi\in\mathsf C$. Then:
+\begin{enumerate}
+\item[(i)] Over $\mathcal Q_{\mathrm{st}}$, the block minimizer of
+$\mathcal F$ in $Q_\nu$ is the law proportional to
+\begin{equation*}
+ \pi(\Pi)\prod_Cr(dw_C)\prod_Bk(w_{C(B)},dz_B)\prod_ig_i(z_{B(i)}),
+\end{equation*}
+and its structure marginal is
+\begin{equation}
+ Q^*(\Pi)=\frac{\pi(\Pi)e^{-F_\Pi}}{\sum_{\Pi'}\pi(\Pi')e^{-F_{\Pi'}}},
+ \qquad F_\Pi=-\log Z_\Pi.
+ \label{gf:structure-posterior}
+\end{equation}
+\item[(ii)] Over $\mathcal Q_{\mathrm{cm}}$, the block minimizer selects
+$\hat\Pi=\arg\min_\Pi[-\log\pi(\Pi)+F_\Pi]$, the mode of $Q^*$, with the
+conditional latent law of (i) given $\hat\Pi$; it is unique when the mode is.
+\item[(iii)] If the child densities are of exponential type,
+$p_i(y\mid z)=h_i(y)\exp\langle\theta(z),T_i(y)\rangle$ with measurable
+$\theta:\mathsf Z\to\R^p$ and $T_i:\mathsf Y_i\to\R^p$ and $\E_{Q_i}|T_i|<\infty$,
+then $F_\Pi+\sum_i\E_{Q_i}\log h_i$ is a function of the block statistics
+\begin{equation}
+ t_B=\sum_{i\in B}\E_{Q_i}T_i(y_i),\qquad B\in\Pi^1,
+ \label{gf:block-statistic}
+\end{equation}
+alone, so $Q^*$, the mode $\hat\Pi$, and for every first-level partition $A$
+the conditional law of $\Pi^2$ and $w$ given $\Pi^1=A$ depend on the agent
+laws only through $(t_B)_{B\in A}$.
+\end{enumerate}
+\begin{proof}
+Under the stated integrability the free energy splits as in the proof of
+\cref{prop:dyn-global-local}:
+$\mathcal F=\KL(Q_\nu\Vert P_0^\nu)-\E_{Q_\nu}\sum_i\log g_i(z_{B(i)})
++\sum_i\int a_i\log a_id\lambda_i-\sum_i\E_{Q_i}\log\ell_i(o_i\mid y_i)$, where
+$P_0^\nu$ is the prior marginal of $\nu$ and Fubini's theorem has been used
+for the child factors. The first two terms equal
+$\KL(Q_\nu\Vert Q_\nu^*)-\log\sum_\Pi\pi(\Pi)Z_\Pi$, with $Q_\nu^*$ the law in
+(i), which proves (i) because relative entropy vanishes only at equality.
+On $\mathcal Q_{\mathrm{cm}}$ the same computation with $Q_\nu=\delta_\Pi\otimes
+Q_{w,z\mid\Pi}$ gives $-\log\pi(\Pi)-\log Z_\Pi+\KL(Q_{w,z\mid\Pi}\Vert
+Q^*_{w,z\mid\Pi})$, which is (ii). Under (iii),
+$\prod_{i\in B}g_i(z)=\exp\big(\langle\theta(z),t_B\rangle+\sum_{i\in B}
+\E_{Q_i}\log h_i\big)$, and every agent lies in exactly one first-level block
+of every structure, so the factor $\exp\sum_i\E_{Q_i}\log h_i$ is common to
+all $Z_\Pi$ and the rest of \cref{gf:pseudo-evidence} reads only $t_B$. The
+conditional law of $(\Pi^2,w)$ given $\Pi^1=A$ is proportional to
+$\pi(A,\Pi^2)\prod_Cr(dw_C)\prod_{B\in A}L_B(w_{C(B)})$ with
+$L_B(w)=\int k(w,dz)e^{\langle\theta(z),t_B\rangle}$.
+\end{proof}
+
+Part (iii) is the general-law form of the statement that the second-level
+posterior inherits from the first level through a block retention: given
+$\Pi^1=A$ the second level sees a one-level model whose units are the blocks
+of $A$ and whose child likelihoods are $L_B$. It needs no conjugacy of $k$
+or $r$, which enters only the closed form of $Z_\Pi$. The structure factor is
+a posterior of the structure, but in the model whose data are the expected
+child kernels $g_i$, not in the model of the records: the two coincide only
+in the limit described after \cref{gf:gaussian-structure}.
+
+\corollaryheading{The Gaussian structure factor}{gf:gaussian-structure}
+In the conjugate linear-Gaussian instance, let $Q_i$ have mean $m_i$ and
+variance $S_i$. Then
+\begin{equation}
+ -\log\pi(\Pi)+F_\Pi
+ =-\log\pi(\Pi)-\log\mathcal N(m;0,C_\Pi)+\sum_i\frac{S_i}{2s_i^2}
+ +\mathrm{const},
+ \label{gf:gaussian-score}
+\end{equation}
+with a constant independent of $\Pi$ and of $Q$, so $Q^*$ is the posterior of
+the structure when the vector of current means $m$ is observed with child
+noise $S$, and the selector
+$\hat\Pi(m)=\arg\max_\Pi\pi(\Pi)\mathcal N(m;0,C_\Pi)$ is Bayesian model
+selection on the means. The block statistic is
+$t_B=(\lambda_B\hat m_B,\lambda_B)$ with
+$\lambda_B=\sum_{i\in B}s_i^{-2}$ and
+$\hat m_B=\lambda_B^{-1}\sum_{i\in B}s_i^{-2}m_i$.
+\begin{proof}
+Here $\log p_i(y\mid z)=-(y-z)^2/(2s_i^2)+\mathrm{const}$ and
+$\E_{Q_i}(y-z)^2=(m_i-z)^2+S_i$, so $g_i(z)$ is proportional to
+$\mathcal N(m_i;z,s_i^2)e^{-S_i/(2s_i^2)}$, and $Z_\Pi$ is the marginal
+density of $m$ in the hierarchy \cref{gf:prior}, which is
+$\mathcal N(m;0,C_\Pi)$. In the form of (iii), $\theta(z)=(z,-z^2/2)$ and
+$T_i(y)=(y/s_i^2,1/s_i^2)$.
+\end{proof}
+
+The variance term in \cref{gf:gaussian-score} is the same for every
+structure because the child noise of an agent does not depend on its block.
+The selector therefore reads only the means, and a non-Gaussian initial law
+with finite second moments gives the same selection as the Gaussian law with
+its mean and variance.
+
+\section{Dynamics, chart, and persistence}
+\label{gf:sec-dynamics}
+
+\definitionheading{The declared dynamics}{gf:sweep}
+The dynamics is coordinate descent of \cref{gf:free-energy} on
+$\mathcal Q_{\mathrm{cm}}$ in sweeps. Sweep $n\mapsto n+1$ replaces $Q_\nu$ by
+its block minimizer given $Q_y^{(n)}$ (\cref{gf:structure-factor}(ii)), and
+then every $Q_i$ by its block minimizer given the new $Q_\nu$,
+\begin{equation}
+ Q_i^{(n+1)}(dy)\propto\ell_i(o_i\mid y)\exp\Big(\int\log p_i(y\mid z)
+ Q_\nu^{(n+1)}(dz_{B(i)})\Big)\lambda_i(dy).
+ \label{gf:agent-update}
+\end{equation}
+The selector is the measurable map $x\mapsto\hat\Pi(x)$ of
+\cref{gf:structure-factor}(ii) evaluated at the agent laws and the records of
+a configuration $x$, on the set where the mode is unique; along the declared
+dynamics the structural recognition of sweep $n+1$ equals $\hat\Pi(x_n)$.
+The membership history is $H(x)=(\hat\Pi(x_n))_{n\geq0}$ with the sweep index
+as time, and $P(x)$ is its sequence of distinct consecutive values.
+
+This is the dynamics of \cref{prop:dyn-global-local}, each block being moved
+to the minimizer of its local free energy, with the non-agent coordinate as
+one more block. It is chosen over a continuous Fisher flow because every
+step is an exact block minimization, so $\mathcal F$ is nonincreasing along
+it, and because in the Gaussian instance every step is in closed form. The
+committed family is chosen over $\mathcal Q_{\mathrm{st}}$ because the block
+retention below is exact on it; on $\mathcal Q_{\mathrm{st}}$ the agent update
+mixes the structures with weights $Q^*(\Pi)$ that depend on within-block
+statistics through the structures with another first level, so that
+retention is not exact there (\cref{gf:soft-remark}).
+
+\propositionheading{The Gaussian sweep}{gf:gaussian-sweep}
+In the conjugate linear-Gaussian instance, let $Q_i^{(0)}$ have finite second
+moments. For every $n\geq1$, $Q_i^{(n)}=\mathcal N(m_i^{(n)},\eta_i)$ with
+$\eta_i=(s_i^{-2}+\rho_i^{-2})^{-1}$, and with
+$a_i=s_i^2/(s_i^2+\rho_i^2)$, $b_i=1-a_i$, $\mathsf a=\operatorname{diag}(a_i)$,
+$\mathsf b=\operatorname{diag}(b_i)$,
+\begin{equation}
+ \Pi^{(n+1)}=\hat\Pi(m^{(n)}),\qquad
+ m^{(n+1)}=\mathsf ao+\mathsf bK_{\Pi^{(n+1)}}m^{(n)},\qquad
+ K_\Pi=I-SC_\Pi^{-1}.
+ \label{gf:mean-map}
+\end{equation}
+The vector $K_\Pi m=m+S\nabla\log\mathcal N(m;0,C_\Pi)$ is the posterior mean of
+the block latents $(z_{B(i)})_i$ given the means as data. With
+$\bar F(m)=\sum_i(o_i-m_i)^2/(2\rho_i^2)-\log\mathcal N(m;0,C_\Pi)$, the mean
+update is $m-\operatorname{diag}(\eta_i)\nabla\bar F(m)$, a unit step of the
+natural gradient for the Fisher metric of the agent laws at their stationary
+variances. For fixed $\Pi$ the map $m\mapsto\mathsf ao+\mathsf bK_\Pi m$ is a
+contraction with factor at most $\max_ib_i$ in the norm
+$\Vert x\Vert_S=(\sum_ix_i^2/s_i^2)^{1/2}$, and its fixed point is
+\begin{equation}
+ m^*_\Pi=C_\Pi(C_\Pi+R)^{-1}o=\E[y\mid o,\Pi],
+ \qquad K_\Pi m^*_\Pi=(C_\Pi-S)(C_\Pi+R)^{-1}o,
+ \label{gf:fixed-point}
+\end{equation}
+the exact posterior means of the contents and of the block latents given the
+records and the structure.
+\begin{proof}
+Given $\Pi$ the latent law of \cref{gf:structure-factor}(i) is the Gaussian
+posterior of $u=(z_{B(i)})_i$ given the data $m$ with noise $S$, whose mean is
+$(C_\Pi-S)C_\Pi^{-1}m=K_\Pi m$; since $\nabla\log\mathcal N(m;0,C_\Pi)=
+-C_\Pi^{-1}m$, this is the stated identity. In \cref{gf:agent-update} the
+exponent is $-(y-\bar z_i)^2/(2s_i^2)$ up to a constant, with $\bar z_i=(K_\Pi
+m)_i$, and the product with the record density is
+$\mathcal N(\eta_i(\rho_i^{-2}o_i+s_i^{-2}\bar z_i),\eta_i)$, which gives
+\cref{gf:mean-map}; the gradient form follows from
+$\nabla\bar F=-R^{-1}(o-m)+C_\Pi^{-1}m$ and $\eta_i\rho_i^{-2}=a_i$,
+$\eta_is_i^{-2}=b_i$. The matrix $S^{-1/2}K_\Pi S^{1/2}=I-S^{1/2}C_\Pi^{-1}S^{1/2}$
+is symmetric with spectrum in $[0,1)$ because $C_\Pi\geq S>0$, and
+$\mathsf b$ commutes with $S$, which gives the contraction. At the fixed
+point, $(I-\mathsf bK_\Pi)m=\mathsf ao$ and $I-\mathsf bK_\Pi=\mathsf a
++\mathsf bSC_\Pi^{-1}=\mathsf a(I+RC_\Pi^{-1})$ because $\mathsf a^{-1}\mathsf
+bS=R$, so $m^*_\Pi=(I+RC_\Pi^{-1})^{-1}o=C_\Pi(C_\Pi+R)^{-1}o$, and the second
+identity follows from $K_\Pi C_\Pi=C_\Pi-S$.
+\end{proof}
+
+Equality of the mean-field means with the exact posterior means at fixed
+structure, data-independent variances, and invariance of the Gaussian family
+are features of the Gaussian family, as in \cref{prop:dyn-gaussian-closure};
+for other child or record kernels \cref{gf:agent-update} leaves no
+finite-dimensional family invariant in general. The stationary relation
+between the selector and the posterior of the records is exact but not an
+equality: a structure $\Pi_f$ at which the dynamics comes to rest satisfies
+$\Pi_f=\hat\Pi(\E[y\mid o,\Pi_f])$, a self-consistency condition, while the
+maximum a posteriori structure is $\arg\max_\Pi\pi(\Pi)\mathcal N(o;0,C_\Pi+R)$.
+As $R\to0$ both tend to $\arg\max_\Pi\pi(\Pi)\mathcal N(o;0,C_\Pi)$, since
+$m^*_\Pi\to o$. For $R>0$ the pseudo-data $m^*_\Pi$ have within-block
+contrasts $a_i$ times those of the records but are read with noise $S$ rather
+than $S+R$, so the selector can commit to a structure that the posterior of
+the records does not prefer.
+
+\lemmaheading{Persistence}{gf:persistence}
+In the Gaussian instance, suppose $\Pi_f$ is the strict maximizer of
+$\pi(\Pi)\mathcal N(m;0,C_\Pi)$ on the ball
+$\{\Vert m-m^*_{\Pi_f}\Vert_S\leq r\}$ for some $r>0$. If $\Pi^{(n+1)}=\Pi_f$ and
+$m^{(n)}$ lies in the ball, then $\Pi^{(k)}=\Pi_f$ for all $k>n$ and
+$m^{(k)}\to m^*_{\Pi_f}$ geometrically.
+\begin{proof}
+The map with $\Pi_f$ fixed maps the ball into itself by the contraction of
+\cref{gf:gaussian-sweep}, and on the ball the selector returns $\Pi_f$.
+\end{proof}
+
+The persistence criterion of (F2) is therefore an invariant block relation,
+certified by a ball of this lemma.
+
+\section{Inheritance, top-down action, and type closure}
+\label{gf:sec-inheritance}
+
+\theoremheading{Exact inheritance through the block retention}{gf:inheritance}
+In the Gaussian instance, let $A$ be a first-level partition and let
+$\Omega_A$ be a set of configurations, invariant under the sweep, at every
+point of which $\hat\Pi$ has first level $A$ and the agent variances equal
+$\eta_i$. For $B\in A$ put
+\begin{equation}
+ R_B(x)=\big(\lambda_B,\hat m_B,\hat o_B\big),\qquad
+ \hat o_B=\frac{\sum_{i\in B}\alpha_io_i}{\sum_{i\in B}\alpha_i},
+ \quad\alpha_i=\frac{\eta_i}{s_i^2\rho_i^2},
+ \label{gf:retention}
+\end{equation}
+and let $R_A=(R_B)_{B\in A}$. Then on $\Omega_A$:
+\begin{enumerate}
+\item[(L)] the parent law $\mathcal N(\hat m_B,\eta_B)$, with
+$\eta_B=\lambda_B^{-1}b_B$ and $b_B=\lambda_B^{-1}\sum_{i\in B}s_i^{-4}\eta_i$,
+is the law of $\hat y_B=\lambda_B^{-1}\sum_{i\in B}s_i^{-2}y_i$ under $Q$, and
+the second-level structure, the second-level latent law, and the block
+latent laws are functions of $R_A$;
+\item[(D)] $R_A\circ T=T^c\circ R_A$ for the sweep $T$, with the parent sweep
+\begin{equation}
+ \hat\Pi^2=\arg\max_{\Pi^2}\pi(A,\Pi^2)\mathcal N(\hat m;0,C^c_{\Pi^2}),\qquad
+ \hat m_B'=a_B\hat o_B+b_B\big(K^c_{\hat\Pi^2}\hat m\big)_B,
+ \label{gf:parent-sweep}
+\end{equation}
+where $C^c_{\Pi^2}=\operatorname{diag}(\lambda_B^{-1})+\tau^2I+\sigma^2M_{\Pi^2}$,
+$K^c=I-\operatorname{diag}(\lambda_B^{-1})(C^c)^{-1}$ and $a_B=1-b_B$; it is
+globally defined and well posed;
+\item[(B)] for the protocol that averages one fresh sample from each member
+with weights $s_i^{-2}/\lambda_B$, the response law is $\mathcal N(\hat
+m_B,\eta_B)$, a function of $R_A$;
+\item[(C)] the channels read by the parent update, the block likelihood
+$z\mapsto\prod_{i\in B}\mathcal N(m_i;z,s_i^2)\propto\mathcal N(\hat
+m_B;z,\lambda_B^{-1})$ and the parent record term, factor through $R_A$.
+\end{enumerate}
+\begin{proof}
+For $\Pi=(A,\Pi^2)$ decompose $m$ into the block means $\hat m$ and the
+within-block contrasts. The matrices $M^1_\Pi$ and $M^2_\Pi$ are constant on
+the blocks of $A$, so the hierarchy reads $m$ only through
+$\prod_{i\in B}\mathcal N(m_i;z_B,s_i^2)$, which is
+$\mathcal N(\hat m_B;z_B,\lambda_B^{-1})$ times a factor that does not depend
+on $z_B$ or on $\Pi^2$. Hence $\log\mathcal N(m;0,C_\Pi)=W_A(m)+\log\mathcal
+N(\hat m;0,C^c_{\Pi^2})$ with $W_A$ independent of $\Pi^2$, and the latent
+posteriors given $\Pi$ depend on $m$ through $\hat m$; this proves the second
+half of (L) and the first part of \cref{gf:parent-sweep}. All agents of $B$
+receive the same $\bar z_B=(K_\Pi m)_i$, so by \cref{gf:mean-map}
+\[
+ \lambda_B\hat m_B'=\sum_{i\in B}s_i^{-2}\eta_i\big(\rho_i^{-2}o_i
+ +s_i^{-2}\bar z_B\big)
+ =\Big(\sum_{i\in B}\alpha_i\Big)\hat o_B+\lambda_Bb_B\bar z_B,
+\]
+and $\alpha_i+s_i^{-4}\eta_i=s_i^{-2}$ gives $\sum_{i\in B}\alpha_i=\lambda_Ba_B$.
+The block latent mean $\bar z_B$ is the parent's $(K^c\hat m)_B$, which
+proves \cref{gf:parent-sweep}. The variance of $\hat y_B$ under $Q$ is
+$\lambda_B^{-2}\sum_{i\in B}s_i^{-4}\eta_i=\eta_B$, and the protocol in (B)
+has that law. The parent sweep is an affine contraction composed with a
+selection over a finite set, hence defined for every parent state, and (C)
+is the factorization just used.
+\end{proof}
+
+The theorem is the dynamical counterpart of \cref{gf:structure-factor}(iii)
+and holds only on a set where the first level stays $A$: the full selector
+compares structures with other first levels, whose scores read the
+within-block contrasts, and the invariance of $\Omega_A$ is a property of the
+trajectories that must be checked. The closure is a feature of conjugate
+linear-Gaussian children with linear-Gaussian records: the block sum of
+updated statistics is a function of $\hat o_B$ because the update is affine
+in the record.
+
+\propositionheading{What fails beyond the affine update}{gf:beyond}
+Under \cref{gf:structure-factor}(iii), with $\Pi$ fixed, the update
+\cref{gf:agent-update} gives $\E_{Q_i^{(n+1)}}T_i=G_i(o_i,\bar\theta_B)$, where
+$\bar\theta_B=\E_{Q_\nu}\theta(z_B)$ and $G_i(o,\vartheta)$ is the gradient
+in $\vartheta$ of $\log\int\ell_i(o\mid y)h_i(y)e^{\langle\vartheta,T_i(y)\rangle}
+\lambda_i(dy)$, wherever this logarithm is finite and differentiable. If there are measurable record statistics
+$\varsigma_i$ and maps $\Gamma_B$ with $\sum_{i\in B}G_i(o_i,\vartheta)=
+\Gamma_B(\vartheta,\sum_{i\in B}\varsigma_i(o_i))$, then the retention
+$(t_B,\sum_{i\in B}\varsigma_i(o_i))$ satisfies (D) wherever the first level
+stays $A$. Conversely, for two agents with the same kernels, records in an
+interval $J\subset\R$, $\varsigma$ the identity, and $G(\cdot,\vartheta)$
+continuous, the condition forces $G(\cdot,\vartheta)$ to be affine on $J$.
+\begin{proof}
+The first statement is the computation in the proof of
+\cref{gf:inheritance} with $t_B$ in place of $\lambda_B\hat m_B$, using
+\cref{gf:structure-factor}(iii) for the structure and latent updates. For the
+converse, $G(x)+G(y)=\Gamma(x+y)$ for $x,y\in J$ implies
+$G(x)+G(y)=2G(\tfrac{x+y}2)$, since $(\tfrac{x+y}2,\tfrac{x+y}2)$ has the same
+sum. A midpoint-affine function agrees with the affine interpolant of any
+two of its values at all dyadic points between them, and continuity extends
+the agreement to the interval.
+\end{proof}
+
+For a non-Gaussian record kernel the static inheritance of
+\cref{gf:structure-factor}(iii) survives, while dynamical inheritance with a
+finite block retention requires an update affine in a record statistic;
+otherwise the retention must carry the individual records of the block,
+which is the injective retention excluded by (F4). Whether an augmented
+finite parent state exists for such families is open.
+
+\remarkheading{The structured family}{gf:soft-remark}
+On $\mathcal Q_{\mathrm{st}}$ the stationary $Q_\nu$ is the law of
+\cref{gf:structure-factor}(i), and the Gaussian agent update uses
+$\bar z=\sum_\Pi Q^*(\Pi)K_\Pi m=m+S\nabla\log\sum_\Pi\pi(\Pi)\mathcal
+N(m;0,C_\Pi)$. A within-block contrast $\delta$ for $A$ leaves each
+$\mathbf 1_B^{\mathsf T}K_\Pi(m+\delta)$ with $\Pi^1=A$ unchanged but changes
+the weights $Q^*(\Pi)$ of the structures with another first level, which
+have positive prior mass; the block sums of the next means then depend on
+$\delta$, and the retention \cref{gf:retention} is not exact. It becomes
+exact in the limit in which $Q^*$ concentrates on $\Pi^1=A$. The dynamics and
+selection of the structured family are not analyzed here.
+
+\propositionheading{Top-down action and the cavity prior}{gf:top-down}
+In the model \cref{gf:model} with $\Pi$ fixed, the parent acts on child $i$
+in \cref{gf:agent-update} through the factor
+$\exp\int\log p_i(y\mid z)Q_\nu(dz_{B(i)})$, the geometric mean of the child
+kernel under the block-latent law. The exact posterior marginal satisfies
+\begin{equation}
+ \mathbb P(dy_i\mid o,\Pi)\propto\ell_i(o_i\mid y_i)c_i(y_i)\lambda_i(dy_i),
+ \qquad
+ c_i(y_i)=\int p_i(y_i\mid z)\mathbb P(dz_{B(i)}\mid o_{-i},\Pi),
+ \label{gf:cavity}
+\end{equation}
+with the cavity prior $c_i$, which uses the records of the other agents and
+not that of $i$. In the Gaussian instance at the fixed point
+\cref{gf:fixed-point}, the top-down factor is
+$\mathcal N(y;\E[z_{B(i)}\mid o,\Pi],s_i^2)$, which uses $o_i$ and differs from
+the cavity prior $\mathcal N(\bar c_i,s_i^2+v_i)$; the two give the same
+posterior mean of $y_i$, and the mean-field variance $\eta_i$ is at most the
+exact posterior variance $[C_\Pi-C_\Pi(C_\Pi+R)^{-1}C_\Pi]_{ii}$.
+\begin{proof}
+Given $\Pi$, $o_i$ depends on the other variables only through $y_i$, and
+$y_i$ is conditionally independent of $o_{-i}$ given $z_{B(i)}$, so
+$\mathbb P(dy_i\mid o,\Pi)\propto\ell_i(o_i\mid y_i)\mathbb P(dy_i\mid o_{-i},\Pi)$
+and the second factor is $c_i\lambda_i$. The Gaussian means agree by
+\cref{gf:fixed-point}. The variance inequality is the classical fact that a
+mean-field factor of a Gaussian has the inverse diagonal precision as its
+variance, here $(s_i^{-2}+\rho_i^{-2})^{-1}$, which is at most the diagonal of
+the covariance \citep{Bishop2006}.
+\end{proof}
+
+The parent acts on its children through a term of the fine field that is
+absent before the handoff: with $\Pi_\perp$ selected agent $i$ is drawn
+toward its own latent, and after the handoff toward the shared block latent.
+This top-down action is the mean-field one, not the cavity prior of exact
+inference.
+
+\propositionheading{Type closure}{gf:type-closure}
+Let $\mathfrak G$ be the class of conjugate linear-Gaussian nested-structure
+models of \cref{gf:model} with agent-dependent $s_i^2,\rho_i^2$, any catalog
+and positive prior, single-agent records, and the sweep of \cref{gf:sweep}.
+Under the hypotheses of \cref{gf:inheritance}, the parent sweep
+\cref{gf:parent-sweep} is the sweep of the model of $\mathfrak G$ whose agents
+are the blocks of $A$, with child noise $\lambda_B^{-1}$, record
+$\hat o_B$ with noise $\rho_B^2=\lambda_B^{-1}b_B/a_B$, first-level catalog
+the singletons, second-level catalog the partitions $\Pi^2$ with
+$(A,\Pi^2)\in\mathsf C$, and prior proportional to $\pi(A,\cdot)$; its agent
+laws $\mathcal N(\hat m_B,\eta_B)$ are its block minimizers. The parent is
+type-closed for $\mathfrak G$ in the sense of \cref{inh:type-closed}, with the
+coordinate-descent dynamics in place of a metric flow.
+\begin{proof}
+With these constants $a_B=\lambda_B^{-1}/(\lambda_B^{-1}+\rho_B^2)$, and the
+parent model's update \cref{gf:mean-map} is \cref{gf:parent-sweep}; its
+stationary variance is $(\lambda_B+\rho_B^{-2})^{-1}=\lambda_B^{-1}b_B=\eta_B$.
+The structure score is \cref{gf:gaussian-score} for the parent model, which
+is the second term of the decomposition in the proof of
+\cref{gf:inheritance}.
+\end{proof}
+
+The parent's first level is forced to be the singleton catalog, so type
+closure lowers the depth of the hierarchy by one; it does not make the
+parent able to regroup its own children.
+
+\section{Controls under the global free energy}
+\label{gf:sec-controls}
+
+The nulls and the frozen-environment control of the global free energy are
+those of \cref{inh:null-flow}. In this model the label-preserving null gives
+each agent a private copy of $(\Pi,w,z)$, the renormalized null integrates the
+copies out, so that agent $i$ has the prior $\mathcal N(0,v_i)$ with
+$v_i=s_i^2+\tau^2+\sigma^2$ in the Gaussian instance, and the frozen-environment
+control updates the copy of agent $i$ from $(Q_i,Q_{-i}^{(0)})$. Along each
+control the selector is $\hat\Pi$ at the control's agent laws.
+
+\lemmaheading{The first event is a null event}{gf:first-event}
+In the model \cref{gf:model}, run the label-preserving null with the
+recognition family and schedule of \cref{gf:sweep}. While the structural
+recognition of the full flow is $\Pi_\perp$, the full sweep and the null
+sweep act identically on the agent laws. Consequently, if
+$\hat\Pi(x_0)=\Pi_\perp$ and $n_1$ is the first sweep with
+$\hat\Pi(x_{n_1})\neq\Pi_\perp$, the two flows have the same agent laws for
+$n\leq n_1$, and $H$ and $H^0_{\mathrm{lp}}$ agree up to and including the
+first event.
+\begin{proof}
+Under $\Pi_\perp$, \cref{gf:prior} is the product over agents of the chains
+$r(dw_i)k(w_i,dz_i)p_i(y_i\mid z_i)$. In the private copy of agent $i$ every
+structure places $i$ in some block with the same chain, because $r$, $k$ and
+$p_i$ do not depend on the block, so the copy's block minimizer, whatever
+structure it commits to, gives agent $i$ the same expected child kernel as
+$\Pi_\perp$ in the full flow. Induction over the sweeps gives the claim, and
+the selector is the same function of the agent laws along both flows.
+\end{proof}
+
+Hence, under block-homogeneous kernels and without multi-agent records, (F5)
+against the label-preserving null can only be decided after the first event,
+and a construction of this class with one selection stage fails (F5). In the
+Gaussian instance the null sweep is $m_i'=a_io_i+b_ik_im_i$ with
+$k_i=(\tau^2+\sigma^2)/v_i$, the renormalized null reaches
+$m_i=\kappa_io_i$, $\kappa_i=v_i/(v_i+\rho_i^2)$, in one sweep, and both nulls
+have the stationary means $\kappa_io_i$.
+
+\section{The report}
+\label{gf:sec-report}
+
+\definitionheading{Declared data}{gf:declared}
+Take $N=4$, $s_i^2=1$, $\rho_i^2=\tfrac14$, $\tau^2=\tfrac1{10}$, $\sigma^2=4$,
+the catalog of all sixty nested structures on four agents, and the uniform
+prior. Then $a_i=\tfrac45$, $b_i=\tfrac15$, $\eta_i=\tfrac15$, $k_i=\tfrac{41}{51}$
+and $\kappa_i=\tfrac{102}{107}$. Write $A=\{12,34\}$, $\Pi_{\mathrm{sep}}=(A,
+\{\{12\},\{34\}\})$ and $\Pi_{\mathrm{join}}=(A,\{\{12,34\}\})$. The chart is the
+parameter manifold $(m_i,S_i)\in\R\times(0,\infty)$ of the Gaussian product
+family, which the sweep preserves after its first step, together with the
+record coordinates $o\in\R^4$; the initial structural recognition is
+$\Pi_\perp$ and does not affect the dynamics, because the first sweep
+replaces $Q_\nu$ by its block minimizer. The admitted class $U$ is an open
+neighborhood of $(m^{(0)},o)=((-9.2,-3.0,4.2,10.4),(2.9,3.1,4.4,4.6))$, with
+arbitrary initial variances, on which the conclusions of
+\cref{gf:instance} hold. The selector family is the single derived map
+$\hat\Pi$, so $\mathsf C$ has no real constant. For every block $I$ of every
+partition at every level, $A_I$ consists of the protocol that averages one
+fresh sample from each member with weights $s_i^{-2}/\lambda_I$ (for a block
+of parents, from each member parent's law), and $B_I$ adds to $A_I$ and to
+every $A_J$ of a block $J$ merged into $I$ one fresh sample from a named
+member through the identity channel. The counterfactual class $\mathcal C$
+is built from the class $\mathcal U$ of configurations with the records of
+$U$ and arbitrary initial agent laws with finite second moments: its
+counterfactual handoffs are the retentions \cref{gf:retention} at the actual
+handoff sweep of the trajectories from $\mathcal U$ along which $\hat\Pi$ has
+not reached first level $A$, restricted to the domain of the second-stage
+selector, the parent states at which \cref{gf:parent-sweep} selects
+$\Pi_{\mathrm{sep}}$. The records are held in $\mathcal U$ because they are
+evidence and not a product of the first stage; a class that varied them
+would decide (F6b) by the records.
+
+\propositionheading{The declared instance}{gf:instance}
+For the data of \cref{gf:declared} the following hold on a nonempty open set
+$U$ around the declared center.
+\begin{enumerate}
+\item[(i)] The full history is $\Pi_\perp$ at sweep $0$, $\Pi_{\mathrm{sep}}$
+at sweep $1$, and $\Pi_{\mathrm{join}}$ from sweep $2$ on, and every
+relation persists by \cref{gf:persistence}; the limit is
+$m^*_{\Pi_{\mathrm{join}}}=C_{\Pi_{\mathrm{join}}}(C_{\Pi_{\mathrm{join}}}+R)^{-1}o$.
+After the first event the within-block contrasts equal $a_i(o_i-o_j)$.
+\item[(ii)] The label-preserving null has the same partition sequence, with
+the same event sweeps. The renormalized null has $\Pi_\perp$ at sweep $0$ and
+$\Pi_{\mathrm{join}}$ from sweep $1$ on. Both nulls have within-block
+contrasts tending to $\kappa_i(o_i-o_j)$.
+\item[(iii)] The parent sweep \cref{gf:parent-sweep} with parent catalog
+$\{\Pi_{\mathrm{sep}},\Pi_{\mathrm{join}}\}$ reproduces the fine block means
+and selections from the handoff on; $\Pi_{\mathrm{join}}$ is its only
+self-consistent structure, and from every parent state at which it selects
+$\Pi_{\mathrm{sep}}$, with the records of $U$, it selects $\Pi_{\mathrm{join}}$
+after finitely many sweeps.
+\item[(iv)] After the second stage the retention
+$(\hat m_{12}+\hat m_{34})/2$ of the union, with its record mean, satisfies
+(L) to (C) with a linear parent update.
+\end{enumerate}
+\begin{proof}
+Each history is determined by finitely many strict inequalities between the
+scores \cref{gf:gaussian-score} at sweeps $0$ to $2$, and by a ball of
+\cref{gf:persistence} around the limit that the trajectory enters at
+sweep $3$. The scores, the trajectories, the limits, and the radius bound
+obtained from the quadratic expansion of the score differences are continuous
+in $(m^{(0)},o)$, so the conditions that hold at the center hold on a
+neighborhood. At the center they were evaluated in double precision: the
+smallest selector gap along the full and the label-preserving histories is
+$0.0142$ and along the renormalized one $0.0398$, against rounding errors
+below $10^{-12}$; the certificate radii in the Euclidean norm are $0.114$ for
+the full flow, whose fixed-structure contraction factor is $0.188$, and
+$0.261$ for the label-preserving null, whose factor is $b_ik_i=0.161$. The
+first event happens at sweep $1$ for both flows, with identical states, as
+\cref{gf:first-event} requires, and the null then passes through
+$\Pi_{\mathrm{join}}$ on its way to $\kappa o$. For (iii), (D) of
+\cref{gf:inheritance} gives the reproduction, which also holds numerically
+to $10^{-15}$. The fixed point of the parent sweep under $\Pi_{\mathrm{sep}}$
+is $(2.9206,4.3810)$, where $\Pi_{\mathrm{join}}$ is preferred with gap
+$1.28$; under $\Pi_{\mathrm{join}}$ it is $(3.0756,4.3170)$, where
+$\Pi_{\mathrm{join}}$ is preferred with gap $1.53$. From a parent state
+selecting $\Pi_{\mathrm{sep}}$ the parent sweep contracts toward the first
+point with factor at most $b_i$ until the selection changes, and the
+selection changes at the latest when the state enters the neighborhood of
+that point on which $\Pi_{\mathrm{join}}$ is preferred. For (iv), the two
+parents have equal precision, so $K^c_{\Pi_{\mathrm{join}}}$ is symmetric and
+has $(1,1)$ as an eigenvector, and the average of the parent means obeys an
+autonomous affine contraction. The inequalities and the reproduction are
+checked by the scripts recorded with the construction.
+\end{proof}
+
+The report follows the recipe of \cref{inh:recursive-formation}. The
+objective is the global free energy \cref{gf:free-energy}; the dynamics is
+the sweep of \cref{gf:sweep} on the committed family; the chart is that of
+\cref{gf:declared}. (F1) holds in the full grade: $U$ is open in the chart and
+initially unpartitioned, since $\hat\Pi=\Pi_\perp$ at sweep $0$. (F2) holds:
+the selector is derived, with no constant, it follows the readout convention
+of \cref{inh:null-flow} because along every control it is the original
+structure minimizer at the control's agent laws, the handoffs are the first
+sweeps at which the first and the second level change, which are stopping
+times, and persistence is an invariant block relation. (F3) holds for the
+first stage by \cref{gf:inheritance} on the set $\Omega_A$ of post-handoff
+configurations from $U$, invariant by \cref{gf:instance}(i), and for the
+second by \cref{gf:instance}(iv); the rules $A_I$ and $B_I$ are functions of
+the index set and the constitutive data.
+
+(F4) holds. Take $x,x'\in U$ with the same block means of $m^{(0)}$ and of
+$o$ and different within-block contrasts of the records. Under $\Pi_\perp$ the
+block means evolve by $\hat m_B'=a\hat o_B+bk\hat m_B$, and under structures
+with first level $A$ by \cref{gf:parent-sweep}, so $R_A(x_n)=R_A(x'_n)$ for
+every post-handoff sweep, while the named-member probe has the laws
+$\mathcal N(m_i,\eta_i)\neq\mathcal N(m_i',\eta_i)$. The separation persists:
+from the first sweep after the handoff on, the contrast is $a(o_i-o_j)$ and does
+not decay. The fibers are not orbits of a symmetry of the fine field: a
+translation of the within-block mean contrasts at fixed records does not
+commute with the sweep, which resets them to $a(o_i-o_j)$ and makes the part
+of the separation that comes from $m^{(0)}$ transient. The joint translation
+$(o,m)\mapsto(o+\delta,m+a\delta)$ by a within-block contrast $\delta$
+commutes with the sweep and preserves the responses of $A_I$ on the region
+where the selected first level is $A$, so the persistent part is of symmetry
+type there; it is not a symmetry of the selector on the whole chart, since it
+changes the scores of structures with another first level. If the records
+were held as constitutive constants, only the transient part would remain,
+and (F4) would hold with a separation that vanishes after one sweep.
+
+(F5) fails. Against the label-preserving null, $P=P^0_{\mathrm{lp}}$ at every
+point of $U$ by \cref{gf:instance}(ii). Against the renormalized null the
+sequences differ by the intermediate structure $\Pi_{\mathrm{sep}}$, which
+$P^0_{\mathrm{rn}}$ skips; this is a difference under the literal comparison
+of partition sequences, although it consists in the coincidence of two event
+sweeps. The verdict is split in either reading, and the clause fails; since
+$\mathsf C$ has no constant, there is no subset on which it holds. The
+selector-free observable is the contraction of every within-block contrast
+by the factor
+\begin{equation}
+ \frac{a}{\kappa}=\frac{s^2(v+\rho^2)}{(s^2+\rho^2)v}=\frac{214}{255}
+ \label{gf:contraction}
+\end{equation}
+relative to both nulls, together with the different limit points
+$m^*_{\Pi_{\mathrm{join}}}=(2.9956,3.1556,4.2370,4.3970)$ and
+$\kappa o=(2.7645,2.9551,4.1944,4.3850)$: the interaction changes the agents'
+laws but not which structures the selector reads. The frozen-environment
+control was computed over $120$ sweeps at the center and gave the same
+partition sequence with the same event sweeps; this is a numerical
+observation at one point without a tail certificate. The strong grade does
+not apply, and the amplifying grade fails against the label-preserving null
+at the first event, where the two states coincide and the ratio of
+\cref{inh:recursive-formation} is one.
+
+(F6a) holds: the parents unite under the inherited sweep, by the same
+selector with the same constitutive data, without resetting their records,
+by \cref{gf:instance}(iii). (F6b) fails: by \cref{gf:instance}(iii) the union
+forms from every counterfactual handoff in $\mathcal C$, so no subset with
+nonempty interior is free of the second-stage event. The falsifier of
+counterfactual dependence was tested directly. The instantaneous
+second-level structure factor at the handoff depends on the parent state
+$\hat m$, so it does differ between handoffs; the second-stage event and the
+stationary second-level factor at the fixed point \cref{gf:fixed-point} of
+the parent depend only on the parent records $\hat o$, so they are the same
+for every handoff in $\mathcal C$. The second-level outcome is therefore
+independent of the first-level handoff on all of $\mathcal C$, and the other
+falsifier, failure of the parent to close, does not occur. With first level
+$A$ the parent of \cref{gf:type-closure} is type-closed and acts on its
+children by \cref{gf:top-down}.
+
+The classification is a two-stage selection with exact inheritance: (F1),
+(F2), (F3), (F4) and (F6a) hold, and (F5) and (F6b) fail. The selected
+structure is also the maximum a posteriori structure of the records, but the
+structure posterior is nearly flat: at the limit the structure factor
+\cref{gf:structure-posterior} gives $\Pi_{\mathrm{join}}$ the mass $0.052$, and
+the posterior of the records gives it $0.050$, among sixty structures. The
+committed family turns a small difference of scores into a committed
+selection, which the structured family would not do.
+
+\remarkheading{Interaction-dependent selection along a regrouping path}{gf:regrouping}
+Clause (F5) can be met in this model only after the first event, and only
+where the full flow and the label-preserving null come to rest at different
+self-consistent structures, which requires several self-consistent structures
+for the same records. With $\tau^2=\tfrac1{20}$, the other data of
+\cref{gf:declared}, records $(2.9,3.1,5.65,5.85)$ and initial means
+$(-4,2,-9,-1)$, a computation gives the full sequence $\Pi_\perp$,
+$(\{1,234\},\{1234\})$, $\Pi_{\mathrm{join}}$, the label-preserving sequence
+$\Pi_\perp$, $(\{1,234\},\{1234\})$, $\Pi_{\mathrm{sep}}$, and the renormalized
+sequence $\Pi_\perp$, $\Pi_{\mathrm{sep}}$. The final partitions differ from
+both nulls, but the first stage selects a block that is later regrouped, so
+the second stage is not a union of first-stage parents and (F6a) fails along
+this path. This is a computation at one point; neither openness nor the
+absence of nested paths of this kind is proved.
+
+\openproblemheading{Formation under the global free energy}{gf:open}
+Within the class $\mathfrak G$, determine whether there is an open set of
+configurations on which the full flow passes through nested stages, the
+first-level blocks and then their union, while the label-preserving null
+comes to rest at a different structure, and on which the parent is
+multistable so that the union depends on the handoff state. By
+\cref{gf:first-event} such a set must lie in the regime of several
+self-consistent structures, and the first event cannot contribute. Outside
+$\mathfrak G$, the first event ceases to be a null event when the block
+priors depend on the block or when multi-agent records are present, and the
+dynamics of the structured family, in which the structure is not committed,
+is open. Dynamical inheritance for child and record kernels whose update is
+not affine in a record statistic needs either an augmented finite parent
+state or a different notion of parent, and neither is constructed here.
