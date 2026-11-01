@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-28
+updated: 2026-11-01
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-10-28
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **27** manuscripts · **14** themes · **13** maps of content · **288** concepts · **15** methods · **730** papers · **187** references · **7** runs · **7** web/methodology
+> **3** projects · **27** manuscripts · **15** themes · **13** maps of content · **286** concepts · **16** methods · **885** papers · **159** references · **2** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -54,6 +54,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[belief-inertia|The Inertia of Belief]]
 
 ## 🧩 Themes — cross-paper synthesis
+- [[Chris Fields and physics as communication]] — communication, reference frames, memory, agent organization, quantum geometry, and their distinct assumptions
 - [[Attention mechanisms — theory and positional structure]]
 - [[Consciousness and the hard problem]]
 - [[Emergent spacetime and holography]]
@@ -413,6 +414,119 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+
+### Chris Fields literature, November 1, 2026
+
+The complete reading map is [[Chris Fields and physics as communication]]. The collection adds 103 full-text source notes and four bibliographic access-gap notes; two earlier notes are preserved.
+
+- [[fields-2026-amplituhedra-generic-quantum-processes]]
+- [[kofman-2026-defining-life-a-conversation]]
+- [[fields-2026-from-complementarity-to-non-duality-seeing-objects-and-processes-as-pragmatic-constructs]]
+- [[fields-2026-how-did-we-get-so-smart]]
+- [[hartl-2026-remapping-and-navigation-of-an-embedding-space-via-error-minimization-a-fundamental-organizational-p]]
+- [[fields-2026-the-question-is-not-are-they-conscious-but-what-could-they-be-conscious-of]]
+- [[dobson-2025-constructing-condensed-memories-in-functorial-time]]
+- [[fields-2025-distributed-information-and-computation-in-generic-quantum-systems]] — full text unavailable in this search
+- [[fields-2025-er-epr-is-an-operational-theorem]]
+- [[fields-2025-how-do-inner-screens-enable-imaginative-experience-applying-the-free-energy-principle-directly-to-th]]
+- [[fields-2025-life-its-origin-and-its-distribution-a-perspective-from-the-conway-kochen-theorem-and-the-free-energ]]
+- [[fields-2025-operational-protocols-cannot-certify-classicality]]
+- [[fields-2025-paradox-or-illusion]]
+- [[tolchinsky-2025-temporal-depth-in-a-coherent-self-and-in-depersonalization-theoretical-model]]
+- [[fields-2025-thoughts-and-thinkers-on-the-complementarity-between-objects-and-processes]]
+- [[fields-2025-whether-a-quantum-computation-employs-nonlocal-resources-is-operationally-undecidable]]
+- [[fields-2024-qecc-tqft-i-protocols]]
+- [[fields-2024-qecc-tqft-ii-spacetimes]]
+- [[fields-2024-making-the-thermodynamic-cost-of-active-inference-explicit]]
+- [[fields-2024-meta-learning-goes-hand-in-hand-with-metacognition]]
+- [[fields-2024-nash-equilibria-and-undecidability-in-generic-physical-interactions-a-free-energy-perspective]]
+- [[fields-2024-principled-limitations-on-self-representation-for-generic-physical-systems]]
+- [[fields-2024-search-for-entanglement-between-spatially-separated-living-systems-experiment-design-results-and-les]]
+- [[fields-2024-snakes-and-ladders-in-the-evolution-of-language]]
+- [[fields-2024-the-free-energy-principle-induces-compartmentalization]]
+- [[friston-2023-a-variational-synthesis-of-evolutionary-and-developmental-dynamics]]
+- [[fields-2023-all-quantum-systems-are-strange-a-commentary-on-path-integrals-particular-kinds-and-strange-things-b]]
+- [[fields-2023-control-flow-i-active-inference]]
+- [[fields-2023-control-flow-ii-tensor-networks]]
+- [[fields-2023-regulative-development-as-a-model-for-origin-of-life-and-artificial-life-studies]]
+- [[fields-2023-separability-contextuality-and-the-quantum-frame-problem]]
+- [[fields-2022-a-free-energy-principle-for-generic-quantum-systems]]
+- [[fields-2022-competency-in-navigating-arbitrary-spaces-as-an-invariant-for-analyzing-cognition-in-diverse-embodim]]
+- [[fields-2022-information-flow-in-context-dependent-hierarchical-bayesian-inference]]
+- [[kuchling-2022-metacognition-as-a-consequence-of-competing-evolutionary-time-scales]]
+- [[fields-2022-neurons-as-hierarchies-of-quantum-reference-frames]]
+- [[marciano-2022-quantum-neural-networks-and-topological-quantum-field-theories]]
+- [[fields-2022-sequential-measurements-topological-quantum-field-theories-and-topological-quantum-neural-networks]]
+- [[fields-2022-the-free-energy-principle-induces-neuromorphic-development]]
+- [[fields-2022-the-physical-meaning-of-the-holographic-principle]]
+- [[prakash-2021-fitness-beats-truth-in-the-evolution-of-perception]]
+- [[addazi-2021-generalized-holographic-principle-gauge-invariance-and-the-emergence-of-gravity-a-la-wilczek]]
+- [[fields-2021-metabolic-limits-on-classical-information-processing-by-biological-cells]]
+- [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]]
+- [[fields-2021-reference-frame-induced-symmetry-breaking-on-holographic-screens]]
+- [[fields-2021-what-is-a-theory-of-consciousness-for]]
+- [[fields-2020-do-process-1-simulations-generate-the-epistemic-feelings-that-drive-process-2-decision-making]]
+- [[fields-2020-does-evolution-have-a-target-morphology]]
+- [[dietrich-2020-equivalence-of-the-frame-and-halting-problems]]
+- [[fields-2020-holographic-screens-are-classical-information-channels]]
+- [[fields-2020-how-do-living-systems-create-meaning]]
+- [[fields-2020-integrating-evolutionary-and-developmental-thinking-into-a-scale-free-biology]]
+- [[fields-2020-markov-blankets-are-general-physical-interaction-surfaces]]
+- [[fields-2020-morphological-coordination-a-common-ancestral-function-unifying-neural-and-non-neural-signaling]]
+- [[fields-2020-representing-measurement-as-a-thermodynamic-symmetry-breaking]]
+- [[fields-2020-scale-free-architectures-support-representational-diversity]]
+- [[fields-2019-chu-spaces-i-category-theory]]
+- [[fields-2019-chu-spaces-ii-object-identification]]
+- [[fields-2019-decoherence-as-a-sequence-of-entanglement-swaps]]
+- [[fields-2019-sharing-nonfungible-information-requires-shared-nonfungible-information]]
+- [[fields-2019-somatic-multicellularity-as-a-satisficing-solution-to-the-prediction-error-minimization-problem]]
+- [[prentner-2019-using-ai-methods-to-evaluate-a-minimal-model-for-perception]]
+- [[fields-2018-are-planaria-individuals-what-regenerative-biology-is-telling-us-about-the-nature-of-multicellularit]]
+- [[fields-2018-conscious-agent-networks-formal-analysis-and-application-to-cognition]]
+- [[fields-2018-first-person-science-is-third-person-and-vice-versa]]
+- [[fields-2018-mind-is-an-abstraction]]
+- [[fields-2018-multiscale-memory-and-bioelectric-error-correction-in-the-cytoplasm-cytoskeleton-membrane-system]]
+- [[fields-2018-sciences-of-observation]]
+- [[fields-2018-some-consequences-of-the-thermodynamic-cost-of-system-identification]]
+- [[fields-2017-eigenforms-interfaces-and-holographic-encoding-toward-an-evolutionary-account-of-objects-and-spaceti]]
+- [[fields-2017-object-permanence]]
+- [[fields-2016-building-observer-into-system]]
+- [[fields-2016-decompositional-equivalence-a-fundamental-symmetry-underlying-quantum-theory]]
+- [[fields-2016-effective-dark-energy-from-decoherence]]
+- [[fields-2016-unitary-quantum-theory-as-a-formal-framework-for-a-theory-of-consciousness]]
+- [[fields-2016-visual-re-identification-of-individual-objects-a-core-problem-for-organisms-and-ai]]
+- [[fields-2015-reverse-engineering-the-world-a-commentary-on-hoffman-singh-and-prakash-the-interface-theory-of-perc]]
+- [[dietrich-2015-science-generates-limit-paradoxes]]
+- [[fields-2014-a-physics-based-metaphysics-is-a-metaphysics-based-metaphysics]]
+- [[fields-2014-consistent-quantum-mechanics-admits-no-mereotopology]]
+- [[fields-2014-equivalence-of-the-symbol-grounding-and-quantum-system-identification-problems]]
+- [[fields-2014-hilbert-space-factorization-is-a-limited-and-expensive-information-processing-resource]]
+- [[fields-2014-motion-identity-and-the-bias-toward-agency]]
+- [[fields-2014-on-the-ollivier-poulin-zurek-definition-of-objectivity]]
+- [[fields-2014-this-boundary-less-world]]
+- [[fields-2013-a-whole-box-of-pandoras-systems-boundaries-and-free-will-in-quantum-theory]]
+- [[fields-2013-bell-s-theorem-from-moore-s-theorem]]
+- [[fields-2013-how-humans-solve-the-frame-problem]]
+- [[fields-2013-imposing-system-observer-symmetry-on-the-von-neumann-description-of-measurement]]
+- [[fields-2013-on-recognizing-an-object-with-a-partition]]
+- [[fields-2013-the-principle-of-persistence-leibniz-s-law-and-the-computational-task-of-object-re-identification]]
+- [[fields-2012-a-model-theoretic-interpretation-of-environment-induced-superselection]]
+- [[fields-2012-autonomy-all-the-way-down-systems-and-dynamics-in-quantum-bayesianism]]
+- [[fields-2012-if-physics-is-an-information-science-what-is-an-observer]]
+- [[fields-2012-implementation-of-classical-communication-in-a-quantum-world]]
+- [[fields-2012-the-very-same-thing-extending-the-object-token-concept-to-incorporate-causal-constraints-on-individu]]
+- [[fields-2011-classical-system-boundaries-cannot-be-determined-within-quantum-darwinism]]
+- [[fields-2011-quantum-mechanics-from-five-physical-assumptions]]
+- [[fields-2011-trajectory-recognition-as-the-basis-for-object-individuation-a-functional-model-of-object-file-insta]]
+- [[fields-2010-computational-costs-of-data-definition-at-the-quantum-classical-interface]]
+- [[fields-2010-quantum-darwinism-requires-an-extra-theoretical-assumption-of-encoding-redundancy]]
+- [[fields-2009-information-contents-and-architectural-requirements-of-observer-ready-states]]
+- [[fields-2009-three-consequences-of-decompositional-consistency]]
+- [[fields-2002-why-do-we-talk-to-ourselves]] — full text unavailable in this search
+- [[fields-1996-measurement-and-computational-description]] — full text unavailable in this search
+- [[fields-1995-observables-measurements-and-virtual-machines]] — full text unavailable in this search
+- [[fields-1989-consequences-of-nonclassical-measurement-for-the-algorithmic-description-of-continuous-dynamical-systems]]
+
 - [[elfwing-2018-silu|Sigmoid-Weighted Linear Units (SiLU)]]
 - [[geva-2021-ffn-key-value-memories|Transformer Feed-Forward Layers Are Key-Value Memories]]
 - [[ghahramani-1994-incomplete-data-em|Supervised Learning from Incomplete Data via an EM Approach]]

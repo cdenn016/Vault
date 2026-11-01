@@ -5,7 +5,7 @@ aliases: [field/sociology, Sociology sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-01
 ---
 
 # Sociology MOC
@@ -36,3 +36,9 @@ views:
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g.
 `tag:#field/sociology tag:#cluster/social-physics/networks-and-contagion`. See the [[Disciplines MOC]] hub.
+
+## Chris Fields collection, November 1, 2026
+
+[[Chris Fields and physics as communication]] provides the reading order, comparison, and access limits. The following sources carry this discipline tag and also appear in the live Bases view.
+
+- [[fields-2024-snakes-and-ladders-in-the-evolution-of-language]]

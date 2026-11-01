@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-28
+updated: 2026-11-01
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -229,3 +229,9 @@ The common posterior has the exact form $\Gamma_t(dz,dd)=W(d,dz)\lambda_t(dd)$, 
 **Key concepts:** [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Natural gradient]] · [[Fisher information metric]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Holonomy]]
 
 **Manuscripts:** [[participatory-it-from-bit]] · [[belief-inertia]] · [[gl-k-attention]]
+
+## Chris Fields literature comparison
+
+[[Chris Fields and physics as communication]] collects the relevant external literature on interaction as information exchange, operational reference frames, memory, semantic composition, active inference, and quantum-to-geometric constructions. The strongest direct comparison concerns explicit interfaces: what a receiver can observe, which distinctions its records preserve, and how a received message is interpreted. [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]], [[fields-2019-chu-spaces-i-category-theory]], [[fields-2025-thoughts-and-thinkers-on-the-complementarity-between-objects-and-processes]]
+
+The normalized receiver and transcript model in [[dennis-2026-interacting-cue-result]] supplies ingredients that a broad communication interpretation leaves unspecified. Conversely, the Fields quantum and TQFT constructions supply quantum state spaces, encoding and error structures, and topological data that are not entailed by classical probability laws or Fisher geometry. Comparison should identify these premises before claiming equivalence or transferring a result. [[fields-2024-qecc-tqft-i-protocols]], [[fields-2024-qecc-tqft-ii-spacetimes]]

@@ -5,7 +5,7 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-28
+updated: 2026-11-01
 ---
 
 # Mathematics MOC
@@ -174,3 +174,24 @@ or `tag:#field/mathematics tag:#cluster/social-physics/opinion-dynamics`. See th
 ## Unified attention companion, October 3, 2026
 
 [[dennis-2026-attention-unified]] consolidates exponential-link geometry, Gaussian inference, templates, and frame optimization with a dated implementation crosswalk. Option A is the author-selected primary construction; the file remains separate from the GL(K) manuscripts. No new training or large-network result is claimed.
+
+## Chris Fields collection, November 1, 2026
+
+[[Chris Fields and physics as communication]] provides the reading order, comparison, and access limits. The following sources carry this discipline tag and also appear in the live Bases view.
+
+- [[fields-2026-amplituhedra-generic-quantum-processes]]
+- [[dobson-2025-constructing-condensed-memories-in-functorial-time]]
+- [[fields-2025-distributed-information-and-computation-in-generic-quantum-systems]]
+- [[fields-2024-qecc-tqft-i-protocols]]
+- [[fields-2024-qecc-tqft-ii-spacetimes]]
+- [[friston-2023-a-variational-synthesis-of-evolutionary-and-developmental-dynamics]]
+- [[fields-2022-information-flow-in-context-dependent-hierarchical-bayesian-inference]]
+- [[marciano-2022-quantum-neural-networks-and-topological-quantum-field-theories]]
+- [[fields-2022-sequential-measurements-topological-quantum-field-theories-and-topological-quantum-neural-networks]]
+- [[prakash-2021-fitness-beats-truth-in-the-evolution-of-perception]]
+- [[addazi-2021-generalized-holographic-principle-gauge-invariance-and-the-emergence-of-gravity-a-la-wilczek]]
+- [[fields-2020-do-process-1-simulations-generate-the-epistemic-feelings-that-drive-process-2-decision-making]]
+- [[dietrich-2020-equivalence-of-the-frame-and-halting-problems]]
+- [[fields-2019-chu-spaces-i-category-theory]]
+- [[fields-2019-chu-spaces-ii-object-identification]]
+- [[fields-2013-on-recognizing-an-object-with-a-partition]]

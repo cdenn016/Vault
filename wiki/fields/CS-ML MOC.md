@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-20
+updated: 2026-11-01
 ---
 
 # CS-ML MOC
@@ -123,3 +123,44 @@ or `tag:#field/cs-ml tag:#cluster/info-geometry`. See the [[Disciplines MOC]] hu
 ## Unified attention companion, October 3, 2026
 
 [[dennis-2026-attention-unified]] consolidates exponential-link geometry, Gaussian inference, templates, and frame optimization with a dated implementation crosswalk. Option A is the author-selected primary construction; the file remains separate from the GL(K) manuscripts. No new training or large-network result is claimed.
+
+## Chris Fields collection, November 1, 2026
+
+[[Chris Fields and physics as communication]] provides the reading order, comparison, and access limits. The following sources carry this discipline tag and also appear in the live Bases view.
+
+- [[fields-2026-amplituhedra-generic-quantum-processes]]
+- [[hartl-2026-remapping-and-navigation-of-an-embedding-space-via-error-minimization-a-fundamental-organizational-p]]
+- [[fields-2026-the-question-is-not-are-they-conscious-but-what-could-they-be-conscious-of]]
+- [[dobson-2025-constructing-condensed-memories-in-functorial-time]]
+- [[fields-2025-distributed-information-and-computation-in-generic-quantum-systems]]
+- [[friston-2024-federated-inference]]
+- [[fields-2024-meta-learning-goes-hand-in-hand-with-metacognition]]
+- [[fields-2023-control-flow-i-active-inference]]
+- [[fields-2023-control-flow-ii-tensor-networks]]
+- [[fields-2023-regulative-development-as-a-model-for-origin-of-life-and-artificial-life-studies]]
+- [[fields-2022-competency-in-navigating-arbitrary-spaces-as-an-invariant-for-analyzing-cognition-in-diverse-embodim]]
+- [[fields-2022-information-flow-in-context-dependent-hierarchical-bayesian-inference]]
+- [[kuchling-2022-metacognition-as-a-consequence-of-competing-evolutionary-time-scales]]
+- [[marciano-2022-quantum-neural-networks-and-topological-quantum-field-theories]]
+- [[fields-2022-sequential-measurements-topological-quantum-field-theories-and-topological-quantum-neural-networks]]
+- [[fields-2022-the-free-energy-principle-induces-neuromorphic-development]]
+- [[dietrich-2020-equivalence-of-the-frame-and-halting-problems]]
+- [[fields-2020-scale-free-architectures-support-representational-diversity]]
+- [[fields-2019-chu-spaces-i-category-theory]]
+- [[fields-2019-chu-spaces-ii-object-identification]]
+- [[prentner-2019-using-ai-methods-to-evaluate-a-minimal-model-for-perception]]
+- [[fields-2018-conscious-agent-networks-formal-analysis-and-application-to-cognition]]
+- [[fields-2016-building-observer-into-system]]
+- [[fields-2016-visual-re-identification-of-individual-objects-a-core-problem-for-organisms-and-ai]]
+- [[fields-2015-reverse-engineering-the-world-a-commentary-on-hoffman-singh-and-prakash-the-interface-theory-of-perc]]
+- [[fields-2014-equivalence-of-the-symbol-grounding-and-quantum-system-identification-problems]]
+- [[fields-2013-bell-s-theorem-from-moore-s-theorem]]
+- [[fields-2013-how-humans-solve-the-frame-problem]]
+- [[fields-2013-imposing-system-observer-symmetry-on-the-von-neumann-description-of-measurement]]
+- [[fields-2012-if-physics-is-an-information-science-what-is-an-observer]]
+- [[fields-2010-computational-costs-of-data-definition-at-the-quantum-classical-interface]]
+- [[fields-2009-information-contents-and-architectural-requirements-of-observer-ready-states]]
+- [[fields-2002-why-do-we-talk-to-ourselves]]
+- [[fields-1996-measurement-and-computational-description]]
+- [[fields-1995-observables-measurements-and-virtual-machines]]
+- [[fields-1989-consequences-of-nonclassical-measurement-for-the-algorithmic-description-of-continuous-dynamical-systems]]

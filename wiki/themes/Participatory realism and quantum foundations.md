@@ -9,7 +9,7 @@ aliases:
 tags: [cluster/participatory, project/multi-agent]
 status: stable
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-11-01
 ---
 
 # Participatory realism and quantum foundations
@@ -237,3 +237,9 @@ The generator-history prior provides an especially precise obligation: consisten
 Public equivalence is defined relative to accessible record histories and protocols. Different cognitive communities may share predictions, have different access, or disagree on an established comparison. Gauge transformations form a specified family of representation changes; operational equivalence can be broader because interfaces may hide distinctions. Earlier interpretive identifications of the framework with particular quantum-foundational positions do not constitute derivations of those positions.
 
 The remaining progression is endogenous record persistence, a predictive parent that survives an inherited second interaction episode, and a controlled large-network/large-depth limit. [[Participatory realism (it from bit)]] carries the corresponding concept update. [[shalizi-1999-computational-mechanics-pattern-and-prediction-structure-and-simplicit]] and [[wilson-1971-rg-critical-phenomena]] are precedents for prediction and scaling within their own assumptions; they do not settle those obligations here.
+
+## Chris Fields's communication program
+
+Fields's operational program makes the system boundary and the observer's identification procedures part of the scientific description. The closest connection to participatory realism is that records become usable through a reference frame, an interpretation, and a protocol for comparison. The Chu-space papers describe semantic compatibility, while the quantum interaction papers model finite information exchange between systems under explicit physical assumptions. [[fields-2019-chu-spaces-i-category-theory]], [[fields-2019-chu-spaces-ii-object-identification]], [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]], [[fields-2019-sharing-nonfungible-information-requires-shared-nonfungible-information]]
+
+This literature contains both constructive models and strong interpretive or no-go claims. The source notes for [[fields-2016-decompositional-equivalence-a-fundamental-symmetry-underlying-quantum-theory]] and [[fields-2014-consistent-quantum-mechanics-admits-no-mereotopology]] identify specific gaps in displayed arguments; their universal conclusions should not be inherited as established premises. The newer [[fields-2025-operational-protocols-cannot-certify-classicality]] concerns unrestricted operational certification and must be distinguished from model-relative inference using declared preparation and measurement assumptions. [[Chris Fields and physics as communication]] organizes the full collection and its overlap with the present program.
