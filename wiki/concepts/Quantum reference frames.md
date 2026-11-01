@@ -15,7 +15,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-01
 ---
 
 # Quantum reference frames
@@ -50,3 +50,10 @@ The four sources form a ladder of increasing structure. Rovelli supplies the ont
 - [[Holonomy]]
 - [[Multi-agent variational free energy]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
+
+## Fields's operational and semantic reference frames
+
+Fields and collaborators use reference frames to characterize the stable distinctions that let an observer identify a system and read changing pointer values. In the minimal-physicalist setting, finite boundary communication is interpreted through those reference procedures; the Chu-space and Channel-Theory papers give a related language of classifications and compatible semantic maps. This use overlaps with physical reference-frame theory but should not erase the distinction between a unitary quantum perspective transformation, a classification map, and a classical GL(K) gauge transformation. [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]], [[fields-2019-sharing-nonfungible-information-requires-shared-nonfungible-information]], [[fields-2019-chu-spaces-i-category-theory]], [[fields-2019-chu-spaces-ii-object-identification]]
+
+> [!note] Editorial: Scope of the project comparison
+> The analogy concerns covariant description and accessible distinctions. It does not identify the project's gauge transport with every QRF construction, and neither gauge covariance nor frame alignment alone removes disagreement between different probability laws. [[Chris Fields and physics as communication]] maps the papers and their assumptions.

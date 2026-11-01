@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-11-01
 ---
 
 # Free-energy principle active inference
@@ -25,7 +25,7 @@ The free-energy principle (FEP) is a single normative claim — proposed by Karl
 
 ## How it works
 
-The quantity minimized is the same [[Variational free energy]] that appears in machine learning as the negative [[Evidence lower bound (ELBO)]]. For an agent with sensory data and hidden causes, free energy equals the expected (under a variational belief *q*) negative log joint plus the negative entropy of *q*; equivalently it is the log evidence plus the KL divergence from *q* to the true posterior. Because that KL is non-negative, free energy bounds surprise, and driving it down both sharpens the belief and raises a lower bound on evidence. [[neal-1998-variational-em]] identifies this negative-free-energy / ELBO functional as the single objective of textbook EM. The deployed transformer does not inherit that shared-functional decomposition because its belief and decode objectives are distinct.
+The quantity minimized is the same [[Variational free energy]] that appears in machine learning as the negative [[Evidence lower bound (ELBO)]]. For an agent with sensory data and hidden causes, free energy equals the expected (under a variational belief *q*) negative log joint plus the negative entropy of *q*; equivalently it is the negative log evidence plus the KL divergence from *q* to the true posterior. Because that KL is non-negative, free energy bounds surprise, and driving it down both sharpens the belief and raises a lower bound on evidence. [[neal-1998-variational-em]] identifies this negative-free-energy / ELBO functional as the single objective of textbook EM. The deployed transformer does not inherit that shared-functional decomposition because its belief and decode objectives are distinct.
 
 Under the standard Gaussian (Laplace) assumptions, free-energy minimization reduces to a strikingly simple dynamics. As [[bogacz-2017-free-energy-tutorial]] derives step by step, beliefs about hidden states relax along [[Prediction error]] signals that are weighted by their precisions (inverse variances), and parameters and precisions are learned by gradient ascent on the same free energy. This [[Precision weighting]] is the formal content of "attention" in the FEP: more precise prediction errors exert more influence, so allocating precision *is* allocating attention. The hierarchical predictive-coding circuit of [[rao-1999-predictive-coding]] supplies the mechanistic picture — feedback connections carry top-down predictions, feedforward connections carry precision-weighted residual errors, and each level only ever sees local errors. [[millidge-2020-pc-approximates-backprop]] then shows that such purely local prediction-error minimization converges to exact backpropagation gradients on arbitrary computation graphs, closing the gap between this biologically motivated inference loop and ordinary end-to-end gradient training.
 
@@ -68,3 +68,9 @@ The VFE transformer takes the free-energy principle as motivation for its inner 
 - [[Variational autoencoder (VAE)]] — the gradient-trained ELBO blueprint.
 - [[Precision weighting]], [[Prediction error]], [[Evidence lower bound (ELBO)]], [[Variational free energy]] — core constructs.
 - [[VFE Transformer Program]] — the project this page serves.
+
+## Quantum interaction and thermodynamic accounting
+
+[[fields-2022-a-free-energy-principle-for-generic-quantum-systems]] develops an FEP formulation within a supplied quantum-theoretic setting. [[fields-2024-making-the-thermodynamic-cost-of-active-inference-explicit]] makes the resources required to operate an inference system explicit and distinguishes them from statistical variational free energy. These are related physical interpretations with additional hypotheses; they do not convert an arbitrary dimensionless KL objective into an energy in joules or derive quantum mechanics from a classical variational bound.
+
+[[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]] and [[fields-2025-thoughts-and-thinkers-on-the-complementarity-between-objects-and-processes]] extend the operational language to memory and persistence across scales. A statistical model still needs a normalized joint and a specified variational family, while a physical realization needs its own dynamics and resource account. [[Chris Fields and physics as communication]] records the version, reading scope, and limitations of the selected literature.

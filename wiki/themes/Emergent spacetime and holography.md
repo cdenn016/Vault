@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-10-20
+updated: 2026-11-01
 ---
 
 # Emergent spacetime and holography
@@ -109,3 +109,9 @@ tensor.
 ## Pointwise spin-foam method transfer, September 30, 2026
 
 Labeled two-complexes, specified complex ensembles, and irregular attention laws are distinct, as are quantum amplitudes and positive classical laws. Here a boundary is an exterior-facing graph interface at one base point. No base transport, physical clock, quantum behavior, Lorentz geometry, Einstein dynamics, recursive formation, or thermodynamic limit follows. The conditional results sharpen the method comparison without closing the physicalization questions above.
+
+## Communication, error correction, and geometric representation
+
+The Fields–Glazebrook–Marcianò–Zappala sequence connects communication protocols, quantum error correction, and TQFT. Part I specifies encoding, decoding, and error structure; Part II adds spin-network and related topological constructions. The geometric interpretation depends on those supplied structures. Addazi and colleagues' gauge/gravity treatment also introduces ambient Lorentzian spacetime before its gravity specialization. These papers therefore provide construction methods to compare, while leaving a separate obligation to derive physical signature, dimension, clocks, and gravitational dynamics from another starting model. [[fields-2024-qecc-tqft-i-protocols]], [[fields-2024-qecc-tqft-ii-spacetimes]], [[addazi-2021-generalized-holographic-principle-gauge-invariance-and-the-emergence-of-gravity-a-la-wilczek]]
+
+The ER=EPR article studies a finite-screen, monogamous-entanglement limit and gives an operational topological identification; it does not construct a gravitational metric. The 2026 amplituhedra preprint supplies a further quantum-computation/scattering representation with stated restrictions on its uniqueness claim. Neither result identifies a classical Fisher pullback with physical spacetime. [[fields-2025-er-epr-is-an-operational-theorem]], [[fields-2026-amplituhedra-generic-quantum-processes]], [[Chris Fields and physics as communication]]

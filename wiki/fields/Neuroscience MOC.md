@@ -5,7 +5,7 @@ aliases: [field/neuroscience, Neuroscience sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-01
 ---
 
 # Neuroscience MOC
@@ -36,3 +36,33 @@ views:
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g. `tag:#field/neuroscience tag:#cluster/vfe`
 or `tag:#field/neuroscience tag:#cluster/participatory/consciousness`. See the [[Disciplines MOC]] hub.
+
+## Chris Fields collection, November 1, 2026
+
+[[Chris Fields and physics as communication]] provides the reading order, comparison, and access limits. The following sources carry this discipline tag and also appear in the live Bases view.
+
+- [[fields-2026-how-did-we-get-so-smart]]
+- [[hartl-2026-remapping-and-navigation-of-an-embedding-space-via-error-minimization-a-fundamental-organizational-p]]
+- [[fields-2026-the-question-is-not-are-they-conscious-but-what-could-they-be-conscious-of]]
+- [[fields-2025-how-do-inner-screens-enable-imaginative-experience-applying-the-free-energy-principle-directly-to-th]]
+- [[fields-2025-paradox-or-illusion]]
+- [[tolchinsky-2025-temporal-depth-in-a-coherent-self-and-in-depersonalization-theoretical-model]]
+- [[friston-2024-federated-inference]]
+- [[fields-2024-meta-learning-goes-hand-in-hand-with-metacognition]]
+- [[fields-2022-competency-in-navigating-arbitrary-spaces-as-an-invariant-for-analyzing-cognition-in-diverse-embodim]]
+- [[fields-2022-neurons-as-hierarchies-of-quantum-reference-frames]]
+- [[fields-2022-the-free-energy-principle-induces-neuromorphic-development]]
+- [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]]
+- [[fields-2021-what-is-a-theory-of-consciousness-for]]
+- [[fields-2020-do-process-1-simulations-generate-the-epistemic-feelings-that-drive-process-2-decision-making]]
+- [[fields-2020-how-do-living-systems-create-meaning]]
+- [[fields-2020-morphological-coordination-a-common-ancestral-function-unifying-neural-and-non-neural-signaling]]
+- [[fields-2020-scale-free-architectures-support-representational-diversity]]
+- [[fields-2018-multiscale-memory-and-bioelectric-error-correction-in-the-cytoplasm-cytoskeleton-membrane-system]]
+- [[fields-2017-object-permanence]]
+- [[fields-2016-visual-re-identification-of-individual-objects-a-core-problem-for-organisms-and-ai]]
+- [[fields-2014-motion-identity-and-the-bias-toward-agency]]
+- [[fields-2013-how-humans-solve-the-frame-problem]]
+- [[fields-2013-the-principle-of-persistence-leibniz-s-law-and-the-computational-task-of-object-re-identification]]
+- [[fields-2012-the-very-same-thing-extending-the-object-token-concept-to-incorporate-causal-constraints-on-individu]]
+- [[fields-2011-trajectory-recognition-as-the-basis-for-object-individuation-a-functional-model-of-object-file-insta]]

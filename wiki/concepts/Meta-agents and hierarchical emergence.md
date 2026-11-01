@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-24
+updated: 2026-11-01
 ---
 
 # Meta-agents and hierarchical emergence
@@ -217,3 +217,10 @@ A learned Gaussian template bank in the vfe3 block MLP can be read as a populati
 - [[MDL and BIC model selection]]
 - [[Symmetric spaces and the SPD cone]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
+
+## Persistence and composition in Fields's work
+
+Fields and Levin's account of objects and processes emphasizes that recognizing persistence needs a stable boundary criterion and memory. Their discussion of records as interpretative interactions is useful for specifying what a parent must retain. The conscious-agent network paper builds memory and combination through declared kernels, while the perceptual-network study distinguishes stable collective dynamics from autonomous embodiment. These are constructive and conceptual predecessors whose supplied ingredients must remain explicit. [[fields-2025-thoughts-and-thinkers-on-the-complementarity-between-objects-and-processes]], [[fields-2018-conscious-agent-networks-formal-analysis-and-application-to-cognition]], [[prentner-2019-using-ai-methods-to-evaluate-a-minimal-model-for-perception]]
+
+> [!note] Editorial: What transfers
+> Semantic composition, a stable attractor, and a normalized predictive parent are different mathematical claims. The source papers can inform the interface and retention questions without establishing a general formation theorem for the current gauge-VFE model. [[Chris Fields and physics as communication]] keeps the comparison tied to each paper's assumptions.

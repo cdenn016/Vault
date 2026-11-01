@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-10-20
+updated: 2026-11-01
 ---
 
 # Markov Blanket
@@ -140,9 +140,9 @@ The Markov blanket is the bridge between physics and inference that the whole ga
 program stands on. Three uses recur:
 
 1. **Agents as blanketed subsystems.** Each node in the multi-agent model is a Markov-blanketed system
-   whose internal states carry a belief manifold; the blanket is its coupling interface, and the
-   inter-agent coupling assembles a higher-order blanket whose free energy is the sum of pairwise
-   transported KL terms — the canonical form used in [[Multi-agent variational free energy]]. The
+   whose internal states carry a belief manifold; the blanket is its coupling interface, while
+   inter-agent coupling alone establishes neither a higher-order blanket nor a fixed-joint ELBO.
+   The transported peer-KL energy in [[Multi-agent variational free energy]] needs its own statistical interpretation. The
    blanketed-section picture is sharpened in [[Agents as fibre-bundle sections]].
 2. **The hierarchy.** The nested-blanket ("blankets of blankets") construction of
    [[kirchhoff-2018-markov-blankets-of-life]] is the canonical precedent for the project's recursive
@@ -176,3 +176,9 @@ exact debts that license still owes.
 - [[aguilera-2022-particular-physics]] — quantitative critique: the blanket-and-belief structure holds only for small solenoidal coupling.
 - [[biehl-2021-technical-critique]] — technical critique: inequivalent blanket definitions; the belief-encoding claim does not follow as stated.
 - [[parr-friston-2019-generalised]] — generalised/expected free energy underpinning the adaptive (action-selecting) reading.
+
+## Communication boundaries in Fields's framework
+
+Fields, Glazebrook, and Levin represent finite interactions between systems in a separable pure joint state through a boundary of prepared and measured bits. They interpret that interface as a Markov blanket and use it to discuss cognition across scales. The separability and finite-resource premises belong to the construction; the result is not a theorem that every interacting classical collection automatically acquires a higher-order conditional-independence boundary. [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]]
+
+The distinction matters when comparing a boundary, an observation protocol, and a variational objective. The quantum-FEP and thermodynamic-cost papers add their own physical and control assumptions. A complete application must state the probability law under which the blanket property holds and keep statistical VFE separate from the physical cost of maintaining the interface. [[fields-2022-a-free-energy-principle-for-generic-quantum-systems]], [[fields-2024-making-the-thermodynamic-cost-of-active-inference-explicit]], [[Chris Fields and physics as communication]]

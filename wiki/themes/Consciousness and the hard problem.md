@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-11-01
 ---
 
 # Consciousness and the hard problem
@@ -189,3 +189,9 @@ gap remain open.
 - [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]]
 - [[Gauge transformation]] · [[Holonomy]] · [[Agents as fibre-bundle sections]]
 - [[participatory-it-from-bit]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
+
+## Fields's operational explanatory target
+
+Fields distinguishes the metaphysical question of whether consciousness is fundamental from the empirical questions of what a system can discriminate and how those distinctions affect behavior. Minimal physicalism develops that stance through information exchange, reference frames, and thermodynamic constraints. The associated commentary treats differential responsiveness as a route to investigating possible experiential contents. The interpretation does not independently establish phenomenal experience in every responsive physical system. [[fields-2021-what-is-a-theory-of-consciousness-for]], [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]], [[fields-2026-the-question-is-not-are-they-conscious-but-what-could-they-be-conscious-of]]
+
+The perception literature compares specified perceptual strategies and examines preservation of mathematical structures by payoff functions. Those results need their decision rules and function ensembles; they do not, without further argument, establish that accurate probability models are maladaptive or that all perceived structure is unreal. [[prakash-2021-fitness-beats-truth-in-the-evolution-of-perception]], [[prakash-2020-conscious-agents]]; [local full text of Fact, Fiction, and Fitness](../../sources/pdfs/prakash-2020-conscious-agents.pdf). [[Chris Fields and physics as communication]] provides the broader reading map.

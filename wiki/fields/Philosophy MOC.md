@@ -5,7 +5,7 @@ aliases: [field/philosophy, Philosophy sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-01
 ---
 
 # Philosophy MOC
@@ -36,3 +36,47 @@ views:
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g.
 `tag:#field/philosophy tag:#cluster/participatory/philosophy-of-mind`. See the [[Disciplines MOC]] hub.
+
+## Chris Fields collection, November 1, 2026
+
+[[Chris Fields and physics as communication]] provides the reading order, comparison, and access limits. The following sources carry this discipline tag and also appear in the live Bases view.
+
+- [[kofman-2026-defining-life-a-conversation]]
+- [[fields-2026-from-complementarity-to-non-duality-seeing-objects-and-processes-as-pragmatic-constructs]]
+- [[fields-2026-the-question-is-not-are-they-conscious-but-what-could-they-be-conscious-of]]
+- [[fields-2025-how-do-inner-screens-enable-imaginative-experience-applying-the-free-energy-principle-directly-to-th]]
+- [[fields-2025-life-its-origin-and-its-distribution-a-perspective-from-the-conway-kochen-theorem-and-the-free-energ]]
+- [[fields-2025-paradox-or-illusion]]
+- [[fields-2025-thoughts-and-thinkers-on-the-complementarity-between-objects-and-processes]]
+- [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]]
+- [[fields-2021-what-is-a-theory-of-consciousness-for]]
+- [[fields-2020-does-evolution-have-a-target-morphology]]
+- [[dietrich-2020-equivalence-of-the-frame-and-halting-problems]]
+- [[prakash-2020-conscious-agents]]
+- [[fields-2020-how-do-living-systems-create-meaning]]
+- [[fields-2020-integrating-evolutionary-and-developmental-thinking-into-a-scale-free-biology]]
+- [[prentner-2019-using-ai-methods-to-evaluate-a-minimal-model-for-perception]]
+- [[fields-2018-are-planaria-individuals-what-regenerative-biology-is-telling-us-about-the-nature-of-multicellularit]]
+- [[fields-2018-conscious-agent-networks-formal-analysis-and-application-to-cognition]]
+- [[fields-2018-first-person-science-is-third-person-and-vice-versa]]
+- [[fields-2018-mind-is-an-abstraction]]
+- [[fields-2018-sciences-of-observation]]
+- [[fields-2017-eigenforms-interfaces-and-holographic-encoding-toward-an-evolutionary-account-of-objects-and-spaceti]]
+- [[fields-2016-building-observer-into-system]]
+- [[fields-2016-unitary-quantum-theory-as-a-formal-framework-for-a-theory-of-consciousness]]
+- [[fields-2015-reverse-engineering-the-world-a-commentary-on-hoffman-singh-and-prakash-the-interface-theory-of-perc]]
+- [[dietrich-2015-science-generates-limit-paradoxes]]
+- [[fields-2014-a-physics-based-metaphysics-is-a-metaphysics-based-metaphysics]]
+- [[fields-2014-consistent-quantum-mechanics-admits-no-mereotopology]]
+- [[fields-2014-equivalence-of-the-symbol-grounding-and-quantum-system-identification-problems]]
+- [[fields-2014-on-the-ollivier-poulin-zurek-definition-of-objectivity]]
+- [[fields-2014-this-boundary-less-world]]
+- [[fields-2013-a-whole-box-of-pandoras-systems-boundaries-and-free-will-in-quantum-theory]]
+- [[fields-2013-imposing-system-observer-symmetry-on-the-von-neumann-description-of-measurement]]
+- [[fields-2013-on-recognizing-an-object-with-a-partition]]
+- [[fields-2013-the-principle-of-persistence-leibniz-s-law-and-the-computational-task-of-object-re-identification]]
+- [[fields-2012-autonomy-all-the-way-down-systems-and-dynamics-in-quantum-bayesianism]]
+- [[fields-2012-if-physics-is-an-information-science-what-is-an-observer]]
+- [[fields-2002-why-do-we-talk-to-ourselves]]
+- [[fields-1996-measurement-and-computational-description]]
+- [[fields-1995-observables-measurements-and-virtual-machines]]

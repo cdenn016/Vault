@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-08-20
+updated: 2026-11-01
 ---
 
 # Collective active inference
@@ -92,3 +92,12 @@ Group agency remains conditional. [[palacios-2020-hierarchical-markov-blankets]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[Ouroboros multi-scale dynamics]]
 - [[Meta-agents and hierarchical emergence]]
+
+## Fields communication literature and the federated comparison
+
+The Fields collection connects collective inference to physical interfaces, reference alignment, memory, and persistent organization. [[fields-2025-thoughts-and-thinkers-on-the-complementarity-between-objects-and-processes]] interprets biological collectives as interacting systems with memories; [[prentner-2019-using-ai-methods-to-evaluate-a-minimal-model-for-perception]] provides a toy perceptual-network construction but explicitly leaves endogenous embodiment and autonomous fitness feedback open. These sources clarify the difference between a collective pattern and an agent with a defined interface.
+
+> [!warning] Scope correction to an earlier source interpretation
+> The immutable note [[friston-2024-federated-inference]] describes the project's transported peer-KL term as exactly federated inference and suggests a flat-connection equivalence. That equivalence is not established by the paper. A reduction requires matching the generative model, communication likelihood, variational family, and treatment of dependent evidence. The current synthesis retains federated inference as a model-specific comparator. The newly retrieved [local PDF](../../sources/pdfs/friston-2024-federated-inference.pdf) is available for direct consultation.
+
+[[Chris Fields and physics as communication]] supplies the complete reading map. Its quantum and thermodynamic strands should not be used to infer a single global ELBO merely from coupled individual objectives.
