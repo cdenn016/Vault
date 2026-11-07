@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-11-01
+updated: 2026-11-07
 ---
 
 # Markov Blanket
@@ -27,10 +27,9 @@ system and given a physical reading: the blanket becomes the *statistical bounda
 the surface across which an "inside" and an "outside" can be distinguished
 ([[friston-2013-life-as-we-know-it]]).
 
-Formally, partition the state $x$ of an ergodic random dynamical system at nonequilibrium steady
-state into four disjoint subsets
+For a steady-state FEP construction, partition the state $x$ into four disjoint subsets
 
-$$x = (\eta,\; s,\; a,\; \mu),$$
+$$x = (\eta, s, a, \mu),$$
 
 with
 
@@ -42,40 +41,54 @@ with
 The **blanket** is the union of the sensory and active states, $b = (s, a)$. The defining property
 is the conditional-independence (screening-off) condition
 
-$$\eta \perp\!\!\!\perp \mu \;\big|\; b,
-\qquad\text{equivalently}\qquad
-p(\eta, \mu \mid b) = p(\eta \mid b)\, p(\mu \mid b),$$
+$$\eta \mathrel{\perp\perp} \mu \mid b,
+\text{equivalently}
+p(\eta, \mu \mid b) = p(\eta \mid b) p(\mu \mid b),$$
 
-so that internal and external states communicate *only through* the blanket — never directly.
-At the level of the system's flow this is enforced by a sparsity structure on the coupling: the
-drift on internal states does not depend on external states and vice versa, so $\partial_\eta f_\mu = 0$
-and $\partial_\mu f_\eta = 0$, with the two halves talking exclusively via $s$ and $a$
-([[friston-2013-life-as-we-know-it]], [[parr-2020-markov-blankets-thermodynamics]]). The
-sensory/active asymmetry encodes the perception–action loop: sensory states carry the world's
-influence *inward*, active states carry the system's influence *outward*.
+where $p$ is the declared joint law, here the steady-state law. This is a statistical
+screening-off condition. Conditions on the drift, such as $\partial_\eta f_\mu = 0$ and
+$\partial_\mu f_\eta = 0$, specify absent direct dynamical couplings; they do not in general
+enforce the displayed conditional independence. [[biehl-2021-technical-critique]] distinguishes
+these inequivalent assumptions. The sensory/active split adds a directional interpretation of
+the perception–action loop and requires its own coupling assumptions
+([[friston-2013-life-as-we-know-it]], [[parr-2020-markov-blankets-thermodynamics]]).
+
+Path blankets concern entire trajectories and must be distinguished from a blanket of the
+instantaneous or steady-state distribution. [[beck-2025-dynamic-markov-blanket-detection]]
+explicitly makes this distinction. A claim about one law should not be transferred to another
+without checking its assumptions.
 
 ## The agent boundary and the inference reading
 
-The reason the blanket matters for this program is that the screening-off condition licenses an
-*inferential interpretation* of an otherwise purely physical partition. Because internal states are
-conditionally independent of external states given the blanket, at steady state each internal state
-$\mu$ indexes a conditional density over external states, $p(\eta \mid b)$; one can then read the
-internal state as *parametrizing a belief* $q_\mu(\eta)$ about the world. Friston's derivation shows
-that, for an ergodic system with such a blanket, internal states *appear to* perform variational
-inference — they evolve as if descending [[Variational free energy]], a tractable upper bound on
-surprise (negative log model evidence) ([[friston-2013-life-as-we-know-it]]). This is the formal
-content of the slogan "a thing that persists must look like it models its environment", and it is
-what turns a Markov blanket into a candidate definition of an *agent boundary*: the blanket is the
-interface across which an agent couples to its world, perception flowing in through $s$ and action
-flowing out through $a$.
+[[friston-2013-life-as-we-know-it]] proposes an inferential reading in which internal states
+parametrize beliefs about external states and their dynamics can be related to
+[[Variational free energy]]. Conditional independence alone does not establish that reading:
+it does not provide a map from each $\mu$ to the blanket-dependent density $p(\eta\mid b)$,
+or prove that the internal dynamics minimize a variational objective.
+[[biehl-2021-technical-critique]] identifies additional assumptions needed in the examined
+derivations. A blanket is therefore a candidate statistical agent boundary; belief encoding
+and variational dynamics are further claims.
 
-[[parr-2020-markov-blankets-thermodynamics]] make the geometry of this reading explicit. The map
-from internal states to conditional densities $\mu \mapsto p(\eta \mid b)$ is a parametrization of a
-*statistical manifold*; the natural metric on that manifold is the [[Fisher information metric]], so
-belief updating is a [[Natural gradient]] flow, and the thermodynamic cost of maintaining the steady
-state is bookkept as entropy production. This is the precise sense in which the blanket is a
-*coupling interface* whose interior carries an information geometry — the structure the gauge-theoretic
-program later pulls back and transports.
+[[parr-2020-markov-blankets-thermodynamics]] develops the thermodynamic and geometric account
+under a specified dynamical construction. When an internal-state parametrization of a family
+of probability laws has been supplied, its [[Fisher information metric]] defines an information
+geometry. Identifying the physical flow with a [[Natural gradient]] flow requires a further
+derivation; it is not a consequence of screening-off alone.
+
+## Collective-boundary constructions
+
+[[palacios-2020-hierarchical-markov-blankets]] permits changing membership while supplying
+priors about possible blanket roles. [[waade-2025-as-one-and-many]] fits a group-level model
+with a predefined blanket arrangement. These are different starting assumptions for collective
+agency. In the flock preprint [[maisto-2025-flock-joint-agency]], Appendix A.4 of version 2
+assigns candidate roles using a spectral partition of a shared-heading graph. As discussed in
+[[Active inference communication and collective boundaries]], that procedure does not itself
+prove screening-off under the flock's joint probability law.
+
+[[beck-2025-dynamic-markov-blanket-detection]] instead infers changing labels under a
+structured generative model. Its blanket constraints are part of the detector; the method does
+not establish that arbitrary individual EFE policies generate such a boundary. The probability
+law, partition, and time scope must be stated when comparing these results.
 
 ## Nested blankets: blankets of blankets
 

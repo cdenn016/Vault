@@ -5,7 +5,7 @@ aliases: [field/psychology, Psychology sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-07
 ---
 
 # Psychology MOC
@@ -67,3 +67,11 @@ Compose with the topic facet via tag search — e.g.
 - [[fields-2012-the-very-same-thing-extending-the-object-token-concept-to-incorporate-causal-constraints-on-individu]]
 - [[fields-2011-trajectory-recognition-as-the-basis-for-object-individuation-a-functional-model-of-object-file-insta]]
 - [[fields-2002-why-do-we-talk-to-ourselves]]
+
+## Communication policies and collective boundaries, November 7, 2026
+
+These sources are connected in [[Active inference communication and collective boundaries]].
+
+- [[friston-frith-2015-hermeneutics]]
+- [[frank-goodman-2012-pragmatic-reasoning]]
+- [[gwon-2026-evidence-intervention]]

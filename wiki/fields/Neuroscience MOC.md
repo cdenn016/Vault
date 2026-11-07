@@ -5,7 +5,7 @@ aliases: [field/neuroscience, Neuroscience sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-07
 ---
 
 # Neuroscience MOC
@@ -66,3 +66,9 @@ or `tag:#field/neuroscience tag:#cluster/participatory/consciousness`. See the [
 - [[fields-2013-the-principle-of-persistence-leibniz-s-law-and-the-computational-task-of-object-re-identification]]
 - [[fields-2012-the-very-same-thing-extending-the-object-token-concept-to-incorporate-causal-constraints-on-individu]]
 - [[fields-2011-trajectory-recognition-as-the-basis-for-object-individuation-a-functional-model-of-object-file-insta]]
+
+## Communication policies and collective boundaries, November 7, 2026
+
+These sources are connected in [[Active inference communication and collective boundaries]].
+
+- [[friston-frith-2015-hermeneutics]]

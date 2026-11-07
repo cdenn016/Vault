@@ -14,10 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-28
+updated: 2026-11-07
 ---
 
 # GL(K) gauge-equivariant attention
+
+## Communication policies and collective boundaries, November 7, 2026
+
+[[Active inference communication and collective boundaries]] places the communicating-agent interpretation beside active-inference policies and learned communication channels. [[das-2019-tarmac]] learns message content and targeting; [[kim-2019-schednet]] allocates broadcast access; [[wang-2020-information-bottleneck-communication]] constrains information in learned messages; and [[hansen-ghrist-2021-discourse-sheaves]] models partial expression between private spaces. [[gwon-2026-evidence-intervention]] supplies a recent preprint comparator for communication policies that anticipate a listener's interpretation.
+
+> [!note] Editorial: These comparisons concern different parts of the model. Frame covariance specifies how a communication construction changes under coordinates; it does not supply preferences or an EFE policy objective. Message rank is distinct from transmission capacity, and neither a coordinate frame nor a selective channel establishes a collective [[Markov Blanket]]. Those claims require a stated predictive model, channel assumptions, and boundary evidence.
 
 ## A generative reading of the MLP, October 28, 2026
 

@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-10-25
+updated: 2026-11-07
 ---
 
 # Expected Free Energy
@@ -120,6 +120,12 @@ energy of the expected future (FEEF), a divergence between predicted and desired
 > VFE minimization. [[millidge-2021-whence-expected-free-energy]] argues that it does not. This source
 > is counterevidence to an automatic derivation, not a universal refutation of EFE as a policy
 > objective.
+
+## Communication policies
+
+[[albarracin-2022-epistemic-communities]] supplies an active-inference example in which agents choose both an expression and a neighbor to observe on a fixed admissible graph. [[frank-goodman-2012-pragmatic-reasoning]] is a pragmatic precursor for speaker choices made through a listener model. The preprint [[gwon-2026-evidence-intervention]] embeds an attributed speaker policy in the listener's utterance likelihood, retaining its normalizer and separating interpretation, parameter learning, and prospective policy selection.
+
+[[ruiz-serra-2025-factorised-active-inference]] permits different preferences and finds that ensemble EFE need not decrease in its simulated games. Individual policy objectives therefore need their own relationship to any proposed group objective. [[Active inference communication and collective boundaries]] maps these constructions to communication architecture and boundary formation without identifying a routing score, a policy EFE, and a collective potential by their shared softmax form.
 
 ## Policy selection: $\pi = \mathrm{softmax}(-G)$
 

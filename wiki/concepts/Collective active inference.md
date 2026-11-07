@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-07
 ---
 
 # Collective active inference
@@ -31,7 +31,7 @@ The primary belief update is Fisher--Rao natural-gradient flow. The optional kin
 
 ## Active sampling versus passive attention
 
-The polarization mechanisms must remain distinct. [[albarracin-2022-epistemic-communities]] uses active confirmation-biased sampling: policy selection changes which evidence enters an agent's candidate set, allowing information environments to segregate. By contrast, positive finite-temperature Gibbs attention over a fixed candidate set is passive attractive reweighting. In the manuscript's unanchored, symmetric reciprocal two-cluster reduction, its cross-cluster tail remains positive, so separated clusters are metastable and continue to merge.
+The polarization mechanisms must remain distinct. [[albarracin-2022-epistemic-communities]] gives each agent both an expression action and a choice of which neighbor to observe. Active confirmation-biased sampling changes the evidence the agent receives within a supplied fixed random graph, allowing information environments to segregate. By contrast, positive finite-temperature Gibbs attention over a fixed candidate set is passive attractive reweighting. In the manuscript's unanchored, symmetric reciprocal two-cluster reduction, its cross-cluster tail remains positive, so separated clusters are metastable and continue to merge.
 
 Passive attention therefore does not inherit the persistent-polarization result of an active-sampling model. Exact separation needs severed support, persistent anchors with a proved separated equilibrium, signed influence, or an explicit active selection policy. See [[Echo chambers and polarization]].
 
@@ -59,7 +59,11 @@ The closest exact positive control is [[heins-2023-spin-glass-active-inference]]
 
 A second line treats communication as distributed inference over shared representations. [[taniguchi-2024-collective-predictive-coding]] frames symbol emergence as collective predictive coding, while [[hoang-2024-mh-naming-game]] supplies a Metropolis--Hastings naming-game construction. These categorical and communicative models are comparators for decentralized inference; their discrete label alignment is not the same mathematical problem as continuous gauge-frame transport.
 
-Group agency remains conditional. [[palacios-2020-hierarchical-markov-blankets]] demonstrates a simulated micro-to-macro blanket construction for suitably equipped systems and explicitly does not claim that every coupled system forms a higher-order blanket. [[maisto-2025-flock-joint-agency]] reports an emergent flock-level blanket and synergistic information in simulation, complementing [[waade-2025-as-one-and-many]], but neither supplies a general emergence theorem. The recent preprints [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] use terminology close to a collective variational principle; they remain an unreviewed watchlist rather than established foundations.
+Group agency remains conditional. [[palacios-2020-hierarchical-markov-blankets]] supplies possible blanket roles in agents' priors while allowing membership to develop through interaction. [[waade-2025-as-one-and-many]] fits a group-level model with a predefined blanket arrangement. [[maisto-2025-flock-joint-agency]] reports collective-information results and a flock-level blanket interpretation; its spectral boundary assignment is not itself a conditional-independence proof. These constructions do not supply a general emergence theorem. The recent preprints [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] use terminology close to a collective variational principle; they remain an unreviewed watchlist rather than established foundations.
+
+## Communication policies and boundary evidence
+
+[[gwon-2026-evidence-intervention]] is a recent preprint comparator for policies that anticipate a listener's interpretation, while [[beck-2025-dynamic-markov-blanket-detection]] addresses detection of changing boundaries under a structured model. Policy coupling and boundary detection answer separate questions. [[Active inference communication and collective boundaries]] compares these sources with learned communication architectures and records the distinction between supplied role priors, predefined arrangements, spectral communities, and law-specific screening-off.
 
 > [!important] Current code scope
 > MultiAgentELBO has no active-policy engine, game dynamics, naming-game protocol, posterior server,
