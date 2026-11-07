@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-07
 ---
 
 # CS-ML MOC
@@ -164,3 +164,14 @@ or `tag:#field/cs-ml tag:#cluster/info-geometry`. See the [[Disciplines MOC]] hu
 - [[fields-1996-measurement-and-computational-description]]
 - [[fields-1995-observables-measurements-and-virtual-machines]]
 - [[fields-1989-consequences-of-nonclassical-measurement-for-the-algorithmic-description-of-continuous-dynamical-systems]]
+
+## Communication policies and collective boundaries, November 7, 2026
+
+These sources are connected in [[Active inference communication and collective boundaries]].
+
+- [[frank-goodman-2012-pragmatic-reasoning]]
+- [[gwon-2026-evidence-intervention]]
+- [[kim-2019-schednet]]
+- [[wang-2020-information-bottleneck-communication]]
+- [[lin-2021-autoencoder-communication]]
+- [[beck-2025-dynamic-markov-blanket-detection]]

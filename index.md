@@ -1567,3 +1567,14 @@ The complete reading map is [[Chris Fields and physics as communication]]. The c
 ## Predictive Gaussian interfaces, October 1, 2026
 
 - [[bakhtin-2008-unstable-equilibrium-exit]] — primary nonlinear exit theorem used in the saddle continuation.
+
+## Active-inference communication and collective boundaries, November 7, 2026
+
+- [[Active inference communication and collective boundaries]] — targeted synthesis of communication policies, learned channels, and collective boundaries.
+- [[friston-frith-2015-hermeneutics]]
+- [[frank-goodman-2012-pragmatic-reasoning]]
+- [[gwon-2026-evidence-intervention]]
+- [[kim-2019-schednet]]
+- [[wang-2020-information-bottleneck-communication]]
+- [[lin-2021-autoencoder-communication]]
+- [[beck-2025-dynamic-markov-blanket-detection]]

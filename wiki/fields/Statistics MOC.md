@@ -5,7 +5,7 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-28
+updated: 2026-11-07
 ---
 
 # Statistics MOC
@@ -119,3 +119,10 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 [[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) states the channel-likelihood receiver of the projected-gradient route in the main GL(K) manuscript. With routing weights as likelihood powers, the frozen receiver energy is minimized by the Gaussian power posterior $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\lambda_\alpha\Lambda^{-1}$; it reduces to the predictive head sum in a flat-prior limit, gives a precision-weighted fusion residual at finite prior precision, and its Fisher flow is solved exactly in natural parameters. The profiled coupling $c_0/(b_0+D)$ gives a majorize–minimize step; in the implemented configuration the layer prior equals the incoming state, so the step is a Kalman update.
 
 [[dennis-2026-minimal-agent-model]] (2026-10-05) derives an attention round as exact Bayesian conditioning: the source posterior is an expected-likelihood weight, the receiving map is the Gaussian gain, and the residual is precision weighted; divergence-based Gibbs routing is the first label step of a structured mean-field approximation. It is implemented in VFE_3.0 as a selectable readout (`VFE_3.0/docs/2026-10-06.md`), with no controlled evaluation. [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) keeps the exact source-posterior and predictive-mean status of routing and content and moves the channel-likelihood receiver to its supplement.
+
+## Communication policies and collective boundaries, November 7, 2026
+
+These sources are connected in [[Active inference communication and collective boundaries]].
+
+- [[wang-2020-information-bottleneck-communication]]
+- [[beck-2025-dynamic-markov-blanket-detection]]

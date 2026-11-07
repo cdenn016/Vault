@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-07
 ---
 
 # Physics MOC
@@ -175,3 +175,9 @@ See the [[Disciplines MOC]] hub for all fields.
 - [[fields-2009-information-contents-and-architectural-requirements-of-observer-ready-states]]
 - [[fields-2009-three-consequences-of-decompositional-consistency]]
 - [[fields-1989-consequences-of-nonclassical-measurement-for-the-algorithmic-description-of-continuous-dynamical-systems]]
+
+## Communication policies and collective boundaries, November 7, 2026
+
+These sources are connected in [[Active inference communication and collective boundaries]].
+
+- [[beck-2025-dynamic-markov-blanket-detection]]
