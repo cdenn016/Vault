@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-11-01
+updated: 2026-11-10
 ---
 
 # Meta-agents and hierarchical emergence
@@ -224,3 +224,7 @@ Fields and Levin's account of objects and processes emphasizes that recognizing 
 
 > [!note] Editorial: What transfers
 > Semantic composition, a stable attractor, and a normalized predictive parent are different mathematical claims. The source papers can inform the interface and retention questions without establishing a general formation theorem for the current gauge-VFE model. [[Chris Fields and physics as communication]] keeps the comparison tied to each paper's assumptions.
+
+## Collective agents references, November 10, 2026
+
+[[Collective agents literature map]] groups the references ingested on November 10, 2026. Its sections on closure, lumpability and model reduction and on organizations, markets and teams as information processors hold the sources closest to this page, among them [[barnett-2023-dynamical-independence-discovering]], [[shalizi-2025-what-macrostate-subjective]], [[courtois-1977-decomposability-queueing-computer]] and [[list-2011-group-agency-possibility]].

@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-11-07
+updated: 2026-11-10
 ---
 
 # Markov Blanket
@@ -195,3 +195,7 @@ exact debts that license still owes.
 Fields, Glazebrook, and Levin represent finite interactions between systems in a separable pure joint state through a boundary of prepared and measured bits. They interpret that interface as a Markov blanket and use it to discuss cognition across scales. The separability and finite-resource premises belong to the construction; the result is not a theorem that every interacting classical collection automatically acquires a higher-order conditional-independence boundary. [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]]
 
 The distinction matters when comparing a boundary, an observation protocol, and a variational objective. The quantum-FEP and thermodynamic-cost papers add their own physical and control assumptions. A complete application must state the probability law under which the blanket property holds and keep statistical VFE separate from the physical cost of maintaining the interface. [[fields-2022-a-free-energy-principle-for-generic-quantum-systems]], [[fields-2024-making-the-thermodynamic-cost-of-active-inference-explicit]], [[Chris Fields and physics as communication]]
+
+## Collective agents references, November 10, 2026
+
+[[Collective agents literature map]] groups the references ingested on November 10, 2026. Its section on active inference, expected free energy and Markov blankets holds the exchange on whether sparse coupling yields a blanket, in [[friston-2021-stochastic-chaos-markov]], [[aguilera-2023-knitting-markov-blanket]], [[heins-2022-sparse-coupling-markov]] and [[friston-2022-very-particular-comment]], and the sources on the decay of conditional mutual information, [[kuwahara-2020-clustering-conditional-mutual]] and [[sang-2025-stability-mixed-state]].

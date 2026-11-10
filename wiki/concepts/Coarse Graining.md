@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-20
+updated: 2026-11-10
 ---
 
 # Coarse Graining
@@ -79,3 +79,7 @@ factor-graph/tensor-network approximate-inference comparator.
 - [[beny-osborne-2015-info-geometric-rg]] — coarse-graining as metric contraction on a statistical manifold.
 - [[garciaperez-2018-multiscale]] — geometric renormalization of real networks by latent-space proximity.
 - [[verlinde-2011-entropic-gravity]] — coarse-graining and entropic descriptions of dynamics.
+
+## Collective agents references, November 10, 2026
+
+[[Collective agents literature map]] groups the references ingested on November 10, 2026. Its sections on closure, lumpability and model reduction and on renormalization, aggregation and long memory hold the sources closest to this page, among them [[givon-2004-extracting-macroscopic-dynamics]], [[koch-janusz-2018-mutual-information-neural]], [[gordon-2021-relevance-renormalization-group]] and [[meshulam-2019-coarse-graining-fixed]].

@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-11-07
-updated: 2026-11-07
+updated: 2026-11-10
 ---
 
 # Active inference communication and collective boundaries
@@ -70,4 +70,4 @@ Start with [[albarracin-2022-epistemic-communities]] for expression and selectiv
 
 ## Related
 
-[[Collective active inference]] · [[Expected Free Energy]] · [[Communication-constrained inference]] · [[GL(K) gauge-equivariant attention]] · [[Markov Blanket]] · [[Meta-agents and hierarchical emergence]] · [[Decentralized Bayesian inference]] · [[Partial information decomposition]]
+[[Collective active inference]] · [[Expected Free Energy]] · [[Communication-constrained inference]] · [[GL(K) gauge-equivariant attention]] · [[Markov Blanket]] · [[Meta-agents and hierarchical emergence]] · [[Decentralized Bayesian inference]] · [[Partial information decomposition]] · [[Collective agents literature map]]

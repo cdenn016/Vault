@@ -72,3 +72,37 @@ or `tag:#field/neuroscience tag:#cluster/participatory/consciousness`. See the [
 These sources are connected in [[Active inference communication and collective boundaries]].
 
 - [[friston-frith-2015-hermeneutics]]
+
+## Collective agents references, November 10, 2026
+
+These 29 sources are grouped by question in [[Collective agents literature map]].
+
+- [[aguilera-2023-free-energy-principle]]
+- [[aguilera-2023-knitting-markov-blanket]]
+- [[barnett-2023-dynamical-independence-discovering]]
+- [[catal-2025-belief-sharing-blessing]]
+- [[chalk-2018-unified-efficient-predictive]]
+- [[champion-2026-reframing-expected-free]]
+- [[constant-2019-regimes-expectations-active]]
+- [[creutzig-2008-predictive-coding-slowness]]
+- [[creutzig-2009-past-future-information]]
+- [[friston-2015-active-inference-epistemic-value]]
+- [[friston-2017-deep-temporal-models]]
+- [[friston-2021-parcels-particles-markov]]
+- [[friston-2021-sophisticated-inference]]
+- [[friston-2021-stochastic-chaos-markov]]
+- [[friston-2022-very-particular-comment]]
+- [[friston-2023-path-integrals-particular]]
+- [[heins-2022-sparse-coupling-markov]]
+- [[hesp-2019-multi-scale-view]]
+- [[kastel-2023-small-steps-mankind]]
+- [[kaufmann-2021-active-inference-model]]
+- [[kiebel-2008-hierarchy-time-scales]]
+- [[kuchling-2020-morphogenesis-bayesian-inference]]
+- [[levin-2022-technological-approach-mind]]
+- [[meshulam-2019-coarse-graining-fixed]]
+- [[pezzulo-2018-hierarchical-active-inference]]
+- [[ramstead-2021-multiscale-integration-beyond]]
+- [[rosas-2020-causal-blankets-algorithmic]]
+- [[veissiere-2020-thinking-through-other]]
+- [[zaghw-2026-renormalising-generative-models]]

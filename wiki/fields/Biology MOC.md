@@ -70,3 +70,26 @@ Compose with the topic facet via tag search — e.g.
 - [[fields-2018-multiscale-memory-and-bioelectric-error-correction-in-the-cytoplasm-cytoskeleton-membrane-system]]
 - [[fields-2018-sciences-of-observation]]
 - [[fields-2017-object-permanence]]
+
+## Collective agents references, November 10, 2026
+
+These 18 sources are grouped by question in [[Collective agents literature map]].
+
+- [[berg-1977-physics-chemoreception]]
+- [[bialek-2005-physical-limits-biochemical]]
+- [[bourrat-2022-tradeoff-breaking-model]]
+- [[cavagna-2010-scale-free-correlations]]
+- [[durant-2017-long-term-stochastic]]
+- [[grasse-1959-reconstruction-nid-coordinations]]
+- [[harman-2020-when-science-mirrors]]
+- [[hesp-2019-multi-scale-view]]
+- [[heylighen-2016-stigmergy-universal-coordination]]
+- [[kolchinsky-2018-semantic-information-autonomous]]
+- [[kuchling-2020-morphogenesis-bayesian-inference]]
+- [[levin-2022-technological-approach-mind]]
+- [[mora-2010-limits-sensing-temporal]]
+- [[price-1970-selection-covariance]]
+- [[sachdeva-2021-optimal-prediction-resource]]
+- [[sasaki-2017-cumulative-culture-can]]
+- [[theraulaz-1999-brief-history-stigmergy]]
+- [[tomasello-2005-understanding-sharing-intentions]]

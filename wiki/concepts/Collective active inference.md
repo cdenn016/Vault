@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-11-07
+updated: 2026-11-10
 ---
 
 # Collective active inference
@@ -105,3 +105,7 @@ The Fields collection connects collective inference to physical interfaces, refe
 > The immutable note [[friston-2024-federated-inference]] describes the project's transported peer-KL term as exactly federated inference and suggests a flat-connection equivalence. That equivalence is not established by the paper. A reduction requires matching the generative model, communication likelihood, variational family, and treatment of dependent evidence. The current synthesis retains federated inference as a model-specific comparator. The newly retrieved [local PDF](../../sources/pdfs/friston-2024-federated-inference.pdf) is available for direct consultation.
 
 [[Chris Fields and physics as communication]] supplies the complete reading map. Its quantum and thermodynamic strands should not be used to infer a single global ELBO merely from coupled individual objectives.
+
+## Collective agents references, November 10, 2026
+
+[[Collective agents literature map]] groups the references ingested on November 10, 2026. Its sections on communication as action and on active inference, expected free energy and Markov blankets hold the sources closest to this page, among them [[catal-2025-belief-sharing-blessing]], [[kaufmann-2021-active-inference-model]], [[kastel-2023-small-steps-mankind]] and [[nomura-2026-social-reality-construction]].

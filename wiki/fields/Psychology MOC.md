@@ -75,3 +75,20 @@ These sources are connected in [[Active inference communication and collective b
 - [[friston-frith-2015-hermeneutics]]
 - [[frank-goodman-2012-pragmatic-reasoning]]
 - [[gwon-2026-evidence-intervention]]
+
+## Collective agents references, November 10, 2026
+
+These 12 sources are grouped by question in [[Collective agents literature map]].
+
+- [[cartwright-1956-structural-balance-generalization]]
+- [[chou-2026-systematic-empirical-comparison]]
+- [[constant-2019-regimes-expectations-active]]
+- [[daft-1984-model-organizations-interpretation]]
+- [[enke-2019-correlation-neglect-belief]]
+- [[griffiths-2007-language-evolution-iterated]]
+- [[kastel-2023-small-steps-mankind]]
+- [[kaufmann-2021-active-inference-model]]
+- [[madsen-2018-large-networks-rational]]
+- [[ramstead-2016-cultural-affordances-scaffolding]]
+- [[tomasello-2005-understanding-sharing-intentions]]
+- [[veissiere-2020-thinking-through-other]]

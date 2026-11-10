@@ -80,3 +80,18 @@ Compose with the topic facet via tag search — e.g.
 - [[fields-2002-why-do-we-talk-to-ourselves]]
 - [[fields-1996-measurement-and-computational-description]]
 - [[fields-1995-observables-measurements-and-virtual-machines]]
+
+## Collective agents references, November 10, 2026
+
+These 10 sources are grouped by question in [[Collective agents literature map]].
+
+- [[austin-1962-how-do-things]]
+- [[bourrat-2022-tradeoff-breaking-model]]
+- [[harman-2020-when-science-mirrors]]
+- [[harnad-1990-symbol-grounding-problem]]
+- [[jeffrey-1965-logic-decision]]
+- [[levin-2022-technological-approach-mind]]
+- [[list-2011-group-agency-possibility]]
+- [[nguyen-2020-echo-chambers-epistemic]]
+- [[ramstead-2016-cultural-affordances-scaffolding]]
+- [[ramstead-2021-multiscale-integration-beyond]]
