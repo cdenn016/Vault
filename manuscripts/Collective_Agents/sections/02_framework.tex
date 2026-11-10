@@ -1,0 +1,299 @@
+% Section 2: The framework (key fw)
+% src: L1 Sections 1, 2, 4, 5, 6; L7-P1, L7-P7, L7-P8, L7-G1, L7-G2; L3 Section 0 and L3-L1 with B1-P1; B3-L1(e); L4-D1 to L4-D3; critic D5; B5-D1; L6-F8
+\section{The framework}\label{sec:fw}
+
+This section sets up the objects that the rest of the manuscript uses: agents that perform active inference on one physical world, the public codes in which they speak, the levels at which they read what others say, the channels through which messages, records and acts pass, and the linear network on which the theory of collectives and of scale is built. Two commitments run through it. Every generative model is a model of external physical states, so agents who talk are talking about the same world. Frames, the private coordinates in which an agent may store its beliefs, are optional encodings whose effects can be observed only through communication. The second of the author's ideas, that a sender projects its belief to a subspace through a map $T$ and a receiver lifts the message into its full belief space through a map $O$, receives an exact form in \cref{sec:fw-reception}: $T$ is the sender's effective code, $O$ is the right inverse of the receiver's model of that code that the receiver's own prior selects, and their composition is a projector in the receiver's metric.
+
+\subsection{Agents, world and generative models}\label{sec:fw-model}
+
+We model a population of agents that act, sense and talk in discrete rounds. The definition below fixes what is external to each agent and what passes between agents; its linear-Gaussian case is the reference in which most results are proved.
+
+\begin{definition}[Communicating active-inference system]\label{def:fw-system}
+% src: L1-D1, L1-D2, L1-D11, L1-D12
+Rounds are $t\in\mathbb N$, and agents form a finite set $V$ with $N=\lvert V\rvert$. The potential communication graph $\mathcal G=(V,\mathcal E)$ contains the pair $(i,j)$ when some policy of $i$ can read a channel or a record that $j$ writes. The external states at round $t$ are the world state $\eta_t\in\R^K$ (more generally a point of a standard Borel space), channel states, each of which holds a written signal for one round, and records $z_k$, which persist. Agent $i$ has sensory states $s_i$, active states $a_i$ and internal states $\mu_i$, with blanket $b_i=(s_i,a_i)$. Its active states have four components: an attention set $\mathcal J_i(t)$ of world channels, message channels and records to be read in the next round, with $\lvert\mathcal J_i(t)\rvert\le\kappa$; a speech act $(\mathcal A,c,u)$, made of addressees $\mathcal A\subseteq V$, a modality $c\in\mathcal M$ and a content $u\in\R^{r_c}$ written into the channels the addressees read; writes into records; and a performative component $a^{\mathrm e}_i$ that enters the dynamics of the world. In the linear-Gaussian reference case
+\begin{equation}\label{eq:fw-world}
+\eta_{t+1}=F\eta_t+\sum_{j\in V}B^\eta_ja^{\mathrm e}_j(t)+w_t,\qquad s_i(t)=H^s_i\eta_t+v_i(t),\qquad y_{ij}(t+1)=u_j(t)+\nu_{ij}(t+1),
+\end{equation}
+with $w_t\sim\Ncal(0,Q)$, $v_i(t)\sim\Ncal(0,R^s_i)$ and $\nu_{ij}(t)\sim\Ncal(0,R_c)$ independent of one another and across rounds. Here $s_i(t)$ is $i$'s reading of the world on rounds in which it attends the world, and $y_{ij}$ is the component of $i$'s sensory states that reads the channel written by $j$; records are read in the same way (\cref{sec:fw-channels}). Internal states encode the sufficient statistics of a recognition density $q_i=\Ncal(m_i,P_i)$ over $\eta$ in world coordinates, with precision $\Lambda_i=P_i^{-1}$, directly or through a private encoding (\cref{sec:fw-frames}), and they are updated by Bayesian filtering of the sensory states. Active states are drawn from the policy posterior $q_i(\pi)\propto E_i(\pi)\exp(-\gamma G_i(\pi))$, with $G_i$ the expected free energy \eqref{eq:fw-efe}.
+\end{definition}
+
+Write $X_t$ for all external states at round $t$. The one-round kernel of the joint process factorizes as
+\begin{equation}\label{eq:fw-factor}
+p\bigl(X_{t+1}\mid X_t,a(t)\bigr)\prod_{i\in V}p\bigl(s_i(t+1)\mid X_{t+1},\mathcal J_i(t)\bigr)p\bigl(\mu_i(t+1)\mid\mu_i(t),a_i(t),s_i(t+1)\bigr)p\bigl(a_i(t+1)\mid\mu_i(t+1)\bigr),
+\end{equation}
+so the internal states of $j$ influence those of $i\ne j$ only along the path $\mu_j\to a_j\to X\to s_i\to\mu_i$. The belief update conditions on the agent's own sampled action $a_i(t)$, which is part of its blanket and which the filter needs in order to know which channels were read and what the agent itself did and wrote. Every channel, the direct one included, passes through external states, and each agent's blanket $b_i$ is respected by construction. This is what makes direct, stigmergic and performative channels comparable (\cref{sec:fw-channels}).
+
+Each agent's generative model is a model of these external states. Agent $i$'s model $p_i$, a density over paths of external states and of its own sensory states given a policy, is assembled from a model of the world's dynamics, a model of the other agents' active states (external from $i$'s point of view), a sensory likelihood, prior preferences $\ln\tilde p_i(o)$ over outcomes, initial priors and habits $E_i(\pi)$ over policies; agents may differ in all of these. For each sender $j$ it contains a message model: a code model $\hat H_{ij}$, a noise model and a model of what $j$'s content summarizes, whose structure defines the interpretation level (\cref{sec:fw-levels}). An agent need not keep all its data: $\mathcal Z_i$ is the $\sigma$-algebra of what $i$ retains when a message arrives (its raw data, or only $(m_i,P_i)$), and its prior at reception is $q_i(\eta)=p_i(\eta\mid\mathcal Z_i)$.
+
+Policies are scored by their expected free energy,
+\begin{equation}\label{eq:fw-efe}
+G_i(\pi)=\KL\bigl(q_i(o\mid\pi)\Vert\tilde p_i(o)\bigr)+\E_{q_i(\eta\mid\pi)}\mathbb H\bigl[p_i(o\mid\eta,\pi)\bigr]=-I_{q_i}(\eta;o\mid\pi)-\E_{q_i(o\mid\pi)}\ln\tilde p_i(o),
+\end{equation}
+risk plus ambiguity, or minus epistemic value minus pragmatic value, and the policy posterior combines $G_i$ with the habits through the precision $\gamma$ \citep[Sections~6 and~7]{dacosta2020active}; see also \citet{friston2017active,parr2022active}. The second form requires the information term, the expected information of an experiment in the sense of \citet{lindley1956measure}, to use the exact posterior of the agent's own model. There is no team objective: each agent selects its policies by its own expected free energy, and collective behavior has to arise from these individual choices.
+
+\subsection{Communication as action: codes, encodings and messages}\label{sec:fw-codes}
+
+Speaking is an active state that writes into an external medium, and this subsection fixes what such a write carries. A modality $c\in\mathcal M$ comes with a public code $T_c\in\R^{r_c\times K}$ of full row rank, shared by its speakers as a language or an accounting standard is shared. The case of interest is $r_c<K$, in which a message carries fewer dimensions than a belief; the full-rank case $r_c=K$ appears in the two-group models of \cref{sec:coh,sec:frm}. An agent may store its belief in private internal coordinates through a linear encoding $U_i\in\GL(K)$, with internal mean $\mu_i=U_im_i$ and internal covariance $U_iP_iU_i^\top$, or through a general invertible encoding $\mathcal E_i$; identity encodings recover standard active inference. The public code acts on internal coordinates, so the message that $i$ receives from $j$ in modality $c$ is
+\begin{equation}\label{eq:fw-message}
+y_{ij}=T_c\mu_j+\nu_{ij}=H_jm_j+\nu_{ij},\qquad H_j=T_cU_j,\qquad\nu_{ij}\sim\Ncal(0,R_c).
+\end{equation}
+The matrix $H_j\in\R^{r_c\times K}$, of full row rank, is the sender's effective code: the world content that a public signal carries when $j$ sends it. Two senders with different encodings mean different things by the same signal, and receiver $i$'s model $\hat H_{ij}$ of $H_j$ is part of its generative model. A speech act chooses addressees, a modality and a content $u_j=H_jm_j+h_j$, honest when $h_j=0$; a sender may also post a law header, the coded covariance $H_jP_jH_j^\top$ of its belief. Attention chooses, within the capacity $\kappa$, which world channels, message channels and records to read.
+
+In the author's description, agent $j$ projects its internal belief to a subspace through a map $T$, and agent $i$ lifts the message into its full belief space through a map $O$. The sender's map is the public code acting on internal coordinates, $\mu_j\mapsto T_c\mu_j$, which in world coordinates is the effective code $m_j\mapsto H_jm_j$. It determines the sender's mean only modulo $\ker H_j$: a message carries the $r_c$ linear functionals of $m_j$ along the rows of $H_j$ and nothing else. The receiver's map is the subject of the next subsection.
+
+\subsection{Reception as sensing}\label{sec:fw-reception}
+
+Receiving is a sensory process: the receiver updates its belief about $\eta$ with a likelihood for the message. This subsection says what that update does to the receiver's belief and identifies the receiver map. Receiver $i$ has prior $\Ncal(m_i,P_i)$ with $P_i\succ0$ and reads a message $y=y_{ij}$ with the likelihood $y\mid\eta\sim\Ncal(\hat H\eta,\hat R)$, where $\hat R\succ0$ and $\hat H=\hat H_{ij}$. This covers levels 0 and 1 of \cref{sec:fw-levels}, and exact fusion once a known offset is subtracted from $y$ and $\hat H$ and $\hat R$ are replaced by the code $A_{ij}$ and the noise $R^{\mathrm{ex}}_{ij}$ of \eqref{eq:fw-track}. Write
+\begin{equation}\label{eq:fw-gain}
+S=\hat HP_i\hat H^\top+\hat R,\qquad\Kg=P_i\hat H^\top S^{-1},\qquad O_{ij}=P_i\hat H^\top\bigl(\hat HP_i\hat H^\top\bigr)^{-1},
+\end{equation}
+the last when $\hat H$ has full row rank. The matrix $O_{ij}$ is the receiver map. It is a right inverse of the code model, $\hat HO_{ij}=I$, and it lifts a noiseless value $y^\circ$ of the coded coordinates to the receiver's conditional mean of the whole state, $\E_{q_i}[\eta\mid\hat H\eta=y^\circ]=m_i+O_{ij}(y^\circ-\hat Hm_i)$.
+
+\begin{proposition}[Update subspace]\label{prop:fw-update-subspace}
+% src: L1-P2, L7-G1
+After the message, $m_i^+=m_i+\Kg(y-\hat Hm_i)$ and $P_i^+=P_i-\Kg\hat HP_i$, and:
+\begin{enumerate}
+\item[(a)] $m_i^+-m_i\in\operatorname{col}(P_i\hat H^\top)$, a subspace of dimension $\rank\hat H\le r_c$;
+\item[(b)] $P_i-P_i^+=P_i\hat H^\top S^{-1}\hat HP_i\succeq0$ has rank exactly $\rank\hat H$ and column space $\operatorname{col}(P_i\hat H^\top)$;
+\item[(c)] for $f\in\R^K$, the posterior mean and variance of $f^\top\eta$ are unchanged for every $y$ if and only if $f^\top P_i\hat H^\top=0$.
+\end{enumerate}
+\end{proposition}
+
+A message whose code model has rank $r_c$ raises the receiver's precision by $\hat H^\top\hat R^{-1}\hat H$, in exactly $r_c$ directions, and moves its mean only within the completed sent subspace $\operatorname{col}(P_i\hat H^\top)$, as in \citet{dennis2026magent}. A direction that the message does not code moves only if the receiver's prior correlates it with the coded directions. Proof in \cref{app:fw}; checked in \cref{chk:fw-reception}.
+
+\begin{proposition}[Prior completion]\label{prop:fw-prior-completion}
+% src: L1-P3, L1-P29(a), L7-G2
+\begin{enumerate}
+\item[(a)] Let $q$ be any prior on a standard Borel space, $T$ a measurable map, and let the likelihood depend on $\eta$ only through $y^\circ=T(\eta)$. Then
+\[
+q(\mathrm d\eta\mid y)=\int q(\mathrm d\eta\mid y^\circ)q_T(\mathrm dy^\circ\mid y),
+\]
+where $q_T(\cdot\mid y)$ is the posterior of $y^\circ$: the receiver replaces its marginal of the coded value and keeps its conditional law of everything else.
+\item[(b)] In the Gaussian case with $\hat H$ of full row rank, $m_i+O_{ij}(y^\circ-\hat Hm_i)$ is the point of the affine subspace $\{x:\hat Hx=y^\circ\}$ nearest to $m_i$ in the receiver's metric $\Vert x\Vert^2_{\Lambda_i}=x^\top\Lambda_ix$. With the decoded content $\hat y^\circ=\E[\hat H\eta\mid y]=\hat Hm_i+\hat HP_i\hat H^\top S^{-1}(y-\hat Hm_i)$,
+\begin{equation}\label{eq:fw-decode-lift}
+\Kg=O_{ij}\hat HP_i\hat H^\top S^{-1},\qquad m_i^+=m_i+O_{ij}(\hat y^\circ-\hat Hm_i).
+\end{equation}
+\item[(c)] Let $q_j$ be the sender's belief and $q_i$ the receiver's prior, laws on world coordinates with $\KL(q_j\Vert q_i)<\infty$, and let the code $T$ be noiseless. The reconstruction $\hat q_{ij}$ keeps the sender's law of the coded value and the receiver's conditional law of the rest, and
+\begin{equation}\label{eq:fw-meaning-lost}
+\hat q_{ij}=\int q_i(\cdot\mid y^\circ)(T_\#q_j)(\mathrm dy^\circ),\qquad\KL(q_j\Vert\hat q_{ij})=\KL(q_j\Vert q_i)-\KL(T_\#q_j\Vert T_\#q_i).
+\end{equation}
+For a noisy channel kernel $\mathsf K$ from states to messages and $\hat q_{ij}=\int q_i(\cdot\mid y)(q_j\mathsf K)(\mathrm dy)$, with $q_i(\cdot\mid y)$ the receiver's posterior, the left side is at most $\KL(q_j\Vert q_i)-\KL(q_j\mathsf K\Vert q_i\mathsf K)$.
+\item[(d)] If $\hat H=H_j$ and the channel is noiseless, an honest message $y=H_jm_j$ gives $m_i^+=(I-\mathcal P_{ij})m_i+\mathcal P_{ij}m_j$, where $\mathcal P_{ij}=O_{ij}H_j$ is the projector onto $\operatorname{col}(P_iH_j^\top)$ along $\ker H_j$, orthogonal in the metric $\Vert\cdot\Vert_{\Lambda_i}$.
+\end{enumerate}
+\end{proposition}
+
+Part (a) is the rigidity of Jeffrey's probability kinematics \citep{jeffrey1965logic} on the partition that the code generates. Part (c), from \citet{dennis2026magent}, measures what is lost, the divergence that the code does not transmit; in the Gaussian case a noiseless mean message with its law header transmits $T_\#q_j$ exactly. \Citet{dennis2026magent} calls the gain $\Kg$ itself the receiver map; by (b) the gain is the lift composed with decoding, and it tends to $O_{ij}$ as the channel noise vanishes. \Cref{fig:fw-lift} shows both steps for a receiver whose prior correlates an uncoded coordinate with the coded one: the message is decoded on the coded axis and lifted along $\operatorname{col}(P_i\hat H^\top)$, and the uncoded coordinate moves only through that correlation. Proof in \cref{app:fw}; checked in \cref{chk:fw-reception}.
+
+\begin{figure}[t]
+  \centering
+  \input{figures/fig_fw_lift}
+  \caption{\textbf{Decode, then lift.} A receiver with prior $\Ncal(m_i,P_i)$, $m_i=0$, unit variances and correlation $0.8$ reads the first coordinate of $\eta=(\eta_1,\eta_2)$ through the code $\hat H=(1,0)$ with noise variance $\hat R=0.5$, as receiver $i$ of \cref{ex:fw-disagreement} does at $\varrho=0.8$ and $\sigma^2=0.5$, and receives $y=1.5$. Top: on the coded coordinate its prior marginal (blue) and the likelihood of the message (orange) give a posterior marginal (red) whose mean is the decoded content $\hat y^\circ=1$, the message shrunk toward the prediction $\hat Hm_i=0$ by the factor $\hat HP_i\hat H^\top S^{-1}=2/3$ with $S=1.5$. Bottom: the receiver map $O_{ij}=(1,0.8)^\top$ lifts the decoded value along $\operatorname{col}(P_i\hat H^\top)$ to the posterior mean $m_i^+=(1,0.8)$, the receiver's own conditional mean on the line $\{\hat H\eta=\hat y^\circ\}$. The ellipses are one standard deviation of the prior (blue) and of the posterior (red), whose covariance is $P_i-P_i\hat H^\top\hat HP_i/1.5$. The gray band, the conditional mean $0.8\eta_1$ of $\eta_2$ given $\eta_1$ plus or minus one conditional standard deviation $0.6$, is left unchanged by the message, and both ellipses are tangent to its edges. The uncoded coordinate therefore moves by $0.8$ only through the prior correlation, and the functional $f^\top\eta=\eta_2-0.8\eta_1$, for which $f^\top P_i\hat H^\top=0$ (\cref{prop:fw-update-subspace}(c)), keeps its mean and its variance.}
+  \label{fig:fw-lift}
+\end{figure}
+
+The author's second idea can now be stated exactly. Sender $j$'s map $T$ is its effective code $H_j$, which keeps the class of $m_j$ modulo $\ker H_j$. Receiver $i$'s map $O$ is the receiver map $O_{ij}$: among all beliefs consistent with a coded value it selects the one nearest to the receiver's prior mean in the receiver's own metric, which is also the receiver's prior conditional mean. On a noisy channel the receiver first decodes, shrinking the message toward its prediction, and the composite is the gain $\Kg$. When the code is read correctly and the channel is noiseless, the composition $O_{ij}H_j=\mathcal P_{ij}$ is a projector: the receiver adopts the sender's belief on the completed sent subspace $\operatorname{col}(P_iH_j^\top)$ and keeps its own along $\ker H_j$, the complement of that subspace orthogonal in the receiver's metric. The projection in the author's description is therefore $\mathcal P_{ij}$, a projection in the receiver's metric onto a subspace that the receiver's prior selects, so one message is projected differently by receivers with different priors. What the code does not carry is supplied by the receiver, and \eqref{eq:fw-meaning-lost} measures what is lost. Understanding is prior-dependent completion, which is one clause of hypothesis H2.
+
+The lift uses the receiver's prior, so two receivers can read one message differently: with a common likelihood their gains agree exactly when their priors give the coded coordinates the same covariance with the whole state, and a message that both predict alike and find surprising can leave receivers with equal prior means further apart than before (Supplement, \cref{prop:fw-two-receivers,ex:fw-disagreement}).
+
+\subsection{Interpretation levels and calibration classes}\label{sec:fw-levels}
+
+A receiver must model how a message relates to the world. Hypothesis H2 says that receivers must model senders, and the structure of that model is the receiver's interpretation level. The levels differ in what they assume about the joint law of the message and the receiver's own information, which is where misreading enters (\cref{sec:mis}).
+
+\begin{definition}[Interpretation levels]\label{def:fw-levels}
+% src: L1-D3; decision 10 (law-header receivers are level 1)
+Receiver $i$ reads a message $y_{ij}$ from sender $j$ with a code model $\hat H_{ij}$.
+\begin{enumerate}
+\item[] Level 0: $p^0_i(y_{ij}\mid\eta)=\Ncal(y_{ij};\hat H_{ij}\eta,\hat R_{ij})$. Messages are observations of $\eta$; $\hat R_{ij}=R_c$ by default, or a learned noise.
+\item[] Level 1: $p^1_i(y_{ij}\mid\eta)=\Ncal(y_{ij};\hat H_{ij}\eta,\hat H_{ij}\hat P_{ij}\hat H_{ij}^\top+R_c)$. Messages are noisy estimates of $\eta$ whose errors are independent of everything the receiver knows and have covariance $\hat P_{ij}$, learned or read from a law header. In particular a receiver that reads a law header, adding the posted coded covariance $H_jP_jH_j^\top$ to the channel noise, reads at level 1, with $\hat H_{ij}\hat P_{ij}\hat H_{ij}^\top=H_jP_jH_j^\top$.
+\item[] Exact fusion: $p^{\mathrm{ex}}_i(y_{ij}\mid\eta,\mathcal Z_i)$ is the conditional law of $y_{ij}$ given $(\eta,\mathcal Z_i)$ under the true joint process.
+\end{enumerate}
+\end{definition}
+
+Levels 0 and 1 are conditionally independent of $\mathcal Z_i$ given $\eta$, and level 1 is level 0 with the noise $\hat R^1_{ij}=R_c+\hat H_{ij}\hat P_{ij}\hat H_{ij}^\top$ in place of $\hat R_{ij}$; we call both literal. In the Gaussian case exact fusion updates by Gaussian conditioning on $(\mathcal Z_i,y_{ij})$. In the track model, where $\mathcal Z_i=m_i$ and the errors $e_a=m_a-\eta$ are Gaussian and independent of $\eta$ with covariance blocks $\Sigma_{aa'}$,
+\begin{equation}\label{eq:fw-track}
+\begin{gathered}
+y_{ij}\mid\eta,m_i\sim\Ncal\bigl(A_{ij}\eta+H_j\Sigma_{ji}\Sigma_{ii}^{-1}m_i,R^{\mathrm{ex}}_{ij}\bigr),\\
+A_{ij}=H_j\bigl(I-\Sigma_{ji}\Sigma_{ii}^{-1}\bigr),\qquad R^{\mathrm{ex}}_{ij}=H_j\bigl(\Sigma_{jj}-\Sigma_{ji}\Sigma_{ii}^{-1}\Sigma_{ij}\bigr)H_j^\top+R_c,
+\end{gathered}
+\end{equation}
+because given $(\eta,m_i)$ the receiver's error is known and $e_j\mid e_i\sim\Ncal(\Sigma_{ji}\Sigma_{ii}^{-1}e_i,\Sigma_{jj}-\Sigma_{ji}\Sigma_{ii}^{-1}\Sigma_{ij})$. The update with this likelihood is cross-covariance-aware track fusion \citep{barshalom1986effect}. Under a proper prior the error of a posterior mean is correlated with the state, and exact fusion must then use the full joint law.
+
+\begin{proposition}[When each level is Bayes optimal]\label{prop:fw-level-optimality}
+% src: L1-P1
+Let $j$ send belief messages $y_{ij}=H_jm_j+\nu_{ij}$, and call a likelihood true when it is the conditional law of $y_{ij}$ given $(\eta,\mathcal Z_i)$ under the true joint process.
+\begin{enumerate}
+\item[(a)] Let the true conditional law have the density $p(y\mid\eta,\mathcal Z_i)$. A message likelihood $\hat p(y\mid\eta,\mathcal Z_i)$ yields the exact posterior, the one that combines the receiver's prior with $p$, if and only if, for $q_i$-almost every $\eta$, $\hat p(y\mid\eta,\mathcal Z_i)$ equals $p(y\mid\eta,\mathcal Z_i)$ times a positive factor that does not depend on $\eta$.
+\item[(b)] The level-0 likelihood with $\hat R_{ij}=R_c$ is true if and only if $H_jm_j=\hat H_{ij}\eta$ almost surely, and level 0 is then exact: the coded content is exact, as for a public referent observed without noise. With a general $\hat R_{ij}$ it is true if and only if, given $(\eta,\mathcal Z_i)$, $H_jm_j\sim\Ncal(\hat H_{ij}\eta,\hat R_{ij}-R_c)$.
+\item[(c)] The level-1 likelihood is true, and level 1 is then exact, if and only if the coded error $H_jm_j-\hat H_{ij}\eta$ is independent of $(\eta,\mathcal Z_i)$ with law $\Ncal(0,\hat H_{ij}\hat P_{ij}\hat H_{ij}^\top)$. Let the world be static, $\eta\sim\Ncal(\bar\eta,\Lambda_0^{-1})$ with $\Lambda_0\succ0$, observed through independent linear-Gaussian sources; let every agent hold the exact posterior given the sources it observes and $i$ retain its raw data; and let $\Lambda^{\mathrm{sh}}_{ij}$ be the precision that $i$ and $j$ share, the prior included. With $\hat H_{ij}=H_j$ and the header $\hat P_{ij}=P_j$, the level-1 likelihood is true if and only if $H_jP_j\Lambda^{\mathrm{sh}}_{ij}=0$, which fails for every nonzero code. Under a flat prior, $\Lambda_0=0$ with the precision of $j$'s sources positive definite and all laws taken conditionally on $\eta$, the same criterion $H_jP_j\Lambda^{\mathrm{sh}}_{ij}=0$ holds and nonzero codes can meet it; it is not implied by the absence of shared sources in the coded directions, $H_j\Lambda^{\mathrm{sh}}_{ij}=0$. Let $\Lambda_{j\setminus i}$ be the precision of the sources that $j$ observes and $i$ does not. If $\Lambda_{j\setminus i}\succ0$, the level-1 likelihood is true for an evidence message, which carries $\eta$ plus an error built only from those sources, read with the covariance of that error as its header.
+\item[(d)] Exact fusion is exact relative to $\mathcal Z_i$, and it equals the posterior given all of $i$'s data when $\mathcal Z_i$ is sufficient for $(\eta,y_{ij})$ relative to those data.
+\end{enumerate}
+\end{proposition}
+
+A proper common prior is itself shared information, so under it a posterior-mean message is never an evidence message, and level 1 needs the sender to know what the receiver lacks. Retaining only beliefs loses information: with prior, common-source and private precisions equal to one and a noiseless scalar message, a receiver that keeps its raw data gains $\tfrac12\ln(4/3)=0.144$ nats, one that keeps only its belief gains $\tfrac12\ln(11/9)=0.100$ nats, and a level-1 receiver believes it gains $\tfrac12\ln2=0.347$ nats (\cref{chk:fw-levels}). In a dynamic world the world's innovation is shared by every agent; in a scalar world this alone makes level 1 inexact for messages that carry the sender's filtered mean, even when the agents run steady-state Kalman filters on independent sensors (\cref{prop:mis-dynamic}). On trees the channel filter of decentralized fusion subtracts the information shared along each link \citep{grime1994data}; on graphs with cycles exact fusion needs provenance. Proof in \cref{app:fw}.
+
+Calibration concerns the noise a literal receiver assigns to a message whose code model may be wrong, for instance because the receiver reads the sender through a wrong translation (\cref{def:fw-translation}).
+
+\begin{definition}[Calibration classes]\label{def:fw-calibration}
+% src: L3-D7, critic D5
+A receiver $i$ reads $y_{ij}$ with code model $\hat H_{ij}$. Its calibration class says how it sets the noise $\hat R_{ij}$ of a level-0 likelihood or, in class $\mathsf{C2}$, the joint law of the message.
+\begin{enumerate}
+\item[] $\mathsf{C0}$: $\hat R_{ij}$ is fixed and does not respond to the actual reliability of the message.
+\item[] $\mathsf{C1g}$ (grounded): $\hat R_{ij}$ is learned by maximum likelihood within the level-0 model on grounded rounds, on which the receiver observes the referent; its population value is the actual second moment of $y_{ij}-\hat H_{ij}\eta$.
+\item[] $\mathsf{C1i}$ (innovation): $\hat R_{ij}$ is learned by matching the second moment of the innovations $y_{ij}-\hat H_{ij}m_i$ to the model's prediction $\hat H_{ij}P_i\hat H_{ij}^\top+\hat R_{ij}$.
+\item[] $\mathsf{C2}$: the receiver's model of the joint law of the message, the world and its own information is correct on the subspace that grounded data identify.
+\end{enumerate}
+The classes map onto the levels as follows. $\mathsf{C0}$ is level 0 with fixed noise; $\mathsf{C1g}$ and $\mathsf{C1i}$ are level 0 with a learned marginal noise; level 1 is the receiver that adds a posted header to its noise; $\mathsf{C2}$ is exact fusion restricted to the identifiable subspace.
+\end{definition}
+
+The classes differ in what a receiver can notice. A $\mathsf{C0}$ receiver cannot register a mistranslation in its assigned precision, so its expected free energy is blind to it (\cref{prop:coh-c0-blind}). A $\mathsf{C1g}$ or $\mathsf{C1i}$ receiver converts mistranslation into message noise and can withdraw from a mistranslated sender (\cref{thm:coh-withdrawal}), although in the static two-group model of that theorem a $\mathsf{C1i}$ receiver registers mistranslation only in proportion to its own sensing gain. \Cref{tab:fw-levels} collects what each level needs.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{5.2cm}>{\raggedright\arraybackslash}p{3.0cm}@{}}
+\toprule
+Level & Bayes optimal when & The receiver must know & Calibration class\\
+\midrule
+0 & the coded content is exact, or the message relays a fresh observation with the modeled noise & the sender's code, learned from grounded co-occurrence (\cref{sec:fw-learning}), and a noise model & $\mathsf{C0}$ (fixed noise); $\mathsf{C1g}$, $\mathsf{C1i}$ (learned noise)\\
+1 & the coded error is independent of $(\eta,\mathcal Z_i)$: evidence messages, or a flat prior with $H_jP_j\Lambda^{\mathrm{sh}}_{ij}=0$ & in addition, the sender's error covariance, from a law header or learned & receivers that read a law header\\
+Exact fusion & always, relative to $\mathcal Z_i$ & in addition, the joint law of the sender's information and its own: the cross-covariance in the track model, or the common information and the sender's information structure, which is provenance & $\mathsf{C2}$ on the identifiable subspace\\
+\bottomrule
+\end{tabular}
+\caption{What each interpretation level needs (\cref{prop:fw-level-optimality}) and the calibration classes that realize it (\cref{def:fw-calibration}).}
+\label{tab:fw-levels}
+\end{table}
+
+\subsection{Grounded learning of codes}\label{sec:fw-learning}
+
+The code models $\hat H_{ij}$ used above have to come from somewhere. Because every generative model is about the same $\eta$, a receiver can learn a sender's code from the co-occurrence of messages with its own observations of the world, which is the formal content of grounding meaning in shared attention \citep{harnad1990symbol,tomasello2005understanding}. Here sender $j$'s messages are $y_t=H\phi_t+\nu_t$, with $H=H_j$, content $\phi_t\in\R^K$ in world coordinates (its belief, or a public component of $\eta$) and channel noise $\nu_t\sim\Ncal(0,R_c)$ independent of everything else. The receiver forms a regressor $\hat\phi_t$ from its own data $\mathcal Z_t$ without using $y_t$, and the pair is content calibrated if $\E[\phi_t\mid\mathcal Z_t]=\hat\phi_t$. Under exact joint attention both agents attend a public component of $\eta$, the sender knows it exactly and sends it, and the receiver's statistic is its posterior mean of that component. Write $M_2=\E[\hat\phi_t\hat\phi_t^\top]$ and $\mathcal P_M$ for the orthogonal projector onto $\operatorname{col}(M_2)$.
+
+\begin{proposition}[Identification under content calibration]\label{prop:fw-grounded-identification}
+% src: L1-P16
+Let $(\phi_t,\hat\phi_t,\nu_t)$ be stationary and ergodic with finite second moments, and content calibrated.
+\begin{enumerate}
+\item[(a)] Every least-squares estimate satisfies $\hat H_TM_2\to HM_2$ almost surely, and the minimum-norm estimate converges to $H\mathcal P_M$.
+\item[(b)] Under exact joint attention with an exactly observing receiver ($\hat\phi_t=\phi_t$), the joint law of $(\phi_t,y_t)$ depends on $H$ only through $H\mathcal P_M$: two codes are observationally equivalent if and only if they agree on $\operatorname{col}(\E[\phi_t\phi_t^\top])$.
+\item[(c)] Let $\phi_t$ be centered Gaussian with second moment $M_\phi\succ0$, and let the receiver observe $\phi_t+v^g_t$, where the grounding noise $v^g_t\sim\Ncal(0,R^g)$, $R^g\succ0$, is independent of $\phi_t$ and of the channel, all jointly stationary and ergodic. Regressing $y_t$ on $\phi_t+v^g_t$ converges to the attenuated $HM_\phi(M_\phi+R^g)^{-1}$, while regressing on the calibrated statistic $M_\phi(M_\phi+R^g)^{-1}(\phi_t+v^g_t)$ converges to $H$.
+\end{enumerate}
+\end{proposition}
+
+The unidentified directions are those along which the jointly attended content is identically zero (for centered content, those along which it never varies); on them the code never acts on that content, so misidentifying it there costs nothing for that content. Part (c) is regression dilution and its repair by regression calibration \citep{carroll2006measurement}. Proof in \cref{app:fw}; checked in \cref{chk:fw-learning}.
+
+In the Supplement, under the hypotheses stated there, a recursive least-squares learner keeps its prior on the part of the code that acts off the column space of $M_2$ (\cref{prop:fw-rls}), and learning without content calibration converges to the regression of messages on the receiver's own beliefs, which differs from the grounded limit unless a moment condition holds (\cref{prop:fw-ungrounded-bias}).
+
+\subsection{Direct, stigmergic and performative channels}\label{sec:fw-channels}
+
+Messages are one of three ways in which an agent's actions reach another agent's senses. An agent can also write into a record that others read later, as termites build on earlier work \citep{grasse1959reconstruction,theraulaz1999brief,heylighen2016stigmergy}, and it can act on the world in a way that changes what the others' actions lead to, as a promise or a transfer does \citep{austin1962how}. \Cref{fig:fw-channels} shows the three paths. In the linear joint process let $X_t=(\eta_t,Y_t,Z_t)$ stack the world, the channel contents and the records, with dynamics $X_{t+1}=\bar FX_t+\sum_jB_ja_j(t)+\bar w_t$, $\bar F=\diag(F,0,F_z)$ and $B_j$ stacking $B^\eta_j$, $B^Y_j$, $B^Z_j$, and let agent $i$'s sensory states be $s_i(t)=H^X_iX_t+\bar v_i(t)$ with $H^X_i=(H^s_i,H^Y_i,H^Z_i)$ on a fixed attention schedule. The transfer kernel from $j$'s active states to $i$'s sensory states is $\mathcal X_{ij}(t,s)=\partial s_i(t)/\partial a_j(s)$ for $t>s$, computed with the other agents' actions held fixed.
+
+\begin{proposition}[One transfer kernel]\label{prop:fw-transfer-kernel}
+% src: L1-P20, L1-D12, L1-D13
+\begin{equation}\label{eq:fw-kernel}
+\mathcal X_{ij}(t,s)=H^Y_iB^Y_j\one[t-s=1]+H^Z_iF_z^{t-s-1}B^Z_j+H^s_iF^{t-s-1}B^\eta_j.
+\end{equation}
+The three terms are the direct, stigmergic and performative channels. Nilpotent modes carry direct messages, which need addressing and attention in the same round; passive persistent modes of the records, uncoupled from the world and entering no one's preferences, carry stigmergic communication; modes of the world carry performative acts. Reading has no back-action, since $H^X_i$ does not enter $\bar F$, so the information in a record is non-rival, whereas an act along a conserved direction $g$, with $g^\top F=g^\top$ and $g^\top B^\eta_j=0$ for every $j$, moves holdings between agents without creating them and is rival. Every channel type is a path $a_j\to X\to s_i$, so the agents' blankets hold for all of them.
+\end{proposition}
+
+Direct, stigmergic and performative communication are therefore one object with three kinds of modes, distinguished by latency, persistence and whether they move resources. Proof in \cref{app:fw}; checked in \cref{chk:fw-records}.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/fig_framework}}
+  \caption{\textbf{Communication passes through external states.} Each agent has sensory states $s$, internal states $\mu$ and active states $a$. A speech act of $i$ writes a message into a channel that holds it for one round, and $j$ reads it as $y_{ji}$ (blue). Agent $j$ writes a record $z_k$ that persists and that $k$ reads later (green). A performative act of $k$ changes the world state $\eta$ that every agent senses (red; sensing in gray). All three are paths from the active states of one agent through external states to the sensory states of another, so the agents' own blankets are respected.}
+  \label{fig:fw-channels}
+\end{figure}
+
+Records persist, so they need a model of their own. We use one record model throughout, written for the world-conditional errors of the level-0 network of \cref{sec:fw-level0}.
+
+\begin{definition}[Record model]\label{def:fw-record-model}
+% src: B5-D1
+Agents $i\in V$ sit at the sites $x_i$ of $\Z^D$ or at the vertices of a graph, and $e_i$ is the world-conditional error of agent $i$, the connected part of its error with the common mode of \cref{lem:fw-common-mode} removed. Records $z_{k,i}$, $k=1,\dots,n_z$, sit at the agents' sites. In rounds,
+\begin{align}
+e_i(t+1)&=\Bigl(1-\varepsilon'-\sum_k\beta_k\Bigr)e_i(t)+a\sum_{j\sim i}\bigl(e_j(t)-e_i(t)\bigr)+\sum_k\beta_k\sum_j\mathsf K_k(x_i-x_j)z_{k,j}(t)+\zeta_i(t),\label{eq:fw-record-agents}\\
+z_{k,i}(t+1)&=\omega_ke_i(t)+(1-\omega_k-\delta_k)z_{k,i}(t)+\zeta^z_{k,i}(t),\label{eq:fw-record-records}
+\end{align}
+with message weight $a\ge0$ to each neighbor $j\sim i$, read weights $\beta_k$, write weights $\omega_k$, decays $\delta_k\ge0$, and read kernels $\mathsf K_k\ge0$ that sum to one; on $\Z^D$ the kernel $\mathsf K_k$ has second moment $\ell_{r,k}^2$ per coordinate, the reading range, and on a graph $\mathsf K_k(x_i-x_j)$ stands for a row-stochastic kernel $\mathsf K_k(i,j)$. The local noises $\zeta_i$, of variance $q>0$, and $\zeta^z_{k,i}$, of variance $q_z\ge0$, are independent across sites, records and rounds. The agents' leak after reading is
+\begin{equation}\label{eq:fw-record-leak}
+\varepsilon'=\varepsilon-\sum_k\upsilon_k\beta_k,
+\end{equation}
+where $\varepsilon$ is the leak without records (grounding, forgetting and turnover) and the displacement fraction $\upsilon_k\in[0,1]$ says what reading displaces: $\upsilon_k=0$ when it displaces only self-weight, so that the agents' row sums keep the value $1-\varepsilon$ they have without records, and $\upsilon_k=1$ when it displaces only leak.
+\end{definition}
+
+A record of a changing world holds a stale estimate, but its staleness and its decay toward a reference are functions of the world path, so given that path they shift the conditional mean and leave the conditional fluctuation, which this model describes, unchanged. Only exogenous variables are conditioned on: records written by agents remain part of the population, and in \cref{sec:col} their coordinates enter the world-conditional precision as nodes, a precision that record noise can make non-diffusive in computed cases (\cref{chk:sca-records-length}). In translation-invariant media the mean mode obeys a reduced model with one agent coordinate and one coordinate per record. \Cref{sec:sca} derives from it the effective leak, the exact condition under which a record lengthens memory and the correlation length with records (\cref{prop:sca-records,prop:sca-records-memory,prop:sca-records-length}), and \cref{sec:col} places records in the canonical partition (\cref{prop:col-records-partition}). The properties of a single record that do not depend on the network are stated in the Supplement (\cref{prop:fw-record-basics}).
+
+These properties are its latency and mean delay, the delay to a first reading, its role as a hub between readers, and the write weight that maximizes its correlation with a scalar autoregressive world.
+
+A performative act that is chosen independently of the present state, given the receiver's information, changes the world rather than the receiver's information about it; read as a level-0 message it moves the receiver's belief about the present state and omits the intervention, the confusion of intervention with observation (Supplement, \cref{prop:fw-performative}).
+
+Attention, addressing and content are policies selected by expected free energy, worked out for linear-Gaussian slots in the Supplement (\cref{sec:fw-efe}). For an attention set, under the hypotheses stated there and up to an additive constant, it is minus the mutual information between the state and the attended messages, at levels 0 and 1 the believed value of \cref{def:mis-values}, plus a preference term and a constant per message (\cref{prop:fw-efe-communication}). For a sender, of the two preferences defined there, the preference to be understood is blind to agreement at correct code models, whereas the preference to be predicted, under the hypotheses stated there, selects partners whose believed coded disagreement is below a threshold (\cref{prop:fw-understood-predicted,prop:fw-bounded-confidence}); the fragmentation of such senders into belief clusters is conjectured and untested (\cref{conj:fw-fragmentation}).
+
+\subsection{Frames}\label{sec:fw-frames}
+
+A frame is the private coordinate system in which an agent stores its beliefs. In the linear case agent $i$ holds the internal mean $\mu_i=U_im_i$ and covariance $U_iP_iU_i^\top$ with $U_i\in\GL(K)$, and its internal model is the world model pushed forward by $U_i$: dynamics $U_iFU_i^{-1}$, sensing $H^s_iU_i^{-1}$ and innovation covariance $U_iQU_i^\top$. Frames are optional, and the results of this subsection say exactly what they change.
+
+Inference is frame covariant: a redescription of an agent's frame, compensated in the code that the agent applies to its own internal coordinates, changes no message, no belief in world coordinates, no information quantity and no expected free energy, so frames have observable effects only through communication (Supplement, \cref{prop:fw-frame-covariance}).
+
+A receiver can model a sender's code directly, or through a translation of the sender's internal coordinates into its own, which is how frames enter the models of \cref{sec:coh,sec:frm}.
+
+\begin{definition}[Translations and mistranslation]\label{def:fw-translation}
+% src: L3-D7, L1-P29, L7-P8; B2-D1 for translated full-rank messages
+Receiver $i$ reads sender $j$'s internal coordinates through a translation $\Theta_{ij}\in\GL(K)$, learned or fixed, its model of the map from $j$'s internal coordinates to its own. The true translation is $U_iU_j^{-1}$. The mistranslation of the edge is the world-coordinate error
+\begin{equation}\label{eq:fw-mistranslation}
+\Upsilon_{ij}=U_i^{-1}\Theta_{ij}U_j,
+\end{equation}
+which is the identity exactly when the translation is true, and the translation induces the code model $\hat H_{ij}=T_c\Theta_{ij}^{-1}U_i=H_j\Upsilon_{ij}^{-1}$. When the public code is invertible ($r_c=K$), the receiver carries a message into world coordinates as $\tilde y_{ij}=U_i^{-1}\Theta_{ij}T_c^{-1}y_{ij}=\Upsilon_{ij}m_j+U_i^{-1}\Theta_{ij}T_c^{-1}\nu_{ij}$, and reading $\tilde y_{ij}$ as an observation of $\eta$ is reading $y_{ij}$ with the code model $\hat H_{ij}$.
+\end{definition}
+
+The identities follow by substitution: $H_j\Upsilon_{ij}^{-1}=T_cU_jU_j^{-1}\Theta_{ij}^{-1}U_i$, and $\tilde y_{ij}=\hat H_{ij}^{-1}y_{ij}$ when $r_c=K$. For planar frames and translations that are rotations the three matrices commute, and $\Upsilon_{ij}$ is the rotation by the angle of $\Theta_{ij}$ minus the angle of $U_iU_j^{-1}$, the translation error; these are the rotation errors of the two-group model of \cref{sec:frm}. True translations compose without holonomy, because intermediate encodings cancel around every cycle, as in $(U_iU_j^{-1})(U_jU_k^{-1})(U_kU_i^{-1})=I$, so a failure of consistency in the sense of \cref{sec:coh} comes from learned translations, from misspecified models or from agents of different kinds (\cref{prop:coh-flat-true}). Under noiseless reception the projectors $\mathcal P_{ij}$ of \cref{prop:fw-prior-completion}(d) compose around cycles of receivers; with heterogeneous prior covariances their product can amplify content, a calibration failure distinct from holonomy, which \cref{thm:coh-amplification} treats.
+
+\begin{proposition}[Encodings enter only through effective codes]\label{prop:fw-effective-codes}
+% src: L7-P1
+With linear encodings, receivers at level 0, at level 1 or with exact fusion, known or learned code models, and attention and transmission selected by expected free energy, every message likelihood, reception update, true error recursion and expected-free-energy term depends on the encodings $(U_j)_{j\in V}$ only through the effective codes $H_j=T_cU_j$ and the receivers' models $\hat H_{ij}$ of them, or, for learned models, through the laws of those models. A receiver that knows $H_j$ can compute entirely in world coordinates, identity encodings give $H_j=T_c$ for every sender $j$ in modality $c$, and every configuration of frames with $H_j=T_c$ for every sender is indistinguishable from identity encodings in all of these quantities. When $r_c<K$ such configurations include non-identity frames, namely those with $T_c(U_j-I)=0$.
+\end{proposition}
+
+This extends to learned code models and exact fusion a statement for known codes in \citet{dennis2026communicating}. Consequently a result that holds with one common effective code per modality holds at identity encodings, and frames matter only where sender-specific effective codes do. Proof in \cref{app:fw}.
+
+Frames are identifiable from messages only modulo the set $\{X:T_cX=0\}$, of dimension $K(K-r_c)$, and mismatches in that set cost nothing in reception (Supplement, \cref{prop:fw-frame-identifiability}); the cost of a misidentified code outside it is in \cref{prop:fw-misidentified-code}.
+
+\subsection{The level-0 network and its common mode}\label{sec:fw-level0}
+
+The scale theory, the definition of collectives and the formation model are built on one linear network, in which every receiver reads messages literally with fixed gains. In any network of agents that update from what they read, messages, record reads and performative acts enter an update as inputs from the agent's potential sources through external states, so influence travels along the potential communication graph; the general local rule, its influence bounds and routing by expected free energy are stated with the light cones of \cref{sec:sca} (\cref{thm:sca-lightcone,prop:sca-poisson,prop:sca-routing}). The quantitative results need the linear network, on which the light-cone, clustering and Ornstein--Zernike results of \citet{dennis2026communicating} were first obtained.
+
+\begin{definition}[Level-0 network]\label{def:fw-level0}
+% src: L3 Section 0.1, R1, B1-P1; L4-D1 to L4-D3 are stated in Section 8
+Fix a time-invariant attention schedule. Agent $i$ holds a predicted mean $m_i(t)$ of $\eta_t$, formed at the end of round $t-1$, with prior error $e_i(t)=m_i(t)-\eta_t$. It senses $s_i(t)=H^s_i\eta_t+v_i(t)$ every round and reads from each attended sender $j$ the message $y_{ij}(t)=H_jm_j(t)+\nu_{ij}(t)$, with channel noise specific to the receiver. It fuses the messages literally, as observations of $\eta$, with time-invariant gains $\Kg^s_i$ and $\Kg_{ij}$ computed from its claimed covariances and assigned noises, so level-1 receivers, whose assigned noise includes a law header, are included:
+\[
+m_i^+(t)=m_i(t)+\Kg^s_i\bigl(s_i(t)-H^s_im_i(t)\bigr)+\sum_j\Kg_{ij}\bigl(y_{ij}(t)-\hat H_{ij}m_i(t)\bigr),\qquad m_i(t+1)=Fm_i^+(t).
+\]
+The stacked errors then obey
+\begin{equation}\label{eq:fw-level0-error}
+e(t+1)=We(t)+B^{\mathrm{mis}}\eta_t-\one\otimes w_t+\zeta(t),
+\end{equation}
+with blocks $W_{ii}=F\bigl(I-\Kg^s_iH^s_i-\sum_j\Kg_{ij}\hat H_{ij}\bigr)$, $W_{ij}=F\Kg_{ij}H_j$ for attended $j$ and $W_{ij}=0$ otherwise, mistranslation term $B^{\mathrm{mis}}_i=F\sum_j\Kg_{ij}(H_j-\hat H_{ij})$, and local noise $\zeta_i(t)=F\bigl(\Kg^s_iv_i(t)+\sum_j\Kg_{ij}\nu_{ij}(t)\bigr)$, independent across agents and rounds, with block-diagonal covariance $Q^\zeta$. In the scalar network write $k^s_i=\Kg^s_iH^s_i$ and $k_{ij}=\Kg_{ij}\hat H_{ij}$; then
+\[
+W_{ii}=F\Bigl(1-k^s_i-\sum_jk_{ij}\Bigr),\qquad W_{ij}=Fk_{ij}\frac{H_j}{\hat H_{ij}},\qquad B^{\mathrm{mis}}_i=F\sum_jk_{ij}\Bigl(\frac{H_j}{\hat H_{ij}}-1\Bigr),\qquad q_i=\Var(\zeta_i).
+\]
+The scalar $q_i$ is a noise variance, as are $q$ and $q_z$ in \cref{def:fw-record-model}; written with an argument or as a density, $q_i$ is the recognition density of agent $i$. With exact code models $B^{\mathrm{mis}}=0$, $W_{ij}=Fk_{ij}$, the row sums are $\lambda_i=F(1-k^s_i)$ and the local leak is $\varepsilon_i=1-\lambda_i=(1-F)+Fk^s_i$. In a homogeneous medium $a=Fk_{ij}$ is the message weight and $c=W_{ii}$ the self weight.
+\end{definition}
+
+The recursion \eqref{eq:fw-level0-error} follows from $e_i(t+1)=F(m_i^+(t)-\eta_t)-w_t$ by substituting $s_i=H^s_i(m_i-e_i)+v_i$ and $y_{ij}=H_j(\eta_t+e_j)+\nu_{ij}$. The leak is world decorrelation, which acts as forgetting, plus grounding through the sensing gain; a pure listener in a persistent world has no leak. When a receiver reads invertible codes through translations (\cref{def:fw-translation}) with isotropic gains $k_{ij}$ on the translated messages, $\Kg_{ij}=k_{ij}\hat H_{ij}^{-1}$, so $W_{ij}=Fk_{ij}\Upsilon_{ij}$ and $B^{\mathrm{mis}}_i=F\sum_jk_{ij}(\Upsilon_{ij}-I)$: a mistranslated message carries a transformed copy of the world. This is the error recursion of the two-group model of \cref{sec:frm}, applied round by round on a random schedule. Channel noise that a broadcast shares across its receivers is not local, and is treated like the world innovation below.
+
+In the scalar network a literal receiver's gains $k^s_i$ and $k_{ij}$ are nonnegative and sum to less than one, so with exact code models and $F\ge0$ the matrix $W$ is entrywise nonnegative (Supplement, \cref{rem:fw-convex-gains}).
+
+The world innovation enters every agent's error at once. The next lemma separates this common drive from the fluctuations that communication propagates.
+
+\begin{lemma}[Common mode and connected part]\label{lem:fw-common-mode}
+% src: L3-L1, B1-P1
+In the level-0 network let $\rho(W)<1$, and let the world be stationary with $\rho(F)<1$ when $B^{\mathrm{mis}}\ne0$.
+\begin{enumerate}
+\item[(a)] The stationary error process is $e(t)=e^{\mathrm{com}}(t)+e^{\mathrm{loc}}(t)$ with
+\begin{equation}\label{eq:fw-common-mode}
+e^{\mathrm{com}}(t)=\sum_{n\ge0}W^n\bigl(B^{\mathrm{mis}}\eta_{t-1-n}-\one\otimes w_{t-1-n}\bigr),\qquad e^{\mathrm{loc}}(t)=\sum_{n\ge0}W^n\zeta(t-1-n),
+\end{equation}
+both series converging in mean square.
+\item[(b)] The common part $e^{\mathrm{com}}$ is a measurable linear functional of the world path, the connected part $e^{\mathrm{loc}}$ is independent of the world path, and $\Cov(e)=\Cov(e^{\mathrm{com}})+\Sigma^{\mathrm{loc}}$, where $\Sigma^{\mathrm{loc}}=\sum_{n\ge0}W^nQ^\zeta(W^\top)^n$ is the unique solution of $\Sigma^{\mathrm{loc}}=W\Sigma^{\mathrm{loc}}W^\top+Q^\zeta$.
+\item[(c)] If the local noises are Gaussian, then conditionally on the world path the error path is Gaussian, with conditional mean $e^{\mathrm{com}}$ and the law of $e^{\mathrm{loc}}$ around it; the conditional covariance $\Sigma^{\mathrm{loc}}$ does not depend on the path.
+\item[(d)] In the scalar network with exact code models and equal sensing gains $k^s$, $W\one=\lambda\one$ with $\lambda=F(1-k^s)$, and $\Cov(e^{\mathrm{com}})=\frac{Q}{1-\lambda^2}\one\one^\top$, a pure common mode.
+\end{enumerate}
+\end{lemma}
+
+The common mode does not decay with distance: it is the shared error of every echo chamber (\cref{thm:mis-echo-chambers}) and the accuracy side of the grounding tension (\cref{thm:coh-grounding-tension}). The connected part is what the clustering and Ornstein--Zernike results describe (\cref{thm:sca-clustering,thm:sca-oz}), and the conditional law given the world path, with broadcast noises shared by several receivers added to the conditioning set, is the object on which collectives are defined (\cref{def:col-world-conditional}). A mistranslated code adds a world-driven bias $B^{\mathrm{mis}}\eta_t$, which conditioning removes from the fluctuation but not from the error. Proof in \cref{app:fw}; checked in \cref{chk:fw-common-mode}.

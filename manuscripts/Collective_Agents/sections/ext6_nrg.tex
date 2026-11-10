@@ -1,0 +1,170 @@
+\section{Energetic viability}\label{sec:nrg}
+
+This section addresses the open problem of energetic viability: which energetic constraints select and maintain informational hierarchies, and how the dissipation and the information flow that a coarse description removes from view are to be accounted for. For the stationary linear-Gaussian joint process of \cref{eq:col-joint}, with every coordinate even under time reversal, we establish without physical assumptions the entropy production per round in closed form together with its reversibility criterion (\cref{thm:nrg-ep}), that a coarse linear description can only hide dissipation and a scalar one hides all of it (\cref{thm:nrg-coarse}), and discrete-time second-law inequalities for the information that crosses a blanket (\cref{thm:nrg-flow}). Every statement in joules rests on three bridge premises that are declared and not derived (\cref{prem:nrg-bath,prem:nrg-register,prem:nrg-resource}) or, for the signal energy of \cref{prop:nrg-channel}(a), on a thermal-noise clause stated there, and under them the section gives necessary conditions only: a size beyond which a collective of memoryless agents in which everyone listens to everyone has a negative margin, while the margin of a shared record converges (\cref{thm:nrg-scale}). Left open are a derivation of the premises from a physical model of the exterior, every sufficient condition for viability, the rate of a coarse description, which is supported by computation only (\cref{obs:nrg-spectral,open:nrg-rate}), agents with memory, and coordinates that are odd under time reversal (\cref{open:nrg-tight,open:nrg-dynamic,open:nrg-parity}).
+
+The main text counts information and never physical energy. The energy account given here has two layers that are kept apart. The first layer consists of theorems about the path law of the joint process: how irreversible it is, how much of that irreversibility a coarse description hides, and how much information crosses a blanket per round. No physics enters there. The second layer converts nats into joules through the three premises, and it yields necessary conditions for a collective to pay for its own channels. Proofs are in \cref{app:nrg}. Sans-serif symbols are local to this section: $\mathsf f$ is here the autoregressive coefficient of a recorded source and not the newcomer fidelity of \cref{prop:agy-identity}, and the window covariance $\mathsf T_n$, which always carries its index, is distinct from the temperature $\mathsf T$.
+
+\subsection{Irreversibility of the joint process}\label{sec:nrg-ep}
+
+\begin{assumption}[Stationary even process]\label{ass:nrg-setting}
+The joint process is \cref{eq:col-joint} with $\rho(A)<1$ and $Q^{\Xi}\succ0$, started from its stationary law $\Ncal(0,\Sigma)$, where $\Sigma=A\Sigma A^\top+Q^{\Xi}$. Every coordinate of $X$ is even under time reversal, so that the reverse of a path $(x_0,\dots,x_n)$ is $(x_n,\dots,x_0)$.
+\end{assumption}
+
+The parity convention is a modeling choice. Beliefs, records and messages are treated as positions; a model with momentum-like coordinates would flip their sign under reversal and change every formula below.
+
+\begin{definition}[Window divergence and entropy production]\label{def:nrg-ep}
+For a matrix $C$ of full row rank $m$ and the description $Y_t=CX_t$, the window divergence is
+\begin{equation}\label{eq:nrg-window}
+\mathsf D_n(C)=\KL\bigl(\mathrm{law}(Y_0,\dots,Y_n)\Vert\mathrm{law}(Y_n,\dots,Y_0)\bigr),\qquad n\ge1,
+\end{equation}
+and $\mathsf D_n=\mathsf D_n(I)$. The entropy production per round is $\mathsf{ep}=\lim_n\mathsf D_n/n$, in nats, and the hidden dissipation of the description $Y$ is $\mathsf{ep}-\limsup_n\mathsf D_n(C)/n$.
+\end{definition}
+
+The definition follows the relative-entropy expressions for dissipation. \citet{kawai2007dissipation} equate the mean dissipated work of a Hamiltonian system driven between two equilibrium states with $k_{\mathrm B}\mathsf T$ times the relative entropy between the forward and backward phase-space densities, \citet{gomezmarin2007bounding} give the corresponding expression in terms of path laws for stochastic dynamics, and \citet{roldan2010estimating} use the rate $\lim_n\mathsf D_n/n$ for a stationary series. Here $\mathsf D_n$ is a property of the path law alone, and no physical dissipation is asserted before \cref{sec:nrg-bridge}.
+
+\begin{theorem}[Entropy production of the joint process]\label{thm:nrg-ep}
+Under \cref{ass:nrg-setting} put $\mathsf J=A\Sigma-\Sigma A^\top$ and $\widetilde Q^{\Xi}=\Sigma-\Sigma A^\top\Sigma^{-1}A\Sigma$. Then $\mathsf D_n=n\mathsf{ep}$ for every $n\ge1$, with
+\begin{equation}\label{eq:nrg-ep}
+\mathsf{ep}=\tr\bigl((Q^{\Xi})^{-1}\mathsf JA^\top\bigr)=\tfrac12\tr\bigl((Q^{\Xi})^{-1}(\widetilde Q^{\Xi}-Q^{\Xi})\bigr)+\tfrac12\tr\bigl((Q^{\Xi})^{-1}\mathsf J\Sigma^{-1}\mathsf J^\top\bigr),
+\end{equation}
+and both terms of the second expression are nonnegative. The following are equivalent: $\mathsf{ep}=0$; $\mathsf J=0$; $AQ^{\Xi}=Q^{\Xi}A^\top$; the stationary chain is time reversible. If $A$ is normal and $Q^{\Xi}=qI$, then $\mathsf{ep}=\sum_k2(\operatorname{Im}\lambda_k)^2/(1-\vert\lambda_k\vert^2)$, the sum running over the eigenvalues $\lambda_k$ of $A$.
+\end{theorem}
+
+The matrix $\mathsf J$ is twice the antisymmetric part of the lag-one covariance, and the reversibility criterion is the hypothesis $AQ^{\Xi}=Q^{\Xi}A^\top$ of \cref{prop:col-memory}(c), so $\mathsf{ep}$ vanishes exactly on that hypothesis and is positive off it. In the normal case only the imaginary parts of the spectrum contribute: entropy is produced by circulation, and symmetric exchange produces none (\cref{chk:nrg-ep}).
+
+\begin{corollary}[Division of labor at the blanket is irreversible]\label{cor:nrg-blanket}
+Under \cref{ass:nrg-setting} let $Q^{\Xi}$ be block diagonal over the canonical partition $(\sI,\sS,\sA,\sE)$ of \cref{def:col-partition}, where a variable reads another when the corresponding entry of $A$ is nonzero. If $\mathsf{ep}=0$, then $\sA=\varnothing$ and $A_{\sE\sS}=Q^{\Xi}_{\sE\sE}A_{\sS\sE}^\top(Q^{\Xi}_{\sS\sS})^{-1}$. Hence $\mathsf{ep}>0$ whenever the collective has an active state, and whenever it has sensory states none of which drives the exterior.
+\end{corollary}
+
+With per-channel noise, the reversible case of \cref{prop:col-memory}(c) therefore has a purely sensory blanket in which every reading is reciprocated (\cref{rem:nrg-memory-scope}). When the noise is independent across the four classes, a collective that acts on its surroundings through states that do not read them, or senses them without pushing back, is irreversible by its wiring alone, whatever its parameter values. The restriction on the noise is needed: \cref{rem:nrg-memory-scope} gives a reversible process with an active state whose noise is correlated with that of a sensory state.
+
+\subsection{What a coarse description hides}\label{sec:nrg-coarse}
+
+\begin{theorem}[Coarse descriptions hide dissipation]\label{thm:nrg-coarse}
+Under \cref{ass:nrg-setting} let $C$ have full row rank $m$, and put $\Gamma_k=CA^k\Sigma C^\top$ and $d=\dim X$.
+\begin{enumerate}
+\item[(a)] $0\le\mathsf D_n(C)\le\mathsf D_{n+1}(C)$ and $\mathsf D_n(C)\le n\mathsf{ep}$ for every $n\ge1$, so the hidden dissipation lies in $[0,\mathsf{ep}]$.
+\item[(b)] Let $\mathsf T_n$ be the covariance of $(Y_0,\dots,Y_n)$, whose block $(s,t)$ is $\Gamma_{s-t}$ for $s\ge t$, and let $\mathsf P_n$ be the permutation that reverses the order of its $n+1$ blocks. Then $\mathsf D_n(C)=\tfrac12\tr\bigl((\mathsf P_n\mathsf T_n\mathsf P_n^\top)^{-1}\mathsf T_n\bigr)-\tfrac12(n+1)m$.
+\item[(c)] $\mathsf D_n(C)=0$ for all $n$ if and only if $\Gamma_k=\Gamma_k^\top$ for $k=1,\dots,d-1$.
+\item[(d)] Every scalar description, $m=1$, has $\mathsf D_n(C)=0$ for all $n$, and its hidden dissipation is all of $\mathsf{ep}$.
+\end{enumerate}
+\end{theorem}
+
+Part (a) is the data-processing inequality. For a stationary series it is the linear-Gaussian instance of the bound of \citet{roldan2010estimating}, whose Eq.~(4) bounds the entropy production rate from below by the relative-entropy rate between an observed series and its reverse; \citet{gomezmarin2007bounding} prove the analogous bound, their Eq.~(8), for partial information about a process driven between two equilibrium states. \citet{roldan2010estimating} also exhibit an observed series that is reversible while the system dissipates, the position of a discrete flashing ratchet in the limit of fast switching. Part (d) makes that case the rule for scalar linear order parameters: the mean belief of a collective, a single record, or any other scalar linear summary $CX$ carries no trace of irreversibility in its own statistics, however strongly the collective is driven. Among linear descriptions, irreversibility is visible only through at least two coordinates whose cross-covariances are asymmetric in the lag. Linearity matters here. A scalar nonlinear summary can be irreversible: for $Y=X_1+X_2^2$ in the directed ring of \cref{ex:nrg-ring} at $c=0.3$, $a=0.5$ and $q=1$, the difference $\E[Y_t^2Y_{t+1}]-\E[Y_tY_{t+1}^2]$ has absolute value $0.5081$, whereas it vanishes for every reversible stationary series (\cref{chk:nrg-indep}).
+
+\begin{example}[Directed ring]\label{ex:nrg-ring}
+Three agents on a directed ring, $A=cI+aP$ with $P$ the cyclic shift, $\vert c\vert+\vert a\vert<1$ and $Q^{\Xi}=qI$, have $\mathsf{ep}=3a^2/(1-c^2+ac-a^2)$, independent of $q$. At $c=0.3$ and $a=0.5$ this is $25/27$ nats per round. The mean and each single agent are reversible, and a pair of agents retains about $0.35$ nats per round, $37\%$ of the total (\cref{chk:nrg-coarse}).
+\end{example}
+
+\begin{observation}[Rate of a coarse description]\label{obs:nrg-spectral}
+Put
+\begin{equation}\label{eq:nrg-spectral}
+\bar{\mathsf e}=\frac1{4\pi}\int_{-\pi}^{\pi}\Bigl[\tr\bigl(\overline{S(\vartheta)}^{-1}S(\vartheta)\bigr)-m\Bigr]d\vartheta,\qquad S(\vartheta)=C\bigl(e^{i\vartheta}I-A\bigr)^{-1}Q^{\Xi}\bigl(e^{-i\vartheta}I-A^\top\bigr)^{-1}C^\top.
+\end{equation}
+In the two instances of \cref{chk:nrg-coarse} with $m=2$ for which the integral was evaluated, the difference $\mathsf e_0=n\bar{\mathsf e}-\mathsf D_n(C)$ takes the same value to five digits at $n=32$, $64$ and $128$, which is the behavior $\mathsf D_n(C)=n\bar{\mathsf e}-\mathsf e_0+o(1)$. The constant is $\mathsf e_0=0.08844$ in the directed ring, where the computed values of $\mathsf D_n(C)/n$ increase with $n$, and $\mathsf e_0=-0.10697$ in the second instance, where they decrease. Four further random instances behave in the same way (\cref{chk:nrg-indep}). This is a numerical observation on six instances and is not proved; \cref{open:nrg-rate} asks for a proof.
+\end{observation}
+
+\subsection{Information flow across a blanket in discrete time}\label{sec:nrg-flow}
+
+Split the coordinates into two blocks, $X=(X_{\mathrm u},X_{\mathrm v})$, with noise independent across them, $Q^{\Xi}=\diag(Q^{\Xi}_{\mathrm{uu}},Q^{\Xi}_{\mathrm{vv}})$. The transition density then factorizes, $k(x'\mid x)=k_{\mathrm u}(x'_{\mathrm u}\mid x)k_{\mathrm v}(x'_{\mathrm v}\mid x)$. With $X=X_t$ and $X'=X_{t+1}$ define
+\begin{align}
+\mathsf s_{\mathrm u}&=\E\ln\frac{k_{\mathrm u}(X'_{\mathrm u}\mid X_{\mathrm u},X_{\mathrm v})}{k_{\mathrm u}(X_{\mathrm u}\mid X'_{\mathrm u},X_{\mathrm v})},&
+\mathsf{ep}_{\mathrm u}&=\E\ln\frac{k_{\mathrm u}(X'_{\mathrm u}\mid X)}{k_{\mathrm u}(X_{\mathrm u}\mid X')},\label{eq:nrg-flows}\\
+\mathsf i_{\mathrm u}&=I(X'_{\mathrm u};X_{\mathrm v})-I(X_{\mathrm u};X_{\mathrm v}),&
+\mathsf{te}_{\mathrm v\to\mathrm u}&=I(X'_{\mathrm u};X_{\mathrm v}\mid X_{\mathrm u}),\label{eq:nrg-info}
+\end{align}
+the entropy flow of $\mathrm u$ with its partner frozen, the partial entropy production, the information flow into $\mathrm u$, and the transfer entropy.
+
+\begin{theorem}[Discrete-time information flow]\label{thm:nrg-flow}
+Under \cref{ass:nrg-setting} with $Q^{\Xi}=\diag(Q^{\Xi}_{\mathrm{uu}},Q^{\Xi}_{\mathrm{vv}})$:
+\begin{enumerate}
+\item[(a)] $\mathsf{ep}=\mathsf{ep}_{\mathrm u}+\mathsf{ep}_{\mathrm v}$, and $\mathsf{ep}_{\mathrm u}\ge\ln\vert\det A_{\mathrm{uu}}\vert$ when $A_{\mathrm{uu}}$ is invertible.
+\item[(b)] $\mathsf s_{\mathrm u}-\mathsf i_{\mathrm u}=\KL(P\Vert P^{\mathrm{fr}})\ge0$, where $P$ is the law of $(X_{\mathrm u},X_{\mathrm v},X'_{\mathrm u})$ and $P^{\mathrm{fr}}$ has density $\pi^+(x'_{\mathrm u},x_{\mathrm v})k_{\mathrm u}(x_{\mathrm u}\mid x'_{\mathrm u},x_{\mathrm v})$, with $\pi^+$ the density of $(X'_{\mathrm u},X_{\mathrm v})$.
+\item[(c)] $\mathsf i_{\mathrm u}\le\mathsf{te}_{\mathrm v\to\mathrm u}=\tfrac12\ln\det\bigl(I+(Q^{\Xi}_{\mathrm{uu}})^{-1/2}A_{\mathrm{uv}}\Sigma_{\mathrm v\mid\mathrm u}A_{\mathrm{uv}}^\top(Q^{\Xi}_{\mathrm{uu}})^{-1/2}\bigr)$, with $\Sigma_{\mathrm v\mid\mathrm u}=\Sigma_{\mathrm{vv}}-\Sigma_{\mathrm{vu}}\Sigma_{\mathrm{uu}}^{-1}\Sigma_{\mathrm{uv}}$.
+\item[(d)] $\mathsf i_{\mathrm u}+\mathsf i_{\mathrm v}=-\bigl[I(X'_{\mathrm u};X'_{\mathrm v})-I(X'_{\mathrm u};X_{\mathrm v})-I(X_{\mathrm u};X'_{\mathrm v})+I(X_{\mathrm u};X_{\mathrm v})\bigr]$.
+\end{enumerate}
+\end{theorem}
+
+Part (b) is a discrete-time counterpart of the second law for one part of a bipartite Markov jump process, Eq.~(11) of \citet{horowitz2014thermodynamics}, with the bath entropy evaluated at a fixed value of the partner as in Eq.~(4) of \citet{ito2013information}; part (c) is the discrete-time analog of the comparison between information flow and transfer-entropy rate that \citet{hartich2014stochastic} make for a bipartite sensor model. Three facts that \citet{horowitz2014thermodynamics} prove for bipartite jump processes do not transfer. In their steady state the two information flows sum to zero, each part has nonnegative entropy production, and the entropy production is the sum of the two entropy flows, their Eqs.~(11) and (17). In discrete time both blocks move in the same round, the sum in (d) is a mixed second difference that takes both signs, $\mathsf{ep}_{\mathrm u}$ can be negative, and $\mathsf s_{\mathrm u}+\mathsf s_{\mathrm v}$ differs from $\mathsf{ep}$ (\cref{chk:nrg-flow}). In the diffusive scaling $A=I+hG$, $Q^{\Xi}=hD$ of that check the defects $\mathsf i_{\mathrm u}+\mathsf i_{\mathrm v}$ and $\mathsf s_{\mathrm u}+\mathsf s_{\mathrm v}-\mathsf{ep}$ are of order $h^2$ per round in one instance, which we observe and do not prove.
+
+\begin{corollary}[Flow across the blanket]\label{cor:nrg-blanket-flow}
+Under \cref{ass:nrg-setting} let $\mathrm u=\sI\cup\sB$ be the collective and $\mathrm v=\sE$ its exterior in the canonical partition of \cref{def:col-partition}, with $Q^{\Xi}$ block diagonal over $(\sI,\sS,\sA,\sE)$, and let $\Sigma_{\sE\mid\mathrm u}=\Sigma_{\sE\sE}-\Sigma_{\sE\mathrm u}\Sigma_{\mathrm{uu}}^{-1}\Sigma_{\mathrm u\sE}$ and $\Sigma_{\sB\mid\sE}=\Sigma_{\sB\sB}-\Sigma_{\sB\sE}\Sigma_{\sE\sE}^{-1}\Sigma_{\sE\sB}$. Then
+\begin{equation}\label{eq:nrg-blanket-te}
+\begin{aligned}
+\mathsf{te}_{\sE\to\mathrm u}&=\tfrac12\ln\det\bigl(I+(Q^{\Xi}_{\sS\sS})^{-1/2}A_{\sS\sE}\Sigma_{\sE\mid\mathrm u}A_{\sS\sE}^\top(Q^{\Xi}_{\sS\sS})^{-1/2}\bigr),\\
+\mathsf{te}_{\mathrm u\to\sE}&=\tfrac12\ln\det\bigl(I+(Q^{\Xi}_{\sE\sE})^{-1/2}A_{\sE\sB}\Sigma_{\sB\mid\sE}A_{\sE\sB}^\top(Q^{\Xi}_{\sE\sE})^{-1/2}\bigr),
+\end{aligned}
+\end{equation}
+and $\mathsf i_{\mathrm u}\le\min\{\mathsf s_{\mathrm u},\mathsf{te}_{\sE\to\mathrm u}\}$, $\mathsf i_{\sE}\le\min\{\mathsf s_{\sE},\mathsf{te}_{\mathrm u\to\sE}\}$.
+\end{corollary}
+
+Everything the collective learns about its exterior in a round passes the sensory rows $A_{\sS\sE}$, and everything the exterior learns about the collective passes the blanket columns $A_{\sE\sB}$; each bound is the information of one use of a Gaussian channel given what the receiving side already holds.
+
+\subsection{The thermodynamic bridge}\label{sec:nrg-bridge}
+
+\begin{premise}[Thermal implementation]\label{prem:nrg-bath}
+The update of a block $\mathrm u$ within a round is carried out by a physical process in contact with a heat bath at temperature $\mathsf T$ while the other block is held fixed, and it obeys local detailed balance: the mean heat released to the bath per round is $k_{\mathrm B}\mathsf T\mathsf s_{\mathrm u}$.
+\end{premise}
+
+\begin{premise}[Registers]\label{prem:nrg-register}
+A register that acquires $I$ nats of mutual information about its input and is reset before its next use costs work of at least $k_{\mathrm B}\mathsf TI$ per use.
+\end{premise}
+
+\begin{premise}[Resource]\label{prem:nrg-resource}
+The free energy an agent can harvest per round is at most $\mathsf xk_{\mathrm B}\mathsf T$ times the mutual information $I^{\mathrm{pred}}$ between the data it stores in round $t$ and the world state $\eta_{t+1}$, with an exchange ratio $\mathsf x\ge0$ that is a property of the environment.
+\end{premise}
+
+These are bridges to physics and carry all the thermodynamic content. \Cref{prem:nrg-bath} is the local detailed balance of stochastic thermodynamics in the discrete-time form of Eq.~(4) of \citet{ito2013information}, in which the bath entropy change of a transition is the logarithm of the ratio of the forward and backward transition probabilities with the other variables held fixed; \citet{horowitz2014thermodynamics} assume the same condition for the rates of bipartite jump processes. With \cref{thm:nrg-flow}(b) it gives a heat of at least $k_{\mathrm B}\mathsf T\mathsf i_{\mathrm u}$ per round. \Cref{prem:nrg-register} takes over inequality~(4) of \citet{sagawa2009minimal}, which bounds the total work of measurement and erasure with an isothermal memory of finitely many outcomes from below by $k_{\mathrm B}\mathsf T$ times the mutual information acquired, hence by $k_{\mathrm B}\mathsf T\ln2$ for an error-free measurement with two equally likely outcomes; we do not verify that an implementation of the model's Gaussian channels meets its hypotheses. \Cref{prem:nrg-resource} follows the idea of \citet{kolchinsky2018semantic} that the information a system has about its environment has value through its causal contribution to the system maintaining its own existence in a state of low entropy; its linear form and the ratio $\mathsf x$ are ours. \citet{fields2024making} add an explicit account of thermodynamic free energy to active inference and discuss its tradeoff with variational free energy, in a quantum information-theoretic setting that differs from ours.
+
+\begin{proposition}[Cost of a channel use and of a record]\label{prop:nrg-channel}
+\begin{enumerate}
+\item[(a)] Under \cref{prem:nrg-register}, a register that stores $y=x+\nu$ with $x\sim\Ncal(0,\Sigma_x)$, $\Sigma_x\succeq0$, and independent $\nu\sim\Ncal(0,R)$, $R\succ0$, costs at least $k_{\mathrm B}\mathsf TI(y;x)=\tfrac12k_{\mathrm B}\mathsf T\ln\det(I+R^{-1/2}\Sigma_xR^{-1/2})$ per use. If the noise is thermal, meaning that the signal $x$ has energy $\tfrac12k_{\mathrm B}\mathsf Tx^\top R^{-1}x$, its mean energy is $E_{\mathrm{sig}}=\tfrac12k_{\mathrm B}\mathsf T\tr(R^{-1}\Sigma_x)\ge k_{\mathrm B}\mathsf TI(y;x)$, and $E_{\mathrm{sig}}=\tfrac12k_{\mathrm B}\mathsf T(e^{2I(y;x)}-1)$ for a scalar channel.
+\item[(b)] Let a source $e_{t+1}=\mathsf fe_t+w_t$ with $0<\vert\mathsf f\vert<1$ be written to a record $z_{t+1}=\omega e_t+\mathsf rz_t+\zeta^z_t$ with $\omega\ne0$ and $\vert\mathsf r\vert<1$, where $w_t\sim\Ncal(0,q_e)$ and $\zeta^z_t\sim\Ncal(0,q_z)$ with $q_e>0$ and $q_z>0$ are independent of each other, across rounds and of the past, and the pair $(z,e)$ is stationary. This is one site of \cref{def:fw-record-model} with a single record, $\mathsf r=1-\omega-\delta$, messaging and reading switched off, $a=0$ and $\beta=0$, and $\mathsf f=1-\varepsilon$; the definition allows $q_z=0$, which is excluded here. Let $\mathsf s_z$ and $\mathsf i_z$ be the quantities of \cref{eq:nrg-flows,eq:nrg-info} for the blocks $\mathrm u=z$ and $\mathrm v=e$, let $P_e=q_e/(1-\mathsf f^2)$ be the stationary variance of the source, and let $\varrho_{ze}$ be the stationary correlation of $z_t$ and $e_t$. Then
+\begin{equation}\label{eq:nrg-record}
+\mathsf s_z\ge\mathsf i_z=\tfrac12\ln\frac{1-\varrho_{ze}^2}{1-\varrho_{ze}^2/\mathsf f^2}\ge0,
+\end{equation}
+and $\mathsf i_z\to0$ as $\vert\mathsf f\vert\to1$ with $P_e$, $\omega$, $\mathsf r$ and $q_z$ held fixed, so that $q_e=(1-\mathsf f^2)P_e\to0$. The limit is not claimed at fixed $q_e$ (\cref{chk:nrg-indep}).
+\end{enumerate}
+\end{proposition}
+
+Under \cref{prem:nrg-register} a nat costs the receiver at least $k_{\mathrm B}\mathsf T$. Under the thermal clause a scalar channel costs the sender $k_{\mathrm B}\mathsf T(e^{2I}-1)/(2I)$ per nat, which is $k_{\mathrm B}\mathsf T$ at vanishing rate and grows exponentially with the rate, so many weak channels are cheaper per nat than one sharp channel. A sensor that exhausts the budget $I_{\max}$ of \cref{thm:env-canonical}(b) costs, under \cref{prem:nrg-register}, work of at least $k_{\mathrm B}\mathsf TI_{\max}$ per use. Under \cref{prem:nrg-bath} a record releases at least $k_{\mathrm B}\mathsf T\mathsf i_z$ per round (\cref{chk:nrg-record}): the bound is the price of tracking change and it vanishes in the limit of a frozen source of fixed variance. It is the same for any number of readers as long as reading feeds back neither on the source nor on the record, because the pair $(z,e)$ then keeps its law and its transition density. With feedback from readers the sign of $\mathsf i_z$ is not fixed by our argument.
+
+\subsection{Scale: complete graphs against records}\label{sec:nrg-scale}
+
+\begin{definition}[Two architectures and their margins]\label{def:nrg-architectures}
+The world is scalar and stationary, $\eta_{t+1}=F\eta_t+w_t$ with $0<\vert F\vert<1$, $w_t\sim\Ncal(0,Q)$, $Q>0$, and $\eta_t\sim\Ncal(0,P_0)$ with $P_0=Q/(1-F^2)$. Each of $N\ge2$ agents has a sensor $s_i=\eta_t+v_i$, $v_i\sim\Ncal(0,R^s)$ with $R^s>0$, and resets its registers every round. In the complete graph $K_N$ agent $i$ also stores $y_{ij}=s_j+\nu_{ij}$ for every $j\ne i$. In the record architecture agent $j$ writes $s_j+\nu^w_j$, the record holds $z=N^{-1}\sum_j(s_j+\nu^w_j)$, and agent $i$ stores $r_i=z+\nu^r_i$. All $\nu$ are $\Ncal(0,R_c)$ with $R_c>0$, and within a round $\eta_t$, $w_t$, the $v_i$ and all $\nu$ are mutually independent. The data of agent $i$ in round $t$ are $(s_i,(y_{ij})_{j\ne i})$ in $K_N$ and $(s_i,r_i)$ in the record architecture, and $I^{\mathrm{pred}}_K(N)$ and $I^{\mathrm{pred}}_R(N)$ are the mutual informations of these data with $\eta_{t+1}$. With $I_s=I(s_i;\eta_t)$, $I_m=I(s_j+\nu^w_j;s_j)$ and $I_r(N)=I(r_i;z)$, the information costs per agent and round are $\mathsf c_K(N)=I_s+(N-1)I_m$ and $\mathsf c_R(N)=I_s+I_m+I_r(N)$ nats, and the margins are $\mathsf m_\bullet(N)=\mathsf xI^{\mathrm{pred}}_\bullet(N)-\mathsf c_\bullet(N)$.
+\end{definition}
+
+Under \cref{prem:nrg-register,prem:nrg-resource}, $k_{\mathrm B}\mathsf T\mathsf m_\bullet(N)$ bounds the free-energy surplus of an agent per round from above. A negative margin rules an architecture out; a positive margin does not rule it in.
+
+\begin{theorem}[Linear cost against saturating benefit]\label{thm:nrg-scale}
+In the setting of \cref{def:nrg-architectures} let $I_\eta=I(\eta_t;\eta_{t+1})=-\tfrac12\ln(1-F^2)$.
+\begin{enumerate}
+\item[(a)] $I^{\mathrm{pred}}_K(N)=\tfrac12\ln\bigl(P_0/(F^2p_K(N)+Q)\bigr)$ with $p_K(N)=\bigl(1/P_0+1/R^s+(N-1)/(R^s+R_c)\bigr)^{-1}$; it increases with $N$ and stays below $I_\eta$.
+\item[(b)] $I^{\mathrm{pred}}_\bullet(N)<\mathsf c_\bullet(N)$ for both architectures, so $\mathsf m_\bullet(N)<0$ for every $N$ when $\mathsf x\le1$.
+\item[(c)] $\mathsf m_K(N)<0$ for every $N\ge N_K=1+(\mathsf xI_\eta-I_s)/I_m$.
+\item[(d)] $\mathsf m_R(N)$ converges to $\mathsf m_R^\infty=\mathsf xI^{\mathrm{pred}}_{R,\infty}-I_s-I_m-\tfrac12\ln(1+P_0/R_c)$, where $I^{\mathrm{pred}}_{R,\infty}=\tfrac12\ln\bigl(P_0/(F^2p_\infty+Q)\bigr)$ and $p_\infty=(1/P_0+1/R^s+1/R_c)^{-1}$, and $\mathsf m_R(N)>\mathsf m_K(N)$ for every $N>2+(\mathsf xI_\eta+I_r(1))/I_m$, where $I_r(1)=\tfrac12\ln\bigl(1+(P_0+R^s+R_c)/R_c\bigr)$.
+\end{enumerate}
+\end{theorem}
+
+Part (b) plays the role of a second law in this accounting: when the exchange ratio is at most one, no amount of sensing or communication pays. Reading $\mathsf x\le1$ as an environment no further from equilibrium than the bath is an interpretation of \cref{prem:nrg-resource} and is not derived. Part (c) bounds the size of a collective in which everyone listens to everyone, because the cost grows linearly in $N$ while the benefit is capped by the predictability $I_\eta$ of the world; the bound grows linearly with the exchange ratio. Part (d) says that a shared record removes the bound whenever $\mathsf m_R^\infty>0$ and overtakes pairwise messaging beyond a finite size in every case. At $F=0.9$, $Q=0.19$, $R^s=1$, $R_c=0.5$ and $\mathsf x=20$, $N_K=21.2$, the complete graph has a negative margin from $N=18$ on, the record architecture has the larger margin from $N=7$ on, and $\mathsf m_R^\infty=7.65$ (\cref{chk:nrg-scale}). The theorem compares memoryless agents; \cref{open:nrg-dynamic} asks what survives for agents that filter.
+
+\begin{remark}[Reading for expected free energy]\label{rem:nrg-efe}
+The slot costs $g_{\mathrm{al}}$ and $g_{\mathrm{tx}}$ of \cref{prop:fw-efe-communication} are free constants, fixed by the preference and by a declared cost of use. Under \cref{prem:nrg-register} an attended slot has a physical price of at least $k_{\mathrm B}\mathsf T$ times the information its register acquires, and in the setting of \cref{def:nrg-architectures} the proof of \cref{thm:nrg-scale}(b) bounds the information that an agent's data carry about $\eta_t$ by the information cost $\mathsf c_\bullet(N)$ of its registers. In that setting the information term and the price of a policy are thus tied together. This is an interpretive correspondence and does not derive the slot costs.
+\end{remark}
+
+\begin{openproblem}[Rate of a coarse description]\label{open:nrg-rate}
+Prove that $\lim_n\mathsf D_n(C)/n$ exists for every $C$ of full row rank and equals $\bar{\mathsf e}$ of \cref{eq:nrg-spectral}, and determine, for given $m$, the descriptions that retain the largest fraction of $\mathsf{ep}$. Under \cref{ass:nrg-setting} the symbol $S$ is continuous and positive definite on the circle, the window covariance $\mathsf T_n$ is a Hermitian block Toeplitz matrix with symbol $S$, and the reversed window has the symbol $\overline S$, so a limit theorem for traces of products of such matrices and their inverses would give the first claim. We have not checked such a theorem against a primary source, and the constant $\mathsf e_0$ of \cref{obs:nrg-spectral} would need a second-order statement.
+\end{openproblem}
+
+\begin{openproblem}[Attainability and the bridge]\label{open:nrg-tight}
+The margins of \cref{thm:nrg-scale} are one-sided. Exhibit a physical implementation of the model's Gaussian channels that attains $k_{\mathrm B}\mathsf T$ per nat, or prove a gap, and derive \cref{prem:nrg-resource} with an explicit $\mathsf x$ from a model of an exterior held between two baths.
+\end{openproblem}
+
+\begin{openproblem}[Agents with memory]\label{open:nrg-dynamic}
+Agents that filter keep their registers across rounds and acquire only innovation information. Decide whether a size bound of the form $N_K$ survives with the stationary innovation information in place of $I_m$, and compare the resulting cost with $\mathsf{ep}$ of the joint process of world and filters.
+\end{openproblem}
+
+\begin{openproblem}[Beyond even linear-Gaussian processes]\label{open:nrg-parity}
+Extend \cref{thm:nrg-ep,thm:nrg-coarse} to processes with coordinates that are odd under time reversal and to the nonlinear chains of the earlier sections, including the deliberation chain of \cref{thm:agy-agency}, and prove the order $h^2$ of the discrete-time defects of \cref{thm:nrg-flow}.
+\end{openproblem}

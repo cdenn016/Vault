@@ -1,0 +1,291 @@
+% Proofs for the provenance section (label prefix prv). Part A: conventions, fusion lemma, trees and stars, intermittent reports.
+\section{Proofs for \texorpdfstring{Section~\ref{sec:prv}}{evidence provenance}}\label{app:prv}
+
+Throughout, a pair $(\Lambda,h)$ stands for the density proportional to $\exp(h^\top x-\frac12x^\top\Lambda x)$, pairs are added and subtracted componentwise, $\pi_0=(P_0^{-1},P_0^{-1}m_0)$ is the prior pair, and for $\Lambda\succ0$ the prediction map is
+\begin{equation}\label{eq:prv-predict}
+\Pi(\Lambda,h)=\bigl(\Lambda^-,\Lambda^-A\Lambda^{-1}h\bigr),\qquad\Lambda^-=(A\Lambda^{-1}A^\top+Q_x)^{-1},
+\end{equation}
+which is defined whenever $A$ is invertible or $Q_x\succ0$. If $x_t$ has pair $\pi$ given some data, then $x_{t+1}$ has pair $\Pi(\pi)$ given the same data, and conditioning on a further observation $o=H_ix_{t+1}+v$ with $v\sim\Ncal(0,R_i)$ independent of everything else adds the item $(\Lambda^{\mathrm o}_i,H_i^\top R_i^{-1}o)$; this is the recursive filter of \citet{kalman1960new} written in information form, with the sensing noise kept as a separate term, and it follows from Bayes' rule because the likelihood of $o$ is proportional to $\exp(o^\top R_i^{-1}H_ix-\frac12x^\top\Lambda^{\mathrm o}_ix)$.
+
+\begin{lemma}[Fusion identity]\label{lem:prv-fusion}
+Let $x,a,b,c$ have a joint density with $a$ and $b$ conditionally independent given $(x,c)$, and let $p(x\mid c)>0$. Then
+\begin{equation}\label{eq:prv-fusion}
+p(x\mid a,b,c)\propto\frac{p(x\mid a,c)p(x\mid b,c)}{p(x\mid c)}
+\end{equation}
+as a function of $x$. For Gaussian laws the pair of the left side is the pair given $(a,c)$ plus the pair given $(b,c)$ minus the pair given $c$.
+\end{lemma}
+
+\begin{proof}
+By the conditional independence, $p(x\mid a,b,c)\propto p(x\mid c)p(a\mid x,c)p(b\mid x,c)$. Bayes' rule gives $p(a\mid x,c)=p(x\mid a,c)p(a\mid c)/p(x\mid c)$ and the same for $b$; the factors $p(a\mid c)$ and $p(b\mid c)$ do not depend on $x$. The Gaussian statement is the identity of exponents.
+\end{proof}
+
+With $a$ and $b$ the observations in $D_u\setminus D_v$ and $D_v\setminus D_u$ and $c$ those in $D_u\cap D_v$, the lemma says that exact fusion over a link needs the posterior given the common information, and nothing else, provided the two private parts are conditionally independent given the state and the common part. The results below are about when that proviso holds and about what it costs to store the common part.
+
+\begin{proof}[Proof of \cref{thm:prv-tree}]
+(a) Since $Q_x=0$, $x_t=A^tx_0$ and the observation $o_{v,t}=H_vA^tx_0+v_{v,t}$ has, as a likelihood for $x_0$, the pair $e_{v,t}=((A^t)^\top\Lambda^{\mathrm o}_vA^t,(A^t)^\top h^{\mathrm o}_{v,t})$. Observations are independent given $x_0$, so for any finite set $D$ of items the posterior of $x_0$ given the observations in $D$ has pair $\pi_0+\sum_{e\in D}e$, and the posterior of $x_t$ is its image under $A^t$. The image has a pair when $A$ is invertible; for a singular $A$ the law of $x_t$ can be degenerate, and exactness is then the statement about $x_0$. It therefore suffices to prove the two displayed identities.
+
+For a link $uv$ let $T_u(uv)$ and $T_v(uv)$ be the node sets of the two components of the tree with that link removed, containing $u$ and $v$ respectively. Call the member that made an observation the source of its item. We prove by induction on the number of events that after every history the following hold for every node $v$ and every link $uv$:
+\begin{enumerate}
+\item[(i)] $s_v=\pi_0+\sum_{e\in D_v}e$;
+\item[(ii)] $c_{uv}=\pi_0+\sum_{e\in D_u\cap D_v}e$;
+\item[(iii)] an item with source in $T_u(uv)$ that lies in $D_v$ lies in $D_u$, and an item with source in $T_v(uv)$ that lies in $D_u$ lies in $D_v$.
+\end{enumerate}
+Before any event all information sets are empty and all pairs equal $\pi_0$.
+
+An observation event at node $w$ adds a new item $e$, which lies in no information set, to $D_w$ and to $s_w$. Then (i) is preserved; no intersection $D_u\cap D_v$ changes, because $e$ lies in one set only, so (ii) is preserved; and (iii) is preserved because its two hypotheses concern an item in the information set of the endpoint on the far side from the source, and $e$ lies only in $D_w$ with $w$ on the side of its own source.
+
+A report $u\to v$ replaces $D_v$ by $D_v'=D_u\cup D_v$ and leaves every other set unchanged. By (i) and (ii) before the event,
+\[
+s_v+s_u-c_{uv}=\pi_0+\sum_{D_v}e+\sum_{D_u}e-\sum_{D_u\cap D_v}e=\pi_0+\sum_{D_u\cup D_v}e,
+\]
+which is (i) for $v$ afterwards, and $D_u\cap D_v'=D_u$, so the new channel pair $s_u$ is (ii) for the link $uv$. For another link $vw$ at $v$, (ii) is preserved if $D_v'\cap D_w=D_v\cap D_w$, that is, if no item $e$ lies in $D_u\cap D_w$ and outside $D_v$. Suppose there were one. If its source lies in $T_u(uv)$, then it lies in $T_v(vw)$, because the branch of $u$ at $v$ is on the side of $v$ of the link $vw$, and (iii) for $vw$ gives $e\in D_v$ from $e\in D_w$. If its source lies in $T_v(uv)$, (iii) for $uv$ gives $e\in D_v$ from $e\in D_u$. Both contradict $e\notin D_v$. Links not incident to $v$ are untouched.
+
+It remains to check (iii) after the report. For the link $uv$: an item with source in $T_u(uv)$ lying in $D_v'$ lies in $D_v$ or in $D_u$, and in the first case in $D_u$ by (iii) before; an item with source in $T_v(uv)$ lying in $D_u$ lies in $D_v\subseteq D_v'$. For a link $vw$ with $w\ne u$: an item with source in $T_v(vw)$ lying in $D_w$ lies in $D_v\subseteq D_v'$; an item with source in $T_w(vw)$ lying in $D_v'$ lies in $D_v$, and then in $D_w$ by (iii) before, or in $D_u\setminus D_v$, which is impossible because $T_w(vw)\subseteq T_v(uv)$ and (iii) for $uv$ would put it in $D_v$. For links not incident to $v$ nothing changed. This completes the induction. The stored statistic of a link is one pair, a symmetric $d\times d$ matrix and a $d$-vector, $d(d+3)/2$ numbers. A two-way exchange over $uv$ is the report $u\to v$ followed by the report $v\to u$ and leaves $s_u=s_v=c_{uv}$ equal to the old $s_u+s_v-c_{uv}$.
+
+(b) By \eqref{eq:prv-predict} and the information-form update, the private filter of member $i$ satisfies $p_{i,t}=\Pi(p_{i,t-1})+e_{i,t}$ with $e_{i,t}=(\Lambda^{\mathrm o}_i,h^{\mathrm o}_{i,t})$ and $p_{i,0}=\pi_0$, and every $p_{i,t}$ has positive definite precision. Since $c_{i,t-1}=p_{i,t-1}$ for $t\ge2$ and $c_{i,0}=\pi_0=p_{i,0}$, the hub's increment from member $i$ is $p_{i,t}-\Pi(c_{i,t-1})=e_{i,t}$ exactly, so $s_t=\Pi(s_{t-1})+\sum_ie_{i,t}$ with $s_0=\pi_0$, which is the centralized Kalman filter in information form. In the variant with feedback every member holds $s_{t-1}$ after round $t-1$ and $c_{i,t-1}=s_{t-1}$, so $p_{i,t}=\Pi(s_{t-1})+e_{i,t}$ and again $p_{i,t}-\Pi(c_{i,t-1})=e_{i,t}$.
+\end{proof}
+
+\begin{remark}[The stored pair must be predicted]\label{rem:prv-predicted}
+If the hub of \cref{thm:prv-tree}(b) subtracts the last report $c_{i,t-1}$ and not its prediction, its recursion becomes $s_t=\Pi(s_{t-1})+\sum_i e_{i,t}+\sum_i(\Pi(p_{i,t-1})-p_{i,t-1})$. In a scalar world the precision component of $\Pi(\lambda)-\lambda$ is $\lambda(1-F^2-Q_x\lambda)/(F^2+Q_x\lambda)$, which for $\lambda>0$ vanishes only at $\lambda=(1-F^2)/Q_x$, so with identical scalar members the increment is exact only when their common precision equals that value. In \cref{chk:prv-tree} the unpredicted rule deviates from the centralized filter by a median of $1.4\times10^{3}$ in the pair.
+\end{remark}
+
+Part (b) of the theorem needs a report at every step. The next proposition is the smallest exact instance of the failure when reports are less frequent.
+
+\begin{proposition}[One pair per link fails under intermittent reports]\label{prop:prv-intermittent}
+Let $d=1$, $A=F=1$, $Q_x=1$ and $x_0\sim\Ncal(0,1)$. Two members observe $o_{i,t}=x_t+v_{i,t}$ with $R=1$ at $t=1,2$, run private filters and report once, after the second observation, to a hub that holds the prior and applies the rule of \cref{thm:prv-tree}(b) with the stored pair predicted over the two steps, $s_2=\Pi^2(\pi_0)+\sum_i(p_{i,2}-\Pi^2(\pi_0))$. Then the hub claims precision $43/15$, the exact posterior precision of $x_2$ given the four observations is $19/7<43/15$, and the mean-square error of the hub's mean is $693/1849$, with $693/1849>7/19>15/43$: the hub's mean is worse than the exact posterior mean, and its error is $231/215$ times its claimed variance.
+\end{proposition}
+
+\begin{proof}
+With $F=Q_x=R=1$ and $x_0\sim\Ncal(0,1)$, the state $x_1$ has prior variance $2$. A member's filter has precision $\frac12+1=\frac32$ after its first observation, predicted variance $\frac23+1=\frac53$, and precision $\frac35+1=\frac85$ after its second. The two-step prediction of the common prior has variance $3$ and precision $\frac13$. The hub's rule therefore claims $\frac13+2(\frac85-\frac13)=\frac{43}{15}$. For the exact posterior, the prior precision of $(x_1,x_2)$ is $\bigl(\begin{smallmatrix}3/2&-1\\-1&1\end{smallmatrix}\bigr)$, since $x_1\sim\Ncal(0,2)$ and $x_2=x_1+w$ with $w\sim\Ncal(0,1)$; two unit observations of each state add $2$ to each diagonal entry, giving $J=\bigl(\begin{smallmatrix}7/2&-1\\-1&3\end{smallmatrix}\bigr)$ with $\det J=\frac{19}2$ and posterior variance of $x_2$ equal to $J_{11}/\det J=\frac7{19}$. Since $43\cdot7=301>285=19\cdot15$, the claimed precision exceeds the exact one. The posterior mean minimizes the mean-square error among functions of the four observations and attains $\frac7{19}$, so the hub's mean has mean-square error at least $\frac7{19}>\frac{15}{43}$.
+
+The error of the hub's mean is computed directly. The information vector of a member is $o_{i,1}$ after the first observation, $\frac35\cdot\frac23o_{i,1}=\frac25o_{i,1}$ after the prediction, and $\frac25o_{i,1}+o_{i,2}$ after the second observation. The two-step prediction of the prior pair has information vector zero, so the hub's mean is
+\[
+\hat x=\tfrac{15}{43}\sum_{i=1}^2\bigl(\tfrac25o_{i,1}+o_{i,2}\bigr)=\tfrac{6}{43}(o_{1,1}+o_{2,1})+\tfrac{15}{43}(o_{1,2}+o_{2,2}).
+\]
+With $o_{i,1}=x_1+v_{i,1}$, $o_{i,2}=x_1+w+v_{i,2}$ and $x_2=x_1+w$, where $w=w^x_1$, its error is
+\[
+\hat x-x_2=-\tfrac1{43}x_1-\tfrac{13}{43}w+\tfrac6{43}(v_{1,1}+v_{2,1})+\tfrac{15}{43}(v_{1,2}+v_{2,2}),
+\]
+a sum of independent terms with $\Var x_1=2$ and unit variance otherwise. Its mean-square error is $(2+169+72+450)/43^2=693/1849$, and $693\cdot19=13167>12943=7\cdot1849$. The ratio to the claimed variance $\frac{15}{43}$ is $693/(43\cdot15)=231/215$.
+
+The hypothesis of \cref{lem:prv-fusion} fails here: given $x_2$, the first observations of the two members are both informative about $x_1$, which is not determined by $x_2$ when $Q_x\succ0$, so the two windows are dependent given $x_2$ and the common prior.
+\end{proof}
+% Part B: the window ledger bound and model-aware summaries.
+
+For the window results, index the steps of the window by $\tau=1,\dots,k$, let $x_0\sim\Ncal(m,P)$ with $P\succ0$ be the law of the state at the last contact, and stack the window trajectory as $X=(x_1,\dots,x_k)\in\R^{kd}$. Let $E_\tau$ be the $kd\times d$ matrix that has the identity in block $\tau$ and zeros elsewhere.
+
+\begin{lemma}[Window trajectory]\label{lem:prv-trajectory}
+Let $Q_x\succ0$.
+\begin{enumerate}
+\item[(a)] The covariance of $X$ is positive definite. Write $J_0$ for its inverse and $j_0=J_0\E X$.
+\item[(b)] If evidence about $X$ enters through likelihoods $\exp(g_\tau^\top x_\tau-\frac12x_\tau^\top D_\tau x_\tau)$ with $D_\tau\succeq0$, one for each step, then the posterior of $X$ is Gaussian with precision $J_0+\diag(D_1,\dots,D_k)$ and mean $(J_0+\diag(D_\tau))^{-1}(j_0+g)$, $g=(g_1,\dots,g_k)$, and under it
+\begin{equation}\label{eq:prv-smoother}
+\Cov(x_\tau,x_k)=G_\tau G_{\tau+1}\cdots G_{k-1}\Cov(x_k),\qquad G_\tau=P_{\tau\mid\tau}A^\top(AP_{\tau\mid\tau}A^\top+Q_x)^{-1},
+\end{equation}
+for $\tau<k$, where $P_{\tau\mid\tau}\succ0$ is the covariance of $x_\tau$ given the evidence of steps $1,\dots,\tau$. If $A$ is invertible, every $\Cov(x_\tau,x_k)$ is invertible.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $a=(a_1,\dots,a_k)\ne0$ and let $\tau^\ast$ be the largest index with $a_{\tau^\ast}\ne0$. Since $x_{\tau^\ast}=Ax_{\tau^\ast-1}+w^x_{\tau^\ast-1}$, the variable $\sum_\tau a_\tau^\top x_\tau$ is the sum of $a_{\tau^\ast}^\top w^x_{\tau^\ast-1}$ and a variable independent of it, so its variance is at least $a_{\tau^\ast}^\top Q_xa_{\tau^\ast}>0$.
+
+(b) The posterior density is the prior density of $X$ times the likelihoods, which gives the precision and the mean. The joint density of $X$ and the evidence factorizes along the chain, $p(x_1)\prod_\tau p(x_{\tau+1}\mid x_\tau)\prod_\tau\psi_\tau(x_\tau)$ with $\psi_\tau$ the likelihood of step $\tau$, so under the posterior $X$ is a Markov chain, and the conditional density of $x_\tau$ given $x_{\tau+1},\dots,x_k$ is proportional in $x_\tau$ to $\alpha_\tau(x_\tau)p(x_{\tau+1}\mid x_\tau)$, where $\alpha_\tau$ is the density of $x_\tau$ given the evidence of steps $1,\dots,\tau$, the Gaussian $\Ncal(m_{\tau\mid\tau},P_{\tau\mid\tau})$. Its precision is the inverse of a predicted covariance $AP'A^\top+Q_x\succ0$ plus $D_\tau\succeq0$, so $P_{\tau\mid\tau}\succ0$. Under $\alpha_\tau(x_\tau)p(x_{\tau+1}\mid x_\tau)$ the pair $(x_\tau,x_{\tau+1})$ is Gaussian with $\Cov(x_\tau,x_{\tau+1})=P_{\tau\mid\tau}A^\top$ and $\Cov(x_{\tau+1})=AP_{\tau\mid\tau}A^\top+Q_x$, hence
+\[
+\E[x_\tau\mid x_{\tau+1},\dots,x_k]=m_{\tau\mid\tau}+G_\tau(x_{\tau+1}-Am_{\tau\mid\tau})
+\]
+under the posterior. Therefore $\Cov(x_\tau,x_k)=\Cov(\E[x_\tau\mid x_{\tau+1},\dots,x_k],x_k)=G_\tau\Cov(x_{\tau+1},x_k)$, and \eqref{eq:prv-smoother} follows by descending induction from $\tau=k-1$. When $A$ is invertible each $G_\tau$ is a product of invertible matrices, and $\Cov(x_k)\succ0$ as a diagonal block of a positive definite matrix.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:prv-window}]
+Member $i$'s observations enter the posterior of $X$ through the likelihoods $\exp(h^{\mathrm o\top}_{i,\tau}x_\tau-\frac12x_\tau^\top\Lambda^{\mathrm o}_ix_\tau)$. Write $\ell=(h^{\mathrm o}_{i,1},\dots,h^{\mathrm o}_{i,k})$ for the window ledger, $D=\diag(D_1,\dots,D_k)$ and $g=(g_1,\dots,g_k)$ for the hub-side evidence, and
+\[
+J_D=J_0+I_k\otimes\Lambda^{\mathrm o}_i+D .
+\]
+By \cref{lem:prv-trajectory}(b) the posterior mean of $x_k$ given both bodies of evidence is $E_k^\top J_D^{-1}(j_0+\ell+g)$. Every $D_\tau\succeq0$ is the information matrix of some observation, for instance $H=D_\tau^{1/2}$ with unit noise, so every block-diagonal $D\succeq0$ is an admissible hub-side evidence.
+
+Let $o$ and $o'$ be two values of member $i$'s window data with $\varphi_i(o)=\varphi_i(o')$, with ledgers $\ell$ and $\ell'$, and put $z=\ell-\ell'$. The encoder is blind, so the same message is sent whatever $D$ and $g$ are, and the hub's output, a function of the message, of $(D,g)$ and of the model, is the same for $o$ and $o'$. By exactness it equals the posterior mean in both cases, hence
+\begin{equation}\label{eq:prv-vanish}
+E_k^\top J_D^{-1}z=0\qquad\text{for every block-diagonal }D\succeq0 .
+\end{equation}
+Take $D=I_{kd}$, put $C=J_{I}^{-1}\succ0$, fix $\tau$ and a symmetric $d\times d$ matrix $S$. For $\lvert\epsilon\rvert$ small, $I_{kd}+\epsilon E_\tau SE_\tau^\top$ is block diagonal and positive semidefinite, so \eqref{eq:prv-vanish} holds along this line, and differentiating at $\epsilon=0$ with $\frac{\mathrm d}{\mathrm d\epsilon}J^{-1}=-J^{-1}\dot JJ^{-1}$ gives
+\[
+E_k^\top CE_\tau SE_\tau^\top Cz=0 .
+\]
+The matrix $E_k^\top CE_\tau$ is the posterior covariance $\Cov(x_k,x_\tau)$ under the evidence with precision $J_I$, which has the form of \cref{lem:prv-trajectory}(b) with step information $\Lambda^{\mathrm o}_i+I_d$; it is invertible because $A$ is. With $S=I_d$ this yields $E_\tau^\top Cz=0$. This holds for every $\tau$, so $Cz=0$ and $z=0$. Thus $\varphi_i(o)=\varphi_i(o')$ implies $\ell=\ell'$: the ledger is a function of the message.
+
+If $\varphi_i(o)=\Phi o$ is linear, the linear map $L=I_k\otimes H_i^\top R_i^{-1}$ that sends the data to the ledger satisfies $\ker\Phi\subseteq\ker L$, hence $\rank\Phi\ge\rank L=k\rank H_i$. Conversely the ledger is sufficient: a hub that receives $\ell$ and knows $\Lambda^{\mathrm o}_i$ has all the likelihoods of member $i$ and computes the exact posterior of $X$, by running the Kalman filter through the window from the pair it held at the last contact. The ledger is computed by member $i$ from its own data and its own $(H_i,R_i)$, so the encoder is blind, and its coordinates in a basis of the range of $H_i^\top$ are $k\rank H_i$ numbers.
+\end{proof}
+
+\begin{remark}[Scope of the bound]\label{rem:prv-window-scope}
+The proof uses invertibility of $A$ only to make every $\Cov(x_k,x_\tau)$ invertible. It is enough that these blocks are nonzero for one positive definite block-diagonal $D$: if $Y=\Cov(x_k,x_\tau)\ne0$ and $u=E_\tau^\top Cz\ne0$, the choice $S=uu^\top$ gives $Yu=0$ and then $S=yu^\top+uy^\top$ with $Yy\ne0$ gives $Yy\lvert u\rvert^2=0$, a contradiction. With a singular $A$ the bound was still attained in \cref{chk:prv-window}, and with a nonzero nilpotent $A$ in \cref{chk:prv-independent}. Some condition on $A$ is needed, however. For $A=0$ the states of the window are independent, every $\Cov(x_k,x_\tau)$ with $\tau<k$ vanishes under every block-diagonal evidence, and the posterior of $x_k$ depends on the window of member $i$ only through $h^{\mathrm o}_{i,k}$; that vector alone, $\rank H_i$ numbers, is then an exact blind message, and the conclusion of \cref{thm:prv-window} is false for $k\ge2$ and $H_i\ne0$. The bound also fails for $Q_x=0$, where \cref{thm:prv-tree}(a) applies, and it is a statement about encoders fixed without knowledge of the other evidence; \cref{prop:prv-aware} shows what that knowledge buys.
+\end{remark}
+
+\begin{proposition}[Model-aware summaries of dimension $d$]\label{prop:prv-aware}
+Let $A$ and $Q_x\succeq0$ be arbitrary, and let all $n$ members report to a hub at the same times, every $k$ steps, the hub holding no evidence other than the prior and the reports. For every contact there are matrices $G_1,\dots,G_n$ with $d$ rows, which every member can compute from $(A,Q_x,(H_j,R_j)_{j\le n},P_0,k)$ and the number of the contact, such that the messages $z_i=G_iO_i\in\R^d$, with $O_i$ the observations of member $i$ during the window, let the hub compute the centralized Kalman posterior at every contact. No pair is stored per link.
+\end{proposition}
+
+\begin{proof}
+Suppose the hub's law at a contact is $\Ncal(m,P)$ and equals the posterior of the state given all observations so far. By the Markov property the data $O=(O_1,\dots,O_n)$ of the next window, $O_i=(o_{i,1},\dots,o_{i,k})$, and the state $x_k$ at the next contact are jointly Gaussian given the earlier observations, with the law obtained from $x_0\sim\Ncal(m,P)$. The covariance of $O$ is positive definite because the sensing noises are, so
+\[
+\E[x_k\mid O]=A^km+G(O-\E O),\qquad G=\Cov(x_k,O)\Cov(O)^{-1},
+\]
+and the conditional covariance $\Cov(x_k)-G\Cov(O,x_k)$ does not depend on the data. Covariances of jointly Gaussian variables do not depend on means, so $G$ is a function of $(A,Q_x,(H_j,R_j)_j,P,k)$ alone. Split $G=(G_1,\dots,G_n)$ by member. Member $i$ sends $z_i=G_iO_i\in\R^d$; the hub, which knows $m$, forms $A^km-G\E O+\sum_iz_i$ and the conditional covariance, and so holds the posterior given all observations up to the new contact. The new covariance is again a deterministic function of the model, so every member can compute the next gain without hearing from the hub. Induction over contacts, starting from $\Ncal(m_0,P_0)$, proves the claim.
+\end{proof}
+% Part C: cycles. The static triangle, the lifting obstruction, and the ledger keyed by member and time.
+
+\begin{proposition}[The static triangle]\label{prop:prv-ring}
+Let $Q_x=0$ and $A=I$. Three members on a triangle hold the common prior pair $\pi_0$ and one item each, $s_j=\pi_0+e_j$, and exchange with both neighbors simultaneously in rounds $r=1,2,\dots$.
+\begin{enumerate}
+\item[(a)] Under the product rule $s_i\leftarrow\sum_{j\in N[i]}s_j$ on the closed neighborhood, the analog of rule (P) of \cref{prop:hie-literal-records}, every node holds $3^r\pi_0+3^{r-1}\sum_je_j$ after $r$ rounds.
+\item[(b)] Under the channel rule $s_i\leftarrow s_i+\sum_{j\in N(i)}(s_j-c_{ij})$ and $c_{ij}\leftarrow s_i+s_j-c_{ij}$, with old values on the right and $c_{ij}=\pi_0$ initially, the prior coefficient of every node stays one, the node pairs are exact after the first round, and the evidence coefficients of a node sum to $2r+1$ after $r$ rounds, against the exact $3$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Both rules are linear with integer coefficients, so every pair they produce is a formal combination $\kappa\pi_0+\sum_jm_je_j$ of the prior pair and the three items; call $\kappa$ its prior coefficient and $\sum_jm_j$ its weight. Both functionals are linear and invariant under relabeling of the members, and both rules and the initial configuration are invariant under relabeling, so in every round all nodes share one prior coefficient and one weight, and so do all links.
+
+(a) The product rule triples the common prior coefficient and the common weight of the nodes in every round, starting from $1$ and $1$. After the first round $s_i=3\pi_0+\sum_je_j$ for every $i$, the three nodes hold the same pair, and each later round multiplies it by $3$.
+
+(b) Let $(\alpha_r,S_r)$ be the prior coefficient and weight of a node after $r$ rounds and $(\gamma_r,C_r)$ those of a link, with $\alpha_0=\gamma_0=1$, $S_0=1$ and $C_0=0$. The rule gives $\alpha_{r+1}=3\alpha_r-2\gamma_r$ and $\gamma_{r+1}=2\alpha_r-\gamma_r$, so $\alpha_r=\gamma_r=1$ for all $r$, and $S_{r+1}=3S_r-2C_r$, $C_{r+1}=2S_r-C_r$, so $S_{r+1}-C_{r+1}=S_r-C_r=1$ and $S_{r+1}=S_r+2$, that is, $S_r=2r+1$. In the first round $s_j-c_{ij}=e_j$ for both neighbors, so $s_i=\pi_0+\sum_je_j$, the exact pair. With identical sensing the precision component of the weight statement is $\Lambda_0+(2r+1)\Lambda^{\mathrm o}$ against the exact $\Lambda_0+3\Lambda^{\mathrm o}$.
+\end{proof}
+
+The channel rule fails on the triangle from the second round because the hypothesis that carried \cref{thm:prv-tree}(a) fails: after the first round the item of the third member lies in $D_i\cap D_j$ without having crossed the link $ij$, so the link's pair no longer describes the common information of its endpoints.
+
+\begin{proof}[Proof of \cref{thm:prv-cover}]
+An anonymous protocol consists of an initial state $\sigma^0$ and three maps: a message map $\mu(\sigma,p)$ giving the message sent on port $p\in\{1,2\}$, an update map $U(\sigma,o,m_1,m_2)$ giving the next state from the current state, the datum of the step if there is one, and the messages received on the two ports, and an output map from states to pairs. The maps and $\sigma^0$ are the same at every node and do not depend on the graph. A port labeling assigns to every node a bijection between $\{1,2\}$ and its two links.
+
+Let $n\ge3$, write the nodes of $C_n$ as the residues modulo $n$ and those of $C_{2n}$ as the residues modulo $2n$, with $v$ adjacent to $v\pm1$, and let $q(v)=v\bmod n$ map the second onto the first. Since $n\ge3$, the three nodes $v-1,v,v+1$ of $C_{2n}$ have distinct images, so $q$ maps the closed neighborhood of $v$ bijectively onto that of $q(v)$. Fix a port labeling of $C_n$ and lift it: port $p$ of $v$ in $C_{2n}$ is the link to the neighbor $w$ for which $q(w)$ is the neighbor of $q(v)$ at port $p$. Fix data $(o_s)_{s<n}$ on $C_n$ and give node $v$ of $C_{2n}$ the datum $o_{q(v)}$.
+
+We claim that after every round the state of node $v$ in $C_{2n}$ equals the state of node $q(v)$ in $C_n$. Initially all states equal $\sigma^0$. Suppose the claim holds before a round. Node $v$ receives on port $p$ the message $\mu(\sigma_w,p_w)$, where $w$ is its neighbor at port $p$ and $p_w$ the port of $w$ toward $v$. By the lifted labeling, $q(w)$ is the neighbor of $q(v)$ at port $p$ and its port toward $q(v)$ is $p_w$; by the induction hypothesis $\sigma_w=\sigma_{q(w)}$. So $v$ receives on each port the message that $q(v)$ receives on the same port, the data agree, and the update map returns the same state.
+
+Hence the outputs agree: for every round, the pair that node $v$ outputs in $C_{2n}$ under the lifted data is the pair that $q(v)$ outputs in $C_n$. If the protocol were exact on $C_n$ from round $T_n$ on and on $C_{2n}$ from round $T_{2n}$ on, then for every later round the first pair would have precision $\Lambda_0+2n\Lambda^{\mathrm o}$, since each of the $2n$ members of $C_{2n}$ made one observation with information $\Lambda^{\mathrm o}$, and the second would have precision $\Lambda_0+n\Lambda^{\mathrm o}$. These differ because $\Lambda^{\mathrm o}\ne0$.
+\end{proof}
+
+The pair of sizes $n$ and $2n$ is not special. With constant data the same comparison works for any two sizes.
+
+\begin{corollary}[Any two ring sizes]\label{cor:prv-sizes}
+In the setting of \cref{thm:prv-cover} let $3\le n<m$. No anonymous protocol outputs the exact pair at every node from some round on, for every value of the data and every labeling of the ports, on both $C_n$ and $C_m$.
+\end{corollary}
+
+\begin{proof}
+Label the ports of both rings so that port $1$ of node $v$ leads to $v+1$ and port $2$ to $v-1$, and give every node of both rings the same datum. All nodes of both rings are then in one common state after every round. This holds initially. If all nodes are in the state $\sigma$ before a round, every node receives $\mu(\sigma,2)$ on port $1$ and $\mu(\sigma,1)$ on port $2$ and has the same datum, so the update map returns one state for all of them. The outputs on the two rings therefore agree in every round, while the exact precisions $\Lambda_0+n\Lambda^{\mathrm o}$ and $\Lambda_0+m\Lambda^{\mathrm o}$ differ because $\Lambda^{\mathrm o}\ne0$.
+\end{proof}
+
+The theorem and the corollary exclude one deterministic rule that is exact for every value of the data on rings of two sizes. The next proposition shows that none of these three requirements can be dropped.
+
+\begin{proposition}[What the obstruction leaves open]\label{prop:prv-anon}
+Let $Q_x=0$ and $A=I$, and let identical members with common $(H,R)$ and $\Lambda^{\mathrm o}\ne0$ observe once, $o_s=Hx+v_s$ with item $e_s=(\Lambda^{\mathrm o},H^\top R^{-1}o_s)$, and then exchange messages in synchronous rounds, without identifiers.
+\begin{enumerate}
+\item[(a)] Fix $N\ge3$ and consider the following rule for nodes with two ports. In round $1$ a node sends its item with counter $1$ on both ports. In every later round a node that received $(e,c)$ on port $p$ in the previous round sends $(e,c+1)$ on its other port if $c+1\le N-1$, and sends nothing for that message otherwise. A node keeps one pair, initially $\pi_0$ plus its own item, and adds to it every item that arrives on its port $1$. This rule is an anonymous protocol. On $C_N$, for every value of the data and every labeling of the ports, every node holds $\pi_0+\sum_se_s$ from round $N-1$ on, and it stores one pair and at most two items with their counters. On $C_{2N}$ every node ends with precision $\Lambda_0+N\Lambda^{\mathrm o}$, against the exact $\Lambda_0+2N\Lambda^{\mathrm o}$.
+\item[(b)] On a connected graph $G$ with $n$ nodes, let every node keep a finite set of observed values, initially its own, send the set to every neighbor in every round, replace its set by the union of that set with the sets received, and output $\pi_0+\sum_o(\Lambda^{\mathrm o},H^\top R^{-1}o)$, the sum running over the values $o$ in its set. This rule is an anonymous protocol. If the $n$ observed values are pairwise distinct, an event of probability one, the output of $v$ after $r$ rounds is $\pi_0+\sum_{s:\operatorname{dist}(v,s)\le r}e_s$, the exact pair for its information set, and it equals $\pi_0+\sum_se_s$ from round $\operatorname{ecc}(v)$ on. If only $m<n$ of the values are distinct, the output has precision $\Lambda_0+m\Lambda^{\mathrm o}$ from round $\operatorname{ecc}(v)$ on and is not exact.
+\item[(c)] Let every member draw a key independently of everything else from a law on $\R$ without atoms, and run the rule of (b) on the pairs of key and observed value, with the output summed over the pairs held. For every value of the data the outputs are those of (b) for distinct values, with probability one over the keys.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) The rule consists of an initial state, a message map, an update map and an output map that are the same at every node and contain the constant $N$ and no reference to the graph, so it is an anonymous protocol in the sense of \cref{def:prv-protocol}. A node absorbs its datum into its state before the first round; the proofs of \cref{thm:prv-cover} and \cref{cor:prv-sizes} cover this, since nodes with equal data are then in equal states before the first round. Let the ring have $M\in\{N,2N\}$ nodes $w_j$, with $j$ a residue modulo $M$ and $w_j$ adjacent to $w_{j\pm1}$. Whatever the labeling, the other port of the port of $w_{j+1}$ toward $w_{j+2}$ is its port toward $w_j$, so a message keeps its direction of travel. We claim that for $1\le r\le N-1$ the only message sent in round $r$ from $w_{j+1}$ to $w_j$ is $(e_{w_{j+r}},r)$, and that no message is sent in a round $r\ge N$. For $r=1$ this is the rule. If it holds for some $r\le N-2$, then in round $r$ the node $w_{j+1}$ received $(e_{w_{j+1+r}},r)$ from $w_{j+2}$ and one message from $w_j$; in round $r+1$ it forwards the first to $w_j$ with counter $r+1\le N-1$ and the second to $w_{j+2}$. The messages received in round $N-1$ carry the counter $N-1$ and are not forwarded. The same holds in the other direction with $w_{j-r}$ in place of $w_{j+r}$. Port $1$ of $w_j$ leads to $w_{j+1}$ or to $w_{j-1}$, and so receives in rounds $1,\dots,N-1$ the items of $w_{j\pm1},\dots,w_{j\pm(N-1)}$ with one fixed sign. For $M=N$ these are the $N-1$ other nodes, each once, and the pair of $w_j$ is $\pi_0+\sum_se_s$ after round $N-1$ and unchanged afterwards. For $M=2N$ they are $N-1$ distinct other nodes, and the pair has precision $\Lambda_0+N\Lambda^{\mathrm o}$. Between rounds a node holds its pair and the at most two messages it received in the last round.
+
+(b) The rule uses neither identifiers nor the graph. Let $V_v^r$ be the set of $v$ after $r$ rounds. By induction on $r$, $V_v^r=\bigcup_{u\in N[v]}V_u^{r-1}=\{o_s:\operatorname{dist}(v,s)\le r\}$, because a node is within distance $r$ of $v$ exactly when it is within distance $r-1$ of a member of the closed neighborhood of $v$. The same induction, with every node reporting to every neighbor in every round, gives the information set $D_v=\{s:\operatorname{dist}(v,s)\le r\}$. If the values are pairwise distinct, $V_v^r$ contains one value for each source in $D_v$ and the output is $\pi_0+\sum_{s\in D_v}e_s$, which is the posterior pair given $o_{D_v}$ because the observations are independent given $x$. For $s\ne s'$ the difference $o_s-o_{s'}=v_s-v_{s'}$ has the law $\Ncal(0,2R)$ with $R\succ0$ and is nonzero with probability one, and there are finitely many pairs of sources. From round $\operatorname{ecc}(v)$ on, $V_v^r$ is the set of all observed values; if it has $m<n$ elements the output has precision $\Lambda_0+m\Lambda^{\mathrm o}$, while the posterior precision is $\Lambda_0+n\Lambda^{\mathrm o}$ whatever the values, and these differ because $\Lambda^{\mathrm o}\ne0$.
+
+(c) Keys drawn independently from a law without atoms are pairwise distinct with probability one. On that event the pairs of key and value are pairwise distinct whatever the data, and the induction of (b) applies to them.
+\end{proof}
+
+Part (a) shows that \cref{thm:prv-cover} cannot be strengthened to a single ring size: a rule may contain the size of the ring it was built for, and by \cref{cor:prv-sizes} what no rule can do is serve two sizes. Part (b) shows that exactness for every value of the data cannot be weakened to exactness with probability one. The lifted data in the proof of \cref{thm:prv-cover} repeat every value twice, and the data in the proof of \cref{cor:prv-sizes} are constant, so both lie in the null set on which the rule of (b) fails. Part (c) shows that the theorem does not extend to randomized rules. The rules of (b) and (c) store up to $n$ values or keys per node, so they are no cheaper than the cumulative pairs of \cref{prop:prv-clock}. The three rules and the lifting are run in \cref{chk:prv-anon}.
+
+\begin{remark}[What the obstruction is about]\label{rem:prv-cover-scope}
+No bound on the dimension of states or messages was used in the proof of \cref{thm:prv-cover}, so the obstruction on a cycle is not a shortage of storage. Nor is it the absence of identifiers as such, by \cref{prop:prv-anon}, and randomized rules without identifiers can be exact on cycles with probability one by \cref{prop:prv-anon}(c). For continuous rules the gap between probability one and every value of the data closes. Suppose that states and messages lie in Euclidean spaces, that the message, update and output maps are continuous, and that on a given ring with a given labeling of the ports the rule is exact with probability one from a round that does not depend on the data. The output at such a round is a continuous function of the data, and so is the exact pair $\pi_0+\sum_se_s$. The data $(o_s)_s$ have a Gaussian law with covariance $\mathbf 1\mathbf 1^\top\otimes HP_0H^\top+I\otimes R\succ0$, so an event of probability one has a complement of Lebesgue measure zero and is dense, and two continuous functions that agree on a dense set agree everywhere. Such a rule is exact for every value of the data, and \cref{thm:prv-cover} applies to it. The rule of \cref{prop:prv-anon}(b) is discontinuous where two observed values coincide. When the round from which exactness holds may depend on the data the density argument does not apply, and that case is not settled here. The claimed variances of the two local rules in \cref{chk:prv-ring} are the same for every ring size while the exact variance is not, which is in line with the lifting argument and is not an instance of the theorem, since that check has process noise and repeated observations.
+
+The lifting argument has a precedent for finite alphabets. \citet{hendrickx2010distributed} study identical deterministic nodes without identifiers on graphs with labeled ports, with inputs from a finite set, and show that a family of functions computed by such nodes with one algorithm for all network sizes, even with infinite memory, depends only on the frequencies of the input values (their Theorem 3.1). Their proof compares a ring with the ring obtained by repeating it $m$ times, on which every node passes through the same states as its image (their Lemma 3.3). A function of the frequencies does not change when the ring is repeated, which is the property used in \cref{thm:prv-cover}. That theorem is the counterpart for real-valued data and states of any dimension; it is proved above and is not derived from their result. Only the part of their paper that contains these statements was read for this section.
+\end{remark}
+
+\begin{proof}[Proof of \cref{prop:prv-ledger}]
+(a) Fix an item $(s,\tau)$ and argue by induction on $\ell=\operatorname{dist}(v,s)$ that $v$ first acquires it in round $\tau+\max(\ell-1,0)$. For $\ell=0$ the item is created at step $\tau$, before round $\tau$. For $\ell=1$ the source sends its fresh item in round $\tau$ and not before. For $\ell\ge2$ every neighbor $u$ of $v$ has $\operatorname{dist}(u,s)\ge\ell-1\ge1$, first acquires the item in round $\tau+\operatorname{dist}(u,s)-1\ge\tau+\ell-2$ by the induction hypothesis, and sends it in the following round and in no other; one neighbor has distance exactly $\ell-1$. So $v$ first receives the item in round $\tau+\ell-1$. The items of one source thus first reach $v$ in the order of their times, one per round, and a copy that arrives in a later round carries a time that does not exceed the last time $v$ holds for that source. A node that accepts an arriving item exactly when its time exceeds the last time it holds for the source, taking one copy if several arrive together, therefore holds each item once and acquires it at its first arrival; this is how duplicates are discarded by key, and it uses one stored time per source. The resulting sets are those obtained when, in every round, every node receives the whole information set that each neighbor held before the round together with the neighbor's fresh item: by the same induction, the least delay over neighbors is $\min_u(\delta(u,s)+1)=\delta(v,s)$ for $\operatorname{dist}(v,s)\ge2$.
+
+(b) In the state-space model the observations of step $\tau$ are independent of all other variables given $x_\tau$. For a set $D$ of items, the pair $\pi(\tau)$ of $x_\tau$ given the items of $D$ with time at most $\tau$ therefore satisfies $\pi(\tau)=\Pi(\pi(\tau-1))+\sum_{(s,\tau)\in D}e_{s,\tau}$ with $\pi(0)=\pi_0$, the information-form filter with whatever observations are present. Put $b=t-\operatorname{ecc}(v)+1$ for $t\ge\operatorname{ecc}(v)-1$. Since $\delta(v,s)\le\operatorname{ecc}(v)-1$ for every $s$, by (a) the set $D_v(t)$ contains every item with time at most $b$, so $\pi(b)$ is the pair of the centralized filter at time $b$; the node keeps it as its base pair and advances it by one step per round, as the slice $b+1$ becomes complete. From the base pair and the stored items with times in $(b,t]$ the recursion returns the pair of $p(x_t\mid o_{D_v(t)})$. The items of source $s$ that the filter needs are those with $b<\tau\le t-\delta(v,s)$, in number $\operatorname{ecc}(v)-1-\delta(v,s)$. The node holds more than these. The item of a source $s\ne v$ that it acquired in round $t$ has time $t-\delta(v,s)$ and must be sent in round $t+1$; when $\delta(v,s)=\operatorname{ecc}(v)-1$ this time is $b$, the item has been absorbed into the base pair, and it is kept for one more round only to be forwarded. After round $t$ the node therefore holds one item of each source $s\ne v$ with $\delta(v,s)=\operatorname{ecc}(v)-1$ and $\operatorname{ecc}(v)-1-\delta(v,s)$ items of every other source, at most $\max(\operatorname{ecc}(v)-1,1)$ per source and $n\max(\operatorname{ecc}(v)-1,1)$ in all, besides the $n$ times used to discard duplicates. For $\operatorname{ecc}(v)=1$ the filter needs no stored item and the node holds the $n-1$ items it has yet to forward, so the count $\sum_s(\operatorname{ecc}(v)-1-\delta(v,s))$ alone understates the storage. In a round a node sends on each link its fresh item and, for each other source, at most the one item it first acquired in the previous round, at most $n$ items.
+
+(c) The recursion of (b) uses the items of a time slice only through their sum. By (a) the item $(s,\tau)$ reaches $v$ for the first time in round $\tau+\delta(v,s)$, so a node that knows the delays accepts an arriving item with key $(s,\tau)$ exactly when the round is $\tau+\delta(v,s)$, taking one copy if several neighbors deliver it in that round, and adds it to the pair of slice $\tau$. The open slices are $b+1,\dots,t$, of which the last is always complete only for the sources at delay zero, so $\operatorname{ecc}(v)-1$ slice pairs are kept besides the base pair. The items acquired in a round are still sent singly in the next round, so the node also holds up to $n-1$ keyed items for one round, and no key outlives the round in which its item is forwarded. The storage of this variant is $\operatorname{ecc}(v)$ pairs, a table of $n$ distances and that buffer; it is free of the window length per source and not of $n$.
+\end{proof}
+% Part D: per-source cumulative pairs, covariance intersection, turnover, memory accounting.
+
+The window ledger of \cref{prop:prv-ledger}, run numerically in \cref{chk:prv-ledger,chk:prv-independent}, is needed because of process noise. In a static world the items of one source may be merged, and a counter per source replaces the keys.
+
+\begin{proposition}[Per-source cumulative pairs]\label{prop:prv-clock}
+Let $Q_x=0$, let $G$ be any connected graph whose $n$ members carry identifiers, and number the items of member $s$ in order of observation, $e_{s,1},e_{s,2},\dots$, as pairs about $x_0$. Every node $v$ stores for each source $s$ a counter $c_v(s)$ and a pair $E_v(s)$, initially zero. An observation by $v$ increases $c_v(v)$ by one and adds the new item to $E_v(v)$. A report $u\to v$ replaces $(c_v(s),E_v(s))$ by $(c_u(s),E_u(s))$ for every source $s$ with $c_u(s)>c_v(s)$. Then after any finite sequence of observations and reports
+\[
+D_v=\{(s,m):m\le c_v(s)\}\qquad\text{and}\qquad\pi_0+\sum_sE_v(s)=\pi_0+\sum_{e\in D_v}e,
+\]
+so the protocol is exact with $n$ pairs and $n$ counters per node and per message, whatever the number of rounds and whatever cycles $G$ has.
+\end{proposition}
+
+\begin{proof}
+We show by induction on the number of events that for all $v$ and $s$ the items of $s$ in $D_v$ are the first $c_v(s)$ and $E_v(s)$ is their sum. Initially all sets are empty. Items of $s$ are created at $s$ and enter $D_s$ at once, so $D_s$ contains every item of $s$ created so far and $c_u(s)\le c_s(s)$ for every $u$; in particular a report never replaces a node's entry for itself, and the item created by an observation of $v$ has number $c_v(v)+1$. An observation therefore preserves the claim. A report $u\to v$ replaces $D_v$ by $D_u\cup D_v$; for each source the union of two initial segments is the longer one, whose counter and sum are those of the entry with the larger counter. Exactness follows as in the proof of \cref{thm:prv-tree}(a), because for $Q_x=0$ the posterior pair of $x_0$ is the prior pair plus the sum of the items held.
+\end{proof}
+
+The storage grows with the number of members and not with time (\cref{chk:prv-clock}). Whether growth with $n$ is necessary on graphs with cycles is \cref{open:prv-minimal}. For $Q_x\succ0$ and invertible $A$ a blind member that reports intermittently cannot merge the items of a window into one cumulative pair, by \cref{thm:prv-window}.
+
+\begin{lemma}[Convex combinations of pairs are consistent]\label{lem:prv-ci}
+Let $m_1,\dots,m_J$ be estimators of a random vector $x$ whose errors $\tilde e_j=m_j-x$ have finite second moments, and let $P_j\succ0$ satisfy $\E\tilde e_j\tilde e_j^\top\preceq P_j$. Let $\omega_j\ge0$ be deterministic weights with $\sum_j\omega_j=1$, and put
+\[
+P^{-1}=\sum_j\omega_jP_j^{-1},\qquad m=P\sum_j\omega_jP_j^{-1}m_j .
+\]
+Then $\E(m-x)(m-x)^\top\preceq P$, whatever the joint law of the errors.
+\end{lemma}
+
+\begin{proof}
+Since $P\sum_j\omega_jP_j^{-1}=I$, the error is $m-x=P\sum_j\omega_jP_j^{-1}\tilde e_j$. Fix $u\in\R^d$ and put $\alpha_j=P_j^{-1}Pu$, so that $u^\top(m-x)=\sum_j\omega_j\alpha_j^\top\tilde e_j$. By convexity of the square, $(\sum_j\omega_ja_j)^2\le\sum_j\omega_ja_j^2$, hence
+\[
+\E\bigl(u^\top(m-x)\bigr)^2\le\sum_j\omega_j\alpha_j^\top\bigl(\E\tilde e_j\tilde e_j^\top\bigr)\alpha_j\le\sum_j\omega_j\alpha_j^\top P_j\alpha_j=u^\top P\Bigl(\sum_j\omega_jP_j^{-1}\Bigr)Pu=u^\top Pu .
+\]
+\end{proof}
+
+The lemma is the consistency property associated with covariance intersection (\cref{sup:mis-exact-fusion}); the proof above is self-contained, and the original source was not consulted for it.
+
+\begin{proof}[Proof of \cref{prop:prv-ci}]
+Write $P_{i}$ for the claimed covariance of member $i$ and $\tilde P_{i}=\E(m_i-x_t)(m_i-x_t)^\top$ for the second-moment matrix of its error, which the statement calls its error covariance, at the stage of the step under discussion. The claimed covariances are deterministic and positive definite at every stage: the prediction $AP_iA^\top+Q_x$ is positive definite because $A$ is invertible or $Q_x\succ0$, the update adds $\Lambda^{\mathrm o}_i\succeq0$ to a positive definite precision, and a convex combination of positive definite precisions is positive definite. The initial means are deterministic, so the mean of a member at any stage is a function of the observations made so far, and its error is a function of $x_0$, of the process noises and of the sensing noises up to that stage.
+
+(a) We show $\tilde P_i\preceq P_i$ after every stage by induction; it holds initially by hypothesis. Prediction: $m_i^-=Am_i$ and $x_{t}=Ax_{t-1}+w^x_{t-1}$, so the error becomes $A\tilde e_i-w^x_{t-1}$. The error $\tilde e_i$ is a function of $x_0$, of the process noises before $t-1$ and of the sensing noises up to $t-1$, so it is independent of $w^x_{t-1}$, which has mean zero, and $\tilde P_i^-=A\tilde P_iA^\top+Q_x\preceq AP_iA^\top+Q_x=P_i^-$. Observation: with the gain $K=P_i^-H_i^\top(H_iP_i^-H_i^\top+R_i)^{-1}$ computed from the claimed covariance, $m_i=m_i^-+K(o_{i,t}-H_im_i^-)$ has error $(I-KH_i)\tilde e_i^-+Kv_{i,t}$, and $v_{i,t}$ has mean zero and is independent of $\tilde e_i^-$, so
+\[
+\tilde P_i=(I-KH_i)\tilde P_i^-(I-KH_i)^\top+KR_iK^\top\preceq(I-KH_i)P_i^-(I-KH_i)^\top+KR_iK^\top=P_i,
+\]
+the last equality being the Joseph form of the Kalman update, valid for this gain. Fusion: the weights are deterministic, because the claimed covariances are deterministic sequences, and \cref{lem:prv-ci} applies to the members of the closed neighborhood whatever the dependence among their errors. No statistic about past exchanges entered.
+
+(b) If the members are identical and start from a common prior, their claimed covariances are equal after every stage by induction: prediction and observation act identically on equal covariances, and a convex combination of equal precisions is that precision. The fusion stage therefore leaves the claimed covariance unchanged, and the claimed covariance follows the Riccati recursion of a member that never communicates. For the last claim of (b) the members need not be identical. If all start from $\pi_0$, each has precision $\Lambda_1^-+\Lambda^{\mathrm o}_j$ after the first observation, with $\Lambda_1^-=(AP_0A^\top+Q_x)^{-1}$, and member $i$ has $\Lambda_1^-+\sum_{j\in N[i]}\omega_{ij}\Lambda^{\mathrm o}_j$ after the first fusion. Its information set is then $\{(j,1):j\in N[i]\}$, and the exact posterior precision of $x_1$ given these observations is $\Lambda_1^-+\sum_{j\in N[i]}\Lambda^{\mathrm o}_j$. The difference is $\sum_{j\in N[i]}(1-\omega_{ij})\Lambda^{\mathrm o}_j\succeq0$. If two members $j_1,j_2$ of $N[i]$ have nonzero $\Lambda^{\mathrm o}_j$, then $\omega_{ij_1}+\omega_{ij_2}\le1$, one of the two weights is at most $\frac12$, and the difference is nonzero, so the output of member $i$ is not the exact pair.
+
+(c) After the fusion of step $t$ the mean of $i$ is a function of the means of its closed neighborhood after the observation stage, hence of the observations of step $t$ made at distance at most one and of the neighborhood's means after the fusion of step $t-1$. By induction on $t$ it is a function of the observations $(s,\tau)$ with $\tau\le t-\max(\operatorname{dist}(i,s)-1,0)$, the set $D_i(t)$ of \cref{prop:prv-ledger}(a). Here the deterministic initial means are used. For a function $m$ of those observations, $\E(m-x_t)(m-x_t)^\top$ is the second-moment matrix of $m-\E[x_t\mid o_{D_i(t)}]$ plus the posterior covariance, which does not depend on the data in a Gaussian model, so $\tilde P_i\succeq\Cov(x_t\mid o_{D_i(t)})$.
+
+(d) Here $d=1$, $H_i=1$, $R_i=R$ and $A=F$, and all members start from $\pi_0$. On the complete graph with equal weights $1/n$, every closed neighborhood is the whole group and by (b) the claimed precisions are equal, so after each fusion all members hold the same mean $\bar m_t$, the average of the updated means. With the common gain $K_t=P^-_t/(P^-_t+R)$ of the solitary filter and $\bar o_t=\frac1n\sum_io_{i,t}$,
+\[
+\bar m_t=F\bar m_{t-1}+K_t(\bar o_t-F\bar m_{t-1}),
+\]
+whose error obeys $\tilde e_t=(1-K_t)(F\tilde e_{t-1}-w^x_{t-1})+K_t\bar v_t$ with $\Var\bar v_t=R/n$ and the three terms independent. Hence the mean-square error $M_t=\E\tilde e_t^2$ satisfies $M_t=(1-K_t)^2(F^2M_{t-1}+Q)+K_t^2R/n$. The claimed variance follows $P_t=f(P_{t-1})$ with $f(P)=R(F^2P+Q)/(F^2P+Q+R)$. For $Q>0$ the map $f$ is nondecreasing and concave on $P\ge0$, with $f(0)>0$ and $f<R$, so $f(P)-P$ is concave, positive at $0$ and negative for $P\ge R$, and has exactly one zero $P_{\mathrm{loc}}>0$. If $P<P_{\mathrm{loc}}$ then $P<f(P)\le f(P_{\mathrm{loc}})=P_{\mathrm{loc}}$, and if $P>P_{\mathrm{loc}}$ then $P_{\mathrm{loc}}\le f(P)<P$, so the iterates are monotone and bounded and converge to the only fixed point. Therefore $P_t\to P_{\mathrm{loc}}$, $P^-_t\to P^-=F^2P_{\mathrm{loc}}+Q$ and $K_t\to K=P^-/(P^-+R)=P_{\mathrm{loc}}/R$, the last equality because $P_{\mathrm{loc}}=P^-R/(P^-+R)$. At the fixed point $P_{\mathrm{loc}}=(1-K)P^-$, so $P^-=F^2(1-K)P^-+Q$, hence $1-F^2(1-K)=Q/P^->0$ and, since $0<1-K<1$, $a=F^2(1-K)^2<1$. The recursion for $M_t$ is affine with coefficients that converge to $a<1$ and to $b=(1-K)^2Q+K^2R/n$, so $M_t\to b/(1-a)$, the stated value.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:prv-turnover}]
+Since $Q_x=0$ and $A=I$ the state is one vector $x$, all observations are independent given $x$, and the posterior pair given any set of observations and summaries of distinct observations is the prior pair plus the sum of their items. The summary $y=S_io$ of an observation $o=H_ix+v$ is an observation with sensing matrix $S_iH_i$ and noise covariance $S_iR_iS_i^\top\succ0$, so its item has precision $\Lambda^S_i$. Also
+\[
+\Lambda^{\mathrm o}_i-\Lambda^S_i=H_i^\top R_i^{-1/2}(I-\mathsf P)R_i^{-1/2}H_i\succeq0,\qquad\mathsf P=R_i^{1/2}S_i^\top(S_iR_iS_i^\top)^{-1}S_iR_i^{1/2},
+\]
+because $\mathsf P$ is symmetric with $\mathsf P^2=\mathsf P$, an orthogonal projector. Equality holds when the range of $R_i^{-1/2}H_i$ lies in that of $R_i^{1/2}S_i^\top$, for instance when the rows of $S_i$ span the row space of $H_i^\top R_i^{-1}$, which takes $\rank H_i$ numbers per observation.
+
+(a) Run the protocol of \cref{thm:prv-tree}(a) on the star, with $D_z$ the information set of the record and $C_i=D_i\cap D_z$ that of the link to position $i$. When the occupant leaves, the items of $D_i\setminus D_z$ leave every information set, and the newcomer starts with the empty set. On a star an item of position $i$ reaches another position only through the record, so the items of $D_i\setminus D_z$ lie in no other set and their removal leaves (i) and (ii) intact elsewhere. The predecessor's items that remain in $D_z$ are from then on counted as items whose source is the record. Treated as a new node with $s=c_i=\pi_0$, the newcomer then satisfies the invariants (i) to (iii) of that proof: (i) and (ii) hold because its set is empty, (iii) holds on the link to position $i$ because no item has the newcomer as its source and its set is empty, and (iii) is unchanged on every other link $jz$ because the record and position $i$ lie on the same side of that link. Without the change of source (iii) would fail on the link to position $i$, where the record holds items of the predecessor that the newcomer does not. The read is the report $z\to i$, after which $s_i=s_z$ and $c_i=s_z$; this is the reset, and the induction of \cref{thm:prv-tree}(a) continues from it. Suppose instead that the newcomer copies $s_z=\pi_0+\sum_{D^{\mathrm r}}e$ at the read, with $D^{\mathrm r}$ the record's set at that moment, while the link keeps $c_i=\pi_0+\sum_{C_i}e$ from the predecessor; $C_i\subseteq D^{\mathrm r}$ because the record's set only grows. Let the newcomer then make observations with item set $N$ and report, the record's set having grown to $D_z'\supseteq D^{\mathrm r}$ meanwhile. The rule gives
+\[
+s_z\leftarrow\Bigl(\pi_0+\sum_{D_z'}e\Bigr)+\Bigl(\pi_0+\sum_{D^{\mathrm r}}e+\sum_Ne\Bigr)-\Bigl(\pi_0+\sum_{C_i}e\Bigr)=\pi_0+\sum_{D_z'\cup N}e+\sum_{D^{\mathrm r}\setminus C_i}e,
+\]
+the exact pair plus a second copy of every item of $D^{\mathrm r}\setminus C_i$. If the newcomer does not read and starts from $\pi_0$ while the old link pair is kept, the same computation gives the exact pair minus $\sum_{C_i}e$, an undercount of what the predecessor shared.
+
+(b) The record holds the prior pair and the items of the written summaries, each once, so its pair is the exact posterior pair given what was written, with precision $\Lambda_0+\sum_iN^W_i(t)\Lambda^S_i$, where $N^W_i(t)$ counts the observations of position $i$ up to $t$ that were written. An observation made at step $j$ of a window of $k$ steps is written at the end of the window exactly when its observer is not replaced at the ends of steps $j,\dots,k-1$, an event of probability $(1-g)^{k-j}$. Summing over $j$ and over the $t/k$ windows, $\E N^W_i(t)=\frac tk\sum_{j=1}^k(1-g)^{k-j}=t\rho(g,k)$. As the average of $1,(1-g),\dots,(1-g)^{k-1}$, $\rho$ is nonincreasing in $k$ and in $g$, equals one for $k=1$ and tends to one as $g\to0$.
+
+(c) At a write time $t$, before the replacements of that step, the occupant of position $i$ has made the last $a_i$ observations of the position, holds them raw, and has written them all; the other $N^W_i-a_i$ written observations of the position are known only through their summaries, and the remaining $t-N^W_i$ are known to nobody present. The summaries of the present occupant are functions of its raw observations, so the collective posterior has precision
+\[
+\Lambda_{\mathrm{coll}}(t)=\Lambda_0+\sum_i\bigl[(N^W_i-a_i)\Lambda^S_i+a_i\Lambda^{\mathrm o}_i\bigr]=\Lambda_0+\sum_iN^W_i\Lambda^S_i+\sum_ia_i(\Lambda^{\mathrm o}_i-\Lambda^S_i).
+\]
+The tenure satisfies $a_i(t)=1$ if the position was refilled at the end of step $t-1$ and $a_i(t)=a_i(t-1)+1$ otherwise, so $\E a_i(t)=1+(1-g)\E a_i(t-1)$ with $\E a_i(1)=1$, that is, $\E a_i(t)=(1-(1-g)^t)/g$. Taking expectations gives the formula for $\E\Lambda_{\mathrm{coll}}$. Subtracting from $\Lambda_0+t\sum_i\Lambda^{\mathrm o}_i$ gives the deficit, a sum of positive semidefinite terms since $t\ge N^W_i\ge a_i$. For $\Lambda^{\mathrm o}_i\ne0$ the term of position $i$ vanishes exactly when $N^W_i=t$ and either $a_i=t$ or $\Lambda^S_i=\Lambda^{\mathrm o}_i$. If every leaver writes its unwritten observations on exit, then $N^W_i=t$ and $\rho$ is replaced by one; if in addition summaries are lossless, the deficit is zero for every $g$ and $k$.
+\end{proof}
+
+\begin{remark}[Turnover with process noise]\label{rem:prv-turnover-dynamic}
+For $Q_x\succ0$ and full-rate reports of full pairs, turnover is free under \cref{thm:prv-tree}(b) provided the link pair is reset: a newcomer that reads $s_t$ and whose link pair is set to $s_t$ produces the increment $\Pi(s_t)+e_{i,t+1}-\Pi(s_t)=e_{i,t+1}$ at the next step. For $k>1$ a leaver's unwritten window is lost, and by \cref{thm:prv-window} what a blind exit write must contain to avoid the loss is the window ledger, up to $k\rank H_i$ numbers, and not a pair. The sizes of the loss in \cref{chk:prv-turnover} are numerical.
+\end{remark}
+
+\begin{remark}[Memory accounting]\label{rem:prv-memory}
+The entries of \cref{tab:prv-memory} follow from the statements. A pair is a symmetric $d\times d$ matrix and a $d$-vector, $d(d+3)/2$ numbers. Channel pairs take one pair for each of the $n-1$ links of a tree (\cref{thm:prv-tree}), whatever the number of rounds $T$. An explicit ledger keyed by observation holds up to $nT$ items of $\rank H_i$ numbers each, with their keys, at every node that has heard from everyone; it removes duplicates on any graph and under any schedule, and for $Q_x\succ0$ it is exact because the keys carry the times. Per-source cumulative pairs take $n$ pairs and $n$ counters per node (\cref{prop:prv-clock}), and the ledger keyed by member and time at most $n\max(\operatorname{ecc}(v)-1,1)$ items and $n$ times, or $\operatorname{ecc}(v)$ pairs with a distance table and a buffer of $n-1$ items that wait one round to be forwarded (\cref{prop:prv-ledger}). A blind member that reports every $k$ steps sends $k\rank H_i$ numbers per contact (\cref{thm:prv-window}), a model-aware one $d$ numbers under a synchronous schedule (\cref{prop:prv-aware}). Covariance intersection stores nothing beyond the node pairs (\cref{prop:prv-ci}). Covariance intersection is consistent and, when two members of a closed neighborhood are informative, not exact. Among the schemes of the table the channel pairs are the only one whose storage per link depends on neither $n$ nor $T$, and they are exact only on trees. Every exact scheme for graphs with cycles in this section stores an amount that grows with $n$ or with the diameter, with one exception that is not a scheme for general graphs: the hop-counter rule of \cref{prop:prv-anon}(a) stores one pair and two items, and it is exact on the one ring size it was built for, with one observation per member.
+\end{remark}

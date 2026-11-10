@@ -1,0 +1,183 @@
+% Proofs for the section on recursive formation with inherited dynamics. One proof per statement of ext2_rfm.tex.
+\section{Proofs for \texorpdfstring{Section~\ref{sec:rfm}}{recursive formation}}\label{app:rfm}
+
+\subsection{Proofs for the second formation event}\label{app:rfm-inheritance}
+
+\begin{proof}[Proof of \cref{prop:rfm-inheritance}]
+Work in common world coordinates, in which an exactly translated message from member $j$ reads $m_j+\varepsilon_{ij}$ with $\Cov(\varepsilon_{ij})=R_cI_2$. At the split with $\kappa=n-1$ and $\gamma=\infty$ every member $i$ of $A$ attends all other members of $A$ and nobody else, so by \cref{def:frm-two-group}(v) all members have the same gains, $k^0+k^s+(n-1)\bar k=1$, and
+\begin{equation}\label{eq:rfm-member}
+m_i(t+1)=F\Bigl[k^0m_i+k^ss_i+\bar k\sum_{j\in A\setminus\{i\}}(m_j+\varepsilon_{ij})\Bigr].
+\end{equation}
+(a) Averaging $s_i=\eta+v_i$ over $A$ gives $\bar s_A=\eta+\bar v_A$ with $\Cov(\bar v_A)=(R^s/n)I_2$, and no agent acts on $\eta$. (b) Averaging \eqref{eq:rfm-member} over $i\in A$ and using $\sum_{i}\sum_{j\ne i}m_j=n(n-1)\bar m_A$ gives the stated recursion with $k^0+(n-1)\bar k=1-k^s$ and $\bar\zeta_A=F\bar kn^{-1}\sum_i\sum_{j\ne i}\varepsilon_{ij}$, a sum of $n(n-1)$ independent reads, so $\Cov(\bar\zeta_A)=F^2\bar k^2(n-1)R_c/n\cdot I_2$; reads are independent across rounds and parents. (c) Subtracting $\eta_{t+1}=F\eta_t+w_t$ from (b),
+\begin{gather*}
+e_A(t+1)=\lambda e_A(t)-w_t+\nu_A(t),\qquad\nu_A=Fk^s\bar v_A+\bar\zeta_A,\\
+\Var_1(\nu_A)=\frac{F^2(k^s)^2R^s+F^2\bar k^2(n-1)R_c}{n}=\frac qn.
+\end{gather*}
+Let $b$ and $\xi_A$ be the stationary solutions of $b(t+1)=\lambda b(t)-w_t$ and $\xi_A(t+1)=\lambda\xi_A(t)+\nu_A(t)$. Their sum solves the recursion of $e_A$, which has a unique stationary law because $|\lambda|<1$. The drivers $w$ and $\nu_A$, $A$ ranging over parents, are independent Gaussian sequences, hence so are $b$ and the $\xi_A$, with $\Var_1(b)=Q/(1-\lambda^2)$, $\Var_1(\xi_A)=q/(n(1-\lambda^2))$ and lag-$\tau$ correlation $\lambda^\tau$. With $\psi_{\one}=\lambda^2$ and $\psi_\perp=\lambda_\perp^2$ at $\kappa=n-1$ in \cref{lem:frm-split-law},
+\begin{equation*}
+\frac{\mathsf s_0}{n}+\mathsf s_1=\frac{\mathsf s_0}{n}\Bigl(1+\frac{\lambda^2-\lambda_\perp^2}{1-\lambda^2}\Bigr)=\frac{\mathsf s_0(1-\lambda_\perp^2)}{n(1-\lambda^2)}=\frac{q}{n(1-\lambda^2)}.
+\end{equation*}
+For the deviation $d_i=m_i-\bar m_A$, subtract (b) from \eqref{eq:rfm-member} and use $\sum_{j\ne i}m_j-(n-1)\bar m_A=-d_i$: $d_i(t+1)=F(k^0-\bar k)d_i(t)+\nu_i-\bar\nu$, where $\nu_i$ is the noise of member $i$, of variance $q$ per coordinate and independent across members. The deviation $\nu_i-\bar\nu$ of independent identically distributed Gaussian variables from their mean is independent of the mean and has variance $q(1-1/n)$, which gives the variance $q(1-1/n)/(1-\lambda_\perp^2)=\mathsf s_0(1-1/n)$ and the independence from $(b,\xi_A)$.
+(d) $\mu_i=\mathrm{Rot}(\theta_A)m_i$ for every $i\in A$, and averaging is linear. For distinct frames write $\bar m_c=\bar m+(\bar m_c-\bar m)$ and identify $\mathrm{Rot}(\theta)$ with multiplication by $e^{\mathrm i\theta}$ on $\mathbb C$; then $M^{-1}\sum_c\mathrm{Rot}(\theta_c)=\rho\mathrm{Rot}(\bar\theta)$, and $\rho<1$ by the strict triangle inequality unless all $e^{\mathrm i\theta_c}$ coincide.
+(e) The recursion of $(e_A,\eta)$ has scalar coefficients and isotropic Gaussian noise, so its stationary law is invariant under rotations and reflections and \cref{lem:frm-calibration} applies to the sender state $\bar m_A$ with read noise $R_c^{(2)}$. Its constant is $2\Cov_1(\eta,\bar m_A)=2n^{-1}\sum_{i\in A}\Cov_1(\eta,m_i)=D_{\mathrm{cal}}$, and $\mathrm{MSE}_A=\Var_1(b)+\Var_1(\xi_A)$ by (c).
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:rfm-nested-law}]
+For a member $i$ let $a^{(j)}$ be the average belief of the level-$j$ unit containing $i$, so $a^{(0)}=m_i$. The aggregates of the $n_j-1$ sibling units at level $j$ sum to $n_ja^{(j)}-a^{(j-1)}$, hence in common coordinates
+\begin{equation}\label{eq:rfm-nested-member}
+m_i(t+1)=F\Bigl[k^0m_i+k^s\eta+\sum_{j=1}^{L}k_j\bigl(n_ja^{(j)}-a^{(j-1)}\bigr)\Bigr]+\nu_i,
+\end{equation}
+where $\nu_i$ collects $Fk^sv_i$ and $F$ times the weighted read noises, is independent across members and rounds, and has variance $q$ per coordinate. Average \eqref{eq:rfm-nested-member} over the level-$m$ unit of $i$. For $j\le m$ the averages of $a^{(j)}$ and $a^{(j-1)}$ over that unit both equal $a^{(m)}$, and for $j>m$ they are unchanged, so
+\begin{equation*}
+a^{(m)}(t+1)=F\Bigl[K_ma^{(m)}+k^s\eta+\sum_{j>m}k_j\bigl(n_ja^{(j)}-a^{(j-1)}\bigr)\Bigr]+\bar\nu^{(m)}.
+\end{equation*}
+Subtracting the same identity at $m+1$, the terms $j>m+1$ cancel and the term $j=m+1$ leaves $(K_m-k_{m+1})a^{(m)}-(K_{m+1}-n_{m+1}k_{m+1})a^{(m+1)}$. Since $K_{m+1}-n_{m+1}k_{m+1}=K_m-k_{m+1}$, the difference $\delta^{(m)}=a^{(m)}-a^{(m+1)}$ obeys $\delta^{(m)}(t+1)=\mu_{m+1}\delta^{(m)}(t)+\bar\nu^{(m)}-\bar\nu^{(m+1)}$. At $m=L$ there are no terms $j>L$ and $K_L=1-k^s$, so $e^{(L)}=a^{(L)}-\eta$ obeys $e^{(L)}(t+1)=\lambda e^{(L)}(t)-w_t+\bar\nu^{(L)}$. The gains are positive and sum to one, so $-(1-k^s)\le-k_{m+1}\le K_m-k_{m+1}\le K_m\le1-k^s$ and $|\mu_{m+1}|\le\lambda<F$.
+
+Averages of independent variables over nested sets satisfy $\Cov_1(\bar\nu^{(m)},\bar\nu^{(m')})=q/N_{m'}$ for $m\le m'$. Therefore $\bar\nu^{(m)}-\bar\nu^{(m+1)}$ has variance $q(N_m^{-1}-N_{m+1}^{-1})$, the differences for distinct $m$ are uncorrelated with one another and with $\bar\nu^{(L)}$, and all are independent of $w$. The components $\delta^{(m)},\dots,\delta^{(L-1)},e^{(L)}$ thus follow decoupled stable scalar recursions with mutually uncorrelated white drivers, and their stationary joint covariance is diagonal with entries $q(N_j^{-1}-N_{j+1}^{-1})/(1-\mu_{j+1}^2)$ and $Q/(1-\lambda^2)+q/(N_L(1-\lambda^2))$. Summing over $e^{(m)}=\sum_{j=m}^{L-1}\delta^{(j)}+e^{(L)}$ gives $\mathrm{MSE}_m$. Only $e^{(L)}$ is correlated with $\eta$: $g=\Cov_1(\eta,e^{(L)})$ solves $g=F\lambda g-Q$, so $2\Cov_1(\eta,a^{(m)})=2(P_0-Q/(1-\lambda F))=2QF^2k^s/((1-F^2)(1-\lambda F))$, using $P_0=Q/(1-F^2)$ and $F-\lambda=Fk^s$.
+
+For the self-consistency equations, note three bounds valid for every positive $(\hat P^-,\varpi)$. First $\hat\Lambda^+\ge1/R^s$, so $Q\le F^2/\hat\Lambda^++Q\le Q+F^2R^s$. Second $\mathrm{MSE}_{j-1}\ge Q/(1-\lambda^2)\ge Q$, so $1/(R_c/N_{j-1}+\mathrm{MSE}_{j-1})\le1/Q$. Third, the weights $N_j^{-1}-N_{j+1}^{-1}$ and $N_L^{-1}$ sum to $N_m^{-1}\le1$, the denominators are at least $1-F^2$, and $q\le F^2(R^s+R_c)$ because $k^s\le1$, $k_j\le1$ and $\sum_j(n_j-1)k_j\le1$; hence $\mathrm{MSE}_{j-1}\le P_0+F^2(R^s+R_c)/(1-F^2)$ and $1/(R_c/N_{j-1}+\mathrm{MSE}_{j-1})\ge\varpi_{\min}$. The map $(\hat P^-,\varpi)\mapsto(F^2/\hat\Lambda^++Q,(1/(R_c/N_{j-1}+\mathrm{MSE}_{j-1}))_j)$ is continuous on the box $[Q,Q+F^2R^s]\times[\varpi_{\min},1/Q]^L$, since $1-\mu^2\ge1-F^2$ there, and maps it into itself. Brouwer's fixed-point theorem gives a solution, and the same bounds applied to any solution give $\varpi_{\min}\le\varpi_j\le1/Q$. The calibration equation is \cref{lem:frm-calibration} at $\phi=0$ for the sender state $a^{(j-1)}$, whose law is isotropic as in the proof of \cref{prop:rfm-inheritance}(e).
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:rfm-thresholds}]
+Fix a receiver. Its $2M-1$ senders are $M-1$ near parents, with mismatch in $[0,\vartheta_{\mathrm n}]$, and $M$ far parents, with mismatch $\theta_j\in[\vartheta_{\mathrm f},\vartheta_{\max}]\subset(0,\pi]$. Bias fractions stay in $[0,1]$ under \eqref{eq:frm-meanfield}, the calibrated precision of sender $l$ is $\varpi_l=\varpi(x_l\theta_l)$, the function $\varpi$ is decreasing on $[0,\pi]$, and a set $J$ has value $\mathcal V(J)=(K/2)\log(\Lambda^+(J)/\Lambda)$ with $\Lambda^+(J)=\Lambda+\sum_{l\in J}\varpi_l\le\Lambda+\kappa_2\varpi(0)$ and softmax weight proportional to $e^{\gamma\mathcal V(J)}$.
+
+(a) Let $j$ be far with $x_j\ge\frac12$, and let $J\ni j$. Since $\kappa_2\le M-1$, the set $J$ misses at least one near parent; let $j'$ be the first of them and $J'=(J\setminus\{j\})\cup\{j'\}$. Then $\varpi_{j'}\ge\varpi(\vartheta_{\mathrm n})$ and $\varpi_j\le\varpi(x_j\vartheta_{\mathrm f})\le\varpi(\vartheta_{\mathrm f}/2)<\varpi(\vartheta_{\mathrm n})$, because $\vartheta_{\mathrm n}<\vartheta_{\mathrm f}/2$, so
+\begin{equation*}
+\mathcal V(J')-\mathcal V(J)=\frac K2\log\Bigl(1+\frac{\varpi_{j'}-\varpi_j}{\Lambda^+(J)}\Bigr)\ge\Delta\mathcal V_2(\tfrac12).
+\end{equation*}
+The map $J\mapsto J'$ takes sets containing $j$ to sets not containing $j$ and is at most $\kappa_2$-to-one, since $J$ is recovered from $J'$ and the choice of $j'\in J'$. Summing softmax weights, $p_j\le\kappa_2e^{-\gamma\Delta\mathcal V_2(1/2)}(1-p_j)$, that is, $p_j\le\bar{\mathsf p}_2$. With $1-h=\alpha h\mathsf p^\ast$,
+\begin{equation*}
+\Phi_j(x)-\tfrac12\ge h(1-\alpha\bar{\mathsf p}_2)\tfrac12+1-h-\tfrac12=\tfrac{\alpha h}{2}(\mathsf p^\ast-\bar{\mathsf p}_2),
+\end{equation*}
+which is positive exactly when $\kappa_2e^{-\gamma\Delta\mathcal V_2(1/2)}<\mathsf p^\ast/(1-\mathsf p^\ast)$, that is, when $\gamma>\gamma_S^{(2)}$. The argument used no property of the near edges, so the set where all far edges have $x_j\ge\frac12$ is forward invariant. On it $x_j(t+1)\ge h(1-\alpha\bar{\mathsf p}_2)x_j(t)+1-h$, an increasing affine contraction with fixed point $(1-h)/(1-h+\alpha h\bar{\mathsf p}_2)=\mathsf p^\ast/(\mathsf p^\ast+\bar{\mathsf p}_2)>\frac12$, and comparison gives the lower limit.
+
+(b) Let $\kappa_2=M-1$ and let $c$ be near. A set of $M-1$ senders that misses $c$ is drawn from $M-2$ near and $M$ far parents and therefore contains a far parent, so on the invariant set $1-p_c\le\sum_{j\ \mathrm{far}}p_j\le M\bar{\mathsf p}_2$. Hence $y_c(t+1)\le h(1-\alpha(1-M\bar{\mathsf p}_2))y_c(t)+1-h$, with fixed point $\mathsf p^\ast/(\mathsf p^\ast+1-M\bar{\mathsf p}_2)$, which is below $\frac12$ exactly when $M\bar{\mathsf p}_2<1-\mathsf p^\ast$. Writing $u=\kappa_2e^{-\gamma\Delta\mathcal V_2(1/2)}$, the last condition reads $u<(1-\mathsf p^\ast)/(M-1+\mathsf p^\ast)$, whereas $\gamma>\gamma_S^{(2)}$ reads $u<\mathsf p^\ast/(1-\mathsf p^\ast)$. The second implies the first when $\mathsf p^\ast(M-1+\mathsf p^\ast)\le(1-\mathsf p^\ast)^2$, that is, when $\mathsf p^\ast(M+1)\le1$.
+
+(c) All decoding errors lie in $[0,\vartheta_{\max}]$, so every set has value between $(K/2)\log((\Lambda+\kappa_2\varpi(\vartheta_{\max}))/\Lambda)$ and $(K/2)\log((\Lambda+\kappa_2\varpi(0))/\Lambda)$, and softmax weight at least $e^{-\gamma\Delta}/\binom{2M-1}{\kappa_2}$ with $\Delta$ the denominator of $\gamma_M^{(2)}$ in \eqref{eq:rfm-thresholds}. Each sender lies in $\binom{2M-2}{\kappa_2-1}$ sets, so $p_j\ge\kappa_2e^{-\gamma\Delta}/(2M-1)=:p_{\min}$ for every edge and every state. Then $x_j(t+1)\le h(1-\alpha p_{\min})x_j(t)+1-h$ and $\limsup_tx_j(t)\le\mathsf p^\ast/(\mathsf p^\ast+p_{\min})$, which is below $\frac12$ exactly when $p_{\min}>\mathsf p^\ast$, that is, when $\gamma<\gamma_M^{(2)}$.
+
+For the constants, the receiver's precision before parent messages at the level-1 split is $\hat\Lambda^+=\Lambda_0+(n-1)\varpi_{\mathrm{in}}=\Lambda^{(1)}$, and \cref{prop:rfm-inheritance}(e) gives the calibrated noise of a parent broadcast, hence $\hat\sigma^2$ and $D$. At depth $\ell-1$ the same reading of \cref{lem:rfm-nested-law} gives $\Lambda=\hat\Lambda^+$, $\hat\sigma^2=R_c/N_{\ell-1}+\mathrm{MSE}_{\ell-1}$ and $D=D_{\ell-1}$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:rfm-depth}]
+At a depth-$L$ solution the next event has $\Lambda=\hat\Lambda^+\ge1/R^s+\sum_j(n_j-1)\varpi_j\ge1/R^s+\varpi_{\min}S_L$ by \cref{lem:rfm-nested-law}, $\hat\sigma^2\ge\mathrm{MSE}_L\ge Q/(1-\lambda^2)\ge Q$, and $D=D_L\le2QF^2k^s/(1-F^2)^2$ with $k^s=1/(R^s\Lambda)$, because $1-\lambda F\ge1-F^2$. Since $\log(1+z)\le z$ and $\varpi$ is decreasing on $[0,\pi]$,
+\begin{equation*}
+\Delta\mathcal V_2(\tfrac12)\le\frac K2\frac{\varpi(0)-\varpi(\pi)}{\Lambda}=\frac K2\frac{2D}{\hat\sigma^2(\hat\sigma^2+2D)\Lambda}\le\frac{KD}{Q^2\Lambda}\le\frac{2KF^2}{QR^s(1-F^2)^2\Lambda^2}=\frac{C}{\Lambda^2},
+\end{equation*}
+and in the same way the denominator of $\gamma_M$ is at most $(K/2)\kappa(\varpi(0)-\varpi(\vartheta_{\max}))/\Lambda\le\kappa C/\Lambda^2$. Dividing positive logarithms by these bounds gives \eqref{eq:rfm-depth}.
+
+For the errors, $\lambda^2\ge F^2(1-2k^s)$ gives $1-\lambda^2\le(1-F^2)(1+2F^2k^s/(1-F^2))$, hence $\mathrm{MSE}_m\ge Q/(1-\lambda^2)\ge P_0(1-2F^2k^s/(1-F^2))$. In \eqref{eq:rfm-nested-mse} the first term is below $P_0$ and the remaining weights sum to $N_m^{-1}\le1$ over denominators at least $1-F^2$, hence $\mathrm{MSE}_m\le P_0+q/(1-F^2)$. The bound on $k^s=1/(R^s\hat\Lambda^+)$ is the bound on $\Lambda$. Finally $k_j=\varpi_jR^sk^s\le R^sk^s/Q$ and $\sum_j(n_j-1)k_j\le1$ give $\sum_jk_j^2(n_j-1)R_c/N_{j-1}\le R^sk^sR_c/Q$, and $(k^s)^2R^s\le k^sR^s$, so $q\le F^2k^sR^s(1+R_c/Q)$.
+
+Since $S_L\ge L$, these bounds give $k^s\to0$ along any sequence of solutions with $S_L\to\infty$, so no accumulation point has $k^s>0$; then $1/\hat\Lambda^+=R^sk^s\to0$, $D_L\to0$, $\Delta\mathcal V_2\le C/\Lambda^2\to0$, $q\to0$ and $\mathrm{MSE}_m\to P_0$. For the last claim take $M=n_\ell\le n_{\max}$ and $\kappa_\ell=n_\ell-1$. Then $\kappa_\ell/((2M-1)\mathsf p^\ast)\ge1/(3\mathsf p^\ast)>1$, and \eqref{eq:rfm-depth} with $\Lambda\ge\varpi_{\min}(\ell-1)$ gives $\gamma_M^{(\ell)}\ge\varpi_{\min}^2(\ell-1)^2\log(1/(3\mathsf p^\ast))/(C(n_{\max}-1))$, which exceeds any fixed $\gamma$ for all but finitely many $\ell$; at those levels \cref{thm:rfm-thresholds}(c) applies.
+\end{proof}
+
+\subsection{Proofs for the obstructions and the agency tests}\label{app:rfm-obstructions}
+
+Throughout, $\mathrm{Var}_1$ and $\mathrm{Cov}_1$ denote variance and covariance per coordinate, rotations of the plane are identified with unit complex numbers, and $\xi_i$ is the part of the error $e_i=m_i-\eta=b+\xi_i$ that is independent of the world.
+
+\begin{proof}[Proof of \cref{lem:rfm-coherence}]
+Write $m_i=\bar m+d_i$ with $\bar m=n^{-1}\sum_im_i$. Since $n^{-1}\sum_i\mathrm{Rot}(\theta_i)=\rho\mathrm{Rot}(\bar\theta)$, the aggregate is $\bar\mu_c=\rho\mathrm{Rot}(\bar\theta)\bar m+n^{-1}\sum_i\mathrm{Rot}(\theta_i)d_i$, and a translation that errs by $\phi$ returns
+\begin{equation}\label{eq:rfm-coh-read}
+X=\rho\mathrm{Rot}(\phi)\bar m+\frac1n\sum_i\mathrm{Rot}(\phi+\theta_i-\bar\theta)d_i,
+\end{equation}
+plus read noise of variance $R_c^{(2)}$ per coordinate, independent of everything else. C1g sets the calibrated noise to $R_c^{(2)}+\E\|X-\eta\|^2/K$.
+
+At the split of \cref{lem:frm-split-law} the errors are $e_i=b+\xi_i$ with $\xi_{t+1}=W\xi_t+\zeta_t$, where $W=F[k^0I+k_1(\one\one^\top-I)]$ is symmetric and $\Cov(\zeta_t)=qI$ per coordinate. Hence $\Cov_1(\xi)=q(I-W^2)^{-1}$ commutes with $\one\one^\top/n$, and $d=(I-\one\one^\top/n)\xi$ has $\Cov_1(d_i,d_j)=\mathsf s_0(\delta_{ij}-1/n)$ with $\mathsf s_0=q/(1-\mu_1^2)$ the constant of \cref{lem:frm-split-law}, is uncorrelated with $\bar\xi$, and is independent of $b$ and $\eta$. The two terms of \eqref{eq:rfm-coh-read} are therefore uncorrelated and the second is uncorrelated with $\eta$. Because the coordinates are isotropic, $\E[d_i^\top\mathrm{Rot}(\beta)d_j]=2\cos\beta\Cov_1(d_i,d_j)$, so the second term has variance per coordinate
+\begin{equation*}
+\frac{\mathsf s_0}{n^2}\sum_{i,j}\cos(\theta_i-\theta_j)\Bigl(\delta_{ij}-\frac1n\Bigr)=\frac{\mathsf s_0}{n^2}\bigl(n-n\rho^2\bigr)=\frac{\mathsf s_0(1-\rho^2)}n,
+\end{equation*}
+by $\sum_{i,j}\cos(\theta_i-\theta_j)=|\sum_ie^{\mathrm i\theta_i}|^2=n^2\rho^2$. For the first term, $\Cov_1(\eta,\bar m)=\Cov_1(\eta,m_i)=D_{\mathrm{cal}}/2$ and $\mathrm{MSE}_A=\mathrm{Var}_1(\bar m)+P_0-D_{\mathrm{cal}}$, so
+\begin{equation*}
+\frac1K\E\|\rho\mathrm{Rot}(\phi)\bar m-\eta\|^2=\rho^2\bigl(\mathrm{MSE}_A-P_0+D_{\mathrm{cal}}\bigr)+P_0-\rho D_{\mathrm{cal}}\cos\phi.
+\end{equation*}
+Adding the three contributions and writing $-\rho D_{\mathrm{cal}}\cos\phi=-\rho D_{\mathrm{cal}}+\rho D_{\mathrm{cal}}(1-\cos\phi)$ gives \eqref{eq:rfm-coherence}. At $\rho=1$ the constant is $R_c^{(2)}+\mathrm{MSE}_A$; at $\rho=0$ the term in $\phi$ is absent. For the lower bound, $X$ at round $t$ is a function of data up to round $t-1$, and $\eta_t=F\eta_{t-1}+w_{t-1}$ with $w_{t-1}$ independent of those data, so $\E\|X-\eta_t\|^2\ge\E\|w_{t-1}\|^2=KQ$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:rfm-obstruction}]
+Write $\varpi_0=1/\hat\sigma_\rho^2$, $\varpi_{\mathrm m}=1/\hat\sigma^2_\rho(\vartheta_{\max})$ and $\Delta=\rho D(1-\cos\vartheta_{\max})$. Translation errors lie in $[0,\vartheta_{\max}]\subset[0,\pi]$, where the cosine decreases, so every parent edge has $\varpi_{\mathrm m}\le\varpi_c\le\varpi_0$ at every state, and every $\kappa_2$-set $J$ has $\Lambda+\kappa_2\varpi_{\mathrm m}\le\hat\Lambda^+(J)\le\Lambda+\kappa_2\varpi_0$. The values of two sets therefore differ by at most
+\begin{equation}\label{eq:rfm-span}
+\Delta\mathcal V^{(2)}_{\max}=\frac K2\log\frac{\Lambda+\kappa_2\varpi_0}{\Lambda+\kappa_2\varpi_{\mathrm m}}\le\frac{K\kappa_2(\varpi_0-\varpi_{\mathrm m})}{2\Lambda}=\frac{K\kappa_2\Delta}{2\hat\sigma_\rho^2\hat\sigma^2_\rho(\vartheta_{\max})\Lambda}=B_2,
+\end{equation}
+by $\log(1+u)\le u$ and $\varpi_0-\varpi_{\mathrm m}=\Delta/(\hat\sigma^2_\rho\hat\sigma_\rho^2(\vartheta_{\max}))$.
+
+(a) Of the $\binom{2M-1}{\kappa_2}$ sets, $\binom{2M-2}{\kappa_2-1}$ contain a given parent $c$. Bounding the weights of these from below by the least weight and all weights from above by the greatest,
+\begin{equation*}
+\mathsf p_c=\frac{\sum_{J\ni c}e^{\gamma\mathcal V(J)}}{\sum_Je^{\gamma\mathcal V(J)}}\ge\frac{\kappa_2}{2M-1}e^{-\gamma\Delta\mathcal V^{(2)}_{\max}}\ge\frac{\kappa_2}{2M-1}e^{-\gamma B_2}=:\underline{\mathsf p}.
+\end{equation*}
+The map \eqref{eq:frm-meanfield} is $x_c\mapsto h(1-\alpha\mathsf p_c)x_c+1-h$ and decreases in $\mathsf p_c$, so $x_c(t+1)\le h(1-\alpha\underline{\mathsf p})x_c(t)+1-h$ along every orbit and $\limsup_tx_c(t)\le(1-h)/(1-h+\alpha h\underline{\mathsf p})=\mathsf p^\ast/(\mathsf p^\ast+\underline{\mathsf p})$. This is below $\frac12$ exactly when $\underline{\mathsf p}>\mathsf p^\ast$, that is, when $\gamma B_2<\ell_2$. The threshold of \cref{thm:rfm-thresholds}(c) is $\gamma_M^{(2)}=\ell_2/\Delta\mathcal V^{(2)}_{\max}$, and \eqref{eq:rfm-span} gives $\gamma_M^{(2)}\ge\ell_2/B_2$.
+
+(b) If $\Delta=0$ then $\varpi_c=\varpi_0$ on every edge at every state, $\mathcal V$ is constant on $\kappa_2$-sets, and the attention law is uniform for every finite $\gamma$ and, with ties broken uniformly, at $\gamma=\infty$. Then $\mathsf p_c=\kappa_2/(2M-1)$ for every edge, the coordinates of the map decouple, and each is an affine contraction with slope $h(1-\alpha\mathsf p_c)\in[0,1)$ and fixed point $\mathsf p^\ast/(\mathsf p^\ast+\kappa_2/(2M-1))$.
+
+(c) By \cref{lem:rfm-coherence}, $\hat\sigma_\rho^2(\vartheta_{\max})\ge\hat\sigma^2_\rho\ge Q$. The inherited coefficient is $D=D_{\mathrm{cal}}=2QF^2k^s/((1-F^2)(1-\lambda F))$ with $k^s=1/(R^s\Lambda)$ and $\lambda=F(1-k^s)\le F$, so $D\le2QF^2/((1-F^2)^2R^s\Lambda)$ and
+\begin{equation*}
+B_2\le\frac{K\kappa_2\rho(1-\cos\vartheta_{\max})}{2Q^2\Lambda}\cdot\frac{2QF^2}{(1-F^2)^2R^s\Lambda}=\frac{\rho C\kappa_2(1-\cos\vartheta_{\max})}{2\Lambda^2}.
+\end{equation*}
+The base precision is $\Lambda=\Lambda^{(1)}=1/\hat P^-+1/R^s+(n-1)\varpi_{\mathrm{in}}\ge1/R^s+(n-1)\varpi_{\min}$ by \cref{lem:rfm-nested-law}. For $\ell_2>0$ the stated inequality gives $\gamma B_2\le\gamma\rho C\kappa_2(1-\cos\vartheta_{\max})/(2\Lambda^2)<\ell_2$, and (a) applies; for $\ell_2\le0$ the hypothesis $\gamma B_2<\ell_2$ of (a) cannot hold.
+
+(d) A reader has $M-1$ near parents and $M$ far ones, so a set of $\kappa_2\ge M$ parents contains at least $\kappa_2-M+1$ far parents and $\sum_{c\ \mathrm{far}}\mathsf p_c\ge\kappa_2-M+1$ at every state and every $\gamma$. Some far edge then has $\mathsf p_c\ge(\kappa_2-M+1)/M$. At a fixed point $x_c=\mathsf p^\ast/(\mathsf p^\ast+\mathsf p_c)$, which is below $\frac12$ when $\mathsf p_c>\mathsf p^\ast$; hence that edge is learned whenever $\mathsf p^\ast<(\kappa_2-M+1)/M$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:rfm-replacement}]
+Order the $nM$ members of $S$ by parent, let $P_B$ be the orthogonal projector onto vectors constant on parents and $P_J=\one\one^\top/(nM)$. At the depth-2 split a member gives weight $Fk^0$ to itself, $Fk_1$ to each of its $n-1$ parent mates and $Fk_2/n$ to each member of the $M-1$ other parents of $S$, and nothing to the other superunit. The member matrix is therefore symmetric with nonnegative entries and
+\begin{equation*}
+W=\mu_1(I-P_B)+\mu_2(P_B-P_J)+\lambda P_J,\qquad\mu_1=F(k^0-k_1),\quad\mu_2=F(k^0+(n-1)k_1-k_2),
+\end{equation*}
+with $\lambda=F(k^0+(n-1)k_1+(M-1)k_2)=F(1-k^s)$, in agreement with \cref{lem:rfm-nested-law}. The world-independent parts obey $\xi_{t+1}=W\xi_t+\zeta_t$ with $\Cov_1(\zeta_t)=qI$, since each member adds its own sensing and read noises. As $W$ is symmetric with spectrum in $(-1,1)$, the stationary covariance is $\Sigma^c=q\sum_{k\ge0}W^{2k}=q(I-W^2)^{-1}$, and $\Pi=(I-W^2)/q$. Its off-diagonal entries are $-(W^2)_{ij}/q\le0$ because $W$ is entrywise nonnegative, so $\Pi$ is diffusive, and $\Pi\one=(1-\lambda^2)\one/q$ gives the uniform leak $\varepsilon=(1-\lambda^2)/q$.
+
+No coupling leaves $S$, so $\cut(S)=0$ and $r(S)=(\varepsilon+\lambda_2(L_S))/\varepsilon$ with $L_S=\Pi-\varepsilon I$. On the two nonconstant eigenspaces $L_S$ equals $(\lambda^2-\mu_2^2)/q$ and $(\lambda^2-\mu_1^2)/q$, both nonnegative because $L_S$ is a Laplacian, so $\lambda_2(L_S)=(\lambda^2-\max\{\mu_1^2,\mu_2^2\})/q$ and the first formula of \eqref{eq:rfm-replacement} follows.
+
+For a parent $c$, the entries of $W^2=\mu_1^2(I-P_B)+\mu_2^2(P_B-P_J)+\lambda^2P_J$ are $w_{\mathrm{in}}=(\mu_2^2-\mu_1^2)/n+(\lambda^2-\mu_2^2)/(nM)$ between distinct members of $c$ and $w_{\mathrm x}=(\lambda^2-\mu_2^2)/(nM)$ between members of different parents. The Laplacian of $c$ is $(w_{\mathrm{in}}/q)(nI-\one\one^\top)$ with $\lambda_2=nw_{\mathrm{in}}/q$, and $\cut(c)/|c|=(M-1)nw_{\mathrm x}/q$. Inserting these and multiplying by $q$ gives the second formula. Its numerator equals $1-\mu_1^2-(M-1)(\lambda^2-\mu_2^2)/M\le1-\mu_1^2$, and its denominator equals $[(1-\lambda^2)+(M-1)(1-\mu_2^2)]/M\ge(M-1)(1-\mu_2^2)/M$, which is the stated bound.
+
+For the parent aggregates, with $A$ the $M\times nM$ averaging matrix, $A\Sigma^cA^\top=(q/n)[(1-\mu_2^2)^{-1}(I-\one\one^\top/M)+(1-\lambda^2)^{-1}\one\one^\top/M]$, whose inverse has leak $n(1-\lambda^2)/q$ and Laplacian eigenvalue $n(\lambda^2-\mu_2^2)/q$; the ratio is $(1-\mu_2^2)/(1-\lambda^2)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:rfm-null}]
+(a) A reader that knows the mistranslation $\phi$ of a read applies $\mathrm{Rot}(-\phi)$ to the translated message. The result is $\bar m_c$ plus the rotated read noise, which is isotropic and so has the law of the unrotated noise. C1g on the current law then gives $R_c^{(2)}+\E\|\bar m_c-\eta\|^2/K=R_c^{(2)}+\mathrm{MSE}_c(t)$, with no dependence on the reader.
+
+(b) Let $G$ be the group generated by permutations of the $2M$ parents and of the members inside each parent, and suppose the law at round $t$ is $G$-invariant with $e_i=b+\xi_i$, $\xi$ independent of the world. Invariance gives a common $\mathrm{MSE}_c(t)$ and common member quantities, hence by (a) one assigned precision $\varpi_2(t)$ for every aggregate read, one $\varpi_1(t)$ inside parents and one prior variance $\hat P^-(t)$. Every $\kappa_2$-set has the value $\frac K2\log((\Lambda+\kappa_2\varpi_2)/\Lambda_0)$, so attention is uniform on $\kappa_2$-sets for every $\gamma\in[0,\infty]$, with ties broken uniformly, and it is independent of the state. The gains $k^0,k^s,k_1,k_2$ are common and do not depend on the attended set, and they sum to one with multiplicities $1,1,n-1,\kappa_2$. Therefore
+\begin{equation*}
+e_i(t+1)=F\Bigl[k^0e_i+k^sv_i+k_1\sum_{j\sim i}(e_j+\nu_{ij})+k_2\sum_{c\in J_i}(\bar e_c+\nu_{ic})\Bigr]-w_t=\lambda b_t-w_t+\xi_i(t+1),
+\end{equation*}
+with $\lambda=F(1-k^s)$ and $\xi(t+1)=W_t\xi(t)+\zeta_t$, where $W_t$ is the random nonnegative matrix of the drawn sets and $\zeta_t$ collects the sensing and read noises. The law of $(W_t,\zeta_t)$ is $G$-invariant and independent of the world and of the past, so the law at round $t+1$ is $G$-invariant with the same decomposition. Induction from the start gives the first three claims.
+
+The covariance $\Sigma_t=\Cov_1(\xi(t))$, averaged over attention draws, obeys $\Sigma_{t+1}=\E[W_t\Sigma_tW_t^\top]+q_tI$. The rows of $W_t$ are nonnegative and sum to $\lambda<1$, so this linear map contracts the entrywise maximum by $\lambda^2$; at fixed gains it has a unique fixed point, which is the limit from $\Sigma=0$ and is therefore entrywise nonnegative. The covariance of the parent aggregates commutes with all permutations of the parents and so equals $g_0I+g_1\one\one^\top$, with $g_0>0$ and, at stationarity, $g_1\ge0$. Its inverse is $g_0^{-1}[I-g_1\one\one^\top/(g_0+2Mg_1)]$: the row sums are $\varepsilon=1/(g_0+2Mg_1)$ and the off-diagonal entries are $-a$ with $a=g_1\varepsilon/g_0\ge0$, so the precision is diffusive with uniform leak. A union $C$ of $m\ge2$ parents has $L_C=a(mI-\one\one^\top)$, $\lambda_2(L_C)=ma$ and $\cut(C)/|C|=(2M-m)a$, which gives the stated contrast and the value $1$ at $m=M$. Every partition into two unions of $M$ parents has both blocks at contrast $1$, and \cref{def:col-collective} requires $r_0>1$ under a uniform leak, so no such partition is selected.
+
+(c) Transitivity of $H$ on the agents gives a common member mean-square error, a common $\hat P^-(t)$ and, since $H$ maps parents to parents and is transitive on them, a common $\mathrm{MSE}_c(t)$. The induction of (b) used invariance only through these facts, and the update with common gains and uniform attention commutes with every element of $G\supseteq H$, so the law stays $H$-invariant with the same decomposition and the first three claims follow. Let $P_g$ be the permutation matrix of $g\in G$ and $\bar\Sigma_t=|G|^{-1}\sum_{g\in G}P_g\Sigma_tP_g^\top$. The matrix $P_gW_tP_g^\top$ has the law of $W_t$, so averaging the recursion $\Sigma_{t+1}=\E[W_t\Sigma_tW_t^\top]+q_tI$ over $G$ gives $\bar\Sigma_{t+1}=\E[W_t\bar\Sigma_tW_t^\top]+q_tI$ with the same gains, and
+\begin{equation*}
+\Sigma_{t+1}-\bar\Sigma_{t+1}=\E\bigl[W_t(\Sigma_t-\bar\Sigma_t)W_t^\top\bigr].
+\end{equation*}
+The rows of $W_t$ are nonnegative and sum to $\lambda_t=F(1-k^s_t)\le F$, so the entrywise maximum of the difference contracts by $F^2$ in each round. At a stationary law the difference is constant in $t$ and hence zero, so the covariance is $G$-invariant and the remaining claims of (b) apply to it. The depth-2 split is invariant under the permutations of the members inside each parent, of the parents inside each superunit and of the two superunits, which generate a group that maps parents to parents and is transitive on the agents, and its errors have the form $b+\xi_i$ with a common $b$ by \cref{lem:rfm-nested-law}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:rfm-representation}]
+(a) With a default, retention reads $\hat\alpha_{cd}\leftarrow\hat\alpha^0_{cd}+h(\hat\alpha_{cd}-\hat\alpha^0_{cd})$. Put $u_{cd}=\hat\alpha_{cd}-\hat\alpha^0_{cd}$ and let $\vartheta^{0}_{cd}=\alpha^\star_{cd}-\hat\alpha^0_{cd}$ be the signed default error, where $\alpha^\star_{cd}$ is the frame difference. The two steps of \cref{def:frm-two-group}(vi) become $u\leftarrow u+\alpha(\vartheta^0+\nu^\alpha-u)$ on attended rounds and $u\leftarrow hu$ every round. A translated read is $\mathrm{Rot}(\phi)\bar m_d$ plus isotropic noise with $\phi=u-\vartheta^0$ (\cref{eq:frm-error}), and the calibrated noise depends on the frames through $\cos\phi$ only. Beliefs, attention and the variables $u$ thus evolve by a law in which the frames and the default enter only through $\vartheta^0$. The substitution $\theta_c\mapsto\theta_c+\delta_c$ shifts $\alpha^\star_{cd}$ by the same amount as the stated shift of $\hat\alpha^0_{cd}$, so it fixes $\vartheta^0$; with the estimates shifted alike it fixes $u$, and the law is unchanged. The map \eqref{eq:frm-meanfield} with frozen calibration involves the errors through the precisions $\varpi(x_c|\vartheta^0_c|)$ only, which are even in the error, so the map and its thresholds depend on the moduli $|\vartheta^0_{cd}|$. A reflection of the plane maps the model with errors $\vartheta^0$ to the model with errors $-\vartheta^0$ and preserves second moments, which are therefore unchanged when all errors change sign together. The relative signs are not removed: a reader that fuses two reads with errors $\phi_1,\phi_2$ at a common gain $k$ has in its error the term $k(\mathrm{Rot}(\phi_1)+\mathrm{Rot}(\phi_2)-2I)\eta$, whose mean square per coordinate is $2k^2P_0[3-2\cos\phi_1-2\cos\phi_2+\cos(\phi_1-\phi_2)]$ and differs between $\phi_2=\phi_1$ and $\phi_2=-\phi_1$ (\cref{chk:rfm-recheck}).
+
+(b) With $\hat\alpha^0=0$, $\vartheta^0_{cd}$ is the frame difference, and the substitution $\delta_c=-\theta_c$ sets every frame difference to zero. Then $\vartheta_{\max}=0$ and \cref{thm:rfm-obstruction}(b) applies at every $\gamma$, while the original population may satisfy the hypotheses of \cref{thm:rfm-thresholds}(a) and (b).
+
+(c) The closure defect is a conditional mutual information and is invariant under a bijection of the coarse variable; the contrast is computed from the world-conditional precision of the members and does not involve the coarse map. If the aggregate is sent as $\rho'\mathrm{Rot}(\delta)\bar\mu_c$ and the reader translates as before, the read is $\rho'\mathrm{Rot}(\phi+\delta)\bar m_c$ plus noise, and the computation in the proof of \cref{lem:rfm-coherence}, with $\rho'$ for $\rho$ and no deviation term, gives the calibrated noise $R_c^{(2)}+\rho'^2(\mathrm{MSE}_A-P_0+D)+P_0-\rho'D+\rho'D(1-\cos(\phi+\delta))$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:rfm-turnover}]
+(a) Record the bias fraction $x_c$ of an edge after the replacement step, which is the state that enters attention and fusion. Given the attention probability $\mathsf p_c$, learning and retention take the mean to $h(1-\alpha\mathsf p_c)x_c+1-h$. The reader is then replaced with probability $g$ and the estimate reset with conditional probability $1-f_\alpha$; the declared start has $x=1$, so the mean after replacement is
+\begin{equation*}
+(1-\hat g)\bigl[h(1-\alpha\mathsf p_c)x_c+1-h\bigr]+\hat g=h_g(1-\alpha\mathsf p_c)x_c+1-h_g,
+\end{equation*}
+which is \eqref{eq:frm-meanfield} with $h_g$ for $h$. The proofs of \cref{thm:rfm-thresholds,thm:rfm-obstruction} use the map only through its form, so they hold with $\mathsf p^\ast(g)=(1-h_g)/(\alpha h_g)$, which increases as $h_g$ decreases. Since $\mathsf p_c\le1$, every orbit has $x_c(t+1)\ge h_g(1-\alpha)x_c(t)+1-h_g$ and $\liminf_tx_c(t)\ge\mathsf p^\ast(g)/(\mathsf p^\ast(g)+1)$, which is at least $\frac12$ exactly when $\mathsf p^\ast(g)\ge1$, that is, $h_g\le1/(1+\alpha)$, that is, $\hat g\ge g_c$.
+
+(b) Let $m^+$ denote the memories after replacement. Given the state before it, $\E[m_i^+]=(1-g)m_i+gf\bar m_{c(i)}$, so $\E[\bar m_S^+]=(1-g(1-f))\bar m_S$. The member matrix of the split is symmetric (proof of \cref{prop:rfm-replacement}), so its column sums equal its row sums and, pathwise,
+\begin{equation*}
+\bar m_S(t+1)=F\bigl[(1-k^s)\bar m_S^+(t)+k^s\bar s_S(t)\bigr]+\bar\zeta_t,
+\end{equation*}
+with $\bar\zeta_t$ the average read noise. Hence $y_t=\bar m_S(t)$ obeys $y_{t+1}=\lambda_gy_t+Fk^s\bar s_S(t)+\chi_t$, where $\chi_t=F(1-k^s)(\bar m_S^+-\E[\bar m_S^+\mid\text{state}])+\bar\zeta_t$ has zero mean given the state and the inputs up to round $t$ and finite variance. Split $y=y^{s}+y^{\chi}$ into the linear response to the input path and $y^\chi_{t+1}=\lambda_gy^\chi_t+\chi_t$. Since $y^\chi_t$ is a function of $\chi_u$, $u<t$, the martingale-difference property gives $\E[\chi_{t+k}y^\chi_t]=0$ for $k\ge0$, so $\Cov(y^\chi_{t+\tau},y^\chi_t)=\lambda_g^\tau\mathrm{Var}(y^\chi_t)$, and at stationarity the autocorrelation is $\lambda_g^\tau$. A member present at round $t$ is still present at $t+\tau$ with probability $(1-g)^\tau$. Finally $\lambda(1-g(1-f))>1-g$ rearranges to $g(1-\lambda(1-f))>1-\lambda$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:rfm-verdict}]
+(i) By the proof of \cref{prop:rfm-turnover}(b) at $g=0$, $y_{t+1}=\lambda y_t+Fk^s\bar s_S(t)+\bar\zeta_t$, with $\bar\zeta_t$ Gaussian and independent of the state, the inputs and the past. Given $y_t$ and the blanket state, $y_{t+1}$ is independent of the member state, so the conditional mutual information that defines the closure defect is zero. The innovation $y_{t+1}-\lambda y_t-Fk^s\bar s_S(t)=\bar\zeta_t$ is the average read noise of round $t$, independent of $y_{0:t}$ and of the whole input path, because the sensors read the autonomous world and no member. Hence $I(y_{t+1};y_{0:t-1}\mid y_t,\bar s_{S,0:t})=0$ for every $t$, and the argument uses no property of the initial law of the members. When that law is Gaussian and independent of the world and of the sensor noise, the input path is independent of the initial state and of the read noise, the proviso of \cref{def:agy-closure}(i) holds, and the supremum over $t$, which is zero, is the Markov defect of that definition in its input-conditional form. In the stationary state the input path is correlated with the initial member state through the world, so the proviso is not met and the claim is the vanishing of the conditional mutual information only; the defect of the law of $y$ without conditioning on the input is not computed and is not claimed.
+
+(ii) The sensors are memoryless readers of $\eta$ with independent noises and read no interior variable, which is (S); the world is autonomous, so the exterior reads no member and (a2) holds with $\mathsf L_{\mathrm E}=0$, and the abstract physics is the world's own with $\bar F=F$ and $\rho(F)<1$, so the pair $(\bar F,\Lambda^s)$ is detectable, as (H-phys) requires. The members fuse with the level-0 gains of \cref{def:frm-two-group}(v) and not with the consensus filter at the steady-state covariances of the pooled model $(F,Q,R^s/(nM))$: the protocol of (H-prot) is absent by construction. Its conclusion fails as well at the base point, where the coarse recursion weighs the pooled observation with $k^s=0.026$ against the pooled filter's $0.379$ (\cref{chk:rfm-turnover}). With (H-prot) false the theorem is not applicable, and no conclusion of it is used; the closure of the coarse state is the direct statement (i).
+
+(iii) The model of \cref{def:rfm-nested} has no acts and no decision states.
+
+(iv) Under uniform partner draws redrawn every round, $\mathsf p_c=\kappa_2/(2M-1)$ on every edge at every state, and the argument of \cref{thm:rfm-obstruction}(b) gives one globally attracting fixed point with equal bias on all parent edges. At $\gamma=0$ the attention weights of \cref{def:rfm-nested} are uniform, which is the same draw. With partners drawn once and kept, the attendance of an edge is $0$ or $1$ for all time and the map is a different one, which this argument does not treat.
+
+(v) By \cref{prop:rfm-null}(b), and by (c) for stationary laws with the symmetry of the split, each superunit has contrast $1$ under the translation-aware null, below every admissible level $r_0>1$; the partition into superunits does not persist with blocks at $r\ge r_0$, which is what a null of type S requires in \cref{tab:agy-nulls}. The grade of \cref{def:agy-meta-agent} requires survival of every null of type S, which gives the final statement.
+\end{proof}

@@ -1,0 +1,275 @@
+\section{Formation}\label{sec:frm}
+% src: B2 (whole note); L3-P15, L3-P16, L3-C1, L3-T4 as extended by B2-L1; L2-O3; L7-D4 and B4-D4; C2-4, C2-5; decisions 7, 11, 12
+
+The preceding sections say what a collective is and how it is tested (\cref{sec:col,sec:agy}), but not that communicating agents arrive at one by themselves. This section takes up the formation half of hypothesis H3, the author's idea that coherent message passing is part of how meta-agents form: calibrated precision, scarce attention and grounded learning of translations should sort a population into collectives whose boundaries lie where translations are inconsistent. After stating what a formation result must show, we summarize two mechanisms, treated in the Supplement, and follow the chain in one model, two groups of agents whose private frames differ by a rotation.
+
+The result is partial. In the two-group model at $\gamma=\infty$ with noiseless angle observations, clauses (T1) to (T3) and (T5) of \cref{def:frm-target} are theorems, the contrast clause (T3) at the levels of the window of \cref{thm:frm-split-contrast}(c), which is nonempty at every computed parameter point (Supplement, \cref{obs:frm-grid}); for $\gamma_S<\gamma<\infty$ reachability of the split branch is a theorem about the frozen-calibration mean-field map only; and clause (T4) fails for the translation-aware null of type S, so the model yields no formation result in the sense of \cref{def:frm-target}. \Cref{sec:frm-status} gives the status clause by clause.
+
+\subsection{What a formation result must show}\label{sec:frm-target}
+
+A formation claim links a mechanism inside agents to a structure that a declared selector finds in their joint states, and it must exclude explanations that need no communication. We use the declared-selection clauses of the author's formation standard \citep{dennis2026formation} in the form of the null family of \cref{def:agy-nulls}.
+
+\begin{definition}[Formation result]\label{def:frm-target}
+Let a model of communicating agents have an open parameter set $\mathcal P$ in a Euclidean space and a declared start law, and let collectives be selected as in \cref{def:col-collective}, by contrast on the world-conditional precision at a level $r_0$ declared in advance. A formation result is a nonempty open set $\mathcal O\subseteq\mathcal P$ together with, for each parameter in $\mathcal O$, a set of levels with nonempty interior, each admissible in the sense of \cref{def:col-collective}, such that for every parameter in $\mathcal O$ and every such level $r_0$:
+\begin{enumerate}
+\item[(T1)] calibrated message precision determines which senders each receiver attends;
+\item[(T2)] attention determines the couplings of the level-0 error dynamics (\cref{def:fw-level0});
+\item[(T3)] the couplings determine a diffusive world-conditional precision (\cref{def:col-world-conditional}), and every block of the selected partition is a collective at level $r_0$;
+\item[(T4)] the selected partition differs, in the sense of \cref{def:agy-nulls}, from the one selected under every applicable null of type D, which for the random null $\mathfrak N_{\mathrm{pr}}$ means that the test of \cref{prop:agy-tests}(b) rejects at a declared level $\alpha_{\mathrm{pr}}$ with a declared number $n_{\mathrm{null}}$ of null draws; it is selected again under every null of type S; and its agreement with the explanation nulls is reported;
+\item[(T5)] the stated dynamics converge to the selected configuration from the declared start law.
+\end{enumerate}
+\end{definition}
+% src: B2 Section 0.1 (target (i)-(v) with quantifiers); L2-D13 clauses F2, F5; B4-D4; decision 11
+
+Clauses (T1) to (T3) are the mechanism, (T4) is interaction necessity and (T5) is reachability. The decisive null of type D is partner randomization, which keeps the volume of communication and destroys its arrangement; the null of type S is exact fusion, which removes only the misreading of joint structure (\cref{sec:mis}).
+
+Two facts make formation plausible before a population is modeled; both are treated in the Supplement (\cref{sec:frm-mechanisms}). For codes of full rank, if every learned translation converges, and converges to the true translation on edges attended infinitely often with grounding, then a cycle whose limiting holonomy differs from the identity has an edge attended only finitely often, so the subgraph of edges attended infinitely often is asymptotically flat (\cref{prop:frm-flattening}). In a single-edge mean field at $\gamma=\infty$ attention and learning are bistable: under the conditions stated there the split state and the merged state both attract, and the outcome depends on initial attention (\cref{prop:frm-bistability}).
+
+\subsection{The two-group model}\label{sec:frm-model}
+
+The two-group model is the smallest population we can analyze exactly that adds what a single edge leaves out: edges that compete for one capacity, relayed beliefs, a moving world, and couplings that must produce contrast. Write $\mathrm{Rot}(\phi)$ for the rotation of the plane by the angle $\phi$.
+
+\begin{definition}[The two-group model]\label{def:frm-two-group}
+Time is discrete and $K=2$.
+\begin{enumerate}
+\item[(i)] World: $\eta_{t+1}=F\eta_t+w_t$ with $0<F<1$ and independent $w_t\sim\Ncal(0,QI_2)$, so that $P_0=Q/(1-F^2)$ per coordinate.
+\item[(ii)] Agents and frames: $N=2n$ agents in groups $A=\{1,\dots,n\}$ and $B=\{n+1,\dots,2n\}$. Agent $i$ senses $s_i(t)=\eta_t+v_i(t)$ with $v_i(t)\sim\Ncal(0,R^sI_2)$, holds a predicted mean $m_i(t)$ of $\eta_t$ and encodes it as $\mu_i=U_im_i$ with $U_i=\mathrm{Rot}(\vartheta_i)$, where $\vartheta_i=0$ on $A$ and $\vartheta_i=\vartheta\in(0,\pi]$ on $B$.
+\item[(iii)] Messages: the public code is $T_c=I_2$, so every agent broadcasts $\mu_j(t)$ in full. Receiver $i$ reads $y_{ij}(t)=\mu_j(t)+\nu_{ij}(t)$ with noise $\nu_{ij}(t)\sim\Ncal(0,R_cI_2)$ independent over $(i,j,t)$, and translates it through the learned translation $\Theta_{ij}=\mathrm{Rot}(\hat\alpha_{ij})$ of \cref{def:fw-translation}, with a learned angle $\hat\alpha_{ij}$: $\tilde y_{ij}=U_i^{-1}\Theta_{ij}y_{ij}$. With the true angle $\alpha^\star_{ij}=\vartheta_i-\vartheta_j$ and the translation error $\phi_{ij}=\hat\alpha_{ij}-\alpha^\star_{ij}$, the mistranslation of \cref{def:fw-translation} is $\Upsilon_{ij}=U_i^{-1}\Theta_{ij}U_j=\mathrm{Rot}(\phi_{ij})$, and $\tilde y_{ij}=\mathrm{Rot}(\phi_{ij})m_j+\tilde\nu_{ij}$ with $\tilde\nu_{ij}\sim\Ncal(0,R_cI_2)$.
+\item[(iv)] Attention: each round receiver $i$ draws a set $J_i(t)$ of $\kappa$ senders from $q_i(J)\propto\exp(\gamma\mathcal V^0_i(J))$, independently across receivers and rounds given the slow state, with the believed value $\mathcal V^0_i(J)=\frac K2\log(\hat\Lambda^+_i(J)/\Lambda_0)$ of \cref{def:mis-values}, $\hat\Lambda^+_i(J)=\Lambda_0+\sum_{j\in J}\varpi_{ij}$, $\Lambda_0=1/\hat P^-_i+1/R^s$ and calibrated precisions $\varpi_{ij}=1/\hat\sigma^2_{ij}$; there is no attention cost, habits are uniform (\cref{prop:fw-efe-communication}), and ties at $\gamma=\infty$ are broken uniformly at random.
+\item[(v)] Fusion at level 0 with learned marginal noise: with $J=J_i(t)$, the prior weight $k^0_i=1/(\hat P^-_i\hat\Lambda^+_i(J))$, sensing gain $k^s_i=1/(R^s\hat\Lambda^+_i(J))$ and message gains $k_{ij}=\varpi_{ij}/\hat\Lambda^+_i(J)$ sum to one, $m_i(t+1)=F\bigl[k^0_im_i(t)+k^s_is_i(t)+\sum_{j\in J}k_{ij}\tilde y_{ij}(t)\bigr]$, and $\hat P^-_i\leftarrow F^2/\hat\Lambda^+_i(J)+Q$. Calibration is of class C1g (\cref{def:fw-calibration}), idealized: $\hat\sigma^2_{ij}=\frac1K\E\Vert\tilde y_{ij}(t)-\eta_t\Vert^2$ at the current error $\phi_{ij}$.
+\item[(vi)] Translation learning: on rounds with $j\in J_i(t)$, $\hat\alpha_{ij}\leftarrow\hat\alpha_{ij}+\alpha(\alpha^\star_{ij}+\nu^\alpha_{ij}(t)-\hat\alpha_{ij})$, a grounded observation of the angle with noise $\nu^\alpha_{ij}(t)\sim\Ncal(0,\sigma_\alpha^2)$ and gain $\alpha\in(0,1]$; then, every round, $\hat\alpha_{ij}\leftarrow h\hat\alpha_{ij}$ with retention factor $h\in(0,1)$. The declared start law has $\hat\alpha_{ij}=0$ for every pair: every receiver assumes that every sender shares its frame.
+\end{enumerate}
+\end{definition}
+% src: B2-D1 with its declared I1-I4; renamed f->F, V->R^s, R->R_c, hat theta->hat alpha, theta*->alpha*, epsilon_ij->phi_ij, beta->h, s->sigma_alpha^2, Pi_0->Lambda_0, c->k^0, rhat->hat sigma^2, believed information -> believed value V^0 (def:mis-values)
+
+\begin{figure}[!tp]
+  \centering
+  \input{figures/fig_frm_chain}
+  \caption{\textbf{The two-group model and the formation chain.} (a) Two groups of four agents keep their beliefs in private frames, $U_i=I_2$ on $A$ and $U_i=\mathrm{Rot}(\vartheta)$ on $B$ (drawn at $\vartheta=\pi/2$), and broadcast them in full through one public code. Each receiver translates a message with a learned angle: in-group edges are read exactly, and cross edges carry the translation error $\phi_{ij}=\hat\alpha_{ij}-\alpha^\star_{ij}$, whose modulus is $\vartheta$ at the declared start. (b) The chain, with the clauses (T1) to (T3) of \cref{def:frm-target} on its links. C1g calibration turns the error into extra message noise $D_{\mathrm{cal}}(1-\cos\phi_{ij})$ (\cref{lem:frm-calibration}); attention draws sets of $\kappa$ senders from a softmax at policy precision $\gamma$ over their believed values; translation learning corrects only attended edges while every edge relaxes toward the identity, so attention and learning reinforce each other (\cref{thm:frm-formation}); at the split the attended edges fix the gains of the level-0 errors and with them the leak $\varepsilon^\Pi$ and coupling $a^\Pi$ of the world-conditional precision (\cref{lem:frm-split-law}), which give the contrast of each group (\cref{thm:frm-split-contrast}). Gray numbers are at the base point of \cref{sec:frm-model}: calibrated noise $0.299$ on an in-group edge and $1.540$ on an unlearned cross edge, and contrast $8.73$ against the baseline $7.954$.}
+  \label{fig:frm-chain}
+\end{figure}
+% src: figure supplied with the section; base-point numbers of lem:frm-calibration, thm:frm-split-contrast and chk:frm-baseline
+
+\Cref{fig:frm-chain} shows the model and the chain that the rest of this section follows, from calibration through attention and translation learning to the couplings of the world-conditional precision and the contrast of each group. In the notation of \cref{def:fw-translation}, the translation $\Theta_{ij}=\mathrm{Rot}(\hat\alpha_{ij})$ induces the code model $\hat H_{ij}=T_c\Theta_{ij}^{-1}U_i$, so $\tilde y_{ij}=\hat H_{ij}^{-1}y_{ij}$, and the mistranslation $\Upsilon_{ij}=\mathrm{Rot}(\phi_{ij})=\hat H_{ij}^{-1}H_j$ is the identity exactly when $\Theta_{ij}=U_iU_j^{-1}$; it is the rotation error of the static model of \cref{def:coh-calibration-model}. Messages are read at level 0 with assigned noise $\hat R_{ij}=\hat\sigma^2_{ij}I_2$ (\cref{def:fw-levels}), learning is the steady-gain form of the grounded estimator of \cref{prop:fw-rls} with forgetting toward the identity, and each round is a step of the level-0 network of \cref{def:fw-level0} with $W_{ij}=Fk_{ij}\Upsilon_{ij}$. The prior errors $e_i=m_i-\eta$ obey
+\begin{equation}\label{eq:frm-error}
+e_i(t+1)=F\Bigl[k^0_ie_i(t)+k^s_iv_i(t)+\sum_{j\in J_i(t)}k_{ij}\bigl(\mathrm{Rot}(\phi_{ij})e_j(t)+(\mathrm{Rot}(\phi_{ij})-I)\eta_t+\tilde\nu_{ij}(t)\bigr)\Bigr]-w_t.
+\end{equation}
+The term $(\mathrm{Rot}(\phi_{ij})-I)\eta_t$ is the mistranslation forcing. Calibration matches its variance but not its correlation with $\eta_t$, so receivers choose senders under a model that misreads the joint structure of messages and world (\cref{sec:mis}).
+
+After the first round, row-sum contraction and the uniform form of the moment bound (M) of \cref{asm:sca-standing} hold on every path of \eqref{eq:frm-error} (Supplement, \cref{rem:frm-moment-bound}).
+
+Besides the full model we use the frozen-slow model, in which the translation errors, the attention law and the claimed prior variance are held fixed and the stationary second moments of \eqref{eq:frm-error} solve a finite linear system, and the mean-field map of \cref{sec:frm-meanfield} for the slow variables. Numbers refer to the base point $F=0.99$, $Q=1-F^2$ (so $P_0=1$), $R^s=1$, $R_c=0.05$, $n=4$, $\kappa=3$, $\vartheta=\pi/2$, $\alpha=0.1$ and $h=0.995$, with $\sigma_\alpha^2=0.01$ in simulations.
+
+\subsection{Calibration converts frame mismatch into message noise}\label{sec:frm-calibration}
+
+Withdrawal needs a receiver's model to register mistranslation, which C0 receivers cannot do (\cref{prop:coh-c0-blind}). C1g calibration registers it as extra message noise, whose size is set by how well the sender tracks the world.
+
+\begin{lemma}[Calibrated mistranslation in the dynamic network]\label{lem:frm-calibration}
+Suppose the stationary joint law of $(e_j(t),\eta_t)$ is invariant under rotations and reflections of the plane. For a receiver that reads sender $j$ with translation error $\phi$, the C1g calibrated noise is
+\begin{equation}\label{eq:frm-calibration}
+\hat\sigma^2_{ij}=R_c+\mathrm{MSE}_j+D_{\mathrm{cal}}(1-\cos\phi),\qquad D_{\mathrm{cal}}=2\Cov_1(\eta_t,m_j(t)),
+\end{equation}
+where $\mathrm{MSE}_j$ is the per-coordinate mean-square error of $m_j$ and $\Cov_1$ a covariance of one coordinate; for a random error independent of everything else, $\cos\phi$ is replaced by $\E\cos\phi$. At the split, where each group attends only its own members with exact translations and all members have sensing gain $k^s$, the hypothesis holds and
+\begin{equation*}
+D_{\mathrm{cal}}=\frac{2QF^2k^s}{(1-F^2)(1-\lambda F)},\qquad\lambda=F(1-k^s).
+\end{equation*}
+\end{lemma}
+% src: B2-L1 (extends L3-T4 to the AR(1) level-0 network); checked C2-5
+Proof in \cref{app:frm}. A sender whose belief does not track the world has nothing to rotate, so at the split $D_{\mathrm{cal}}$ vanishes with the sensing gain; this is the dynamic form of the withdrawal threshold of \cref{thm:coh-withdrawal}. The in-group value $\hat\sigma^2_{\mathrm{in}}=R_c+\mathrm{MSE}$ is a fixed point, since the error depends on the gains and the gains on the calibration (\cref{thm:frm-split-contrast}(d)). At the base point $\hat\sigma^2_{\mathrm{in}}=0.29872$ and $D_{\mathrm{cal}}=1.24123$, so an unlearned cross edge carries calibrated noise $1.53995$, about five times the in-group value (\cref{chk:frm-calibration}).
+
+\begin{assumption}[Mean-field reduction]\label{asm:frm-mean-field}
+(a) Frozen calibration: calibrated precisions are $\varpi_{\mathrm{in}}=1/\hat\sigma^2_{\mathrm{in}}$ on in-group edges and $\varpi_\times(\phi)=1/(\hat\sigma^2_{\mathrm{in}}+D_{\mathrm{cal}}(1-\cos\phi))$ on cross edges, with $\hat\sigma^2_{\mathrm{in}}$, $D_{\mathrm{cal}}>0$ and $\Lambda_0$ held at their values at the split. (b) Closure: in the learning recursion the attention indicator is replaced by its conditional probability given the slow state. (c) Agents are identical apart from their frames, and capacity is scarce, $\kappa\le n-1$.
+\end{assumption}
+% src: B2 assumptions I5, I6, I8, I9
+
+Part (b) is exact for the conditional mean of the learning recursion. Part (a) is accurate on the split branch, which self-consistent calibration moves only in the fourth digit (\cref{obs:frm-thresholds}).
+
+\subsection{Attention bounds and the mean-field theorem}\label{sec:frm-meanfield}
+
+This subsection proves the population form of the bistability of \cref{prop:frm-bistability}, with explicit thresholds in the policy precision. Fix a receiver $i\in A$; group $B$ is symmetric. In-group translations start exact and stay exact in the mean field. A cross edge starts at $\phi_{ij}=\vartheta$, and its bias fraction $x_j=\phi_{ij}/\vartheta$ is $1$ when unlearned and $0$ when learned. Under \cref{asm:frm-mean-field} the attention frequencies $\mathsf p_j(x)=q_i(\{J:j\in J\})$ depend only on the receiver's own state $x=(x_j)_{j\in B}\in[0,1]^n$, receivers decouple, and the learning rule gives $x(t+1)=\Phi(x(t))+\alpha\mathsf u(t)$, with $\mathsf u(t)$ a martingale difference of conditional variance at most $\frac14+\sigma_\alpha^2/\vartheta^2$ on $[0,1]^n$ and (\cref{app:frm})
+\begin{equation}\label{eq:frm-meanfield}
+\Phi_j(x)=h\bigl(1-\alpha\mathsf p_j(x)\bigr)x_j+1-h=x_j+\alpha h\bigl[\mathsf p^\ast(1-x_j)-\mathsf p_j(x)x_j\bigr],\qquad\mathsf p^\ast=\frac{1-h}{\alpha h}.
+\end{equation}
+A fixed point has $x_j=\mathsf p^\ast/(\mathsf p^\ast+\mathsf p_j(x))$: an edge attended at the learning threshold $\mathsf p^\ast$, where forgetting balances learning, is half learned. A cross edge is learned when $x_j<\frac12$ and unlearned when $x_j>\frac12$, and a configuration is split if every cross edge is unlearned, merged if every one is learned, and bridged otherwise. Passing from the stochastic recursion to $\Phi$ as $\alpha\to0$ with $\mathsf p^\ast$ fixed is the business of the ordinary-differential-equation method of stochastic approximation \citep{benaim1999dynamics,kushner1997stochastic}; we do not carry it out (\cref{open:frm-closure}). The analysis uses three constants of the frozen calibration, a lower bound $\Delta\mathcal V(x)$ on the believed value gained when a cross edge of bias fraction $x$ in an attended set is replaced by an in-group edge, the largest difference $\Delta\mathcal V_{\max}$ between the believed values of two sets, and a Lipschitz constant $\mathcal L$ of the set values,
+\begin{equation*}
+\Delta\mathcal V(x)=\frac K2\log\Bigl(1+\frac{\varpi_{\mathrm{in}}-\varpi_\times(x\vartheta)}{\Lambda_0+\kappa\varpi_{\mathrm{in}}}\Bigr),\qquad\Delta\mathcal V_{\max}=\frac K2\log\frac{\Lambda_0+\kappa\varpi_{\mathrm{in}}}{\Lambda_0+\kappa\varpi_\times(\vartheta)},\qquad\mathcal L=\frac K2\frac{D_{\mathrm{cal}}\vartheta}{(\hat\sigma^2_{\mathrm{in}})^2\Lambda_0}.
+\end{equation*}
+
+\begin{lemma}[Attention bounds]\label{lem:frm-attention}
+Let $\kappa\le n-1$, $\gamma\ge0$, $\vartheta\in(0,\pi]$ and $x\in[0,1]^n$.
+\begin{enumerate}
+\item[(a)] $\mathsf p_j(x)\le\bar{\mathsf p}(x_j)$, where $\bar{\mathsf p}(y)=\kappa e^{-\gamma\Delta\mathcal V(y)}/(1+\kappa e^{-\gamma\Delta\mathcal V(y)})$ depends only on the edge's own state.
+\item[(b)] $\underline{\mathsf p}\le\mathsf p_j(x)\le\min\{1,\kappa e^{\gamma\Delta\mathcal V_{\max}}/(2n-1)\}$ with $\underline{\mathsf p}=\kappa e^{-\gamma\Delta\mathcal V_{\max}}/(2n-1)$.
+\item[(c)] $\sum_{j'\in B}\vert\partial\mathsf p_j/\partial x_{j'}\vert\le2\gamma\mathcal Ln\mathsf p_j(x)$.
+\end{enumerate}
+\end{lemma}
+% src: B2-L3; checked C2-4
+Proof in \cref{app:frm}. By (a) an edge less than half learned is attended at most at rate $\bar{\mathsf p}(\frac12)$, whatever the receiver's other edges do. The bound of (a) is attained to six digits in the limit $x_j\to0$ at $\gamma\ge160$; it is not attained at larger $x_j$, because $\Delta\mathcal V$ bounds the value gap from below, and at $x_j=\frac12$ the largest ratio $\mathsf p_j/\bar{\mathsf p}(x_j)$ computed is $0.79$ (\cref{chk:frm-attention}).
+
+\begin{theorem}[Mean field of attention and learning]\label{thm:frm-formation}
+Under \cref{asm:frm-mean-field} with $0<\mathsf p^\ast<1$, consider $\Phi$ on $[0,1]^n$ and the thresholds
+\begin{equation}\label{eq:frm-thresholds}
+\gamma_S=\frac{1}{\Delta\mathcal V(\frac12)}\log\frac{\kappa(1-\mathsf p^\ast)}{\mathsf p^\ast},\qquad\gamma_M=\frac{1}{\Delta\mathcal V_{\max}}\log\frac{\kappa}{(2n-1)\mathsf p^\ast}.
+\end{equation}
+\begin{enumerate}
+\item[(a)] Declared start. The symmetric subspace $\{x_1=\dots=x_n\}$ is invariant. On it $\mathsf p_j=\mathsf P(x)$ with $\mathsf P$ nonincreasing, the reduced map $g(x)=h(1-\alpha\mathsf P(x))x+1-h$ is nondecreasing, and the iterates from the declared start $x=1$ decrease monotonically to the largest fixed point $\bar x$ of $g$, the least-learned fixed point. Fixed points solve $x\mathsf P(x)=\mathsf p^\ast(1-x)$. If $\gamma_S<\gamma<\infty$, then $\bar x>\frac12$ and $\mathsf P(\bar x)<\mathsf p^\ast$: from the declared start the mean field reaches the split branch.
+\item[(b)] Global split. Let $\underline x$ be the smallest fixed point in $[0,1]$ of the comparison map $\bar g(y)=h(1-\alpha\bar{\mathsf p}(y))y+1-h$. If (i) $\underline x>\frac12$, equivalently $y\bar{\mathsf p}(y)<\mathsf p^\ast(1-y)$ for $y\in[0,\frac12]$, and (ii) $2\gamma\mathcal Ln\bar{\mathsf p}(x')<\mathsf p^\ast$ for some $x'\in(\frac12,\underline x)$, then $\Phi$ has exactly one fixed point. It is symmetric, lies in $[\underline x,1]^n$, has cross attention at most $\bar{\mathsf p}(\underline x)$, and attracts every initial condition in $[0,1]^n$. Condition (i) holds whenever $\gamma>2\kappa^2/(e\mathsf c_{\mathcal V}\mathsf p^{\ast2})$, with an explicit constant $\mathsf c_{\mathcal V}>0$ given in the proof, and (i) and (ii) both hold for all sufficiently large $\gamma$. Hence the threshold $\gamma_T$, the infimum of the $\gamma'$ such that (i) and (ii) hold for every $\gamma\ge\gamma'$, is finite, and $\gamma_T=O(\mathsf p^{\ast-2})$ as $\mathsf p^\ast\to0$ with the other constants fixed. Conversely, with $\mathsf m_\kappa=\max_{\mathsf t\ge0}\kappa\mathsf te^{-\mathsf t^2}/(1+\kappa e^{-\mathsf t^2})$, attained at $\mathsf t_\kappa$, and $\mathsf c^+_{\mathcal V}=K\vartheta^2D_{\mathrm{cal}}/(4(\hat\sigma^2_{\mathrm{in}})^2(\Lambda_0+\kappa\varpi_{\mathrm{in}}))$, condition (i) fails at $\gamma=\mathsf m_\kappa^2/(\mathsf c^+_{\mathcal V}\mathsf p^{\ast2})$ whenever $\mathsf p^\ast\le\mathsf m_\kappa/(2\mathsf t_\kappa)$, so that $\gamma_T\ge\mathsf m_\kappa^2/(\mathsf c^+_{\mathcal V}\mathsf p^{\ast2})$ there: $\gamma_T$ is of exact order $\mathsf p^{\ast-2}$.
+\item[(c)] Merged state. Every trajectory satisfies $\limsup_tx_j(t)\le\mathsf p^\ast/(\mathsf p^\ast+\underline{\mathsf p})$. For $\gamma<\gamma_M$ every cross edge is eventually learned: only merged states exist.
+\item[(d)] Local stability. At a symmetric fixed point $\bar x$ let $\mathsf p'_{\mathrm{self}}=\partial\mathsf p_j/\partial x_j$ and $\mathsf p'_{\mathrm{cross}}=\partial\mathsf p_j/\partial x_{j'}$ for $j'\ne j$. Then $\mathsf p'_{\mathrm{self}}\le0$, and the Jacobian of $\Phi$ has the symmetric multiplier $g'(\bar x)\ge0$ and the $(n-1)$-fold symmetry-breaking multiplier $h(1-\alpha\mathsf P(\bar x))-\alpha h\bar x(\mathsf p'_{\mathrm{self}}-\mathsf p'_{\mathrm{cross}})$; the fixed point is linearly stable if and only if both have modulus below one.
+\item[(e)] Top-$\kappa$ attention. At $\gamma=\infty$ the split $x=1$ is the only fixed point, and every trajectory converges to it.
+\end{enumerate}
+\end{theorem}
+% src: B2-T1 (extends and in part replaces L3-P16); verdict C2-4 (holds as a theorem about the frozen-calibration mean-field map); repair (iv): sign of the cross derivative only computed; explicit bound on gamma_T added in the proof
+Proof in \cref{app:frm}. Below $\gamma_M$ exploration teaches every cross translation, above $\gamma_S$ the declared start reaches the split branch, and above $\gamma_T$ the map has a single fixed point, on the split branch, which attracts every state. Since $\gamma_S$ grows like $\log(1/\mathsf p^\ast)$ and $\gamma_T$ is of exact order $\mathsf p^{\ast-2}$ by (b), slow forgetting widens the window between them, in which the outcome depends on history. Part (d) leaves the sign of $\mathsf p'_{\mathrm{cross}}$ open; it is nonnegative at every computed fixed point, so the stability classes of \cref{tab:frm-thresholds} rest on computed multipliers.
+
+The theorem concerns the frozen-calibration mean-field map, and the step from the full model to the map is open (\cref{open:frm-closure}); what it does and does not establish about formation is collected in \cref{sec:frm-status}.
+
+At the base point $\gamma_M=6.84$ and $\gamma_S=68.2$, the symmetric fixed points form a merged and a split branch joined by an unstable middle branch through folds at $\gamma=60.05$ and $105.9$, the merged branch loses stability to symmetry-breaking perturbations at $\gamma=87.9$, and $\gamma_T$, computed by bisection, is $242.1$ (a numerical observation; Supplement, \cref{obs:frm-thresholds,tab:frm-thresholds,fig:frm-phase}). Off the symmetric subspace the map has stable bridged fixed points, in which a receiver keeps some of its cross edges learned and attended; at the base point they are found for $43.4<\gamma<241.0$ (a numerical observation; Supplement, \cref{obs:frm-bridged}).
+
+\subsection{The world-conditional law at the split and its contrast}\label{sec:frm-contrast}
+
+Attention alone does not make collectives: whether the cut at the split produces them depends on the world-conditional precision of the errors.
+
+Contrast follows the conventions of \cref{def:col-contrast}; at finite $\gamma$, where the conditional covariance depends on the world path, it is computed from $\Sigma^c=\E[\Cov(e(t)\mid\eta)]$ (Supplement, \cref{rem:frm-conventions}).
+
+\begin{lemma}[The world-conditional law at the split]\label{lem:frm-split-law}
+Let $\gamma=\infty$, $\kappa\le n-1$, in-group translations exact and cross translation errors nonzero, so that each receiver attends a uniformly random set of $\kappa$ members of its own group. Let all members have sensing gain $k^s$, message gain $\bar k$ and prior weight $k^0$, put $\lambda=F(1-k^s)$, $\mathsf p_{\mathrm{in}}=\kappa/(n-1)$ and $q=F^2((k^s)^2R^s+\kappa\bar k^2R_c)$, and
+\begin{equation*}
+\psi_\perp=F^2\bigl[(k^0)^2-2k^0\bar k\mathsf p_{\mathrm{in}}+\bar k^2(\kappa-(n-2)\mathsf p_{\mathrm{in}}^2)\bigr],\qquad\psi_{\one}-\psi_\perp=nF^2\bar k\mathsf p_{\mathrm{in}}\bigl(2k^0+(n-2)\bar k\mathsf p_{\mathrm{in}}\bigr)>0.
+\end{equation*}
+Then the two groups are conditionally independent given the world path, and the world-conditional covariance of the errors of group $A$ is $\Sigma^c_A=(\mathsf s_0I+\mathsf s_1\one\one^\top)\otimes I_2$ with
+\begin{equation*}
+\mathsf s_0=\frac{q}{1-\psi_\perp},\qquad\mathsf s_1=\mathsf s_0\frac{\psi_{\one}-\psi_\perp}{n(1-\lambda^2)},
+\end{equation*}
+where $0\le\psi_\perp\le\lambda^2<1$. The precision is diffusive, $\Pi^c_A=(\varepsilon^\Pi I+a^\Pi(nI-\one\one^\top))\otimes I_2$ with leak $\varepsilon^\Pi=1/(\mathsf s_0+n\mathsf s_1)$ and coupling $a^\Pi=\mathsf s_1/(\mathsf s_0(\mathsf s_0+n\mathsf s_1))$ between every pair of members, and the per-coordinate mean-square error is $\mathrm{MSE}=Q/(1-\lambda^2)+\mathsf s_0+\mathsf s_1$. For $\kappa=n-1$ the law is Gaussian, $\psi_{\one}=\lambda^2$ and $\psi_\perp=\lambda_\perp^2$ with $\lambda_\perp=F(k^0-\bar k)$.
+\end{lemma}
+% src: B2-L2; checked C2-5; repair (ii) declared in rem:frm-conventions
+Proof in \cref{app:frm}; checked in \cref{chk:frm-split-law}. Here $\psi_{\one}$ and $\psi_\perp$ are the eigenvalues of $\E[W(t)W(t)^\top]$ on the uniform vector and its complement; for $\kappa=n-1$ the lemma is an instance of the normal case of \cref{thm:col-diffusive-precision}. The comparison medium of \cref{def:col-baseline} is the same population without frame mismatch, each receiver attending $\kappa$ of the other $2n-1$ agents uniformly at random with exact translations and its own calibration fixed point; $\varepsilon^h$ and $a^h$ are its leak and coupling. This is clause (c) of \cref{def:col-baseline} for couplings generated by a declared mechanism, here attention under a budget; the exchangeable population with the split's own mean coupling and leak would give a lower baseline at every point of the grid of \cref{obs:frm-grid}, and under both comparisons the split is a collective at all $162$ points (\cref{sec:col-contrast}).
+
+\begin{theorem}[Contrast at the split and the baseline]\label{thm:frm-split-contrast}
+Under the hypotheses of \cref{lem:frm-split-law}:
+\begin{enumerate}
+\item[(a)] Each group has contrast
+\begin{equation}\label{eq:frm-contrast}
+r(A)=1+\frac{\psi_{\one}-\psi_\perp}{1-\lambda^2}=1+\frac{nF^2\bar k\mathsf p_{\mathrm{in}}(2k^0+(n-2)\bar k\mathsf p_{\mathrm{in}})}{1-F^2(1-k^s)^2},\qquad r(A)=\frac{1-\lambda_\perp^2}{1-\lambda^2}\text{ for }\kappa=n-1.
+\end{equation}
+A subset $S\subset A$ with $2\le\vert S\vert=n_S\le n-1$ has $r(S)=(\varepsilon^\Pi+n_Sa^\Pi)/(\varepsilon^\Pi+(n-n_S)a^\Pi)$, every region meeting both groups has $r\le1$, and $A\cup B$ has $r=1$. With $r_{\mathrm{sub}}=(\varepsilon^\Pi+(n-1)a^\Pi)/(\varepsilon^\Pi+a^\Pi)$, which equals $1$ for $n=2$, every region other than $A$ and $B$ has contrast at most $\max\{r_{\mathrm{sub}},1\}$.
+\item[(b)] In the comparison medium every region of $n_C<2n$ members has contrast $(\varepsilon^h+n_Ca^h)/(\varepsilon^h+(2n-n_C)a^h)$, increasing in $n_C$, and the whole population has $1+2na^h/\varepsilon^h$. Hence the baseline of \cref{def:col-baseline} is $\bar r_{\mathrm{hom}}=1+2na^h/\varepsilon^h$, attained by the whole population, while $r_{\mathrm{hom}}(n)=1$.
+\item[(c)] For every level $r_0$ with $\max\{r_{\mathrm{sub}},\bar r_{\mathrm{hom}}\}<r_0\le r(A)$ the level is admissible, and the collectives at level $r_0$ are exactly $A$ and $B$.
+\item[(d)] At every parameter point the C1g calibration condition $\hat\sigma^2_{\mathrm{in}}=R_c+\mathrm{MSE}(\hat\sigma^2_{\mathrm{in}})$ has a solution in $(R_c,\infty)$, and so does that of the comparison medium.
+\item[(e)] Let both calibration roots be nondegenerate at a point $(F,Q,R^s,R_c)$ at which, evaluated at these roots, $\max\{r_{\mathrm{sub}},\bar r_{\mathrm{hom}}\}<r_0<r(A)$. Then there are continuous branches of nondegenerate roots on a neighborhood of the point along which the same inequalities hold. The set of such points is open.
+\end{enumerate}
+\end{theorem}
+% src: B2-T2 restated under decision 11 (C2-5 repair: baseline = sup over all sizes incl. whole population); (c) via B1-D3; (e) the gamma = infinity part of B2-T2(d) with nondegeneracy made a hypothesis (repair (v))
+Proof in \cref{app:frm}. Contrast grows with the per-member message weight $n\bar k\mathsf p_{\mathrm{in}}$ and falls with the leak $1-F^2(1-k^s)^2$, set by world decorrelation and grounding. Because the finite comparison population is itself a region, the baseline is strict: at the base point $r(A)=8.7329$, $r_{\mathrm{sub}}=2.3182$ and $\bar r_{\mathrm{hom}}=7.954$, so the admissible window is $(7.954,8.733]$ and the significance $r(A)/\bar r_{\mathrm{hom}}$ is $1.098$ (\cref{chk:frm-baseline}), as in \cref{rem:col-baseline-conventions}. In the model of \cref{def:frm-two-group} the hypothesis of exact in-group translations holds from the declared start exactly when $\sigma_\alpha^2=0$. For $\sigma_\alpha^2>0$ attended in-group angles fluctuate, the group contrasts at the base point are about $2$ percent higher (\cref{obs:frm-stochastic}), the comparison medium with noisy learned translations is not computed, and the admissible window is then not established; for $\kappa<n-1$ the attended in-group set also need not be uniformly random, since idealized calibration at the current error ranks in-group senders by $\lvert\phi_{ij}\rvert$.
+
+The weaker convention that compares a region only with regions of its own size is not used, for the reason given in the Supplement (\cref{rem:frm-matched-baseline}). Two numerical observations are reported there. On a grid of 162 parameter points with $\kappa=n-1$, both calibration roots are nondegenerate and $r_{\mathrm{sub}}<\bar r_{\mathrm{hom}}<r(A)$ at every point, so that every admissible window is nonempty (\cref{obs:frm-grid}). In the frozen-slow model with self-consistent calibration at the base point, the split branch at $\gamma=80$, $120$ and $160$ has group contrast $8.6763$, $8.7317$ and $8.7329$, and at $\gamma=80$ only $A$ and $B$ exceed $7.954$ (\cref{obs:frm-exploration}). Openness at finite $\gamma$ is a sketch with an unproved step (\cref{rem:frm-open}).
+
+\subsection{Nulls and the order parameter}\label{sec:frm-nulls}
+
+Clause (T4) asks whether a population in which communication is deleted, frozen or rearranged would select the split too.
+
+\begin{proposition}[Nulls at the split]\label{prop:frm-nulls}
+Let reading noise be specific to each receiver.
+\begin{enumerate}
+\item[(a)] Under label-preserving deletion, renormalized deletion and the frozen-environment null ($\mathfrak N_{\mathrm{lp}}$, $\mathfrak N_{\mathrm{rn}}$ and $\mathfrak N_{\mathrm{fr}}$ of \cref{tab:agy-nulls}), the order parameter $\Omega_{\mathrm{int}}$ of \cref{def:agy-order-parameter} vanishes for every pair. Under the two deletion nulls, and under the frozen-environment null when the initial states that frozen messages carry are deterministic or added to the conditioning set, the world-conditional precision is block diagonal in agents and every region has contrast at most one.
+\item[(b)] At the split of \cref{lem:frm-split-law}, $\Omega_{\mathrm{int}}$ vanishes for every pair of agents from different groups. For $\kappa=n-1$ it is positive for every pair from the same group over every window of at least two rounds.
+\item[(c)] Consequently, at every level of \cref{thm:frm-split-contrast}(c) the split selects exactly $A$ and $B$, while the deletion nulls, and the frozen-environment null under the condition of (a), select no region.
+\end{enumerate}
+\end{proposition}
+% src: B2-P2(a),(c); uses B4-P5 (prop:agy-nulls-vanish) and L2-P18; condition on the frozen initial states added (prop:agy-nulls-vanish(a) gives block diagonality given the shared drive, which contains the initial state)
+Proof in \cref{app:frm}. The condition in (a) matters only for the freezing null. A frozen message delivers its sender's initial state in every round, so that input never washes out, and when the initial states are random and left out of the conditioning set, receivers that read the same sender share it: the law given the world path alone is then not block diagonal, although the law given the shared drive, which contains the initial state, is (\cref{prop:agy-nulls-vanish}(a)), and $\Omega_{\mathrm{int}}$ still vanishes. Differing from these nulls is necessary for any claim of interaction and is achieved by any communication at all (\cref{prop:agy-nulls-vanish}). The decisive comparisons are computed.
+
+At the base point, partner randomization at the matched rate of $\kappa$ partners per round, with cross translations unlearned or learned at the null's attention rate, leaves no region above $7.954$ and has $\Omega_{\mathrm{int}}>0$ across groups (a numerical observation; Supplement, \cref{obs:frm-partner,tab:frm-nulls}). The Supplement also places these comparisons within \cref{def:agy-nulls}: $\mathfrak N_{\mathrm{eff}}$ and $\mathfrak N_{\mathrm{inf}}$ are not applicable, the habit null coincides with partner randomization redrawn every round with learned translations, for which the test of \cref{prop:agy-tests}(b) rejects at level $\alpha_{\mathrm{pr}}$ when $n_{\mathrm{null}}\ge1/\alpha_{\mathrm{pr}}-1$, and partner randomization drawn once and the test on contrasts estimated from finite samples are not computed.
+
+The explanation nulls limit attribution: the code null predicts the frame classes $\{A,B\}$, so under \cref{def:agy-nulls} the split above $\gamma_T$ is code aligned, that is, predictable from the codes alone (Supplement, \cref{sup:frm-explanation-nulls-and-merged-regimes}).
+
+\subsection{Reachability}\label{sec:frm-reach}
+
+\Cref{thm:frm-formation} gives reachability for the mean field. Two numerical observations test how far it carries to the stochastic model.
+
+\begin{observation}[The full model with idealized calibration]\label{obs:frm-stochastic}
+The full model at the base point, with eight replicates per cell over 8000 rounds, gives \cref{tab:frm-stochastic}. From the declared start every replicate ends on the split branch at $\gamma=80$, inside the bistable window, and at $\gamma=160$, with cross attention per edge at most $2.1\times10^{-3}$, less than one learned bridge would contribute. At $\gamma=40$ from both starts and at $\gamma=80$ from the declared start the averages agree with the mean field within $5$ percent. At $\gamma=160$ from the declared start the average $1.3\times10^{-6}$ is a single attended cross edge-round among the $8\times3000\times32=768{,}000$ counted, so it agrees with the mean-field value $9\times10^{-7}$ in order of magnitude only. From a merged start at $\gamma=80$ the population settles in partially bridged states, with averages $(0.254,0.569)$ against the merged fixed point $(0.344,0.127)$ of the map: the stochastic model at $\alpha=0.1$ leaves a fixed point that is linearly stable for the map, with multipliers $0.9762$ and $0.9937$ (\cref{chk:frm-thresholds}). Replica estimates of the world-conditional covariance (isotropic part) at $\gamma=160$ give group contrasts from $8.86$ to $9.00$, about $2$ percent above the value $8.733$ that \cref{lem:frm-split-law} gives for exact in-group translations. The excess is the effect of in-group angle noise, which that lemma does not include: at $\sigma_\alpha^2=0.01$ an attended in-group translation angle fluctuates with stationary standard deviation $h\alpha\sigma_\alpha/(1-h^2(1-\alpha)^2)^{1/2}=0.022$ radians. With noiseless angle observations, $\sigma_\alpha^2=0$, the estimated contrasts are $8.741$ and $8.699$ (\cref{chk:frm-stochastic}).
+\end{observation}
+% src: B2-X2; C2-4 independent slow-recursion simulation
+
+\begin{table}[t]
+\centering
+\caption{The full stochastic model with idealized calibration against the mean field: cross attention per edge and mean bias fraction of cross edges, averaged over eight replicates and the last 3000 of 8000 rounds.}
+\label{tab:frm-stochastic}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+$\gamma$ & start & cross attention & bias fraction & mean field \\
+\midrule
+40 & declared & $0.392$ & $0.116$ & merged; $0.395$, $0.113$ \\
+40 & merged & $0.392$ & $0.116$ & merged \\
+80 & declared & $1.85\times10^{-3}$ & $0.965$ & split branch; $1.8\times10^{-3}$, $0.966$ \\
+80 & merged & $0.254$ & $0.569$ & merged branch; $0.344$, $0.127$ \\
+160 & declared & $1.3\times10^{-6}$ & $1.000$ & split; $9\times10^{-7}$, $1.000$ \\
+160 & merged & $0.025$ & $0.960$ & split, with bridges up to $\gamma_T$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{observation}[Online calibration from a symmetric start]\label{obs:frm-online}
+Replace idealized calibration by an exponential average, at rate $\alpha_{\mathrm{cal}}$, of the grounded residuals $\frac12\Vert\tilde y_{ij}-\eta_t\Vert^2$ on attended rounds, frozen when the edge is unattended and started at $R_c+\mathrm{MSE}$, so that attention is initially uniform. A run ends in the split's attention pattern when every cross edge ends with $\vert\phi_{ij}\vert\ge0.3\vartheta$. This cutoff for a learned cross edge is stricter than the bias fraction $\frac12$ that classifies edges for the map (\cref{sec:frm-meanfield}): an edge with bias fraction between $0.3$ and $\frac12$ counts as unlearned here, so the counts are upper bounds on those at the cutoff $\frac12$. \Cref{tab:frm-online} counts such replicates after 6000 rounds, eight per cell, and a rerun with other seeds and 8000 rounds at $\alpha_{\mathrm{cal}}=0.05$ gives 6, 1 and 2 of 8 at $\gamma=160$, $400$ and $1600$. Reruns of a single cell differ by up to three replicates: at $\gamma=400$, $\alpha_{\mathrm{cal}}=0.05$ the table, the rerun and the separate run described next give 0, 1 and 3 of 8. This is the size of most differences between cells, so the counts establish that for $\gamma\ge160$ the pattern is reached in some replicates and missed in others, and little about its dependence on the parameters beyond the largest differences. In a separate run at $\gamma=400$, $\alpha_{\mathrm{cal}}=0.05$, contrasts from the isotropic part of the local-error covariance given the realized attention (sampling error about 10 percent) lie between $2.4$ and $7.6$ for the groups, nine of ten below $5.1$, and between $1.9$ and $3.7$ for the union in the five replicates ending with two or three cross edges below $0.3\vartheta$. The pattern is not a contrast criterion: one replicate ends in it with group contrasts $3.69$ and $4.06$ and union contrast $3.58$ (\cref{chk:frm-online}).
+\end{observation}
+% src: B2-X3 with repair (iii): nine of ten below 5.1; replicate 7 (gamma = 400, alpha_r = 0.05) has no learned cross edge but contrasts 3.69, 4.06, union 3.58; estimator from B2_sim3 (local part given realized attention, half-trace reduction)
+
+\begin{table}[t]
+\centering
+\caption{Online calibration from a symmetric start: replicates out of eight that end in the split's attention pattern (every cross edge with $\vert\phi_{ij}\vert\ge0.3\vartheta$, a cutoff below the bias fraction $\frac12$ that separates learned from unlearned edges for the map, so the counts are upper bounds on those at $\frac12$) after 6000 rounds. The counts come from eight replicates per cell, and reruns of single cells differ by up to three replicates (\cref{chk:frm-online}).}
+\label{tab:frm-online}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+$\gamma$ & $\alpha_{\mathrm{cal}}=0.02$ & $0.05$ & $0.2$ & $0.5$ \\
+\midrule
+80 & 0 & 0 & 0 & 0 \\
+160 & 2 & 3 & 7 & 1 \\
+400 & 0 & 0 & 5 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Early uniform attention lets cross translations be learned before calibration registers the mismatch, and calibration noise acts as exploration; this mechanism and the dependence of the counts on $\alpha_{\mathrm{cal}}$, which is not monotone at $\gamma=160$, are discussed in the Supplement (\cref{sup:frm-reachability-in-the-full-model}).
+
+\subsection{What fails, and the grounding tension}\label{sec:frm-fails}
+
+Each failure marks a hypothesis the positive results need. Low policy precision and C0 receivers leave every cross translation learned, under the conditions stated in the Supplement (\cref{sup:frm-explanation-nulls-and-merged-regimes}). Two failures are structural.
+
+The first is abundant capacity: if $\kappa\ge n$, every receiver attends at least $\kappa-n+1$ cross senders in every round at every $\gamma$, so no attention cut separates the groups (Supplement, \cref{prop:frm-capacity}). The second is exact translation.
+
+\begin{proposition}[Exact translation removes the mechanism]\label{prop:frm-exact-fusion}
+Let every receiver know the mistranslation $\Upsilon_{ij}=\mathrm{Rot}(\phi_{ij})$ of every message, the part of class C2 that concerns translations (with $T_c=I_2$ the identifiable subspace is the whole plane), and keep everything else, including C1g calibration of the corrected messages.
+\begin{enumerate}
+\item[(a)] A corrected message has the joint law with $(\eta,e)$ of a correctly translated message, and its calibrated noise $R_c+\mathrm{MSE}_j$ does not depend on the receiver.
+\item[(b)] In every state of this null and at every $\gamma\in[0,\infty]$, a receiver attends a sender of higher calibrated precision at least as often as one of lower precision. Hence each of the $n$ receivers outside the group of a sender $j_1$ of largest precision attends the cross sender $j_1$ with probability at least $\kappa/(2n-1)$.
+\item[(c)] Let the start law of the belief states $(m_i-\eta,\hat P^-_i)_{i}$ given the world path be invariant under all permutations of the $2n$ agents, as it is at the declared start with identical initial beliefs, and as it is whenever the start and the initial world state $\eta_0$ are jointly independent of the innovations $w_t$ and the law of the start given $\eta_0$ is invariant, and let idealized calibration be evaluated on the law of the errors at the current round. Then at every time and every $\gamma\in[0,\infty]$ all senders have the same calibrated precision, every receiver attends a uniformly random set of $\kappa$ senders, and the law of the errors given the world path is invariant under all permutations of the $2n$ agents. Contrast therefore depends only on the size of a region, and at no level are $A$ and $B$ the selected regions. A stationary state of this trajectory is the comparison medium of \cref{thm:frm-split-contrast}(b), in which no region is selected at any admissible level.
+\end{enumerate}
+From such a start law the split does not survive this translation-aware null.
+\end{proposition}
+% src: B2-P4; decision 12; C2 2.3(b); part (b) added by the editor (receiver-independent calibration makes all receivers rank senders alike)
+Proof in \cref{app:frm}. Knowing the translation error removes the cost side of the withdrawal inequality \eqref{eq:coh-withdrawal}. What is proved is therefore that the split fails the translation-aware form of the exact-fusion persistence clause, and under that reading the split is attributed to misreading joint structure, not to communication as action. States of this null that are not exchangeable, which other start laws could reach, are not classified; by (b) each of them has $n$ cross edges attended at rate at least $\kappa/(2n-1)$ at every $\gamma$, whereas on the split branch of the mean-field map cross attention is at most $\bar{\mathsf p}(\frac12)$ per edge and vanishes as $\gamma\to\infty$ (\cref{lem:frm-attention}(a)). For full cross-covariance-aware exact fusion in this model, the null $\mathfrak N_{\mathrm{ex}}$ of \cref{tab:agy-nulls}, whose receivers also model the correlation of each message's error with their own, the conclusion is heuristic and uncomputed: cross messages carry errors independent of the receiver's own local error, while in-group messages share the group's collective fluctuation, so cross messages would be preferred. Complementary access would keep a cross edge attended (\cref{ex:coh-unique-information}), a case the model excludes (\cref{open:frm-access}). A single receiver at the base point that fuses exactly against the split's stationary law was computed to value sets of senders more highly the more cross senders they contain, which confirms the heuristic for one unilateral deviation (\cref{obs:hie-exact-receiver}); the population law under full exact fusion is open (\cref{open:hie-exact-fusion-population}). At $\gamma=\infty$ and $\kappa=n-1$, a pragmatic preference for coordinated exchange, which every null keeps, lets the split survive the translation-aware null at any strength, but the surviving split is then the declared code partition, not formation (\cref{rem:hie-pragmatic}).
+
+For $\kappa=n-1$, weak grounding tends to raise the split contrast while it weakens the withdrawal signal $D_{\mathrm{cal}}$ that forms the cut, so that high-contrast collectives of weakly grounded members need higher policy precision to form; this is the grounding tension of \cref{thm:coh-grounding-tension} seen from the formation side (Supplement, \cref{rem:frm-grounding}).
+
+\subsection{Status and conjectures}\label{sec:frm-status}
+
+Against \cref{def:frm-target}, with idealized C1g calibration, identical agents and $\kappa\le n-1$, clauses (T1) and (T2) hold once calibration registers mistranslation (\cref{lem:frm-calibration}); (T3) holds at $\gamma=\infty$, the map's unique fixed point, with exact in-group translations, $\sigma_\alpha^2=0$, at the levels of the window of \cref{thm:frm-split-contrast}(c), and with openness given nondegenerate roots and a nonempty window (\cref{thm:frm-split-contrast}(e)), and at finite $\gamma$ by computation and a sketch (Supplement, \cref{obs:frm-exploration,rem:frm-open}), while for $\sigma_\alpha^2>0$ in-group angle noise raises the group contrasts by about $2$ percent at the base point (\cref{obs:frm-stochastic}) and the admissible window is not computed; (T4) holds for the applicable differ nulls, by proof for the deletion and freezing nulls (\cref{prop:frm-nulls}; for the freezing null when its initial states are deterministic or conditioned on) and by computation at the base point for partner randomization redrawn every round (Supplement, \cref{obs:frm-partner}), with which the habit null coincides, while partner randomization drawn once is not computed, and fails for the survive null, by proof in its translation-aware form (\cref{prop:frm-exact-fusion}) and heuristically for full cross-covariance-aware exact fusion; (T5) holds for the map (\cref{thm:frm-formation}) and in every replicate of the full model with idealized calibration (\cref{obs:frm-stochastic}).
+
+Hence, in the two-group model at $\gamma=\infty$ with $\sigma_\alpha^2=0$, clauses (T1) to (T3) and (T5) are theorems, the contrast clause (T3) at the levels of the window of \cref{thm:frm-split-contrast}(c), which is nonempty at every computed parameter point (Supplement, \cref{obs:frm-grid}), and the declared start is then itself the split (\cref{thm:frm-formation}(e), \cref{thm:frm-split-contrast}). For $\gamma_S<\gamma<\infty$ reachability of the split branch is a theorem about the frozen-calibration mean-field map (\cref{thm:frm-formation}(a),(b)), with the stochastic-approximation step from the full model to the map open (\cref{open:frm-closure}), and the contrast of the reached state is computed at the base point (Supplement, \cref{obs:frm-exploration}). Clause (T4) fails for the translation-aware null of type S, so the model yields no formation result in the sense of \cref{def:frm-target}. Formation there is a calibration-level effect of misreading joint structure, hypothesis H3 in its calibration form and hypothesis H2 read as misreading: receivers that know their translation errors pay no mistranslation cost, so from a start law exchangeable given the world path the model's collectives fail the translation-aware form of the exact-fusion persistence clause of the null family, as \cref{prop:frm-exact-fusion} proves, while for full cross-covariance-aware exact fusion in this model the conclusion is heuristic; above $\gamma_T$ they coincide with the code partition. Persistence under exact fusion with drifting frames is a conjecture (Supplement, \cref{conj:frm-drifting-frames}). Online calibration from a symmetric start reaches the split's attention pattern (not necessarily a split selected by contrast) in 0 to 7 of 8 replicates per cell, with reruns of a cell differing by up to three replicates, and is open (\cref{obs:frm-online}; Supplement, \cref{open:frm-online}). Formation beyond this model is a conjecture (\cref{conj:frm-formation}). Persistence under exact fusion is the obligation that would change this verdict most.
+
+It is conjectured that when the group frames drift, the frame angles of $A$ and $B$ performing independent random walks, the split survives the exact-fusion null on an open set of parameters (Supplement, \cref{conj:frm-drifting-frames}).
+
+\begin{conjecture}[Formation beyond the two-group model]\label{conj:frm-formation}
+Consider level-0 agents in a stationary linear-Gaussian world with private linear frames, public codes, C1g or C1i calibration, grounded translation learning with forgetting on attended edges, capacity $\kappa$ and attention selected by expected free energy at precision $\gamma$. Let their frames fall into classes such that capacity can be filled within classes and every cross-class edge, read through its unlearned translation, has calibrated precision below that of the $\kappa$th best sender of the receiver's class. Then there are thresholds $0<\gamma_-\le\gamma_+<\infty$, depending on the learning and forgetting rates, such that on an open set of parameters: for $\gamma>\gamma_+$ the stochastic dynamics converge from the declared start law, with probability tending to one as the learning gains vanish, to configurations whose attended subgraph consists of asymptotically flat components separated by unattended cuts, each a collective at every level of a nonempty admissible window; for $\gamma<\gamma_-$ exploration removes every cut; and for $\gamma_-<\gamma<\gamma_+$ split, bridged and merged configurations coexist and the realized one depends on history.
+\end{conjecture}
+% src: L3-C1 as refined by B2-X1 (bridged states added); L2-O3; decision 12 (formation beyond the model is a conjecture)
+What is established of the conjecture in the two-group model, what would refute it, and a conjectured route to formation that does not rest on misreading are discussed in the Supplement (\cref{sup:frm-remarks-on-the-formation-conjecture}).
+
+\begin{openproblem}[Stochastic closure]\label{open:frm-closure}
+Prove that the recursion $x(t+1)=\Phi(x(t))+\alpha\mathsf u(t)$ of the two-group model tracks the mean-field map on finite horizons as $\alpha\to0$ with $\mathsf p^\ast$ fixed, a constant-gain stochastic approximation with state-dependent attention noise, and estimate the escape times from the split and from bridged states between $\gamma_S$ and $\gamma_T$. At the base-point gain $\alpha=0.1$ the tracking is not quantitative inside the bistable window: from a merged start at $\gamma=80$ the full model leaves the linearly stable merged fixed point of the map for partially bridged states (\cref{obs:frm-stochastic}, \cref{tab:frm-stochastic}).
+\end{openproblem}
+% src: B2-O1
+
+Three further problems are open (Supplement, \cref{open:frm-online,open:frm-self-consistent,open:frm-access}): conditions under which online calibration reaches the split from the symmetric start with probability tending to one as the gains vanish; the extension of \cref{thm:frm-formation}(b) to the self-consistent mean field along whole trajectories; and the extension of the analysis to anisotropic access, heterogeneous senders and groups on a graph with geometry.

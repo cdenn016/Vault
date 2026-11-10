@@ -1,0 +1,213 @@
+\section{Abstract collectives}\label{sec:abs}
+% src: L5 (all); L7-P13; critic V12, D6, C5, C7; B5 Sections 3.3 and 4 (B5-D3, B5-L2, B5-P12); B1-P7; B4 Section 1.5; decision 12
+
+Cultures, economies, nations and cities are treated here as candidate collectives whose members are joined by conventions, exchange, law and co-presence rather than by one physical medium; they are the abstract agents of \cref{sec:int}. The device for treating them is the multiplex of \cref{asm:int-a9}: one population that communicates through several modalities, each with its own content, code, range, message weight, leak and memory. The main text states the results on multiplex populations, barriers, prices, polity size and scale-free coherence; records and media, cultures, cities and the comparison of world-conditional with unconditional correlations are treated in the Supplement (\cref{sup:abs}).
+
+Propositions are exact statements about stated models, and conjectures need further proof or data. Every reading of a social-science finding is an interpretation or a conjecture, in a labeled remark or in prose marked as our reading, and claims no more about a cited work than the level at which we read it. The dynamic models are linear and Gaussian with a stable update, so the moment bound (M) of \cref{asm:sca-standing} holds, and each dynamic proposition names its contraction in the labels of \cref{sec:sca}. Contrast (\cref{def:col-contrast}) is defined only for diffusive world-conditional precisions, and most statements here use instead the ultrametric diagnostic of \cref{def:col-ultrametric}, with weights $\varpi_{ij}=-\ln\Gamma_{ij}$, ultrametric $u(i,j)$, heights $u_{\mathrm{in}}(C)$ and $\varpi_{\mathrm{out}}(C)$ and contrast $\mathcal U(C)=\varpi_{\mathrm{out}}(C)-u_{\mathrm{in}}(C)$, computed from world-conditional correlations unless we say otherwise and related to spectral contrast only within the scope of \cref{thm:col-bridge}.
+
+\subsection{Multiplex populations}\label{sec:abs-multiplex}
+
+A society communicates through language, exchange, law and co-presence at once; the first question is when these modalities can be treated separately, each with its own correlation length.
+
+\begin{definition}[Multiplex population]\label{def:abs-multiplex}
+A multiplex population is a population of agents as in \cref{def:fw-system} in which every channel carries one modality $c\in\mathcal M$ (\cref{def:col-nested}) and whose world state splits into contents, $\eta=(\eta^{(c)})_{c\in\mathcal M}$. Modality $c$ has a content $\eta^{(c)}$; a code $T_c$ of rank $r_c$ that reads the sender's beliefs about $\eta^{(c)}$, with receivers whose message likelihood involves only $\eta^{(c)}$ (block-pure codes); an attention graph $\mathcal G_c$ with hop length $\ell_c$ and message weight $a_c$; a leak $\varepsilon_c$ made of grounding, forgetting and turnover with fresh priors; a medium, transient or a record (\cref{def:fw-record-model}); and a flag saying whether its messages are performative (\cref{prop:fw-performative}). Agent $i$'s error splits into blocks $e^{(c)}_i$, the errors of its beliefs about $\eta^{(c)}$.
+\end{definition}
+% src: L5-D1, L5-D2
+
+\Cref{tab:abs-modalities} lists the four modalities of this section. The multilayer-network terminology and the budget-optimal attention of one agent to independently evolving contents (\cref{prop:env-multiplex}(d)) are in the Supplement (\cref{sup:abs-multiplex-terminology}).
+
+\begin{table}[t]
+\centering\small
+\caption{The four modalities of abstract collectives.}
+\label{tab:abs-modalities}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}@{}}
+\toprule
+Modality & Content & Typical messages & Medium & Performative\\
+\midrule
+Language and convention & parameters of codes; expectations about others' policies & utterances, gestures, texts & speech (transient); writing and artifacts (records) & rarely\\
+Exchange & holdings and values of goods; commitments & prices, offers, transfers, balances & quotes (transient); ledgers and money (records) & transfers\\
+Law and enforcement & rules in force, rights, pending sanctions & statutes, rulings, registrations, sanctions & statutes and registries (records) & rulings, sanctions\\
+Co-presence & locations and activities of people & encounters & none & sometimes\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{proposition}[Decoupled modalities]\label{prop:abs-decoupling}
+Assume that (a) the world evolves as $\eta_{t+1}=F\eta_t+w_t$, without performative acts, with $F$ and $Q$ block diagonal across contents; (b) every agent's initial posterior covariance is block diagonal, and the pairs $(e^{(c)}(0),\eta^{(c)}_0)$ of initial errors and world blocks are independent across contents; (c) codes and message likelihoods are block pure, and each sensing channel reads one block, or several blocks with independent noises; (d) attention schedules are fixed sequences that do not depend on the data, so that (Lin) holds. Then, for receivers at level 0 with any assigned noises, level 1 included, or with exact fusion, every posterior covariance and every gain stays block diagonal, and the content-$c$ errors $e^{(c)}=(e^{(c)}_i)_{i\in V}$ form processes that are independent across contents, each a function of its own world block, of the noises of content-$c$ channels and of its own initial conditions. At level 0, $e^{(c)}$ obeys a linear recursion whose transfer $W^{(c)}(t)$ has off-diagonal entries supported on $\mathcal G_c$, so the light cone, clustering and Ornstein--Zernike results of \cref{sec:sca} hold, under their hypotheses, for each modality on its own graph with its own $(\ell_c,a_c,\varepsilon_c)$.
+\end{proposition}
+% src: L5-P1, L7-P13(a); critic C7; editor: absence of performative acts and independence of the initial world blocks made explicit; the transfer statement restricted to level 0
+
+Proof in \cref{app:abs}. Separate correlation lengths need dynamically separate contents, and \cref{ex:abs-union-cone} shows what fails when the world couples them.
+
+In the example of two scalar contents coupled by the world transition (Supplement, \cref{ex:abs-union-cone}), the light cone of \cref{thm:sca-lightcone} holds only on the union graph $\bigcup_c\mathcal G_c$.
+
+When agents couple the contents internally, the modalities interact at every distance, and the question is at which distances their correlation lengths stay distinct. The simplest case is exactly solvable.
+
+\begin{proposition}[Crossover distance]\label{prop:abs-crossover}
+Let two modalities live on the chain $\Z$, with update $W_{ii}=\bigl(\begin{smallmatrix}c_1&a_\times\\a_\times&c_2\end{smallmatrix}\bigr)$ on the two contents of agent $i$, $W_{ij}=\diag(a_1,a_2)$ for the neighbors $j=i\pm1$, local noise covariance $qI$, $a_1,a_2>0$, $c_1,c_2\ge0$, leaks $\varepsilon_c=1-c_c-2a_c>0$ and $a_\times^2<\varepsilon_1\varepsilon_2$; (Lin), (B), (N), (TI) and (C$_\rho$) hold. Suppose that modality 2 has the longer range, $\varepsilon_2/a_2<\varepsilon_1/a_1$, put $\cosh m^0_c=1+\varepsilon_c/(2a_c)$, $A_c(u)=1-c_c-2a_cu$ and $B_c(u)=1+c_c+2a_cu$, let $u_-<u_+$ be the roots of $A_1(u)A_2(u)=a_\times^2$ and $w_-<w_+$ those of $B_1(w)B_2(w)=a_\times^2$, and set $m_\pm=\arccosh u_\pm$ and $m'_\pm=\arccosh(-w_\pm)$.
+\begin{enumerate}
+\item[(a)] $1<u_-\le\cosh m^0_2<\cosh m^0_1\le u_+$, with strict inequalities when $a_\times\ne0$, and $w_\pm<-1$. Coupling lengthens the longer correlation length and shortens the shorter one.
+\item[(b)] If $a_\times\ne0$, the stationary covariance of modality 1 at distance $d\in\Z$ is
+\[
+\Sigma_{11}(d)=\frac q2\bigl[\mathcal A_+e^{-m_+\lvert d\rvert}+\mathcal A_-e^{-m_-\lvert d\rvert}\bigr]+\frac q2(-1)^d\bigl[\mathcal A'_+e^{-m'_+\lvert d\rvert}+\mathcal A'_-e^{-m'_-\lvert d\rvert}\bigr],
+\]
+with
+\[
+\mathcal A_\pm=\frac{-A_2(u_\pm)}{4a_1a_2(u_\pm-u_\mp)\sinh m_\pm}>0,\qquad\mathcal A'_\pm=\frac{B_2(w_\pm)}{4a_1a_2(w_\pm-w_\mp)\sinh m'_\pm}.
+\]
+If also $c_1+c_2>0$, then $m'_\pm>m_-$, so that $\Sigma_{11}(d)\sim\frac q2\mathcal A_-e^{-m_-\lvert d\rvert}$ as $\lvert d\rvert\to\infty$.
+\item[(c)] As $a_\times\to0$,
+\[
+\frac{\mathcal A_-}{\mathcal A_+}=\frac{a_\times^2\sinh m^0_1}{4a_1a_2(\cosh m^0_1-\cosh m^0_2)^2\sinh m^0_2}+O(a_\times^4),
+\]
+and the two non-alternating terms of (b) are equal at the crossover distance
+\begin{align*}
+d_\times&=\frac{\ln(\mathcal A_+/\mathcal A_-)}{m_+-m_-}\\
+&=\frac{2\ln(1/\lvert a_\times\rvert)+\ln\bigl[4a_1a_2(\cosh m^0_1-\cosh m^0_2)^2\sinh m^0_2/\sinh m^0_1\bigr]}{m^0_1-m^0_2}+O\bigl(a_\times^2\ln(1/\lvert a_\times\rvert)\bigr).
+\end{align*}
+\end{enumerate}
+\end{proposition}
+% src: L5-P2; critic C7; error order of d_x corrected
+
+Proof in \cref{app:abs}; checked against Fourier sums and Lyapunov solves (\cref{chk:abs-crossover}). Below $d_\times$ modality 1 decays at the rate $m_+\approx m^0_1$ of its own medium, and beyond it at the rate $m_-$ of modality 2's slow mode, with an amplitude of order $a_\times^2$.
+
+Separate correlation lengths therefore describe intermediate scales (Supplement, \cref{rem:abs-multiplex}), and for finitely many finite-range translation-invariant modalities on $\Z^D$ with agent-local coupling it is conjectured that, generically, every modality coupled to the longest-range one inherits its decay rate beyond a crossover distance (\cref{conj:abs-multiplex}).
+
+\subsection{Homogeneous media, barriers and borders}\label{sec:abs-barriers}
+
+A border is where coherence drops. We ask what produces such a drop in a linear medium, how wide it is, and whether it survives coupling to other modalities.
+
+In a homogeneous medium the only sets of positive ultrametric contrast are singletons and the whole population (Supplement, \cref{prop:abs-homogeneous}, under the hypotheses stated there, which include that no pair is more correlated than neighbors are), so sets of positive ultrametric contrast and intermediate size need those hypotheses to fail, as heterogeneity can make them: barriers, nonlinear conventions or nested coupling.
+
+\begin{proposition}[Barrier transmission]\label{prop:abs-barrier}
+On the chain $\Z$ let every bond have message weight $a$ except the bond $(0,1)$, whose weight is $a_b=a/n_b$ with $n_b\ge1$, and let every agent keep the leak $\varepsilon>0$, so that $I-W=\varepsilon I+L_b$ with $L_b$ the weighted Laplacian; the agents next to the barrier put the missing weight on themselves. Let $\mathsf G=(\varepsilon I+L_b)^{-1}$, let $\mathsf G^0$ be the same operator with $n_b=1$, and put $\cosh m=1+\varepsilon/(2a)$ and $\xi=1/m$.
+\begin{enumerate}
+\item[(a)] For all $x\le0<y$, $\mathsf G(x,y)=\mathcal T\mathsf G^0(x,y)$ with
+\[
+\mathcal T=\frac{e^m+1}{2+n_b(e^m-1)}=\frac{\coth(m/2)}{n_b+2/(e^m-1)}.
+\]
+\item[(b)] $\mathcal T=1-\frac m2(n_b-1)+O(m^2n_b^2)$ as $mn_b\to0$, and $\mathcal Tn_b/(2\xi)\to1$ as $m\to0$ with $mn_b\to\infty$. In the second regime the equivalent distance $d_b=-\ln\mathcal T/m$ satisfies $d_b=\xi[\ln(n_b/2\xi)+o(1)]$.
+\item[(c)] Let the local noise be $qI$ and the self weight $c=1-\varepsilon-2a$ be positive, so that (Lin), (B), (N), (NN) and (C$_r$) hold, and let $\Sigma$ and $\Sigma^0$ be the stationary covariances with and without the barrier. Put $\cosh m'=(1+c)/(2a)$, so that $m'>m$, and $r_{xy}=(\sinh m/\sinh m')e^{-(m'-m)(y-x)}$. For $x\le0<y$ with $r_{xy}<1$,
+\[
+\Bigl\lvert\frac{\Sigma(x,y)}{\Sigma^0(x,y)}-\mathcal T\Bigr\rvert\le\frac{2r_{xy}}{1-r_{xy}}.
+\]
+\end{enumerate}
+\end{proposition}
+% src: L5-P6; critic V12; part (c) rate corrected to cosh m' = (1+c)/2a
+
+Proof in \cref{app:abs}; checked to six digits on chains of 801 sites (\cref{chk:abs-barrier}). We call $1/\mathcal T$ the border factor and $d_b\ell$ the border width; both are correlation diagnostics, not the spectral contrast of \cref{def:col-contrast}. A barrier lowers coherence by a large factor only when its resistance exceeds that of about $2\xi$ bonds of medium, and the width grows only logarithmically with the resistance: $n_b=1000$ is worth 18.9 hops of medium at $\xi=3.88$ hops and 39.3 hops at $\xi=10.0$. On a ring of 120 agents with two barriers with $n_b=100$, single linkage returns exactly the two arcs, with ultrametric contrast 2.79 against $\ln(1/\mathcal T)=2.30$. This is a computed instance and no part of \cref{prop:abs-barrier}, which does not bound $\mathcal U$ of an arc between barriers: at small self weight next-nearest neighbors are more correlated than nearest neighbors, and a weak barrier then leaves the arc with negative contrast (on a ring of 60 agents with $a=0.45$ and $\varepsilon=0.01$, $\mathcal U=-0.012$ at $n_b=1.5$ and $2.49$ at $n_b=100$; \cref{chk:abs-barrier}).
+
+A straight barrier on the square lattice reduces mode by mode to the chain (Supplement, \cref{rem:abs-interface}). A boundary present in only one of two modalities coupled inside agents is bypassed: under the hypotheses stated there, the cross-boundary entries of that modality's block of $(I-W)^{-1}$ have a lower bound of order $a_\times^2$ that is positive when the other modality is connected (\cref{prop:abs-bypass}).
+
+Readings of measured border effects through the border factor and the border width, and the conjecture that border effects are larger where the boundaries of several modalities coincide, are in the Supplement (\cref{rem:abs-borders,conj:abs-alignment}).
+
+Interpretive remarks on Innis's biases of media and on money as a record are in the Supplement (\cref{sec:abs-records}).
+
+Cultures are treated in the Supplement (\cref{sec:abs-cultures}), where no result shows that a culture in a stated model is a collective in the sense of \cref{def:col-collective}. The results there compare the adoption rule derived from expected free energy with a power conformity rule (\cref{prop:abs-conformity}), describe, under the hypotheses stated there, the expected fraction of binary code features in which two members at distance $d$ differ in leaky and walled regimes (\cref{prop:abs-seguy}), and state when scalar translation factors or exchange rates on a graph derive from a potential (\cref{prop:abs-exchange-consistency}).
+
+\subsection{Economies}\label{sec:abs-economies}
+
+A market is defined in the Supplement (\cref{def:abs-market}) as a collective of the exchange modality (\cref{tab:abs-modalities}), read on members' valuations of the same goods; no result of this section shows that a market in a stated model is a collective in the sense of \cref{def:col-collective}.
+
+\citet{hayek1945use} argued that knowledge of particular circumstances is dispersed among individuals and held by no one in full, and that prices communicate the part of it that decisions need: users of a material that has become scarcer need to learn only that they must economize on it. Two exact statements make this precise in a linear-Gaussian market.
+
+\begin{proposition}[The Walrasian price as a message]\label{prop:abs-walras}
+Let the value of a good be a scalar world state $\eta\sim\Ncal(\bar\eta_0,P_0)$. Agent $i\in V$ senses $s_i=\eta+v_i$ with independent $v_i\sim\Ncal(0,R^s_i)$, has exponential utility with common absolute risk aversion $A_{\mathrm{ra}}>0$, and demands $(\E_i\eta-p)/(A_{\mathrm{ra}}\Var_i\eta)$ at price $p$; net supply is zero. Write $\Lambda_{\mathrm{pool}}=1/P_0+\sum_i1/R^s_i$.
+\begin{enumerate}
+\item[(a)] If each agent conditions on its own signal only, the clearing price is
+\[
+p^\circ=\frac{N\bar\eta_0/P_0+\sum_is_i/R^s_i}{N/P_0+\sum_i1/R^s_i},
+\]
+a precision-weighted average that counts the common prior $N$ times, whereas the pooled posterior mean is $\hat\eta_{\mathrm{pool}}=(\bar\eta_0/P_0+\sum_is_i/R^s_i)/\Lambda_{\mathrm{pool}}$. With equal noise $R^s_i=R^s$ and $N\to\infty$, $p^\circ\to(\bar\eta_0/P_0+\eta/R^s)/(1/P_0+1/R^s)$ almost surely, which differs from $\eta$ unless $\eta=\bar\eta_0$.
+\item[(b)] The pooled posterior depends on the signals only through $\sum_is_i/R^s_i$. A price that reveals this statistic is sufficient, $\E[\eta\mid s_i,p]=\E[\eta\mid s_1,\dots,s_N]$ for every $i$, and the price $p=\hat\eta_{\mathrm{pool}}$ clears the market when every agent conditions on it.
+\item[(c)] A receiver that reads $p=\hat\eta_{\mathrm{pool}}$ at level 0, as an independent observation of $\eta$ with noise precision $h_p$, holds the mean $(\bar\eta_0/P_0+s_i/R^s_i+h_pp)/(1/P_0+1/R^s_i+h_p)$ and the precision $1/P_0+1/R^s_i+h_p$. With $h_p=\Lambda_{\mathrm{pool}}$, the precision of the price as an estimate of $\eta$, its believed precision exceeds the true precision $\Lambda_{\mathrm{pool}}$ of its posterior by $1/P_0+1/R^s_i$, the precision of the prior and of its own signal, which it counts twice.
+\end{enumerate}
+\end{proposition}
+% src: L5-P12; critic V12
+
+Proof in \cref{app:abs}; checked symbolically and numerically (\cref{chk:abs-walras}). Rational-expectations aggregation by a fully revealing price is due to \citet{grossman1976efficiency}, with noisy, partially revealing equilibria in \citet{hellwig1980aggregation}; we cite both for attribution only, since (b) is derived here. Part (c) is the overvaluation of \cref{sec:mis} in market form. Dynamic counterparts are worked out in \cref{sec:met,sec:env}. A price together with the average of many outside traders has an exact law of its own only when the traders' persistences are equal, and, when the price moves the traders and their persistences stay dispersed, keeps memory as their number grows (\cref{ex:met-traders}); in a model of two firms the variables that close for a firm are the price together with its competitor's coarse states (\cref{ex:met-two-firms}); and a firm with a production lag, facing a spot price modeled on the revealing price of (b) and taken as exogenous, finds the futures price at its lag sufficient for its output decision (\cref{ex:env-firm}).
+
+The second statement is the Hayek dimension (Supplement, \cref{prop:abs-hayek}): under the hypotheses stated there, the least number of public scalars that suffices for every agent's decision is the dimension of the span of the agents' decision functionals, and Hayek's scarce material is the case of dimension one. That informed trading is the grounding of the exchange modality is conjectured (\cref{conj:abs-grossman-stiglitz}).
+
+\subsection{Nations}\label{sec:abs-nations}
+
+A polity is defined in the Supplement (\cref{def:abs-polity}) as a composite class whose type contains the law and enforcement modality (\cref{tab:abs-modalities}); composite classes and their types are defined in \cref{sup:abs-composite-classes-markets-and-polities}.
+
+\citet{alesina1997number} explain the number of countries by trading the benefits of large jurisdictions against the costs of heterogeneous populations. In our reading heterogeneity is the decorrelation of preferences, and the result depends on how a polity sets its policy.
+
+\begin{proposition}[Polity size under two policy rules]\label{prop:abs-polity}
+Members at the sites $x\in\Z^D$ hold preferred policies $\varphi_x$ that form a stationary field with variance $\sigma_\varphi^2$ and correlation $\Gamma(x-y)\ge0$, summable, with correlation volume $\chi=\sum_z\Gamma(z)$. A polity is a finite set $C$ of sites; it pays a fixed cost $f>0$, and each member pays $g/(2\sigma_\varphi^2)$ times the expected squared mismatch between its preference and the polity's policy, so that $g>0$ is the expected cost of a member matched to an uncorrelated reference. An unbounded polity is a sequence of polities with $\lvert C\rvert\to\infty$.
+\begin{enumerate}
+\item[(a)] Rule C (center). If the policy is the preference of a designated member $x_0\in C$, the per-capita cost is $\mathcal C_{\mathrm C}(C)=g+(f-g\sum_{x\in C}\Gamma(x-x_0))/\lvert C\rvert$. Every unbounded polity has per-capita cost tending to $g$, and some finite polity has $\mathcal C_{\mathrm C}(C)<g$ if and only if $f<g\chi$. At fixed size, the optimal polities collect the sites of largest $\Gamma(\cdot-x_0)$.
+\item[(b)] Rule M (mean). If the policy is the members' mean preference, the per-capita cost is $\mathcal C_{\mathrm M}(C)=\frac g2+(f-\frac g2\chi_C)/\lvert C\rvert$ with $\chi_C=\lvert C\rvert^{-1}\sum_{x,y\in C}\Gamma(x-y)\le\chi$. Every unbounded polity has per-capita cost tending to $g/2$, and some finite polity has $\mathcal C_{\mathrm M}(C)<g/2$ if and only if $f<g\chi/2$.
+\item[(c)] On the line, with sums replaced by integrals and $\Gamma(z)=e^{-\lvert z\rvert/\xi}$, $\chi=2\xi$. Under rule C, with $\bar f_{\mathrm C}=f/(g\xi)$ and intervals centered at their designated member, a finite optimum exists if and only if $\bar f_{\mathrm C}<2$; its length is $d^\ast_{\mathrm C}=2\xi\varrho_{\mathrm C}$, where $\varrho_{\mathrm C}$ is the unique positive root of $e^{-\varrho}(1+\varrho)=1-\bar f_{\mathrm C}/2$, so that $d^\ast_{\mathrm C}=2(f\xi/g)^{1/2}(1+O(\bar f_{\mathrm C}^{1/2}))$ as $\bar f_{\mathrm C}\to0$, and $d^\ast_{\mathrm C}$ diverges logarithmically as $\bar f_{\mathrm C}\to2$. Under rule M, with $\bar f_{\mathrm M}=2f/(g\xi)$, a finite optimum exists if and only if $\bar f_{\mathrm M}<2$; its length is $d^\ast_{\mathrm M}=\xi\varrho_{\mathrm M}$, where $\varrho_{\mathrm M}$ is the unique positive root of $\psi_{\mathrm M}(\varrho)=4(1-e^{-\varrho})/\varrho-2e^{-\varrho}=2-\bar f_{\mathrm M}$, so that $d^\ast_{\mathrm M}=(6f\xi/g)^{1/2}(1+O(\bar f_{\mathrm M}^{1/2}))$ as $\bar f_{\mathrm M}\to0$ and $d^\ast_{\mathrm M}=4\xi(2-\bar f_{\mathrm M})^{-1}(1+o(1))$ as $\bar f_{\mathrm M}\to2$.
+\item[(d)] On the line, whenever both optima exist, that is for $f<g\xi$, $d^\ast_{\mathrm M}>d^\ast_{\mathrm C}$; the ratio $d^\ast_{\mathrm M}/d^\ast_{\mathrm C}$ tends to $\sqrt6/2$ as $f\to0$ and diverges as $f\to g\xi$.
+\end{enumerate}
+\end{proposition}
+% src: B5-P12 (rule C is L5-P16); critic V12 caveat; repair list for abs (both policy rules); (d) proved by the editor (the source compared the rules only in the two limits and on a grid)
+
+Proof in \cref{app:abs}; checked in one and two dimensions (\cref{chk:abs-polity}). A model must declare its rule, governance from a center (rule C) or aggregation of the members' preferences (rule M). \Cref{fig:abs-polity} shows both rules on the line: a finite optimum under rule M needs $f<g\chi/2$, half the margin that rule C needs, and by part (d) it is the longer of the two wherever both exist. At fixed size, rule-M optima maximize $\sum_{x,y\in C}\Gamma(x-y)$; in the continuum with a symmetric decreasing correlation balls do, by Riesz's rearrangement inequality, which we cite as Theorem~3.7 of \citet{lieb2001analysis} through restatements, and on lattices we have not proved the corresponding statement.
+
+\begin{figure}[t]
+  \centering
+  \input{figures/fig_abs_polity}
+  \caption{\textbf{Polity size on the line under the two policy rules.} Preferences have correlation $\Gamma(z)=e^{-\lvert z\rvert/\xi}$, so $\chi=2\xi$. (a) Per-capita cost against the length $d$ of an interval polity, centered at its designated member under rule C, at the fixed costs $f=0.5g\xi$ and $f=1.5g\xi$; dots mark the optima, and the dotted lines are the costs $g$ and $g/2$ of unbounded polities under rules C and M. At $f=0.5g\xi$ both rules have finite optima, and the one under rule M is $1.94$ times longer; at $f=1.5g\xi$ only rule C has one, while the cost under rule M decreases with length toward $g/2$. (b) Optimal length against $f/(g\xi)$ from the root equations of \cref{prop:abs-polity}(c). Rule M has a finite optimum only for $f<g\chi/2$ and rule C only for $f<g\chi$. Where both exist the optimum under rule M is the longer, as \cref{prop:abs-polity}(d) states, by a factor that tends to $\sqrt6/2$ at small fixed cost, increases along the computed grid and diverges at the rule-M threshold (\cref{chk:abs-polity}). Near its own threshold the optimal length diverges as a power of the remaining margin under rule M and logarithmically under rule C.}
+  \label{fig:abs-polity}
+\end{figure}
+
+Readings of the criterion, of Deutsch's account of a people and of print as a durable medium of long range are in the Supplement (\cref{sup:abs-nations-readings}, with \cref{rem:abs-polity-readings}); conquest, conflict and contingency, which shape actual borders, are outside the model.
+
+Cities are treated in the Supplement (\cref{sec:abs-cities}) through the co-presence modality. Under the hypotheses stated there, a set of agents every pair of which can meet within one round has diameter at most the travel speed times the travel time per round (\cref{prop:abs-one-round}), and this reach composes with the size bound on the extent of a collective (\cref{cor:abs-one-round-extent}). Such a set is defined without contrast and need not be a collective.
+
+\subsection{Distance and scale-free coherence}\label{sec:abs-distance}
+
+The persistence of the distance effect in trade as communication improved, summarized with its sources in the Supplement (\cref{sup:abs-the-distance-effect-in-trade-sources}), is read here through the dependence of the elasticity of coherence on its scale.
+
+The distance elasticity of a coherence profile $\Psi(d/\xi)$ is the same for every $\xi$ at each fixed distance if and only if the profile is a power law, while for the profile $K_0$ of diffusion with leak in two dimensions a longer $\xi$ lowers it at every fixed distance (Supplement, \cref{prop:abs-elasticity}). Scale-free coherence arises from nested coupling, such as administrative and economic hierarchies may provide.
+
+\begin{proposition}[Nested coupling gives scale-free coherence]\label{prop:abs-hierarchy}
+Let $N=b^{n_{\mathrm H}}$ agents, $b\ge2$, be organized in nested blocks of sizes $b,b^2,\dots,b^{n_{\mathrm H}}$; let two agents whose smallest common block has level $l$ be coupled with weight $a^{\mathrm H}_l=A_{\mathrm h}\mathfrak q^{l-1}/[(b-1)b^{l-1}]$, so that each agent's total coupling to its level-$l$ cousins is $A_{\mathrm h}\mathfrak q^{l-1}$; and let every agent have precision leak $\varepsilon^\Pi>0$, so that the world-conditional precision is $\Pi=\varepsilon^\Pi I+L$ with $L$ the weighted Laplacian of the couplings $a^\Pi_{ij}=a^{\mathrm H}_l$, and let $\mathsf G=\Pi^{-1}$.
+\begin{enumerate}
+\item[(a)] $\mathsf G(i,j)$ depends only on the level $l$ of the pair. With $\mathsf g_l=\sum_{l'=l}^{n_{\mathrm H}}A_{\mathrm h}\mathfrak q^{l'-1}+A_{\mathrm h}\mathfrak q^{l-1}/(b-1)$,
+\[
+\mathsf G(l)=\frac{b^{-n_{\mathrm H}}}{\varepsilon^\Pi}+\sum_{l'=l+1}^{n_{\mathrm H}}\frac{(b-1)b^{-l'}}{\varepsilon^\Pi+\mathsf g_{l'}}-\frac{b^{-l}}{\varepsilon^\Pi+\mathsf g_l}\quad(1\le l\le n_{\mathrm H}),\qquad\mathsf G(0)=\frac{b^{-n_{\mathrm H}}}{\varepsilon^\Pi}+\sum_{l'=1}^{n_{\mathrm H}}\frac{(b-1)b^{-l'}}{\varepsilon^\Pi+\mathsf g_{l'}}.
+\]
+\item[(b)] If $1/b<\mathfrak q<1$, the correlation $\mathsf G(l)/\mathsf G(0)$ of a level-$l$ pair converges, as $n_{\mathrm H}\to\infty$ and then $\varepsilon^\Pi\to0$, to
+\[
+\frac{b(1-\mathfrak q)}{b-1}(b\mathfrak q)^{-l}\qquad(l\ge1),
+\]
+so correlations fall by the factor $1/(b\mathfrak q)$ per level.
+\item[(c)] If level-$l$ pairs lie at distance $d_l=d_1b^{(l-1)/D_e}$, as for blocks of linear size proportional to $b^{l/D_e}$ in $D_e$ dimensions, the limit in (b) is proportional to $d_l^{-\alpha_{\mathrm H}}$ with $\alpha_{\mathrm H}=D_e\ln(b\mathfrak q)/\ln b$. The exponent does not depend on $A_{\mathrm h}$ or on the unit of distance; only the allocation of coupling across levels, $\mathfrak q$, and the branching $b$ change it.
+\end{enumerate}
+\end{proposition}
+% src: L5-P15; (b) restated as an exact double limit
+
+Proof in \cref{app:abs}; the spectral formula and the limit were checked numerically (\cref{chk:abs-hierarchy}). The nested medium renormalizes exactly: the coordinates of its level-one blocks follow a nested medium on $b^{n_{\mathrm H}-1}$ agents with $A_{\mathrm h}$ multiplied by $\mathfrak q$, the contrast of a block is the same in the coarse medium of every level below its own, the level up to which blocks reach a declared contrast is explicit, and $\alpha_{\mathrm H}$ is $D_e$ minus the renormalization exponent of the leak ratio (\cref{thm:ren-nested}). Against exchangeable comparison media, which a medium without declared geometry requires, no block of any level is a collective at any leak when $\mathfrak q\ge1/b$, whether judged in the level-zero medium or level by level (\cref{prop:ren-per-level}(d)), so the scale-free coherence of (b) comes without nested collectives unless a geometry is declared; with the sixteen agents of one such medium placed on $\Z$ and the lattice clause at every level, an exhaustive enumeration found collectives at all three levels for $\mathfrak q\le0.55$ at strong enough grounding, and the general embedding is open (\cref{sec:ren-levels}).
+
+Cutoffs at finite leak and a log-periodic modulation in a computed small hierarchy are described in the Supplement (\cref{rem:abs-cutoff}). It is conjectured (\cref{conj:abs-distance}) that the persistence of the distance elasticity, which one coherence scale lengthened by communication does not fit as the dominant mechanism, fits two readings: a binding modality whose range did not grow, or scale-free coherence in the binding modality.
+
+Unconditional correlations count the common response to shared shocks as coherence. When the unconditional covariance is the world-conditional one plus a common mode, the ultrametric contrast computed from unconditional correlations is bounded, under the hypotheses stated there, by a cap that depends only on the ratio of the largest world-conditional variance to the variance of the common mode (Supplement, \cref{prop:abs-ultrametric-cap}, in \cref{sec:abs-world}), which is why the diagnostic uses world-conditional correlations.
+
+\subsection{Abstract collectives as graded meta-agents}\label{sec:abs-graded}
+
+Hypothesis H1 in its final form (\cref{thm:agy-h1}) grades meta-agenthood by a boundary, contrast at a declared level above the baseline, closure, interaction necessity and agency (\cref{def:agy-meta-agent}). \Cref{tab:abs-graded} says which of these can be checked in a stated model for each abstract collective and which remain interpretation.
+
+\begin{table}[t]
+\centering\small
+\caption{Abstract collectives against the properties of hypothesis H1. Entries that cite a result can be checked in the stated model; the rest are interpretation or are not addressed.}
+\label{tab:abs-graded}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}@{}}
+\toprule
+Collective & Boundary and contrast & Closure & Interaction necessity & Agency\\
+\midrule
+Culture (convention) & Strong barriers give ultrametric contrast in the computed ring (\cref{chk:abs-barrier}); \cref{prop:abs-barrier} gives the border factor; walls give domains (\cref{prop:abs-seguy}), spectral contrast open (\cref{open:abs-code-contrast}); archives placed by their writers (\cref{prop:col-records-partition}) & Records give slow memory (\cref{prop:sca-records-memory}); closure not shown & Contrast above one given the shared drive rules out separating nulls (\cref{prop:agy-nulls-vanish}(d)); decisive nulls not applied & Not claimed: no collective active states\\
+Market (exchange) & Border factor and width (\cref{prop:abs-barrier}), bypass (\cref{prop:abs-bypass}); measured border effects are readings & A revealing price is sufficient (\cref{prop:abs-walras}(b)); dynamic closure not shown & As for cultures & None for the market; institutions can be checked against \cref{thm:agy-agency}\\
+Polity (law) & Long-range borders need alignment (\cref{prop:abs-bypass}, \cref{conj:abs-alignment}); size criterion under a declared rule (\cref{prop:abs-polity}) & Statutes and registries give slow memory; closure not shown & Performative acts: the order parameter conditions on the shared drive (\cref{def:agy-order-parameter}); nulls not applied & Protocol of \cref{thm:agy-agency}; joint acts (\cref{thm:agy-joint-acts}); application is interpretation\\
+City (co-presence) & One-round diameter (\cref{prop:abs-one-round}) composes with the size bound (\cref{cor:abs-one-round-extent}); no contrast result & Not addressed & Not addressed & Not addressed\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+No abstract collective of this section is shown to meet every clause of \cref{def:agy-meta-agent}: the entries of \cref{tab:abs-graded} are established one clause at a time, in different models, and the decisive tests of \cref{def:agy-nulls} have been applied to none. Nothing here makes a culture or a market behave as if it minimized a group expected free energy, and nothing here derives the formation of a culture, a market or a polity: the propositions describe stationary structure under declared couplings, not its origin (\cref{sec:frm-status}). The discussion of each column of the table and the phenomena outside the framework's assumptions are in the Supplement (\cref{sup:abs-graded-meta-agents-discussion-and-open-p}).
+
+The Supplement states three open problems: whether the code domains of the walled regimes have spectral contrast (\cref{open:abs-code-contrast}), whether allocating one attention capacity across modalities couples them (\cref{open:abs-attention}), and when an abstract collective with contrast and closure has agency in the sense of hypothesis H1 (\cref{open:abs-institutions}).

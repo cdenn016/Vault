@@ -1,0 +1,197 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:min}}{Section 9}: the minimal model}\label{sup:min}
+
+This section collects statements, examples and remarks of \cref{sec:min} that the main text cites without stating in full. Proofs are in \cref{app:min}.
+
+\subsection{The earlier model as a special case}\label{sec:min-dictionary}
+
+The report's results can be used here only after translation, and the translation decides which of them survive when every agent encodes the world in the same coordinates. The earlier model is the linear-Gaussian case of the agent model of \cref{def:fw-system} with an exogenous world, one round per world step, linear encodings $U_i\in\GL^+(K)$ and a single modality in every computed instance. \Cref{tab:min-dictionary} translates its objects. Two rows need comment. The report's default receiver adds the sender's posted coded covariance, its law header, to the channel noise and calls the result level 0; in the framework this receiver reads at interpretation level 1 (\cref{def:fw-levels}), by the correspondence of \cref{def:fw-calibration}, and we use the framework's names throughout. The report's blankets are partitions of agents, which in the framework are coarse descriptions of the channel-level partition (\cref{def:col-partition,rem:col-agent-level}); a member's sensing of the shared world is a sensory channel of the collective and a leak only in the coarse description.
+
+\begin{table}[t]
+\centering\small
+\caption{Dictionary between the earlier model of \citet{dennis2026communicating} and the framework. Indices are receiver first in both.}\label{tab:min-dictionary}
+% src: L7-D1, corrected by decision 10 (law-header receivers are level 1)
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.45\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}@{}}
+\toprule
+Earlier model & Framework \\
+\midrule
+world $x_t$ with transition $F$, innovation covariance $Q_x$ and stationary covariance $P_x$; access sets of sensing channels & external states $\eta_t$ with $F$, $Q$ and $P_0$; sensing $s_i=H^s_i\eta+v_i$ (\cref{def:fw-system}) \\
+fixed private frame in $\GL^+(K)$; displayed belief about the framed world & linear encoding $U_i$; internal state $\mu_i=U_im_i$ \\
+public displayed code of rank $r_c$; reference code of sender $j$ & public code $T_c$ of rank $r_c$; effective code $H_j=T_cU_j$ (\cref{prop:fw-effective-codes}) \\
+dictionary learned by receiver $i$ for sender $j$, with true value $U_iU_j^{-1}$ & learned translation $\Theta_{ij}$; model of the sender's code $\hat H_{ij}=T_c\Theta_{ij}^{-1}U_i$ \\
+receiver that reads the law header (called level 0 there) & interpretation level 1, assigned noise $R_c+H_jP_jH_j^\top$ (\cref{def:fw-levels}) \\
+receiver that learns its noise model from innovations & level 0 with calibration class $\mathsf{C1i}$ (\cref{def:fw-calibration}) \\
+fusion with the stacked joint error covariance & exact fusion \\
+prior-lift echo; reply under the literal preference to be predicted & feedback of being understood; of being predicted (\cref{prop:fw-understood-predicted}) \\
+listening offset; alignment precision & prior preference for receiving a message; precision of the preference to predict incoming messages \\
+capacity, habits, policy precision & $\kappa$, $E_i(\pi)$, $\gamma$ \\
+agent-only path blanket of full agent states; forbidden mass & agent-level description of a path blanket (\cref{def:col-blankets,rem:col-agent-level}); leak frequency \\
+moment bound on decision-time belief means & hypothesis (M) (\cref{asm:sca-standing}) \\
+null models and attribution rule & null family with declared types (\cref{def:agy-nulls}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+By \cref{prop:fw-effective-codes}, encodings enter the framework only through the effective codes $H_j=T_cU_j$ and the receivers' models $\hat H_{ij}$ of them, which sorts the earlier results by how much of the encoding structure they use.
+
+\begin{definition}[Classes of dependence on encodings]\label{def:min-classes}
+A result about the earlier model is of class I if it holds when all senders of a modality share one effective code, $H_j=T_c$, and hence at identity encodings; of class C if it needs sender-specific effective codes, which identity encodings supply only through several modalities or role-specific codes; of class F if it needs errors of learned translations caused by differences between frames, so that it has no counterpart at identity encodings; and of class G if it is a statement about Markov chains or linear-Gaussian systems that does not use the communication model.
+\end{definition}
+% src: L7-D2
+
+Every result the report proved with known translations is of class I or C, read off the codes it uses. \Cref{tab:min-results} assigns the classes. Results of classes I and G hold in the framework with the report's scope, class C results need sender-specific codes, and class F results lose their mechanism at identity encodings and belong to the gauge-theoretic setting whose constructions the report borrowed \citep{dennis2026magent}.
+
+\begin{table}[t]
+\centering\small
+\caption{Main results of \citet{dennis2026communicating}, their class (\cref{def:min-classes}) and their place in the framework.}\label{tab:min-results}
+% src: L7 Section 3.9 (class table), L7-M1 to L7-M39
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.45\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}@{}}
+\toprule
+Result of the report & Class & In the framework \\
+\midrule
+Exact-fusion listening paths at four agents & I at the exchangeable point, C elsewhere & fail partner randomization (\cref{sec:min-bilayers}) \\
+Level-0 bilayers at six agents; nested instance at eight & I & misreading artifacts (\cref{def:agy-nulls}) \\
+Relay chains under lock-out, pruning or targeting & C & explained by access; unreachable \\
+No fed bilayer among enumerated four-agent schedules & C; mechanisms I & conjectured in general by the report \\
+Single-hop evidence relay cannot feed an interior & I & holds \\
+Innovation bias, its sizes, covariance intersection, exact fusion & I & overvaluation (\cref{prop:mis-dynamic,prop:mis-overvaluation-scope}) \\
+Sufficient conditions for the moment bound & I & \cref{prop:sca-sufficient} \\
+Failure of the moment bound by amplification & C & \cref{lem:min-disagreement,prop:min-common-code,ex:sca-amplifying-profile} \\
+Complete split graph, specialization, echo chambers, gradient chains & I; stars at declared points C & hold; echo chambers as in \cref{def:mis-echo} \\
+Reciprocal pairs, directed paths and cycles, closed triangles & F & \cref{rem:min-reciprocity} \\
+Product form, path blankets, leak bound, instantaneous blankets, nesting & G & \cref{thm:col-path-blanket,thm:col-boundary} \\
+Closure of community summaries & G & \cref{def:agy-closure} \\
+Separability of the group expected free energy & G & \cref{thm:agy-agency,prop:agy-performative-sign} \\
+Being predicted is not being understood & I & \cref{prop:fw-understood-predicted} \\
+Replicator flow of habits; strict vertices; random limits & I & holds where attention depends on covariances only \\
+Relays as mediated couplings; direct-source dominance & I & holds \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Message-fed bilayers and why none qualifies}\label{sec:min-bilayers}
+
+The report's target was a blanket of agents whose interior learns about the exterior through messages alone. Its definition makes precise what such a structure would have to satisfy, and the reasons none qualifies say what the framework must ask instead.
+
+\begin{definition}[Message-fed bilayer, after \citet{dennis2026communicating}]\label{def:min-bilayer}
+A message-fed bilayer is a periodic orbit of the best-response map at $\gamma=\infty$ in which every scheduled action is a strict minimizer of expected free energy, together with a partition of the agents into interior, active, sensory and exterior sets $(\sI,\sA,\sS,\sE)$ with $\sI$ and $\sE$ nonempty and an assignment of the blocks of $\eta$ to an interior side and an exterior side, such that (i) no delivery, echo, reply or sensing event realizes a coupling $\sE\to\sI$, $\sI\to\sE$, $\sI\to\sS$ or $\sE\to\sA$; (ii) no agent of $\sI\cup\sA$ senses an exterior-side block; and (iii) some interior agent hears a message and has true posterior error variance, computed from the actual joint law, below its prior variance on an exterior-side block. In clause (i) a delivery from a sender $j$ to a receiver $i$ realizes the coupling $j\to i$, and its echo, in which $i$ returns to $j$ in its own code what it understood, counts as a coupling $i\to j$.
+\end{definition}
+% src: L7-D3
+
+Clause (ii) is sensory privacy of the interior, and clause (iii) asks that messages, not sensing, inform it. \Cref{tab:min-bilayers} lists the four variants in which the report found such orbits on open parameter sets; each adds a commitment that the report's canonical model does not make, and each fails attribution or reachability.
+
+\begin{table}[t]
+\centering\small
+\caption{The four variants in which \citet{dennis2026communicating} found message-fed bilayers. The error column gives the interior's true posterior error variance on an exterior-side block as a fraction of its prior variance.}\label{tab:min-bilayers}
+% src: L7-M1 to L7-M5, L7-M38
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}@{}}
+\toprule
+Variant & Error & Held by & Why it does not qualify \\
+\midrule
+Exact fusion, four agents & 0.48 to 0.67 & a negative listening offset; the ambiguity term; certain defect beliefs & partner randomization yields a fed path in 12 of 27 graphs; at one access-structured point the split is the access partition; reached from none of 61 starts \\
+Level 0 with learned noise or agreement tracking, six agents; a nested instance at eight & 0.70 to 0.89 & cheap listening; believed information 3 to 150 times the true & absent under exact fusion; reached from none of 120 (nested: 80) seeded starts \\
+Relay chains $\sS\to\sA\to\sI$ (two hops), four to six agents & 0.76 to 0.85; pruned 0.936 to 0.999 & forbidden deliveries locked out or pruned; access-structured world & sides are the access classes; the frozen-environment null reproduces the chains; the lock-out does not arise from a broadcast start \\
+Literal preference to be predicted, four agents & 0.95 at best & targeted addressing; a pessimistic prior over untried partners & sides are the access partition; not reached from the untried partner state \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Without such additions the report found none: with level-1 receivers at four agents, exhaustive enumerations of schedules of period at most two at the declared points, and of period at most three in an aligned sub-instance, contain no message-fed bilayer, and nonexistence in general is its conjecture. It identifies three mechanisms. An agent that neither senses nor hears about a block keeps it at its prior and, at equal prior signal-to-noise ratios, finds it its best sensing option, which draws a poorly informed interior to the shared block, also under exact fusion. In the epistemic limit (no preference to predict messages, no listening offset), listening to a sender of code gain $\vartheta_j$ and posted variance $\sigma_j^2$ beats sensing the shared block with noise variance $\sigma_s^2$ exactly when $1/\vartheta_j^2+\sigma_j^2<\sigma_s^2$, for every receiver at once, so two agents with clean channels both stop sensing it; the rule fails under exact fusion. A receiver that holds only its prior, of variance $\sigma_p^2$, and hears with gain $k$, through code gain $\vartheta_j$ and unit channel noise, a sender whose mean is its conditional mean of the world and whose true error variance is $\sigma_e^2$, ends at true error variance $\sigma_p^2-2k(\sigma_p^2-\sigma_e^2)+k^2(\sigma_p^2-\sigma_e^2+1/\vartheta_j^2)$, above $\sigma_p^2$ for an uninformed sender; exact fusion removes this relay poisoning. For single-hop relays of tagged observations the report proves an exact obstruction for every population size, period and precision: if the two sides of the world are independent, then in any partition satisfying clauses (i) and (ii) of \cref{def:min-bilayer}, where the interior hears only from $\sI\cup\sA$ because the echo of a delivery from $\sS$ would be a coupling $\sI\to\sS$, every interior agent's posterior on the exterior-side blocks equals its prior at every round. The relay chains of \cref{tab:min-bilayers} pass through an active agent in two hops and are not covered by this obstruction.
+
+The framework settles one of the report's open choices and changes its target. Under hypothesis H2, misreading joint structure is the failure that exact fusion removes, so the exact-fusion null is a clause a structure must survive (\cref{def:agy-nulls}), which was the report's working reading. The level-0 bilayers and the nested instance are then artifacts of misreading (\cref{sec:mis}), and the exact-fusion paths, which survive by construction, fail partner randomization and are held by a prior preference for being addressed that the framework would have to declare. More basically, the framework does not ask for a bilayer. Blanket existence selects nothing (\cref{prop:col-selects-nothing}): under per-channel noise every set of agents is an exact path blanket under its canonical partition, and in layered descriptions with one variable per agent every region with a two-hop shell is one (\cref{prop:col-two-hop}). Sensory privacy forces interiors that sense no exterior-side block, and in the exact-fusion paths, the nested instance and both kinds of relay chain the interior senses nothing at all. Under channel-level roles a member's sensing of the shared world is a sensory channel of the collective (\cref{def:col-partition}), and an interior that never senses has no grounded data from which to identify its sources' codes (\cref{prop:fw-grounded-identification}); the codes it learns are regressions on its own beliefs (\cref{prop:fw-ungrounded-bias}). A collective is a region of high contrast on the world-conditional precision above a declared baseline, with the moment bound in its definition (\cref{def:col-collective}). The framework's formation result concerns that object and is narrower than the report's question. In the two-group model of \cref{sec:frm}, at policy precision $\gamma=\infty$ with noiseless angle observations, $\sigma_\alpha^2=0$, the chain from calibrated precision through attention to contrast and convergence, clauses (T1) to (T3) and (T5) of \cref{def:frm-target}, consists of theorems, the contrast clause at the levels of the window of \cref{thm:frm-split-contrast}(c), which is nonempty at every computed parameter point (\cref{obs:frm-grid}), and the declared start is then itself the split (\cref{thm:frm-formation}(e), \cref{thm:frm-split-contrast}). For $\gamma_S<\gamma<\infty$ reachability of the split branch is a theorem about the frozen-calibration mean-field map (\cref{thm:frm-formation}(a),(b)); the step from the full stochastic model to that map is open (\cref{open:frm-closure}), and the contrast of the reached state is computed at the base point (\cref{obs:frm-exploration}). Online calibration from a symmetric start reaches the split's attention pattern (not necessarily a split selected by contrast) in 0 to 7 of 8 replicates per cell, with reruns of a cell differing by up to three replicates, and is open (\cref{obs:frm-online,open:frm-online}). The collectives produced are a calibration-level effect of misreading joint structure, which, above a threshold in policy precision, coincide with the partition by codes. They provably fail the translation-aware form of the exact-fusion persistence clause: when receivers know their translation errors, no state of the null attends along the split (\cref{prop:frm-exact-fusion}), so clause (T4) fails for that null of type S and the model yields no formation result in the sense of \cref{def:frm-target}. For full cross-covariance-aware exact fusion, whose receivers also model the correlations of message errors, this conclusion is heuristic in that model. Persistence under exact fusion with drifting frames (\cref{conj:frm-drifting-frames}) and formation beyond that model (\cref{conj:frm-formation}) are conjectures.
+
+\subsection{Attention structures}\label{sec:min-attention}
+
+Attention chosen by expected free energy produced most of the structures the report found, and their class decides whether they survive at identity encodings. When every receiver ranks senders in one strict common order, as law headers make them do at $\gamma\to\infty$, capacities equal $\kappa$, all agents are candidates and senders broadcast, the best-response delivery graph is the complete split graph $K_\kappa\vee\overline K_{N-\kappa}$: the top $\kappa+1$ agents attend each other and the others attend the top $\kappa$. Its average local clustering tends to one while its global transitivity is about $3(\kappa-1)/N$, and with echoes counted it admits no blanket with nonempty interior and exterior. One receiver facing two complementary senders locks in on one of them for every $\gamma$ exactly when, besides no-invasion conditions, the variance $\sigma^2_{\mathrm{al}}$ of its preferred innovation lies below the logarithmic mean $(S_B-S_A)/\log(S_B/S_A)$ of the two innovation variances; with many receivers the lock-ins are independent, partner randomization reproduces the law of the delivery graph, and the supports are disjoint stars. Level-0 receivers with learned noise or agreement tracking at capacity two form strict triangles, pairs and chains in which nobody senses the shared block and whose listeners end at 1.10 to 1.26 times their prior error while believing they gain 0.22 to 0.47 nats per round; none survives exact fusion. These are echo chambers in the sense of \cref{def:mis-echo}, which exact inference does not form (\cref{prop:mis-exact-no-echo}). Under exact fusion the listening paths of \cref{tab:min-bilayers} are gradients of knowledge, each agent listening to its most similar better-informed neighbor because the ambiguity term prefers the partner whose error is most correlated with its own.
+
+With Dirichlet habits no invariant law exists, and where attention depends only on covariances condensation can mean only almost-sure convergence to random limits, conditionally on a limit-set theorem \citep{benaim1999dynamics} that the report cites without checking it against the source; with true codes the averaged fitness has no pair term. The reciprocal pairs, directed paths and cycles of the report's replicator analysis, and the closed triangles selected by relays of translation data, are of class F. The next remark shows why for the pairs.
+
+\begin{remark}[Reciprocity needs frames]\label{rem:min-reciprocity}
+In the report's mutual replicator system, the mean-field equation of moving-average habits in a scalar, content-free reduction with capacity one, a reciprocal and a nonreciprocal delivered edge differ in fitness only through the dyad's mean-square echo defect, and a larger defect lowers fitness. To first order in the frames, the translation that $k$ has learned for $j$ has error $\phi_{kj}=(1-g_{kj})\phi^0_{kj}+\phi^{\mathrm n}_{kj}$, with learning gain $g_{kj}\in[0,1]$, prior errors $\phi^0_{kj}=-u$ and $\phi^0_{jk}=u$ set by the difference $u$ of the two frames' generators, and learning noises $\phi^{\mathrm n}_{kj}$, independent of each other and of the frames, of variance $hg_{kj}(1-g_{kj})\sigma_0^2$, where $\sigma_0^2$ is the receivers' prior variance about the partner's code, $h=1$ for calibrated learners and $h\to\frac12$ under matched forgetting. The defect is proportional to $\phi_{kj}+\phi_{jk}=(g_{kj}-g_{jk})u+\phi^{\mathrm n}_{kj}+\phi^{\mathrm n}_{jk}$, whose mean square is
+\begin{equation}\label{eq:min-defect}
+\Xi_{jk}=\E[u^2](g_{kj}-g_{jk})^2+h\sigma_0^2\bigl[g_{kj}(1-g_{kj})+g_{jk}(1-g_{jk})\bigr].
+\end{equation}
+Under the frame-consistent prior $\E[u^2]=\sigma_0^2$, a reciprocal edge has gains $(g,g)$ and a nonreciprocal one $(g,0)$, so $\Xi(g,g)-\Xi(g,0)=-\sigma_0^2g[g-h(1-g)]$, and reciprocity is favored exactly when $g/(1-g)>h$, that is, when learning is fast. At identity encodings $u\equiv0$ and the first term of \eqref{eq:min-defect} vanishes. If receivers still keep a prior variance $\sigma_0^2>0$ about partners' codes, the difference is $h\sigma_0^2g(1-g)>0$ for $0<g<1$, so reciprocity is disfavored at every gain and the report's stable reciprocal dyads have no instance; under the frame-consistent prior, whose variance is twice that of the frame generators and hence zero, $\Xi\equiv0$ and the echo selects nothing. The derivative $\partial\Xi/\partial g_{jk}=h\sigma_0^2(1-2g)$ at equal gains is the same with and without frames, so the report's sign rule for the response of a sender's fitness to its own listening does not depend on frames. The algebra was checked symbolically (\cref{chk:min-reciprocity}).
+\end{remark}
+% src: L7-P5, L7-M15, L7-M16, L7-E2
+
+\subsection{Double counting and amplification}\label{sup:min-double-counting-and-amplification}
+
+The report's level-1 receivers read a sender's posted predictive mean as an observation of the world whose error, of the posted covariance, is independent of their own. In a dynamic world the common innovation cancels in the difference of two predictions but is counted twice in the claimed innovation covariance, and the overconfidence of double counting adds to the excess; \cref{prop:mis-dynamic}(b) states the report's identity. In the report's reciprocal sense-and-listen pairs the claimed own covariance is 0.35 to 0.65 of the actual one and the claimed innovation covariance 3.0 to 13.4 times the actual one. Covariance intersection \citep{julier1997nondivergent}, which fuses estimates with unknown cross-covariance, leaves the innovation inflated by factors 2.6 to 9.5, because it carries no information about the cross-covariance of two agents' predictions, while exact fusion never raises a true error but needs the joint error covariance of all agents (\cref{rem:mis-exact-fusion}). This is the overvaluation case of misreading joint structure (\cref{sec:mis}).
+
+The report derives the moment bound (M) of \cref{sec:min-moment} under a small-gain condition, for acyclic cumulative listening, in a decoupled regime and under exact recognition, and shows that it fails at level 1. The failure starts in a single round.
+
+\begin{lemma}[One round of mutual listening, after \citet{dennis2026communicating}]\label{lem:min-disagreement}
+Let agents $1$ and $2$, with decision-time covariances $P_1,P_2\succ0$, listen only to each other at level 1, with known rank-one codes $H_1,H_2\in\R^{1\times K}$, $K\ge2$, and channel noise variance $R_c\ge0$, and let neither sense. The reception step of the round multiplies the homogeneous part of their disagreement $e_1-e_2$ by
+\[
+\mathbb D=I-\Kg_{12}H_2-\Kg_{21}H_1,\qquad\Kg_{12}=\frac{P_1H_2^\top}{S_1},\quad\Kg_{21}=\frac{P_2H_1^\top}{S_2},
+\]
+with the claimed innovation variances $S_1=H_2(P_1+P_2)H_2^\top+R_c$ and $S_2=H_1(P_1+P_2)H_1^\top+R_c$, and $\rho(\mathbb D)>1$ exactly when $(H_1P_1H_2^\top)(H_2P_2H_1^\top)>(H_2P_1H_2^\top)(H_1P_2H_1^\top)$. The two sides are equal when $H_1$ and $H_2$ are proportional, so under a common code $\rho(\mathbb D)\le1$ and the round has no expanding mode.
+\end{lemma}
+% src: L7-M12 (record L4.1 of the moment lane; criterion and common-code eigenvalues), proved here
+Proof in \cref{app:min}; the criterion and its common-code case were also checked numerically, and the criterion is specific to level 1 (\cref{chk:min-disagreement,chk:min-common-code}). Expected free energy selects such loops. In the two-agent profile of \cref{ex:sca-amplifying-profile}, with sender-specific codes $(3,0)$ and $(0,3)$, $F=0.9I_2$, $Q=I_2$, oblique sensing rows $(3,6)$ and $(6,3)$ and capacity two, sensing while listening to the partner is the strict best response at every admissible state and the frozen mean map has spectral radius $1.0613266751$ (\cref{chk:min-amplification}); under Dirichlet habits the report derives divergence of second moments for every $\gamma\ge0$, an argument we have not rechecked. The report describes a second instance, its CEX-1, in which alternating two individually stable profiles at capacity one grows by $1.0703173057$ per round; CEX-1 is a separate instance from the capacity-two system above, with $F=0.99I_2$, $Q=0.1I_2$, the same two sender-specific codes, sensing rows $(-5,10)$ and $(10,-5)$, and both agents listening in one round and sensing in the next. The report's summary does not state these parameters, which are taken from its working record, and the rate was recomputed with them (\cref{chk:min-amplification}). In the two-agent instance above every period-two alternation of capacity-one profiles contracts (\cref{chk:min-amplification}). Such amplifying profiles are rumors, not collectives (\cref{rem:sca-rumors}). Both counterexamples use sender-specific codes, and one common code removes the amplification in two cases.
+
+Parts (b) and (c) of \cref{prop:min-common-code} prove two cases of the conjecture that at identity encodings, with one modality and one channel noise, no frozen or periodic profile of level-1 receivers in an isotropic world grows faster than the world (\cref{conj:sca-common-code}), both with a rank-one code: frozen profiles with symmetric listening, and profiles without sensing on any listening graph, frozen or periodic. In the computations that support the conjecture no common-code instance grew faster than $f$, against roughly a third of the instances with sender-specific codes (\cref{chk:sca-common-code}). With several modalities identity encodings give sender-specific codes again, so amplification can return in multiplex populations. Noisy sensing does not restore (M), since both agents of the two-agent counterexample sense every round. Noise-free observation of the world does, above a rate (\cref{prop:min-grounding-moment}).
+
+\subsection{Group agency and the two readings of ``be predicted''}\label{sec:min-agency}
+
+Hypothesis H1 asks that a collective act as one agent, and the preference to predict and be predicted, which we take from the duet for one, shapes whom agents address. The report examined both. Its group-agency results are of class G. Let at least two outer-layer members of a collective decide independently, and let a group linear-Gaussian model give each boundary slot an outcome with noise conditionally independent given a group hidden variable. The interaction of the group expected free energy over two members' actions is the conditional mutual information of their slots plus a pragmatic term, which a slot-product preference removes; with product or uniform habits the group log odds ratio of the two actions is then $-\gamma_C$ times that mutual information, never positive, $\gamma_C$ being the group's policy precision. Independent members produce a product law, so a group model reproduces them only when their boundary inputs are conditionally independent under the group belief and their precisions match. It fails whenever interface members share inputs (mutual information $0.5649$ nats and group log odds ratio $-0.9603$ for two members attending one exterior broadcaster in the report's instance), and without constraints as-if agency is vacuous. The framework's positive results concern another protocol. When members share data and announced intentions, have one precision and deliberate one at a time, deliberation is reversible with a Gibbs stationary law exactly when they agree on the redundancy of their inputs, and is then the posterior of a group model with tilted habits when their beliefs are translates of one law (\cref{thm:agy-agency}); otherwise it stays within explicit distances of such a law (\cref{thm:agy-heterogeneous}). With performative acts the sign obstruction is confined to epistemic slots opened from the null policies, and the group log odds ratio of two additive acts can have either sign (\cref{prop:agy-performative-sign}), and joint acts form an exact potential game when members share a preference precision and agree on how their acts combine (\cref{thm:agy-joint-acts}).
+
+The preference to predict and be predicted has two formalizations (\cref{prop:fw-understood-predicted}). The report's canonical echo, in which a receiver returns in its own code what it understood, scores being understood and is belief free; a literal preference to be predicted returns the receiver's innovation, which at identified codes is the coded disagreement $H_j(m_j-m_k)$ plus noise. At identity encodings with exact code models the echo error is pure noise, so being understood reduces to being heard, while being predicted keeps coded disagreement. The literal preference is a genuine prior preference when content is honest and fixed and replies update only partner models. In a scalar world its cost of addressing partner $k$ is the expected squared coded disagreement $\vartheta_j^2[(\sigma_j-\sigma_k)^2+2\sigma_j\sigma_k(1-\Corr(e_j,e_k))]$, with $\sigma_j,\sigma_k$ the error standard deviations, so an informed sender finds partners that share its sources cheapest and uninformed partners most expensive. It adds a homophilic coupling seeded by the world, and under content choice the sender panders (\cref{prop:fw-bounded-confidence}). In the report's four-agent instance targeting makes fed relay chains strict for their receivers, but they are stable for their senders only under a pessimistic prior over untried partners and are not reached from the untried state; under a prior that knows the partners the preference stabilizes an informationless pair at 1.177 and 1.179 times the prior error. At identity encodings the choice is therefore between an attention-seeking sender and an agreement-seeking, homophilic one, since the misunderstanding that the echo measures exists only while code models are wrong. The framework leaves this choice open, together with whether a prior preference for being addressed, which holds the exact-fusion paths in place, belongs to the agents' preferences.
+
+\subsection{What grounding, records, performative acts and multiplexity change}\label{sec:min-reexamination}
+
+The earlier model had grounding only as rounds that identify translations through a public referent unrelated to $\eta$, no persistent records \citep{heylighen2016stigmergy}, honest fixed content with no effect on the world, hence no performative acts in the sense of \citet{austin1962how}, and one modality in every computed instance, hence no multiplex structure \citep{kivela2014multilayer}. \Cref{tab:min-reexamination,tab:min-reexamination-b} list the conclusions these omissions may change and where they now stand: three are answered within a stated scope, eleven in part, and three remain open.
+
+\begin{table}[tp]
+\centering\footnotesize
+\caption{Results of \citet{dennis2026communicating} reopened by the framework's additions, and where they now stand: grounding and records. Performative acts and multiplexity follow in \cref{tab:min-reexamination-b}.}\label{tab:min-reexamination}
+% src: L7-E1 to L7-E17; B4 change list (L7-E11 answered by B4-D2, B4-T2, B4-X1, B4-P4; L7-E12 by B4-D4, B4-P5(b), B4-X2); B5 change list (L7-E7, L7-O5 answered by B5-D2, B5-P6, B5-P8)
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}@{}}
+\toprule
+Earlier result & Why it may change & Status in this manuscript \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Grounding}} \\
+Fed structures with non-sensing interiors & an interior that never senses cannot ground its sources' codes; the structures used known codes & in part: interior sensing is a sensory channel (\cref{def:col-partition}); grounding identifies codes (\cref{prop:fw-grounded-identification}); recomputation open (\cref{open:min-exact-fusion}) \\
+Reciprocal pairs, cycles and triangles of the replicator analysis & their selecting defect comes from frame-induced translation errors & in part: never favored at identity encodings (\cref{rem:min-reciprocity}); the window under grounding with frames is open \\
+Learned codes as regressions; the alignment preference read as synchrony & grounding changes the learning target & in part: grounded rounds remove the regression bias (\cref{prop:fw-ungrounded-bias}); the readings at identity encodings (\cref{prop:fw-understood-predicted}) \\
+Teaching value and bridges & grounding gives a route to codes that bypasses teaching & open \\
+Moment bound; mass from sensing gain & noisy sensing does not restore the bound & in part: noise-free grounding does when $\varpi_g<1$ (\cref{prop:min-grounding-moment}); \cref{prop:sca-sufficient,rem:sca-rumors}; clustering under exact fusion and noisy joint-attention grounding open \\
+\multicolumn{3}{@{}l}{\emph{Records}} \\
+One-round lag, single-hop relay, direct-source dominance & a record can hold slow or accumulated quantities & in part: latency, delay and optimal persistence (\cref{prop:fw-record-basics}); memory criterion (\cref{prop:sca-records-memory}); listen, read or sense comparisons open \\
+Blanket definitions, privacy, product form & a record written inside and read outside is a lagged coupling through the world & answered for path blankets: records are internal, boundary or external by their writers and readers (\cref{def:col-partition,prop:col-records-partition}); writer-activated leaks of agent-level descriptions (\cref{prop:agy-writer-leak}) \\
+Double counting and tagging & records are common sources and can return one's own report & in part: the exact-fusion null carries provenance for records (\cref{def:agy-nulls}); circular reporting through records treated within stated scopes (\cref{prop:hie-literal-records,prop:hie-record-filter}); the provenance a record must carry when members keep their own past posteriors is open \\
+Long-run objects; correlation time & records add slow persistent variables & in part: correlation time and length with records (\cref{prop:sca-records,prop:sca-records-length}); habit dynamics with records open \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[tp]
+\centering\footnotesize
+\caption{Results of \citet{dennis2026communicating} reopened by the framework's additions, continued from \cref{tab:min-reexamination}: performative acts and multiplexity.}\label{tab:min-reexamination-b}
+% src: as for tab:min-reexamination
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}@{}}
+\toprule
+Earlier result & Why it may change & Status in this manuscript \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Performative acts}} \\
+Pandering; honest fixed content & acts move resources, so stakes diverge and content becomes strategic \citep{crawford1982strategic} & in part: performative channels (\cref{prop:fw-performative}); pandering (\cref{prop:fw-bounded-confidence}); strategic content open \\
+Group agency and nesting & a collective's active states can change $\eta$ & answered for agency (\cref{def:agy-joint-acts,thm:agy-joint-acts,ex:agy-no-potential,prop:agy-performative-sign}); nesting with acts open \\
+Nulls & deleting an act changes the world's dynamics & answered: informational and effect nulls and an order parameter conditioned on the shared exogenous drive (\cref{def:agy-nulls,def:agy-order-parameter,prop:agy-nulls-vanish,ex:agy-collider}) \\
+\multicolumn{3}{@{}l}{\emph{Multiplexity}} \\
+Moment bound with one code & several modalities give sender-specific codes again & in part: \cref{prop:min-common-code,conj:sca-common-code}; multiplex populations open \\
+Blankets and nesting & overlapping collectives break the strict hierarchy that nesting needs & in part: modality-restricted and split partitions (\cref{prop:col-nesting}); decoupled components and crossover distance (\cref{prop:abs-decoupling,prop:abs-crossover}); multiplex nesting open \\
+Listen versus sense; binding regime & capacities become modality specific & open \\
+Learned dissonance and identification & edges are read through different modalities & in part: true translations are flat (\cref{prop:coh-flat-true}); identification modulo stabilizers (\cref{prop:fw-frame-identifiability}); counts per modality pattern open \\
+Complete split graph & rankings become modality specific & open \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Circular reporting through records (\cref{tab:min-reexamination}) is treated in \cref{sec:hie} within stated scopes. In a static world a record rebuilt every round from its readers' posteriors has an overconfidence factor that grows without bound under every aggregation rule of \cref{prop:hie-literal-records} other than the exact one, and in a changing world a record that is initialized at the common prior and that memoryless members update by the prior-corrected union rule is the centralized Kalman filter started from that prior (\cref{prop:hie-record-filter}); the provenance a record must carry when members also keep their own past posteriors remains open.
+
+The calculation the report expected to change its verdict becomes, in the framework, a question about collectives rather than bilayers.
+
+\begin{openproblem}[Exact fusion in the minimal model]\label{open:min-exact-fusion}
+With exact fusion, codes learned by grounding, identity encodings and interiors free to sense, does attention selected by expected free energy produce a collective in the sense of \cref{def:col-collective} that differs from partner randomization and is reached from the common prior at finite $\gamma$ under Dirichlet habits? The report's proposed search for strict message-fed bilayers under exact fusion with six to eight agents in a two-niche world at capacity two is its agent-level analog, and its counterpart in the two-group model is \cref{conj:frm-drifting-frames}.
+\end{openproblem}
+% src: L7-O3, L7-O4

@@ -1,0 +1,108 @@
+% Figure: nested collectives judged level by level (prop:ren-per-level, thm:ren-nested), exchangeable comparison at
+% every level. With S_m = sum_{j=1}^m q^{j-1}, M = b^m:
+% Delta_H(b,q,m) = b/(b-1) - (S_m - 1) - M S_m/(M-1),  T_H(b,q,m) = M S_m (S_m - 1)/((M-1) Delta_H(b,q,m)).
+% The level-(l+1) blocks are collectives of the level-l coarse medium iff Delta_H(b,q,n_H - l) > 0 and
+% eps/(A_h q^l) > T_H(b,q,n_H - l) (prop:ren-per-level(b)).
+% (a) The (b,q) plane, b in [2,5], logarithmic q axis; curves drawn through the integer values of b.
+% Solid: q = b/(2b^2-1), the zero set of Delta_H at m = 2 (prop:ren-per-level(c): Delta_H > 0 for every m >= 2 iff
+% q < b/(2b^2-1)). Dash-dotted: q = 1/(2b-1), the limit of the zero sets as m -> infinity, since
+% Delta_H(b,q,m) = (2b-1)/(b-1) - 2/(1-q) + 2q^m/(1-q) - S_m/(b^m-1) tends to (2b-1)/(b-1) - 2/(1-q). On this curve
+% Delta_H = 2q^m/(1-q) - S_m/(b^m-1) < 0 for every m >= 2: at m = 2 it equals -1/((2b-1)(b+1)); for m >= 3,
+% S_m > 1 and (b-1)(2b-1)^{m-1} >= b^m. Delta_H decreases in q, so it is negative for every m above the curve and
+% positive for all large m below it. Between the two curves the roots q_m(b) of Delta_H increase with m
+% (q_2 = 0.2857, q_3 = 0.3062, q_8 = 0.3321, limit 1/3 for b = 2), so the levels with m = n_H - l large, the lower
+% levels, qualify and the top level never does; prop:ren-per-level(f) proves that Delta_H increases strictly in
+% m >= 2 for q < 1/(2b-1) and is negative for every m >= 2 for q >= 1/(2b-1). Dashed: q = 1/b (prop:ren-per-level(d): no level for q >= 1/b);
+% the band 1/b < q < 1 is the power-law coherence of prop:abs-hierarchy(b). On 1789209 triples (b = 2..10,
+% q = 0.001..0.999, m = 2..200) the sign pattern of Delta_H has no exception to these regions; the roots for
+% m = 2..80 increase with m and stay below 1/(2b-1).
+% Dot: the medium (b,q) = (2,0.2) of panel (b). Circles: the media (b,q) = (3,0.5), (2,0.7), (4,0.3) of
+% chk:ren-per-level, in which no level qualified at any of 121 leaks in [1e-4,1e2].
+% (b) (b,n_H,A_h,q) = (2,8,1,0.2): thresholds A_h q^l T_H(2,0.2,8-l) for l = 0..6 are 0.633645, 0.128496,
+% 0.0264273, 0.00559337, 0.00125528, 3.17440e-4, 1.02400e-4 (T_H = 0.6336, 0.6425, 0.6607, 0.6992, 0.7845, 0.9920,
+% 1.6000; Delta_H = 0.4951, ..., 0.2000). Bars: leaks at which the level-(l+1) blocks are collectives of the level-l
+% coarse medium. Dashed: every level for eps > 0.633645, the binding level being l = 0. Recomputed from the explicit
+% medium on 256 agents with coarse media Q Pi^(l) Q^T (sum convention, unit leak 2^l eps): lambda_2, cut per member
+% and mean coupling equal the closed forms, the thresholds agree to 6.2e-11 relative, and on 121 leaks log-spaced in
+% [1e-4,1e2] the first qualifying leak of each level is the first grid point above its threshold.
+\begin{tikzpicture}
+  \pgfplotsset{levelframe/.style={scale only axis, height=6.0cm,
+      every axis label/.style={font=\small}, tick label style={font=\footnotesize}}}
+  % panel (a): the (b, q) plane
+  \begin{semilogyaxis}[levelframe, name=pa, width=6.3cm, xmin=2, xmax=5, ymin=0.08, ymax=1,
+      xtick={2,...,5}, ytick={0.1,0.2,0.5,1}, log ticks with fixed point, axis on top, clip=false,
+      xlabel={branching $b$}, ylabel={allocation $\mathfrak q$}]
+    \addplot[draw=none, fill=green!20, forget plot] coordinates {(2,0.08) (2,0.285714) (2.125,0.264591) (2.25,0.246575) (2.375,0.231003) (2.5,0.217391) (2.625,0.205379)
+      (2.75,0.19469) (2.875,0.185111) (3,0.176471) (3.125,0.168634) (3.25,0.161491) (3.375,0.15495) (3.5,0.148936)
+      (3.625,0.143387) (3.75,0.138249) (3.875,0.133477) (4,0.129032) (4.125,0.124882) (4.25,0.120996) (4.375,0.117351)
+      (4.5,0.113924) (4.625,0.110696) (4.75,0.107649) (4.875,0.104768) (5,0.102041) (5,0.08)} -- cycle;
+    \addplot[draw=none, fill=yellow!50, forget plot] coordinates {(2,0.285714) (2.125,0.264591) (2.25,0.246575) (2.375,0.231003) (2.5,0.217391) (2.625,0.205379) (2.75,0.19469)
+      (2.875,0.185111) (3,0.176471) (3.125,0.168634) (3.25,0.161491) (3.375,0.15495) (3.5,0.148936) (3.625,0.143387)
+      (3.75,0.138249) (3.875,0.133477) (4,0.129032) (4.125,0.124882) (4.25,0.120996) (4.375,0.117351) (4.5,0.113924)
+      (4.625,0.110696) (4.75,0.107649) (4.875,0.104768) (5,0.102041) (5,0.111111) (4.875,0.114286) (4.75,0.117647)
+      (4.625,0.121212) (4.5,0.125) (4.375,0.129032) (4.25,0.133333) (4.125,0.137931) (4,0.142857) (3.875,0.148148)
+      (3.75,0.153846) (3.625,0.16) (3.5,0.166667) (3.375,0.173913) (3.25,0.181818) (3.125,0.190476) (3,0.2)
+      (2.875,0.210526) (2.75,0.222222) (2.625,0.235294) (2.5,0.25) (2.375,0.266667) (2.25,0.285714) (2.125,0.307692)
+      (2,0.333333)} -- cycle;
+    \addplot[draw=none, fill=orange!15, forget plot] coordinates {(2,0.5) (2.125,0.470588) (2.25,0.444444) (2.375,0.421053) (2.5,0.4) (2.625,0.380952) (2.75,0.363636)
+      (2.875,0.347826) (3,0.333333) (3.125,0.32) (3.25,0.307692) (3.375,0.296296) (3.5,0.285714) (3.625,0.275862)
+      (3.75,0.266667) (3.875,0.258065) (4,0.25) (4.125,0.242424) (4.25,0.235294) (4.375,0.228571) (4.5,0.222222)
+      (4.625,0.216216) (4.75,0.210526) (4.875,0.205128) (5,0.2) (5,1) (2,1)} -- cycle;
+    \addplot[black, thick] coordinates {(2,0.285714) (2.125,0.264591) (2.25,0.246575) (2.375,0.231003) (2.5,0.217391) (2.625,0.205379) (2.75,0.19469)
+      (2.875,0.185111) (3,0.176471) (3.125,0.168634) (3.25,0.161491) (3.375,0.15495) (3.5,0.148936) (3.625,0.143387)
+      (3.75,0.138249) (3.875,0.133477) (4,0.129032) (4.125,0.124882) (4.25,0.120996) (4.375,0.117351) (4.5,0.113924)
+      (4.625,0.110696) (4.75,0.107649) (4.875,0.104768) (5,0.102041)};
+    \addplot[black, thick, dashdotted] coordinates {(2,0.333333) (2.125,0.307692) (2.25,0.285714) (2.375,0.266667) (2.5,0.25) (2.625,0.235294) (2.75,0.222222)
+      (2.875,0.210526) (3,0.2) (3.125,0.190476) (3.25,0.181818) (3.375,0.173913) (3.5,0.166667) (3.625,0.16)
+      (3.75,0.153846) (3.875,0.148148) (4,0.142857) (4.125,0.137931) (4.25,0.133333) (4.375,0.129032) (4.5,0.125)
+      (4.625,0.121212) (4.75,0.117647) (4.875,0.114286) (5,0.111111)};
+    \addplot[black, thick, dashed] coordinates {(2,0.5) (2.125,0.470588) (2.25,0.444444) (2.375,0.421053) (2.5,0.4) (2.625,0.380952) (2.75,0.363636)
+      (2.875,0.347826) (3,0.333333) (3.125,0.32) (3.25,0.307692) (3.375,0.296296) (3.5,0.285714) (3.625,0.275862)
+      (3.75,0.266667) (3.875,0.258065) (4,0.25) (4.125,0.242424) (4.25,0.235294) (4.375,0.228571) (4.5,0.222222)
+      (4.625,0.216216) (4.75,0.210526) (4.875,0.205128) (5,0.2)};
+    % region labels
+    \node[font=\footnotesize] at (axis cs:3.0,0.11) {every level};
+    \path (axis cs:2.115,0.28491) -- node[sloped, font=\footnotesize, inner sep=0pt]
+      {lower levels} (axis cs:2.785,0.203387);
+    \node[font=\footnotesize] at (axis cs:4.45,0.175) {no level};
+    \node[font=\footnotesize, align=center] at (axis cs:3.95,0.55) {power-law coherence,\\no level};
+    % curve labels, along the curves
+    \path (axis cs:3.95,0.130773) -- node[sloped, below, font=\footnotesize, inner sep=2pt]
+      {$\mathfrak q=b/(2b^2-1)$} (axis cs:4.75,0.107649);
+    \path (axis cs:3.3,0.178571) -- node[sloped, above, font=\footnotesize, inner sep=2pt]
+      {$\mathfrak q=1/(2b-1)$} (axis cs:4.0,0.142857);
+    \path (axis cs:4.1,0.243902) -- node[sloped, above, font=\footnotesize, inner sep=2pt]
+      {$\mathfrak q=1/b$} (axis cs:4.7,0.212766);
+    % media
+    \addplot[only marks, mark=*, mark size=1.7pt, black] coordinates {(2,0.2)};
+    \node[font=\footnotesize, anchor=north west, inner sep=1pt] at (axis cs:2.04,0.19) {(b)};
+    \addplot[only marks, mark=*, mark size=1.7pt, black, mark options={fill=white}] coordinates {(3,0.5) (2,0.7)
+      (4,0.3)};
+  \end{semilogyaxis}
+  \node[font=\small\bfseries, anchor=south east] at ($(pa.north west)+(-0.25cm,0.05cm)$) {(a)};
+  % panel (b): leak thresholds per level
+  \begin{semilogyaxis}[levelframe, name=pb, at={($(pa.south east)+(2.0cm,0)$)}, anchor=south west,
+      width=5.4cm, xmin=-0.8, xmax=6.6, ymin=5e-5, ymax=3, xtick={0,...,6},
+      ytick={1e-4,1e-3,1e-2,1e-1,1}, grid=major, grid style={gray!18},
+      xlabel={coarse level $l$}, ylabel={leak $\varepsilon^\Pi$}]
+    \fill[green!20] (axis cs:-0.2,0.633645) rectangle (axis cs:0.2,3);
+    \fill[green!20] (axis cs:0.8,0.128496) rectangle (axis cs:1.2,3);
+    \fill[green!20] (axis cs:1.8,0.0264273) rectangle (axis cs:2.2,3);
+    \fill[green!20] (axis cs:2.8,0.00559337) rectangle (axis cs:3.2,3);
+    \fill[green!20] (axis cs:3.8,0.00125528) rectangle (axis cs:4.2,3);
+    \fill[green!20] (axis cs:4.8,0.00031744) rectangle (axis cs:5.2,3);
+    \fill[green!20] (axis cs:5.8,0.0001024) rectangle (axis cs:6.2,3);
+    \draw[gray!60!black, dashed] (axis cs:-0.8,0.633645) -- (axis cs:6.6,0.633645);
+    \addplot[only marks, mark=*, mark size=1.6pt, black] coordinates {(0,0.633645) (1,0.128496)
+      (2,0.0264273) (3,0.00559337) (4,0.00125528) (5,0.00031744) (6,0.0001024)};
+    \node[font=\footnotesize, anchor=north, inner sep=3pt] at (axis cs:0,0.633645) {$0.6336$};
+    \node[font=\footnotesize, anchor=east, inner sep=3.5pt] at (axis cs:1,0.128496) {$0.1285$};
+    \node[font=\footnotesize, anchor=east, inner sep=3.5pt] at (axis cs:2,0.0264273) {$0.02643$};
+    \node[font=\footnotesize, anchor=east, inner sep=3.5pt] at (axis cs:3,0.00559337) {$0.005593$};
+    \node[font=\footnotesize, anchor=east, inner sep=3.5pt] at (axis cs:4,0.00125528) {$0.001255$};
+    \node[font=\footnotesize, anchor=east, inner sep=3.5pt] at (axis cs:5,0.00031744) {$3.174\times10^{-4}$};
+    \node[font=\footnotesize, anchor=east, inner sep=3.5pt] at (axis cs:6,0.0001024) {$1.024\times10^{-4}$};
+    \node[font=\footnotesize, anchor=south east, inner sep=1.5pt] at (axis cs:6.35,0.68) {every level};
+  \end{semilogyaxis}
+  \node[font=\small\bfseries, anchor=south east] at ($(pb.north west)+(-0.25cm,0.05cm)$) {(b)};
+\end{tikzpicture}

@@ -1,0 +1,102 @@
+% Figure: what the interaction order parameter conditions on (def:agy-order-parameter, ex:agy-collider, ex:agy-masking).
+% Schematic causal diagrams; gray = conditioned on. The numbers are those of the section, recomputed exactly with numpy:
+% six-round paths written as loadings on independent standard normal inputs, Gaussian conditional mutual information
+% of the two agents' paths given the shared drive (inputs removed) or given the world path and the initial state.
+%   collider (world coefficient 0.9; internal coefficient 0.4 and private noise 0.5; act loadings 0.30 and 0.25,
+%   no sensing, no messages), pair (1,2): 1.776e-15 nats given the shared drive, 1.3913e-03 given the world path;
+%   masking (world coefficient 0.8; internal coefficients 0.6 and 0.4, private noise 1; act loading 0.7 of agent 1,
+%   sensing gain 0.5 of agent 3), pair (1,3): 0.6144 nats given the shared drive, zero to roundoff given the world path
+%   (-1.1e-15 here; the section reports 4e-16).
+\begin{tikzpicture}[>={Stealth[length=1.8mm]}, every node/.style={font=\small},
+    agent/.style={circle, draw=blue!55!black, fill=blue!12, inner sep=0pt, minimum size=7.4mm},
+    priv/.style={circle, draw=gray!70, fill=white, inner sep=0pt, minimum size=6mm},
+    drive/.style={circle, draw=gray!70, fill=white, inner sep=0pt, minimum size=6mm},
+    world/.style={rectangle, rounded corners=2pt, draw=gray!60, fill=blue!5, inner sep=0pt, minimum width=9mm, minimum height=6.4mm},
+    cond/.style={fill=gray!35},
+    act/.style={->, thick, red!65!black},
+    sense/.style={->, gray!70!black, dashed},
+    inp/.style={->, gray!70!black},
+    dep/.style={orange!85!black, very thick, dashed},
+    hl/.style={line width=6pt, orange!60, opacity=0.45, line cap=round}]
+  % panel (a): the conditioning set of the order parameter
+  \node[anchor=west] at (-0.1,3.2) {\textbf{(a)} order parameter};
+  \node[draw=gray!60, cond, rounded corners=4pt, minimum width=4.9cm, minimum height=1.05cm, align=center] (sh) at (2.7,2.15)
+    {shared drive $\mathcal X_{\mathrm{sh}}$\\[-1pt]{\footnotesize initial state $X_0$, world innovations,}\\[-2pt]{\footnotesize record and broadcast noises}};
+  \node[world, minimum width=4.9cm, minimum height=6.4mm] (ext) at (2.7,0.65) {world $\eta$, records, channels};
+  \draw[inp, thick] (sh) -- (ext);
+  \foreach \k/\x in {1/0.95, 2/2.7, 3/4.45} {
+    \node[agent] (ma\k) at (\x,-0.85) {$\mu_{\k}$};
+    \node[priv] (za\k) at (\x,-2.05) {$\zeta_{\k}$};
+    \draw[inp] (za\k) -- (ma\k);
+    \draw[->, gray!70!black] (ma\k.110) -- (ext.south -| ma\k.110);
+    \draw[->, gray!70!black] (ext.south -| ma\k.70) -- (ma\k.70);
+  }
+  \node[anchor=west, font=\footnotesize, align=left] at (4.85,-2.05) {private\\[-2pt]inputs};
+  \node[font=\footnotesize, align=center] at (2.7,-2.95) {$\Omega_{\mathrm{int}}$ averages $I\bigl(\mu_i[0{:}\bar t];\mu_j[0{:}\bar t]\bigm|\mathcal X_{\mathrm{sh}}\bigr)$};
+  % panels (b) and (c): two readings of one model
+  % each panel shows one model twice: conditioned on the shared drive (top) and on the world path (bottom)
+  \node[anchor=west] at (6.35,3.2) {\textbf{(b)} collider};
+  \node[anchor=west] at (11.45,3.2) {\textbf{(c)} masking};
+  % (b) collider, given the shared drive
+  \begin{scope}[shift={(6.85,1.55)}]
+    \node[agent] (b1) at (0,0) {$\mu_1$};
+    \node[world] (be) at (1.75,0) {$\eta$};
+    \node[agent] (b2) at (3.5,0) {$\mu_2$};
+    \node[drive, cond] (bw) at (1.75,0.95) {$w$};
+    \node[priv] (bz1) at (0,-0.95) {$\zeta_1$};
+    \node[priv] (bz2) at (3.5,-0.95) {$\zeta_2$};
+    \draw[inp] (bw) -- (be);
+    \draw[inp] (bz1) -- (b1);
+    \draw[inp] (bz2) -- (b2);
+    \draw[act] (b1) -- (be);
+    \draw[act] (b2) -- (be);
+    \node[font=\footnotesize] at (1.75,-1.55) {given $\mathcal X_{\mathrm{sh}}$: $0$};
+  \end{scope}
+  % (b) collider, given the world path
+  \begin{scope}[shift={(6.85,-1.55)}]
+    \node[agent] (b1) at (0,0) {$\mu_1$};
+    \node[world, cond] (be) at (1.75,0) {$\eta$};
+    \node[agent] (b2) at (3.5,0) {$\mu_2$};
+    \node[drive] (bw) at (1.75,0.95) {$w$};
+    \node[priv] (bz1) at (0,-0.95) {$\zeta_1$};
+    \node[priv] (bz2) at (3.5,-0.95) {$\zeta_2$};
+    \draw[inp] (bw) -- (be);
+    \draw[inp] (bz1) -- (b1);
+    \draw[inp] (bz2) -- (b2);
+    \draw[act] (b1) -- (be);
+    \draw[act] (b2) -- (be);
+    \draw[dep] (b1) to[bend right=38] node[pos=0.5, below=0pt, font=\scriptsize, orange!70!black] {induced} (b2);
+    \node[font=\footnotesize] at (1.75,-1.55) {given world path: $1.39\times10^{-3}$ nats};
+  \end{scope}
+  % (c) masking, given the shared drive
+  \begin{scope}[shift={(11.95,1.55)}]
+    \draw[hl] (0.37,0) -- (1.75,0) -- (3.13,0);
+    \node[agent] (c1) at (0,0) {$\mu_1$};
+    \node[world] (ce) at (1.75,0) {$\eta$};
+    \node[agent] (c3) at (3.5,0) {$\mu_3$};
+    \node[drive, cond] (cw) at (1.75,0.95) {$w$};
+    \node[priv] (cz1) at (0,-0.95) {$\zeta_1$};
+    \node[priv] (cz3) at (3.5,-0.95) {$\zeta_3$};
+    \draw[inp] (cw) -- (ce);
+    \draw[inp] (cz1) -- (c1);
+    \draw[inp] (cz3) -- (c3);
+    \draw[act] (c1) -- (ce);
+    \draw[sense] (ce) -- (c3);
+    \node[font=\footnotesize] at (1.75,-1.55) {given $\mathcal X_{\mathrm{sh}}$: $0.614$ nats};
+  \end{scope}
+  % (c) masking, given the world path
+  \begin{scope}[shift={(11.95,-1.55)}]
+    \node[agent] (c1) at (0,0) {$\mu_1$};
+    \node[world, cond] (ce) at (1.75,0) {$\eta$};
+    \node[agent] (c3) at (3.5,0) {$\mu_3$};
+    \node[drive] (cw) at (1.75,0.95) {$w$};
+    \node[priv] (cz1) at (0,-0.95) {$\zeta_1$};
+    \node[priv] (cz3) at (3.5,-0.95) {$\zeta_3$};
+    \draw[inp] (cw) -- (ce);
+    \draw[inp] (cz1) -- (c1);
+    \draw[inp] (cz3) -- (c3);
+    \draw[act] (c1) -- (ce);
+    \draw[sense] (ce) -- (c3);
+    \node[font=\footnotesize] at (1.75,-1.55) {given world path: $0$};
+  \end{scope}
+\end{tikzpicture}

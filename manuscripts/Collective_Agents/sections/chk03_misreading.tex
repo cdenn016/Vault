@@ -1,0 +1,61 @@
+\subsection{Checks for \texorpdfstring{Section~\ref{sec:mis}}{misreading}}\label{chk:mis}
+
+The value checks compare closed forms with exact Gaussian conditioning of the full joint law of the world, the sources, the channel noise and the messages, built as explicit linear maps of independent inputs. Two ensembles of random static common-source worlds are used. Write $W_d=GG^\top/d+0.3I_d$ for a random $d\times d$ matrix in which $G$ has independent standard normal entries, drawn afresh at each use. In the source ensemble the world dimension $K$ is uniform on $\{1,\dots,4\}$ (on $\{2,3,4\}$ in the search of \cref{chk:mis-scope}), the number of sources is uniform on $\{2,\dots,5\}$ and each source dimension is uniform on $\{1,\dots,K\}$; the source maps $H^s_u$ have independent standard normal entries, $\Lambda_0=0.5W_K$ and $R^s_u=0.7W_d$; the sender's source set is a uniformly drawn subset of a size uniform on $\{1,\dots,\lvert\mathcal U\rvert\}$, and the receiver's is drawn in the same way with a size uniform on $\{0,\dots,\lvert\mathcal U\rvert\}$. The precision ensemble draws the precisions of \cref{def:mis-common-source} directly: $K$ is uniform on $\{2,3,4\}$, $\Lambda_0=0.5W_K$, and the shared source precision $\sum_{u\in\mathcal U_i\cap\mathcal U_j}\Gamma_u$, the sender's private precision $\Lambda_{j\setminus i}$ and the receiver's private precision each have the form $BB^\top/\rho$ with $B$ a $K\times\rho$ matrix of independent standard normal entries, where $\rho$ is uniform on $\{0,\dots,K\}$ for the shared and the receiver's precision (the zero matrix at $\rho=0$) and on $\{1,\dots,K\}$ for the sender's. In both ensembles codes have independent standard normal entries, and the channel noise of a code with $r$ rows is $R_c=sW_r$ with the law of $s$ stated in each check. Counts of sign events belong to these ensembles and to one seed of the generator; a fresh sample reproduces their frequencies, not the exact counts.
+
+\begin{numcheck}[Believed and true values]\label{chk:mis-values}
+Submodularity of the level-0 believed value (\cref{prop:mis-believed-values}) was tested in 2000 random instances without a violation. For \cref{ex:mis-nonsubmodular} the computed values are $0.8047$ for each sender and $3.3429$ for the pair. Over 150 random worlds of the source ensemble (code rank uniform on $\{1,\dots,K\}$, $s=0.3$) the closed form \eqref{eq:mis-true-value} agrees with exact conditioning to $2.6\times10^{-14}$; with invertible noiseless codes the form of \cref{lem:mis-common-source}(c) agrees to $7.3\times10^{-11}$ and no instance has $\mathcal V^1_i<\mathcal V^\ast_i$. In one world with $K=3$ and four sources, the error covariances of \cref{lem:mis-common-source}(a) agree with the explicit linear maps to $1.0\times10^{-16}$, and over the 150 worlds the matrix \eqref{eq:mis-level1-mse} agrees with the direct expansion of the level-1 error to $3.7\times10^{-15}$. An independent recomputation, conditioning the joint law of $(\eta,o_{\mathrm{com}},o_i,o_j,\nu,y_{ij})$ in the symmetric scalar configuration, reproduces \eqref{eq:mis-ratios} to $3.0\times10^{-15}$ over 300 configurations, and the ratio of actual to claimed level-1 variance equals $1+\phi$ at $(\Lambda_0,\Gamma_{\mathrm{com}},\Gamma_{\mathrm{pr}})=(1,1,1)$ (claimed $0.1667$, actual $0.2778$, ratio $1.6667$) and $(0.2,2,0.5)$ (claimed $0.1852$, actual $0.3361$, ratio $1.8148$).
+\end{numcheck}
+
+\begin{numcheck}[Scope of overvaluation and undervaluation]\label{chk:mis-scope}
+The band \eqref{eq:mis-band} matches the sign of $\mathcal V^\ast_i-\mathcal V^1_i$ in 50{,}000 random draws of the scalar track model. Part (b) of \cref{prop:mis-overvaluation-scope} holds in 20{,}000 random scalar configurations (prior, shared and private precisions in $(0,3)$, code gains of modulus in $(0.05,5)$, channel noise in $(0,5)$), part (d) in 5000 random aligned worlds, where the matrix value also equals the sum of the scalar values (for example $0.13398440543537$ both ways), and part (e) in 5000 random instances with $\mathcal U_i\subseteq\mathcal U_j$ (precision ensemble with the receiver's private precision set to zero, code rank uniform on $\{1,\dots,K\}$, $s$ uniform on $(0.01,2)$), among which $\mathcal V^\ast_i>\mathcal V^1_i$ in 386. Random searches give \cref{obs:mis-random-codes}: among 4000 instances of the source ensemble with code rank uniform on $\{1,\dots,K-1\}$ and $s$ uniform on $(0.001,2)$, $\mathcal V^\ast_i>\mathcal V^1_i$ in 454 (largest excess $0.947$) and $\mathcal V^\ast_i>\mathcal V^0_i$ in 17 (largest excess $0.211$); among 5000 instances of the precision ensemble with $K\times K$ codes, invertible with probability one, and $s$ uniform on $(0.01,3)$, $\mathcal V^\ast_i>\mathcal V^1_i$ in 221 (largest excess $0.696$), and in a second sample of 5000 from the same ensemble $\mathcal V^\ast_i>\mathcal V^0_i$ in 2 (largest excess $0.143$). The largest excesses are sample maxima and vary with the seed: the rank-limited search under another seed gives 473 and 19 of 4000 with largest excesses $1.48$ and $0.53$. \Cref{ex:mis-cancellation}: at $\alpha_1=\Gamma_{\mathrm{pr}}=1$, $\alpha_2=0.01$, $\mathcal V^\ast_i=2.3076$ and $\mathcal V^1_i=1.9732$ at $R_c=0$, and $(\mathcal V^\ast_i,\mathcal V^1_i,\mathcal V^0_i)=(2.2157,1.9263,3.1133)$ at $R_c=0.1$; at $\alpha_1=10$ the gap shrinks ($2.3076$ against $2.2654$), as the limit $\tfrac12\ln((\alpha_1+\Gamma_{\mathrm{pr}})/\alpha_1)$ predicts. \Cref{ex:mis-sender-completion}: at $\psi=0.8$, $R_c=0.01$, $\mathcal V^\ast_i=1.5868$ at precisions $10^4$ and $1.5898$ at $10^6$ against the limit $1.5899$, with $\mathcal V^1_i=1.35\times10^{-4}$ and $\mathcal V^0_i=4.97\times10^{-3}$ at $10^4$; at $\psi=0.5$, $R_c=0.1$ and precisions $10$, $10^2$, $10^4$, $\mathcal V^\ast_i=0.421$, $0.515$, $0.528$ against the limit $0.528$ while $\mathcal V^0_i=0.323$, $0.047$, $0.0005$. For the full-rank code at $\psi=0.8$, $\sigma_c^2=0.1$ and source precisions $\Gamma_1=\Gamma_2=10^5$, the computed values $\mathcal V^\ast_i=0.96598$ and $\mathcal V^0_i=0.76309$ approach the limits $0.96605$ and $0.76303$.
+\end{numcheck}
+
+\begin{numcheck}[Closed-form ratios]\label{chk:mis-ratios}
+Over 300 random symmetric configurations, \eqref{eq:mis-ratios} agrees with exact conditioning to $8.9\times10^{-15}$. At $\varrho_c=0.5$:
+\begin{center}\small
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$\phi$ & $\mathcal V^\ast_i$ & $\mathcal V^1_i/\mathcal V^\ast_i$ & $\mathcal V^0_i/\mathcal V^\ast_i$\\
+\midrule
+0 & 0.255413 & 1 & 2.151\\
+0.5 & 0.111572 & 2.289 & 4.923\\
+0.9 & 0.00826465 & 30.90 & 66.46\\
+0.99 & $9.80\times10^{-5}$ & 2605.5 & 5603.5\\
+0.999 & $9.98\times10^{-7}$ & $2.56\times10^5$ & $5.50\times10^5$\\
+\bottomrule
+\end{tabular}
+\end{center}
+At $\varrho_c=0$ the ratio $\mathcal V^1_i/\mathcal V^\ast_i$ is $1$, $1.7095$, $7.2725$ and $69.66$ at $\phi=0$, $0.5$, $0.9$, $0.99$. Part (b) agrees with a belief-only receiver under prior precision $10^{-6}$ to $7.9\times10^{-8}$. For part (c), with $\tfrac12\ln(1+P_i\Gamma_{\mathrm{rel}})=0.3466$, the true value is $0.1341$, $0.1928$, $0.2623$, $0.3206$, $0.3410$, $0.3460$ and the level-1 value $0.2350$, $0.3942$, $0.6931$, $1.2825$, $2.0554$, $3.1993$ at $n_{\mathrm r}=1$, $2$, $5$, $20$, $100$, $1000$; at $n_{\mathrm r}=3$ exact conditioning on all three messages gives $0.2259926$, equal to the formula to machine precision.
+\end{numcheck}
+
+\begin{numcheck}[Dynamic cross-covariance]\label{chk:mis-dynamic}
+For $(F,Q)$ and sensing noise variances of $i$ and $j$ equal to $(0.9,0.19;1.0,0.5)$, $(0.5,0.75;2.0,2.0)$ and $(0.99,0.0199;0.3,3.0)$, with steady-state Kalman gains, iterating the covariance recursion of the filtered errors gives $0.114603$, $0.403005$ and $0.050006$, equal to \eqref{eq:mis-dynamic} to six digits, with error correlations $0.4549$, $0.6464$ and $0.4254$.
+\end{numcheck}
+
+\begin{numcheck}[Echo-chamber bounds]\label{chk:mis-echo}
+On 400 random stable level-0 networks of 3 to 11 agents with random directed attention graphs, heterogeneous gains and some pure listeners, the stationary variances computed from the Lyapunov equation never fall below \eqref{eq:mis-floor}; the smallest ratio of variance to bound is $1.0057$. An independent recomputation on 300 random networks with common world noise gives the smallest ratio $1.0003$. On 300 random closed sets of 3 to 9 agents with a common sensing gain and symmetric weights (reversible $M$), the disagreement never exceeds \eqref{eq:mis-disagreement}; the largest ratio is $0.2423$, and $0.2141$ in the independent recomputation on 300 networks.
+\end{numcheck}
+
+\begin{numcheck}[Closed pure-listening sets]\label{chk:mis-listening}
+Static world with prior variance $1$, five agents, channel noise $R_c=1$, independent initial errors of unit variance (initial pooled information $\tfrac12\ln6=0.896$ nats), level-0 gains from the claimed precision as in \cref{prop:mis-pure-listening}(c). After $2\times10^4$ rounds: on the complete graph the mean-square error is $0.2599$, the disagreement $1.67\times10^{-5}$, the claimed variance $1.25\times10^{-5}$, the believed information $5.645$ nats and the group's true information $0.789$ nats; on the directed cycle $0.3290$, $1.01\times10^{-4}$, $5.00\times10^{-5}$, $4.952$ and $0.698$. A star in which the hub listens to all and the leaves to the hub, which (c) does not cover, also reaches consensus, on a hub-weighted average: $0.3445$, $4.58\times10^{-5}$, $1.25\times10^{-5}$, $5.645$ and $0.681$. In a stationary world with $F=0.98$, $Q=1$ ($P_0=25.2525$) and channel noise $R_c=0.2$, closed complete groups of pure listeners of sizes 4, 10 and 30 with fixed per-edge message gains $0.2$, $0.09$ and $0.03$, not derived from a claimed precision, have mean-square errors $25.4160$, $25.3006$ and $25.2616$, all above $P_0$, disagreements $0.0479$, $0.0283$ and $0.0101$, and echo ratios (mean-square error over disagreement, with $\Psi=1$) $530$, $895$ and $2495$.
+\end{numcheck}
+
+\begin{numcheck}[Complete group with law headers]\label{chk:mis-law-headers}
+Stationary values for \cref{ex:mis-law-headers} ($F=0.995$, $Q=0.01$, $R^s_i=1$, $R_c=0.2$, $P_0=1.0025$, isolated predicted error $0.1000$), from the claimed Riccati fixed point and the Lyapunov equation of the actual errors; the shared part is the variance of the members' mean error $n^{-1}\sum_ie_i$, which differs from the common-mode floor quoted below the table, and the centralized optimum is the error of a correlation-aware fuser of all members' data.
+\begin{center}\small
+\begin{tabular}{@{}rcccccc@{}}
+\toprule
+$n$ & claimed $\hat P^-$ & actual error & shared part & disagreement & centralized & believed/true\\
+\midrule
+1 & 0.1000 & 0.1000 & 0.1000 & 0 & 0.1000 & 1.000\\
+2 & 0.0488 & 0.1590 & 0.1535 & 0.0219 & 0.0733 & 1.626\\
+4 & 0.0318 & 0.2225 & 0.2157 & 0.0181 & 0.0539 & 2.196\\
+8 & 0.0231 & 0.3016 & 0.2956 & 0.0136 & 0.0400 & 2.807\\
+16 & 0.0179 & 0.4041 & 0.3996 & 0.0096 & 0.0301 & 3.514\\
+32 & 0.0146 & 0.5283 & 0.5252 & 0.0064 & 0.0232 & 4.322\\
+64 & 0.0126 & 0.6607 & 0.6587 & 0.0041 & 0.0184 & 5.179\\
+\bottomrule
+\end{tabular}
+\end{center}
+The last column is the ratio of believed to true information about the current state accumulated by a member: believed information is $\tfrac12\ln(P_0/\hat P^-)$ and true information is $I(\eta_t;m_i(t))$ under the actual stationary joint law. Per round, believed information is the claimed one-round gain $\tfrac12\ln(\hat P^-/\hat P^+)$, with $\hat P^+$ the claimed filtered variance, and available information is $I(\eta_t;s_i(t),(y_{ij}(t))_{j\ne i}\mid m_i(t))$ under the actual law; their ratio rises from $1.475$ at $n=2$ to $4.237$ at $n=64$. At the claimed fixed point the floor $Q/(1-F^2(1-k^s)^2)$ of \cref{prop:mis-mse-floor} is $0.1161$ at $n=2$ ($k^s=0.0392$), $0.2781$ at $n=8$ and $0.6567$ at $n=64$: below the actual errors and above the isolated error $0.1000$.
+\end{numcheck}

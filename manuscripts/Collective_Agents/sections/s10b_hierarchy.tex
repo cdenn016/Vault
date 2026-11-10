@@ -1,0 +1,319 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:hie}}{Section 12}: hierarchy}\label{sup:hie}
+
+This section collects statements, examples and remarks of \cref{sec:hie} that the main text cites without stating in full. Proofs are in \cref{app:hie}.
+
+\subsection{The collective as a latent cause in a member's model}\label{sec:hie-latent}
+
+Let the members' variables $x$, their internal states as they appear in messages, records and acts, evolve as in \cref{def:agy-closure} without blanket input, $x_{t+1}=Ax_t+\mathfrak n_t$ with $\mathfrak n_t\sim\Ncal(0,Q^{\mathfrak n})$ independent across rounds and $Q^{\mathfrak n}\succ0$, and let $y_C=\mathsf Px$, with $\mathsf P$ of full row rank, be the collective's coarse internal state.
+
+\begin{definition}[Two-level member model]\label{def:hie-member-model}
+A member's two-level model of its collective is a linear-Gaussian model in coordinates $(y_C,x_\perp)=(\mathsf Px,Zx)$, for an invertible completion $\mathcal Z=\binom{\mathsf P}{Z}$,
+\begin{equation}\label{eq:hie-member-model}
+y_{C,t+1}=A_Cy_{C,t}+\mathfrak n^C_t,\qquad x_{\perp,t+1}=A_{\perp C}y_{C,t}+A_{\perp\perp}x_{\perp,t}+\mathfrak n^\perp_t,
+\end{equation}
+with $(\mathfrak n^C_t)$ and $(\mathfrak n^\perp_t)$ independent Gaussian white noises, in which the member's observations (messages, records, its own sensing) are linear functions of $x=\mathcal Z^{-1}(y_C,x_\perp)$ plus independent noise. The top level is autonomous and its prediction $A_{\perp C}y_C$ is an empirical prior on the level below, the structure of a hierarchical dynamic model \citep{friston2008hierarchical}. The latent-only model keeps the first equation: $y_C$ is a Gauss--Markov chain.
+\end{definition}
+% src: H2-D1
+
+\begin{proposition}[Closure is exact specification]\label{prop:hie-closure-exact}
+The following are equivalent: (i) $A\ker\mathsf P\subseteq\ker\mathsf P$, the closure condition of \cref{thm:agy-closure-identity}(b); (ii) for some completion $Z$ the members' process is a two-level model \eqref{eq:hie-member-model} with $A_C=A_{yy}$ and $A_{\perp C}=A_{\perp y}$. When they hold, this two-level model is exact for every Gaussian initial law, and the path of $y_C$ is a Gauss--Markov chain.
+\end{proposition}
+% src: H2-P1; HC_critic V2 (input-free scope)
+
+Proof in \cref{app:hie}; with blanket input the equivalence is \cref{thm:agy-closure-identity}(b) itself. The latent-only model can be exact without closure.
+
+\begin{example}[A Markov latent cause without closure]\label{ex:hie-markov-without-closure}
+Let $x\in\R^2$, $y_C=x_1$, $Q^{\mathfrak n}=I$ and $A=\bigl(\begin{smallmatrix}A_{11}&A_{12}\\0&0\end{smallmatrix}\bigr)$ with $\lvert A_{11}\rvert<1$ and $A_{12}\neq0$. Then $A\ker\mathsf P\not\subseteq\ker\mathsf P$ and $\mathfrak d_{\mathrm{cl}}=\frac12\ln(1+A_{12}^2)>0$, because $x_{2,t}=\mathfrak n_{2,t-1}$ is independent of $y_{C,t}$. Yet $y_{C,t+1}=A_{11}y_{C,t}+(A_{12}\mathfrak n_{2,t-1}+\mathfrak n_{1,t})$ with a bracket that is white and independent of $y_{C,0:t}$, so $y_C$ is a first-order autoregression with Markov defect zero: the latent-only model is exact and the two-level model is not.
+\end{example}
+% src: H2-X2
+
+The closure defect governs a member's model of the collective together with its members; the Markov defect governs its model of the collective coordinate alone, and it is the rate of misspecification. The quantity $\mathfrak d^\infty_{\mathrm M}$ of the next lemma is the Markov defect $\mathfrak d_{\mathrm M}$ of \cref{def:agy-closure} in the stationary state without input, which is defined there as the same limit.
+
+\begin{lemma}[Misspecification of a Markov latent cause]\label{lem:hie-misspecification}
+Let $(y_t)_{t\in\Z}$ be a stationary Gaussian process in $\R^{d_y}$ with $S_\infty=\Var(y_{t+1}\mid y_{-\infty:t})\succ0$ and $S_1=\Var(y_{t+1}\mid y_t)$. For a Gaussian Markov model $\mathbb Q$ with kernel $q(y_{t+1}\mid y_t)$ and the stationary marginal as initial law, the relative entropy rate $\bar D(\mathbb P\Vert\mathbb Q)=\lim_TT^{-1}\KL(\mathbb P_{0:T}\Vert\mathbb Q_{0:T})$ exists and
+\begin{equation}\label{eq:hie-rate}
+\bar D(\mathbb P\Vert\mathbb Q)=\mathfrak d^\infty_{\mathrm M}+\E_{\mathbb P}\KL\bigl(p(\cdot\mid y_0)\Vert q(\cdot\mid y_0)\bigr),\qquad\mathfrak d^\infty_{\mathrm M}=\lim_{t\to\infty}I(y_{t+1};y_{0:t-1}\mid y_t)=\frac12\ln\det\bigl(S_1S_\infty^{-1}\bigr).
+\end{equation}
+Its minimum over such models is $\mathfrak d^\infty_{\mathrm M}$, attained exactly by the moment-matched kernel $q=p(\cdot\mid y_t)$; if $y=\mathsf Px$ as above, $\mathfrak d^\infty_{\mathrm M}\le\mathfrak d_{\mathrm{cl}}$; and observing $y$ through an independent linear-Gaussian channel can only lower the relative entropy of every window.
+\end{lemma}
+% src: H2-L1; HC_critic V2
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-latent}. Under reversible drift contrast bounds the misspecification further.
+
+\begin{proposition}[Contrast bounds the misspecification of the latent cause]\label{prop:hie-reversible-sandwich}
+Let the members of $C$ evolve as in \cref{thm:agy-closure-average}(a), $\mathrm dx=-Mx\mathrm dt+\sqrt2\mathrm d\mathsf B$ with $M=\Pi_{CC}$ the block of a diffusive precision, and let $y=\phi_C^\top x$. Let $\varpi_1$ be the smallest eigenvalue of $M$, $\cos^2\alpha_C$ the squared norm of the projection of $\phi_C$ on its eigenspace, and $\mathbb Q$ the stationary Ornstein--Uhlenbeck law with rate $\varpi_1$ and variance $1/\varpi_1$, the member's Markov latent cause with the slow mode's parameters.
+\begin{enumerate}
+\item[(a)] The spectral densities
+\[
+\mathcal S_y(\mathrm f)=2\phi_C^\top(\mathrm f^2I+M^2)^{-1}\phi_C,\qquad\mathcal S_{\mathrm{OU}}(\mathrm f)=\frac2{\mathrm f^2+\varpi_1^2},
+\]
+satisfy $\cos^2\alpha_C\mathcal S_{\mathrm{OU}}\le\mathcal S_y\le\mathcal S_{\mathrm{OU}}$ at every frequency $\mathrm f$.
+\item[(b)] For every set of $m$ distinct times the covariance matrices of the samples satisfy $\cos^2\alpha_C C_{\mathbb Q}\preceq C_{\mathbb P}\preceq C_{\mathbb Q}$, and
+\begin{equation}\label{eq:hie-sandwich-kl}
+\KL\bigl(\Ncal(0,C_{\mathbb P})\Vert\Ncal(0,C_{\mathbb Q})\bigr)\le\frac m2\bigl(-\sin^2\alpha_C-\ln\cos^2\alpha_C\bigr)\le\frac{m\sin^4\alpha_C}{4\cos^2\alpha_C}.
+\end{equation}
+\item[(c)] If $r(C)>1$, then $\tan\alpha_C\le\sigma_C/(\xin-\xout)=s/(r(C)-1)$, with $\sigma_C$ the dispersion of \cref{thm:agy-closure-average}(a) and $s=\sigma_C/\xout(C)$ as in \cref{thm:agy-h1}(c), and the relative entropy per sampled time is at most $s^4/\bigl(4(r(C)-1)^2((r(C)-1)^2+s^2)\bigr)$.
+\end{enumerate}
+\end{proposition}
+% src: H2-P2; part (c) uses the tangent bound of lem:met-unit-coordinate (HC_critic V2) in place of the sine bound, removing the hypothesis sigma_C < xi_in - xi_out
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-latent}. Where contrast is high, a member that treats the collective average as an Ornstein--Uhlenbeck latent cause is misspecified only to fourth order in the dispersion of leakage, with no condition on that dispersion; for twelve members, three of them with cut coupling $0.3$, at leak $0.02$ and contrast $10.74$, (c) gives $9.5\times10^{-5}$ nats per sampled time. Non-reversible drift is open (\cref{open:hie-nonreversible}).
+
+\subsection{Predictive coding and mean-field message passing}\label{sup:hie-predictive-coding-and-mean-field-message}
+
+\begin{proposition}[Predictive coding and mean-field message passing are exact in the means]\label{prop:hie-predictive-coding}
+In \cref{def:hie-tree} let $\mathcal F(x)$ be the negative logarithm of the joint density of the node variables and the data, as a function of $x=(x_u)_u$.
+\begin{enumerate}
+\item[(a)] $\mathcal F(x)=\frac12x^\top\mathsf Hx-\mathsf h^\top x+\text{const}$ is strictly convex, with Hessian $\mathsf H$ the posterior precision of $x$, and
+\begin{equation}\label{eq:hie-pc}
+\nabla_u\mathcal F=\mathfrak p_u-\sum_{c\in\mathrm{ch}(u)}\mathsf G_c^\top\mathfrak p_c-\bigl(h^{\mathrm o}_u-\Lambda^{\mathrm o}_ux_u\bigr),\qquad\mathfrak p_u=\Psi_u^{-1}\bigl(x_u-\mathsf G_ux_{\mathrm{pa}(u)}\bigr),\quad\mathfrak p_{u_0}=\Lambda^\downarrow_{u_0}x_{u_0}-h^\downarrow_{u_0},
+\end{equation}
+a sum of precision-weighted prediction errors in which the top-down prediction $\mathsf G_ux_{\mathrm{pa}(u)}$ is weighted by the generative precision $\Psi_u^{-1}$, never by a posterior precision of the level above. Gradient descent with step $0<\alpha<2/\lambda_{\max}(\mathsf H)$ converges to the exact posterior mean from every start.
+\item[(b)] Coordinatewise minimization of the variational free energy over the mean-field family $\prod_uq(x_u)$, nodes updated in a fixed order, gives Gaussian factors with precisions $\mathsf H_{uu}$ whose means follow block Gauss--Seidel for $\mathsf Hx=\mathsf h$; it converges to the exact posterior mean, and $\mathsf H_{uu}^{-1}\preceq(\mathsf H^{-1})_{uu}$.
+\end{enumerate}
+\end{proposition}
+% src: H1-P2(a),(b), stated here for Gaussian trees; H1-R12, H1-R13
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-messages}. In the two-pass form of \cref{thm:hie-messages} the upward message is a likelihood, equivalently a prediction error relative to the cavity prior; in predictive coding errors are computed against current estimates, with top-down predictions weighted by the generative precision, and that scheme is also exact. Double counting arises only when a posterior that already contains the receiver's data is used as an independent prior (\cref{prop:hie-literal-once}). Hierarchical active inference avoids it because its updates are steps on one free energy in which every factor appears once; the ascending Bayesian model average of deep temporal models \citep{friston2017graphical} carries the mean-field approximation of (b), not a double count.
+
+\subsection{Persistent records, depth and shortcuts}\label{sup:hie-persistent-records-depth-and-shortcuts}
+
+\begin{proposition}[Persistent records in a static world]\label{prop:hie-literal-records}
+Let a static scalar latent $x\sim\Ncal(m_\circ,1/\Lambda_\circ)$ be observed privately by $n$ members, member $i$ holding a contribution with $h^{\mathrm o}_i\mid x\sim\Ncal(\Lambda^{\mathrm o}_ix,\Lambda^{\mathrm o}_i)$, independently, and put $\Lambda^{\mathrm o}=\sum_i\Lambda^{\mathrm o}_i$. A record holds natural parameters $(h_z,\Lambda_z)$, initially $(\Lambda_\circ m_\circ,\Lambda_\circ)$. Each round every member reads the record as its prior and writes its posterior $(h_z+h^{\mathrm o}_i,\Lambda_z+\Lambda^{\mathrm o}_i)$, and the record aggregates the writes by one of four rules: (E) exact, each member's contribution kept once; (U) the prior-corrected union rule $(h_z,\Lambda_z)\leftarrow\sum_i(h_z+h^{\mathrm o}_i,\Lambda_z+\Lambda^{\mathrm o}_i)-(n-1)(h_z,\Lambda_z)$; (A) the logarithmic pool with weights $1/n$; (P) the product of posteriors. After $t\ge1$ rounds the record's precision, the mean-square error of its mean and its overconfidence factor are those of \cref{tab:hie-records}. Under (U) the record is exact after one round and then counts the data once more every round; under (A) it is underconfident for $t<n$ and overconfident for $t>n$; under (P) the claimed precision grows like $n^t$, and for $n\ge3$ the limit mean is the posterior mean with the prior counted $n-1$ times, with error $((n-1)^2\Lambda_\circ+\Lambda^{\mathrm o})/((n-1)\Lambda_\circ+\Lambda^{\mathrm o})^2$ above the union value $1/(\Lambda_\circ+\Lambda^{\mathrm o})$.
+\end{proposition}
+% src: H2-P4; HC_critic V1 (4.59e3)
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-literal}, where three members after eight rounds have overconfidence factors $1$, $7.72$, $2.48$ and $4.59\times10^3$ under (E), (U), (A) and (P). \Cref{fig:hie-overconfidence} follows the four rules over eight rounds: the mean-square error of the record's mean stays between $1/4$ and $1/3$, so the overconfidence is the growth of the claimed precision, linear under (U) and (A) and geometric under (P). In a changing world the cavity rule can hold without bookkeeping.
+
+\begin{proposition}[The record as an exact parent in a changing world]\label{prop:hie-record-filter}
+Let $x_{t+1}=Ax_t+w^x_t$ with $w^x_t\sim\Ncal(0,Q_x)$, and let member $i$ observe fresh data $o_{i,t}=H_ix_t+v_{i,t}$ with independent noises.
+\begin{enumerate}
+\item[(a)] If the record is initialized at the common prior of $x_0$, every member is memoryless, taking the record's prediction $\Ncal(Am_z,AP_zA^\top+Q_x)$ as its prior and writing its posterior after its fresh data, and the record aggregates by rule (U) relative to its prediction, then the record equals the centralized Kalman filter started from that prior at every round; the cavity rule holds automatically, because a fresh datum is not yet in the record.
+\item[(b)] Under the product of posteriors (P) the record counts its own prediction $n$ times per round. In a scalar world with $F=0.99$, $Q=0.02$, $n=5$ and unit sensing noise its stationary claimed variance is $0.00483$, the mean-square error of its mean $0.288$, and the variance of the centralized Kalman filter $0.0528$.
+\end{enumerate}
+\end{proposition}
+% src: H2-P5(a),(b); part (c) of the lane note moved to the text and to open:hie-provenance
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-literal}. If members keep their own past posteriors and also read a record that already contains their past data, the space-time graph has cycles, and exactness needs a message from the record to each member with that member's past contributions removed (\cref{open:hie-provenance}). Across levels the same accounting decides consistency.
+
+\begin{proposition}[Depth and shortcuts]\label{prop:hie-depth}
+In a tree with a society root $S$, groups, and members with data:
+\begin{enumerate}
+\item[(a)] a member's exact top-down prior is the group's cavity with the member removed, pushed through the member's link, where the group's prior is the society's cavity with the group removed, so the member's information is removed at both levels and exact inference is consistent across levels;
+\item[(b)] in a scalar tree of any depth with $\mathsf G=1$ and $\Psi=0$ on every link (the limit $\Psi\to0$ of \cref{def:hie-tree}, in which every node variable equals the root's) and literal reading at every level, each node taking its parent's literal posterior as its prior, a member's literal posterior counts a datum $\mathsf L+1-\mathsf h$ times, where $\mathsf L$ is the number of levels above the member and $\mathsf h$ the height above the member of the lowest common ancestor of the member and the datum's node: its own datum $\mathsf L+1$ times, a group-mate's $\mathsf L$ times, and the prior once;
+\item[(c)] a member $i$ that fuses, as independent priors, the group's cavity message and a message from the society that excludes only the member's own data, a shortcut to the top, counts the prior and every other datum twice: with $\mathsf G=1$ and $\Psi=0$ its believed precision is $2(\Lambda^{\mathrm{post}}_S-\Lambda^{\mathrm o}_i)+\Lambda^{\mathrm o}_i$ against the exact $\Lambda^{\mathrm{post}}_S$, and the society's message is redundant given the group's cavity, the sufficient statistic of all data outside the member's subtree.
+\end{enumerate}
+\end{proposition}
+% src: H2-P14; HC_critic V1(i) (shortcut ratios at prior precision 0.5)
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-literal}. In four groups of five members with $\Lambda_\circ=0.2$ and unit information, literal reading at both levels has actual variance $0.0586$ against the claimed $0.0382$ and the exact $0.0495$; at $\Lambda_\circ=0.5$ the shortcut's believed precision exceeds the exact one by $1.85$, $1.98$ and $2.00$ for $6$, $50$ and $400$ members, while its mean barely moves. Part (b) is the one-sweep form of the compounding of literal readings across levels (\cref{prop:ren-literal-levels}).
+
+\begin{remark}[Literal consensus and interpretation levels]\label{rem:hie-literal-consensus}
+Rule (P) is the hub form of literal consensus (\cref{prop:agy-literal-consensus}): multiplying all $n$ members' posteriors is literal consensus on the complete graph with self-loops, whose believed precision grows like $\rho(I+\mathrm{Adj})^t=n^t$, and both count the common prior repeatedly, the persuasion bias of \citet{demarzo2003persuasion} with a hub in place of the network. All of these are level-1 readings (\cref{def:fw-levels}): literal top-down reading reads a message whose provenance overlaps the receiver's data, literal consensus across levels reads every neighbor's posterior with its posted precision, and every double count in this section is the overvaluation case of \cref{sec:mis}.
+\end{remark}
+% src: H2-R1; HC_critic 2.8
+
+\begin{remark}[An interpretation, and the author's gauge-theoretic construction]\label{rem:hie-gauge}
+This remark is an interpretation. A person who fuses, as independent evidence, a community newsletter that reports the community's view, including the letter that person wrote, is the literal reader of \cref{prop:hie-literal-once}, and a newsletter rebuilt each issue from such readers' views grows overconfident as in \cref{prop:hie-literal-records}. In the author's gauge-theoretic program, as secondary descriptions of those documents state it, a child's prior is set from the parent's belief transported into the child's frame with a blend factor, and the parent is a barycenter of the children's beliefs \citep{dennis2026magent,dennis2026formation}. Its linear-Gaussian analogue is literal top-down reading, whose exact alternative removes the child's own contribution from the parent's message; whether a covariance-averaging barycenter changes the size of the effect is not settled here.
+\end{remark}
+% src: H2-R2 (INTERPRETATION); decision 20 (related construction at the level of secondary descriptions)
+
+\subsection{Nested records and contrast with record nodes}\label{sup:hie-nested-records-and-contrast-with-record}
+
+The statements of this subsection are in the setting and notation of \cref{sec:hie-records}, the global record of \eqref{eq:hie-record}.
+
+\begin{proposition}[Nested records multiply memory]\label{prop:hie-nested-records}
+Let $\mathsf R=\mathsf R_0+\diag(\mathsf e)$ on nodes $0$ (the agents) and $1,\dots,n_z$ (records), with leaks $\mathsf e=(\varepsilon,\delta_1,\dots,\delta_{n_z})\ge0$, where $\mathsf R_0$ has zero row sums, nonpositive off-diagonal entries, and nonzero entries in both directions along the edges of a tree and nowhere else. Let $\mathsf u>0$ be the left null vector of $\mathsf R_0$ with $\mathsf u_0=1$, so that $\mathsf u_k$ is the product of the read-to-write ratios $\mathcal R$ on the path from the agents to record $k$, let $\bar{\mathsf e}_{\mathsf u}$ and $\Var_{\mathsf u}(\mathsf e)$ be the $\mathsf u$-weighted mean and variance of the leaks, and let $g_0$ be the smallest positive eigenvalue of $\mathsf R_0$. The smallest eigenvalue $\varepsilon_{\mathrm{rec}}$ of $\mathsf R$ is real, and
+\begin{equation}\label{eq:hie-nested}
+\bar{\mathsf e}_{\mathsf u}-\frac{\Var_{\mathsf u}(\mathsf e)}{g_0-\bar{\mathsf e}_{\mathsf u}}\le\varepsilon_{\mathrm{rec}}\le\bar{\mathsf e}_{\mathsf u},
+\end{equation}
+the lower bound when $g_0>\bar{\mathsf e}_{\mathsf u}$. For the reduced record model of \cref{prop:sca-records} with $\upsilon_k=0$, a star, this gives the exact upper bound $\varepsilon_{\mathrm{rec}}\le(\varepsilon+\sum_k\mathcal R_k\delta_k)/(1+\sum_k\mathcal R_k)$, the leading term of \cref{prop:sca-records-memory}(e); for nested records, a chain in which record $k$ is read and written by record $k-1$, with record $0$ the agents, it gives $\varepsilon_{\mathrm{rec}}\le(\varepsilon+\mathcal R_1\delta_1+\mathcal R_1\mathcal R_2\delta_2+\cdots)/(1+\mathcal R_1+\mathcal R_1\mathcal R_2+\cdots)$.
+\end{proposition}
+% src: H2-P13
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-record-drift}. With leaks only at the agents, each level of nested records multiplies the slow time by a product of read-to-write ratios. Drift is not precision, and the precision-based contrast sees records differently.
+
+\begin{proposition}[Contrast with the record as a node]\label{prop:hie-record-contrast}
+Embed $C$ in a population with symmetric couplings $a_{ik}\ge0$ and leak $\varepsilon$ for every agent, the record belonging to $C$ only, with noise intensities $\mathcal Q=\diag(q,\dots,q,q_z)$, the last for the record. Put $q_{\mathrm{rev}}=\omega q/(n\beta)$ and $\cut(C)=\sum_{i\in C,k\notin C}a_{ik}$.
+\begin{enumerate}
+\item[(a)] If $q_z=q_{\mathrm{rev}}$, the drift $M$ of the population with the record satisfies $M\mathcal Q=\mathcal QM^\top$, so $\Sigma=M^{-1}\mathcal Q$ and $\Pi=\mathcal Q^{-1}M$, which is diffusive, with member leaks $\varepsilon/q$, record leak $n\beta\delta/(\omega q)$, couplings $a_{ik}/q$ and member-record couplings $\beta/q$.
+\item[(b)] The contrast of $C'=C\cup\{z\}$ computed from this precision, and that of $C$ without the record, are
+\begin{equation}\label{eq:hie-record-contrast}
+r(C')=\frac{(n+1)\min\Bigl\{\varepsilon+\beta+\lambda_2(L_C),\ \dfrac{\varepsilon+n^2\beta\delta/\omega}{n+1}+(n+1)\beta\Bigr\}}{n\varepsilon+n\beta\delta/\omega+\cut(C)},\qquad r(C)=\frac{n(\varepsilon+\lambda_2(L_C))}{n\varepsilon+\cut(C)}.
+\end{equation}
+For $\delta=0$ and $n\beta\ge\lambda_2(L_C)+\varepsilon n/(n+1)$, $r(C')/r(C)=(1+1/n)(1+\beta/(\varepsilon+\lambda_2(L_C)))$, which does not depend on $\omega$.
+\item[(c)] The agents' marginal precision, with the record marginalized, is diffusive, with member leaks $(\varepsilon+\beta\delta/(\omega+\delta))/q$ and an added coupling $\beta\omega/(nq(\omega+\delta))$ between every pair of members, and the members' marginal contrast is $r'(C)=(\varepsilon+\beta+\lambda_2(L_C))/(\varepsilon+\beta\delta/(\omega+\delta)+\cut(C)/n)$.
+\item[(d)] In discrete time (\cref{def:fw-record-model} with $\upsilon=0$, a uniform kernel on $C$ and symmetric agent weights) the same $q_{\mathrm{rev}}$ gives $W\mathcal Q=\mathcal QW^\top$, and if $W\ge0$ entrywise and $\beta\le1$ the world-conditional precision of agents and record is diffusive, with record leak $(\omega\varepsilon+\delta(2-\omega-\delta))/q_z$ and member leaks $(\varepsilon(2-\varepsilon)-\beta(\varepsilon-\delta))/q$.
+\end{enumerate}
+\end{proposition}
+% src: H2-P7; HC_critic V4; decision 13 (contrast with record nodes)
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-record-precision}, where a ring of eight with contrast $8.654$ reaches $12.950$ with the reversible record at $\beta=0.2$ for both $\omega=0.1$ and $\omega=0.01$. Whether $C'$ is a collective needs a comparison medium for populations with record nodes, which \cref{def:col-baseline} does not declare (\cref{open:hie-record-contrast,open:col-records-baseline}).
+
+\begin{remark}[Why the memory factor is absent from contrast]\label{rem:hie-memory-absent}
+For reversible drift $M=\mathcal Q\Pi$, and the slowest rate is $\min_ff^\top\Pi f/f^\top\mathcal Q^{-1}f$. For a closed collective at $q_z=q_{\mathrm{rev}}$ the uniform vector over members and record gives $\one^\top\Pi\one/\one^\top\mathcal Q^{-1}\one=(\varepsilon+\mathcal R\delta)/(1+\mathcal R)$, the first-order effective leak: in the $\mathcal Q^{-1}$-weighted norm the record counts as $n\mathcal R$ members, while in the Euclidean norm of contrast it is one node and its memory enters only through the factor $1+1/n$. The memory factor $1+\mathcal R$ is a drift quantity (\cref{prop:hie-record-gain,cor:hie-identity}); precision-based and drift-based separations coincide when all nodes have equal noise intensities and differ in general.
+\end{remark}
+% src: H2-R4 (remark, HC_critic Section 6)
+
+Away from the reversible noise the precision with the record node can leave the diffusive class, and for a noiseless record it always does.
+
+\begin{example}[A noiseless global record]\label{ex:hie-noiseless-record}
+Let $C$ be closed, $\delta=0$ and $q_z=0$. The stationary covariance is positive definite and, exactly,
+\begin{equation}\label{eq:hie-noiseless}
+\Pi_{CC}=\frac{(\varepsilon+\beta)I+L_C+\frac\omega n\one\one^\top}q,\qquad\Pi_{Cz}=-\frac{\varepsilon+\omega+\beta}q\one,\qquad\Pi_{zz}=\frac{n(\varepsilon+\omega)(\varepsilon+\omega+\beta)}{\omega q}.
+\end{equation}
+Every pair of members with $a_{ij}<\omega/n$, in particular every uncoupled pair, has the positive precision entry $(\omega/n-a_{ij})/q$, so the precision with the record node is not diffusive and contrast with records as nodes is undefined (\cref{open:col-non-diffusive}). The members' marginal precision, $((\varepsilon+\beta)I+L_C-\frac{\omega\beta}{n(\varepsilon+\omega)}\one\one^\top)/q$, is diffusive. With outsiders both fail: for the ring of eight joined to eight outsiders in \cref{obs:hie-record-window}, with a noiseless record, the largest positive entry is $3.2\times10^{-3}$ of the largest entry in magnitude for the joint precision, and $2.5\times10^{-4}$ for the agents' marginal precision.
+\end{example}
+% src: H2-X1 (closed form, counterexample with proof); HC_critic V4
+
+The closed form is derived in \cref{app:hie} and checked in \cref{chk:hie-record-precision}; the agents' marginal precision (\cref{lem:col-kron}) is a safe substitute only in closed collectives. Near the reversible noise the sign pattern was computed, not proved.
+
+\begin{observation}[The diffusivity window of a record node]\label{obs:hie-record-window}
+For a ring of eight members (neighbor coupling $1$, $\varepsilon=0.02$, $\beta=0.2$, $\omega=0.1$, $q=1$), closed or joined to a ring of eight outsiders by cross couplings $0.05$ between matched members, the precision with the record node was computed at ratios $q_z/q_{\mathrm{rev}}$ from $0$ to $4$ or $10$, including $0.99$, $1$, $1.01$, $1.1$ and $2$. For $\delta=0$ it is diffusive only at $q_{\mathrm{rev}}$: below it member-member entries turn positive, above it the record's leak turns negative for the closed collective and record-outsider entries turn positive with outsiders. For $\delta=0.01$ the closed collective is diffusive at $q_z/q_{\mathrm{rev}}=1$, $1.01$, $1.1$ and $2$ and not at $0.99$ or $4$, while with outsiders it is diffusive only at $q_{\mathrm{rev}}$.
+\end{observation}
+% src: H2-X1 (observation part), HC_critic V4 refinement (closed delta>0 window)
+
+For a member-written global record in a population with outsiders, the realistic case, contrast with record nodes was defined only at the reversible noise in every instance computed, where a global record has an exact signature.
+
+\begin{proposition}[The distance-independent component of a global record]\label{prop:hie-global-record}
+For a closed population of $N$ members ($C=V$), $\delta=0$ and $q_z=q_{\mathrm{rev}}$,
+\begin{equation}\label{eq:hie-global}
+\Sigma_{CC}=\frac{q\beta}{N\varepsilon(\varepsilon+\beta)}\one\one^\top+q\bigl((\varepsilon+\beta)I+L\bigr)^{-1},
+\end{equation}
+a component common to all pairs plus the Green's function of mass $\varepsilon+\beta$; without the record, $\Sigma=q(\varepsilon I+L)^{-1}$ has no such component. For a noiseless record the variance of the members' mean is $q(\varepsilon+\omega)/(N\varepsilon(\varepsilon+\omega+\beta))$, below its value $q/(N\varepsilon)$ without the record.
+\end{proposition}
+% src: H2-P8
+
+Proof in \cref{app:hie}; checked in \cref{chk:hie-record-precision}. This makes exact the hub component of a global archive described in \cref{sec:sca-time}: the record turns part of the collective mode's fluctuation into a distance-independent component. By \eqref{eq:hie-global} the variance $q/(N\varepsilon)$ of the members' mean is the sum of the common term $q\beta/(N\varepsilon(\varepsilon+\beta))$ and the term $q/(N(\varepsilon+\beta))$ of the Green's function, so the common fraction is $\beta/(\varepsilon+\beta)$, more than half exactly when $\beta>\varepsilon$; for a noiseless record the same subtraction from the variance stated in the proposition gives the fraction $\omega\beta/((\varepsilon+\omega)(\varepsilon+\beta))$, close to one under the condition $\varepsilon\ll\beta\omega/(\beta+\omega)$ of \cref{rem:sca-global-records} and small when the leak dominates either rate. The component is invisible from inside by \cref{lem:mis-social-blind}, and its world-conditional cost is of order $1/N$; the cost that does not shrink with $N$ is the world-driven common mode of \cref{thm:hie-floor}.
+
+\subsection{The precision balance}\label{sec:hie-balance}
+
+How much weight a member should give a top-down prior is a Kalman question, with the cavity condition as its premise.
+
+\begin{proposition}[The static echo trade-off]\label{prop:hie-echo-tradeoff}
+Let members' states be $x_i=y_C+\mathfrak e_i$ with $\Var\mathfrak e_i=\psi$, let member $i$ hold a private estimate $\hat x_i=x_i+\mathsf n_i$ with $\Var\mathsf n_i=1/\mathsf J$, and let a top-down estimate $m_C$ of $y_C$ have an error $e_C$ with $\Var e_C=1/\mathsf a$, common to all members and independent of their private data (the cavity condition), all errors independent. A member uses $\tilde x_i=\mathsf vm_C+(1-\mathsf v)\hat x_i$.
+\begin{enumerate}
+\item[(a)] $\mathrm{MSE}(\mathsf v)=\mathsf v^2(1/\mathsf a+\psi)+(1-\mathsf v)^2/\mathsf J$, uniquely minimized at $\mathsf v^\ast=\Lambda_{\mathrm{td}}/(\Lambda_{\mathrm{td}}+\mathsf J)$ with $\Lambda_{\mathrm{td}}=(1/\mathsf a+\psi)^{-1}$, the cavity precision pushed through the link.
+\item[(b)] For $i\neq j$ the shared error is $\Cov(\tilde x_i-x_i,\tilde x_j-x_j)=\mathsf v^2/\mathsf a$, and the disagreement is $\E(\tilde x_i-\tilde x_j)^2=2(1-\mathsf v)^2(\psi+1/\mathsf J)$.
+\item[(c)] As $\mathsf v\to1$ the disagreement tends to $0$ and the mean-square error to $1/\mathsf a+\psi$, so the ratio of mean-square error to disagreement, the analogue for member-specific targets of the echo ratio of \cref{def:mis-echo}, diverges: top-down precision assigned above the Kalman value trades disagreement for shared error.
+\end{enumerate}
+\end{proposition}
+% src: H2-P9
+
+Proof in \cref{app:hie}. With records of a grounded coordinate, in the setting and notation of \cref{lem:hie-record-blind} and \cref{thm:hie-floor}, the trade-off was computed, not proved.
+
+\begin{observation}[Top-down precision on a member-written record]\label{obs:hie-top-down}
+\leavevmode
+\begin{enumerate}
+\item[(a)] Let eight level-0 members on the complete graph have $F=0.99$, $Q=0.02$, sensing noise variance $1$, channel and record read noise variances $0.1$, message precision $\varpi_{\mathrm y}=2$ and $\omega=0.05$, with claimed variances at the fixed point of \cref{sec:coh-tension}, and let them assign the precision $\mathsf r_z$ to the record. As $\mathsf r_z$ rises through $0$, $1$, $3$, $10$ and $30$, the mean-square error is $0.2815$, $0.3426$, $0.4495$, $0.6631$ and $0.8579$, each within $0.021$ of the shared floor $Q\mathsf F_{\mathrm{com}}$, and the echo ratio is $36.0$, $46.7$, $60.3$, $49.0$ and $22.8$. The error is smallest at $\mathsf r_z=0$ here and in three other parameter sets, and increases at $\mathsf r_z=0$ in five cases on rings of $40$ and $100$ members.
+\item[(b)] A single correlation-aware member that fuses its prior mean, sensing, neighbors' messages and the record by the best linear rule under the population's stationary law puts weight $-0.19$ to $-0.27$ on the record in four instances and gains $3.4$ to $4.4$ percent in posterior variance from it.
+\item[(c)] With channel and record read noise variances $0.1$, sensing noise variance $4$ and message precision $\varpi_{\mathrm y}=10$, the error falls below its value at $\mathsf r_z=0$ before it rises: on the complete graph of eight with $F=0.9$, $Q=0.02$ and $\omega=0.05$ from $0.111056$ to $0.110038$ at $\mathsf r_z=10$, a fall of $0.92$ percent; on the complete graph of eight with $F=0.99$, $Q=0.001$ and $\omega=0.05$ from $0.052056$ to $0.051185$ at $\mathsf r_z=10$, a fall of $1.67$ percent; and on the ring of $40$ with $F=0.99$, $Q=0.001$ and $\omega=0.2$ from $0.050778$ to $0.048964$ at $\mathsf r_z=3$, a fall of $3.57$ percent. In each instance the common-mode part $Q\mathsf F_{\mathrm{com}}$ rises and the local-noise part, which is $7.1$, $10.5$ and $14.1$ percent of the error at $\mathsf r_z=0$ against $2.9$ percent in (a), falls by more; at $\mathsf r_z=30$ the error exceeds its value at $\mathsf r_z=0$ in all three.
+\end{enumerate}
+\end{observation}
+% src: H2-E1 (computed instances); the percentages of (b) recomputed from the lane's outputs (the lane wrote 4 to 5 percent)
+
+The computations are described in \cref{chk:hie-balance}. In the instances of (b) the exact reader uses the record through its provenance, as a lagged copy of the shared error that can be subtracted, and not as an independent top-down prior.
+
+\begin{proposition}[Top-down precision on a self-written record raises the common-mode error]\label{conj:hie-top-down}
+In the setting of \cref{thm:hie-floor}, let every member attend $d$ members of $C$ and assign the precisions $\varpi_{\mathrm s}>0$ to its sensing, $\varpi_{\mathrm y}$ to each message and $\mathsf r_z\ge0$ to the record, with gains $k^s=\varpi_{\mathrm s}/\hat\Lambda^+$, $k_{ij}=\varpi_{\mathrm y}/\hat\Lambda^+$ and $\beta=\mathsf r_z/\hat\Lambda^+$ computed from the claimed quantities that solve $\hat\Lambda^+=1/\hat P^-+\varpi_{\mathrm s}+d\varpi_{\mathrm y}+\mathsf r_z$ and $\hat P^-=F^2/\hat\Lambda^++Q$, as in \cref{sec:coh-tension}. Then the sensing gain $k^s$ is strictly decreasing in $\mathsf r_z$, and for every $\mathsf r_z>0$ with $\beta+\omega\le1$ the common-mode part $Q\mathsf F_{\mathrm{com}}$ of every member's stationary mean-square error is strictly larger than its value at $\mathsf r_z=0$.
+\end{proposition}
+% src: H2-C3
+
+Proof in \cref{app:hie}. The statement concerns the common-mode part alone, which is the part that \cref{thm:hie-floor} controls. The total error adds a local-noise part, which a record of the members' mean can lower because it averages their independent noises. In \cref{obs:hie-top-down}(a) the local-noise part is $2.9$ percent of the error at $\mathsf r_z=0$ and the total rises with the floor; in the instances of \cref{obs:hie-top-down}(c), at weak sensing and strong message precision, it is $7$ to $14$ percent and the total falls by $1$ to $4$ percent before it rises. Positive precision on a self-written record of a grounded coordinate therefore costs shared error in every instance that the proposition covers, and whether it raises the total error depends on the share of local noise.
+
+\subsection{Conformity, records and code domains}\label{sup:hie-conformity-records-and-code-domains}
+
+\begin{proposition}[A record lowers the conformity threshold]\label{prop:hie-record-bistability}
+In the code game with affine values, slope $J$ per matched attended partner and $\mathsf d$ partners (\cref{prop:coh-adoption}(b)), add a cavity-read record whose value enters $-G_i$ with slope $\beta_{\mathrm r}$ on the fraction of the other readers who use the agent's code. In the mean field in which partners and record report the same frequency $x$, $q_i(+1)=\operatorname{sig}(\gamma(J\mathsf d+\beta_{\mathrm r})(2x-1)+2\gamma h_i)$; with $h_i=0$ the adoption map is bistable if and only if $\gamma(J\mathsf d+\beta_{\mathrm r})>2$, and then $x_-=e^{-\gamma(J\mathsf d+\beta_{\mathrm r})}(1+o(1))$ as $\gamma(J\mathsf d+\beta_{\mathrm r})\to\infty$.
+\end{proposition}
+% src: H2-P12
+
+\begin{proof}
+The record adds $\beta_{\mathrm r}x$ to the value of $+1$ and $\beta_{\mathrm r}(1-x)$ to that of $-1$, a difference $\beta_{\mathrm r}(2x-1)$ that adds to the difference $J\mathsf d(2x-1)$ of the partners' values; \cref{prop:coh-adoption}(b) with $J\mathsf d$ replaced by $J\mathsf d+\beta_{\mathrm r}$ gives the rest.
+\end{proof}
+
+A record shared by a whole closed population favors one population-wide convention, which under the exchangeable clause or on a transitive declared graph is never a collective (\cref{prop:col-whole-population}); records per group favor group conventions. In the two-group model a preference for coordination supplies an attention cut by fiat.
+
+\begin{remark}[What the translation-aware null removes]\label{rem:hie-pragmatic}
+In the two-group model (\cref{def:frm-two-group}) at $\gamma=\infty$ and $\kappa=n-1$, add to the expected free energy of attention a pragmatic term $J_{\mathrm p}>0$ for each attended sender of the receiver's own frame class, a slot-level prior preference for coordinated exchange that every null keeps. Under the translation-aware null of \cref{prop:frm-exact-fusion} every sender's calibrated noise at the split is $R_c+\mathrm{MSE}$, so all sets of $\kappa$ senders have the same believed value and the in-group set uniquely maximizes believed plus pragmatic value. In-group translations are exact, so the error law of \cref{lem:frm-split-law}, the contrast, the baseline and the admissible window of \cref{thm:frm-split-contrast} are unchanged, and the split survives this null for every $J_{\mathrm p}>0$. With $J_{\mathrm p}=0$ it does not: by \cref{prop:frm-exact-fusion}(b), in every state of the null and at every $\gamma$ the $n$ receivers outside the group of a sender of largest calibrated precision attend that cross sender with probability at least $\kappa/(2n-1)$, so the in-group attention of the split is not kept. The null removes the cost side of withdrawal, and a preference for coordination, which it keeps, supplies it at any strength. Because the pragmatic term rewards attention by frame class, the surviving split is the declared code partition, in agreement with the code-explanation null: this is not formation.
+\end{remark}
+% src: H2-P11 (remark per HC_critic V13; never formation); decision 12
+
+For full exact fusion the question is quantitative, and one receiver's answer was computed.
+
+\begin{observation}[One exact receiver at the split]\label{obs:hie-exact-receiver}
+At the base point of the two-group model ($F=0.99$, $Q=1-F^2$, $R^s=1$, $R_c=0.05$, $n=4$, $\kappa=3$; calibrated in-group noise $0.29872$ by \cref{lem:frm-calibration}) and the stationary law of the literal split, a single receiver that retains its prior mean and current sensing and fuses translation-corrected messages by exact conditioning on the true joint law values three senders, over both coordinates, at $0.00443$ nats when all are in-group, $0.01379$ with one cross sender, $0.01932$ with two and $0.02288$ with three, while calibrated level-0 reading believes any three worth $0.40582$ nats. With the pragmatic term of \cref{rem:hie-pragmatic} the split is a strict best response of this receiver if and only if $J_{\mathrm p}>\max_c[\mathcal V^\ast(c)-\mathcal V^\ast(0)]/c=0.00936$ nats per matched partner, $\mathcal V^\ast(c)$ being the value with $c$ cross senders.
+\end{observation}
+% src: H2-E2 (numerical observation for one unilateral receiver, HC_critic V13: reproduced exactly)
+
+Three cross senders are worth about five times three in-group senders, which confirms, for one unilateral deviation at this point, the heuristic after \cref{prop:frm-exact-fusion} that exact receivers would prefer cross messages; the population law under full exact fusion is open (\cref{open:hie-exact-fusion-population}). Where attention is cut at the walls between code domains, the domains have contrast in a declared geometry.
+
+\begin{example}[Code domains on a declared ring]\label{ex:hie-code-domains}
+Let a belief network on a ring of $N$ agents have world-conditional precision $\Pi=\varepsilon^\Pi I+aL$, with precision leak $\varepsilon^\Pi>0$, $L$ the ring Laplacian and $a>0$ the common value of the couplings $a^\Pi_{ij}$ on its edges, and let attention be cut at $w\ge1$ walls between code domains, the edge at each wall removed. A domain of $n$ sites is an isolated path with contrast $1+\lambda_n/\varepsilon^\Pi$, $\lambda_n=2a(1-\cos(\pi/n))$. The declared geometry is the ring, so the comparison medium of \cref{def:col-baseline} is the homogeneous ring with mean coupling $\bar a=a(1-w/N)$ and leak $\varepsilon^\Pi$, whose baseline is the larger of the whole ring's contrast $1+2\bar a(1-\cos(2\pi/N))/\varepsilon^\Pi$ and an adjacent pair's $(\varepsilon^\Pi+2\bar a)/(\varepsilon^\Pi+\bar a)$. A domain is therefore a collective at some admissible level if and only if
+\begin{equation}\label{eq:hie-domains}
+\lambda_n>2\bar a\bigl(1-\cos(2\pi/N)\bigr)\qquad\text{and}\qquad\Bigl(\lambda_n\ge\bar a\ \text{ or }\ \varepsilon^\Pi<\frac{\lambda_n\bar a}{\bar a-\lambda_n}\Bigr),
+\end{equation}
+and the first condition holds for every domain of at most $N/2$ sites. At $N=60$, $a=1$ and $\varepsilon^\Pi=0.002$, equal domains of $6$, $10$, $20$ and $30$ sites and a domain of $29$ sites beside one of $31$ give:
+\begin{center}
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Domain (walls) & Contrast & Baseline & Significance & Collective for\\
+\midrule
+$6$ ($10$) & $134.97$ & $5.565$ & $24.25$ & $\varepsilon^\Pi<0.39494$\\
+$10$ ($6$) & $49.94$ & $5.930$ & $8.42$ & $\varepsilon^\Pi<0.10983$\\
+$20$ ($3$) & $13.31$ & $6.204$ & $2.15$ & $\varepsilon^\Pi<0.025279$\\
+$30$ ($2$) & $6.478$ & $6.296$ & $1.029$ & $\varepsilon^\Pi<0.011082$\\
+$29$ ($2$) & $6.862$ & $6.296$ & $1.090$ & $\varepsilon^\Pi<0.011868$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The complementary domain of $31$ sites fails the first condition and is never a collective. Under the exchangeable clause, which applies only to populations without declared geometry, the baselines are $848$ to $984$ and no domain of three or more sites qualifies, here and whenever the ring has at most $N/2$ walls (in particular when every domain has at least two sites). If the declared graph is the ring with the walls removed, the comparison medium is the population and no domain is a collective (\cref{rem:col-declared-geometry}).
+\end{example}
+% src: H2-E3 with the baselines of H6-P4 (lattice clause on the declared ring, decision 22; HC_critic V13); ring baseline H6-P2
+
+The derivation is in \cref{app:hie} and the numbers in \cref{chk:hie-conformity}. For this declared precision the example settles the question, left open in \cref{sec:abs}, whether code domains have contrast; whether the code game produces such a precision from a disordered start is the formation question.
+
+\begin{conjecture}[Formation without misreading by the conformity loop]\label{conj:hie-conformity-formation}
+Let agents on a ring hold binary codes and scalar beliefs about a shared world. Codes are revised by asynchronous logit dynamics of the code game (coordination value $J$, independent Gaussian pulls of scale $h$) with a local member-written code record read with cavity priors, and neighbors exchange belief messages only when their codes match, because a pragmatic coordination value $J_{\mathrm p}$ makes mismatched exchange worse than none. For large $\gamma$, large $J/h$ and $J_{\mathrm p}$ above the exact-fusion advantage of cross-wall senders:
+\begin{enumerate}
+\item[(i)] code domains form from disordered starts with mean length at least of order $(J/h)^2$, longer with records;
+\item[(ii)] against the comparison medium of the declared ring, every domain that satisfies \eqref{eq:hie-domains}, with $\lambda_n$ its internal rate in the belief network's world-conditional precision, in particular every domain of at most $N/2$ sites at precision leaks $\varepsilon^\Pi$ below $\lambda_n\bar a/(\bar a-\lambda_n)$ (at every leak if $\lambda_n\ge\bar a$), is a collective at admissible levels, while under the exchangeable comparison, which applies only without declared geometry, no domain of three or more sites qualifies when the ring has at most $N/2$ walls (in particular when every domain has at least two sites);
+\item[(iii)] the domain partition differs from the deletion and partner-randomization nulls and survives the exact-fusion null;
+\item[(iv)] it agrees with the code-explanation null, whose codes are themselves produced by communication.
+\end{enumerate}
+\end{conjecture}
+% src: H2-C2 with clause (ii) restated as H6-C4 (declared comparison medium; HC_critic V13)
+
+The basis is \cref{thm:coh-domains-1d}, \cref{prop:hie-record-bistability,prop:hie-conformity,rem:hie-pragmatic,obs:hie-exact-receiver} and \cref{ex:hie-code-domains}, where clause (ii) holds exactly for the reversible nearest-neighbor precision. An instance in which exact-fusion receivers attend across walls with positive frequency for arbitrarily large $\gamma$, or in which no admissible level selects the domains, would refute it.
+
+\subsection{Dynamic hierarchies}\label{sup:hie-dynamic-hierarchies}
+
+\begin{remark}[Dynamic hierarchies]\label{rem:hie-dynamic}
+When lower-level states have dynamics of their own the space-time graph is not a tree, and exact filtering needs a joint filter of all levels or provenance on every channel; records are exact parents only under the conditions of \cref{prop:hie-record-filter}(a). The ordering of \cref{thm:hie-three-levels} lets a slow level act on faster ones as a slowly varying empirical prior, and \cref{thm:hie-floor} prices it: each factor of memory bought by reading a slower record is paid in shared error for grounded coordinates.
+\end{remark}
+% src: H2-R5 (remark, HC_critic Section 3)
+
+\subsection{Open problems}\label{sec:hie-open}
+
+\begin{openproblem}[The two-group split under full exact fusion]\label{open:hie-exact-fusion-population}
+Compute the population law of the two-group split when every receiver fuses exactly (the null $\mathfrak N_{\mathrm{ex}}$ of \cref{def:agy-nulls}), and its contrast, with and without the pragmatic term of \cref{rem:hie-pragmatic}; \cref{obs:hie-exact-receiver} settles only a unilateral deviation.
+\end{openproblem}
+% src: H2-O4
+
+\begin{openproblem}[Contrast with record nodes]\label{open:hie-record-contrast}
+Characterize the record noises for which the precision with a global record node is diffusive, for $\delta>0$ and with outsiders, where \cref{obs:hie-record-window} found only the reversible value; decide whether a contrast for records can be defined in the $\mathcal Q^{-1}$-weighted norm of \cref{rem:hie-memory-absent} without breaking the size bound; and declare a comparison medium for populations of agents and record nodes.
+\end{openproblem}
+% src: H2-O2; H6 O-H6-4 (declared geometry for record nodes)
+
+\begin{openproblem}[Non-reversible drift]\label{open:hie-nonreversible}
+Extend \cref{prop:hie-reversible-sandwich} to the non-reversible drift of \cref{thm:agy-closure-average}(b), where the spectral sandwich needs a replacement for normality.
+\end{openproblem}
+% src: H2-O1
+
+\begin{openproblem}[Provenance in dynamic hierarchies]\label{open:hie-provenance}
+Determine the minimal provenance that a record must carry for exact hierarchical filtering when members keep their own dynamics and past posteriors (\cref{prop:hie-record-filter}, \cref{rem:hie-dynamic}). The problem is narrowed and not closed by \cref{sec:prv}, which gives storage for links and records under which fusion is exact for one shared linear-Gaussian state with known sensing models (trees without process noise, stars, intermittent reports, graphs with cycles, turnover), with a matching lower bound only for intermittent reports from blind encoders under process noise (\cref{thm:prv-window}); the least storage on a graph with cycles (\cref{open:prv-minimal}) and the dynamic tree of \cref{def:hie-tree} with a different variable at every node (\cref{open:prv-hierarchy}) remain open.
+\end{openproblem}
+% src: H2-O6, H2-P5(c)
+
+\Cref{conj:hie-conformity-formation} is the other open item, the form that formation without misreading would take; a characterization of the instances in which the total error of \cref{obs:hie-top-down} rises with the record precision is also open, since \cref{conj:hie-top-down} settles the common-mode part only.

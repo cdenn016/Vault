@@ -1,0 +1,170 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:met}}{Section 11}: meta-agents}\label{sup:met}
+
+This section collects statements, examples and remarks of \cref{sec:met} that the main text cites without stating in full. Proofs are in \cref{app:met}.
+
+\subsection{Interpretation of the coarse variables}\label{sup:met-interpretation-of-the-coarse-variables}
+
+\begin{remark}[Physical and abstract external states]\label{rem:met-abstract}
+This remark is an interpretation. Every coarse variable is a function of the joint process and in that sense physical; a member senses a price through the same kind of channel through which a cell senses a chemical potential. What changes with scale is which variable has a law of its own. For a meta-agent it is a function of many channels and agents, such as another collective's coarse state, a price or a record, abstract in that it need not be a world variable, and it becomes an object of the theory only when its closure is proved (\cref{thm:met-abstract-physics}) or bounded (\cref{prop:met-memory}). Base-level agents keep generative models of external physical states.
+\end{remark}
+% src: H3-R1, decision 19
+
+\subsection{Coarse blankets: three failures of the sufficient conditions}\label{sup:met-coarse-blankets-three-failures-of-the-su}
+
+\begin{example}[An equal-weight summary leaks]\label{ex:met-summary-leak}
+Let the exterior $\eta_t\sim\Ncal(0,1)$ be independent across rounds and read by two sensory channels $X_{k,t+1}=\eta_t+v_{k,t}$, $\Var v_{k,t}=R^s_k$, $k=1,2$; let the interior be $y_{t+1}=g_1X_{1,t}+g_2X_{2,t}+\mathfrak n_t$ with $\Var\mathfrak n_t=q>0$; and declare $s=X_1+X_2$. No channel reads both sides, so the fine path blanket holds, but the weak and strong coarse leak rates are both
+\begin{equation}\label{eq:met-summary-leak}
+\begin{gathered}
+\iota_{\mathrm{path}}=-\frac12\ln\Bigl(1-\frac{\Cov(y,\eta\mid s)^2}{\Var(y\mid s)\Var(\eta\mid s)}\Bigr),\\
+\Cov(y,\eta\mid s)=\frac{(g_1-g_2)(R^s_2-R^s_1)}{4+R^s_1+R^s_2},\qquad\Var(\eta\mid s)=\frac{R^s_1+R^s_2}{4+R^s_1+R^s_2},
+\end{gathered}
+\end{equation}
+with $\Var(y\mid s)=g_1^2(1+R^s_1)+g_2^2(1+R^s_2)+2g_1g_2+q-(g_1(2+R^s_1)+g_2(2+R^s_2))^2/(4+R^s_1+R^s_2)$, the moments being those of $(y_{t+1},\eta_{t-1},s_t)$. The leak is positive whenever $g_1\neq g_2$ and $R^s_1\neq R^s_2$; for members who weight by precision, $g_k=1/R^s_k$, the conditional covariance is $(R^s_2-R^s_1)^2/(R^s_1R^s_2(4+R^s_1+R^s_2))$. With these gains, the weights of the information-form statistic, at $R^s=(0.5,2)$ and $q=0.1$ the rate is $0.135600$ nats per round, and at $R^s=(0.2,5)$ it is $0.619053$.
+\end{example}
+% src: H3-X1; HC_critic V5 (rates reproduced)
+The computation is in \cref{app:met}; both rates agree to six digits with window computations from the path covariance (\cref{chk:met-blanket}).
+
+\begin{example}[Heterogeneous channel memories]\label{ex:met-channel-memory}
+Let sensory channels with memories $\mathsf d_k$, $X_{k,t+1}=\mathsf d_kX_{k,t}+\eta_t+v_{k,t}$, read a scalar exterior state, with the information-form $s_C$ of weights $1/R^s_k$. Then $\mathsf P_{\mathrm S}A_{\sS\sS}=(\mathsf d_k/R^s_k)_k$ is a multiple of $\mathsf P_{\mathrm S}=(1/R^s_k)_k$ only when all $\mathsf d_k$ are equal, so for unequal memories (a1) of \cref{prop:met-sufficiency} fails and $s_C$ reads the sensory residual. Members read their own channels, so the residual cannot be placed on the exterior side; on the interior side it makes $s_C$ read both sides, a coarse collider. In the three-member system of \cref{chk:met-blanket} the coarse leak on ten rounds from an independent start is $2\times10^{-14}$ with memories $(0.5,0.5,0.5)$, and $0.056$ and $0.055$ with memories $(0.2,0.5,0.8)$ and $(0,0,0.6)$. A meta-agent whose members' sensors integrate over different times has no exact coarse blanket at the information-form statistic.
+\end{example}
+% src: H3-X2 (mechanism derived, numbers checked)
+
+\begin{example}[Reafference from one member's act]\label{ex:met-reafference}
+Let the interior read only $s_C$, the exterior only $a_C=\alpha_1+\alpha_2$, the sum of two active channels driven by the interior, and the single sensory channel the exterior and member 1's act, $X_{\sS,t+1}=\eta_t+0.4\alpha_{1,t}+v_t$. The fine path blanket holds and the interior and exterior read the blanket only through $s_C$ and $a_C$, but (b3) of \cref{prop:met-sufficiency} fails: $s_C=X_{\sS}$ reads the exterior and the residual $\alpha_1-\alpha_2$, which lies on the interior side, and the coarse leak on ten rounds from an independent start is $0.113$ nats. If the sensor reads the total act instead, (b3) holds and the leak vanishes (\cref{chk:met-blanket}). Reading one member's act through a collective sensor is a coarse collider.
+\end{example}
+% src: H3-X3 (checked)
+
+\subsection{Abstract physics: aggregates and other collectives}\label{sup:met-abstract-physics-aggregates-and-other-co}
+
+\begin{example}[A price and many traders]\label{ex:met-traders}
+Let the exterior of a meta-agent consist of a price and $N$ outside traders,
+\begin{equation}\label{eq:met-traders}
+p_{t+1}=\mathsf f_pp_t+\frac{\mathsf b_p}N\sum_jx_{j,t}+\mathsf b_Ca_{C,t}+w_t,\qquad x_{j,t+1}=\alpha_jx_{j,t}+\mathsf b_xp_t+w_{j,t},
+\end{equation}
+with persistences $0\le\alpha_j\le\alpha_{\max}<1$, independent Gaussian innovations of variances $q_p$ and $q_x$, and $\eta_C=(p,\bar x)$ with $\bar x=N^{-1}\sum_jx_j$. Write $\bar\alpha$ and $\Var_N(\alpha)$ for the mean and the variance of the persistences and $\bar{\mathfrak m}_l=N^{-1}\sum_j\alpha_j^l$.
+\begin{enumerate}
+\item[(a)] For $N\ge2$ the abstract physics is exact if and only if all $\alpha_j$ are equal: the partition into the price and the traders is lumpable exactly then.
+\item[(b)] In general the stationary aggregate obeys exactly $\bar x_{t+1}=\bar\alpha\bar x_t+\mathsf b_xp_t+\sum_{l\ge2}\Gamma_lp_{t-l}+\mathfrak f^{(N)}_t-\bar\alpha\mathfrak f^{(N)}_{t-1}$, with kernel $\Gamma_l=\mathsf b_x(\bar{\mathfrak m}_l-\bar\alpha\bar{\mathfrak m}_{l-1})$ and colored noise $\mathfrak f^{(N)}_t=N^{-1}\sum_j\sum_{l\ge0}\alpha_j^lw_{j,t-l}$ of variance $(q_x/N^2)\sum_j(1-\alpha_j^2)^{-1}=O(1/N)$. The kernel has $\Gamma_1=0$, $\Gamma_l/\mathsf b_x\ge0$ and $\sum_{l\ge2}\lvert\Gamma_l\rvert\le\lvert\mathsf b_x\rvert\Var_N(\alpha)/(1-\alpha_{\max})^2$.
+\item[(c)] If the empirical law of the $\alpha_j$ converges weakly to a law $\mathbb Q$ on $[0,\alpha_{\max}]$, with moments $\mathfrak m_l=\int\alpha^l\mathbb Q(\mathrm d\alpha)$, then $\Gamma_l\to\mathsf b_x(\mathfrak m_l-\mathfrak m_1\mathfrak m_{l-1})$; in particular $\Gamma_2\to\mathsf b_x\Var_{\mathbb Q}(\alpha)$, which for $\mathsf b_x\neq0$ is nonzero unless $\mathbb Q$ is a point mass.
+\end{enumerate}
+With persistences evenly spaced on $[0.3,0.7]$ the memory weight $\sum_{l\ge2}\lvert\Gamma_l\rvert$ falls only from $0.0370$ to $0.0297$ between $N=10$ and $N=640$ (\cref{chk:met-traders}): the law of large numbers removes the noise of the aggregate, not its memory.
+\end{example}
+% src: H3-E2 (derived and checked; HC_critic V6, V12)
+The proof is in \cref{app:met}.
+
+\begin{remark}[The information-form defect for aggregates]\label{rem:met-aggregate-defect}
+In \cref{ex:met-traders}, $\bar Q=\diag(q_p,q_x/N)$, and since $\det(I+X)\ge1+\tr X$ for positive semidefinite $X$, $\mathfrak d^{\mathrm E}_{\mathrm{cl}}\ge\frac12\ln(1+N\mathfrak e^{\mathrm E}_{\bar x}\Var(\bar x)/q_x)$, where $\Var(\bar x)\ge\mathsf b_x^2q_p$ because $\bar x_{t+1}$ is $\mathsf b_xw_{t-1}$ plus terms independent of $w_{t-1}$. If $\mathsf b_x\neq0$ and $\mathfrak e^{\mathrm E}_{\bar x}$ has a positive limit as $N\to\infty$, which the computed values suggest ($2.1\times10^{-4}$ at $N=640$) and we have not proved, the information-form defect diverges at least like $\frac12\ln N$, because the aggregate's own noise vanishes while its memory does not. For aggregates the memory clause of \cref{def:agy-closure} is therefore better stated with $\mathfrak e^{\mathrm E}$ or with kernel weights; long memory and closure by types are treated in \cref{prop:env-aggregate-memory,prop:env-aggregate-closure}.
+\end{remark}
+% src: H3-R3 (conditional on H3-O6), HC_critic V6
+
+\begin{example}[An environment of other collectives]\label{ex:met-other-collectives}
+Let the exterior of $C$ contain a set $C'$ of eight other agents on a ring, with symmetric update $W_{C'C'}=\diag(c_i)+a_{\mathrm{in}}\mathrm{Adj}$, where $\mathrm{Adj}$ is the adjacency matrix of the ring, row sums $0.99$ except at two opposite members that read $C$, whose rows sum to $0.97$ because they place weight $0.02$ on $C$'s act, isotropic noise and nonnegative spectrum, and let $\eta_C$ be the average of $C'$. By \cref{lem:met-discrete-closure}, the free dynamics of $\eta_C$ is Markov up to a bound set by the drift-based discrete contrast $r^{\mathrm d}$ of the average of $C'$ and by the dispersion $\sigma^{\mathrm d}=0.0087$ of its members' total leaks. At $a_{\mathrm{in}}=0.01$, $0.03$, $0.1$, $0.2$ and $0.24$, $r^{\mathrm d}$ is $1.06$, $1.84$, $4.57$, $8.48$ and $10.04$, and the Markov error $\Xi^{\mathrm d}$ is $7.8\times10^{-3}$, $1.2\times10^{-3}$, $7.2\times10^{-5}$, $1.3\times10^{-5}$ and $8.1\times10^{-6}$. The bound of \cref{lem:met-discrete-closure}(a) is vacuous at the first value and exceeds $\Xi^{\mathrm d}$ by factors from $219$ down to $54$ at the others, and its precision-rate form (b) is smaller at every value. With $C$'s act as a white input the closure defect $\mathfrak d^{\mathrm E}_{\mathrm{cl}}$ falls from $3.9\times10^{-4}$ to $4.6\times10^{-5}$ (\cref{chk:met-other-collectives}).
+\end{example}
+% src: H3-E1 (bounds recomputed with the merged lemma, HC_critic V7(d), V10)
+A larger drift-based contrast of the other collective makes its average a more nearly closed variable of $C$'s abstract environment. That contrast is computed from the drift of $C'$ with $C$'s act held fixed; it is not the precision-based contrast of \cref{def:col-contrast}, which selects collectives. The example is a quantitative instance, for one block, of the aggregation of nearly decomposable linear systems of \citet{simon1961aggregation}.
+
+\subsection{Closure notions}\label{sup:met-closure-notions}
+
+The closure notions in use are related exactly.
+
+\begin{proposition}[Closure notions]\label{prop:met-closure-notions}
+\begin{enumerate}
+\item[(a)] (Defect criterion.) Let $x$ be a Gaussian vector with covariance $\Sigma_x\succ0$, let $y'=\mathsf Gx+\mathfrak u$ with $\mathfrak u\sim\Ncal(0,Q^{\mathfrak u})$, $Q^{\mathfrak u}\succ0$, independent of $x$, and let $\mathsf c=\mathcal Px$ with $\mathcal P$ of full row rank. Then $I(y';x\mid\mathsf c)=\frac12\ln\det(I+(Q^{\mathfrak u})^{-1}\mathsf G\Sigma_{x\mid\mathsf c}\mathsf G^\top)$ with $\Sigma_{x\mid\mathsf c}=\Sigma_x-\Sigma_x\mathcal P^\top(\mathcal P\Sigma_x\mathcal P^\top)^{-1}\mathcal P\Sigma_x$, and $I(y';x\mid\mathsf c)=0$ if and only if $\mathsf G$ vanishes on $\ker\mathcal P$. In particular $\mathfrak d^C_{\mathrm{cl}}=0$ exactly under the conditions of \cref{def:met-abstract-physics}(i), and $\mathfrak d^{\mathrm E}_{\mathrm{cl}}=0$ exactly under those of (ii).
+\item[(b)] (Dynamical dependence.) In the setting of \cref{def:agy-closure}, with a Gaussian initial law and an input path that is known or independent of $(x_0,\mathfrak n)$, let $\mathcal Z_t=(y_{0:t},x_{\sB,0:t})$ and $P^{\mathrm f}_t=\Var(x_t\mid\mathcal Z_t)$. The dynamical dependence of $y$ on $x$ given the blanket path, $\mathfrak d_{\mathrm{dyn},t}=I(y_{t+1};x_{0:t}\mid\mathcal Z_t)$, is $\frac12\ln\det(I+(\mathsf PQ^{\mathfrak n}\mathsf P^\top)^{-1}\mathsf PAP^{\mathrm f}_tA^\top\mathsf P^\top)$. In the stationary case without input $\mathfrak d_{\mathrm{dyn},t}\le\mathfrak d_{\mathrm{cl}}$, and for $t\ge1$, $\mathfrak d_{\mathrm{dyn},t}=0$ if and only if $A_{y\perp}=0$.
+\item[(c)] (Consequence.) In the stationary case without input the following coincide: kernel invariance $A\ker\mathsf P\subseteq\ker\mathsf P$; $\mathfrak d_{\mathrm{cl}}=0$; $\mathfrak d_{\mathrm{dyn},t}=0$ for every $t\ge1$; and one-step informational closure, $I(y_{t+1};x_{0:t})=I(y_{t+1};y_{0:t})$ for every $t$. Their approximate forms differ: $\mathfrak d_{\mathrm M}\le\mathfrak d_{\mathrm{cl}}$ and $\mathfrak d_{\mathrm{dyn},t}\le\mathfrak d_{\mathrm{cl}}$, so the closure defect is the largest.
+\end{enumerate}
+\end{proposition}
+% src: H3-L0, H1-P3 (checked), HC_critic 2.2
+Proof in \cref{app:met}; checked in \cref{chk:met-closure-notions}. The quantity $\mathfrak d_{\mathrm{dyn},t}$ is the conditional transfer entropy whose vanishing \citet{barnett2023dynamical} call dynamical independence in the context of an environment, here the blanket path, and one-step informational closure, the macro past predicting the next macro state as well as the micro past does, is the notion of \citet{rosas2024software} in one-step form. In linear-Gaussian collectives in the stationary case without input, the exact notions coincide and only their approximate forms are ordered.
+
+\subsection{Literal and level-0 aggregation}\label{sup:met-literal-and-level-0-aggregation}
+
+\begin{proposition}[Literal aggregation is overconfident]\label{prop:met-literal-aggregation}
+\begin{enumerate}
+\item[(a)] In a static world, literal consensus at level 1 counts a common prior $n$ times on regular graphs and makes the believed precision diverge (\cref{prop:agy-literal-consensus}).
+\item[(b)] In the setting of \cref{prop:met-consensus-filter}(b), let the collective belief be formed at every step as the product of the members' posteriors, each computed from a common predicted prior, so that the prediction is counted $n$ times. Its covariance converges to the fixed point $P_{\mathrm b}$ of $\Psi_n(P)=(n(\bar FP\bar F^\top+\bar Q)^{-1}+\Lambda^s)^{-1}$, and $P_{\mathrm b}\preceq\bar P$: the literal collective is overconfident. If the resulting estimator is stable, $\rho(\bar F(I-P_{\mathrm b}\Lambda^s))<1$, its stationary error covariance satisfies $\mathcal C_{\mathrm b}\succeq\bar P$, so it is also less accurate than the exact one, and the expected relative entropy from the exact posterior to the literal belief is $\frac12[\tr(P_{\mathrm b}^{-1}\mathcal C_{\mathrm b})-\dim\eta_C+\ln\det P_{\mathrm b}-\ln\det\bar P]$.
+\end{enumerate}
+\end{proposition}
+% src: H3-P6
+Proof in \cref{app:met}. In a two-dimensional instance the literal belief has variances $(0.023,0.032)$ against exact $(0.181,0.093)$ and true errors $(0.690,0.210)$, at an expected relative entropy of $15.3$ nats (\cref{chk:met-inference}).
+
+Level-0 receivers fuse literally with fixed gains, so their average is a fixed linear filter of their inputs, and in general not the coarse filter. Its closure has an exact form.
+
+\begin{proposition}[Level-0 collectives carry memory]\label{prop:met-level0}
+Let the members of $C$ be scalar level-0 receivers (\cref{def:fw-level0}) with exact code models, sensing gains $k^s_i$ and message gains $k_{ij}$ on senders inside and outside $C$. Write $k^\partial_i=\sum_{j\notin C}k_{ij}$, $k^{\mathrm{rec}}_j=\sum_{i\in C}k_{ij}$ and $k^{\mathrm{giv}}_j=\sum_{i\in C}k_{ji}$ for the attention that member $j$ receives from and gives to members, and bars for averages over $C$. The average $\bar m=n^{-1}\sum_{i\in C}m_i$ of the predicted means obeys
+\begin{equation}\label{eq:met-level0}
+\begin{aligned}
+\bar m(t+1)=F\Bigl[&(1-\bar k^s-\bar k^\partial)\bar m+\frac{s_C}n-\frac1n\sum_{j\in C}\bigl(k^s_j+k^\partial_j-\bar k^s-\bar k^\partial\bigr)(m_j-\bar m)\\
+&+\frac1n\sum_{j\in C}\bigl(k^{\mathrm{rec}}_j-k^{\mathrm{giv}}_j\bigr)(m_j-\bar m)\Bigr]+\bar\zeta_C(t),
+\end{aligned}
+\end{equation}
+with the gain-weighted coarse sensory state $s_C=\sum_{i\in C}(\Kg^s_is_i+\sum_{j\notin C}\Kg_{ij}y_{ij})$ and $\bar\zeta_C$ the average of the members' internal message noises. The first memory term is the dispersion of the members' total leaks $k^s_j+k^\partial_j$, the drift-level counterpart of $\sigma_C$ in \cref{thm:agy-closure-average}(a), and the second is the imbalance between the attention a member receives and gives inside $C$, the circulation of \cref{thm:agy-closure-average}(b)(iv). For $F\neq0$ the average is exactly closed given $s_C$ if and only if $k^s_j+k^\partial_j+k^{\mathrm{giv}}_j-k^{\mathrm{rec}}_j$ is the same for every $j\in C$, that is, if and only if the update of the members' means has equal column sums (\cref{def:met-lumpable} with one block); in particular when total leaks are equal and internal attention is balanced.
+\end{proposition}
+% src: H3-R7, with the exactness condition corrected here: the source statement "exactly when total leaks are equal and internal attention is balanced" is sufficient, not necessary (checked)
+Proof in \cref{app:met}; checked in \cref{chk:met-level0}, which includes a collective with unequal leaks and imbalanced attention whose average is exactly closed. Otherwise the average carries memory, which the contrast of $C$ bounds in the continuous-time reversible approximation (\cref{thm:agy-h1}(c)).
+
+\subsection{Two firms and a price}\label{sec:met-firms}
+
+\begin{example}[Two firms and a price]\label{ex:met-two-firms}
+A price and two firms $C_1$ and $C_2$ of $n=4$ members each. The price follows $p_{t+1}=\mathsf f_pp_t+\mathsf b_p(a_{C_1,t}+a_{C_2,t})+w_t$ with $\mathsf f_p=0.9$, $\mathsf b_p=0.2$ and $\Var w_t=0.05$, where $a_{C_1}$ and $a_{C_2}$ are the firms' order flows, the sums of their members' acts. Each member has one sensory channel that reads the price, $X_{i,t+1}=p_t+v_{i,t}$, with noise variances $(0.5,1,2,4)$ in $C_1$ and $(1,1,2,2)$ in $C_2$, so that $\Lambda^s=3.75$ and $3$; an internal state made of a filter state and a stored copy of its firm's order flow; and an act channel $u_{i,t+1}=-\mathsf g_u\hat p_{i,t}+\text{noise}$ of variance $0.01$, where $\hat p_{i,t}$ is the price coordinate of its filter state and $\mathsf g_u=0.15$. Members run the consensus filter on the lazy ring $\mathcal W=\frac12I+\frac14(\text{left}+\text{right shift})$, $\rho_\perp=0.5$, with $n_{\mathrm c}=1$ unless stated, and their computation noise has variance $10^{-3}$ per coordinate except where $C_1$ is taken noiseless. Firm $C_2$ runs a bounded model: the price as an autoregression with coefficient $\mathsf f_p$, its own order flow as input with weight $\mathsf b_p$, and declared innovation variance $0.1$; its filtered variance is $\bar P_2=0.12571$, the positive root of $2.43x^2+0.49x-0.1=0$. Firm $C_1$ runs either the same bounded model or its exact abstract physics. By \cref{thm:met-h5a}(ii), which needs only the protocol and therefore covers a bounded model, the average of $C_2$ is closed, so the coarse exterior $\eta_{C_1}=(p,s_{C_2},y^\eta_{C_2},y^\alpha_{C_2},a_{C_2})$ obeys exactly
+\begin{equation}\label{eq:met-firms}
+\begin{gathered}
+p'=\mathsf f_pp+\mathsf b_pa_{C_2}+\mathsf b_pa_{C_1}+w,\qquad s_{C_2}'=3p+\bar v,\\
+y^{\eta\prime}_{C_2}=\mathsf f_p\bar P_2s_{C_2}+\mathsf f_p(1-3\bar P_2)y^\eta_{C_2}+\mathsf b_py^\alpha_{C_2}+\text{noise},\\
+y^{\alpha\prime}_{C_2}=a_{C_2}+\text{noise},\qquad a_{C_2}'=-4\mathsf g_uy^\eta_{C_2}+\text{noise},
+\end{gathered}
+\end{equation}
+a five-dimensional abstract physics with input $a_{C_1}$: a price together with a competitor's sensory statistic, estimate, stored act and order flow. Only the price is sensed, so in condition (S) of \cref{prop:met-consensus-filter} $\mathcal H_0=\one$, $\mathsf G_\eta=e_1^\top$ and the information matrix of $\eta_{C_1}$ is the singular matrix $3.75e_1e_1^\top$; since $\rho(\bar F)=0.618$, the pair $(\bar F,\Lambda^s)$ is detectable. The fine joint process has dimension $49$ when $C_1$ runs the exact model and $33$ when it runs the bounded one, with $\rho(A)=0.797$ and $0.824$. \Cref{tab:met-firms} reports the properties of \cref{thm:met-h5a} computed in this model (\cref{chk:met-two-firms}).
+\end{example}
+% src: H3-E3 (checked; exact parts derived), HC_critic V7, V12 (worked example)
+
+\begin{table}[t]
+\centering\small
+\caption{The properties of \cref{thm:met-h5a} in the two-firm model, for firm $C_1$ running its exact abstract physics or the bounded model. Leaks and relative entropies in nats; the first two rows give the leak with the sensory and active residuals placed with the interior, which bounds the strong coarse leak from above (\cref{eq:met-leak-bound}); variances refer to the price coordinate, the predictive variance is that of the current price given the firm's blanket path, and the rows on (iv) take the members of $C_1$ noiseless.}
+\label{tab:met-firms}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}@{}}
+\toprule
+Property & Exact model & Bounded model\\
+\midrule
+(i) leak with residuals, independent start, 6 rounds & $1.1\times10^{-13}$ & $6.8\times10^{-13}$\\
+(i) leak with residuals, stationary start, 6 and 12 rounds & $0.1742$, $0.1740$ & $0.0915$, $0.0915$\\
+(i) equal-weight sensory summary: strong and weak coarse leak rates per round & $0.0439$, $0.0439$ & $0.0382$, $0.0381$\\
+(ii) closure of $y_{C_1}$: algebraic residual; $\mathfrak d^C_{\mathrm{cl}}$ & $0$; $1\times10^{-11}$ & $0$; $9\times10^{-16}$\\
+(iii) $\eta_{C_1}$ five-dimensional: residuals; $\mathfrak d^{\mathrm E}_{\mathrm{cl}}$ & $0$; $4\times10^{-14}$ & not used\\
+(iii) price alone as coarse exterior: $\mathfrak d^{\mathrm E}_{\mathrm{cl}}$; $\mathfrak e^{\mathrm E}$ & $0.0303$; $0.0156$ & $0.0298$; $0.0152$\\
+(iv) error variance of the member average & $0.11772$ & $0.12734$\\
+(iv) exact predictive variance, fine and coarse blanket & $0.11772$, $0.11772$ & $0.11772$, $0.11772$\\
+(iv) claimed variance; relative entropy to the exact law & $0.11772$; below $2\times10^{-12}$ & $0.18982$; $0.0743$\\
+(iv) local filters with a product pool: error, claimed, relative entropy & & $0.12636$, $0.07290$, $0.1271$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the exact model the whole five-dimensional predictive covariance agrees with the error covariance of the member average and with the law obtained by conditioning the stationary path law on thirty rounds of the firm's blanket, to $4.5\times10^{-13}$. The variance $0.11772$ is that of the current price; the filtered variance, of the price one round earlier, is $0.08167$, the one-round latency of (iv). For agency, with acts $u_i\in\{-1,0,1\}$, $\Lambda^\star=4$ about the target $0$, $\gamma=2$ and uniform habits, the logit chain over the $81$ profiles has a stationary law within $1.1\times10^{-15}$ in total variation of the group posterior with tilted habits at $n_{\mathrm c}=0$, $1$ and $4$, with largest tilt $0.249$, $0.136$ and $0.018$; with preference precisions $(2,3,5,6)$ it lies at total variation $0.06$ to $0.13$ from the shared-precision group posterior, as \cref{thm:agy-joint-acts}(a) predicts. Every property of H5a thus holds exactly for $C_1$ when it models its competitor's coarse states, and each fails by a computed amount when a hypothesis is removed (\cref{tab:met-hypotheses}).
+
+\begin{remark}[A corporation and its market]\label{rem:met-corporation}
+This remark is an interpretation. In \cref{ex:met-two-firms} the variables that close for a firm are the price together with its competitor's coarse states, so its abstract physics is a law for a market variable and for another organization's estimate and order flow. This is the author's corporation that senses an informational environment, made exact in one linear-Gaussian model with a fixed bounded model for the competitor; it is a worked example, not a result about markets. The reading that a person senses ``the economy'' in the same way would require the economy's aggregates to be closed variables at the person's timescale (\cref{thm:met-abstract-physics,ex:met-traders}) and is not established here; which variables a firm or a person should sense is the subject of \cref{sec:env} (\cref{ex:env-firm,ex:env-person,rem:env-firm-meta-agent}). \Citet{fields2022competency} describe competent behavior at every scale as action in spaces other than physical space, and in the simulation of blankets of blankets of \citet{palacios2020markov} a collective senses an average of exterior signals and acts through an average of its members' active states (their Eq.~14), the form that $(s_C,a_C)$ takes here.
+\end{remark}
+% src: H3-R8, H3-R1 (interpretations), H1-R15 (palacios2020markov at P), H1-R17 (fields2022competency at P)
+
+\subsection{Open problems}\label{sec:met-open}
+
+\begin{openproblem}[An approximate H5a]\label{open:met-approximate}
+Bound the excess relative entropy of a meta-agent that filters an approximately closed coarse exterior with a Markov model in terms of the memory measures of \cref{prop:met-memory}, which would give property (iv) of \cref{thm:met-h5a} an error term, and bound the memory of the coarse internal state under level-0 protocols beyond the exact terms of \cref{prop:met-level0}. The two-firm model computes the first quantity ($0.074$ nats for a firm that ignores its competitor); without a bound, no approximate form of \cref{thm:met-h5a} is stated. \Cref{sec:apx} gives such an error term in the stable linear-Gaussian case with a stationary fine filter, positive definite record noise and no computation noise of the members, conditional on $c_->0$, and, without input and for the moment-matched declared model, in terms of the closure defect (\cref{thm:apx-posterior,cor:apx-memory}); the first bound remains open beyond that case, apart from a finite-horizon bound that accumulates over the horizon (\cref{prop:apx-posterior-finite}), and the second, on the memory of the coarse internal state, is not addressed there (\cref{open:apx-internal}).
+\end{openproblem}
+% src: H3-O5, HC_critic V7(b)
+
+\begin{openproblem}[Mutually modeling meta-agents]\label{open:met-mutual}
+The minimal closed extension of a coarse exterior (\cref{thm:met-abstract-physics}(f)) can contain other meta-agents' internal states, as in \cref{ex:met-two-firms}. If two meta-agents modeled each other exactly and each observed the other's whole internal state, each filter would have to be larger than the other's. Decide when finite-dimensional pairs of mutually exact filters exist, given that only observable parts matter.
+\end{openproblem}
+% src: H3-O4, H3-R4
+
+\begin{openproblem}[A sharp leak constant]\label{open:met-leak-constant}
+In the checked system the constant $\mathfrak c_C$ of \cref{prop:met-leak-bound} exceeds the exact conditional-variance constant by a factor of about $20$, and the bound exceeds the leak by four orders of magnitude. Find a bound, for instance through the coarse blanket's own filter, that is sharp in its constant as well as in its order.
+\end{openproblem}
+% src: H3-O2
+
+\begin{openproblem}[Nonlinear and discrete meta-agents]\label{open:met-nonlinear}
+State and prove versions of \cref{thm:met-coarse-blanket,thm:met-abstract-physics,thm:met-h5a} for discrete state spaces and nonlinear dynamics, the setting of renormalizing generative models (\cref{rem:ren-rgm}), starting from lumpability of Markov chains and the closure notions of \citet{rosas2024software}.
+\end{openproblem}
+% src: H3-O7, decision 21

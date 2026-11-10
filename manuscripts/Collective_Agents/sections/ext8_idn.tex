@@ -1,0 +1,122 @@
+\section{Unrecorded drivers: what the recorded law identifies}\label{sec:idn}
+
+This section addresses the open problem of empirical identification, which observations distinguish a proposed mechanism from its alternatives, in the form it takes for collective agency: the order parameter of \cref{def:agy-order-parameter} conditions on the shared drive, and \cref{open:agy-unrecorded-drive} asks for an estimator of it when that drive is not recorded. Inside the linear-Gaussian setting four things are established: the stationary covariance identifies nothing about interaction, and the split of inputs into shared and private is not in the law; between pure models, the path law separates interaction from a regular driver of low rank and cannot separate it from one of full rank on the interacting agents; a channel intervention that leaves the driver law and the loading unchanged certifies interaction with no rank or color condition on the driver; and scores computed from records under one regime cannot grade agency. Left open are the model in which interaction and a colored driver of low rank are both present, for which only local identifiability at one computed parameter point is available, sharp bounds and finite-sample tests, and a test of the invariance hypotheses of the intervention result (\cref{open:idn-mixed,open:idn-sharp,open:idn-invariance}). Proofs are in \cref{app:idn} and checks in \cref{chk:idn}.
+
+\begin{definition}[Recorded network with an unrecorded driver]\label{def:idn-model}
+The recorded states $x_t\in\R^n$ of the members of $C$ follow
+\begin{equation}\label{eq:idn-model}
+x_{t+1}=Ax_t+\mathsf L\mathsf d_t+\zeta_t,\qquad\zeta_t\sim\Ncal(0,D)\ \text{independent across rounds},\qquad D\succ0\ \text{diagonal},
+\end{equation}
+with $\rho(A)<1$, private inputs $\zeta$, a loading $\mathsf L\in\R^{n\times k}$ of full column rank, and an unrecorded stationary Gaussian driver $\mathsf d_t\in\R^k$ that is independent of $\zeta$ and belongs to the shared drive $\mathcal X_{\mathrm{sh}}$. The driver is regular when its one-step prediction error covariance $Q_{\mathsf d}$ is positive definite, and white when it is independent across rounds. The model is interaction-free when $A$ is diagonal and driver-free when there is no driver, the case $k=0$, written $\mathsf L=0$. The incidence set $\mathcal E(A)$ collects the agents $i$ with $A_{ij}\neq0$ or $A_{ji}\neq0$ for some $j\neq i$. The level-0 network of \cref{def:fw-level0} with scalar exact codes, read in belief coordinates with the world state unrecorded, is the instance $x=m$, $A=W$, $\mathsf d=\eta$, $\mathsf L_i=Fk^s_i$, $D=Q^\zeta$.
+\end{definition}
+
+\begin{proposition}[Zero interaction is a diagonal coupling]\label{prop:idn-zero}
+In \cref{def:idn-model} let $\mathcal X_{\mathrm{sh}}$ consist of $x_0$ and the driver path and let $\bar t\ge2$. Then $\Omega_{\mathrm{int}}(C)=0$ if and only if $A$ is diagonal.
+\end{proposition}
+
+Whether the order parameter is positive, the qualitative part of what \cref{open:agy-unrecorded-drive} asks to estimate, is therefore the question whether the off-diagonal part of $A$ can be read from the law of $x$ alone.
+
+\begin{theorem}[The stationary covariance identifies nothing]\label{thm:idn-covariance}
+Let $\Sigma\succ0$ be any $n\times n$ covariance matrix.
+\begin{enumerate}
+\item[(a)] For every $a\in(-1,1)$ and $0<\delta\le(1-a^2)\lambda_{\min}(\Sigma)$, the interaction-free model with $A=aI$, $D=\delta I$, a white driver of unit covariance and a loading with $\mathsf L\mathsf L^{\top}=(1-a^2)\Sigma-\delta I$ has stationary covariance $\Sigma$; at the upper limit of $\delta$ the driver has rank at most $n-1$.
+\item[(b)] The driver-free models with stationary covariance $\Sigma$ are exactly those with $D$ diagonal, $0\prec D\preceq\Sigma$, and
+\begin{equation}\label{eq:idn-polar}
+A=\Sigma^{1/2}\bigl(I-\Sigma^{-1/2}D\Sigma^{-1/2}\bigr)^{1/2}U\Sigma^{-1/2},\qquad U\ \text{orthogonal},
+\end{equation}
+and $A$ is not diagonal when $\Sigma$ is not.
+\item[(c)] The identity covariance is the stationary covariance of the driver-free model $A=\sqrt{1-\delta}U$, $D=\delta I$ for every orthogonal $U$ and $\delta\in(0,1)$.
+\end{enumerate}
+\end{theorem}
+
+Every covariance is thus produced both without interaction and without a driver, and uncorrelated members may interact. A bound $k$ on the driver rank restricts the construction of (a), which has equal memories $a$, to the factor-analytic set of covariances (\cref{rem:idn-factor}), which constrains $\Sigma$ and does not locate $A$.
+
+\begin{proposition}[The classification of inputs is not in the law]\label{prop:idn-relabel}
+Let $A$ be diagonal, $k=1$, $\mathsf d_{t+1}=\phi\mathsf d_t+\omega_t$ with $|\phi|<1$ and $\omega$ white Gaussian, independent of $\zeta$, with $\Var\omega_t>0$, and let $\mathsf L_1\mathsf L_2\neq0$. The joint law of $(x,\mathsf d)$ is also the law of a network in which $\mathsf d$ is the state of an unrecorded agent that hears nobody and is heard by the members. With $\omega$ classified as exogenous forcing, so that $\mathcal X_{\mathrm{sh}}$ consists of $x_0$ and the driver path, $\Omega_{\mathrm{int}}(C)=0$; with $\omega$ classified as that agent's private input, so that $\mathcal X_{\mathrm{sh}}$ consists of the initial states $(x_0,\mathsf d_0)$, $I(\mu_1[0{:}\bar t];\mu_2[0{:}\bar t]\mid\mathcal X_{\mathrm{sh}})>0$ for $\bar t\ge2$, and hence $\Omega_{\mathrm{int}}(C)>0$. The member-restricted order parameter $\Omega_{\mathrm{int}}(C\mid\zeta_{V\setminus C})$ of \cref{def:agy-order-parameter}, which adds the private inputs of the non-members to the conditioning set, vanishes under the second classification; under the first there are no non-members, and the order parameter is $\Omega_{\mathrm{int}}(C)=0$.
+\end{proposition}
+
+The order parameter $\Omega_{\mathrm{int}}(C)$ is a functional of the law together with the declared split of inputs into shared and private (\cref{def:agy-order-parameter}); no analysis of records, however complete, replaces that declaration. In the example the quantity on which a claim of interaction among the members rests is zero under either classification, because the input $\omega$ is in its conditioning set in both, as shared forcing or as the private input of a non-member. That quantity requires a declaration of the same kind, namely which unrecorded variables are agents and what their private inputs are. The results below hold the declaration fixed, with the driver in the shared drive.
+
+\begin{theorem}[Path law: rank against support]\label{thm:idn-path}
+Let all members be recorded and let a driver-free model $(A,D)$ generate the recorded path law.
+\begin{enumerate}
+\item[(a)] If an interaction-free model $(A_0,D_0,\mathsf L)$ with a regular driver of rank $k$ has the same recorded path law, then the range of $\mathsf L$ is the coordinate subspace of a set $T$ of $k$ agents, $T\supseteq\mathcal E(A)$, and $A_0$, $D_0$ agree with the diagonals of $A$, $D$ outside $T$.
+\item[(b)] Conversely, for every $T\supseteq\mathcal E(A)$ and every stable diagonal $A_0$ that agrees with $A$ outside $T$, there is $c>0$ such that for every diagonal $D_0$ with $D_0=D$ outside $T$ and $0\prec D_{0,T}\prec cI$ some regular driver of rank $|T|$ loading on $T$ gives the interaction-free model the same recorded path law.
+\item[(c)] A regular driver of rank below $|\mathcal E(A)|$ never gives an interaction-free model the recorded law of $(A,D)$, and a regular driver whose loading range is not a coordinate subspace gives it the law of no driver-free model. In particular a regular driver of rank one acting on two or more agents is never confused with driver-free first-order interaction.
+\end{enumerate}
+\end{theorem}
+
+Interaction can be explained away only by a driver that supplies a separate component to every agent taking part in it. A diffuse driver, with fewer components than agents affected, leaves a signature that no first-order network with private noise shares, because it makes the one-step innovations of the recorded process correlated across agents. The theorem compares pure models; it does not identify $A$ when interaction and a colored driver are both present.
+
+\begin{proposition}[White drivers and bounds]\label{prop:idn-white}
+Let the driver in \cref{def:idn-model} be white with unit covariance, let $\mathcal X_{\mathrm{sh}}$ and the window $\bar t\ge2$ be as in \cref{prop:idn-zero}, and let $\Gamma_h=\Cov(x_{t+h},x_t)$ for the stationary recorded process.
+\begin{enumerate}
+\item[(a)] $A=\Gamma_1\Gamma_0^{-1}$ and $Q=D+\mathsf L\mathsf L^{\top}=\Gamma_0-A\Gamma_0A^{\top}$, so $A$, and with it the event $\Omega_{\mathrm{int}}(C)>0$, is identified.
+\item[(b)] If $k=1$ and at least three loadings are nonzero, then $\mathsf L_i^2=Q_{ij}Q_{il}/Q_{jl}$ for distinct loaded agents, $D$ is identified, and so is $\Omega_{\mathrm{int}}(C)$.
+\item[(c)] If only $D_{ii}\ge d_i^->0$ is known, for instance $d_i^-=Q_{ii}-v_i$ under a variance bound $(\mathsf L\mathsf L^{\top})_{ii}\le v_i$, then for $\bar t\ge2$
+\begin{equation}\label{eq:idn-bound}
+\Omega_{\mathrm{int}}(C)\ge\binom n2^{-1}\sum_{i<j}-\tfrac12\log\bigl(1-\max(\varrho_{ij}^2,\varrho_{ji}^2)\bigr),\qquad\varrho_{ij}^2=\frac{A_{ij}^2d_j^-}{A_{ij}^2d_j^-+\sum_{l\neq j}A_{il}^2Q_{ll}+Q_{ii}}.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+A driver without memory enters only the innovation covariance, and lag-one structure isolates the coupling. Memory in the driver is what confounds, and the next statement shows the confusion at its smallest scale.
+
+\begin{proposition}[Lags identify the modes and not their owner]\label{prop:idn-lag}
+Let the driver be first-order, $\mathsf d_{t+1}=\Phi\mathsf d_t+\omega_t$, with $\rho(\Phi)<1$ and $\omega$ white Gaussian with covariance $Q_\omega$, independent of $\zeta$. The recorded spectral density extends from the unit circle to a rational function of $z$ whose finite poles lie among the eigenvalues of $A$ and of $\Phi$ and the reciprocals of the nonzero ones; reflection in the unit circle exchanges the nonzero eigenvalues with their reciprocals. For $n=k=1$, with $x_{t+1}=ax_t+\mathsf d_t+\zeta_t$, $\Var\zeta_t=D$, $\Var\omega_t=\beta^2$ and $0<\phi<a<1$, the parameters $(a,\phi,D,\beta^2)$ and $(\phi,a,D\phi/a,\beta^2+D(a-\phi)(1-a\phi)/a)$ give the same recorded law.
+\end{proposition}
+
+A single recorded agent with long memory under a fast driver is indistinguishable from one with short memory under a slow driver.
+
+\begin{proposition}[Static sparse and low-rank reading]\label{prop:idn-static}
+Let the driver be constant within an epoch and drawn from $\Ncal(0,I_k)$ independently across epochs, with one stationary snapshot recorded per epoch. With $\Sigma^{\mathrm{loc}}=A\Sigma^{\mathrm{loc}}A^{\top}+D$, $\Pi^{\mathrm{loc}}=(\Sigma^{\mathrm{loc}})^{-1}$ and $M=(I-A)^{-1}\mathsf L$, the recorded precision is $\Pi^{\mathrm{loc}}-\mathsf K$ with $\mathsf K=\Pi^{\mathrm{loc}}M(I+M^{\top}\Pi^{\mathrm{loc}}M)^{-1}M^{\top}\Pi^{\mathrm{loc}}\succeq0$ of rank $k$. If $\Pi^{\mathrm{loc}}$ is not diagonal then $\Omega_{\mathrm{int}}(C)>0$, for a window with $\bar t\ge2$ inside an epoch and the shared drive of \cref{prop:idn-zero}; the converse fails.
+\end{proposition}
+
+This is the latent-variable model of \citet{chandrasekaran2012latent}, the static route recorded in \cref{open:agy-unrecorded-drive}, with conditional concentration $\Pi^{\mathrm{loc}}$ and low-rank term $\mathsf K$. Their Theorem~4.1 recovers the sign pattern, and so the support, of the first and the rank of the second by a convex program, with high probability, when the tangent spaces to the sparse and low-rank varieties meet transversally in the quantitative sense $\mu(\Omega)\xi(T)$ small, the number of independent samples is at least of order $n/\xi(T)^4$, and the smallest nonzero entry and singular value exceed thresholds that depend on the sample size (\cref{rem:idn-cpw}); the result concerns independent Gaussian samples, and its conditions are imposed at the true model. For the order parameter it yields a one-sided certificate: a recovered off-diagonal entry of $\Pi^{\mathrm{loc}}$ implies interaction, while its support is that of the conditional precision (for normal isotropic networks the two-step graph, \cref{thm:col-diffusive-precision}), which is not the communication graph and can be empty under interaction.
+
+\begin{theorem}[Channel interventions]\label{thm:idn-intervention}
+Let a channel intervention $\mathfrak N$, either a channel null of \cref{def:agy-nulls} or the slot removal of part (b), replace $(A,D)$ in \cref{eq:idn-model} by diagonal $(A^{\mathfrak N},D^{\mathfrak N})$, let the shared drive and the window of $\Omega_{\mathrm{int}}(C)$ be those of \cref{prop:idn-zero}, let $\Gamma_h$ and $\Gamma_h^{\mathfrak N}$ be the stationary lagged covariances in the two regimes and $\Sigma^{\mathrm{loc}}=A\Sigma^{\mathrm{loc}}A^{\top}+D$, and assume: (I1) the driver path has the same law in both regimes and is independent of the private inputs and of injected symbols; (I2) the loading $\mathsf L$ is the same; (I3) the intervention acts through cross gains only, so that $(A^{\mathfrak N},D^{\mathfrak N})=(A,D)$ when $A$ is diagonal.
+\begin{enumerate}
+\item[(a)] If the laws of any recorded subset of members differ between the regimes, then $A$ is not diagonal and $\Omega_{\mathrm{int}}(C)>0$.
+\item[(b)] If in addition $(I-Az)^{-1}\mathsf L=(I-A^{\mathfrak N}z)^{-1}\mathsf L$, then $\Gamma_h-\Gamma_h^{\mathfrak N}$ has the off-diagonal entries of $A^h\Sigma^{\mathrm{loc}}$ for every $h\ge0$, and $\Omega_{\mathrm{int}}(C)=0$ if and only if $\Gamma_0-\Gamma_0^{\mathfrak N}$ and $\Gamma_1-\Gamma_1^{\mathfrak N}$ are diagonal. The level-0 network with scalar exact codes and equal sensing gains satisfies the added condition when the message slots are removed and their weight returns to the prior prediction. This slot removal deletes the slots instead of filling them with noise and is not among the nulls tabulated in \cref{def:agy-nulls}: $\mathfrak N_{\mathrm{lp}}$ keeps the slots, and $\mathfrak N_{\mathrm{rn}}$ reassigns the deleted capacity to the remaining sources.
+\item[(c)] If the symbol $\xi_{ij}(t)$ delivered to $i$ on slot $j$ is recorded, has variance $s_{ij}>0$, is independent across rounds and of all other inputs, and the receiver keeps its gain, then $A_{ij}=\Cov^{\mathfrak N}(x_i(t+1),\xi_{ij}(t))/s_{ij}$.
+\end{enumerate}
+\end{theorem}
+
+Part (a) needs no rank, color or recording condition: with no cross gains the intervention changes nothing, so a change certifies interaction. Part (b) is the difference formula, in which the driver cancels because its effect on the members is the same in both regimes; that condition fails for jamming with gains kept and for unequal sensing gains (\cref{chk:idn-intervention}). Part (c) uses the injected symbol as an instrument and identifies each gain from the receiver alone; a symbol that is correlated across rounds biases it (\cref{chk:idn-intervention}). Hypothesis (I1) fails when acts move the driver or when the unrecorded variable is an agent that hears a member, and (I2) fails when receivers recalibrate their sensing once messages are jammed.
+
+\begin{definition}[Recorded grade]\label{def:idn-recorded-grade}
+Fix, before inspection, a scalar coarse variable $y=\mathsf Px$ of the stationary recorded states, a channel null $\mathfrak N$ and a window. The control score $\mathfrak c_{\mathfrak N}$ is the relative entropy, over the window, of the recorded law from its law under $\mathfrak N$; the recorded memory defect is $\hat{\mathfrak d}_{\mathrm M}=I(y_{t+1};y_{-\infty:t-1}\mid y_t)$; the predictability is $R^2=1-\Var(y_{t+1}\mid y_{-\infty:t})/\Var(y_{t+1})$; the persistence time is $\tau_y=\sum_{h\in\Z}\Corr(y_{t+h},y_t)$.
+\end{definition}
+
+\begin{proposition}[What a recorded grade certifies]\label{prop:idn-grade}
+\begin{enumerate}
+\item[(a)] Under (I1) to (I3), $\mathfrak c_{\mathfrak N}>0$ implies $\Omega_{\mathrm{int}}(C)>0$ and that the full laws in the two regimes differ. When the null is applicable in the sense of \cref{def:agy-nulls} and the selector is a function of the law, a difference of the full laws is necessary for the type D clause of \cref{def:agy-meta-agent} at that null and does not establish it; a null whose intervention leaves the model unchanged is not applicable and imposes no requirement. This argument does not make $\mathfrak c_{\mathfrak N}>0$ necessary for that clause, since the full laws can differ while their recorded marginals agree.
+\item[(b)] If $y_{t+1}=ay_t+\beta u_t+\mathfrak n_t$ exactly, with $|a|<1$, white Gaussian $\mathfrak n$ of variance $q>0$ and an unrecorded stationary Gaussian input $u$ independent of $\mathfrak n$, then $0\le\hat{\mathfrak d}_{\mathrm M}\le\tfrac12\log(1+\beta^2\Var(u_t)/q)$, with $\hat{\mathfrak d}_{\mathrm M}=0$ for white $u$.
+\item[(c)] For every $\varepsilon>0$ and $\tau_0<\infty$ there is an interaction-free model, invariant under every channel null that satisfies (I1) to (I3), whose collective average has $\hat{\mathfrak d}_{\mathrm M}\le\varepsilon$, $R^2\ge1-\varepsilon$ and $\tau_y\ge\tau_0$.
+\end{enumerate}
+\end{proposition}
+
+Prediction error and persistence time, computed from records, cannot grade agency: memoryless independent agents that sense a slow common driver pass both at any tolerance. Only the control score separates them, and it certifies in one direction. When the blanket carries input, the memory clause of \cref{def:agy-closure} takes the Markov defect for the law of the coarse variable given the input path, and an exactly closed variable meets it with defect zero; with the input unrecorded only $\hat{\mathfrak d}_{\mathrm M}$ can be computed, and it can be positive for such a variable (the instance computed in \cref{chk:idn-grade}), by at most the driver-to-noise term in (b). The grade of \cref{def:agy-meta-agent} is accordingly not a functional of the recorded law: its memory clause is met by members that do not interact, on records and given the driver path alike, its clauses on nulls refer to interventions on the full model and, by the applicability clause of \cref{def:agy-nulls}, impose no requirement at a channel null that leaves an interaction-free model unchanged, and its agency clause refers to the habit law, which the policy law under one regime does not determine (\cref{prop:idn-equivalence}(c)).
+
+\begin{proposition}[Agent-level equivalence class]\label{prop:idn-equivalence}
+Let the level-0 gains come from assigned precisions, $k^s_i=\pi^s_i/\Pi_i$ and $k_{ij}=\pi_{ij}/\Pi_i$ with $\Pi_i=p_i+\pi^s_i+\sum_j\pi_{ij}$, and let $r_i$ and $\sigma_{ij}^2$ be the actual sensing and channel noise variances. The law of the beliefs depends on these parameters only through $W$, $b$ and $q_i=F^2(k^s_i{}^2r_i+\sum_jk_{ij}^2\sigma_{ij}^2)$. It is therefore unchanged by (a) the scaling $(p_i,\pi^s_i,\pi_{i\cdot})\mapsto c_i(p_i,\pi^s_i,\pi_{i\cdot})$ with $c_i>0$, and (b) any reallocation of $(r_i,\sigma_{i\cdot}^2)$ at fixed $q_i$. (c) A policy law $\mathbb P(\pi\mid X)\propto E(\pi)\exp(-\gamma G(\pi,X))$ is unchanged by $(E,\gamma,G)\mapsto(Ee^{-\gamma g},\gamma',\gamma(G-g)/\gamma')$ for every $\gamma'>0$ and every $g(\pi)$ independent of $X$, and by adding to $G$ a function of $X$ alone. Given $(W,b,q)$ in both regimes, which the law determines when the world is recorded (\cref{cor:idn-fibre}), and the policy law in both regimes, the classes are separated as follows: (a) for each member, by setting one of its assigned message precisions to a known positive value while its other precisions, not all zero, are held; (b) by jamming in turn each channel with $W_{ij}\neq0$ with noise of known variance $s$ and the gain kept, which gives $D^{\mathfrak N}_{ii}-D_{ii}=W_{ij}^2(s-\sigma_{ij}^2)$, after which $r_i$ follows from $q_i$ when $k^s_i\neq0$, variances attached to zero gains entering the law in neither regime; (c) by a known shift of $G$ at fixed habits together with the habit null, which fixes $\gamma$ when the shift separates two policies, then $E$, and $G$ up to an additive function of $X$.
+\end{proposition}
+
+An effective linear law fixes neither confidence, nor the source of private noise, nor the division between preference and habit. Each is fixed by an intervention on the corresponding quantity, up to the additive function of $X$ in $G$, which no policy law fixes.
+
+\begin{observation}[Model recovery with a held-out intervention]\label{obs:idn-recovery}
+For a three-agent level-0 network with an unrecorded world, the collective model with a rank-one first-order driver is locally identified from the recorded window law, in the sense that the Jacobian of the window covariance has full rank 16 at the truth, and when a local search recovers the truth it predicts the law under jamming. Recovery depends on the start: the truth was reached from the starting point of the check and from 2 of 7 random starts, and the other 5 reached a second strict local minimum of the relative entropy, at $6.5\times10^{-3}$ nats with driver pole $0.58$, whose prediction of the jammed law is off by $1.33$ nats. Independent agents with a common driver and a single effective linear law both misfit the recorded law and mispredict the intervention (\cref{chk:idn-recovery}).
+\end{observation}
+
+\begin{openproblem}[Interaction and a colored driver together]\label{open:idn-mixed}
+Determine the set of $(A,D,\mathsf L,\Phi)$ sharing a recorded path law when $A$ is not diagonal and the driver is first-order of rank $k<n$. \Cref{obs:idn-recovery} supports local identifiability for $n=3$, $k=1$ at one parameter point; global identifiability, the exceptional set, and the case of unrecorded members are open. The second local minimum found there has positive relative entropy, so it bears on recovery by local search and not on identifiability; whether a second parameter point shares the recorded law, as in the pole swap of \cref{prop:idn-lag}, is not decided by the example.
+\end{openproblem}
+
+\begin{openproblem}[Sharp bounds and finite samples]\label{open:idn-sharp}
+Find the exact range of $\Omega_{\mathrm{int}}(C)$ over the drivers of rank at most $k$ and variance at most $v$ compatible with a recorded law, of which \cref{eq:idn-bound} is a lower estimate in the white case, and a finite-sample test of $\Omega_{\mathrm{int}}(C)=0$ without a recorded drive, with its power against the alternatives of \cref{thm:idn-path}(b).
+\end{openproblem}
+
+\begin{openproblem}[Testing invariance]\label{open:idn-invariance}
+Hypotheses (I1) and (I2) are assumed. Give a design, for instance graded jamming of single channels, whose recorded laws test them, and extend \cref{thm:idn-intervention} to members whose acts move the driver.
+\end{openproblem}

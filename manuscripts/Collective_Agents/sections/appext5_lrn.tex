@@ -1,0 +1,313 @@
+% Proofs for the section on learned interfaces (key lrn)
+\section{Proofs for \texorpdfstring{Section~\ref{sec:lrn}}{learned interfaces}}\label{app:lrn}
+
+Throughout, $\Vert\cdot\Vert$ is the Euclidean norm of a vector and the operator norm of a matrix, $\Vert\cdot\Vert_F$ is the Frobenius norm, $\kappa(P)=\lambda_{\max}(P)/\lambda_{\min}(P)$, $s_{\min}(H)$ is the smallest singular value of $H$, and $\mathrm O(k)$ is the orthogonal group. On a fixed edge we write $P=P_i$, $H=H_j$, $\hat H=\hat H_{ij}$, $O=O_{ij}$, and so on. Three lemmas are used repeatedly. They are classical facts about Gaussian vectors and matrices, proved here so that the section does not rest on sources we did not consult.
+
+\begin{lemma}[Inverse moments of a Gaussian norm]\label{lem:lrn-inverse-norm}
+Let $X$ be a Gaussian vector in a Euclidean space $V$ of dimension $d\ge1$ with mean $\theta$ and covariance $\Sigma\succeq\lambda I_V$, $\lambda>0$.
+\begin{enumerate}
+\item[(a)] For $0<p<d$, $\E\Vert X\Vert^{-p}\le1+2\bigl[(2\lambda)^{d/2}\Gamma(d/2)(d-p)\bigr]^{-1}$.
+\item[(b)] For $d\ge3$, $\E\Vert X\Vert^{-2}\le[\lambda(d-2)]^{-1}$, with equality when $\theta=0$ and $\Sigma=\lambda I_V$.
+\item[(c)] For $p\ge d$ and every continuous $g\ge0$ on the unit sphere of $V$ that is not identically zero, $\E[g(X/\Vert X\Vert)\Vert X\Vert^{-p}]=\infty$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The density $f$ of $X$ with respect to Lebesgue measure on $V$ is continuous, positive and bounded by $(2\pi\lambda)^{-d/2}$. (a) Split at $\Vert x\Vert=1$: the outer part contributes at most one, and the inner part at most $(2\pi\lambda)^{-d/2}\int_{\Vert x\Vert<1}\Vert x\Vert^{-p}dx=(2\pi\lambda)^{-d/2}\cdot2\pi^{d/2}\Gamma(d/2)^{-1}(d-p)^{-1}$. (c) Let $c_0>0$ be the minimum of $f$ on the closed unit ball. In polar coordinates the expectation is at least $c_0\bigl(\int g(\omega)d\omega\bigr)\bigl(\int_0^1r^{d-1-p}dr\bigr)$, where the first integral is positive (for $d=1$ it is the sum of $g$ over the two unit vectors) and the second is infinite for $p\ge d$. (b) Write $X=X_1+X_2$ with $X_1\sim\Ncal(\theta,\lambda I_V)$ and $X_2\sim\Ncal(0,\Sigma-\lambda I_V)$ independent, so that $X\sim\Ncal(\theta+X_2,\lambda I_V)$ given $X_2$. For $Y\sim\Ncal(\vartheta,\lambda I_V)$ the identities $s^{-1}=\int_0^\infty e^{-ts}dt$ and $\E e^{-t\Vert Y\Vert^2}=(1+2t\lambda)^{-d/2}\exp\bigl(-t\Vert\vartheta\Vert^2/(1+2t\lambda)\bigr)$ give, by Tonelli's theorem,
+\begin{equation}\label{eq:lrn-laplace}
+\E\Vert Y\Vert^{-2}=\int_0^\infty(1+2t\lambda)^{-d/2}\exp\Bigl(-\frac{t\Vert\vartheta\Vert^2}{1+2t\lambda}\Bigr)dt\le\int_0^\infty(1+2t\lambda)^{-d/2}dt=\frac{1}{\lambda(d-2)},
+\end{equation}
+with equality at $\vartheta=0$. Taking the expectation over $X_2$ proves (b).
+\end{proof}
+
+\begin{lemma}[Reduction of a lift to one vector]\label{lem:lrn-schur}
+Let $G\in\R^{r\times K}$ have full row rank $r\le K$, let $y\in\R^r$ be nonzero, $\hat y=y/\Vert y\Vert$, and let $[\hat y,Y_\perp]$ be an orthogonal $r\times r$ matrix. Put $a=G^\top\hat y$, $B=G^\top Y_\perp$, let $\Pi_B$ be the orthogonal projector onto $\operatorname{col}(B)$ and $c=(I-\Pi_B)a$. Then $c\neq0$ and
+\begin{equation}\label{eq:lrn-schur}
+G^\top(GG^\top)^{-1}y=\Vert y\Vert\frac{c}{\Vert c\Vert^2},\qquad y^\top(GG^\top)^{-1}y=\frac{\Vert y\Vert^2}{\Vert c\Vert^2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The matrix $G^\top[\hat y,Y_\perp]=[a,B]$ has full column rank, so $a\notin\operatorname{col}(B)$ and $c\ne0$. The vector $x=G^\top(GG^\top)^{-1}y$ is the unique element of $\operatorname{col}(G^\top)$ with $Gx=y$. The vector $x'=\Vert y\Vert c/\Vert c\Vert^2$ lies in $\operatorname{col}([a,B])=\operatorname{col}(G^\top)$, and $[\hat y,Y_\perp]^\top Gx'=[a,B]^\top x'=\Vert y\Vert(1,0,\dots,0)^\top$, because $a^\top c=\Vert c\Vert^2$ and $B^\top c=0$. Hence $Gx'=\Vert y\Vert\hat y=y$ and $x'=x$. The second identity is $\Vert x\Vert^2$.
+\end{proof}
+
+\begin{lemma}[Second moments of a matrix-normal error]\label{lem:lrn-isserlis}
+Let $W\in\R^{r\times K}$ have independent standard normal entries and $\Delta=R^{1/2}W\Pi^{1/2}$ with $R\succeq0$ and $\Pi\succeq0$, so that $\E[\Delta_{ak}\Delta_{bl}]=R_{ab}\Pi_{kl}$. For $A\in\R^{K\times K}$, $B\in\R^{r\times r}$ and $C\in\R^{K\times r}$,
+\begin{equation}\label{eq:lrn-isserlis}
+\E[\Delta A\Delta^\top]=\tr(A\Pi)R,\qquad\E[\Delta^\top B\Delta]=\tr(BR)\Pi,\qquad\E[\Delta C\Delta]=RC^\top\Pi.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Entrywise, $\E[\Delta A\Delta^\top]_{ab}=\sum_{kl}R_{ab}\Pi_{kl}A_{kl}$, $\E[\Delta^\top B\Delta]_{kl}=\sum_{ab}R_{ab}\Pi_{kl}B_{ab}$ and $\E[\Delta C\Delta]_{al}=\sum_{kb}R_{ab}\Pi_{kl}C_{kb}$.
+\end{proof}
+
+\subsection{Moments of the understanding error}
+
+\begin{proof}[Proof of \cref{thm:lrn-understanding-moment}]
+Write $\sigma=\sigma_H$, $r=r_c$, $\hat H=H+\sigma W$ with $W$ a matrix of independent standard normal entries, and $G=\hat HP^{1/2}$, which has full row rank almost surely. Since $O=P^{1/2}G^\top(GG^\top)^{-1}$, the reading is $\hat m=(I-O\hat H)m_i+Oy$ and
+\begin{equation}\label{eq:lrn-psi-split}
+\psi=H(I-O\hat H)m_i+HOy-u,\qquad I-O\hat H=P^{1/2}\bigl(I-G^\top(GG^\top)^{-1}G\bigr)P^{-1/2}.
+\end{equation}
+The middle factor of the second expression is an orthogonal projector, so $\Vert(I-O\hat H)m_i\Vert\le\kappa(P)^{1/2}\Vert m_i\Vert$ for every realization of the code model. All dependence on small singular values of $\hat H$ therefore sits in $Oy$.
+
+Condition on $(m_i,u,\nu)$ with $y\ne0$ and apply \cref{lem:lrn-schur} to $G$. Because $W^\top[\hat y,Y_\perp]$ again has independent standard normal entries, $W^\top\hat y$ and $W^\top Y_\perp$ are independent; hence $a=P^{1/2}H^\top\hat y+\sigma P^{1/2}W^\top\hat y\sim\Ncal(P^{1/2}H^\top\hat y,\sigma^2P)$ is independent of $B=P^{1/2}\hat H^\top Y_\perp$, which has rank $r-1$ almost surely. Given $B$, the vector $c=(I-\Pi_B)a$ is Gaussian on $V_B=\operatorname{col}(B)^\perp$, of dimension $d=K-r+1$, with covariance $\sigma^2(I-\Pi_B)P(I-\Pi_B)\succeq\sigma^2\lambda_{\min}(P)I_{V_B}$ on $V_B$. By \cref{eq:lrn-schur},
+\begin{equation}\label{eq:lrn-Oy}
+Oy=\Vert y\Vert\frac{P^{1/2}c}{\Vert c\Vert^2},\qquad\Vert HOy\Vert\le\Vert H\Vert\lambda_{\max}(P)^{1/2}\frac{\Vert y\Vert}{\Vert c\Vert}.
+\end{equation}
+
+Finite moments. Let $0<p<d$. From \cref{eq:lrn-psi-split,eq:lrn-Oy}, $\Vert\psi\Vert^p\le3^p\bigl(\Vert H\Vert^p\kappa(P)^{p/2}\Vert m_i\Vert^p+\Vert H\Vert^p\lambda_{\max}(P)^{p/2}\Vert y\Vert^p\Vert c\Vert^{-p}+\Vert u\Vert^p\bigr)$, and \cref{lem:lrn-inverse-norm}(a) with $\lambda=\sigma^2\lambda_{\min}(P)$ bounds $\E[\Vert c\Vert^{-p}\mid m_i,u,\nu,B]$ by a constant, so $\E\Vert\psi\Vert^p<\infty$. For $p=2$ and $d\ge3$, \cref{lem:lrn-inverse-norm}(b) gives $\E[\Vert c\Vert^{-2}\mid m_i,u,\nu,B]\le[\sigma^2\lambda_{\min}(P)(K-r-1)]^{-1}$, and $(x_1+x_2+x_3)^2\le3(x_1^2+x_2^2+x_3^2)$ with $\E\Vert y\Vert^2=\E\Vert u\Vert^2+\tr R_c$ gives the bound \cref{eq:lrn-understanding-bound}.
+
+Infinite moments. Let $p\ge d$. The remainder $\varrho=\psi-HOy=H(I-O\hat H)m_i-u$ has $\E\Vert\varrho\Vert^p<\infty$, and $\Vert HOy\Vert^p\le2^p(\Vert\psi\Vert^p+\Vert\varrho\Vert^p)$, so it suffices to show $\E\Vert HOy\Vert^p=\infty$. By \cref{eq:lrn-Oy}, $\Vert HOy\Vert^p=\Vert y\Vert^pg_B(c/\Vert c\Vert)\Vert c\Vert^{-p}$ with $g_B(\omega)=\Vert HP^{1/2}\omega\Vert^p$. The subspace $P^{1/2}V_B$ has dimension $d=K-r+1$, which exceeds $\dim\ker H=K-r$, so $g_B$ does not vanish identically on the unit sphere of $V_B$. By \cref{lem:lrn-inverse-norm}(c) the conditional expectation given $(m_i,u,\nu,B)$ is infinite whenever $y\ne0$, an event of positive probability.
+
+Tail bound. Given $B$, the density of $c$ on $V_B$ is at most $(2\pi\sigma^2\lambda_{\min}(P))^{-d/2}$, and the ball of radius $s$ in $V_B$ has volume $\pi^{d/2}s^d/\Gamma(d/2+1)$, so $\Pr(\Vert c\Vert<s\mid m_i,u,\nu,B)\le s^d\bigl[(2\sigma^2\lambda_{\min}(P))^{d/2}\Gamma(d/2+1)\bigr]^{-1}$. By \cref{eq:lrn-psi-split,eq:lrn-Oy}, $\Vert\psi\Vert>t$ with $t>t_0$ forces $\Vert c\Vert<\Vert H\Vert\lambda_{\max}(P)^{1/2}\Vert y\Vert/(t-t_0)$, which is \cref{eq:lrn-understanding-tail}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:lrn-understanding-expansion}]
+Write $\sigma=\sigma_H$, $\hat H=H+\sigma W$, $\phi_0=y-Hm_i$ and $\mathcal A_\rho=\{\sigma\Vert W\Vert_F\le\rho\}$. On $\mathcal A_\rho$ the smallest singular value of $\hat H$ is at least $s_{\min}(H)-\rho>0$, so the receiver map $O(\hat H)=P\hat H^\top(\hat HP\hat H^\top)^{-1}$ and the reading $\hat m=m_i+O(\hat H)(y-\hat Hm_i)$ are real-analytic functions of $\sigma W$ with derivatives of every order bounded on $\mathcal A_\rho$, and $\hat m$ is affine in $\nu$.
+
+Differentiating $O$ at $H$ in the direction $W$ and using $O_0HP=PH^\top O_0^\top$ gives
+\begin{equation}\label{eq:lrn-DO}
+DO[W]=PW^\top S_0^{-1}-O_0(WPH^\top+HPW^\top)S_0^{-1}=P_0^+W^\top S_0^{-1}-O_0WO_0,
+\end{equation}
+so that $\hat m=\hat m_0+\sigma\hat m_1+\varrho_2$ with
+\begin{equation}\label{eq:lrn-m1}
+\hat m_1=DO[W]\phi_0-O_0Wm_i=P_0^+W^\top S_0^{-1}\phi_0-O_0W\hat m_0,
+\end{equation}
+and $\Vert\varrho_2\Vert\le C(1+\Vert\nu\Vert)\sigma^2\Vert W\Vert_F^2$ on $\mathcal A_\rho$. Since $\psi=\nu-\sigma W\hat m$ by \cref{eq:fw-two-errors},
+\begin{equation}\label{eq:lrn-psi-orders}
+\psi\psi^\top=\nu\nu^\top-\sigma\bigl[\nu(W\hat m_0)^\top+W\hat m_0\nu^\top\bigr]+\sigma^2\bigl[W\hat m_0\hat m_0^\top W^\top-\nu(W\hat m_1)^\top-W\hat m_1\nu^\top\bigr]+\sigma^3T_3(W,\nu)+\varrho_4,
+\end{equation}
+where $T_3$ is a homogeneous cubic in $W$ and $\Vert\varrho_4\Vert\le C(1+\Vert\nu\Vert^2)\sigma^4\Vert W\Vert_F^4$ on $\mathcal A_\rho$.
+
+The set $\mathcal A_\rho$ and the law of $W$ are invariant under $W\mapsto-W$, so the terms of odd order in $W$ have zero mean on $\mathcal A_\rho$. For the terms of order zero and two, restricting to $\mathcal A_\rho$ changes the mean by at most a constant times $\E[(1+\Vert W\Vert_F^2);\mathcal A_\rho^{\mathrm c}]$, and the Chernoff bound for a chi-square variable with $r_cK$ degrees of freedom gives
+\begin{equation}\label{eq:lrn-chernoff}
+\Pr(\mathcal A_\rho^{\mathrm c})=\Pr\bigl(\chi^2_{r_cK}>\rho^2/\sigma^2\bigr)\le2^{r_cK/2}\exp\bigl(-\rho^2/(4\sigma^2)\bigr),
+\end{equation}
+which is smaller than every power of $\sigma$. It remains to evaluate the unrestricted mean of the second-order bracket. By \cref{lem:lrn-isserlis} with $R=I$ and $\Pi=I$, $\E_W[W\hat m_0\hat m_0^\top W^\top]=\Vert\hat m_0\Vert^2I$, and by \cref{eq:lrn-m1},
+\begin{equation}\label{eq:lrn-cross}
+\E_W\bigl[(W\hat m_1)^\top\bigr]=\phi_0^\top S_0^{-1}\E_W[WP_0^+W^\top]-\hat m_0^\top\E_W[WO_0W]^\top=\tr(P_0^+)\phi_0^\top S_0^{-1}-\hat m_0^\top O_0.
+\end{equation}
+With $\phi_0=u-Hm_i+\nu$ and $\hat m_0=\bar m_0+O_0\nu$ we have $\E[\nu\phi_0^\top]=R_c$, $\E[\nu\hat m_0^\top]=R_cO_0^\top$ and $\E\Vert\hat m_0\Vert^2=\Vert\bar m_0\Vert^2+\tr(O_0R_cO_0^\top)$. Hence $\E[\nu(W\hat m_1)^\top]=\tr(P_0^+)R_cS_0^{-1}-R_cO_0^\top O_0$, and collecting terms in \cref{eq:lrn-psi-orders} gives \cref{eq:lrn-understanding-expansion} for the truncated moment, with a remainder bounded by $C\sigma^4\E[(1+\Vert\nu\Vert^2)\Vert W\Vert_F^4]$.
+
+Let $K\ge r_c+2$, so that $d=K-r_c+1\ge3$, and fix $1<p<d/2$. The proof of \cref{thm:lrn-understanding-moment} and \cref{lem:lrn-inverse-norm}(a) with $\lambda=\sigma^2\lambda_{\min}(P)$ give $\E\Vert\psi\Vert^{2p}\le C(1+\sigma^{-d})$ for $\sigma\le1$. By H\"older's inequality and \cref{eq:lrn-chernoff},
+\begin{equation}\label{eq:lrn-holder}
+\E\bigl[\Vert\psi\Vert^2;\mathcal A_\rho^{\mathrm c}\bigr]\le\bigl(\E\Vert\psi\Vert^{2p}\bigr)^{1/p}\Pr(\mathcal A_\rho^{\mathrm c})^{1-1/p}\le C\sigma^{-d/p}\exp\Bigl(-\frac{(p-1)\rho^2}{4p\sigma^2}\Bigr),
+\end{equation}
+which is $O(\sigma^4)$, so the expansion holds for the full second moment.
+\end{proof}
+
+\begin{remark}[Sign of the correction and the share of the first term]\label{rem:lrn-correction-sign}
+The first term of \cref{eq:lrn-understanding-expansion} is the term $\sigma_H^2\E\Vert\hat m_{ij}\Vert^2I$ named in \cref{sec:fw-efe}. The remaining terms have the same order, are proportional to the channel noise, and come from the correlation between the noise and the response of the reading to the code error, which is the dependence that \cref{open:fw-understanding-risk} asks about. Their sign is not fixed. For a square code, $P_0^+=0$ and $O_0=H^{-1}$, so the correction is $\sigma_H^2(R_cH^{-\top}H^{-1}+H^{-\top}H^{-1}R_c)$, with positive trace. In general the three noise terms have trace $\sigma_H^2\bigl(-2\tr(P_0^+)\tr(R_cS_0^{-1})+2\tr(R_cO_0^\top O_0)\bigr)$. Since $O_0^\top O_0=S_0^{-1}HP^2H^\top S_0^{-1}\preceq\lambda_{\max}(P)S_0^{-1}$ and $\tr(P_0^+)\ge(K-r_c)\lambda_{\min}(P)$, this trace is negative whenever $R_c\ne0$ and $K-r_c>\lambda_{\max}(P)/\lambda_{\min}(P)$, and the first term alone then overstates the trace of the excess at second order. For $P=pI$ the trace equals $-2\sigma_H^2p(K-r_c-1)\tr(R_cS_0^{-1})$, which is positive for a square code, zero for $K=r_c+1$ and negative for $K\ge r_c+2$. The share of the excess carried by the first term is therefore instance dependent (\cref{chk:lrn-expansion}).
+\end{remark}
+
+\subsection{Online code learning}
+
+The first statement collects classical properties of least squares in the notation of \cref{sec:fw-learning}. It is not new; it is proved here because the later statements use its three parts and no source for it was consulted.
+
+\begin{proposition}[Recursive least squares for a fixed code]\label{prop:lrn-code-risk}
+Run \cref{eq:fw-rls} with $R_w=R_c$ on grounded rounds $y_t=H\phi_t+\nu_t$ with regressors $\hat\phi_t$, where the $\nu_t\sim\Ncal(0,R_c)$ are independent over rounds.
+\begin{enumerate}
+\item[(a)] If $P^H_0=\Pi_0\otimes R_c$ with $\Pi_0\succ0$, then $P^H_t=\Pi_t\otimes R_c$ for all $t$, with $\Pi_{t+1}^{-1}=\Pi_t^{-1}+\hat\phi_t\hat\phi_t^\top$, and the update is $\hat H_{t+1}=\hat H_t+(y_t-\hat H_t\hat\phi_t)g_t^\top$ with $g_t=\Pi_t\hat\phi_t/(1+\hat\phi_t^\top\Pi_t\hat\phi_t)$, which does not involve $R_c$.
+\item[(b)] Let $\mathcal N=\{w\in\R^K:\sum_t(w^\top\hat\phi_t)^2<\infty\}$. Then $v^\top\Pi_Tv\to0$ as $T\to\infty$ if and only if $v\perp\mathcal N$. If the regressors are stationary and ergodic with second moment $M_2$, then $\mathcal N=\ker M_2$ almost surely.
+\item[(c)] Let $\hat\phi_t=\phi_t$ be independent draws from $\Ncal(0,M_2)$ with $M_2\succ0$, independent of the noise, and let $\hat H_T$ be the least-squares estimate from $T\ge K$ rounds. Then
+\begin{equation}\label{eq:lrn-code-risk}
+\E\Vert\hat H_T-H\Vert_F^2=\frac{\tr(R_c)\tr(M_2^{-1})}{T-K-1}\qquad\text{for }T\ge K+2,
+\end{equation}
+and the left side is infinite for $T\in\{K,K+1\}$.
+\end{enumerate}
+\end{proposition}
+
+Part (b) is persistent excitation in the terms of \cref{prop:fw-grounded-identification}: the code is learned exactly on the directions of content that keep occurring. Part (c) gives the rate $1/T$ with a constant set by the least exercised directions, and the infinite risk at $T\in\{K,K+1\}$ has the same origin as \cref{thm:lrn-understanding-moment}, the inversion of a Gaussian matrix that is nearly square.
+
+\begin{proof}
+(a) Suppose $P^H_t=\Pi_t\otimes R_c$ and write $\hat\phi=\hat\phi_t$, $X=\hat\phi^\top\otimes I_{r_c}$. Then $XP^H_tX^\top+R_c=(1+\hat\phi^\top\Pi_t\hat\phi)R_c$ and $P^H_tX^\top=(\Pi_t\hat\phi)\otimes R_c$, so the gain of \cref{eq:fw-rls} is $g_t\otimes I_{r_c}$ with $g_t=\Pi_t\hat\phi/(1+\hat\phi^\top\Pi_t\hat\phi)$, free of $R_c$, and $P^H_{t+1}=P^H_t-(g_t\otimes I)X P^H_t=(\Pi_t-g_t\hat\phi^\top\Pi_t)\otimes R_c$. The mean update is $\mathrm{vec}\hat H_{t+1}=\mathrm{vec}\hat H_t+(g_t\otimes I)(y_t-\hat H_t\hat\phi)$, which is $\hat H_{t+1}=\hat H_t+(y_t-\hat H_t\hat\phi)g_t^\top$ because $\mathrm{vec}(ab^\top)=b\otimes a$. The Sherman--Morrison identity turns the recursion for $\Pi_t$ into $\Pi_{t+1}^{-1}=\Pi_t^{-1}+\hat\phi_t\hat\phi_t^\top$.
+
+(b) The set $\mathcal N$ is a linear subspace because $(a+b)^2\le2a^2+2b^2$. The sequence $\Pi_T$ is nonincreasing in the Loewner order and bounded below by zero, so $\Pi_\infty=\lim_T\Pi_T$ exists. Let $w\in\mathcal N$ and $v\in\R^K$. By the Cauchy--Schwarz inequality, $(v^\top w)^2\le(v^\top\Pi_Tv)(w^\top\Pi_T^{-1}w)$, and $w^\top\Pi_T^{-1}w\le w^\top\Pi_0^{-1}w+\sum_t(w^\top\hat\phi_t)^2<\infty$ uniformly in $T$. Hence $v^\top\Pi_\infty v>0$ whenever $v$ is not orthogonal to $\mathcal N$. Conversely, put $w=\Pi_\infty v$. From $\Pi_\infty\preceq\Pi_T$ we get $\Vert\Pi_T^{-1/2}\Pi_\infty^{1/2}\Vert\le1$, hence $w^\top\Pi_T^{-1}w\le v^\top\Pi_\infty v$ for every $T$, so $\sum_t(w^\top\hat\phi_t)^2\le v^\top\Pi_\infty v$ and $w\in\mathcal N$. If $v\perp\mathcal N$ then $v^\top\Pi_\infty v=v^\top w=0$. For the ergodic case, $T^{-1}\sum_{t<T}\hat\phi_t\hat\phi_t^\top\to M_2$ almost surely. On that event $\sum_t(w^\top\hat\phi_t)^2=\infty$ for every $w$ with $w^\top M_2w>0$, while $w^\top M_2w=0$ gives $w^\top\hat\phi_t=0$ for all $t$ almost surely, and it suffices to check this on a basis of $\ker M_2$. Hence $\mathcal N=\ker M_2$ almost surely.
+
+(c) With $\Phi$ the $T\times K$ matrix of regressors and $W_T=\Phi^\top\Phi$, which is invertible almost surely for $T\ge K$, the least-squares estimate satisfies $\hat H_T-H=\bigl(\sum_t\nu_t\phi_t^\top\bigr)W_T^{-1}$, so $\E[\Vert\hat H_T-H\Vert_F^2\mid\Phi]=\tr(R_c)\tr(W_T^{-1})$. Write $\Phi=\tilde\Phi M_2^{1/2}$ with $\tilde\Phi$ a matrix of independent standard normal entries and fix a unit vector $v$. Applying \cref{lem:lrn-schur} to $G=\tilde\Phi^\top\in\R^{K\times T}$ and $x=M_2^{-1/2}v$ gives $v^\top W_T^{-1}v=x^\top(GG^\top)^{-1}x=\Vert x\Vert^2/\Vert c\Vert^2$, where, as in the proof of \cref{thm:lrn-understanding-moment}, $c$ is a standard Gaussian vector on a subspace of dimension $T-K+1$ given $B$. Thus $v^\top W_T^{-1}v$ is distributed as $v^\top M_2^{-1}v$ divided by a chi-square variable with $T-K+1$ degrees of freedom. By \cref{lem:lrn-inverse-norm}(b,c) the inverse chi-square has mean $1/(T-K-1)$ for $T\ge K+2$ and infinite mean for $T\in\{K,K+1\}$. Summing over an orthonormal basis gives \cref{eq:lrn-code-risk}.
+\end{proof}
+
+\begin{lemma}[Operator Jensen inequalities]\label{lem:lrn-jensen}
+Let $X$ be a random symmetric positive definite matrix with $\E X$ and $\E X^{-1}$ finite. Then $\E[X^{-1}]\succeq(\E X)^{-1}$. For $q>0$ the map $f(A)=(A^{-1}+qI)^{-1}=q^{-1}\bigl(I-(I+qA)^{-1}\bigr)$ on positive definite matrices is monotone in the Loewner order, and $\E f(A)\preceq f(\E A)$ for every random positive definite $A$ with finite mean.
+\end{lemma}
+
+\begin{proof}
+The block matrix with rows $(X,I)$ and $(I,X^{-1})$ is positive semidefinite, hence so is its expectation, and the Schur complement of the block $\E X$ is $\E[X^{-1}]-(\E X)^{-1}\succeq0$. The second expression for $f$ follows from $(A^{-1}+qI)^{-1}=A(I+qA)^{-1}$. Monotonicity holds because $A\preceq B$ implies $(I+qB)^{-1}\preceq(I+qA)^{-1}$, and the Jensen inequality follows from the first claim applied to $X=I+qA$, for which $X^{-1}\preceq I$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:lrn-tracking}]
+Let $\mathcal H_t$ be generated by $(\phi_s,y_s)_{s<t}$. By induction the conditional law of $\ell_t$ given $\mathcal H_t$ is $\Ncal(\hat\ell^-_t,P^-_t)$: the regressor $\phi_t$ is conditionally independent of $\ell_t$ given $\mathcal H_t$, so conditioning on it leaves this law unchanged; $y_t=\phi_t^\top \ell_t+\nu_t$ is then a Gaussian observation with known regressor, which gives $P_t=P^-_t-P^-_t\phi_t\phi_t^\top P^-_t/(\rho+\phi_t^\top P^-_t\phi_t)$; and the drift adds $qI$. In particular $\E\Vert \ell_t-\hat\ell^-_t\Vert^2=\E\tr P^-_t$, and $qI\preceq P^-_t\preceq P^-_0+qtI$ for $t\ge1$.
+
+(a) Put $J_t=(P^-_t)^{-1}$. The update reads $P_t^{-1}=J_t+\phi_t\phi_t^\top/\rho$ and $J_{t+1}=f(J_t+\phi_t\phi_t^\top/\rho)$ with $f$ as in \cref{lem:lrn-jensen}. Define $\bar J_0=J_0$ and $\bar J_{t+1}=f(\bar J_t+\tilde M/\rho)$. If $\E J_t\preceq\bar J_t$, then by \cref{lem:lrn-jensen} and $\E[\phi_t\phi_t^\top]\preceq\tilde M$,
+\begin{equation}\label{eq:lrn-jensen-step}
+\E J_{t+1}\preceq f\bigl(\E J_t+\E[\phi_t\phi_t^\top]/\rho\bigr)\preceq f\bigl(\bar J_t+\tilde M/\rho\bigr)=\bar J_{t+1},
+\end{equation}
+so $\E J_t\preceq\bar J_t$ for all $t$. No independence between $\phi_t$ and $J_t$ was used. A second application of \cref{lem:lrn-jensen} gives $\E P^-_t=\E[J_t^{-1}]\succeq(\E J_t)^{-1}\succeq\bar J_t^{-1}=\bar P_t$, and $\bar P_t$ obeys \cref{eq:lrn-floor-recursion}. If $\bar P_0=p_0I$, then $\bar P_t$ is diagonal in an eigenbasis of $\tilde M$ with entries iterating the scalar maps $\tau_k(p)=p\rho/(\rho+\tilde\mu_kp)+q$. For $\tilde\mu_k>0$ the map $\tau_k$ is increasing and concave with $\tau_k(0)=q>0$, so its iterates converge monotonically to its positive fixed point, the positive root of $\tilde\mu_kp^2-q\tilde\mu_kp-q\rho=0$, which is $p^\star_k=q/2+(q^2/4+q\rho/\tilde\mu_k)^{1/2}$. For $\tilde\mu_k=0$ the iterates are $p_0+qt$. A general $P^-_0$ lies between two multiples of the identity, the map $P\mapsto(P^{-1}+\tilde M/\rho)^{-1}+qI$ is monotone, and both isotropic sequences have the same limit, so $\tr\bar P_t\to\sum_kp^\star_k$, which gives \cref{eq:lrn-floor}.
+
+(b) Because the regressors are now independent of the code and the noise, $\hat\ell^-_t=\E[\ell_t\mid\mathcal H_t]$ has the least mean-square error among $\mathcal H_t$-measurable estimators. Compare it with the constant-gain recursion $\tilde\ell_{t+1}=\tilde\ell_t+\Gamma\phi_t(y_t-\phi_t^\top\tilde\ell_t)$, $\tilde\ell_0=\hat\ell^-_0$, where $\Gamma=V\diag(g_k)V^\top$ and $g_k=(q/(\rho\tilde\mu_k))^{1/2}$. Its error $e_t=\ell_t-\tilde\ell_t$ obeys $e_{t+1}=(I-\Gamma\phi_t\phi_t^\top)e_t-\Gamma\phi_t\nu_t+w_t$ with $\phi_t$ independent of $e_t$. With $\Sigma_t=\E[e_te_t^\top]$ and the Gaussian identity $\E[\phi\phi^\top\Sigma\phi\phi^\top]=p_{\mathrm a}\bigl(2M_2\Sigma M_2+\tr(\Sigma M_2)M_2\bigr)$,
+\begin{equation}\label{eq:lrn-lms-cov}
+\Sigma_{t+1}=\Sigma_t-\Gamma\tilde M\Sigma_t-\Sigma_t\tilde M\Gamma+p_{\mathrm a}\Gamma\bigl(2M_2\Sigma_tM_2+\tr(\Sigma_tM_2)M_2\bigr)\Gamma+\rho\Gamma\tilde M\Gamma+qI.
+\end{equation}
+The diagonal entries $s_k=(V^\top\Sigma_tV)_{kk}$ evolve on their own. With $a_k=g_k\tilde\mu_k=(q\tilde\mu_k/\rho)^{1/2}$ and $a_kg_k=q/\rho$,
+\begin{equation}\label{eq:lrn-lms-diag}
+s_k'=\Bigl(1-2a_k+\frac{2a_k^2}{p_{\mathrm a}}\Bigr)s_k+\frac q\rho\sum_l\mu_ls_l+2q.
+\end{equation}
+This is an affine map $s\mapsto As+b$ with $b=2q\one$ and $A$ entrywise nonnegative, since $1-2a+2a^2/p_{\mathrm a}\ge(1-a)^2+a^2$. Let $\bar s_k=(1+\epsilon)q/a_k=(1+\epsilon)(q\rho/\tilde\mu_k)^{1/2}$. Substituting, $(A\bar s+b)_k\le\bar s_k$ is equivalent to $1+(1+\epsilon)\xi\le(1+\epsilon)(1-\gamma_k)$, where $\gamma_k=a_k/p_{\mathrm a}=(q\mu_k/(\rho p_{\mathrm a}))^{1/2}$ and $\xi=\tfrac12\sum_l(q\mu_l/(\rho p_{\mathrm a}))^{1/2}$. With $\gamma=\max_k\gamma_k$, $\gamma+\xi<1$ and $1+\epsilon=(1-\gamma-\xi)^{-1}$ this holds for every $k$. Then $A\bar s\le\bar s-b\le\theta\bar s$ with $\theta=\max_k(1-b_k/\bar s_k)<1$, so $A^n\bar s\le\theta^n\bar s$; since $\bar s$ is positive and $A$ nonnegative, $A^n\to0$, the iterates converge from every start to the fixed point $s^\star$, and the iterates started at $\bar s$ decrease, so $s^\star\le\bar s$. Therefore $\limsup_t\E\tr P^-_t\le\lim_t\E\Vert e_t\Vert^2=\sum_ks^\star_k\le(1+\epsilon_q)\sum_k(q\rho/\tilde\mu_k)^{1/2}$.
+
+(c) If $P^-_tv=\lambda_tv$ and $v^\top\phi_t=0$, then $\phi_t^\top P^-_tv=0$, so $P_tv=\lambda_tv$ and $P^-_{t+1}v=(\lambda_t+q)v$. A round with $\phi_t=0$ leaves $P_t=P^-_t$, so $\tau$ consecutive unattended rounds add $q\tau I$.
+\end{proof}
+
+\begin{remark}[Noisy grounding and several rows]\label{rem:lrn-tracking-scope}
+If the receiver sees a noisy regressor $\hat\phi_t$ in place of $\phi_t$, with grounding noise independent of the code and of the channel noise given the regressors, the floor of \cref{thm:lrn-tracking}(a) still holds: a receiver that also saw $\phi_t$ would have the conditional law computed above, and its information contains that of the actual receiver. For a code with $r_c$ rows, channel covariance $R_c=\diag(\rho_a)$, independent rows in the prior and independent row drifts, the rows decouple and the floor for $\E\Vert H_t-\hat H^-_t\Vert_F^2$ is the sum of the row floors, $\sum_a\sum_k[q/2+(q^2/4+q\rho_a/\tilde\mu_k)^{1/2}]$. The scaling $(q\rho/\tilde\mu)^{1/2}$ per direction is the classical balance between lag and noise in tracking a random walk; the content of the theorem here is that the floor needs only a bound on the second moment of what the receiver is allowed to attend, and so applies to attention rules that depend on the learned calibration.
+\end{remark}
+
+\subsection{Joint learning of code and content}
+
+\begin{lemma}[Equal Gram matrices]\label{lem:lrn-gram}
+Let $A,A'\in\R^{r\times k}$ with $AA^\top=A'A'^\top$. Then $A'=AO$ for some $O\in\mathrm O(k)$.
+\end{lemma}
+
+\begin{proof}
+For every $x\in\R^r$, $\Vert A^\top x\Vert=\Vert A'^\top x\Vert$, so $A^\top x\mapsto A'^\top x$ is a well-defined linear isometry from $\operatorname{col}(A^\top)$ onto $\operatorname{col}(A'^\top)$. The two subspaces of $\R^k$ have equal dimension, so the isometry extends to some $\tilde O\in\mathrm O(k)$ with $\tilde OA^\top=A'^\top$. Take $O=\tilde O^\top$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:lrn-gauge}]
+The stationary covariance of the referent is $\Sigma_\phi=\sum_as_a\Pi_a$ with $s_a=q_a/(1-f_a^2)>0$, because $\Sigma_\phi=F\Sigma_\phi F+Q$ has a unique solution and this one satisfies it. The message process is centered, stationary and Gaussian, so its law is determined by the autocovariances
+\begin{equation}\label{eq:lrn-autocov}
+\Lambda_k(H)=\E[y_{t+k}y_t^\top]=HF^k\Sigma_\phi H^\top+\delta_{k0}R_c=\sum_af_a^ks_aH\Pi_aH^\top+\delta_{k0}R_c,\qquad k\ge0.
+\end{equation}
+Suppose $\Lambda_k(H')=\Lambda_k(H)$ for $0\le k\le m-1$, where $m$ is the number of distinct eigenvalues, and put $D_a=H'\Pi_aH'^\top-H\Pi_aH^\top$. Then $\sum_af_a^ks_aD_a=0$ for these $k$. The Vandermonde matrix $(f_a^k)$ is invertible because the $f_a$ are distinct (with $0^0=1$ if one of them vanishes), so $D_a=0$ for every $a$. With $\Pi_a=V_aV_a^\top$ this says that $HV_a$ and $H'V_a$ have equal Gram matrices, and \cref{lem:lrn-gram} gives $O_a\in\mathrm O(k_a)$ with $H'V_a=HV_aO_a$. Then $H'=\sum_aH'V_aV_a^\top=HT$ with $T=\sum_aV_aO_aV_a^\top$, which is orthogonal and commutes with $F$. Conversely, an orthogonal $T$ that commutes with $F$ preserves each eigenspace, hence commutes with each $\Pi_a$, and $HT\Pi_aT^\top H^\top=H\Pi_aH^\top$, so $\Lambda_k(HT)=\Lambda_k(H)$ for all $k$.
+
+Dimension. The stabilizer of $H$ in $\mathcal G_F$ consists of the $T=\sum_aV_aO_aV_a^\top$ with $HV_aO_a=HV_a$ for every $a$, that is, with $O_a$ fixing the row space of $HV_a$ pointwise. It is isomorphic to $\prod_a\mathrm O(k_a-\varrho_a)$, and the orbit has the dimension \cref{eq:lrn-orbit-dim}.
+
+Symmetry. If $T\in\GL(K)$ and $(T\phi_t)$ has the law of $(\phi_t)$, then $TFT^{-1}=F$ and $TQT^\top=Q$. The first condition makes $T$ block diagonal, $T=\sum_aV_aT_aV_a^\top$, and the second then reads $q_aT_aT_a^\top=q_aI$, so $T\in\mathcal G_F$. The converse is immediate. Hence $\mathcal G_F$ is the full linear symmetry group of the referent law, and $(H,\phi)\mapsto(HT^{-1},T\phi)$ leaves the messages unchanged.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:lrn-gauge-grounding}]
+The ungrounded stream identifies the orbit $H\mathcal G_F$ by \cref{thm:lrn-gauge}, and the grounded pairs identify $H\mathcal P_M$ and nothing more by \cref{prop:fw-grounded-identification}(b). The two data sets are independent, so $H'$ gives the same joint law if and only if $H'=HT$ with $T\in\mathcal G_F$ and $HT\mathcal P_M=H\mathcal P_M$. If $H$ is injective the second condition is $T\mathcal P_M=\mathcal P_M$: $T$ fixes $\operatorname{col}(M_2)$ pointwise. Since $T$ commutes with every $\Pi_a$, $Tx=x$ holds if and only if $T\Pi_ax=\Pi_ax$ for every $a$. So the condition is that $O_a$ fixes the $m_a$-dimensional subspace $V_a^\top\operatorname{col}(M_2)$ pointwise for every $a$, and such $O_a$ form a group isomorphic to $\mathrm O(k_a-m_a)$. The group $\prod_a\mathrm O(k_a-m_a)$ is trivial if and only if $m_a=k_a$ for all $a$, and finite if and only if $k_a-m_a\le1$ for all $a$. Because $H$ is injective, distinct $T$ give distinct codes. The two special cases follow by taking one block with $k_1=K$ and $m_1=\rank M_2$, and $K$ blocks with $k_a=1$ and $m_a=1$ exactly when $\mathcal P_Mv_a\ne0$.
+\end{proof}
+
+\begin{remark}[Grounding inside the same stream]\label{rem:lrn-gauge-same-stream}
+\Cref{cor:lrn-gauge-grounding} treats the grounded pairs as a separate sample. The conclusion is the same when the receiver observes, along the stream itself, a component $z_t=C\phi_t$ of the referent, with $\mathcal P$ the projector onto the row space of $C$. The joint process $(y_t,z_t)$ is centered, stationary and Gaussian; the autocovariances of $z$ do not involve $H$, and the cross-covariances are $\E[y_{t+k}z_t^\top]=\sum_af_a^ks_aH\Pi_aC^\top$ and their transposes. The Vandermonde argument identifies $H\Pi_a\mathcal P$ for each $a$, so the identified set is $\{HT:T\in\mathcal G_F,\ HT\Pi_a\mathcal P=H\Pi_a\mathcal P\text{ for all }a\}$. For injective $H$ the condition is that $T$ fixes each $\Pi_a\operatorname{col}(\mathcal P)$ pointwise, which is the condition found in the proof above.
+\end{remark}
+
+\begin{proposition}[Local identifiability on the gauge quotient]\label{prop:lrn-gauge-local}
+In the setting of \cref{thm:lrn-gauge} let $\varrho_a=\rank(HV_a)$. The kernel of the differential of $H\mapsto(\Lambda_k(H))_{k\ge0}$ at $H$ contains the tangent space $\{H\Xi:\Xi^\top=-\Xi,\ \Xi F=F\Xi\}$ of the orbit, with codimension $\sum_a(r_c-\varrho_a)(k_a-\varrho_a)$ in the kernel. The two coincide if and only if $\varrho_a=\min(r_c,k_a)$ for every $a$, which holds for all $H$ outside a proper algebraic subset.
+\end{proposition}
+
+\begin{proof}
+By \cref{eq:lrn-autocov} and the Vandermonde argument, $X$ lies in the kernel if and only if $X_aA_a^\top+A_aX_a^\top=0$ for every $a$, where $A_a=HV_a$ and $X_a=XV_a$ are $r_c\times k_a$ and the blocks $X_a$ are free. Fix $a$, drop the index, and take a singular value decomposition $A=U\tilde AN^\top$ in which $\tilde A$ has an invertible diagonal block $D$ of size $\varrho$ in its upper left corner and zeros elsewhere. In the blocks of $\tilde X=U^\top XN$, the condition is that $\tilde X_{11}D$ is skew-symmetric and $\tilde X_{21}=0$, with $\tilde X_{12}$ and $\tilde X_{22}$ free. The solution space has dimension $\varrho(\varrho-1)/2+\varrho(k-\varrho)+(r_c-\varrho)(k-\varrho)$. The orbit directions $A\Xi$ with $\Xi$ skew-symmetric are those with $D^{-1}\tilde X_{11}$ skew-symmetric, $\tilde X_{12}$ free and $\tilde X_{21}=0$, $\tilde X_{22}=0$; they satisfy the condition and span dimension $\varrho(\varrho-1)/2+\varrho(k-\varrho)$. The difference $(r_c-\varrho)(k-\varrho)$ vanishes exactly when $\varrho=\min(r_c,k)$.
+\end{proof}
+
+Let $R_c\succ0$. The vector of $n\ge m$ consecutive messages is centered Gaussian with a nonsingular covariance $\Sigma_n(H)$ whose blocks are the $\Lambda_k(H)$ with $k<n$ and their transposes, and its Fisher information form at $H$ in the direction $X$ is $\tfrac12\tr\bigl(\Sigma_n^{-1}d\Sigma_n[X]\Sigma_n^{-1}d\Sigma_n[X]\bigr)$. This form vanishes if and only if $d\Sigma_n[X]=0$, that is, by the Vandermonde argument, if and only if $X$ lies in the kernel of \cref{prop:lrn-gauge-local}. At a point of full block rank the Fisher information of the message stream is therefore nondegenerate on the quotient by the gauge group, which is the local form of identifiability up to gauge. At rank-deficient blocks the Fisher information has additional null directions although, by \cref{thm:lrn-gauge}, the set of observationally equivalent codes is still the orbit; such points are singular for the likelihood, and the standard root-$T$ asymptotics do not apply there. Gaussianity is used throughout: the statements concern the information in second moments, and non-Gaussian referents can carry more.
+
+\subsection{Decomposition of the receiver's risk}
+
+\begin{proof}[Proof of \cref{thm:lrn-risk-decomposition}]
+Write $P=P_i$ and $\iota=H(\eta-m_i)+\nu\sim\Ncal(0,S^\ast)$. Since $y-\hat Hm_i=\iota+h-\Delta m_i$,
+\begin{equation}\label{eq:lrn-four-errors}
+\hat m-\eta=\underbrace{\Kg^\ast\iota-(\eta-m_i)}_{e_{\mathrm{ch}}}+\underbrace{(\hat{\Kg}-\Kg^\ast)\iota}_{e_{\mathrm{gain}}}+\underbrace{\hat{\Kg}(h-\bar h)}_{e_{\mathrm{dev}}}+\underbrace{\hat{\Kg}(\bar h-\Delta m_i)}_{e_{\mathrm{off}}}.
+\end{equation}
+The pair $(e_{\mathrm{ch}},\iota)$ is jointly Gaussian and centered with $\Cov(e_{\mathrm{ch}},\iota)=\Kg^\ast S^\ast-PH^\top=0$, so $e_{\mathrm{ch}}$ is independent of $\iota$, and $\Cov(e_{\mathrm{ch}})=P-\Kg^\ast S^\ast\Kg^{\ast\top}=P^+$. Both are functions of $(\eta,\nu)$, hence independent of $(h,\hat H)$. The four vectors are square integrable: the first is Gaussian, $\E\Vert e_{\mathrm{gain}}\Vert^2=\E\tr\bigl((\hat{\Kg}-\Kg^\ast)S^\ast(\hat{\Kg}-\Kg^\ast)^\top\bigr)$ and $\E\Vert e_{\mathrm{dev}}\Vert^2=\E\tr(\hat{\Kg}\Sigma_h\hat{\Kg}^\top)$ are finite because $\E\Vert\hat{\Kg}\Vert_F^2<\infty$, and $\Vert e_{\mathrm{off}}\Vert\le\Vert\hat{\Kg}\Vert\Vert\bar h\Vert+\Vert\hat{\Kg}\Delta\Vert_F\Vert m_i\Vert$.
+
+Orthogonality. The vector $e_{\mathrm{ch}}$ is centered and independent of $(\iota,h,\hat H)$, of which the other three vectors are functions, so $\E\langle e_{\mathrm{ch}},e\rangle_M=0$ for each of them. Given $\hat H$, the vectors $\iota$ and $h-\bar h$ are independent and centered and $e_{\mathrm{off}}$ is fixed, so the conditional expectations of $\langle e_{\mathrm{gain}},e_{\mathrm{dev}}\rangle_M$, $\langle e_{\mathrm{gain}},e_{\mathrm{off}}\rangle_M$ and $\langle e_{\mathrm{dev}},e_{\mathrm{off}}\rangle_M$ vanish. This is (b). Summing the four squared norms and expanding $\Vert\hat{\Kg}\bar h-\hat{\Kg}\Delta m_i\Vert_M^2$ gives \cref{eq:lrn-risk-decomposition}, which is (a).
+
+(c) For a given gain the offset $e_{\mathrm{off}}=\hat{\Kg}(\bar h-\Delta m_i)$ depends on $(\bar h,\Delta)$ only through $\bar h-\Delta m_i$. The gain is a function of $\hat H=H+\Delta$, so two code errors with the same $\Delta m_i$ can give different offsets, and the first claim cannot be made for the offset as a whole. For example, let $K=2$, $r_c=1$, $P=I$, $H=(1,0)$, $m_i=(1,0)^\top$, and take the regularized gain of (d) with $\hat R=1$: the code errors $\Delta=(0,0)$ and $\Delta=(0,1)$ both have $\Delta m_i=0$, and their gains are $(1/2,0)^\top$ and $(1/3,1/3)^\top$, so the offsets $\hat{\Kg}\bar h$ differ whenever $\bar h\ne0$ (a random instance is in \cref{chk:lrn-independent}). The gain does not depend on $\bar h$ or on $m_i$, so $C_{\mathrm{int}}=-2\E\langle\hat{\Kg}\bar h,\hat{\Kg}\Delta m_i\rangle_M$ is bilinear in $(\bar h,m_i)$ and vanishes when $\bar h=0$ or $m_i=0$. For \cref{eq:lrn-offset-identity}, split $C_{\mathrm{obj}}=\E\tr(M\hat{\Kg}\Sigma_h\hat{\Kg}^\top)+\E\Vert\hat{\Kg}\bar h\Vert_M^2$ and complete the square, $\E\Vert\hat{\Kg}\bar h\Vert_M^2+\E\Vert\hat{\Kg}\Delta m_i\Vert_M^2+C_{\mathrm{int}}=\E\Vert e_{\mathrm{off}}\Vert_M^2$. The right side of \cref{eq:lrn-offset-identity} is a sum of two nonnegative terms, and $\E\Vert e_{\mathrm{off}}\Vert_M^2=0$ if and only if $M^{1/2}e_{\mathrm{off}}=0$ almost surely, which gives the two cancellation statements. For the example let $K=r_c=1$, $H=1$, $M=1$ and $\Sigma_h=0$, and let the code error $\Delta=\varepsilon$ and the gain $\hat{\Kg}=k$ be constants. The squared offset is $k^2(\bar h-\varepsilon m_i)^2$. With $\bar h=\varepsilon m_i$ it vanishes, while the separate terms $k^2\bar h^2$ and $k^2\varepsilon^2m_i^2$ are equal and positive; with $\bar h=-\varepsilon m_i$ it is $4k^2\varepsilon^2m_i^2$, twice their sum. The mean of the innovation $y-\hat Hm_i$ is $\bar h-\Delta m_i$ for fixed $\Delta$, an affine function of $m_i$, which is determined by its values at $K+1$ affinely independent prior means and by no fewer.
+
+(d) For the regularized gain put $G=\hat R^{-1/2}\hat HP^{1/2}$, so that $\hat{\Kg}=P^{1/2}G^\top(GG^\top+I)^{-1}\hat R^{-1/2}$. The singular values of $G^\top(GG^\top+I)^{-1}$ are $s/(s^2+1)\le\tfrac12$ for the singular values $s$ of $G$. For the receiver map, $\Vert Oy\Vert\le\Vert O\Vert_F\Vert y\Vert$ and the proof of \cref{thm:lrn-understanding-moment} shows $\E\Vert Oy\Vert^2=\infty$ for $y\ne0$ when $K\le r_c+1$.
+
+Finally, $P^+-P^+_0=PH^\top\bigl((HPH^\top)^{-1}-S^{\ast-1}\bigr)HP\succeq0$ because $S^\ast\succeq HPH^\top$, which gives the split of the channel term.
+\end{proof}
+
+\begin{corollary}[Calibration cost of a learned code]\label{cor:lrn-calibration-cost}
+In the setting of \cref{thm:lrn-risk-decomposition} let $h=0$, let $R\succ0$, let the gain be $\hat{\Kg}=P\hat H^\top(\hat HP\hat H^\top+R)^{-1}$, and let $\Delta=R^{1/2}W\Pi^{1/2}$ with $W$ a matrix of independent standard normal entries, so that the covariance of $\mathrm{vec}\Delta$ is $\Pi\otimes R$ as in \cref{prop:lrn-code-risk}(a). As $\Pi\to0$,
+\begin{equation}\label{eq:lrn-calibration-cost}
+\begin{aligned}
+C_{\mathrm{cal}}&=\tr(RS^{\ast-1})\tr(MP^+\Pi P^+)-2\tr(MP^+\Pi\Kg^\ast R\Kg^{\ast\top})\\
+&\quad+\bigl(\tr((P-P^+)\Pi)+m_i^\top\Pi m_i\bigr)\tr(M\Kg^\ast R\Kg^{\ast\top})+O(\Vert\Pi\Vert^2).
+\end{aligned}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Write $\Kg(\hat H)=P^{1/2}G^\top N^{-1}$ with $G=\hat HP^{1/2}$ and $N=GG^\top+R$. A derivative of order $n$ of $G\mapsto G^\top N^{-1}$ in a direction $X$ is a sum of products in which factors $N^{-1}$ alternate with factors $XG^\top$, $GX^\top$ or $XX^\top$, preceded by $G^\top$ or $X^\top$. Splitting each $N^{-1}$ as $N^{-1/2}N^{-1/2}$, every factor $G$ or $G^\top$ is adjacent to its own $N^{-1/2}$, and $\Vert N^{-1/2}G\Vert\le1$, $\Vert N^{-1/2}\Vert\le\Vert R^{-1/2}\Vert$. Hence the derivatives of every order of $\Kg$ are bounded uniformly in $\hat H$, by constants times powers of $\Vert X\Vert$. The first derivative at $H$ is, as in \cref{eq:lrn-DO} with $S^\ast$ in place of $S_0$,
+\begin{equation}\label{eq:lrn-DK}
+D\Kg[\Delta]=P^+\Delta^\top S^{\ast-1}-\Kg^\ast\Delta\Kg^\ast,
+\end{equation}
+using $P-\Kg^\ast HP=P^+$. By Taylor's theorem $\hat{\Kg}-\Kg^\ast=D\Kg[\Delta]+\tfrac12D^2\Kg[\Delta,\Delta]+\varrho_3$ with $\Vert\varrho_3\Vert\le C\Vert\Delta\Vert^3$ for all $\Delta$. Inserting this into $C_{\mathrm{cal}}$, the terms of order three in $\Delta$ have zero mean because the law of $\Delta$ is symmetric, and the remaining terms beyond order two are bounded by $C\E(\Vert\Delta\Vert_F^4+\Vert\Delta\Vert_F^6)=O(\Vert\Pi\Vert^2)$. The terms of order two are $\E\tr\bigl(MD\Kg[\Delta]S^\ast D\Kg[\Delta]^\top\bigr)+\E\Vert\Kg^\ast\Delta m_i\Vert_M^2$. Expanding with \cref{eq:lrn-DK} and applying \cref{lem:lrn-isserlis},
+\begin{align*}
+\E\bigl[P^+\Delta^\top S^{\ast-1}\Delta P^+\bigr]&=\tr(RS^{\ast-1})P^+\Pi P^+,\\
+\E\bigl[\Kg^\ast\Delta\Kg^\ast\Delta P^+\bigr]&=\Kg^\ast R\Kg^{\ast\top}\Pi P^+,\\
+\E\bigl[\Kg^\ast\Delta\Kg^\ast S^\ast\Kg^{\ast\top}\Delta^\top\Kg^{\ast\top}\bigr]&=\tr\bigl((P-P^+)\Pi\bigr)\Kg^\ast R\Kg^{\ast\top},\\
+\E\bigl[\Kg^\ast\Delta m_im_i^\top\Delta^\top\Kg^{\ast\top}\bigr]&=(m_i^\top\Pi m_i)\Kg^\ast R\Kg^{\ast\top},
+\end{align*}
+where $\Kg^\ast S^\ast\Kg^{\ast\top}=P-P^+$. Taking the trace against $M$, with the cross term counted twice, gives \cref{eq:lrn-calibration-cost}.
+\end{proof}
+
+\begin{remark}[Learning curve and plateau]\label{rem:lrn-learning-curve}
+For a fixed code learned from $T$ grounded rounds with exactly observed content, \cref{prop:lrn-code-risk} gives $\Pi_T=(\Pi_0^{-1}+\sum_{t<T}\phi_t\phi_t^\top)^{-1}$, which is $M_2^{-1}/T$ to leading order when $M_2\succ0$, so the calibration cost \cref{eq:lrn-calibration-cost} decays like $1/T$ with a constant read off by setting $\Pi=M_2^{-1}$. For a drifting code the error covariance does not fall below the floor of \cref{thm:lrn-tracking}, of order $(q\rho/\tilde\mu_k)^{1/2}$ per direction. \Cref{eq:lrn-calibration-cost} assumes the Kronecker form $\Pi\otimes R$, which a drifting code keeps when the drift covariance has the form $Q_\Pi\otimes R$, for instance for a single row, where $\Pi_t=P^-_t/\rho$, or for independent row drifts of equal variance with $R=\rho I$. The terms of second order in \cref{eq:lrn-calibration-cost} are the expectation of a nonnegative quadratic form in $\Delta$, hence a linear and nonnegative, and so monotone, function of $\Pi\succeq0$; since the function is linear, its mean over the regressor history is its value at $\E\Pi_t$, and the floor $\E P^-_t\succeq\bar P_t$ bounds it from below by its value at the floor. That value is of order $q^{1/2}$ when $M\succ0$ and $m_i\ne0$, because the leading term is at least $(m_i^\top\Pi m_i)\tr(M\Kg^\ast R\Kg^{\ast\top})$ and $\Kg^\ast\ne0$. In the attention model of \cref{thm:lrn-tracking}(b) with $q$ small enough that $\gamma+\xi<1$, \cref{eq:lrn-tracking-upper} bounds $\tr\E P^-_t$ in the limit at the same order, and a linear nonnegative function of $\Pi$ is at most its value at the identity times $\tr\Pi$; there the leading term of the calibration cost levels off at a plateau of order $q^{1/2}$. This is a statement about the leading term only: the remainder $O(\Vert\Pi\Vert^2)$ has not been bounded along the tracking recursion, where $\Pi$ is random through the regressors. In addition \cref{cor:lrn-calibration-cost} holds the true code fixed and the code error random, whereas given a tracking history the code model $\hat H$ is fixed and the true code $H=\hat H-\Delta$ is random, so the constants $\Kg^\ast$, $S^\ast$ and $P^+$ of the expansion are themselves random there. In that conditional form no expansion is needed. If, given the history, $\Delta$ is centered Gaussian with covariance $\Pi\otimes R$ and independent of $(\eta,\nu)$, and $h=0$, then $\hat m-\eta=(\hat{\Kg}\hat H-I)(\eta-m_i)+\hat{\Kg}\nu-\hat{\Kg}\Delta\eta$, the last vector is centered given $(\eta,\nu)$, and $\E[\Delta\eta\eta^\top\Delta^\top\mid\eta]=(\eta^\top\Pi\eta)R$, so the conditional risk is exactly
+\begin{equation}\label{eq:lrn-conditional-cost}
+\tr(M\hat P^+)+\bigl(\tr(\Pi P)+m_i^\top\Pi m_i\bigr)\tr\bigl(M\hat{\Kg}R\hat{\Kg}^\top\bigr),\qquad\hat P^+=P-\hat{\Kg}(\hat HP\hat H^\top+R)\hat{\Kg}^\top,
+\end{equation}
+with $\hat{\Kg}=P\hat H^\top(\hat HP\hat H^\top+R)^{-1}$ (\cref{chk:lrn-independent}). The second term is linear and nondecreasing in $\Pi$ and does not vanish while $\Pi\ne0$, $M\succ0$, $R\succ0$ and $\hat H\ne0$. The risk of a receiver that learns its interface is therefore the channel loss plus a calibration term that learning removes at rate $1/T$ for a fixed code and cannot remove for a drifting one.
+\end{remark}
+
+\begin{proposition}[A learned code absorbs linear deviations]\label{prop:lrn-absorption}
+On grounded rounds let the receiver observe the content $\phi_t$ exactly, and let $y_t=H\phi_t+h_t+\nu_t$ with deviation $h_t=D\phi_t+d+\zeta_t$, where $D\in\R^{r_c\times K}$ and $d\in\R^{r_c}$ are fixed. Let the triples $(\phi_t,\zeta_t,\nu_t)$ be independent and identically distributed over rounds with mutually independent components, where $\phi_t$ has mean $\bar m$, second moment $M_2$ and covariance $C_\phi=M_2-\bar m\bar m^\top$, $\zeta_t$ is centered with covariance $\Sigma_\zeta$, and $\nu_t$ is centered with covariance $R$.
+\begin{enumerate}
+\item[(a)] If $C_\phi\succ0$, least squares with an intercept converges almost surely to $(H+D,d)$.
+\item[(b)] If $M_2\succ0$, least squares without an intercept converges almost surely to $H+D+d\bar m^\top M_2^{-1}$.
+\item[(c)] If $\zeta_t$ and $\nu_t$ are Gaussian, the law of the sample depends on $(H,D,d,\Sigma_\zeta,R)$ only through $(H+D,d,R+\Sigma_\zeta)$. For $\eta\sim\Ncal(m_i,P)$ and a message $y=H\eta+D\eta+d+\zeta+\nu$ with $R+\Sigma_\zeta\succ0$, the reading with code $H+D$, intercept $d$ and noise covariance $R+\Sigma_\zeta$ is the conditional mean of $\eta$, with risk $\tr(MP^+_D)$, where
+\begin{equation}\label{eq:lrn-absorbed-posterior}
+P^+_D=P-P(H+D)^\top\bigl((H+D)P(H+D)^\top+R+\Sigma_\zeta\bigr)^{-1}(H+D)P.
+\end{equation}
+For $D=-H$ this is $P^+_D=P$, and for $D=(a-1)H$ with $a>1$ and $\Sigma_\zeta=0$ it satisfies $P^+_D\preceq P^+$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $y_t=(H+D)\phi_t+d+\varepsilon_t$ with $\varepsilon_t=\zeta_t+\nu_t$, which is centered, independent of $\phi_t$ and has covariance $R+\Sigma_\zeta$. (a) The second-moment matrix of the augmented regressor $(\phi_t,1)$ is positive definite if and only if $C_\phi\succ0$, since its Schur complement with respect to the entry $1$ is $M_2-\bar m\bar m^\top=C_\phi$. By the strong law of large numbers the empirical normal equations converge almost surely to the population ones, whose unique solution is $(H+D,d)$ because $\E[\varepsilon_t(\phi_t^\top,1)]=0$. (b) Without an intercept the limit is $\E[y_t\phi_t^\top]M_2^{-1}=\bigl((H+D)M_2+d\bar m^\top\bigr)M_2^{-1}$. (c) Given $\phi_t$, the message is Gaussian with mean $(H+D)\phi_t+d$ and covariance $R+\Sigma_\zeta$, the rounds are independent, and the law of the regressors does not involve the parameters, so the law of the sample depends on $(H,D,d,\Sigma_\zeta,R)$ only through $(H+D,d,R+\Sigma_\zeta)$. For the reading, $y-d=(H+D)\eta+\varepsilon$ is a linear Gaussian observation of $\eta\sim\Ncal(m_i,P)$ with code $H+D$ and noise covariance $R+\Sigma_\zeta$, so the conditional mean is the stated reading and its risk is $\tr(MP^+_D)$. With $D=-H$ the message is independent of $\eta$ and $P^+_D=P$. With $D=(a-1)H$, $a>1$ and $\Sigma_\zeta=0$, the observation is equivalent to $H\eta+\nu/a$, whose noise covariance $R/a^2\preceq R$ gives $P^+_D\preceq P^+$.
+\end{proof}
+
+\begin{remark}[What the decomposition is relative to]\label{rem:lrn-honest-code}
+\Cref{prop:lrn-absorption} limits the reading of \cref{thm:lrn-risk-decomposition}. The decomposition takes a declared code $H$ and a deviation independent of the content. A deviation that is linear in the content is, for a receiver that learns from grounded pairs, a different code: it moves risk between the channel term and the calibration term and leaves no objective term. A constant deviation is absorbed by an intercept, or confounded with the code through the mean of the grounded content when no intercept is fitted. Only the idiosyncratic part $\zeta$ survives learning, and its law is that of additional channel noise. Whether a sender is biased or merely uses another code is therefore not a question that grounded message data can answer in the linear-Gaussian setting; it needs a reference outside the data, such as a declared convention or knowledge of the sender's objective. The relation to strategic communication, where the sender chooses its deviation in response to the receiver's reading, is interpretive here; no equilibrium is computed (\cref{open:lrn-strategic}).
+\end{remark}
+
+\subsection{Transfer along paths and through a hub}
+
+\begin{proof}[Proof of \cref{thm:lrn-path}]
+(a) Insert $U_{i_u}U_{i_u}^{-1}$ between consecutive factors of $\Theta_{\mathfrak p}=\Theta_{i_Li_{L-1}}\cdots\Theta_{i_1i_0}$: then $U_{i_L}^{-1}\Theta_{\mathfrak p}U_{i_0}$ becomes the product of the factors $U_{i_u}^{-1}\Theta_{i_ui_{u-1}}U_{i_{u-1}}=\Upsilon_{i_ui_{u-1}}$ in the same order, which is $\Upsilon_{\mathfrak p}$. For a directed closed walk this is $\Hol(\mathfrak c)=U_{i_0}\Upsilon_{\mathfrak c}U_{i_0}^{-1}$ in the convention of \cref{sec:coh-consistency}.
+
+(b) Let $\Upsilon=I+\Delta$ with $\E\Delta=0$ and $\E[\Delta^\top\Delta]=\delta^2I$, and let $z$ be a square-integrable random vector independent of $\Upsilon$. Then $\E\Vert\Upsilon z\Vert^2=\E\Vert z\Vert^2+2\E[z^\top\E[\Delta]z]+\E[z^\top\E[\Delta^\top\Delta]z]=(1+\delta^2)\E\Vert z\Vert^2$. Applying this to the factors of $\Upsilon_{\mathfrak p}x$ from the outermost inward gives $\E\Vert\Upsilon_{\mathfrak p}x\Vert^2=\prod_e(1+\delta_e^2)\Vert x\Vert^2$. Independence gives $\E\Upsilon_{\mathfrak p}=I$, so
+\begin{equation}\label{eq:lrn-path-proof}
+\E\Vert(\Upsilon_{\mathfrak p}-I)x\Vert^2=\E\Vert\Upsilon_{\mathfrak p}x\Vert^2-2x^\top\E[\Upsilon_{\mathfrak p}]x+\Vert x\Vert^2=\Bigl(\prod_e(1+\delta_e^2)-1\Bigr)\Vert x\Vert^2.
+\end{equation}
+A matrix of independent $\Ncal(0,\delta^2/K)$ entries has $\E[\Delta^\top\Delta]=\delta^2I$. Without isotropy the same steps give $\E[\Upsilon_{\mathfrak p}^\top\Upsilon_{\mathfrak p}]=\mathcal T_1(\mathcal T_2(\cdots\mathcal T_L(I)))$ with $\mathcal T_u(A)=A+\E[\Delta_u^\top A\Delta_u]\succeq A$ for $A\succeq0$, where $\Delta_u$ is the error of the $u$th edge; each $\mathcal T_u$ is monotone, so the error $x^\top(\E[\Upsilon_{\mathfrak p}^\top\Upsilon_{\mathfrak p}]-I)x$ does not decrease when the walk is extended.
+
+(c) With $\Theta_{ij}=g_ig_j^{-1}$ the factors of every holonomy cancel in pairs, also along steps that run against an edge, where the factor is $(g_{i_{u-1}}g_{i_u}^{-1})^{-1}$. So $\Hol(\mathfrak c)=I$ for every closed walk and every value of the maps $g_i$, and $\dim\mathrm{Cons}(\Theta)=K$ by \cref{thm:coh-holonomy}(c). The mistranslation is $\Upsilon_{ij}=U_i^{-1}g_iU_h(U_j^{-1}g_jU_h)^{-1}=\Upsilon_i\Upsilon_j^{-1}$, and $\Theta_{ij}=\tilde U_i\tilde U_j^{-1}$ with $\tilde U_i=g_iU_h=U_i\Upsilon_i$. If $\Vert\Upsilon_k-I\Vert\le\epsilon_k<1$, the Neumann series gives $\Vert\Upsilon_k^{-1}\Vert\le(1-\epsilon_k)^{-1}$, and $\Upsilon_i\Upsilon_k^{-1}-I=(\Upsilon_i-\Upsilon_k)\Upsilon_k^{-1}$ with $\Vert\Upsilon_i-\Upsilon_k\Vert\le\epsilon_i+\epsilon_k$ gives \cref{eq:lrn-zero-shot}.
+
+(d) A shortest directed closed walk of positive length at $i_0$ exists because the graph is strongly connected and $n\ge2$, and it visits no agent twice, since otherwise a shorter one could be cut out of it. Its edges are therefore distinct, and $\Hol(\mathfrak c)=\Theta^{(L)}A$ with $A=\Theta^{(L-1)}\cdots\Theta^{(1)}$ independent of $\Theta^{(L)}$. All factors are invertible almost surely, because singular matrices form a Lebesgue-null set. Now $\Hol(\mathfrak c)-I=(\Theta^{(L)}-A^{-1})A$ is singular if and only if $\det(\Theta^{(L)}-A^{-1})=0$. Given $A$, this is the zero set of a nonzero polynomial in the entries of $\Theta^{(L)}$, a Lebesgue-null set, so it has conditional probability zero. Hence $\mathrm{Fix}(\Hol(\mathfrak c))=\{0\}$ almost surely, and $\mathrm{Cons}(\Theta)=\{0\}$ by \cref{thm:coh-holonomy}(a). The moment formula is (b) applied to $\Upsilon_{\mathfrak c}$ together with (a).
+\end{proof}
+
+\begin{remark}[No mean-square zero-shot bound for Gaussian spokes]\label{rem:lrn-gaussian-spokes}
+The bound \cref{eq:lrn-zero-shot} is deterministic because a moment bound of the kind in \cref{thm:lrn-path}(b) is false for the hub design with Gaussian spoke errors. Let $\Upsilon_k=I+\Delta_k$ with independent $\Ncal(0,\tau^2)$ entries and $x\ne0$. The first row $w^\top$ of $\Upsilon_k^{-1}$ is orthogonal to the columns $c_2,\dots,c_K$ of $\Upsilon_k$ and has $w^\top c_1=1$, so $w^\top x=(n^\top x)/(n^\top c_1)$ for a unit normal $n$ of their span. Given $c_2,\dots,c_K$, the scalar $n^\top c_1$ is Gaussian with variance $\tau^2$, and $n^\top x\ne0$ almost surely, so \cref{lem:lrn-inverse-norm}(c) with $d=p=1$ gives $\E\Vert\Upsilon_k^{-1}x\Vert\ge\E|w^\top x|=\infty$. For an independent $\Upsilon_i$ with mean $I$, Jensen's inequality gives $\E\Vert\Upsilon_i\Upsilon_k^{-1}x\Vert\ge\E\Vert\Upsilon_k^{-1}x\Vert$, so the hub mistranslation $\Upsilon_{ik}-I$ has no finite first moment. This is the same mechanism as in \cref{thm:lrn-understanding-moment}: inverting a learned square map. The first-order statement survives: $\Upsilon_i\Upsilon_k^{-1}-I=(\Delta_i-\Delta_k)-(\Delta_i-\Delta_k)\Delta_k(I+\Delta_k)^{-1}$, and the last term is at most $2\Vert\Delta_k\Vert(\Vert\Delta_i\Vert+\Vert\Delta_k\Vert)$ in norm when $\Vert\Delta_k\Vert\le\tfrac12$, so to first order the error between two agents that never met is the difference of their two spoke errors.
+\end{remark}
+
+\begin{remark}[Separate speaking and listening maps]\label{rem:lrn-two-maps}
+A hub route can avoid inverses: agent $i$ trains a listening map $a_i$, an estimate of $U_iU_h^{-1}$, sender $k$ uses a speaking map $b_k$, an estimate of $U_hU_k^{-1}$, and $\Theta_{ik}=a_ib_k$. The mistranslation is a product of two factors, $U_i^{-1}a_iU_h$ and $U_h^{-1}b_kU_k$, and when these are independent \cref{thm:lrn-path}(b) gives the exact mean-square error $(1+\delta_i^2)(1+\delta_k^2)-1$ for every pair. The price is flatness. On the complete graph with $n\ge3$ agents these translations are flat if and only if $b_ka_k=I$ for every $k$. Indeed the holonomy of $i_0\to i_1\to\dots\to i_L=i_0$ is $a_{i_0}c_{i_{L-1}}\cdots c_{i_1}b_{i_0}$ with $c_k=b_ka_k$, which is the identity when every $c_k$ is; conversely the two-cycles give $c_k=c_i^{-1}$ for $i\ne k$, so with three agents $c_1=c_3=c_2^{-1}$ and $c_1=c_1^{-1}$, and the three-cycle $1\to2\to3\to1$ gives $c_3c_2=c_1^{-1}$, that is $c_1=I$. A star in which the hub agent and the spokes train their translations independently realizes this design along its relays, and when the laws of the translations are absolutely continuous, \cref{thm:lrn-path}(d) shows that almost surely it has no consensus configuration except zero.
+\end{remark}
+
+\begin{corollary}[Budget comparison]\label{cor:lrn-hub-budget}
+Suppose a translation trained on $T'$ grounded rounds has a mistranslation that satisfies the hypotheses of \cref{thm:lrn-path}(b) with $\delta^2=c/T'$, independently across maps, and let every agent spend $T$ rounds.
+\begin{enumerate}
+\item[(a)] In the pairwise design each agent trains its $n-1$ incoming translations on $T/(n-1)$ rounds each. A direct edge has mean-square mistranslation $c(n-1)/T$ and a relay over $L$ edges $(1+c(n-1)/T)^L-1$; the collective trains $n(n-1)$ maps.
+\item[(b)] In a hub design with two independently trained legs per route, each on $T_h$ rounds, every pair of agents, including pairs that never interacted, has mean-square mistranslation $(1+c/T_h)^2-1$. This is smaller than the direct pairwise value $c(n-1)/T$ of (a) if and only if $n>3+c/T$ when $T_h=T$, and if and only if $n>5+4c/T$ when $T_h=T/2$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) is \cref{eq:lrn-path} with $\delta_e^2=c(n-1)/T$. (b) By \cref{eq:lrn-path} with two edges the error is $2c/T_h+c^2/T_h^2$. For $T_h=T$ it is below $c(n-1)/T$ if and only if $2+c/T<n-1$, and for $T_h=T/2$ if and only if $4+4c/T<n-1$.
+\end{proof}
+
+The case $T_h=T$ describes a dedicated hub agent that trains the legs into the hub with $T$ rounds per spoke, so that the hub spends $(n-1)T$ rounds in all; the case $T_h=T/2$ describes a shared code for which each agent trains both a speaking and a listening map from its own budget. The assumption $\delta^2=c/T'$ is the leading order of \cref{eq:lrn-code-risk}; it is an assumption about the learner, and the corollary is arithmetic given it. With one invertible map per agent the leading-order error is the sum of two spoke errors, $2c/T$, by \cref{rem:lrn-gaussian-spokes}, and the comparison with the pairwise design at that order turns at $n=3$.

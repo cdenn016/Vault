@@ -1,0 +1,161 @@
+% Learned interfaces, online codes and transfer (key lrn)
+\section{Learned interfaces, online codes and transfer}\label{sec:lrn}
+
+This section addresses the open problem of learned interfaces and shared meanings: how agents with different internal representations learn the codes and translations that make them mutually intelligible, how learnable calibration is told apart from information lost in the channel and from disagreement about objectives, and whether what is learned transfers to new partners. In the linear-Gaussian setting, under added assumptions that are stated with each result, it is established that the understanding error under Gaussian code error has a finite second moment only for $K\ge r_c+2$ (\cref{thm:lrn-understanding-moment}), that a drifting code row cannot be tracked below a floor of order $q^{1/2}$ in its drift variance $q$ (\cref{thm:lrn-tracking}), and that a code learned from messages alone under known symmetric content dynamics is identified exactly up to the orthogonal transformations commuting with those dynamics, a freedom that grounding reduces (\cref{thm:lrn-gauge,cor:lrn-gauge-grounding}). It is also established that the receiver's risk separates channel loss, calibration and sender deviation only up to an interaction term, with a linear deviation indistinguishable from another code (\cref{thm:lrn-risk-decomposition,prop:lrn-absorption}), and that a hub code transfers to pairs that never interacted with an error bounded independently of the number of agents, whereas independently learned pairwise translations almost surely admit no nonzero consensus (\cref{thm:lrn-path}). Left open are the closed form of the second moment where it is finite, tracking under attention that depends on calibration, convergence of any joint online algorithm for code and content, strategic deviations and nonlinear encoders (\cref{sec:lrn-open}); the choice of an interface for a task, as distinct from its calibration, is not treated.
+
+\Cref{sec:fw-learning} shows what grounded pairs identify about a sender's code, the recursion \cref{eq:fw-rls} learns it, and \cref{def:fw-translation} measures a learned translation by its mistranslation. This section follows the learned objects, in the linear-Gaussian setting, into the understanding error, online tracking, joint learning of code and content, the receiver's risk, and composed translations. Proofs are in \cref{app:lrn} and checks in \cref{chk:lrn}. Throughout, $\Vert\cdot\Vert$ is the Euclidean or operator norm, $\Vert\cdot\Vert_F$ the Frobenius norm, and $\kappa(P)=\lambda_{\max}(P)/\lambda_{\min}(P)$.
+
+\subsection{The understanding error under a random code model}\label{sec:lrn-understanding}
+
+Fix an edge and write $P=P_i\succ0$ and $H=H_j\in\R^{r_c\times K}$, of full row rank. The message is $y=u+\nu$, where $u$ is the content the sender meant and $\nu\sim\Ncal(0,R_c)$. The receiver holds the code model $\hat H=H+\sigma_HW$, with $\sigma_H>0$ and $W$ a matrix of independent standard normal entries, reads $\hat m=m_i+O(y-\hat Hm_i)$ with $O=P\hat H^\top(\hat HP\hat H^\top)^{-1}$, and incurs the understanding error $\psi=H\hat m-u$ of \cref{eq:fw-two-errors}. \Cref{open:fw-understanding-risk} concerns the second moment of $\psi$ under this code model. Whether that moment exists depends on the excess dimension $K-r_c$, and for small excess it does not; the open problem is posed with the dichotomy of the next theorem.
+
+\begin{theorem}[Moments of the understanding error]\label{thm:lrn-understanding-moment}
+Let $(m_i,u)$ have finite moments of all orders, let $\nu$ be independent of $(m_i,u)$, let $W$ be independent of $(m_i,u,\nu)$, and suppose $\Pr(y\ne0)>0$. Put $d=K-r_c+1$.
+\begin{enumerate}
+\item[(a)] $\E\Vert\psi\Vert^p<\infty$ for $0<p<d$, and $\E\Vert\psi\Vert^p=\infty$ for $p\ge d$. In particular $\E\Vert\psi\Vert^2<\infty$ if and only if $K\ge r_c+2$, and a square code has $\E\Vert\psi\Vert=\infty$.
+\item[(b)] For $K\ge r_c+2$,
+\begin{equation}\label{eq:lrn-understanding-bound}
+\E\Vert\psi\Vert^2\le3\Vert H\Vert^2\kappa(P)\Bigl[\E\Vert m_i\Vert^2+\frac{\E\Vert u\Vert^2+\tr R_c}{\sigma_H^2(K-r_c-1)}\Bigr]+3\E\Vert u\Vert^2.
+\end{equation}
+\item[(c)] With $t_0=\Vert H\Vert\kappa(P)^{1/2}\Vert m_i\Vert+\Vert u\Vert$, for every $t>t_0$,
+\begin{equation}\label{eq:lrn-understanding-tail}
+\Pr\bigl(\Vert\psi\Vert>t\mid m_i,u,\nu\bigr)\le\frac{1}{2^{d/2}\Gamma(d/2+1)}\Bigl(\frac{\Vert H\Vert\kappa(P)^{1/2}\Vert y\Vert}{\sigma_H(t-t_0)}\Bigr)^{d}.
+\end{equation}
+\end{enumerate}
+\end{theorem}
+
+The mechanism is the inversion of $\hat HP\hat H^\top$: the lift $Oy$ is the reciprocal of a Gaussian vector in $d$ dimensions (\cref{lem:lrn-schur}), whose density is positive at the origin, so part (a) holds for every $\sigma_H>0$. A regularized gain has bounded norm and is not affected (\cref{thm:lrn-risk-decomposition}(d)). The first instance of \cref{chk:fw-efe} has $K=3$ and $r_c=2$; its second moment is infinite, with a logarithmic divergence that $10^5$ draws at $\sigma_H^2=0.02$ usually do not reveal (\cref{chk:lrn-understanding}). For this reason \cref{chk:fw-efe} reports a truncated moment for that instance and an untruncated moment only for a second instance with $K=6$ and $r_c=2$. \Cref{open:fw-understanding-risk} has a finite answer only for $K\ge r_c+2$, for a truncated moment, or for a regularized gain, and it is posed accordingly. For small $\sigma_H$ the next statement is sharper than (b).
+
+\begin{proposition}[Second-order expansion]\label{prop:lrn-understanding-expansion}
+Fix $(m_i,u)$ and let $\nu\sim\Ncal(0,R_c)$ be independent of $W$. Put $S_0=HPH^\top$, $O_0=PH^\top S_0^{-1}$, $P_0^+=P-O_0HP$, $\hat m_0=m_i+O_0(y-Hm_i)$ and $\bar m_0=m_i+O_0(u-Hm_i)$, and let $s_{\min}(H)$ be the smallest singular value of $H$. For every $0<\rho<s_{\min}(H)$, as $\sigma_H\to0$,
+\begin{equation}\label{eq:lrn-understanding-expansion}
+\begin{aligned}
+\E\bigl[\psi\psi^\top;\sigma_H\Vert W\Vert_F\le\rho\bigr]=R_c+\sigma_H^2\Bigl[&\E\Vert\hat m_0\Vert^2I-\tr(P_0^+)\bigl(R_cS_0^{-1}+S_0^{-1}R_c\bigr)\\
+&+R_cO_0^\top O_0+O_0^\top O_0R_c\Bigr]+O(\sigma_H^4),
+\end{aligned}
+\end{equation}
+where $\E\Vert\hat m_0\Vert^2=\Vert\bar m_0\Vert^2+\tr(O_0R_cO_0^\top)$. If $K\ge r_c+2$, the same expansion holds for $\E[\psi\psi^\top]$.
+\end{proposition}
+
+The first term in the bracket is the one named in \cref{sec:fw-efe}. The other three have the same order and are proportional to the channel noise. Their sign depends on the instance (\cref{rem:lrn-correction-sign}), so the share of the excess carried by the first term is not universal: it ranged from $0.95$ to $1.15$ in \cref{chk:lrn-expansion}, and a scan of the closed form over random instances found values well outside that range (\cref{chk:lrn-independent}). In the two instances of \cref{chk:fw-efe}, where the excess is estimated by Monte Carlo and so includes all orders in $\sigma_H$, and is that of the truncated moment in the instance with $K=r_c+1$, the same ratio was between $0.69$ and $0.98$.
+
+\subsection{Learning and tracking a code online}\label{sec:lrn-online}
+
+For a fixed code the recursion \cref{eq:fw-rls} is classical least squares, and \cref{prop:lrn-code-risk} records what is used below. With $P^H_0=\Pi_0\otimes R_c$ the error covariance stays of the form $\Pi_t\otimes R_c$; the code is learned exactly on the directions of content that keep occurring, which is persistent excitation in the terms of \cref{prop:fw-grounded-identification}; and for centered Gaussian content with covariance $M_2\succ0$ the least-squares estimate from $T\ge K+2$ grounded rounds has $\E\Vert\hat H_T-H\Vert_F^2=\tr(R_c)\tr(M_2^{-1})/(T-K-1)$, while the risk is infinite for $T\in\{K,K+1\}$, where the estimate is still unique. A drifting code cannot be learned once and for all.
+
+\begin{theorem}[Tracking a drifting code]\label{thm:lrn-tracking}
+Let one row $\ell_t\in\R^K$ of a code follow $\ell_{t+1}=\ell_t+w_t$ with $w_t\sim\Ncal(0,qI_K)$, $q>0$, from $\ell_0\sim\Ncal(\hat\ell^-_0,P^-_0)$ with $P^-_0\succ0$, and let the receiver observe $y_t=\phi_t^\top\ell_t+\nu_t$ with $\nu_t\sim\Ncal(0,\rho)$, $\rho>0$, together with the regressor $\phi_t$. Assume that $\phi_t$ is conditionally independent of $\ell_t$ given the history $\mathcal H_t$ generated by $(\phi_s,y_s)_{s<t}$, and that $\nu_t$ and $w_t$ are independent of everything realized before them. Let $\hat\ell^-_t$ and $P^-_t$ be the conditional mean and covariance of $\ell_t$ given $\mathcal H_t$.
+\begin{enumerate}
+\item[(a)] If $\E[\phi_t\phi_t^\top]\preceq\tilde M$ for all $t$, where $\tilde M$ has eigenvalues $\tilde\mu_1,\dots,\tilde\mu_K$, then $\E P^-_t\succeq\bar P_t$ for all $t$, where
+\begin{equation}\label{eq:lrn-floor-recursion}
+\bar P_{t+1}=\bigl(\bar P_t^{-1}+\tilde M/\rho\bigr)^{-1}+qI,\qquad\bar P_0=P^-_0,
+\end{equation}
+and
+\begin{equation}\label{eq:lrn-floor}
+\liminf_{t\to\infty}\E\Vert\ell_t-\hat\ell^-_t\Vert^2\ge\sum_{k=1}^K\Bigl[\frac q2+\Bigl(\frac{q^2}{4}+\frac{q\rho}{\tilde\mu_k}\Bigr)^{1/2}\Bigr]\ge\sum_{k=1}^K\Bigl(\frac{q\rho}{\tilde\mu_k}\Bigr)^{1/2},
+\end{equation}
+which is infinite if some $\tilde\mu_k=0$.
+\item[(b)] Let $\phi_t=b_tg_t$ be independent over rounds and independent of the code and the noise, with $b_t$ Bernoulli of mean $p_{\mathrm a}$ and $g_t\sim\Ncal(0,M_2)$, where $M_2\succ0$ has eigenvalues $\mu_k$, so that $\tilde M=p_{\mathrm a}M_2$. Put $\gamma=\max_k(q\mu_k/(\rho p_{\mathrm a}))^{1/2}$ and $\xi=\tfrac12\sum_k(q\mu_k/(\rho p_{\mathrm a}))^{1/2}$. If $\gamma+\xi<1$, then
+\begin{equation}\label{eq:lrn-tracking-upper}
+\limsup_{t\to\infty}\E\Vert\ell_t-\hat\ell^-_t\Vert^2\le(1+\epsilon_q)\sum_{k=1}^K\Bigl(\frac{q\rho}{\tilde\mu_k}\Bigr)^{1/2},\qquad\epsilon_q=\frac{\gamma+\xi}{1-\gamma-\xi}.
+\end{equation}
+\item[(c)] If $v^\top\phi_t=0$ almost surely for all $t$ and $P^-_0=p_0I$, then $P^-_tv=(p_0+qt)v$. A run of $\tau$ rounds with $\phi_t=0$ adds $q\tau I$ to the error covariance.
+\end{enumerate}
+\end{theorem}
+
+The floor (a) needs only a bound on the second moment of what the receiver attends to and allows attention to depend on the receiver's history. By (b), in the Bernoulli--Gaussian attention model stated there, in which attention is independent of the code and of the noise, a constant-gain rule attains it up to the factor $1+O(q^{1/2})$, and halving the attended fraction $p_{\mathrm a}$ then raises the floor by $\sqrt2$ to leading order. By (c) an edge left unattended for $\tau$ rounds returns with a code error of order $q\tau$, which bears on \cref{open:frm-online}.
+
+\subsection{Learning code and content together}\label{sec:lrn-joint}
+
+Without grounded pairs the receiver must infer the code and the content from the messages alone, a bilinear problem. Let the content follow the stationary process $\phi_{t+1}=F\phi_t+w_t$, $w_t\sim\Ncal(0,Q)$, where $F$ is symmetric with spectral radius below one and spectral decomposition $F=\sum_{a=1}^mf_a\Pi_a$, with distinct eigenvalues $f_a$ and eigenprojectors $\Pi_a=V_aV_a^\top$ of rank $k_a$, and where $Q=\sum_aq_a\Pi_a$ with $q_a>0$. Messages are $y_t=H\phi_t+\nu_t$, with $\nu_t\sim\Ncal(0,R_c)$ independent over rounds and of the content, and $H\in\R^{r_c\times K}$ is arbitrary.
+
+\begin{theorem}[Gauge freedom of ungrounded learning]\label{thm:lrn-gauge}
+Let the receiver know $(F,Q,R_c)$ and observe only the messages $(y_t)_{t\ge0}$, and let $\mathcal G_F=\{T\in\mathrm O(K):TF=FT\}$, which is isomorphic to $\prod_a\mathrm O(k_a)$.
+\begin{enumerate}
+\item[(a)] A code $H'$ gives the message process the same law as $H$ if and only if $H'=HT$ for some $T\in\mathcal G_F$.
+\item[(b)] With $\varrho_a=\rank(HV_a)$, the set $H\mathcal G_F$ of such codes is a compact manifold of dimension
+\begin{equation}\label{eq:lrn-orbit-dim}
+\dim(H\mathcal G_F)=\sum_{a=1}^m\Bigl[\frac{\varrho_a(\varrho_a-1)}{2}+\varrho_a(k_a-\varrho_a)\Bigr].
+\end{equation}
+\item[(c)] $\mathcal G_F$ is the group of all $T\in\GL(K)$ for which $(T\phi_t)$ has the law of $(\phi_t)$, and $(H,\phi)\mapsto(HT^{-1},T\phi)$ leaves every message unchanged.
+\end{enumerate}
+\end{theorem}
+
+The freedom is the symmetry of the receiver's model of the content: a code can be told apart from its rotations only as far as the dynamics tell directions of content apart. If $F=fI$ the code is determined up to $\mathrm O(K)$, and if $F$ has simple spectrum, up to $2^K$ sign choices. At codes of full block rank the autocovariances have no further null directions (\cref{prop:lrn-gauge-local}), so the code is locally identified on the quotient. The block ranks $\varrho_a$ are unrelated to the code-rate ratio $\varrho_c$ of the main text. Grounding removes what the dynamics leave.
+
+\begin{corollary}[Grounding fixes the gauge]\label{cor:lrn-gauge-grounding}
+In the setting of \cref{thm:lrn-gauge}, let the receiver also hold an independent sample of grounded pairs $(\phi_t,y_t)$, obtained under exact joint attention with an exactly observing receiver as in \cref{prop:fw-grounded-identification}(b), with second moment $M_2=\E[\phi_t\phi_t^\top]$, and let $\mathcal P_M$ be the orthogonal projector onto $\operatorname{col}(M_2)$. The codes compatible with both data sets are $\{HT:T\in\mathcal G_F,\ HT\mathcal P_M=H\mathcal P_M\}$. If $H$ is injective, this set is in bijection with $\prod_a\mathrm O(k_a-m_a)$, where $m_a=\rank(\Pi_a\mathcal P_M)$; the code is identified if and only if $m_a=k_a$ for every $a$, and the set is finite if and only if $k_a-m_a\le1$ for every $a$. Still for injective $H$: for $F=fI$ the residual freedom is $\mathrm O(K-\rank M_2)$, and for simple spectrum the code is identified if and only if $\mathcal P_Mv_a\ne0$ for every eigenvector $v_a$ of $F$.
+\end{corollary}
+
+With isotropic dynamics the message stream does not change the condition for point identification, which remains $M_2\succ0$ as in \cref{prop:fw-grounded-identification}. It does shrink the unidentified set: for injective $H$ the grounded pairs alone leave the affine family $\{H':H'\mathcal P_M=H\mathcal P_M\}$, of dimension $r_c(K-\rank M_2)$, and the stream cuts it down to a copy of $\mathrm O(K-\rank M_2)$, which consists of two codes when $\rank M_2=K-1$ (\cref{chk:lrn-independent}). With simple spectrum and injective $H$, one grounded direction in general position identifies the whole code: the grounding a collective needs is set by the degeneracy of the shared dependence model. The assumptions that $F$ is symmetric and that $Q$ is isotropic on each eigenspace of $F$, $Q=\sum_aq_a\Pi_a$, which is stronger than commuting with $F$, are introduced here (\cref{open:lrn-joint}).
+
+\subsection{What a receiver's risk is made of}\label{sec:lrn-risk}
+
+The setting extends \cref{prop:fw-misidentified-code}. Let the referent be $\eta\sim\Ncal(m_i,P)$, so that the receiver's prior is correct, and let the message be $y=H\eta+h+\nu$ with $\nu\sim\Ncal(0,R)$, where the sender's deviation $h$ has mean $\bar h$ and covariance $\Sigma_h$ and $H$ has full row rank. The receiver reads $\hat m=m_i+\hat{\Kg}(y-\hat Hm_i)$ with the code model $\hat H=H+\Delta$ and a gain $\hat{\Kg}$ that is a measurable function of $\hat H$. Write $S^\ast=HPH^\top+R$, $\Kg^\ast=PH^\top S^{\ast-1}$ and $P^+=P-\Kg^\ast S^\ast\Kg^{\ast\top}$ for the innovation covariance, gain and posterior covariance at the true code, and $\langle x,z\rangle_M=x^\top Mz$, $\Vert x\Vert_M^2=x^\top Mx$ for a weight $M\succeq0$.
+
+\begin{theorem}[Decomposition of the receiver's risk]\label{thm:lrn-risk-decomposition}
+Let $(\eta,\nu)$, $h$ and $\hat H$ be independent, with $\E\Vert\hat{\Kg}\Vert_F^2<\infty$ and $\E\Vert\hat{\Kg}\Delta\Vert_F^2<\infty$.
+\begin{enumerate}
+\item[(a)] The risk is
+\begin{equation}\label{eq:lrn-risk-decomposition}
+\E\Vert\hat m-\eta\Vert_M^2=\tr(MP^+)+C_{\mathrm{cal}}+C_{\mathrm{obj}}+C_{\mathrm{int}},
+\end{equation}
+with $C_{\mathrm{cal}}=\E\tr\bigl(M(\hat{\Kg}-\Kg^\ast)S^\ast(\hat{\Kg}-\Kg^\ast)^\top\bigr)+\E\Vert\hat{\Kg}\Delta m_i\Vert_M^2$, $C_{\mathrm{obj}}=\E\tr\bigl(M\hat{\Kg}(\Sigma_h+\bar h\bar h^\top)\hat{\Kg}^\top\bigr)$ and $C_{\mathrm{int}}=-2\E\langle\hat{\Kg}\bar h,\hat{\Kg}\Delta m_i\rangle_M$. The channel term splits as $\tr(MP^+)=\tr(MP^+_0)+\tr(M(P^+-P^+_0))$ with $P^+_0=P-PH^\top(HPH^\top)^{-1}HP$, and both parts are nonnegative.
+\item[(b)] The error is a sum $\hat m-\eta=e_{\mathrm{ch}}+e_{\mathrm{gain}}+e_{\mathrm{dev}}+e_{\mathrm{off}}$ of four vectors (\cref{eq:lrn-four-errors}), with $e_{\mathrm{off}}=\hat{\Kg}(\bar h-\Delta m_i)$, that are pairwise orthogonal in $L^2$ with weight $M$.
+\item[(c)] For a given gain the offset depends on $(\bar h,\Delta)$ only through $\bar h-\Delta m_i$; the gain is itself a function of $\hat H=H+\Delta$, so the offset as a whole is not a function of $\bar h-\Delta m_i$ alone. If $\bar h=0$ or $m_i=0$ then $C_{\mathrm{int}}=0$; otherwise it can have either sign. The terms that involve the offset satisfy
+\begin{equation}\label{eq:lrn-offset-identity}
+C_{\mathrm{obj}}+\E\Vert\hat{\Kg}\Delta m_i\Vert_M^2+C_{\mathrm{int}}=\E\tr\bigl(M\hat{\Kg}\Sigma_h\hat{\Kg}^\top\bigr)+\E\Vert e_{\mathrm{off}}\Vert_M^2,
+\end{equation}
+so $C_{\mathrm{int}}$ cancels the mean part $\E\Vert\hat{\Kg}\bar h\Vert_M^2$ of $C_{\mathrm{obj}}$ and the second term of $C_{\mathrm{cal}}$ exactly if and only if $M^{1/2}\hat{\Kg}(\bar h-\Delta m_i)=0$ almost surely, and it cancels all of $C_{\mathrm{obj}}$ if in addition $\E\tr(M\hat{\Kg}\Sigma_h\hat{\Kg}^\top)=0$. For fixed $\Delta$ the mean of the innovation $y-\hat Hm_i$ is an affine function of $m_i$, determined by its values at $K+1$ affinely independent prior means and by no fewer.
+\item[(d)] The moment conditions hold for the regularized gain $\hat{\Kg}=P\hat H^\top(\hat HP\hat H^\top+\hat R)^{-1}$ with fixed $\hat R\succ0$ whenever $\E\Vert\Delta\Vert_F^2<\infty$, since $\Vert\hat{\Kg}\Vert\le\tfrac12\Vert P^{1/2}\Vert\Vert\hat R^{-1/2}\Vert$. They fail for the receiver map $O$ under the code model of \cref{thm:lrn-understanding-moment} when $K\le r_c+1$.
+\end{enumerate}
+\end{theorem}
+
+Channel loss, calibration error and sender deviation are therefore not three orthogonal pieces: the mean deviation and the code error meet in the single offset $e_{\mathrm{off}}$, and $C_{\mathrm{int}}$ can cancel the mean parts of their separate costs or double them. For a given gain a biased sender and a miscalibrated code enter the risk only through this offset, so the risk does not separate them, and neither do the receiver's innovations at fewer than $K+1$ prior means. For an honest sender the calibration term has the second-order form \cref{eq:lrn-calibration-cost}, which decays like $1/T$ for a fixed code. For a drifting code it is not removed by learning: given the receiver's history it is linear in the error covariance of the code, with a coefficient that is positive when $M\succ0$ and the gain does not vanish (\cref{eq:lrn-conditional-cost}), and the mean of that covariance stays above the floor of \cref{thm:lrn-tracking}, of order $q^{1/2}$. That the cost itself levels off at order $q^{1/2}$ is shown for its leading term only (\cref{rem:lrn-learning-curve}).
+
+Learning sharpens the confounding (\cref{prop:lrn-absorption}). If the deviation on grounded rounds is $h_t=D\phi_t+d+\zeta_t$ with centered Gaussian $\zeta_t$ of covariance $\Sigma_\zeta$, least squares with an intercept converges to $(H+D,d)$, the law of the data depends on the parameters only through $(H+D,d,R+\Sigma_\zeta)$, and the reading at the learned code is the conditional mean of the referent. A linear deviation is, to a learner, another code: $D=-H$ silences the channel while every message stays consistent with the learned code, and only a reference outside the grounded data separates bias from code (\cref{rem:lrn-honest-code}).
+
+\subsection{Transfer along paths and through a hub}\label{sec:lrn-transfer}
+
+Let agent $i$ hold the frame $U_i\in\GL(K)$, let the edge $j\to i$ carry the learned translation $\Theta_{ij}$, and let $\Upsilon_{ij}=U_i^{-1}\Theta_{ij}U_j$ be its mistranslation (\cref{def:fw-translation}). For a walk $\mathfrak p=(i_0\to i_1\to\dots\to i_L)$ put $\Theta_{\mathfrak p}=\Theta_{i_Li_{L-1}}\cdots\Theta_{i_1i_0}$, and define $\Upsilon_{\mathfrak p}$ in the same way.
+
+\begin{theorem}[Composition of learned translations]\label{thm:lrn-path}
+\begin{enumerate}
+\item[(a)] $U_{i_L}^{-1}\Theta_{\mathfrak p}U_{i_0}=\Upsilon_{\mathfrak p}$, and for a directed closed walk $\mathfrak c$ at $i_0$, $\Hol(\mathfrak c)=U_{i_0}\Upsilon_{\mathfrak c}U_{i_0}^{-1}$.
+\item[(b)] Let the edges of $\mathfrak p$ be distinct, with independent mistranslations $\Upsilon_e=I+\Delta_e$ such that $\E\Delta_e=0$ and $\E[\Delta_e^\top\Delta_e]=\delta_e^2I$. Then $\E\Upsilon_{\mathfrak p}=I$, and for every $x\in\R^K$,
+\begin{equation}\label{eq:lrn-path}
+\E\Vert(\Upsilon_{\mathfrak p}-I)x\Vert^2=\Bigl(\prod_{e\in\mathfrak p}(1+\delta_e^2)-1\Bigr)\Vert x\Vert^2.
+\end{equation}
+Without the isotropy assumption the left side is still nondecreasing when the walk is extended.
+\item[(c)] Let every agent hold one map $g_i\in\GL(K)$, an estimate of $U_iU_h^{-1}$ for a hub frame $U_h$ with spoke mistranslation $\Upsilon_i=U_i^{-1}g_iU_h$, and let $\Theta_{ij}=g_ig_j^{-1}$ for all pairs. Then every holonomy is the identity for every value of the maps, $\dim\mathrm{Cons}(\Theta)=K$, $\Upsilon_{ij}=\Upsilon_i\Upsilon_j^{-1}$, and if $\Vert\Upsilon_i-I\Vert\le\epsilon_i$ and $\Vert\Upsilon_k-I\Vert\le\epsilon_k<1$, then
+\begin{equation}\label{eq:lrn-zero-shot}
+\Vert\Upsilon_{ik}-I\Vert\le\frac{\epsilon_i+\epsilon_k}{1-\epsilon_k},
+\end{equation}
+for every pair, whether or not $i$ and $k$ have interacted, and independently of the number $n$ of agents.
+\item[(d)] On a strongly connected attention graph with $n\ge2$ agents, let the translations on distinct edges be independent with laws absolutely continuous with respect to Lebesgue measure on $\R^{K\times K}$. Then $\mathrm{Cons}(\Theta)=\{0\}$ almost surely. On a simple directed cycle with the mistranslations of (b), $\E\Vert(\Upsilon_{\mathfrak c}-I)x\Vert^2$ is given by \cref{eq:lrn-path}.
+\end{enumerate}
+\end{theorem}
+
+Relayed error accumulates geometrically, as $L\delta^2$ to first order. By (d) independently learned pairwise translations almost surely admit no nonzero configuration in consensus, so the consensus space of \cref{thm:coh-holonomy} collapses however small the errors are. A hub code is flat for every realization of the learned maps, and (c) is the zero-shot statement: a new partner trains only its own spoke, and its mistranslation with every other agent is, to first order, the difference of two spoke errors. The bound is deterministic because the inverse of a spoke with Gaussian error has no finite first moment (\cref{rem:lrn-gaussian-spokes}); separate speaking and listening maps restore the moments and lose flatness (\cref{rem:lrn-two-maps}). The pairwise design trains $n(n-1)$ maps and the hub design $n$; under a fixed budget of grounded rounds per agent and an assumed $1/T$ learning rate, a hub route with two trained legs has the smaller mean-square mistranslation once $n$ exceeds a small threshold (\cref{cor:lrn-hub-budget}). Flatness does not imply correctness: the hub translations are the exact translations, in the sense of \cref{prop:coh-flat-true}, of the frames $U_i\Upsilon_i$, which differ from the agents' own frames.
+
+\subsection{Open problems}\label{sec:lrn-open}
+
+\begin{openproblem}[Exact second moment]\label{open:lrn-noncentral}
+For $K\ge r_c+2$, find $\E[\psi\psi^\top]$ in closed form as a function of $\sigma_H$. \Cref{prop:lrn-understanding-expansion} gives it to second order and \cref{eq:lrn-understanding-bound} bounds it; neither is sharp at moderate $\sigma_H$.
+\end{openproblem}
+
+\begin{openproblem}[Attention that depends on calibration]\label{open:lrn-attention-feedback}
+The floor of \cref{thm:lrn-tracking}(a) holds for attention rules that depend on the receiver's history, but it is matched in (b) only for attention independent of the code. Determine the stationary tracking error when the attended fraction of an edge decreases with the receiver's error covariance on that edge, and decide whether the linear loss of calibration on unattended edges settles \cref{open:frm-online}.
+\end{openproblem}
+
+\begin{openproblem}[Joint online learning]\label{open:lrn-joint}
+Extend \cref{thm:lrn-gauge} to $F$ that is not symmetric, to $Q$ that is not of the form $\sum_aq_a\Pi_a$, whether or not it commutes with $F$, and to a receiver that must also learn $(F,Q)$. For a specific online algorithm that updates the code, the dependence model and the state estimate together, prove or refute convergence to the orbit $H\mathcal G_F$ from generic initial conditions.
+\end{openproblem}
+
+\begin{openproblem}[Strategic deviations]\label{open:lrn-strategic}
+In \cref{prop:lrn-absorption} the deviation $(D,d,\Sigma_\zeta)$ is fixed. Let the sender choose it to minimize its own quadratic loss, knowing that the receiver learns the code from grounded pairs. Characterize the equilibria in the linear-Gaussian setting and the reference a receiver needs in order to detect a deviation.
+\end{openproblem}
+
+\begin{openproblem}[Nonlinear representations]\label{open:lrn-nonlinear}
+Every result of this section uses linear codes and Gaussian laws. For nonlinear encoders, the transformations of the content space that preserve the law of the content process still leave the law of the messages unchanged, but whether they exhaust the freedom of ungrounded learning, and how composed nonlinear translations accumulate error, lie outside the setting.
+\end{openproblem}

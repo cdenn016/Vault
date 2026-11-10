@@ -1,0 +1,275 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:sca}}{Section 8}: scale}\label{sup:sca}
+
+This section collects statements, examples and remarks of \cref{sec:sca} that the main text cites without stating in full. Proofs are in \cref{app:sca}.
+
+\subsection{Amplifying profiles and the common-code conjecture}\label{sup:sca-amplifying-profiles-and-the-common-code}
+
+\begin{example}[An amplifying attention profile]\label{ex:sca-amplifying-profile}
+In the report \citep{dennis2026communicating}, two level-1 receivers in a world $\eta\in\R^2$ with $F=0.9I$ and $Q=I$, sender-specific effective codes $(3,0)$ and $(0,3)$, sensing rows $(3,6)$ and $(6,3)$ and attention capacity $\kappa=2$ have sensing while listening to the partner as the strict best response of expected-free-energy attention, and the frozen mean map has the simple real dominant eigenvalue $\rho=1.0613266751$ and block row sums $1.0999$. By \cref{lem:sca-relations}(c) no stationary law exists, and $\Sigma(t)$ grows like $\rho^{2t}$ (\cref{prop:sca-rank-one}): \textup{(M)} fails in both forms. The report describes a second instance, its CEX-1, which alternates two frozen profiles at capacity $\kappa=1$, each with spectral radius below one, and for which it reports growth by the factor $1.0703173057$ per round, so \textup{(C$_\rho$)} for each frozen profile does not give \textup{(M)} for a switching schedule. CEX-1 is a separate instance from the capacity-two system specified above: $F=0.99I$, $Q=0.1I$, the same two codes, sensing rows $(-5,10)$ and $(10,-5)$, and a schedule in which both agents listen in one round and sense in the next. The report's summary does not state these parameters, which are taken from its working record, and the factor was recomputed with them (\cref{chk:min-amplification}); in the capacity-two system itself, restricted to capacity one, every period-two alternation of two frozen profiles contracts at level 1, the slowest at the rate $0.9752822296$ per round (\cref{chk:min-amplification}). The capacity-two construction uses sender-specific codes by its specification, which the checks rebuild (\cref{chk:min-amplification,chk:sca-rank-one}); for CEX-1 the report's phrase is ``mismatched metrics'' \citep{dennis2026communicating}, and the instance recomputed in \cref{chk:min-amplification} has the sender-specific codes $(3,0)$ and $(0,3)$.
+\end{example}
+% src: L7-M12 (report CEX-B and CEX-1), B3-P1 counterexamples, B3-L1(d); level 1 per decision 10 and tab:min-dictionary
+
+\begin{conjecture}[No amplification with one code]\label{conj:sca-common-code}
+At identity encodings with one modality and one channel noise, in an isotropic world $F=fI_K$ with $0<f<1$, every frozen or periodic attention profile of level-1 receivers at its covariance fixed point has a mean map over one period of length $p$ with spectral radius at most $f^p$. Such profiles then satisfy \textup{(M)} in uniform form, and frozen ones satisfy \textup{(C$_\rho$)} at every rate above $f$.
+\end{conjecture}
+% src: L7-C1, L7-O1; the manuscript's only statement of this conjecture, which Section 9 cites
+\Cref{prop:min-common-code} proves two cases, both with a rank-one code: frozen profiles with symmetric listening, and profiles without sensing on any listening graph, frozen or periodic. Otherwise the evidence is numerical (\cref{chk:sca-common-code}), and one frozen or periodic common-code profile growing faster than $f$ would refute the conjecture.
+
+\subsection{Asynchronous clocks and routing}\label{sup:sca-asynchronous-clocks-and-routing}
+
+\begin{proposition}[Poisson clocks]\label{prop:sca-poisson}
+Under the independent Poisson clocks of rate $\nu$ of \cref{sec:sca-lightcone}, let $\bar J$ be an influence bound (\cref{def:sca-local-rule}), $\bar J_{\mathrm{diag}}=\max_i\bar J_{ii}$, $g=\max_i\sum_{k\neq i}\bar J_{ik}$ and $\bar J_{\mathrm{off}}=\bar J-\diag(\bar J)$. With $J_{ij}(t)=\partial\mu_i(t)/\partial\mu_j(0)$ and $d=d(i,j)\ge1$,
+\begin{equation}\label{eq:sca-poisson}
+\E\Vert J_{ij}(t)\Vert\le e^{-(1-\bar J_{\mathrm{diag}})\nu t}\sum_{n\ge d}\frac{(\nu t)^n}{n!}(\bar J_{\mathrm{off}}^n)_{ij}\le e^{-(1-\bar J_{\mathrm{diag}})\nu t}\sum_{n\ge d}\frac{(g\nu t)^n}{n!}.
+\end{equation}
+Consequently $\E\Vert J_{ij}(t)\Vert\le e^{-(1-\bar J_{\mathrm{diag}})\nu t}(eg\nu t/d)^d/\bigl(\sqrt{2\pi d}(1-g\nu t/(d+1))\bigr)$ when $g\nu t<d+1$, and $\E\Vert J_{ij}(t)\Vert\le\exp\bigl(-\varphi d+\nu t(ge^\varphi+\bar J_{\mathrm{diag}}-1)\bigr)$ for every $\varphi>0$, so influence spreads at most at the velocity $v_{\mathrm{LR}}=\max\bigl\{0,\inf_{\varphi>0}\nu(ge^\varphi+\bar J_{\mathrm{diag}}-1)/\varphi\bigr\}$ hops per unit time, in the sense that the bound decays exponentially in $t$ along $d\ge vt$ for every $v>v_{\mathrm{LR}}$; the velocity is $eg\nu$ when $\bar J_{\mathrm{diag}}=1$, and zero when $g+\bar J_{\mathrm{diag}}<1$, where the infimum is $-\infty$. Without any smoothness, the probability that $\mu_i(t)$ depends on $\mu_j(0)$ is at most $(\Delta\nu t)^d/\bigl(d!(1-\Delta\nu t/(d+1))\bigr)$ when $\Delta\nu t<d+1$. For linear scalar updates with nonnegative coefficients and constant diagonal $\bar J_{ii}=\bar J_{\mathrm{diag}}$, the first inequality in \eqref{eq:sca-poisson} is an equality.
+\end{proposition}
+% src: L4-P2
+Proof in \cref{app:sca}; checked on a ring of 40 agents (\cref{chk:sca-poisson}). The directed copy chain, in which agent $m$ copies agent $m-1$ at its events ($\bar J_{\mathrm{diag}}=0$, $g=1$), attains the first inequality of \eqref{eq:sca-poisson}, $\E J_{ij}(t)=e^{-\nu t}(\nu t)^d/d!$, while the probability that a signal held at the source has crossed $d$ hops by time $t$ equals the last member $e^{-\nu t}\sum_{n\ge d}(\nu t)^n/n!$ of \eqref{eq:sca-poisson}; its velocity $\nu$ equals $v_{\mathrm{LR}}$.
+
+\begin{example}[A routing transition]\label{ex:sca-switch-chain}
+In the routing model of \cref{prop:sca-routing}, agents $0,1,\dots,n$ sit on a line, and each relay $m\ge1$ attends one of two persistent sources with contents $\pm1$, with $G_m(\pm)=\mp\alpha_0\mu_{m-1}/2$, preferring the source that agrees with what it heard. Averaged routing gives $\mu_m=\tanh(\gamma\alpha_0\mu_{m-1}/2)$, and $\bar A=0$, $\mathrm{Lip}=\alpha_0/2$, $\mathrm{osc}=2$ give $\bar J_{m,m-1}(\gamma)=\gamma\alpha_0/2$, the derivative at the symmetric state. For $\gamma\alpha_0<2$ influence decays as $(\gamma\alpha_0/2)^n$; for $\gamma\alpha_0>2$ the sign of $\mu_0$ propagates without decay to the fixed points $\pm\mu^\ast$, $\mu^\ast=\tanh(\gamma\alpha_0\mu^\ast/2)$. With sampled routing and message noise of standard deviation $\sigma$, the relay choices form a binary symmetric Markov chain with flip probability $p(\gamma)=\E[(1+e^{\gamma\alpha_0(1+\sigma Z)})^{-1}]$, $Z$ standard normal, so the routing bit has correlation length $-1/\ln(1-2p)$, $21.5$ hops at $\sigma=0.5$ and $\gamma=\infty$, where $p=\Pr(Z<-2)$ (\cref{chk:sca-routing}), far beyond the linear correlation length of the continuous content.
+\end{example}
+% src: L4-P4
+
+\begin{remark}[Infinite precision]\label{rem:sca-argmax}
+At $\gamma=\infty$ causality survives, since \cref{thm:sca-lightcone}(a) and the support bound of \cref{prop:sca-poisson} use only locality, but the amplitude bound fails: the update is discontinuous where two policies' expected free energies tie, and in \cref{ex:sca-switch-chain} a perturbation of $10^{-6}$ at the head moves the state $20$ hops away by order one. Gumbel noise of scale $1/\gamma$ in evaluating expected free energy makes the argmax reproduce the softmax, restoring \cref{prop:sca-routing}. Above $\gamma_D$ the routed dynamics can have several attractors, consistent with the several stable attention motifs found by \citet{dennis2026communicating}.
+\end{remark}
+% src: L4-P5
+
+\subsection{Unstable profiles and rumors}\label{sup:sca-unstable-profiles-and-rumors}
+
+\begin{proposition}[Rank-one dominance]\label{prop:sca-rank-one}
+Let $W$ be time invariant with a simple real eigenvalue $\rho=\rho(W)>1$ that strictly dominates every other eigenvalue in modulus, with right and left eigenvectors $v$ and $u$, $u^\top v=1$, let $Q^\zeta\succ0$ be constant and let $\Sigma(0)\succeq0$. Then
+\begin{equation}\label{eq:sca-rank-one}
+\rho^{-2t}\Sigma(t)\to c_\infty vv^\top,\qquad c_\infty=\frac{u^\top Q^\zeta u}{\rho^2-1}+u^\top\Sigma(0)u>0.
+\end{equation}
+Consequently the top canonical correlation of $e_i(t)$ and $e_j(t)$ tends to one for every pair with nonzero blocks $v_i$ and $v_j$, and $\Sigma(t)^{-1}$ has one eigenvalue of order $\rho^{-2t}$, with eigenvector tending to $v/|v|$. If every other eigenvalue of $W$ lies in the open unit disk, the remaining eigenvalues of $\Sigma(t)^{-1}$ stay bounded away from zero.
+\end{proposition}
+% src: B3-P3
+Proof in \cref{app:sca}; checked on \cref{ex:sca-amplifying-profile} (\cref{chk:sca-rank-one}). The unstable profile turns the agents' errors into one shared error. How far it reaches when the amplification sits at one site of a stable medium can be computed exactly: on $\Z$ let $W_{xx}=c$ for $x\neq0$, $W_{00}=c+b_0$ and $W_{xy}=a$ for $|x-y|=1$, with $c\ge0$, $a>0$, $b_0>0$ and $\lambda=c+2a<1$.
+
+\begin{proposition}[An amplifying site and its front]\label{prop:sca-amplifying-site}
+In this chain, with $Q^\zeta=qI$ and $\Sigma(0)=0$:
+\begin{enumerate}
+\item[(a)] $W$ has exactly one eigenvalue outside $[c-2a,c+2a]$, namely $\rho=c+\sqrt{4a^2+b_0^2}$, with eigenvector $v_x=e^{-m_\rho|x|}$ and $m_\rho=\arcsinh(b_0/(2a))=\arccosh((\rho-c)/(2a))$. The profile is unstable exactly when $\rho>1$.
+\item[(b)] For $\rho\neq1$ and $t\ge1$, exactly, $\Sigma(t)=A(t)P_v+B(t)$, where $P_v=vv^\top/|v|^2$, $|v|^2=\coth m_\rho$, $A(t)=q(\rho^{2t}-1)/(\rho^2-1)$, $B(t)P_v=0$ and $q(I-P_v)\preceq B(t)\preceq\frac{q}{1-\lambda^2}(I-P_v)$.
+\item[(c)] For $\rho>1$ and $t\ge1$, with $\mathfrak s_x(t)=(1-\lambda^2)A(t)v_x^2/(q|v|^2)$,
+\begin{equation}\label{eq:sca-front-bounds}
+\frac{\mathfrak s_x-1}{\mathfrak s_x+1}\le\Corr(e_x(t),e_0(t))\le\Bigl(\frac{\mathfrak s_x}{1-\lambda^2}\Bigr)^{1/2}+\frac{|v|q^{1/2}}{(1-\lambda^2)A(t)^{1/2}}.
+\end{equation}
+\item[(d)] For $\rho>1$, $\theta\in(0,1)$ and $t\ge1$ the front $x_\theta(t)=\max\{x\ge0:\Corr(e_x(t),e_0(t))\ge\theta\}$ satisfies $x_\theta(t)=v_{\mathrm f}t+O_\theta(1)$ with $v_{\mathrm f}=\ln\rho/m_\rho<1$ hop per round.
+\item[(e)] For any finite amplifying core embedded in the same medium with a simple dominant real eigenvalue $\rho>1$, the eigenvector decays outside the core at the rate $m_\rho=\arccosh((\rho-c)/(2a))$, the decay rate of the medium's Green function at the value $\rho$. As $\rho\downarrow1$, $m_\rho$ decreases to the medium's Ornstein--Zernike rate $m$, $\cosh m=1+\varepsilon/(2a)$ with $\varepsilon=1-\lambda$ (\cref{thm:sca-oz}), so the unstable mode is never wider than the medium's correlation length.
+\end{enumerate}
+\end{proposition}
+% src: B3-P4
+Proof in \cref{app:sca}; checked on chains of 801 and 401 agents (\cref{chk:sca-amplifying-site}). The amplifying site recruits its neighbors into one shared error at less than one hop per round, and the recruited mode is never wider than the stable medium allows.
+
+\begin{remark}[Rumors are not collectives]\label{rem:sca-rumors}
+Contrast needs the stationary world-conditional precision (\cref{def:col-contrast}), which does not exist without \textup{(M)}, and its finite-time analog is degenerate: $\Sigma(t)^{-1}$ has one eigenvalue of order $\rho^{-2t}$ along the unstable mode $v$ (\cref{prop:sca-rank-one}), so a criterion that admitted the weighted coordinate $v$ would assign diverging contrast to the amplifying structure. The definition of a collective therefore includes \textup{(M)} (\cref{def:col-collective,rem:col-moment}), and we call an amplifying profile a rumor, an echo chamber whose shared error grows like $\rho^t$; the name is a definition, not a derived result. For rumors the scales change meaning: after $T$ rounds correlation extends at most $\min\{2T,2v_\varphi T+O(1)\}$ hops, a localized front advances at $v_{\mathrm f}<1$ hop per round, and $\tau$ is replaced by the amplification time $1/\ln\rho$, so the correlated extent is limited by the lifetime of the profile, which ends when attention is re-selected, the linear regime ends or grounding resets the errors. Level-1 receivers cannot detect the instability, because their claimed covariances follow recursions that do not involve their means.
+\end{remark}
+% src: B3-R1 (as a remark: C2 status item 3); M_spec decision 16
+
+\subsection{Refinements of the clustering bound and the Ornstein--Zernike form}\label{sup:sca-refinements-of-the-clustering-bound-and}
+
+\begin{proposition}[World conditioning and correlated noise]\label{prop:sca-world-conditioning}
+\begin{enumerate}
+\item[(a)] Under \textup{(Lin)}, \textup{(Loc)} and \textup{(C$_r$)}, if the local noise is correlated across agents with $\Vert Q^\zeta_{kl}\Vert\le qe^{-d(k,l)/\xi_w}$, where $\xi_w$ is the correlation length of the noise, then $\Vert\Sigma_{ij}\Vert\le q\bigl(\lceil d/2\rceil+(1-\lambda^2)^{-1}\bigr)\max(\lambda,e^{-1/\xi_w})^{d}$ with $d=d(i,j)$: the decay rate is at least $\min(\ln(1/\lambda),1/\xi_w)$.
+\item[(b)] Let identical scalar agents with exact code models sense one scalar world $\eta_{t+1}=F\eta_t+w_t$, $\Var(w_t)=Q$, with a common sensing gain, and let nobody communicate. Then the world-conditional covariance is diagonal, while the unconditional correlation of the errors of any two distinct agents is $Q/(Q+q)$, with $q$ the local noise variance, whatever their distance.
+\end{enumerate}
+\end{proposition}
+% src: L4-P7 (part (b) stated for errors via lem:fw-common-mode(d))
+Proof in \cref{app:sca}. Unconditional correlation measures the shared world as well as communication, so every scale bound of \cref{sec:sca} concerns the world-conditional law.
+
+\begin{proposition}[Spectral form]\label{prop:sca-spectral}
+Assume \textup{(Lin)}, \textup{(Loc)}, block-diagonal local noise with blocks $\preceq qI$, and \textup{(C$_\rho$)}. Then $\Vert\Sigma_{ij}\Vert\le K_A^2qf^{2\lceil d(i,j)/2\rceil}/(1-f^2)$. If $W$ is normal, the bound holds with $K_A=1$ and $f=\rho(W)$. Under \textup{(B)} it follows that $\xi\le\tau$: a correlation length in hops cannot exceed the correlation time in rounds, and the physical length is at most $\ell\tau$.
+\end{proposition}
+% src: L4-P8, B3-P2(a), L7-P3(c)
+Proof in \cref{app:sca}; checked on signed rings, where the row-sum bound is unusable (\cref{chk:sca-spectral}). This is the classical counterpart of exponential clustering from a Lieb--Robinson bound and a spectral gap \citep{hastings2004locality,nachtergaele2006lieb,hastings2006spectral}, and it applies with signed weights and in the common-code regime, where \textup{(C$_r$)} fails. Attention that is reciprocal in a weak sense gives a much better rate, without translation invariance.
+
+\begin{theorem}[Diffusive clustering]\label{thm:sca-diffusive}
+Let $P$ be a stochastic matrix, reversible with respect to a positive measure $\varpi$ ($\varpi_iP_{ij}=\varpi_jP_{ji}$) with $\varpi_{\max}=\sup_i\varpi_i<\infty$, and with $P_{ij}>0$ only if $i=j$ or $(i,j)\in\mathcal E$. Assume \textup{(Lin)}, block-diagonal local noise with blocks $\preceq qI$, and $\Vert W_{ij}(t)\Vert\le\lambda P_{ij}$ for all $i$, $j$, $t$, with $\lambda<1$. Then the covariance $\Sigma=\Sigma(t)$ of the process started in the infinite past, or at any time from a zero start, satisfies for every $\vartheta\in(0,1)$ and every $t$
+\begin{equation}\label{eq:sca-diffusive}
+\Vert\Sigma_{ij}\Vert\le\frac{2q\varpi_{\max}}{\sqrt{\varpi_i\varpi_j}}\cdot\frac{\exp\bigl(-\vartheta d(i,j)\sqrt{2\ln(1/\lambda)}\bigr)}{1-\lambda^{2(1-\vartheta)}}.
+\end{equation}
+\end{theorem}
+% src: L4-P9 (Carne-Varopoulos), B3 table scope note
+Proof in \cref{app:sca}; checked on a torus with random conductances (\cref{chk:sca-diffusive}). For $\lambda>e^{-2}$, in particular for small leaks, the rate $\sqrt{2\ln(1/\lambda)}\approx\sqrt{2\varepsilon}$ improves on the row-sum rate $\ln(1/\lambda)$ by the square root characteristic of diffusion, on any graph, and for $\lambda\le e^{-2}$ the row-sum rate is at least as large; the diffusive bound needs domination by one reversible chain, not reversibility of $W$, and covers time-varying schedules dominated by that chain. On the ring with $c=0$ the exact rate is $\arccosh(1/\lambda)=\sqrt{2\ln(1/\lambda)}(1+O(\ln(1/\lambda)))$, so the rate is sharp to leading order. The proof uses the Chebyshev-polynomial argument with which \citet{carne1985transmutation} proved the estimate of \citet{varopoulos1985long}, known to us from a review; we prove the form we use in full. Heterogeneous gains give rates between those of two homogeneous media.
+
+\begin{proposition}[Heterogeneous media]\label{prop:sca-heterogeneous}
+Let scalar agents occupy $\Z^D$ or a finite box of $\Z^D$ at positions $x_i$, attend only nearest neighbors, and satisfy \textup{(Lin)} and \textup{(B)} with local noise variances in $[q_{\min},q_{\max}]$. For $\boldsymbol\varphi\in\R^D$ put $\bar\psi(\boldsymbol\varphi)=\sup_{t,i}\sum_j|W_{ij}(t)|e^{\boldsymbol\varphi\cdot(x_i-x_j)}$ and $\Psi(\boldsymbol\varphi)=\bar\psi(\boldsymbol\varphi)\bar\psi(-\boldsymbol\varphi)$.
+\begin{enumerate}
+\item[(a)] For every $\boldsymbol\varphi$ with $\Psi(\boldsymbol\varphi)<1$, $|\Sigma_{ij}|\le q_{\max}e^{-\boldsymbol\varphi\cdot(x_i-x_j)}/(1-\Psi(\boldsymbol\varphi))$, for the stationary covariance and at any time from a zero start. On a box with open ends the supremum in $\bar\psi$ includes the rows of the boundary agents, which have a single neighbor along some axis. On a periodic box of side $L$, $\bar\psi$ is computed for the $L$-periodic medium on $\Z^D$ that covers the box, and $\Sigma_{ij}$ is the sum over $\mathbf w\in\Z^D$ of that medium's covariances between $x_i$ and the images $x_j+L\mathbf w$, each of which obeys the bound with its own admissible $\boldsymbol\varphi$. On $\Z^D$, if $W(t)\ge0$, every agent gives equal weights $a_{id}(t)$ to its two neighbors along each axis $d$, the local leaks $\varepsilon_i(t)=1-\sum_jW_{ij}(t)$ are at least $\varepsilon_{\min}>0$ and the weights $a_{id}(t)$ at most $a_{\max}$, then the decay rate is at least $m_{\mathrm{up}}=\arccosh(1+\varepsilon_{\min}/(2a_{\max}))$ per hop along a coordinate axis and at least $\sqrt D\arccosh(1+\varepsilon_{\min}/(2Da_{\max}))$ per unit Euclidean length along the diagonal. For a tilt along its one-sided axis $d$, a boundary agent of an open box has the tilted row sum $1-\varepsilon_i+a_{id}(e^{\pm\varphi_d}-1)$, which for one sign exceeds the two-neighbor value $1-\varepsilon_i+2a_{id}(\cosh\varphi_d-1)$, so on an open box the admissible tilts, and with them the guaranteed rate, can lie below $m_{\mathrm{up}}$.
+\item[(b)] If $W(t)\ge W_{\mathrm{low}}$ entrywise for all $t$, where $(W_{\mathrm{low}})_{ii}=c_{\min}\ge0$ and $(W_{\mathrm{low}})_{ij}=a_{\min}>0$ for neighbors, then $\Sigma\ge q_{\min}(I-W_{\mathrm{low}}^2)^{-1}$ entrywise, the covariance of the homogeneous medium $(c_{\min},a_{\min})$ on the same vertex set. Where every agent has $2D$ neighbors, on $\Z^D$ or a periodic box, the leak $\varepsilon_{\mathrm{low}}=1-c_{\min}-2Da_{\min}$ of that medium is at least every local leak; a boundary agent of an open box, with fewer neighbors, can have a larger one.
+\item[(c)] On $\Z$, let $W(t)\ge0$ give equal weights at most $a_{\max}$ to the two neighbors of every agent, with local leaks at least $\varepsilon_{\min}>0$, as in (a), and let $W(t)\ge W_{\mathrm{low}}$ as in (b). With $m_{\mathrm{low}}=\arccosh(1+\varepsilon_{\mathrm{low}}/(2a_{\min}))$, correlations decay at a rate between $m_{\mathrm{up}}$ and $m_{\mathrm{low}}$, so $1/m_{\mathrm{low}}\le\xi\le1/m_{\mathrm{up}}$.
+\item[(d)] For a frozen $W\ge0$ on a finite population, $\min_i(1-\varepsilon_i)\le\rho(W)\le\max_i(1-\varepsilon_i)$, so $-1/\ln(1-\varepsilon_{\max})\le\tau\le-1/\ln(1-\varepsilon_{\min})$.
+\item[(e)] On any graph with $W\ge0$, if $\lambda'=\max_i[W_{ii}+\sum_{j\neq i}\max(W_{ij},W_{ji})]<1$, then \cref{thm:sca-diffusive} applies with the symmetric chain $P_{ij}=\max(W_{ij},W_{ji})/\lambda'$ for $i\neq j$, uniform $\varpi$, and the rate $\sqrt{2\ln(1/\lambda')}$.
+\end{enumerate}
+\end{proposition}
+% src: B3-P7
+Proof in \cref{app:sca}; checked on rings of 300 agents (\cref{chk:sca-heterogeneous}). The bounds hold for time-varying schedules, attention chosen by expected free energy included, when the schedule is independent of the noises and the extremes are taken over the whole schedule; the lower bound needs every edge attended in every round. For small leaks the ratio of the two rates, about $[(\varepsilon_{\mathrm{low}}/a_{\min})/(\varepsilon_{\min}/a_{\max})]^{1/2}$, measures the heterogeneity.
+
+\begin{remark}[The Ornstein--Zernike form]\label{rem:sca-oz-form}
+\Cref{thm:sca-oz} proves that every direction decays at least at the rate $m(\mathbf u)$ and that hyperplane sums decay exactly at $m_1$. That $m(\mathbf u)$ is the exact pointwise rate, with the prefactor of the Ornstein--Zernike form $r^{-(D-1)/2}e^{-m(\mathbf u)r}$ \citep{ornstein1914accidental}, follows from the Green-function asymptotics of finite-range walks with drift \citep{ney1966martin}, applied to the walk tilted by the maximizer $\boldsymbol\varphi^\ast$ of the support function, which is aperiodic when $c>0$; we have read that theorem only in the restatement of \citet{ballu2024asymptotics}, which gives the power and the rate but not the constant. A local central limit computation suggests
+\begin{equation}\label{eq:sca-oz-prefactor}
+\Sigma(r\mathbf u)\simeq\frac q2e^{-m(\mathbf u)r}\frac{|v|^{(D-3)/2}}{(2\pi r)^{(D-1)/2}\bigl(\det H\cdot\mathbf u^\top H^{-1}\mathbf u\bigr)^{1/2}},
+\end{equation}
+with $v=\nabla\psi(\boldsymbol\varphi^\ast)$ and $H=\nabla^2\psi(\boldsymbol\varphi^\ast)$, but its passage from the local limit theorem to the sum over the number of steps is heuristic, so \eqref{eq:sca-oz-prefactor} is not a result of this manuscript; numerically the covariance approaches it (\cref{chk:sca-oz-lattice}). The rigorous Ornstein--Zernike theory of \citet{campanino2003ornstein}, for Ising models above the critical temperature, is not used here.
+\end{remark}
+% src: L4-T1(c) (heuristic step), B6 (Ney-Spitzer read in restatement), L4-O10
+
+\subsection{Persistence, diffusive scaling and records}\label{sup:sca-persistence-diffusive-scaling-and-record}
+
+\begin{proposition}[Persistence of collective variables]\label{prop:sca-persistence}
+Assume \textup{(M)} and \textup{(Lin)} with $W$ and $Q^\zeta\succ0$ time invariant, and let $\tilde W=\Sigma^{-1/2}W\Sigma^{1/2}$. For all readout vectors $\mathbf v$ and $\mathbf v'$ and lags $h\ge0$,
+\begin{equation}\label{eq:sca-persistence}
+\bigl|\Corr\bigl(\mathbf v'^\top e(t+h),\mathbf v^\top e(t)\bigr)\bigr|\le\Vert\tilde W^h\Vert\le\Vert\tilde W\Vert^h,\qquad\Vert\tilde W\Vert^2=1-\lambda_{\min}\bigl(\Sigma^{-1/2}Q^\zeta\Sigma^{-1/2}\bigr)<1,
+\end{equation}
+and $\Vert\tilde W^h\Vert^{1/h}\to\rho(W)$. The lifetime $T^\ast(\theta)$, the largest lag at which some pair of linear readouts keeps correlation at least $\theta$, equals $\max\{h:\Vert\tilde W^h\Vert\ge\theta\}$. Hence $T^\ast(\theta)\le\ln(1/\theta)/\ln(1/\Vert\tilde W\Vert)$, and $T^\ast(\theta)/\ln(1/\theta)\to\tau$ as $\theta\to0$.
+\end{proposition}
+% src: L4-P10
+Proof in \cref{app:sca}; for strongly non-normal $W$ the one-step bound can be loose (\cref{chk:sca-persistence}). The lifetime of a collective variable is set by the slowest mode of the whole system of agents and media, which is why records can lengthen it. On lattices, time and space are tied.
+
+\begin{proposition}[Diffusive scaling]\label{prop:sca-diffusive-scaling}
+In the setting of \cref{thm:sca-oz}:
+\begin{enumerate}
+\item[(a)] $\rho(W)=\lambda$, so $\tau=-1/\ln\lambda$, and $\xi_2^2/\tau=2a\lambda\ln(1/\lambda)/(1-\lambda^2)\to a$ as $\varepsilon\to0$. In physical units $\ell^2\xi_2^2\simeq D_{\mathrm{diff}}\tau$ with the diffusion constant $D_{\mathrm{diff}}=a\ell^2$ per round: the dynamic exponent is two.
+\item[(b)] If $c>0$, the local autocovariance $\Sigma(0;h)=\Cov(e_x(t+h),e_x(t))$, which is
+\begin{equation}\label{eq:sca-autocov-def}
+\Sigma(0;h)=\int_{[-\pi,\pi]^D}\frac{q\hat W(p)^h}{1-\hat W(p)^2}\frac{\mathrm{d}p}{(2\pi)^D},
+\end{equation}
+satisfies, as $h\to\infty$ at fixed $\varepsilon$,
+\begin{equation}\label{eq:sca-autocov}
+\Sigma(0;h)\simeq\frac{q\lambda^h}{1-\lambda^2}\Bigl(\frac{\lambda}{4\pi ah}\Bigr)^{D/2}.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+% src: L4-P11, L6-P8(a)
+Proof in \cref{app:sca}; checked in one and two dimensions (\cref{chk:sca-autocovariance}). The relative error of \eqref{eq:sca-autocov} is about $D/(2\varepsilon h)$ for small $\varepsilon$, so the asymptote applies for lags well beyond the correlation time. Spatial reach grows only as the square root of memory, and building correlations over a distance $L$ by local averaging takes about $L^2/D_{\mathrm{diff}}$ rounds, more than the light-cone time $L/(2\ell)$ once $L$ exceeds a fraction of one hop. Up to the factor $\varepsilon$, the resolvent $(I-W)^{-1}$ that sets the leading decay in \cref{thm:sca-oz}(a) is the total-influence matrix of the model of \citet{friedkin1990social}, the leak playing stubbornness; \eqref{eq:sca-xi-physical} is the standard massive lattice Green's function (\cref{sec:rel}).
+
+\begin{remark}[Special cases]\label{rem:sca-records-special}
+In the notation of \cref{prop:sca-records}, one record read by the mean mode with $\upsilon=\delta=0$ gives $\bar e(t+1)=(1-\varepsilon-\beta)\bar e(t)+\beta z(t)$, $z(t+1)=(1-\omega)z(t)+\omega\bar e(t)$, whose first-order extension factor $1+\mathcal R$ is the lower end of the interval of \cref{prop:sca-records-memory}(b): at $\varepsilon=0.01$, $\beta=0.2$, $\omega=0.1$ the secular root gives $\tau=306.24$ rounds, against $300$ to first order and $99.5$ without the record. The identity time of a collective whose members turn over (\cref{prop:agy-identity}) is the continuous-time case: its rate matrix \eqref{eq:agy-identity} equals $-\mathsf R$ for one record with $\upsilon=0$ when forgetting plus the turnover rate times the share of a newcomer's content not copied from the record plays $\varepsilon$, the read rate plus the turnover rate times the copied share plays $\beta$, the members' write rate plays $\omega$ and the record's decay plays $\delta$, so, when the read rate plus the turnover rate times the copied share is positive, as \cref{prop:sca-records} requires of the read weight, the identity rate $\tau_{\mathrm{id}}^{-1}$ is the secular root $\varepsilon_{\mathrm{rec}}$ (\cref{chk:sca-records}). When that sum is zero the record is unread, the function $g_z$ is affine with the single root $\varepsilon'$, and \cref{prop:agy-identity}(a) gives the rates directly: the members' mean decorrelates at the rate that plays $\varepsilon$, and the pair at the smaller of that rate and $\omega+\delta$.
+\end{remark}
+% src: B5-P4 (L1-P23, L2-P17 as special cases; dictionary checked against eq:agy-identity)
+
+\begin{remark}[Global records]\label{rem:sca-global-records}
+In the record model of \cref{prop:sca-records-length}, a record read by all $N$ members with a uniform kernel couples only to the mean mode, since its kernel's symbol vanishes at every nonzero wavevector; for $p\neq0$ the agents' symbol is $1-\varepsilon'-\beta-a\sum_d2(1-\cos p_d)$. A global archive therefore acts on every deviation from the collective mean as an extra leak $\beta$, so fluctuations about the mean decorrelate over $\xi^2\approx a/(\varepsilon'+\beta)$ while the mean has the memory of \cref{prop:sca-records-memory}. The archive is a hub: it adds to every covariance a component $[\hat\Sigma_{00}(0)-q/(1-(1-\varepsilon'-\beta)^2)]/N$, the excess of the term at wavevector zero over the continuation of the branch $p\neq0$ and about $\hat\Sigma_{00}(0)/N$ when $\varepsilon'+\mathcal R\delta\ll\beta\omega/(\beta+\omega)$ with $\mathcal R=\beta/\omega$ (the leak $\varepsilon'$ small beside both $\beta$ and $\omega$, and $\delta$ small beside $\omega^2/(\beta+\omega)$; \cref{chk:sca-global-records}), that does not decay with distance (compare the exogenous hub of \cref{cor:sca-size}(e), whose common correlation does not fall with $N$; here the component falls as $1/N$, see \cref{prop:hie-global-record}), which world conditioning does not remove, because agents write the archive.
+\end{remark}
+% src: B5-R1
+
+For a closed population with a durable global record at the record noise that makes the dynamics reversible, \cref{prop:hie-global-record} gives this component in closed form, together with the extra leak $\beta$ of the deviations. Its world-conditional cost falls like $1/N$, and the cost of a member-written archive that does not shrink with $N$ is the world-driven common mode bounded in \cref{thm:hie-floor}.
+
+\subsection{Fronts with long-range links}\label{sup:sca-fronts-with-long-range-links}
+
+\begin{proposition}[Fronts]\label{prop:sca-fronts}
+In the setting of \cref{sec:sca-longrange}, let $Y_t$ be the walk with step law $W/\lambda$, so that the normalized influence beyond distance $r$, $\sum_{|x|\ge r}(W^t)(x)/\lambda^t$, equals $\Pr(|Y_t|\ge r)$.
+\begin{enumerate}
+\item[(a)] $\Pr(|Y_t|\ge r)\le C_1tr^{-\sigma}$ if $\sigma<2$, and $\le C_1(tr^{-\sigma}+tr^{-2})$ if $\sigma>2$.
+\item[(b)] If $\sigma<2$ and $r\ge c_2t^{1/\sigma}$, then $\Pr(|Y_t|\ge r)\ge c_1tr^{-\sigma}$.
+\item[(c)] For $\sigma\neq2$ and every small enough threshold $\theta$, the front $r_\theta(t)=\min\{r:\Pr(|Y_t|\ge r)\le\theta\}$ satisfies $r_\theta(t)\asymp t^{1/\min(\sigma,2)}$: superballistic for $\sigma<1$, linear at $\sigma=1$, sublinear for $\sigma>1$. At $\sigma=2$, (a) holds with $tr^{-2}\ln(er)$ on the right and the front is $O((t\ln t)^{1/2})$. Influence therefore moves at finite speed if and only if $\sigma\ge1$.
+\item[(d)] Let $\mathsf J(y)\le K_{\mathsf J}|y|^{-D-\sigma}$ for $y\neq0$. For any influence bound with $\bar J_{ij}\le c\one\{i=j\}+a\mathsf J(x_i-x_j)$, $(\bar J^t)_{ij}\le K_{\mathsf J}t^{1+D+\sigma}g_{\mathrm{tot}}^t|x_i-x_j|^{-D-\sigma}$ with $g_{\mathrm{tot}}=c+a$: synchronous rounds have no strict light cone in the lattice metric, and when $g_{\mathrm{tot}}>1$ the region of influence above a fixed level lies inside the logarithmic cone $t\gtrsim(D+\sigma)\ln r/\ln g_{\mathrm{tot}}$.
+\end{enumerate}
+\end{proposition}
+% src: L4-P14 (exponent alpha = D + sigma); the threshold sigma >= 1 corrects L4-P14's 'finite mean link length' at sigma = 1
+Proof in \cref{app:sca}; fitted front exponents lie within $7$ percent of $1/\min(\sigma,2)$, with shortfalls of $5$ and $6$ percent at $\sigma=0.5$ and $\sigma=3$ that depend on the fit window (\cref{chk:sca-fronts}); the exponents themselves are those proved in (c). The threshold $\sigma=1$ coincides with the free-particle light cone of quantum systems with interactions decaying as $r^{-\alpha}$, $\alpha>D+1$ \citep{tran2020hierarchy}, because linear message passing propagates a single tangent vector; the many-body thresholds of that hierarchy have no analog here \citep{kuwahara2020strictly}, and the logarithmic cone of (d) matches the causal region reported for classical long-range lattices \citep{metivier2014spreading}. On a fixed graph with random long links, \cref{thm:sca-clustering} applies in the graph metric, whose chemical distance in long-range percolation with connection probabilities decaying as $|x-y|^{-D-\sigma}$ and $0<\sigma<D$ grows like $(\log|x-y|)^{\Delta+o(1)}$ on the infinite cluster, with $1/\Delta=\log_2(2D/(D+\sigma))$ \citep{biskup2004scaling}; outside that range of $\sigma$ this result does not apply.
+
+\subsection{Broadcasting on trees and condensation}\label{sup:sca-broadcasting-on-trees-and-condensation}
+
+In the linear-Gaussian model the decisive structure is branching. Consider a rooted tree with $X_{\mathrm{root}}\sim\Ncal(0,1)$ and, on each edge $e$ from a parent $u$ to a child $c$, $X_c=\alpha_eX_u+(1-\alpha_e^2)^{1/2}Z_c$ with independent standard normal $Z_c$ and edge correlations $\alpha_e\in(0,1)$, the vertices at depth $n$ being observed with noise variance $\sigma_{\mathrm{obs}}^2\ge0$. Let $\mathcal V(u)$ be the noise variance of the equivalent Gaussian observation of $X_u$ carried by the observed descendants of $u$.
+
+\begin{theorem}[Gaussian broadcasting on trees]\label{thm:sca-trees}
+\begin{enumerate}
+\item[(a)] $\mathcal V(v)=\sigma_{\mathrm{obs}}^2$ at the vertices $v$ of level $n$, $\mathcal V(v)=\infty$ at childless vertices above level $n$ (depth less than $n$), which carry no observation, $\mathcal V(u)^{-1}=\sum_c\alpha_{e_c}^2/(1-\alpha_{e_c}^2+\mathcal V(c))$ over the children $c$ of every other vertex $u$ above level $n$, a term with $\mathcal V(c)=\infty$ being zero, and $I(X_{\mathrm{root}};\text{level }n)=\tfrac12\ln(1+1/\mathcal V(\mathrm{root}))$.
+\item[(b)] For constant $\alpha$, $\mathcal V(u)=\alpha^{2|u|}\hat{\mathcal V}(u)$, where $|u|$ is the depth and $\hat{\mathcal V}(\mathrm{root})$ is the effective resistance between the root and a ground node in the network with edge resistances $(1-\alpha^2)\alpha^{-2|e|}$, $|e|$ the depth of the child endpoint, in which each level-$n$ vertex is joined to the ground by a resistance $\sigma_{\mathrm{obs}}^2\alpha^{-2n}$ (shorted to it when $\sigma_{\mathrm{obs}}=0$).
+\item[(c)] On the $b$-ary tree with exact leaves, $\mathcal V_n=(1-\alpha^2)\sum_{k=1}^n(b\alpha^2)^{-k}$, so $\lim_nI_n=\tfrac12\ln\bigl(1+\tfrac{b\alpha^2-1}{1-\alpha^2}\bigr)$ if $b\alpha^2>1$, $I_n\simeq1/(2n(1-\alpha^2))$ if $b\alpha^2=1$, and $I_n\simeq(1-b\alpha^2)(b\alpha^2)^n/(2(1-\alpha^2))$ if $b\alpha^2<1$. The Kesten--Stigum condition $b\alpha^2>1$ is exactly the reconstruction threshold for Gaussian channels, and linear estimation is optimal.
+\item[(d)] On a general locally finite tree with exact leaves, reconstruction ($\lim_nI_n>0$) holds if the branching number satisfies $\mathrm{br}(T)\alpha^2>1$ and fails if $\mathrm{br}(T)\alpha^2<1$.
+\end{enumerate}
+\end{theorem}
+% src: L4-T2, L6-P5(b); (d) from Lyons 1990 at review and restatement level (B6)
+Proof in \cref{app:sca}; checked against direct Gaussian conditioning (\cref{chk:sca-trees}). For a general channel on the $b$-ary tree, reconstruction holds when $b$ times the squared second eigenvalue of the channel exceeds one, a condition named for the limit theorems of \citet{kesten1966additional}; it is tight for the binary symmetric channel \citep{bleher1995purity,evans2000broadcasting} and not for some other channels \citep{mossel2001reconstruction}. Part (c) adds the Gaussian case with an exact electrical identity, and part (d) uses, for the two strict cases only, the transience criterion of \citet{lyons1990random} for the biased walk, read in a review and in the restatement of \citet{lyons1992random}. The information that reaches a level of the tree percolates.
+
+\begin{theorem}[Gaussian information percolation on trees]\label{thm:sca-gaussian-percolation}
+In the tree model, let a source $X_{\mathrm{src}}$ be jointly Gaussian with $X_{\mathrm{root}}$, with $X_{\mathrm{src}}\to X_{\mathrm{root}}\to(\text{observed level})$. Then
+\begin{equation}\label{eq:sca-gauss-perc}
+I(X_{\mathrm{src}};\text{observed level})\le\perc_{\alpha^2}(\mathrm{root}\to\text{observed level})\cdot I(X_{\mathrm{src}};X_{\mathrm{root}}),
+\end{equation}
+where $\perc_{\alpha^2}$ is bond percolation with edge $e$ open with probability $\alpha_e^2$, computed by $\mathfrak p(u)=1-\prod_c(1-\alpha_{e_c}^2\mathfrak p(c))$ above the observed level, with $\mathfrak p(v)=1$ at the vertices of the observed level and the empty product, hence $\mathfrak p(v)=0$, at childless vertices above it.
+\end{theorem}
+% src: L4-T3
+Proof in \cref{app:sca}; checked on 400 random trees (\cref{chk:sca-gaussian-percolation}). The theorem extends the percolation bound of \citet{polyanskiy2017strong} to Gaussian channels, whose input-independent coefficient is one, through the Gaussian contraction $\alpha_e^2$; on trees it is tight at the level of thresholds, since percolation with $p=\alpha^2$ on the $b$-ary tree survives if and only if $b\alpha^2>1$. On graphs of subexponential growth, by contrast, aggregate information has short reach.
+
+\begin{proposition}[Aggregate information on slowly growing graphs]\label{prop:sca-aggregate}
+If $\lambda_{\min}(\Sigma)\ge\sigma_{\mathrm e}>0$ and $\Vert\Sigma_{0j}\Vert\le B_\Sigma e^{-m_\Sigma d(0,j)}$, then the squared top canonical correlation between $e_0$ and all $e_j$ with $d(0,j)\ge r$ is at most $(B_\Sigma^2/(\sigma_{\mathrm{e}}\lambda_{\min}(\Sigma_{00})))\sum_{j:d(0,j)\ge r}e^{-2m_\Sigma d(0,j)}$, which tends to zero exponentially in $r$ on graphs whose spheres grow subexponentially.
+\end{proposition}
+% src: L6-P5(c)
+Proof in \cref{app:sca}. On trees and other expanding graphs the sum need not converge, and an audience retains information about a distant source although each member's information decays. That reach does not make a collective.
+
+\begin{proposition}[Reach lies outside the diffusive class]\label{prop:sca-tree-diffusive}
+\begin{enumerate}
+\item[(a)] Let the tree-indexed Gaussian law have constant edge correlation $\alpha$ and branching $b$. Its precision has entries $-\alpha/(1-\alpha^2)$ on tree edges, and its row sums are $(1-b\alpha)/(1+\alpha)$ at internal vertices, $(1+\alpha-b\alpha)/(1+\alpha)$ at the root and $1/(1+\alpha)$ at the leaves. For depth at least two it is diffusive if and only if $b\alpha\le1$; at depth one there is no internal vertex and it is diffusive if and only if $(b-1)\alpha\le1$. The Kesten--Stigum regime $b\alpha^2>1$ implies $b\alpha>1$, so at depth at least two it is never diffusive in these coordinates.
+\item[(b)] For the homogeneous diffusive medium $\Pi=\varepsilon^\Pi I+a^\Pi L$ on the $(b+1)$-regular tree, $b\ge2$, $\varepsilon^\Pi\ge0$, with $L$ the graph Laplacian, $\Sigma(o,v)\le b^{-d(o,v)}\Sigma(o,o)$, and the squared canonical correlation between $x_o$ and the sphere of radius $n$ about $o$ is at most $\tfrac{b+1}{b}b^{-n}\Sigma(o,o)(\varepsilon^\Pi+2(b+1)a^\Pi)$: there is no reconstruction, and aggregate information decays by the factor $1/b$ per level.
+\end{enumerate}
+\end{proposition}
+% src: B1-P6
+Proof in \cref{app:sca}. Reach on trees is produced by directed broadcasting with $b\alpha^2>1$, hence $b\alpha>1$, which a diffusive precision cannot represent in plain coordinates, and a diffusive tree medium has no reach. A broadcast hierarchy can therefore spread shared content without forming a collective in the sense of \cref{def:col-collective}. With this caution we state the condensation picture as a conjecture.
+
+\begin{conjecture}[Condensation of coherent information]\label{conj:sca-condensation}
+In a population whose effective communication structure has branching number $b_{\mathrm{eff}}$, the growth rate per hop of the number of receivers that carry independent channel noise, and whose links contract squared correlation by $\alpha^2$, information about a common source reaches arbitrary hop distance if $b_{\mathrm{eff}}\alpha^2>1$ and is confined within the information length $1/\ln(1/(b_{\mathrm{eff}}\alpha^2))$ if $b_{\mathrm{eff}}\alpha^2<1$.
+\end{conjecture}
+% src: L4-C1
+On trees the conjecture is \cref{thm:sca-trees,thm:sca-gaussian-percolation}; a family with $b_{\mathrm{eff}}\alpha^2$ bounded away from one on one side whose information behaves as on the other would refute it. On low-dimensional lattices with linear relays a single receiver's information decays at twice the mass (\cref{prop:coh-info-decay}) and branching from a point is subexponential, so condensation there would need long-range links, nonlinear processing such as the routing bit of \cref{ex:sca-switch-chain} or majority processing \citep{makur2020broadcasting}, or persistent memory. As interpretations, span of control times link fidelity must exceed one in a hierarchical institution, and students per teacher times copying fidelity must exceed one for cultural transmission across generations, a tree in time.
+
+\subsection{Abstraction}\label{sec:sca-abstraction}
+
+Content that crosses many hops passes through many codes. A receiver with prior covariance $P$ that reads a code $H$ with noise covariance $\hat R$ moves its mean by the gain-code map $\Kg H$, $\Kg=PH^\top(HPH^\top+\hat R)^{-1}$, which for noiseless codes is the $P^{-1}$-orthogonal projection onto the range of $PH^\top$ (\cref{def:coh-cycle-product}); frames rotate which world directions a code carries. With a common prior metric each noiseless hop is therefore an orthogonal projection. Let $V_1,\dots,V_J$ be subspaces of a finite-dimensional real inner-product space, the receivers' common prior metric, with orthogonal projections $P_{V_j}$, intersection $V_\cap=\bigcap_jV_j$ and projection $P_\cap$.
+
+\begin{theorem}[Relays converge to the common ground]\label{thm:sca-alternating}
+\begin{enumerate}
+\item[(a)] Cyclic order. The product over one cycle of hops, $A_{\mathrm{cyc}}=P_{V_J}\cdots P_{V_1}$, satisfies $c_{\mathrm{cyc}}=\Vert A_{\mathrm{cyc}}(I-P_\cap)\Vert<1$ and $A_{\mathrm{cyc}}^n-P_\cap=(A_{\mathrm{cyc}}(I-P_\cap))^n$, so $\Vert A_{\mathrm{cyc}}^n-P_\cap\Vert\le c_{\mathrm{cyc}}^n$.
+\item[(b)] Quasi-periodic order. If every block of $p_0$ consecutive hops uses every subspace, the content after $n$ hops satisfies $\Vert x_n-P_\cap x_0\Vert\le c_\ast^{\lfloor n/p_0\rfloor}\Vert x_0-P_\cap x_0\Vert$, with $c_\ast<1$ the largest of $\Vert A_w(I-P_\cap)\Vert$ over the finitely many words $w$ of length $p_0$ that contain every index.
+\item[(c)] Noisy messages. If instead each hop applies a self-adjoint map with spectrum in $[0,\bar a]$ for some $\bar a<1$, every product of $n$ hops has norm at most $\bar a^n$, and all content decays.
+\end{enumerate}
+\end{theorem}
+% src: L4-T5(b),(c),(f), L4-P19(a); SSW constant not used (decision 18)
+Proof in \cref{app:sca}; checked with three codes in six dimensions (\cref{chk:sca-alternating}). The content that survives an arbitrarily long relay with fixed codes is the common ground $V_\cap$, the directions that every code along the path transmits, measured in the receivers' common metric. Codimensions add for subspaces in general position, so generically $\dim V_\cap=\max(0,K-\sum_j(K-\dim V_j))$, small as soon as several distinct codes or frames occur. Part (a) proves only $c_{\mathrm{cyc}}<1$; we use no explicit formula for it.
+
+\begin{remark}[Rates from the literature]\label{rem:sca-alternating-cited}
+For two subspaces the rate is exact, $\Vert(P_{V_2}P_{V_1})^n-P_\cap\Vert=c^{2n-1}$ with $c$ the cosine of the Friedrichs angle \citep{friedrichs1937certain} between $V_1\cap V_\cap^\perp$ and $V_2\cap V_\cap^\perp$: the upper bound is due to \citet{aronszajn1950theory} and the equality to \citet{kayalar1988error}, both as stated by \citet{badea2012rate}, and our computation reproduces it (\cref{chk:sca-alternating}). Cyclic products converge to $P_\cap$ in any Hilbert space by Halperin's theorem \citep{halperin1962product}, as stated by \citet{badea2012rate}, and in finite dimension products in any order in which each subspace recurs infinitely often converge \citep{amemiya1965convergence,prager1960convergence}, with no uniform rate when the gaps between recurrences grow. In infinite dimension norm convergence can fail for three subspaces \citep{kopecka2017strange}, and cyclic convergence is geometric exactly when the relevant cosine is below one \citep{badea2012rate}.
+\end{remark}
+% src: L4-T5(a),(d),(e) at the reading levels of B6 (Kayalar-Weinert via Badea et al.)
+
+With random codes, frames and noise levels the relevant object is the product of random hop maps. For independent, identically distributed hop maps $A_m$ with $\E\ln^+\Vert A_m\Vert<\infty$ the Lyapunov exponents $\Gamma_1\ge\Gamma_2\ge\cdots$ exist, with $\tfrac1n\ln\sigma_k(A_n\cdots A_1)\to\Gamma_k$ almost surely \citep{furstenberg1960products,oseledets1968multiplicative}, and $\Gamma_1>\Gamma_2$ for invertible maps whose generated semigroup is strongly irreducible and contracting \citep{guivarch1985frontiere,goldsheid1989lyapunov}; we cite these results at the level of their records and restatements. Then $\sigma_2/\sigma_1\approx e^{-n(\Gamma_1-\Gamma_2)}$, so the content that survives many hops is one-dimensional, with abstraction length $1/(\Gamma_1-\Gamma_2)$ hops. In a computed example with rank-two codes and random frames, pure relays have an abstraction length of $1.70$ hops, so that the second singular value of a typical path product falls below one percent of the first after about eight hops ($\ln100$ divided by the gap), with wide scatter across realizations, while receivers that keep half of their own belief at each hop have an abstraction length of about $34$ hops (\cref{chk:sca-lyapunov}). The pure-relay maps of this example have rank two and are not invertible, and the cited theorems reach them through a reduction. With identity prior the hop map is $A_m=U_mGU_m^\top$, with $U_m$ the $6\times2$ frame and $G$ a fixed positive diagonal $2\times2$ matrix, so $A_n\cdots A_1=U_n(GM_n)\cdots(GM_2)GU_1^\top$ with $M_m=U_m^\top U_{m-1}$, and the nonzero singular values of the path product are those of a product of $2\times2$ factors $GM_m$. For independent Haar frames these factors are independent, identically distributed and almost surely invertible, and the support of their law contains $GM$ for every $2\times2$ contraction $M$, so the semigroup they generate is strongly irreducible and contracting. The receivers that keep part of their own belief have invertible hop maps.
+
+\begin{conjecture}[Scale up, rank down]\label{conj:sca-rank-down}
+In relay networks with diversity of codes or frames, the effective rank of the content shared across hop distance $n$, the number of singular values of the path product above a fixed fraction of the largest, is nonincreasing in $n$ and tends to the multiplicity of the top Lyapunov exponent of the path cocycle, generically one. A collective of linear size $L$ therefore shares content of rank about $\#\{k:\Gamma_1-\Gamma_k\le\ell/L\}$.
+\end{conjecture}
+% src: L4-C2
+The limit statement holds for fixed codes in a common metric, with limiting rank $\dim V_\cap$ (\cref{thm:sca-alternating}), and for independent invertible hop maps under the cited conditions, with rank one. It is open for networks with many paths, where path products add and ranks can rise, for correlated or learned codes, for heterogeneous priors, where the contraction itself can fail (\cref{thm:coh-amplification}), and for non-invertible pure relays that do not reduce, as those of the example above do, to invertible factors of the code rank, for instance relays whose code ranks differ along the path. The routing bit of \cref{ex:sca-switch-chain} is the nonlinear extreme, in which one bit survives where continuous content does not. \Cref{prop:ren-relay-rank} proves the conjecture for stationary relays of meta-level hops that average several members' projections in a common metric, with limiting rank $\dim V_\cap$ when $V_\cap\neq\{0\}$, and shows that its reading as meta-agents communicating at lower rank than their members fails at one hop, since averaging parallel paths raises the rank. Aggregated codes lose rank across levels only along directions on which the members' frames disagree, and only under aggregation in public coordinates (\cref{prop:ren-code-levels}).
+
+\subsection{Relations between the lengths}\label{sup:sca-relations-between-the-lengths}
+
+With \cref{thm:sca-oz}, two lengths now describe a lattice medium: the Ornstein--Zernike length of the decay, and the second-moment length $\xi_2$ that bounds the extent of collectives (\cref{thm:col-contrast-size}), defined in \cref{sec:col} from the world-conditional precision. The next proposition relates them.
+
+\begin{proposition}[Relations between the lengths]\label{prop:sca-lengths-relation}
+Let the world-conditional precision on $\Z^D$ be translation invariant and diffusive, with symbol $\hat\Pi(p)=\varepsilon^\Pi+\sum_xa^\Pi(x)(1-\cos p\cdot x)$, leak $\varepsilon^\Pi>0$ and $\sum_x|x|^2a^\Pi(x)<\infty$, and let $\xi_{2,d}^2=\varsigma_d^2/(2\varepsilon^\Pi)$ with $\varsigma_d^2=\sum_xa^\Pi(x)x_d^2$.
+\begin{enumerate}
+\item[(a)] The covariance-side length coincides with it: $\sum_xx_d^2\Sigma(x)/\bigl(2\sum_x\Sigma(x)\bigr)=\xi_{2,d}^2$.
+\item[(b)] If the couplings have finite range $\ell^\Pi_d=\max\{|x_d|:a^\Pi(x)>0\}$ in direction $d$ and $\varsigma_d>0$, then $m_d$ is the positive root of $\sum_xa^\Pi(x)(\cosh(mx_d)-1)=\varepsilon^\Pi$, and
+\begin{equation}\label{eq:sca-lengths-bracket}
+\xi_{2,d}\le\xi_{\mathrm{OZ},d}\le\xi_{2,d}\sqrt{\cosh(\ell^\Pi_d/\xi_{2,d})}.
+\end{equation}
+\item[(c)] For nearest-neighbor couplings $a^\Pi$, $\xi_{2,d}=1/(2\sinh(m/2))$ with $\cosh m=1+\varepsilon^\Pi/(2a^\Pi)$, so $\xi_{\mathrm{OZ}}-\xi_2=1/(24\xi_{\mathrm{OZ}})+O(\xi_{\mathrm{OZ}}^{-3})$. For the medium of \cref{thm:sca-oz}, with $\cosh m=1+\varepsilon/(2a)$ and $\lambda=c+2Da$,
+\begin{equation}\label{eq:sca-lengths-r3}
+\xi_2=\sqrt{\frac{2\lambda}{1+\lambda}}\cdot\frac{1}{2\sinh(m/2)}\le\frac1m=\xi_{\mathrm{OZ}},\qquad\xi_2^2=\frac a\varepsilon\cdot\frac{2\lambda}{1+\lambda}\le\frac a\varepsilon.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+% src: B1-P3; C2-2 repair (cosh m = 1 + eps/(2a) with lambda = c + 2Da; xi_2 <= xi_OZ proved only for TI finite-range kernels)
+Proof in \cref{app:sca}; checked on random kernels of range one to four (\cref{chk:sca-lengths}). For the medium of \cref{thm:sca-oz} the world-conditional precision is diffusive with couplings of range two (\cref{thm:col-diffusive-precision}), so every size statement made with $\xi_2$ remains true with $\xi_{\mathrm{OZ}}$ or $\sqrt{a/\varepsilon}$, and the three agree to leading order as $\varepsilon\to0$. The inequality $\xi_2\le\xi_{\mathrm{OZ}}$ is proved only for translation-invariant couplings of finite range. Both lengths grow with the range of communication: doubling every coupling distance at fixed leak doubles $\xi_2$.
+
+\subsection{Endogenous coupling and leak}\label{sup:sca-endogenous-coupling-and-leak}
+
+\begin{openproblem}[Endogenous coupling and leak]\label{open:sca-endogenous}
+Determine whether attention selected by expected free energy, together with grounding, drives the message weight $a$ and the leak $\varepsilon$ toward the regime in which the largest extent $\Lstar$ of collectives is comparable to $\xi_2$, or keeps collectives far below that bound. The formation model of \cref{sec:frm} makes $a$ and $\varepsilon$ endogenous but has no geometry, so neither $\xi_2$ nor $\Lstar$ is defined in it.
+\end{openproblem}
+% src: L4-O8, B2-O5
