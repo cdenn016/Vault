@@ -1,0 +1,403 @@
+\section{Closure, agency and interaction}\label{sec:agy}
+
+\Cref{sec:col} showed that a path blanket is available to every set of agents whose channels are separate, so that the boundary property selects nothing, and that contrast on the world-conditional precision selects a collective. Hypothesis H1 asks more of a meta-agent. Its coarse states should form a generative model of the collective's own external states whose dynamics closes; its joint policy should behave as if it minimized a collective expected free energy, although each member minimizes only its own (\cref{asm:int-a5}); and its structure should come from the members' communication, not from the world they share. This section states these requirements precisely in the linear-Gaussian framework of \cref{sec:fw} and proves what can be proved about them. Closure (\cref{sec:agy-closure}) is one block-elimination identity read in several ways, and the contrast that selects a collective also bounds the memory of its average for the reversible diffusion whose drift is the block $\Pi^c_{CC}$ of the world-conditional precision, with the exterior held fixed. For non-reversible drift a drift-based contrast with row and column dispersions bounds that memory, and the relation of this contrast to the selecting one is open (Supplement, \cref{open:agy-discrete-closure}). Agency (\cref{sec:agy-agency}) holds exactly under a stated deliberation protocol when the members agree on how redundant their inputs are and some belief carries the agreed redundancies, as when their beliefs differ only in location, holds within explicit distances otherwise, and extends to joint acts that change the world (Supplement, \cref{thm:agy-joint-acts}). Identity under turnover (\cref{sec:agy-identity}) and interaction necessity (\cref{sec:agy-interaction}) use one order parameter and one family of nulls, and \cref{sec:agy-h1} assembles H1 in final form, saying which of its parts are theorems, in which models, and which are definitions. Statements that this section cites without stating in full, among them the obstructions to agency, the potential structure of joint performative acts, the leak through a member-written record and the account of what is proved and what is declared, are collected in the Supplement (\cref{sup:agy}).
+
+Throughout, $C$ is a finite set of $n$ agents with the canonical channel-level partition $(\sI,\sS,\sA,\sE)$ and blanket $\sB=\sS\cup\sA$ of \cref{def:col-partition}; contrast $r(C)=\xin(C)/\xout(C)$ is computed on the world-conditional precision $\Pi^c$ (\cref{def:col-world-conditional,def:col-contrast}); and double indices are receiver first.
+
+\subsection{Closure}\label{sec:agy-closure}
+
+A collective is closed when a declared summary of its internal states evolves on its own, given its blanket, and encodes the belief that an agent with a model of the collective's external states would hold. Coarse-graining generically produces memory (\cref{asm:int-a7}), so closure is a matter of degree: how much memory a summary carries, what controls it, and when the summary is a posterior.
+
+The coarse-grained generative model of $C$ has four parts. Its external states $\eta_C$ are the exterior variables that $\sS$ reads: the world states that members sense and the active channels of non-members that they hear. Its sensory statistic is the information-form sufficient statistic of the members' exterior-facing sensations; for world sensing it is $\sum_{i\in C}(H^s_i)^\top(R^s_i)^{-1}s_i$, with information matrix $\sum_{i\in C}(H^s_i)^\top(R^s_i)^{-1}H^s_i$, and messages heard from non-members add terms of the same form. Its active state is the aggregate through which the exterior depends on the members' boundary actions, such as a total demand or a net transfer. Its belief is a declared pooling of the members' beliefs, and its model, the union model, combines the dynamics of $\eta_C$ with the product of the members' likelihoods. Read as a coarse function of the exterior, $\eta_C$ evolves on its own given the coarse act only under the conditions of \cref{thm:met-abstract-physics}; otherwise it must be completed to its minimal closed extension (\cref{thm:met-abstract-physics}(f)), and the sensory statistic is sufficient for the collective's inference about it under the hypotheses of \cref{prop:met-consensus-filter}.
+
+\begin{definition}[Closure]\label{def:agy-closure}
+Let the internal variables $x=x_{\sI}$ of $C$ evolve linearly given the blanket path,
+\begin{equation}\label{eq:agy-interior}
+x_{t+1}=Ax_t+Bx_{\sB,t}+\mathfrak n_t,\qquad\mathfrak n_t\sim\Ncal(0,Q^{\mathfrak n})\quad\text{independent across rounds},\qquad Q^{\mathfrak n}\succ0,
+\end{equation}
+as the blanket allows, since no internal variable reads the exterior, and let $y=\mathsf Px$ be a coarse variable, with $\mathsf P$ of full row rank.
+\begin{enumerate}
+\item[(i)] The closure defect is $\mathfrak d_{\mathrm{cl}}=I(y_{t+1};x_t\mid y_t,x_{\sB,t})$, and $y$ is dynamically closed when $\mathfrak d_{\mathrm{cl}}=0$. In the stationary state without input, $I(y_{t+1};y_{0:t-1}\mid y_t)$ is nondecreasing in the history length $t$, and the Markov defect is its limit, equivalently its supremum, $\mathfrak d_{\mathrm M}=\lim_{t\to\infty}I(y_{t+1};y_{0:t-1}\mid y_t)$, the quantity written $\mathfrak d^\infty_{\mathrm M}$ in \cref{lem:hie-misspecification}. With a Gaussian initial law and a blanket input path that is known, deterministic or independent of $(x_0,\mathfrak n)$, the defect is taken for the law of $y$ given the input path, $\mathfrak d_{\mathrm M}=\sup_tI(y_{t+1};y_{0:t-1}\mid y_t,x_{\sB,0:t})$; the input enters \eqref{eq:agy-interior} as an affine term, so this value does not depend on the input path and equals the value without input for the same initial law. For continuous-time dynamics with the exterior held fixed, the Markov error $\Xi$ of \cref{thm:agy-closure-average} plays the same role for a coordinate that tracks the slowest mode. It compares the autocorrelation of $y$ with the exponential of the slowest rate $\varpi_1$, so a coordinate aligned exactly with a faster mode is Markov and has $\Xi>0$. For reversible drift with $\xin>\xout$, the hypothesis of part (a) of that theorem, $\Xi=0$ exactly when $y$ is Markov: a Markov $y$ has a single-exponential autocorrelation, which makes $\phi_C$ an eigenvector of $M$ with eigenvalue $\xout$, and every other eigenvalue of $M$ is then at least $\xin>\xout$, so that $\varpi_1=\xout$.
+\item[(ii)] $C$ is closed at tolerances $(\alpha_{\mathrm M},\alpha_{\mathrm I})$, with $\alpha_{\mathrm M}$ in nats, when three clauses hold; when the declared memory measure is the Markov error, a dimensionless tolerance $\alpha_\Xi$ on a gap between correlations takes the place of $\alpha_{\mathrm M}$. Declaration: a constrained coarse variable is declared before the analysis, either the pooled sufficient statistics of the members' beliefs about $\eta_C$ or the collective average of the contrast definition. Memory: $\mathfrak d_{\mathrm M}\le\alpha_{\mathrm M}$, with the input-conditional form of (i) when the blanket carries input, or $\Xi\le\alpha_\Xi$. Inference: the belief that $y$ encodes is within $\alpha_{\mathrm I}$, in relative entropy, of the posterior of the union model.
+\item[(iii)] The closure order $\mathrm{ord}(\alpha_{\mathrm M})$ is the least number of linear functionals of the filter state of \cref{thm:agy-closure-identity}(d) that must be adjoined to $y$ for the memory clause to hold. It is distinct from the minimal order $d^\ast$ of \cref{def:met-abstract-physics}, which counts linear functionals of the hidden coordinates that give a closed equation of motion: the closure order asks only for a Markov law of the coarse path within the tolerance, and for a coarse variable to which both notions apply $\mathrm{ord}(\alpha_{\mathrm M})\le\mathrm{ord}(0)\le d^\ast$, with strict inequality possible, in the second place even at tolerance zero (see the discussion after \cref{thm:met-abstract-physics} and \cref{chk:met-orders}).
+\end{enumerate}
+\end{definition}
+% src: B4-D5, L2-D8, L2-D9
+
+The coarse variable must be constrained, because an unconstrained $\mathsf P$ whose rows span a subspace invariant under $A^\top$ is exactly closed \citep{dennis2026communicating}, so that closure of some summary selects nothing. The definition asks for small memory, which is distinct from statistical sufficiency of the summary and from a slow retained spectrum (Supplement, \cref{sup:agy-commentary-on-closure}).
+
+\begin{theorem}[Exact reduction with memory]\label{thm:agy-mori-zwanzig}
+In \eqref{eq:agy-interior} let $Z$ complete $\mathsf P$ to an invertible matrix $\mathcal Z=\binom{\mathsf P}{Z}$, put $x_\perp=Zx$, and write the blocks of $\mathcal ZA\mathcal Z^{-1}$, $\mathcal ZB$ and $\mathcal Z\mathfrak n_t$ as $A_{yy},A_{y\perp},A_{\perp y},A_{\perp\perp}$, $B_y,B_\perp$ and $\mathfrak n^y_t,\mathfrak n^\perp_t$. Then for every $t\ge0$
+\begin{equation}\label{eq:agy-memory}
+y_{t+1}=A_{yy}y_t+\sum_{l=1}^t\Gamma_ly_{t-l}+B_yx_{\sB,t}+\sum_{l=1}^t\Gamma^{\sB}_lx_{\sB,t-l}+\mathfrak f_{t+1},
+\end{equation}
+with memory kernels $\Gamma_l=A_{y\perp}A_{\perp\perp}^{l-1}A_{\perp y}$ and $\Gamma^{\sB}_l=A_{y\perp}A_{\perp\perp}^{l-1}B_\perp$ and colored noise
+\begin{equation*}
+\mathfrak f_{t+1}=A_{y\perp}A_{\perp\perp}^tx_{\perp,0}+\sum_{s=0}^{t-1}A_{y\perp}A_{\perp\perp}^{t-1-s}\mathfrak n^\perp_s+\mathfrak n^y_t.
+\end{equation*}
+\begin{enumerate}
+\item[(a)] If $x$ is stationary without input, with covariance $\Sigma$, and $Z\Sigma\mathsf P^\top=0$ (the Mori complement), then $\rho(A_{\perp\perp})<1$, so the kernels decay geometrically, and $\Cov(\mathfrak f_{t+1},y_0)=0$ for every $t$.
+\item[(b)] In continuous time, $\mathrm dx=-Mx\mathrm dt+\text{noise}$ gives $\dot y(t)=-M_{yy}y(t)+\int_0^t\Gamma(t-t')y(t')\mathrm dt'+\mathfrak f(t)$, with kernel $\Gamma(u)=M_{y\perp}e^{-M_{\perp\perp}u}M_{\perp y}$ and $\mathfrak f$ collecting the initial and noise terms.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-mori-zwanzig}.
+\end{theorem}
+% src: L2-T4, L7-P11, L6-P6(a)
+
+\Cref{thm:agy-mori-zwanzig} is the discrete-time form of the projection of \citet{zwanzig1961memory} and \citet{mori1965transport} and states \cref{asm:int-a7} in exact form; the same identity carries the other closure statements. Its relation to the static correction of \cref{thm:col-bridge} and to the adiabatic reduction of \citet{friston2019free} is in the Supplement (\cref{sup:agy-commentary-on-closure}).
+
+\begin{theorem}[Closure of a linear collective]\label{thm:agy-closure-identity}
+In the setting of \cref{thm:agy-mori-zwanzig}:
+\begin{enumerate}
+\item[(a)] (One identity.) The representation \eqref{eq:agy-memory} holds for arbitrary real matrices, with no symmetry, reversibility or stability assumed. When $\mathsf P$ retains the errors of a set $R$ of agents of the level-0 network (\cref{def:fw-level0}) and the errors of the other agents, $\bar R$, are eliminated, its kernels are $\Gamma_l=W_{R\bar R}W_{\bar R\bar R}^{l-1}W_{\bar RR}$.
+\item[(b)] (Sufficiency.) The following are equivalent: (i) $A\ker\mathsf P\subseteq\ker\mathsf P$; (ii) $A_{y\perp}=0$ for one, equivalently every, complement; (iii) the memory, initial-state and colored-noise terms of \eqref{eq:agy-memory} vanish for every initial law; (iv) in the stationary case without input, $\mathfrak d_{\mathrm{cl}}=0$. For a coordinate selection, (ii) reads $W_{R\bar R}=0$: the retained agents do not read the eliminated ones at all.
+\item[(c)] (Sufficiency bounds memory.) In the stationary case without input,
+\begin{equation}\label{eq:agy-closure-defect}
+\mathfrak d_{\mathrm{cl}}=\frac12\ln\det\bigl(I+(\mathsf PQ^{\mathfrak n}\mathsf P^\top)^{-1}\mathsf PA\Sigma_{x\mid y}A^\top\mathsf P^\top\bigr),\qquad\Sigma_{x\mid y}=\Sigma-\Sigma\mathsf P^\top(\mathsf P\Sigma\mathsf P^\top)^{-1}\mathsf P\Sigma,
+\end{equation}
+and $\mathfrak d_{\mathrm M}\le\mathfrak d_{\mathrm{cl}}$.
+\item[(d)] (Memory restores closure.) Let the initial law be Gaussian and the input path known, deterministic or independent of $(x_0,\mathfrak n)$. Then $\hat x_{\perp,t}=\E[x_{\perp,t}\mid y_{0:t},x_{\sB,0:t}]$ is computed by a Kalman filter of dimension $\dim x-\dim y$ whose covariance does not depend on the data, and $(y_t,\hat x_{\perp,t})$ is a Markov state for the law of $y$ given the input path. In particular $\mathrm{ord}(\alpha_{\mathrm M})\le\dim x-\dim y$ for every $\alpha_{\mathrm M}\ge0$.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-mori-zwanzig}.
+\end{theorem}
+% src: B4-T3 (parts (a), (b), (c), (f)), L2-P13, L6-P6(c), L7-P11, L7-P12
+
+Part (b) implies that the summary of a collective whose boundary hears its interior is never sufficient, $\mathfrak d_{\mathrm{cl}}>0$, although its memory $\mathfrak d_{\mathrm M}$ may still vanish. Part (d) is an open-loop statement: for an input path generated by feedback from the retained or hidden coordinates, as the active states of a blanket are, neither the filter nor the order bound is established here. An instance, the links to later sections, the least dimension of an exact linear memory and the open question of the least Markov augmentation in law are in the Supplement (\cref{sup:agy-memory-and-closure-of-the-average,rem:agy-minimal-memory,open:agy-realization}).
+
+The memory of the collective average is controlled by contrast. We state the result for continuous-time linear dynamics of the members' errors with the exterior held fixed, so that the exterior acts as a reservoir; the Markov error compares the autocorrelation of the average with a single exponential.
+
+\begin{theorem}[Markov closure of the collective average]\label{thm:agy-closure-average}
+Let the members of $C$ evolve as $\mathrm dx_t=-Mx_t\mathrm dt+\sqrt2\mathrm d\mathsf B_t$, with $\mathsf B$ a standard Brownian motion, the exterior held fixed and $M_{\mathrm{sym}}=\frac12(M+M^\top)\succ0$. Let $\phi_C=\one/\sqrt n$ be the collective mode of \cref{def:col-contrast}, let the rows of $Z$ be an orthonormal basis of $\one^\perp$, let $y=\phi_C^\top x$, and in the stationary state let
+\begin{equation}\label{eq:agy-markov-error}
+\Xi=\sup_{u\ge0}\bigl\lvert\Corr(y_t,y_{t+u})-e^{-\varpi_1u}\bigr\rvert,
+\end{equation}
+with $\varpi_1$ the eigenvalue of $M$ of smallest real part, which is real and simple under the hypotheses of (a) and of (b)(ii).
+\begin{enumerate}
+\item[(a)] (Reversible drift, contrast of \cref{def:col-contrast}.) Let $M=\Pi_{CC}$, the block on $C$ of a diffusive precision $\Pi$ with leaks $\varepsilon^\Pi_i$ and cut couplings $a^\partial_i$, let $\xout$, $\xin$ and $r(C)$ be its rates and contrast, and let $\sigma_C=\lvert(M-\xout)\phi_C\rvert$, the root-mean-square deviation of the members' total leaks $\varepsilon^\Pi_i+a^\partial_i$ from their mean $\xout$. If $\xin>\xout$, the exact reduced equation of $y$ has a memory kernel with $0\le\Gamma(u)\le\sigma_C^2e^{-\xin u}$; $\xout-\sigma_C^2/(\xin-\xout)\le\varpi_1\le\xout$; the eigenvector of $\varpi_1$ makes an angle with $\phi_C$ whose tangent is at most $\sigma_C/(\xin-\xout)$; and, with no condition on $\sigma_C$,
+\begin{equation}\label{eq:agy-markov-sym}
+\Xi\le\Bigl(\frac{\sigma_C}{\xin-\xout}\Bigr)^2\frac{\xout}{\xin}.
+\end{equation}
+\item[(b)] (General drift, drift-based contrast.) Let $\xout^M=\phi_C^\top M\phi_C$ and $\xin^M=\lambda_{\min}(ZM_{\mathrm{sym}}Z^\top)$, whose ratio $r^M=\xin^M/\xout^M$ is the drift-based contrast, assume $\xin^M>\xout^M$, and let $f_{\mathrm{row}}=ZM\phi_C$ and $f_{\mathrm{col}}=ZM^\top\phi_C$, whose norms $\sigma_{\mathrm{row}}$ and $\sigma_{\mathrm{col}}$ are the root-mean-square deviations of the row sums and of the column sums of $M$ from their mean. Then:
+\begin{enumerate}
+\item[(i)] the memory kernel is $\Gamma(u)=f_{\mathrm{col}}^\top e^{-ZMZ^\top u}f_{\mathrm{row}}$, and $\lvert\Gamma(u)\rvert\le\sigma_{\mathrm{col}}\sigma_{\mathrm{row}}e^{-\xin^Mu}$;
+\item[(ii)] if $4\sigma_{\mathrm{row}}\sigma_{\mathrm{col}}<(\xin^M-\xout^M)^2$, then $\varpi_1$ is real and simple with $\lvert\varpi_1-\xout^M\rvert\le2\sigma_{\mathrm{row}}\sigma_{\mathrm{col}}/(\xin^M-\xout^M)$, its right and left eigenvectors make angles with $\phi_C$ whose tangents are at most $2\sigma_{\mathrm{row}}/(\xin^M-\xout^M)$ and $2\sigma_{\mathrm{col}}/(\xin^M-\xout^M)$, and every other eigenvalue of $M$ has real part at least $\xin^M-2\sigma_{\mathrm{row}}\sigma_{\mathrm{col}}/(\xin^M-\xout^M)$;
+\item[(iii)] if $\sigma_{\mathrm{row}},\sigma_{\mathrm{col}}\le(\xin^M-\xout^M)/4$, then
+\begin{equation}\label{eq:agy-markov-gen}
+\Xi\le\frac{76\sigma_{\mathrm{col}}(\sigma_{\mathrm{col}}+\sigma_{\mathrm{row}})\varpi_1}{(\xin^M-\xout^M)^2\xin^M},
+\end{equation}
+and if in addition $\sigma_{\mathrm{row}}\sigma_{\mathrm{col}}\le\xout^M(\xin^M-\xout^M)/2$, then $\Xi\le152\sigma_{\mathrm{col}}(\sigma_{\mathrm{col}}+\sigma_{\mathrm{row}})\xout^M/((\xin^M-\xout^M)^2\xin^M)$;
+\item[(iv)] $\sigma_{\mathrm{row}},\sigma_{\mathrm{col}}\le\sigma_{\mathrm{sym}}+\sigma_{\mathrm{circ}}$, where $\sigma_{\mathrm{sym}}=\lvert ZM_{\mathrm{sym}}\phi_C\rvert$ is the dispersion of the symmetric part and $\sigma_{\mathrm{circ}}=\lvert M_{\mathrm{anti}}\phi_C\rvert\le\frac12\Vert M-M^\top\Vert$, with $M_{\mathrm{anti}}=\frac12(M-M^\top)$, is the root-mean-square circulation. For a leak plus directed attention, $M_{ii}=\varepsilon_i+\sum_ja_{ij}$ and $M_{ij}=-a_{ij}$ with weights $a_{ij}\ge0$ of receiver $i$ on sender $j$, $2\sigma_{\mathrm{circ}}$ is the root-mean-square difference between the attention a member receives, $\sum_ja_{ji}$, and the attention it gives, $\sum_ja_{ij}$.
+\end{enumerate}
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-closure-average}.
+\end{theorem}
+% src: L2-T5, L2-L3, B3-T3
+
+Part (a) says that, for the reversible diffusion with drift $\Pi^c_{CC}$ and the exterior held fixed, the contrast that selects a collective also makes its average close. Part (b) covers non-reversible drift through the drift-based contrast $r^M$, which is not the selecting contrast $r(C)$: a closure theorem in terms of $r(C)$ for non-reversible drift is open, as is a version for the discrete-time level-0 recursion beyond the reversible case for one coordinate of \cref{lem:met-discrete-closure}. The regimes and extensions of the theorem and a counterexample to an earlier conjecture, which used the dispersion of the symmetric part alone, are in the Supplement (\cref{sup:agy-memory-and-closure-of-the-average,open:agy-discrete-closure,ex:agy-symmetric-dispersion}). \Cref{prop:agy-drift-precision} compares the drift-based rates of part (b) with the Rayleigh quotients of the stationary precision.
+
+\begin{proposition}[Drift-based and precision-based rates]\label{prop:agy-drift-precision}
+Let $\mathrm dx_t=-Mx_t\mathrm dt+\sqrt2\mathrm d\mathsf B_t$ be stable, with stationary covariance $\Sigma$, stationary precision $\Pi=\Sigma^{-1}$ and stationary current $J=\frac12(M\Sigma-\Sigma M^\top)$, which is antisymmetric. Then $M=(I+J)\Pi$ and $M_{\mathrm{sym}}=\Pi+\frac12(J\Pi-\Pi J)$, so that for every unit vector $f$
+\begin{equation}\label{eq:agy-drift-precision}
+\bigl\lvert f^\top M_{\mathrm{sym}}f-f^\top\Pi f\bigr\rvert\le\Vert J\Vert\bigl\lvert(I-ff^\top)\Pi f\bigr\rvert\le\Vert J\Vert\Vert\Pi f\Vert.
+\end{equation}
+Every Rayleigh quotient of $M_{\mathrm{sym}}$, and every minimum of Rayleigh quotients over a subspace, therefore differs from the corresponding quantity for $\Pi$ by at most $\Vert J\Vert\Vert\Pi\Vert$; in particular $\lvert\xout^M-\phi_C^\top\Pi\phi_C\rvert\le\Vert J\Vert\lvert(I-\phi_C\phi_C^\top)\Pi\phi_C\rvert$, which vanishes when $\phi_C$ is an eigenvector of $\Pi$. The two coincide for reversible dynamics, $J=0$. Proof in \cref{app:agy}; checked in \cref{chk:agy-drift-precision}.
+\end{proposition}
+% src: B3-R3
+
+\Cref{prop:agy-drift-precision} compares rates and not contrasts; what this implies for the drift-based contrast, with computed instances, is in the Supplement (\cref{sup:agy-memory-and-closure-of-the-average}).
+
+Inferential closure asks whether the collective's belief is the posterior that one agent would hold if it had all the members' data. With a common prior and conditionally independent private data the answer is a pooling rule.
+
+\begin{proposition}[Pooling]\label{prop:agy-pooling}
+Let the members share the prior $p_\circ=\Ncal(m_\circ,P_\circ)$ on $\eta_C$ and sense $s_i=H^s_i\eta_C+v_i$ with $v_i\sim\Ncal(0,R^s_i)$ independent of each other and of $\eta_C$, so that their posteriors are $q_i=\Ncal(m_i,P_i)$. Write $\Lambda^s_i=(H^s_i)^\top(R^s_i)^{-1}H^s_i$ and $h^s_i=(H^s_i)^\top(R^s_i)^{-1}s_i$ for the information contributions.
+\begin{enumerate}
+\item[(a)] The union-model posterior is the prior-corrected logarithmic pool $\prod_iq_i/p_\circ^{n-1}$, normalized, with precision $\sum_iP_i^{-1}-(n-1)P_\circ^{-1}=P_\circ^{-1}+\sum_i\Lambda^s_i$: the prior plus $n$ times the average information contribution.
+\item[(b)] The logarithmic pool with weights $1/n$ has precision $P_\circ^{-1}+\frac1n\sum_i\Lambda^s_i$ and counts the data $1/n$ times; the product of posteriors has precision $nP_\circ^{-1}+\sum_i\Lambda^s_i$ and counts the prior $n$ times.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-consensus}.
+\end{proposition}
+% src: L2-P14(a), (b)
+
+On a tree of levels, exact inference counts the prior and every datum once by sending likelihoods upward and leave-one-out priors downward (\cref{thm:hie-messages}).
+
+In a dynamic world, exact inferential closure is the distributed Kalman filter of \citet[Theorem~1]{olfatisaber2005distributed}: if every member knows, at every step, the averages of the information matrices and of the weighted measurements, the sensing noises are uncorrelated and every member knows $n$, then each member's filter reproduces the centralized estimate. The theorem needs exact average consensus at every step and gives no bound at a finite consensus rate. \Cref{prop:agy-consensus} gives such a bound for consensus on information contributions, and \cref{prop:agy-literal-consensus} of the Supplement shows that literal consensus on beliefs, read at level 1, has none.
+
+\begin{proposition}[Consensus on information contributions]\label{prop:agy-consensus}
+In the setting of \cref{prop:agy-pooling}, with $\Lambda_\circ=P_\circ^{-1}$, let the members run $n_{\mathrm c}$ rounds of linear consensus with a symmetric, doubly stochastic, entrywise nonnegative matrix $\mathcal W$ on their contributions, and let $\rho_\perp=\rho(\mathcal W-\frac1n\one\one^\top)<1$.
+\begin{enumerate}
+\item[(a)] (Static world.) Member $i$'s belief after $n_{\mathrm c}$ rounds, with precision $\Lambda_i=\Lambda_\circ+n\sum_j(\mathcal W^{n_{\mathrm c}})_{ij}\Lambda^s_j$ and information vector $h_i=\Lambda_\circ m_\circ+n\sum_j(\mathcal W^{n_{\mathrm c}})_{ij}h^s_j$, is proper, $\Lambda_i\succeq\Lambda_\circ$, and with $(h^\ast,\Lambda^\ast)$ the natural parameters of the union-model posterior and bars denoting averages over members,
+\begin{equation}\label{eq:agy-consensus-static}
+\Bigl(\sum_i\lvert h_i-h^\ast\rvert^2\Bigr)^{1/2}\le n\rho_\perp^{n_{\mathrm c}}\Bigl(\sum_i\lvert h^s_i-\bar h^s\rvert^2\Bigr)^{1/2};
+\end{equation}
+the same holds for the precisions in the Frobenius norm, $\lvert m_i-m^\ast\rvert\le\Vert\Lambda_\circ^{-1}\Vert(\lvert h_i-h^\ast\rvert+\Vert\Lambda_i-\Lambda^\ast\Vert\lvert m^\ast\rvert)$, and $\KL(q_i\Vert p^\ast)\le\Vert X_i\Vert_F^2+\frac12(m_i-m^\ast)^\top\Lambda^\ast(m_i-m^\ast)$ whenever $X_i=(\Lambda^\ast)^{-1/2}(\Lambda_i-\Lambda^\ast)(\Lambda^\ast)^{-1/2}$ has operator norm at most $\frac12$.
+\item[(b)] (Dynamic world.) Let $\eta_{t+1}=F\eta_t+w_t$, let every member know $\Lambda^s=\sum_i\Lambda^s_i$ and, at each world step, run $n_{\mathrm c}$ consensus rounds on its current contribution $h^s_i(t)$, obtaining $\tilde h_i(t)$, followed by the update $\hat\eta^{(i)}_{t\mid t}=F\hat\eta^{(i)}_{t-1\mid t-1}+\bar P(n\tilde h_i(t)-\Lambda^sF\hat\eta^{(i)}_{t-1\mid t-1})$, where $\bar P$ and $\bar P^-$ are the steady-state posterior and prior covariances of the centralized filter and all members start from the centralized estimate. If the closed-loop matrix $A_{\mathrm{cl}}=\bar P(\bar P^-)^{-1}F$ satisfies $\Vert A_{\mathrm{cl}}^l\Vert\le M_{\mathrm{cl}}\alpha_{\mathrm{cl}}^l$ with $\alpha_{\mathrm{cl}}<1$, the deviations $\mathrm{dev}_i(t)$ of the members' estimates from the steady-state centralized one obey, pathwise,
+\begin{equation}\label{eq:agy-consensus-dynamic}
+\sup_t\Bigl(\sum_i\lvert\mathrm{dev}_i(t)\rvert^2\Bigr)^{1/2}\le\frac{M_{\mathrm{cl}}n\Vert\bar P\Vert\rho_\perp^{n_{\mathrm c}}}{1-\alpha_{\mathrm{cl}}}\sup_t\Bigl(\sum_i\lvert h^s_i(t)-\bar h^s(t)\rvert^2\Bigr)^{1/2},
+\end{equation}
+and the same holds in mean square; for a zero-mean stationary world with covariance $P_0$, $\sum_i\E\lvert h^s_i-\bar h^s\rvert^2=\sum_i\tr[(\Lambda^s_i-\bar\Lambda^s)P_0(\Lambda^s_i-\bar\Lambda^s)]+(1-\frac1n)\sum_i\tr\Lambda^s_i$. Every member's belief has the centralized covariance $\bar P$, and its relative entropy to the centralized posterior is $\frac12\mathrm{dev}_i(t)^\top\bar P^{-1}\mathrm{dev}_i(t)$.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-consensus}.
+\end{proposition}
+% src: B4-P7
+
+As $n_{\mathrm c}\to\infty$ the deviation vanishes, which is the exact statement of the distributed Kalman filter. The pathwise exactness of the members' average under any consensus matrix that preserves sums (\cref{prop:met-consensus-filter}(b)), the reading of \eqref{eq:agy-consensus-dynamic} as \cref{asm:int-a6} in quantitative form and the literal reading of a neighbor's posterior at level 1 are discussed in the Supplement (\cref{sup:agy-commentary-on-closure}).
+
+For a scalar static world on a connected undirected graph, under the hypotheses stated there, literal consensus at level 1 drives every member's mean to a pool weighted by eigenvector centrality while the believed precision diverges, and the limit is the union-model posterior mean for all data if and only if the prior is flat and the graph regular (Supplement, \cref{prop:agy-literal-consensus}).
+
+The dependence of inferential closure on the interpretation level is therefore categorical: consensus on information contributions, which is the information form of exact fusion, closes at the geometric rate of the consensus matrix, and literal consensus at level 1 closes at no rate, with a bias toward central members in the mean, the persuasion bias of \citet{demarzo2003persuasion}, and divergent overconfidence. The same contrast for collective beliefs formed at every step, for records and across levels is traced in the Supplement (\cref{sup:agy-commentary-on-closure}).
+
+Inferential closure under exact, cross-covariance-aware fusion of posterior messages after a finite number of rounds is open (Supplement, \cref{open:agy-exact-fusion-consensus}), and \cref{rem:agy-location-family} there recalls the sense in which a mean-pooled belief closes exactly under common-message dynamics only in a Gaussian location family.
+
+\subsection{Agency}\label{sec:agy-agency}
+
+A collective is an agent when the joint law of its members' policies is the law that one agent would produce by minimizing a collective expected free energy. Each member minimizes only its own expected free energy, so whether this happens depends on how the members deliberate and on what they believe; the earlier report found it to fail when members who share inputs decide once and simultaneously \citep{dennis2026communicating}. We show that it holds exactly under a stated protocol when the members agree on the redundancy of their inputs and some belief carries the agreed redundancies, as when their beliefs differ only in location, and within explicit distances otherwise.
+
+\begin{definition}[Group model and deliberation protocol]\label{def:agy-group-model}
+Let each member $i\in C$ have a finite policy set $\mathcal A_i$ containing a null policy $0$, and let $\mathcal A=\prod_{i\in C}\mathcal A_i$ be the set of profiles. Policy $\pi_i$ opens a set $\mathfrak B_i(\pi_i)$ of slots, exterior-facing sensory channels that a policy can open, disjoint across members, with $\mathfrak B_i(0)=\varnothing$; write $A_{-i}$ for the slots opened by the other members and $A_{-ij}$ for those opened by members other than $i$ and $j$. Slot outcomes $o_A$ are conditionally independent across slots given $\eta_C$, with likelihoods that every belief shares, and all mutual informations below are finite. A group model consists of a belief $q_C$ about $\eta_C$, declared as a function of the collective's coarse state (\cref{def:agy-closure}); a slot-product preference, whose pragmatic term on a slot set $A$ under a belief $q$, $\psi_A(q)=-\E_{q(o_A)}\ln\tilde p_A(o_A)$, is additive over disjoint slot sets; a precision $\gamma_C$; and habits $E_C$ on $\mathcal A$. Its expected free energy and group posterior are
+\begin{equation}\label{eq:agy-group-efe}
+G_C(\pi)=-I_{q_C}\bigl(\eta_C;o_{\mathfrak B(\pi)}\bigr)+\sum_{j\in C}\psi^{(j)}_{\mathfrak B_j(\pi_j)}(q_C),\qquad\mathbb P_C(\pi)\propto E_C(\pi)e^{-\gamma_CG_C(\pi)},
+\end{equation}
+each slot's pragmatic term being that of the member $j$ who controls it. Collective agency holds at a decision state when the actual law of the members' joint policy equals $\mathbb P_C$ for a group model of a declared admissible class (\cref{def:agy-agency-index}). The deliberation protocol, at a decision state held fixed while the members deliberate, consists of the following hypotheses.
+\begin{enumerate}
+\item[(P0)] Shared belief: every member's belief about $\eta_C$ is $q_C$. This hypothesis is used only where stated.
+\item[(P1)] Slot-product preferences: member $i$'s preference over the slot outcomes it receives factorizes over slots, with pragmatic terms $\psi^{(i)}$.
+\item[(P2)] Data and intention sharing: each member expects to receive all opened slots, its co-members' included, before the inference that its expected free energy evaluates, and knows the others' current policies.
+\item[(P3)] One precision $\gamma>0$ and product habits $\prod_iE_i$ with full support.
+\item[(P4)] Asynchronous deliberation: at each event one member, chosen uniformly, resamples its policy with probability proportional to $E_i(\pi_i)\exp(-\gamma G_i(\pi_i,\pi_{-i}))$.
+\end{enumerate}
+\end{definition}
+% src: L2-D10, L2-T6 (H-a) to (H-e), B4-D1
+
+Under (P1) and (P2) a member with belief $q_i$ evaluates, by the expected free energy of \cref{sec:fw},
+\begin{equation}\label{eq:agy-member-efe}
+G_i(\pi)=-I_{q_i}\bigl(\eta_C;o_{\mathfrak B(\pi)}\bigr)+\psi^{(i)}_{\mathfrak B(\pi)}(q_i).
+\end{equation}
+We write $\mathbb P^\infty$ for the stationary law of the chain (P4) and compare it with a group model whose belief $q_C$ is declared, for instance the prior-corrected pool of \cref{prop:agy-pooling}.
+
+\begin{lemma}[Decomposition of individual expected free energies]\label{lem:agy-decomposition}
+For every member $i$ and profile $\pi$, with $A=\mathfrak B_i(\pi_i)$,
+\begin{equation}\label{eq:agy-decomposition}
+G_i(\pi)=\Phi(\pi)+\mathcal R_i(\pi)+\bigl(\text{a function of }\pi_{-i}\bigr),\qquad\mathcal R_i(\pi)=\bigl[I_{q_i}-I_{q_C}\bigr]\bigl(o_A;o_{A_{-i}}\bigr),
+\end{equation}
+where $\Phi=G_C+\sum_j\mathcal T_j$ is common to all members and $\mathcal T_j(\pi_j)=-[I_{q_j}-I_{q_C}](\eta_C;o_{\mathfrak B_j(\pi_j)})+\psi^{(j)}_{\mathfrak B_j(\pi_j)}(q_j)-\psi^{(j)}_{\mathfrak B_j(\pi_j)}(q_C)$ depends on member $j$'s policy only. Proof in \cref{app:agy}; checked in \cref{chk:agy-heterogeneous}.
+\end{lemma}
+% src: B4-L1
+
+The term $\mathcal R_i$ is member $i$'s disagreement with the declared belief about how redundant its own inputs are with its co-members' inputs; $\mathcal T_j$ is a bias of member $j$ toward its own slots. For members $i\ne j$, policies $\pi_i,\pi'_i\in\mathcal A_i$ and $\pi_j,\pi'_j\in\mathcal A_j$ and fixed policies of the others, write $\partial^2_{ij}F=F(\pi'_i,\pi'_j)-F(\pi'_i,\pi_j)-F(\pi_i,\pi'_j)+F(\pi_i,\pi_j)$ for the second difference of a function $F$ of the profile.
+
+\begin{theorem}[Collective agency from individual expected free energies]\label{thm:agy-agency}
+Assume (P1) to (P4) of \cref{def:agy-group-model}, with member beliefs $q_i$ and a declared belief $q_C$.
+\begin{enumerate}
+\item[(a)] The closed path in which $i$ moves from $\pi_i$ to $\pi'_i$, $j$ from $\pi_j$ to $\pi'_j$, $i$ back to $\pi_i$ and $j$ back to $\pi_j$ has forward-to-backward ratio of transition probabilities $\exp(-\gamma\mathcal L_{ij})$, with $\mathcal L_{ij}=\partial^2_{ij}\mathcal R_j-\partial^2_{ij}\mathcal R_i$. Through the null policies, $\pi_i=\pi_j=0$,
+\begin{equation}\label{eq:agy-cycle}
+\mathcal L_{ij}=I_{q_j}\bigl(o_{A'};o_{B'}\mid o_{A_{-ij}}\bigr)-I_{q_i}\bigl(o_{A'};o_{B'}\mid o_{A_{-ij}}\bigr),\qquad A'=\mathfrak B_i(\pi'_i),\quad B'=\mathfrak B_j(\pi'_j).
+\end{equation}
+\item[(b)] The following are equivalent: the deliberation chain is reversible; the members' expected free energies form an exact potential game; every two members agree on the redundancy of their inputs, that is, the two conditional mutual informations in \eqref{eq:agy-cycle} are equal for all pairs of members, policies and contexts. The declared belief $q_C$ does not enter.
+\item[(c)] In that case the unique stationary law is $\mathbb P^\infty(\pi)\propto\prod_iE_i(\pi_i)\exp(-\gamma\Phi'(\pi))$ with
+\begin{equation}\label{eq:agy-potential}
+\Phi'(\pi)=\sum_{k=1}^n\Bigl[-I_{q_k}\bigl(\eta_C;o_{A_k}\bigr)+\psi^{(k)}_{A_k}(q_k)+I_{q_k}\bigl(o_{A_k};o_{A_1},\dots,o_{A_{k-1}}\bigr)\Bigr],\qquad A_k=\mathfrak B_k(\pi_k),
+\end{equation}
+for any ordering $1,\dots,n$ of the members: own information gains and pragmatic terms, which tilt the habits, plus an agreed charge for redundancy. If $q_C$ has the agreed conditional redundancies, $\mathbb P^\infty$ is the group posterior of the group model with belief $q_C$, precision $\gamma$ and habits $\prod_iE_ie^{-\gamma\mathcal T_i}$; for two members $q_C=q_1$ qualifies.
+\item[(d)] If the slots are linear with additive noise independent of $\eta_C$ and the beliefs are translates of one law, $q_i(\eta_C)=q(\eta_C-m_i)$ (for Gaussian beliefs, one covariance and arbitrary means), then $\mathcal R_i\equiv0$, the members agree on redundancy, and for every translate $q_C$, $\mathbb P^\infty$ is the group posterior of the group model with belief $q_C$, precision $\gamma$ and habits $\prod_iE_ie^{-\gamma\mathcal T_i}$, where now $\mathcal T_i(\pi_i)=\psi^{(i)}_{\mathfrak B_i(\pi_i)}(q_i)-\psi^{(i)}_{\mathfrak B_i(\pi_i)}(q_C)$. Under (P0), for any slot likelihoods, the tilts vanish, $\mathbb P^\infty\propto\prod_iE_ie^{-\gamma G_C}$, and the part of member $i$'s epistemic term that depends on its own policy is its conditional information gain $-I_{q_C}(\eta_C;o_{\mathfrak B_i(\pi_i)}\mid o_{A_{-i}})$, the remainder $-I_{q_C}(\eta_C;o_{A_{-i}})$ being a function of $\pi_{-i}$.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-agency,chk:agy-heterogeneous}.
+\end{theorem}
+% src: L2-T6, L2-P15, B4-L2, B4-P1; part (c), last sentence, derived here from B4-L2
+
+Collective agency is therefore neither automatic nor dependent on a team objective. Each member minimizes its own expected free energy, and what makes the collective an agent is what the members share: data and announced intentions, which turn each member's expected free energy into its contribution to a common potential, and agreement on how redundant their inputs are. Agreement on the shape of beliefs, not on their location, suffices for exact agency with the tilted habits $\prod_iE_ie^{-\gamma\mathcal T_i}$: members whose Gaussian beliefs share a covariance but differ in their means form an exact group posterior, and their disagreement about where the world is enters only as a bias of each member toward its own slots. Under (P0) a member values only the information its co-members will not collect. The Gibbs form of the stationary law of asynchronous logit revision in potential games is due to \citet{blume1993statistical}, which we know through secondary accounts, and the four-cycle criterion for exact potential games is Theorem~2.8 of \citet{monderer1996potential}, which we read in the restatement of \citet{arefizadeh2024characterizations}; \cref{lem:agy-four-cycle} proves the criterion in the form used, so the argument is self-contained.
+
+With a common belief and member-specific precisions $\gamma_i$, the differences in precision act as a redundancy disagreement of bounded size, and \cref{thm:agy-heterogeneous} below applies at the mean precision with the resulting tilts of the members' habits included in $\Phi$ (Supplement, \cref{rem:agy-precisions}).
+
+When the members disagree about redundancy, deliberation is not reversible, and its stationary law has no closed form. It stays close to a group posterior when the disagreement is small, in three senses that cover different regimes.
+
+\begin{theorem}[Deliberation with heterogeneous beliefs]\label{thm:agy-heterogeneous}
+Assume (P1) to (P4). Let $\sigma_i=\max_{\pi_{-i}}\operatorname{osc}_{\pi_i}\mathcal R_i(\pi_i,\pi_{-i})$, where $\operatorname{osc}=\max-\min$, let $\sigma_{\max}=\max_i\sigma_i$, let $\mathbb P_\Phi\propto\prod_iE_ie^{-\gamma\Phi}$, and let $\mathsf T$ and $\mathsf T_\Phi$ be the deliberation chains of the members' expected free energies and of the potential $\Phi$. Then $e^{-\gamma\sigma_{\max}}\le\mathsf T(\pi,\pi')/\mathsf T_\Phi(\pi,\pi')\le e^{\gamma\sigma_{\max}}$ whenever $\mathsf T_\Phi(\pi,\pi')>0$, and:
+\begin{enumerate}
+\item[(a)] (Tree bound.) For every profile
+\begin{equation*}
+\bigl\lvert\ln\bigl(\mathbb P^\infty(\pi)/\mathbb P_\Phi(\pi)\bigr)\bigr\rvert\le2(\lvert\mathcal A\rvert-1)\gamma\sigma_{\max},
+\end{equation*}
+while $\mathrm{TV}(\mathbb P^\infty,\mathbb P_\Phi)\le\tanh((\lvert\mathcal A\rvert-1)\gamma\sigma_{\max}/2)$ and $\KL(\mathbb P^\infty\Vert\mathbb P_\Phi)\le2(\lvert\mathcal A\rvert-1)\gamma\sigma_{\max}$.
+\item[(b)] (Contraction bound.) For $i\ne j$ let $\mathfrak I_{ij}$ be the largest total-variation distance between member $i$'s conditionals under $\mathbb P_\Phi$ at two profiles of the others that differ only in member $j$'s policy, and let $\mathfrak D_\Phi=\max_j\sum_{i\ne j}\mathfrak I_{ij}$. If $\mathfrak D_\Phi<1$,
+\begin{equation}\label{eq:agy-contraction}
+\mathrm{TV}(\mathbb P^\infty,\mathbb P_\Phi)\le\frac{\sum_i\tanh(\gamma\sigma_i/4)}{1-\mathfrak D_\Phi}.
+\end{equation}
+The influences satisfy $\mathfrak I_{ij}\le\tanh(\gamma\Vert\partial^2_{ij}G_C\Vert_\infty/4)$, where $\Vert\partial^2_{ij}G_C\Vert_\infty\le2\max I_{q_C}(o_A;o_B\mid o_{A_{-ij}})$ over slot sets $A$ of $i$, $B$ of $j$ and contexts, without the factor $2$ when $\lvert\mathcal A_i\rvert=\lvert\mathcal A_j\rvert=2$. Hence $\mathfrak D_\Phi<1$, a condition of the type of \citet{dobrushin1970prescribing}, holds whenever $\gamma\max_j\sum_{i\ne j}\Vert\partial^2_{ij}G_C\Vert_\infty<4$.
+\item[(c)] (Spectral bound.) Let $\mathrm{gap}_\Phi$ be the spectral gap of $\mathsf T_\Phi$ in $L^2(\mathbb P_\Phi)$. If $e^{\gamma\sigma_{\max}}-1<\mathrm{gap}_\Phi$,
+\begin{equation}\label{eq:agy-spectral}
+\Bigl\Vert\frac{\mathbb P^\infty}{\mathbb P_\Phi}-1\Bigr\Vert_{L^2(\mathbb P_\Phi)}\le\frac{\Vert\mathbb P_\Phi\mathsf T/\mathbb P_\Phi-1\Vert_{L^2(\mathbb P_\Phi)}}{\mathrm{gap}_\Phi-(e^{\gamma\sigma_{\max}}-1)}\le\frac{e^{\gamma\sigma_{\max}}-1}{\mathrm{gap}_\Phi-(e^{\gamma\sigma_{\max}}-1)}.
+\end{equation}
+\end{enumerate}
+The same bounds hold with $\mathbb P_\Phi$ replaced by the group posterior $\prod_iE_ie^{-\gamma G_C}$ when $\sigma_i$ is replaced by the full defect $\max_{\pi_{-i}}\operatorname{osc}_{\pi_i}(G_i-G_C)$. Proof in \cref{app:agy}; checked in \cref{chk:agy-heterogeneous}.
+\end{theorem}
+% src: B4-T1, B4-L3
+
+The three bounds cover different regimes: the tree bound holds at every precision and grows with the number of profiles, the contraction bound does not depend on the number of profiles but needs weak redundancy relative to $1/\gamma$, and the spectral bound needs $e^{\gamma\sigma_{\max}}-1$ below a gap that can be exponentially small in $\gamma$. Their relation to the literature and to computed instances is in the Supplement (\cref{sup:agy-bounds-on-the-agency-defect}), and a bound that is uniform in $\gamma$ and polynomial in the number of members is open (\cref{open:agy-uniform-bound}). For linear-Gaussian slots $\lvert\mathcal R_i\rvert$ is bounded through the Thompson distance $\mathrm{Th}_i$ between the member's covariance $P_i$ and the declared covariance $P_C$, and the means do not enter (\cref{prop:agy-dispersion}).
+
+The defect of agency is controlled by how differently the members are uncertain, never by how differently they estimate: dispersion of means tilts habits (\cref{thm:agy-agency}(d)), and dispersion of covariances enters through $\mathrm{Th}_i$. The exact cases of \cref{thm:agy-agency}(c) and (d) rest on equalities between the members' beliefs about redundancy, which are sufficient and not necessary: a deliberation chain that is not reversible can still have a group posterior with other product habits as its stationary law, as the parameter count in the Supplement (\cref{sup:agy-commentary-on-agency}) indicates for two members with two policies each and an instance confirms (\cref{chk:agy-index}). Members whose beliefs differ in shape and whose inputs are redundant violate these equalities in general, so a graded measure is needed. The index below asks how much of the members' departure from their habits a restricted class of group models explains.
+
+\begin{definition}[Agency index]\label{def:agy-agency-index}
+Fix a declared finite set $\mathcal X_{\mathrm{dec}}$ of decision states $X$ with weights $\mathsf w_X>0$, an admissible class $\mathfrak G$ of group models that contains the habit-only model ($\gamma_C=0$, habit law $E=\prod_iE_i$), and the actual conditional laws $\mathbb P(\cdot\mid X)$ of the members' joint policies. The agency index is
+\begin{equation}\label{eq:agy-index}
+\Agency_{\mathcal X_{\mathrm{dec}}}(C)=1-\frac{\inf_{\mathfrak g\in\mathfrak G}\sum_{X\in\mathcal X_{\mathrm{dec}}}\mathsf w_X\KL\bigl(\mathbb P(\cdot\mid X)\Vert\mathbb P_{\mathfrak g}(\cdot\mid X)\bigr)}{\sum_{X\in\mathcal X_{\mathrm{dec}}}\mathsf w_X\KL\bigl(\mathbb P(\cdot\mid X)\Vert E\bigr)},
+\end{equation}
+with $\Agency_{\mathcal X_{\mathrm{dec}}}(C)=1$ when the denominator vanishes, that is, when the members act by habit.
+\end{definition}
+% src: L2-D11
+
+The index lies in $[0,1]$ and is nondecreasing in the class $\mathfrak G$; it equals one in the exact cases of \cref{thm:agy-agency}(c) and (d) for every class that contains the group model with tilted habits named there, and at one decision state $1-\Agency$ is bounded through the distances of \cref{thm:agy-heterogeneous}, under the hypotheses stated there. With free joint habits it equals one at every single decision state, so the class must be restricted (Supplement, \cref{prop:agy-index}).
+
+The index measures as-if agency, representability by a collective expected free energy, not efficacy. With free product habits and $\gamma_C\ge0$ every product law is a group posterior with $\gamma_C=0$ and has index $1$, so the failures of agency in \cref{ex:agy-no-data-sharing} and \cref{prop:agy-synchronous}, whose laws are product laws, are failures relative to classes whose habits are held fixed at $\prod_iE_i$ or whose precision, apart from the habit-only model, is bounded below by a positive constant (Supplement, \cref{sup:agy-commentary-on-agency}, which also gives the parameter count for two members). Each protocol hypothesis removes an obstruction, as the results summarized next show.
+
+Two members with full-support habits and finite expected free energies who revise simultaneously reach a product law whatever the values of their expected free energies, so synchronous deliberation of two members reproduces no group posterior with product habits and $\gamma_C>0$ whose slots carry redundant information (Supplement, \cref{prop:agy-synchronous}); the corresponding failure for three or more members is conjectured (\cref{conj:agy-synchronous}). Members who do not share data, hold redundant slots and depart from their habits fail agency relative to every class of group models with product habits and a slot-product preference whose habits are held fixed at $\prod_iE_i$ or whose precision, apart from the habit-only model, is bounded below by a positive constant, a failure relative to the declared class (\cref{ex:agy-no-data-sharing}). In a checked instance a common driver of both members' costs that varies given the coarse state associates their choices positively, which no group model with product habits, a slot-product preference and $\gamma_C\ge0$ reproduces between epistemic slots opened from the null policies, so that agency requires closure (\cref{ex:agy-unrepresented-driver}).
+
+The obstructions just listed concern collectives whose joint policies only gather information. For joint performative acts with additive effects, under (P2) to (P4), the act component of deliberation is an exact potential game if and only if the members agree on how their acts interact in preference space. The form of its potential, the case of interacting effects and the sign of the association between two members' choices under a group posterior with product habits are in the Supplement (\cref{def:agy-joint-acts,thm:agy-joint-acts,ex:agy-no-potential,prop:agy-performative-sign}).
+
+Under the dynamic consensus of \cref{prop:agy-consensus}(b) the members' beliefs about the external states differ only in their means, so by \cref{thm:agy-agency}(d) deliberation gives an exact group posterior at every number of consensus rounds, with habits tilted by the mean differences; the case of literal consensus is treated in the Supplement (\cref{rem:agy-consensus-agency}).
+
+Agency for policies in which interventions change what the epistemic slots reveal is open (Supplement, \cref{open:agy-mixed-policies}).
+
+\subsection{Identity under turnover}\label{sec:agy-identity}
+
+\Cref{asm:int-a10} says that a collective is a persistent pattern in coarse-grained states, not a membership list. Persistence that the environment supplies should not count.
+
+\begin{definition}[Collective statistic and identity time]\label{def:agy-identity}
+Let $C_t$ be the membership at time $t$, and let member $i$ have a position $x_i(t)$ in the communication graph or a role space (\cref{asm:int-a8}) and a state $\mu_i(t)$. A collective statistic is $Y_t=\Psi(\{(x_i(t),\mu_i(t)):i\in C_t\})$ for a measurable function $\Psi$ of the multiset of positions and states, such as the pooled belief, the contrast of the occupied region or the block averages; it is invariant under relabeling of agents. The membership overlap is $\mathrm{ov}(t,t')=\lvert C_t\cap C_{t'}\rvert/\lvert C_t\rvert$. For a stationary statistic, the identity time $\tau_{\mathrm{id}}$ is its decorrelation time: the reciprocal of the slowest exponential rate at which $\E[Y_{t+u}\mid\text{the process up to }t]$ relaxes to its mean as $u$ grows. The conditioning set is the exogenous input $\mathcal X_{\mathrm{ext}}$ of the exterior, in the decomposition of the joint process into independent exogenous inputs that \cref{def:agy-order-parameter} uses: the initial states and private inputs of the non-members, their sender-side broadcast noises, the initial state and innovations of the world, and the initial states and noises of the external records, those that some non-member writes (\cref{prop:col-records-partition}). The conditional identity time is the same quantity computed given $\mathcal X_{\mathrm{ext}}$. The collective persists through turnover between $t$ and $t'$ when $\mathrm{ov}(t,t')\le\mathrm{ov}_0$ while $I(Y_t;Y_{t'}\mid\mathcal X_{\mathrm{ext}}\text{ up to }t')\ge I_0$, for declared thresholds $\mathrm{ov}_0$ and $I_0$. When the exterior is not driven by the members, meaning that no member acts on the world, writes an external record or is heard by a non-member, the exterior path up to $t'$ is a function of $\mathcal X_{\mathrm{ext}}$ up to $t'$ through which alone the members depend on $\mathcal X_{\mathrm{ext}}$, and the conditioning is on the exterior path.
+\end{definition}
+% src: L2-D12, B5-P7 (records in the conditioning set)
+
+The conditioning set is the exterior's exogenous input and not the exterior path: this excludes persistence borrowed from a persistent environment, whereas an exterior that hears the members carries a copy of their states, so that conditioning on its path would remove the members' own persistence (Supplement, \cref{sup:agy-identity-and-records}).
+
+\begin{proposition}[Turnover acts as forgetting, and members' records extend identity]\label{prop:agy-identity}
+Consider an ungrounded coordinate of the collective belief, a convention that no member senses, held by $n$ positions whose occupants are replaced independently at rate $g$. Between replacements each member forgets at rate $\varepsilon$, reads a record $z$ with weight $\beta$, $\mathrm d\mu_i\ni\beta(z-\mu_i)\mathrm dt$, and communicates with the other members in a way that conserves their mean $\bar\mu$; members write the record with weight $\omega>0$, $\mathrm dz\ni\omega(\bar\mu-z)\mathrm dt$, and the record decays at rate $\delta$. A newcomer starts at $\mathsf fz$ plus independent zero-mean noise, copying the record with fidelity $\mathsf f\in[0,1]$. Here $\varepsilon$, $\beta$, $\omega$, $\delta$ and $g$ are rates per unit time; the per-round weights of \cref{def:fw-record-model} correspond, through the dictionary stated after the proposition, to these rates times the round length. Let $g>0$, let the newcomers' noise have positive finite variance, and let the matrix $\mathsf A$ below have $\det\mathsf A>0$, so that a stationary law exists and the stationary covariance of $(\bar\mu,z)$ is nondegenerate.
+\begin{enumerate}
+\item[(a)] The conditional expectations of $(\bar\mu,z)$ obey exactly
+\begin{equation}\label{eq:agy-identity}
+\frac{\mathrm d}{\mathrm dt}\begin{pmatrix}\bar\mu\\z\end{pmatrix}=\mathsf A\begin{pmatrix}\bar\mu\\z\end{pmatrix},\qquad\mathsf A=\begin{pmatrix}-(\varepsilon+\beta+g)&\beta+g\mathsf f\\\omega&-(\omega+\delta)\end{pmatrix},
+\end{equation}
+and the identity time of the pair $(\bar\mu,z)$, a collective statistic once the member-written record, a collective variable by (b), is admitted among the arguments of $\Psi$, is $\tau_{\mathrm{id}}$ with $\tau_{\mathrm{id}}^{-1}=\frac12\bigl[(\varepsilon+\beta+g+\omega+\delta)-((\varepsilon+\beta+g-\omega-\delta)^2+4\omega(\beta+g\mathsf f))^{1/2}\bigr]$. When $\beta+g\mathsf f>0$ the members' mean $\bar\mu$ alone, a statistic of the members' states in the sense of \cref{def:agy-identity}, has the same identity time. When $\beta+g\mathsf f=0$ the record is unread, $\bar\mu$ decorrelates at the rate $\varepsilon+g$, and the rate $\omega+\delta$, where it is the smaller of the two, belongs to the record alone. The rate $\tau_{\mathrm{id}}^{-1}$ is at most $\delta+\omega(\varepsilon+g(1-\mathsf f))/(\varepsilon+\beta+g)$, and when $\omega+\delta\le\frac12(\varepsilon+\beta+g)$ it falls below that value by at most $2\omega(\omega+\delta)/(\varepsilon+\beta+g)$. Without a record, with newcomers copying the members' mean with fidelity $\mathsf f$, $\tau_{\mathrm{id}}^{-1}=\varepsilon+g(1-\mathsf f)$.
+\item[(b)] The record of (a) is written only by members, so it is internal or boundary and its persistence counts. If instead the record were written only by non-members whose writes do not depend on the members' states, its path would be a function of the exterior's exogenous input and so part of the conditioning set of \cref{def:agy-identity}, the members' mean would relax at rate $\varepsilon+\beta+g$ given it, and the conditional identity time of $\bar\mu$ would be $1/(\varepsilon+\beta+g)$, at most the residence time $1/g$.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-identity}.
+\end{proposition}
+% src: L2-P17, B5-P7, B5-P4(b) (dictionary to the record model)
+
+This is the record model of \cref{def:fw-record-model} in continuous time with turnover: under the dictionary $\varepsilon\mapsto\varepsilon+g(1-\mathsf f)$, $\beta\mapsto\beta+g\mathsf f$, with $\omega$ and $\delta$ unchanged, $\mathsf A$ is minus the matrix $\mathsf R$ of the reduced record model with $\upsilon=0$ (\cref{prop:sca-records,rem:sca-records-special}). In the computed instances a durable medium that newcomers read faster than it is rewritten gives identity times of hundreds of residence times (\cref{chk:agy-identity}); the instances and the links to H4 and to the hierarchy are in the Supplement (\cref{sup:agy-commentary-on-identity-and-interaction}).
+
+It is conjectured that a bistable conformity dynamic with naive newcomers who conform gives an identity time that grows exponentially in the number of members, without any record (Supplement, \cref{conj:agy-conformity-identity}).
+
+Records also bear on the boundary. With channel-level roles an archive written by members and read by outsiders is a boundary record and leaks nothing (\cref{prop:col-records-partition}); a description that keeps whole agents and marginalizes the record turns it into a lagged coupling whose leak rate, under the hypotheses stated there, is positive whenever the write and read weights are nonzero (Supplement, \cref{prop:agy-writer-leak}).
+
+\subsection{Interaction necessity}\label{sec:agy-interaction}
+
+A structure should be called a collective only if it is produced by the members' interaction, and correlation is not evidence of interaction: agents that never communicate are strongly correlated when they track the same world (\cref{chk:agy-nulls}). The test must therefore remove the common drive and compare the structure with nulls that remove interaction in declared ways.
+
+\begin{definition}[Interaction order parameter]\label{def:agy-order-parameter}
+Write the joint process as a measurable function of independent exogenous inputs of two kinds: the shared drive $\mathcal X_{\mathrm{sh}}$, comprising the initial state $X_0$, the world innovations, record noises, sender-side broadcast noises and any exogenous forcing that a null introduces, and each agent's private inputs $\zeta_i$, comprising its sensing noise, receiver-specific channel and read noise, and internal and policy randomness. For a window $[0,\bar t]$,
+\begin{equation}\label{eq:agy-omega}
+\Omega_{\mathrm{int}}(C)=\binom{n}{2}^{-1}\sum_{\{i,j\}\subseteq C}I\bigl(\mu_i[0{:}\bar t];\mu_j[0{:}\bar t]\bigm|\mathcal X_{\mathrm{sh}}\bigr).
+\end{equation}
+The stationary version conditions on the bi-infinite shared drive. For a proper subset $C$ of the population $V$, the member-restricted order parameter $\Omega_{\mathrm{int}}(C\mid\zeta_{V\setminus C})$ is \eqref{eq:agy-omega} with the private inputs $\zeta_{V\setminus C}=(\zeta_k)_{k\notin C}$ of the non-members added to the conditioning set.
+\end{definition}
+% src: B4-D3 (replaces L2-D14)
+
+When no agent's active states drive the world, the world path together with $X_0$ carries the same information about the agents as $X_0$ and the world innovations, and \eqref{eq:agy-omega} is the conditional mutual information of the members' paths given the world path, the initial state, the shared channel noises and the record noises. For a population without records its stationary version is a functional of the law of the connected part of the level-0 network (\cref{lem:fw-common-mode}), the law that defines contrast (\cref{def:col-world-conditional}); with records the order parameter also conditions on record noises, which the world-conditional law keeps as fluctuations of the record nodes.
+
+The shared drive does not contain the private inputs of non-members, so for a proper subset $C$ the statistic $\Omega_{\mathrm{int}}(C)$ registers every dependence that interaction in the population produces between members, including a common drive that an outsider supplies. Positivity of $\Omega_{\mathrm{int}}(C)$ therefore certifies interaction in the population that reaches the members of $C$, and a claim that the members of $C$ interact with one another rests on $\Omega_{\mathrm{int}}(C\mid\zeta_{V\setminus C})>0$; for the whole population the two statistics coincide. A computed instance and the conditions under which the member-restricted order parameter vanishes are in the Supplement (\cref{sup:agy-commentary-on-identity-and-interaction}).
+
+\begin{proposition}[Vanishing, masking, generic positivity and contrast]\label{prop:agy-nulls-vanish}
+\begin{enumerate}
+\item[(a)] (Vanishing.) Call a null causally separating if under it every path $\mu_i[0{:}\bar t]$ is a measurable function of $(\mathcal X_{\mathrm{sh}},\zeta_i)$. Under such a null $\Omega_{\mathrm{int}}=0$, and the covariance of the members' states given $\mathcal X_{\mathrm{sh}}$, and its inverse, are block diagonal across agents.
+\item[(b)] (Masking.) Let a member $i$ be a pure sensor of the world: it senses the world, reads no message and no record, and neither acts, writes a record nor is read by any agent. Given the world path and the initial state its path is conditionally independent of every other variable, so every term of the statistic conditioned on the world path and the initial state that involves $i$ vanishes, whatever interaction other agents' acts carry to $i$.
+\item[(c)] (Generic positivity.) Let the dynamics be linear-Gaussian with update coefficients, input loadings included, ranging over a fixed support, as for fixed or exogenously scheduled attention, and let the support contain within the window a directed path from $\mu_j$ to $\mu_i$ for members $i\ne j$, with $\mu_j$ loading on a private input of $j$ of positive variance. Then $\Omega_{\mathrm{int}}(C)>0$ for all coefficients outside a closed set of Lebesgue measure zero with empty interior. For scalar states with independent scalar private inputs of positive variance, it is positive at every coefficient vector that is nonnegative and positive on the path and on that loading. The same holds for the stationary version, in which the private noise variances are fixed and positive, the free coefficients are the entries of the update matrix on the support, and the exceptional set is closed and of measure zero in the set of stable update matrices with that support.
+\item[(d)] (Contrast.) With scalar errors, under a null of (a) the precision of the members' states given $\mathcal X_{\mathrm{sh}}$ is diagonal, and every region has contrast $r\le1$ for it, with equality for equal diagonal entries. In a population without records, under the deletion nulls $\mathfrak N_{\mathrm{lp}}$ and $\mathfrak N_{\mathrm{rn}}$ of \cref{tab:agy-nulls}, combined with $\mathfrak N_{\mathrm{eff}}$ when members act, the stationary law given $\mathcal X_{\mathrm{sh}}$ is the world-conditional law of \cref{def:col-world-conditional}, so the world-conditional precision is diagonal and no region has contrast above one.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-nulls}.
+\end{proposition}
+% src: B4-P5 (generalizes L2-P18; settles L2-O6 for fixed couplings); part (d), second sentence, restricted here to the deletion nulls
+
+The instances behind panels (b) and (c) of \cref{fig:agy-conditioning} are worked out in the Supplement (\cref{ex:agy-collider,ex:agy-masking}).
+
+\begin{figure}[t]
+  \centering
+  \input{figures/fig_agy_conditioning}
+  \caption{\textbf{What the interaction order parameter conditions on.} Gray nodes are conditioned on. (a) The joint process is a function of the shared exogenous drive $\mathcal X_{\mathrm{sh}}$, which enters through the external states, and of each agent's private inputs $\zeta_i$: sensing noise, receiver-specific channel and read noise, and internal and policy randomness. The order parameter $\Omega_{\mathrm{int}}$ of \cref{def:agy-order-parameter} averages over pairs of members the conditional mutual information of their paths given $\mathcal X_{\mathrm{sh}}$. (b) Two agents with private noise act on the world (red arrows) and neither sense it nor exchange messages (\cref{ex:agy-collider}). Given the shared drive, here the world innovations $w$ with the initial state, their paths are independent (zero to $1.8\times10^{-15}$); given the world path $\eta$ with the initial state they are dependent, $1.39\times10^{-3}$ nats over six rounds, because the world is a common effect of both agents' private noises. (c) Agent 1 acts on the world and agent 3 only senses it (dashed arrow), as in \cref{ex:agy-masking}. Given the shared drive the path through the world carries a real interaction, $0.614$ nats over six rounds; given the world path that path is blocked and the statistic is zero to $4\times10^{-16}$, as \cref{prop:agy-nulls-vanish}(b) requires. Orange marks the dependence that each reading detects.}
+  \label{fig:agy-conditioning}
+\end{figure}
+% src: figure supplied with the section; numbers of ex:agy-collider, ex:agy-masking and chk:agy-nulls
+
+\Cref{fig:agy-conditioning} shows the conditioning set of \eqref{eq:agy-omega} and the two ways in which conditioning on an agent-driven world path misreports interaction. Conditioning on the world path, which is correct when the world is exogenous, both hides interaction through acts and creates dependence between agents that never interact once agents drive the world; conditioning on the shared exogenous drive is correct in both cases. The order parameter is then compared with one family of nulls, each declared as one the structure must differ from, one it must survive, an explanation that limits the attribution, or a diagnostic.
+
+\begin{definition}[The null family]\label{def:agy-nulls}
+A null is an intervention on the full model that keeps the world's dynamics, the agents' sensing of $\eta$, their priors, preferences and habits, unless it says otherwise; each deletion is specified per channel type (direct messages, record reads and traces of acts). The nulls and their types are those of \cref{tab:agy-nulls}. A structure differs from a null of type D when, on a nonempty open subset of the admitted class and for each constant of the selector, the selected partition differs from the null's, which is clause (F5) of the author's formation standard \citep{dennis2026formation}. Under the random null $\mathfrak N_{\mathrm{pr}}$ the selected partition is a random variable, and the structure differs from it when the test of \cref{prop:agy-tests}(b), applied to the statistic of the declared selector, rejects at a declared level $\alpha_{\mathrm{pr}}$ with a declared number $n_{\mathrm{null}}$ of null draws. A null whose intervention leaves the model unchanged is not applicable, is reported as such and imposes no requirement: $\mathfrak N_{\mathrm{hab}}$ in a model without policy selection by expected free energy, as under fixed or exogenously scheduled attention, and $\mathfrak N_{\mathrm{eff}}$ and $\mathfrak N_{\mathrm{inf}}$ in a model without acts. A structure survives a null of type S when the same partition is selected under the null with its blocks at contrast $r\ge r_0$; agreement with a null of type E is reported and restricts the claim; diagnostics are reported beside the verdict.
+\end{definition}
+% src: B4-D4 (merges L2-D13, L7-D4 and the earlier report's nulls)
+
+\begin{table}[tbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.25cm}>{\raggedright\arraybackslash}p{4.5cm}>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\toprule
+Null & Operation & Removes & Type & Order parameter and contrast \\
+\midrule
+$\mathfrak N_{\mathrm{lp}}$ & each inter-agent channel delivers pure noise; slots, capacities and assigned precisions kept & all informational coupling; keeps the attention pattern & D (weak) & $\Omega_{\mathrm{int}}=0$ when acts are also decoupled, and then $r\le1$ without records \\
+$\mathfrak N_{\mathrm{rn}}$ & as $\mathfrak N_{\mathrm{lp}}$, with the deleted capacity reassigned to the remaining sources & the same, with reallocated attention & D (weak), same verdict as $\mathfrak N_{\mathrm{lp}}$ & as above \\
+$\mathfrak N_{\mathrm{fr}}$ & every other agent held at its initial state in every term of an agent's update and action law & feedback through other agents & D (weak) & $\Omega_{\mathrm{int}}=0$ with broadcast noise in $\mathcal X_{\mathrm{sh}}$ when acts are also decoupled, and then $r\le1$ given $\mathcal X_{\mathrm{sh}}$ \\
+$\mathfrak N_{\mathrm{eff}}$ & each act's effect on $\eta$ replaced by exogenous forcing with the law of the act path, added to $\mathcal X_{\mathrm{sh}}$ & physical feedback through the world & D for collectives said to form by joint action; makes the three nulls above separating & $\Omega_{\mathrm{int}}=0$ together with them \\
+$\mathfrak N_{\mathrm{inf}}$ & acts keep their effect on $\eta$; every channel through which others read the act itself delivers noise & the informational trace of acts & D for collectives said to form by communication through acts & $\Omega_{\mathrm{int}}>0$ generically \\
+$\mathfrak N_{\mathrm{pr}}$ & each receiver's partners redrawn uniformly at its attention rate and participation ratio, once or every round & who hears whom; keeps the volume & D (decisive) & $\Omega_{\mathrm{int}}>0$ generically; compare the selector \\
+$\mathfrak N_{\mathrm{hab}}$ & $\gamma=0$: policies drawn from habits & selection by expected free energy & D & \\
+$\mathfrak N_{\mathrm{ex}}$ & every receiver's literal likelihood, fusion and attention replaced by exact fusion, with provenance for records & misreading of joint structure & S (persistence) & same partition, blocks at $r\ge r_0$ \\
+$\mathfrak N_{\mathrm w}$ & structure predicted from world dynamics and sensing access alone & attribution to access & E & partition distance \\
+$\mathfrak N_{\mathrm{code}}$ & structure predicted from effective codes alone & attribution to code geometry & E & partition distance \\
+$\mathfrak N_{\mathrm{fg}}$ & forgetting switched off & dependence on forgetting & diagnostic & reported \\
+\bottomrule
+\end{tabular}
+\caption{The null family of \cref{def:agy-nulls}. D: the selected structure must differ from the null; S: it must survive the null; E: an explanation null, whose agreement with the structure is reported and limits the attribution.}
+\label{tab:agy-nulls}
+\end{table}
+
+The declared types have reasons, given in full in the Supplement (\cref{sup:agy-interaction-order-parameter-and-tests}). The deletion and freezing nulls are weak, because any communication at all differs from them, and they certify interaction in the population and not among the members of a candidate $C$. Partner randomization at matched rates keeps the amount of communication and destroys its arrangement, which makes it the decisive differ null. The exact-fusion null removes only a misspecification, so a structure that vanishes under it is attributed to misreading of joint structure (\cref{sec:mis}), and the explanation nulls restrict the claim without removing interaction.
+
+\begin{proposition}[Operational tests]\label{prop:agy-tests}
+\begin{enumerate}
+\item[(a)] (Interaction.) From $n_{\mathrm{rep}}$ independent replicate windows in which the shared drive is recorded, let $U_i$ and $U_j$ be the coordinates of the paths $\mu_i[0{:}\bar t]$ and $\mu_j[0{:}\bar t]$ that are not measurable with respect to $\mathcal X_{\mathrm{sh}}$, which excludes the initial states $\mu_i(0)$ and $\mu_j(0)$ because $X_0$ belongs to the shared drive, and assume that $\Cov((U_i,U_j)\mid\mathcal X_{\mathrm{sh}})$ is nonsingular and $n_{\mathrm{rep}}>\dim\mathcal X_{\mathrm{sh}}+\dim U_i+\dim U_j+1$. Let $\hat I$ be the plug-in conditional mutual information of $U_i$ and $U_j$ given $\mathcal X_{\mathrm{sh}}$, computed from the maximum-likelihood Gaussian covariance; its population value is the pair's term in \eqref{eq:agy-omega}, since the omitted coordinates are functions of the conditioning set. Then $2n_{\mathrm{rep}}\hat I$ is the Gaussian likelihood-ratio statistic for $\Cov(U_i,U_j\mid\mathcal X_{\mathrm{sh}})=0$, and under a causally separating null, as $n_{\mathrm{rep}}\to\infty$ with the dimensions fixed, it converges in law to the chi-squared law with $\dim U_i\cdot\dim U_j$ degrees of freedom.
+\item[(b)] (Structure.) Let $\mathcal S_0$ be the value of the declared selector's statistic in the full model and $\mathcal S_1,\dots,\mathcal S_{n_{\mathrm{null}}}$ independent draws under $\mathfrak N_{\mathrm{pr}}$, and reject the null at level $\alpha$ when $p=(1+\#\{l:\mathcal S_l\ge\mathcal S_0\})/(n_{\mathrm{null}}+1)\le\alpha$. If $\mathcal S_0,\dots,\mathcal S_{n_{\mathrm{null}}}$ are exchangeable, which is the null hypothesis that the observed structure is a draw from the null model, then $\Pr(p\le\alpha)\le\alpha$.
+\end{enumerate}
+Proof in \cref{app:agy}; checked in \cref{chk:agy-tests}.
+\end{proposition}
+% src: B4-P6(a),(b)
+
+Part (a) is Wilks's theorem \citep{wilks1938large} applied to the conditional cross-covariance block. At moderate sample sizes the test is liberal; a finite-sample multiplier whose support here is numerical, the selector used in part (b) when directed attention leaves contrast undefined, and a worked comparison with partner randomization are in the Supplement (\cref{sup:agy-interaction-order-parameter-and-tests}). Generic positivity of $\Omega_{\mathrm{int}}$ under attention selected by expected free energy, and an estimator of \eqref{eq:agy-omega} when the shared drive is not recorded, are open (\cref{open:agy-attention-positivity,open:agy-unrecorded-drive}).
+
+\subsection{Hypothesis H1 in final form}\label{sec:agy-h1}
+
+We can now say what a meta-agent is in this framework and which of H1's claims about it are theorems. The boundary property is not part of the definition, because every candidate with separate channels has it.
+
+\begin{definition}[Meta-agent]\label{def:agy-meta-agent}
+A set $C$ of agents is a meta-agent of grade $(r_0,\alpha_{\mathrm M},\alpha_{\mathrm I},\alpha_{\mathrm{pr}},\Agency_0)$ when it is a collective at the declared level $r_0$ (\cref{def:col-collective}); it is closed at tolerances $(\alpha_{\mathrm M},\alpha_{\mathrm I})$ for a declared coarse variable, with $\alpha_\Xi$ in place of $\alpha_{\mathrm M}$ when the declared memory measure is the Markov error (\cref{def:agy-closure}); it differs from every applicable null of type D, from $\mathfrak N_{\mathrm{pr}}$ at level $\alpha_{\mathrm{pr}}$ with the declared number $n_{\mathrm{null}}$ of null draws, and survives every null of type S in \cref{def:agy-nulls}, with the inapplicable nulls and its agreement with the nulls of type E reported; and its agency index on declared decision states is at least $\Agency_0$ (\cref{def:agy-agency-index}). The nulls of type D act on the whole population, so the differ clause concerns interaction in the population; that the members of $C$ interact with one another is the separate statement $\Omega_{\mathrm{int}}(C\mid\zeta_{V\setminus C})>0$ of \cref{def:agy-order-parameter}, reported with the grade.
+\end{definition}
+% src: F_brief H1 (graded meta-agenthood), B4-D5, B4-D4, L2-D11, B1-D3
+
+\begin{theorem}[H1, final form]\label{thm:agy-h1}
+Let $C$ be a set of agents of the linear-Gaussian framework with channel-level roles and per-channel noise, on a fixed or exogenously scheduled attention pattern, whose world-conditional law satisfies the moment bound.
+\begin{enumerate}
+\item[(a)] (Boundary, every $C$.) The canonical partition of $C$ is an exact path blanket from every conditionally independent start if, and generically only if, no sensory channel of $C$ reads an interior and an exterior variable in the same round: when one does, the path blanket fails outside a set of coefficients of positive codimension (\cref{thm:col-path-blanket}(b)). When the world-conditional covariance decays exponentially and is bounded with bounded inverse on a graph of polynomial growth, regions with finite interior whose shells are thick on the scale of an explicit bound on the Markov length are approximate stationary blankets of the world-conditional law, and the correlation length does not control the Markov length (\cref{thm:col-boundary}(b),(c)). The property holds for every candidate with separate channels and selects nothing (\cref{prop:col-selects-nothing}).
+\item[(b)] (Contrast and the deletion nulls.) Let the members' world-conditional errors be scalar and the world-conditional precision diffusive. Under the deletion nulls of \cref{tab:agy-nulls}, combined with $\mathfrak N_{\mathrm{eff}}$ when members act, $\Omega_{\mathrm{int}}=0$, and in a population without records no region has contrast above one; hence, for such a population, on every set of parameters, open in a class with diffusive world-conditional precisions, on which $C$ is a collective at a declared level $r_0>1$, $C$ differs from these nulls in the sense of \cref{def:agy-nulls}. If the support of the couplings contains within the window a directed path from $\mu_j$ to $\mu_i$ for two members $i\ne j$, with $\mu_j$ loading on a private input of $j$ of positive variance, $\Omega_{\mathrm{int}}(C)>0$ for all couplings outside a closed null set.
+\item[(c)] (Contrast gives closure of the collective average.) If in addition the members' world-conditional errors follow the reversible diffusion with drift $\Pi^c_{CC}$, with the exterior held fixed, and $r(C)>1$, then with $s=\sigma_C/\xout(C)$ the average $y=\phi_C^\top x$ satisfies
+\begin{equation}\label{eq:agy-h1-closure}
+\Xi\le\frac{s^2}{r(C)(r(C)-1)^2},
+\end{equation}
+so the memory clause of \cref{def:agy-closure} holds for it at every tolerance $\alpha_\Xi$ above this value. For non-reversible drift $M$ the bound \eqref{eq:agy-markov-gen} holds with the drift-based contrast and the row and column dispersions (\cref{thm:agy-closure-average}(b)), and the drift-based rates differ from the corresponding Rayleigh quotients of the stationary precision by at most $\Vert J\Vert\Vert\Pi\Vert$ (\cref{prop:agy-drift-precision}).
+\item[(d)] (Inferential closure depends on the interpretation level.) Under consensus on information contributions the members' beliefs approach the union-model posterior at the rate $\rho_\perp^{n_{\mathrm c}}$ in the number $n_{\mathrm c}$ of rounds of the consensus matrix (\cref{prop:agy-consensus}); under literal consensus at level 1 their believed precisions diverge, and their means converge to the union-model mean only when the prior is flat and the graph regular (\cref{prop:agy-literal-consensus}).
+\item[(e)] (Agency depends on the protocol and on the members' beliefs, not on contrast.) Under (P1) to (P4) the deliberation chain is reversible exactly when the members agree on the redundancy of their inputs; its stationary law is then a group posterior when some belief has the agreed redundancies, in particular when the members' beliefs are translates of one law (\cref{thm:agy-agency}), and in every case it lies within the distances of \cref{thm:agy-heterogeneous} of the group posterior of any declared belief; joint performative acts obey \cref{thm:agy-joint-acts}. Without data sharing, a collective at any contrast level fails agency, for group models with product habits, slot-product preferences and $\gamma_C>0$, whenever its members' slots carry redundant information (\cref{ex:agy-no-data-sharing}).
+\end{enumerate}
+Proof in \cref{app:agy}.
+\end{theorem}
+% src: B1-T4, B4-P5, L2-T5, B3-T3, B3-R3, B4-P7, B4-P8, L2-T6, B4-L2, B4-P1, B4-T1, B4-T2, L2-X2
+
+Parts (a), (b) and (d) of \cref{thm:agy-h1} are theorems in the linear-Gaussian framework with fixed or exogenously scheduled couplings, (c) is a theorem for continuous-time linear dynamics with the exterior held fixed, and (e) for finite policy sets under the deliberation protocol. What makes $C$ a meta-agent, the grade of \cref{def:agy-meta-agent} with the declared types of \cref{tab:agy-nulls}, is a definition, and no population analyzed here is shown to meet every clause of it. The full account of what is proved, computed and open, including the standing of the two-group formation model against \cref{def:agy-meta-agent}, is in the Supplement (\cref{rem:agy-h1-status}).
+
+Whether some linear-Gaussian population and some set $C$ of its agents meet every clause of \cref{def:agy-meta-agent} at a stated grade with $r_0>1$ and $\Agency_0>0$, or the clauses are jointly unsatisfiable in a stated class of populations, is open (Supplement, \cref{open:agy-meta-agent-exists}, followed there by a prose reading of H1 in final form).
+
+\Cref{lem:met-unit-coordinate}(b) gives the bound of \cref{thm:agy-h1}(c) for any unit coordinate in place of $\phi_C$, with the rates of the pair $(M,\phi)$. \Cref{thm:met-h5a} gives a meta-agent, under stated conditions, the structure of an agent at its own scale; contrast enters none of these properties, so they describe a meta-agent and select none, and selection stays with contrast above the baseline and with the null family (\cref{rem:met-no-selection}).

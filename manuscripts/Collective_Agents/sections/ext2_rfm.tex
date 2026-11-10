@@ -1,0 +1,172 @@
+% Supplement section on recursive formation with inherited dynamics. Proofs: appext2_rfm.tex. Checks: chkext2_rfm.tex.
+\section{Recursive formation with inherited dynamics}\label{sec:rfm}
+
+This section addresses the open problem of recursive formation with inherited dynamics in the literature on collective active inference: whether the collectives left by one formation event can form a collective one level up, and what law a formed group carries into that event. The starting point is the collectives of \cref{thm:frm-split-contrast} as the first event leaves them, that is, at $\gamma=\infty$ with exact in-group translations and in the window of its part (c). What is established is the law a formed group hands to the next level, exact at that idealized split, together with the thresholds of a second event and the conditions that block it, both for the frozen-calibration mean-field map. The result is negative in part: the formation thresholds rise with level, at the computed parameter points the second event replaces the first-level collectives and does not nest them at a common level, a nested meta-agent is not established, and the verdict of \cref{prop:rfm-verdict} is conditional on admitting the translation-aware null of \cref{prop:rfm-null} among the nulls of type S of \cref{def:agy-nulls}. Left open are the full exact-fusion null at level 2, the stochastic model with calibration that tracks the forming law, competition among parents, a level-2 model with acts, and closure of the coarse state under turnover (\cref{open:rfm-exact-fusion,open:rfm-competing,open:rfm-online,open:rfm-agent,open:rfm-turnover}).
+
+The level-2 object is tested against the grade of \cref{def:agy-meta-agent} and the hypotheses of \cref{thm:met-h5a}, both fixed beforehand. The coarse map is the member average of a formed group, an exact marginalization at the idealized split.
+
+\subsection{A second formation event with inherited parameters}\label{sec:rfm-inheritance}
+
+\begin{definition}[Nested population and aggregate channel]\label{def:rfm-nested}
+Keep the constants of \cref{def:frm-two-group}. The population consists of $2M$ parents of $n$ agents; the members of parent $c$ share the frame $\mathrm{Rot}(\theta_c)$. The parents form two superunits of $M$ parents each, with mismatches $|\theta_c-\theta_{c'}|\in[0,\vartheta_{\mathrm n}]$ inside a superunit and in $[\vartheta_{\mathrm f},\vartheta_{\max}]\subset(0,\pi]$ across, where $\vartheta_{\mathrm n}<\vartheta_{\mathrm f}/2$. The level-1 state is the split at the parents under the hypotheses of \cref{lem:frm-split-law} with $\kappa=n-1$. The aggregate channel is an added hypothesis: each round every agent reads $\kappa_2\le M-1$ parent aggregates $\bar\mu_c=n^{-1}\sum_{i\in c}\mu_i$ with read noise $R_c^{(2)}$ per coordinate, the set $J$ drawn among the $2M-1$ other parents with probability proportional to $\exp(\gamma\frac K2\log(\hat\Lambda^+(J)/\Lambda^{(1)}))$, $\hat\Lambda^+(J)=\Lambda^{(1)}+\sum_{c\in J}\varpi_c$, $\Lambda^{(1)}=\Lambda_0+(n-1)\varpi_{\mathrm{in}}$. Each parent edge has a translation learned as in \cref{def:frm-two-group}(vi) from the declared start, with bias fractions $y_c$ on near edges and $x_c$ on far edges. If an aggregate read averages $n$ independent member reads, $R_c^{(2)}=R_c/n$.
+\end{definition}
+
+\begin{proposition}[What a formed group inherits]\label{prop:rfm-inheritance}
+At the level-1 split of \cref{def:rfm-nested}, let $\bar m_A,\bar s_A$ be the member averages of a parent $A$ and $e_A=\bar m_A-\eta$.
+\begin{enumerate}
+\item[(a)] Exterior. $\bar s_A=\eta+\bar v_A$ with $\Cov(\bar v_A)=(R^s/n)I_2$, and $\eta$ keeps the law $(F,Q)$.
+\item[(b)] Memory. $\bar m_A(t+1)=F[(1-k^s)\bar m_A(t)+k^s\bar s_A(t)]+\bar\zeta_A(t)$ with $\Cov(\bar\zeta_A)=F^2\bar k^2(n-1)R_c/n\cdot I_2$, white and independent across parents: a closed filter with the members' gain $k^s$.
+\item[(c)] Belief covariance. In the stationary law $e_A=b+\xi_A$ with $b(t+1)=\lambda b(t)-w_t$ common to all parents, $\Var_1(b)=Q/(1-\lambda^2)$, and $\xi_A$ independent of $b$ and across parents, $\Var_1(\xi_A)=q/(n(1-\lambda^2))=\mathsf s_0/n+\mathsf s_1$, with lag-$\tau$ correlation $\lambda^{\tau}$. Member deviations $m_i-\bar m_A$ are independent of $(b,\xi_A)$, with variance $\mathsf s_0(1-1/n)$ and multiplier $\lambda_\perp=F(k^0-\bar k)$.
+\item[(d)] Frame. $\bar\mu_A=\mathrm{Rot}(\theta_A)\bar m_A$. For units $c=1,\dots,M$ with distinct frames, $M^{-1}\sum_c\mathrm{Rot}(\theta_c)\bar m_c=\rho\mathrm{Rot}(\bar\theta)\bar m+M^{-1}\sum_c\mathrm{Rot}(\theta_c)(\bar m_c-\bar m)$, where $\rho e^{\mathrm i\bar\theta}=M^{-1}\sum_ce^{\mathrm i\theta_c}$ and $\rho<1$.
+\item[(e)] Outgoing channel. A reader of $\bar\mu_A$ with translation error $\phi$ has calibrated noise $R_c^{(2)}+\mathrm{MSE}_A+D_{\mathrm{cal}}(1-\cos\phi)$, with $\mathrm{MSE}_A=Q/(1-\lambda^2)+q/(n(1-\lambda^2))$ and the member value of $D_{\mathrm{cal}}$.
+\end{enumerate}
+\end{proposition}
+
+Aggregation divides only $\mathsf s_0$ by $n$; the common lag and the correlated part pass to the parent unchanged. The capacity $\kappa_2$, the read noise $R_c^{(2)}$ and the choice of a separate channel are not inherited.
+
+\begin{lemma}[Nested split law]\label{lem:rfm-nested-law}
+Let units of sizes $n_1,\dots,n_L\ge2$ be nested, $N_j=n_1\cdots n_j$, and let every agent read all $n_j-1$ sibling aggregates at every level $j$ with exact translations and read noise $R_c/N_{j-1}$. For $\hat P^->0$ and $\varpi_j>0$ put $\hat\Lambda^+=1/\hat P^-+1/R^s+\sum_j(n_j-1)\varpi_j$, $k^0=1/(\hat P^-\hat\Lambda^+)$, $k^s=1/(R^s\hat\Lambda^+)$, $k_j=\varpi_j/\hat\Lambda^+$, $\lambda=F(1-k^s)$, $K_m=k^0+\sum_{j\le m}(n_j-1)k_j$, $\mu_{m+1}=F(K_m-k_{m+1})$ and $q=F^2[(k^s)^2R^s+\sum_jk_j^2(n_j-1)R_c/N_{j-1}]$. Then $|\mu_{m+1}|\le\lambda$, and the error of the average of a level-$m$ unit has
+\begin{equation}\label{eq:rfm-nested-mse}
+\mathrm{MSE}_m=\frac{Q}{1-\lambda^2}+\sum_{j=m}^{L-1}\frac{q(N_j^{-1}-N_{j+1}^{-1})}{1-\mu_{j+1}^2}+\frac{q}{N_L(1-\lambda^2)},\qquad D_L=\frac{2QF^2k^s}{(1-F^2)(1-\lambda F)},
+\end{equation}
+where $D_L=2\Cov_1(\eta,\cdot)$ for every unit average.
+The self-consistency equations $\hat P^-=F^2/\hat\Lambda^++Q$, $\varpi_j=1/(R_c/N_{j-1}+\mathrm{MSE}_{j-1})$ have a solution, and every solution has $\varpi_{\min}\le\varpi_j\le1/Q$ with $\varpi_{\min}=1/(R_c+P_0+F^2(R^s+R_c)/(1-F^2))$.
+\end{lemma}
+
+\begin{theorem}[Level-2 thresholds]\label{thm:rfm-thresholds}
+Freeze the calibration $\varpi(\phi)=1/(\hat\sigma^2+D(1-\cos\phi))$ and the base precision $\Lambda>0$ of the aggregate channel, let $0<\mathsf p^\ast<1$, and consider the map \eqref{eq:frm-meanfield} on the $2M-1$ parent edges of one receiver. Put
+\begin{equation}\label{eq:rfm-thresholds}
+\Delta\mathcal V_2(x)=\frac K2\log\Bigl(1+\frac{\varpi(\vartheta_{\mathrm n})-\varpi(x\vartheta_{\mathrm f})}{\Lambda+\kappa_2\varpi(0)}\Bigr),\quad\gamma_S^{(2)}=\frac{\log\frac{\kappa_2(1-\mathsf p^\ast)}{\mathsf p^\ast}}{\Delta\mathcal V_2(\frac12)},\quad\gamma_M^{(2)}=\frac{\log\frac{\kappa_2}{(2M-1)\mathsf p^\ast}}{\frac K2\log\frac{\Lambda+\kappa_2\varpi(0)}{\Lambda+\kappa_2\varpi(\vartheta_{\max})}},
+\end{equation}
+and $\bar{\mathsf p}_2=\kappa_2e^{-\gamma\Delta\mathcal V_2(1/2)}/(1+\kappa_2e^{-\gamma\Delta\mathcal V_2(1/2)})$.
+\begin{enumerate}
+\item[(a)] If $\gamma>\gamma_S^{(2)}$, the set where all far edges are unlearned is forward invariant and $\liminf_tx_c(t)\ge\mathsf p^\ast/(\mathsf p^\ast+\bar{\mathsf p}_2)>\frac12$ there, whatever the near edges do.
+\item[(b)] If in addition $\kappa_2=M-1$ and $M\bar{\mathsf p}_2<1-\mathsf p^\ast$, then on that set every near edge has $\limsup_ty_c(t)\le\mathsf p^\ast/(\mathsf p^\ast+1-M\bar{\mathsf p}_2)<\frac12$: the superunits form. The extra condition follows from $\gamma>\gamma_S^{(2)}$ when $\mathsf p^\ast\le1/(M+1)$.
+\item[(c)] If $\gamma<\gamma_M^{(2)}$, every edge is eventually learned and no level-2 partition forms.
+\end{enumerate}
+The inherited constants at onset are $\Lambda=\Lambda^{(1)}$, $\hat\sigma^2=R_c^{(2)}+\mathrm{MSE}_A$, $D=D_{\mathrm{cal}}$; at a level-$\ell$ event they are those of \cref{lem:rfm-nested-law} at depth $\ell-1$.
+\end{theorem}
+
+The renormalized map sends the depth-$(\ell-1)$ solution of \cref{lem:rfm-nested-law} to the triple $(\Lambda,\hat\sigma^2,D)$ and, through \eqref{eq:rfm-thresholds}, to the thresholds of level $\ell$. The triple is an exact summary for the thresholds, but its flow is not closed: the depth-$\ell$ solution recalibrates every lower $\varpi_j$.
+
+\begin{corollary}[Thresholds grow with depth]\label{cor:rfm-depth}
+At any self-consistent solution of depth $L$, with $S_L=\sum_{j\le L}(n_j-1)$ and $C=2KF^2/(QR^s(1-F^2)^2)$, the base precision of the next event satisfies $\Lambda\ge1/R^s+\varpi_{\min}S_L$, and when the logarithms are positive
+\begin{equation}\label{eq:rfm-depth}
+\gamma_S\ge\frac{\Lambda^2}{C}\log\frac{\kappa(1-\mathsf p^\ast)}{\mathsf p^\ast},\qquad\gamma_M\ge\frac{\Lambda^2}{C\kappa}\log\frac{\kappa}{(2M-1)\mathsf p^\ast}.
+\end{equation}
+Moreover $P_0(1-2F^2k^s/(1-F^2))\le\mathrm{MSE}_m\le P_0+q/(1-F^2)$ with $k^s\le1/(1+R^s\varpi_{\min}S_L)$ and $q\le F^2k^sR^s(1+R_c/Q)$. Hence the depth-$L$ solutions have no accumulation point with $k^s>0$; as $S_L\to\infty$ the claimed variance $1/\hat\Lambda^+$, the grounding $D_L$ and every value gap tend to zero while every $\mathrm{MSE}_m$ tends to the prior variance $P_0$, and at fixed $\gamma$, with bounded unit sizes, $\kappa_\ell=n_\ell-1$ and $\mathsf p^\ast<\frac13$, only finitely many levels escape (c).
+\end{corollary}
+
+\begin{observation}[Three levels at the base point]\label{obs:rfm-levels}
+With $n_\ell=4$, $\kappa_\ell=3$ and the same supplied geometry $\vartheta_{\mathrm n}=0$, $\vartheta_{\mathrm f}=\vartheta_{\max}=\pi/2$ substituted in \eqref{eq:rfm-thresholds} at every level, the thresholds $(\gamma_M,\gamma_S)$ frozen at the split are $(6.84,68.2)$, $(11.2,109.6)$, $(16.1,161.0)$ for levels 1 to 3, and $(8.18,76.4)$, $(13.5,128.4)$ for levels 2 and 3 frozen at onset; member mean-square error rises $0.249,0.305,0.346$ with depth, against $0.141$ for an isolated Kalman agent (\cref{chk:rfm-thresholds}). A third level is reached in the mean field for $\gamma>161.0$.
+\end{observation}
+
+\begin{observation}[Coarse partitions resolve first]\label{obs:rfm-ordering}
+With inherited frames $\{0,\pi/16,\pi/8\}$ and $5\pi/8+\{0,\pi/16,\pi/8\}$, $n=4$, $M=3$, $\kappa_2=2$, one $\gamma$ for both channels and level-2 constants inherited from the exact level-1 split, the superunits separate on the aggregate channel from $\gamma\approx60$ ($\gamma_S^{(2)}=113.9$), while on the individual channel the parents separate only between $\gamma=900$ and $1300$ ($\gamma_S=1853$ at mismatch $\pi/16$); below that the first event already produces the bridged superunit and no intermediate level exists (\cref{chk:rfm-iteration}).
+\end{observation}
+
+\subsection{Obstructions and agency tests}\label{sec:rfm-obstructions}
+
+The second event is driven by one inherited quantity, the dependence of the calibrated noise of an aggregate on the translation error. The statements below say when that dependence is too weak, what the event does to the first level, and how the superunit fares under a translation-aware form of the exact-fusion null, a change of representation and membership turnover.
+
+\begin{lemma}[Aggregate of a frame-incoherent parent]\label{lem:rfm-coherence}
+Let the members of a parent have frames $\mathrm{Rot}(\theta_i)$ with exact in-group translations and the split law of \cref{lem:frm-split-law}, and write $n^{-1}\sum_{i}e^{\mathrm i\theta_i}=\rho e^{\mathrm i\bar\theta}$. A reader whose translation of $\bar\mu_c=n^{-1}\sum_i\mathrm{Rot}(\theta_i)m_i$ errs by $\phi$ from $\bar\theta$ calibrates, by the C1g rule of \cref{def:frm-two-group}(v),
+\begin{equation}\label{eq:rfm-coherence}
+\hat\sigma_\rho^2(\phi)=\hat\sigma_\rho^2+\rho D_{\mathrm{cal}}(1-\cos\phi),\qquad\hat\sigma_\rho^2=R_c^{(2)}+\rho^2\mathrm{MSE}_A+(1-\rho^2)\Bigl(P_0+\frac{\mathsf s_0}n\Bigr)-\rho(1-\rho)D_{\mathrm{cal}},
+\end{equation}
+with $\mathsf s_0$ as in \cref{lem:frm-split-law}, and $\hat\sigma^2_\rho(\phi)\ge R_c^{(2)}+Q$. At $\rho=1$ this is \cref{prop:rfm-inheritance}(e); at $\rho=0$ the calibration does not depend on $\phi$.
+\end{lemma}
+
+\begin{theorem}[Obstructions to the second event]\label{thm:rfm-obstruction}
+In \cref{thm:rfm-thresholds} take $\varpi(\phi)=1/\hat\sigma^2_\rho(\phi)$ with $D=D_{\mathrm{cal}}$, mismatches in $[0,\vartheta_{\max}]$, $1\le\kappa_2\le2M-1$, and put
+\begin{equation}\label{eq:rfm-b2}
+B_2=\frac{K\kappa_2\rho D(1-\cos\vartheta_{\max})}{2\hat\sigma_\rho^2\hat\sigma_\rho^2(\vartheta_{\max})\Lambda},\qquad\ell_2=\log\frac{\kappa_2}{(2M-1)\mathsf p^\ast}.
+\end{equation}
+\begin{enumerate}
+\item[(a)] At every state and every $\gamma$ each parent edge is attended with probability at least $\kappa_2e^{-\gamma B_2}/(2M-1)$. If $\gamma B_2<\ell_2$, every edge has $\limsup_tx_c(t)<\frac12$ from every start, so no edge stays unlearned and $\gamma_M^{(2)}\ge\ell_2/B_2$.
+\item[(b)] If $\rho D(1-\cos\vartheta_{\max})=0$, attention over parents is uniform at every $\gamma\in[0,\infty]$ and every bias fraction converges to $\mathsf p^\ast/(\mathsf p^\ast+\kappa_2/(2M-1))$ from every start.
+\item[(c)] With the inherited constants, $B_2\le\rho C\kappa_2(1-\cos\vartheta_{\max})/(2\Lambda^2)$ with $C$ of \cref{cor:rfm-depth}, and $\Lambda^{(1)}\ge1/R^s+(n-1)\varpi_{\min}$. When $\ell_2>0$, the conclusion of (a) therefore holds for every group size with $(1/R^s+(n-1)\varpi_{\min})^2>\gamma\rho C\kappa_2(1-\cos\vartheta_{\max})/(2\ell_2)$.
+\item[(d)] If $\kappa_2\ge M$, every reader attends at least $\kappa_2-M+1$ far parents in every round at every $\gamma$, and for $\mathsf p^\ast<(\kappa_2-M+1)/M$ no fixed point has all far edges unlearned.
+\end{enumerate}
+\end{theorem}
+
+\begin{proposition}[Contrast after the second event]\label{prop:rfm-replacement}
+At the depth-2 split of \cref{lem:rfm-nested-law} ($n_1=n$, $n_2=M$) the world-conditional precision of a superunit $S$ is $(I-W^2)/q$, with $W$ the entrywise nonnegative member matrix; it is diffusive with uniform leak $(1-\lambda^2)/q$, and
+\begin{equation}\label{eq:rfm-replacement}
+r(S)=\frac{1-\max\{\mu_1^2,\mu_2^2\}}{1-\lambda^2},\qquad r(c\mid S)=\frac{1-\lambda^2+\mu_2^2-\mu_1^2+(\lambda^2-\mu_2^2)/M}{1-\lambda^2+(M-1)(\lambda^2-\mu_2^2)/M}\le\frac{M(1-\mu_1^2)}{(M-1)(1-\mu_2^2)},
+\end{equation}
+where $r(c\mid S)$ is the contrast of a parent inside its superunit. For the population of parent aggregates, $r(S)=(1-\mu_2^2)/(1-\lambda^2)$.
+\end{proposition}
+
+\begin{proposition}[Translation-aware null at level 2]\label{prop:rfm-null}
+In \cref{def:rfm-nested} let every reader know and remove the mistranslation of each aggregate read, with calibration on the current law.
+\begin{enumerate}
+\item[(a)] A read from which the mistranslation is removed has the law of an exactly translated one, with calibrated noise $R_c^{(2)}+\mathrm{MSE}_c(t)$ for every reader.
+\item[(b)] From a start law invariant under permutations of the $2M$ parents and of the members inside each parent, with errors $b+\xi_i$ and $\xi$ independent of the world, all parent precisions are equal at all times, attention over parents is uniform at every $\gamma\in[0,\infty]$, and the law stays invariant. The conditional covariance of the parent aggregates is $g_0I+g_1\one\one^\top$, and at stationarity $g_1\ge0$; a union of $m\ge2$ parents has contrast $(\varepsilon+ma)/(\varepsilon+(2M-m)a)$ with $\varepsilon=1/(g_0+2Mg_1)$, $a=g_1\varepsilon/g_0$, which equals $1$ at $m=M$.
+\item[(c)] Let the start law be invariant only under a group $H$ of permutations of the agents that maps parents to parents and is transitive on the agents, as at the depth-2 split, with errors as in (b). The first three claims of (b) hold with $H$ as the invariance group. The conditional covariance $\Sigma_t$ of the members and its average $\bar\Sigma_t$ over the permutations of (b) obey the same recursion, and $\max_{ij}|(\Sigma_t-\bar\Sigma_t)_{ij}|\le F^{2t}\max_{ij}|(\Sigma_0-\bar\Sigma_0)_{ij}|$. Every stationary law invariant under $H$ therefore has the conditional covariance of (b).
+\end{enumerate}
+Hence under this null no partition into superunits is selected, and a superunit has contrast $1<r_0$.
+\end{proposition}
+
+The null of \cref{prop:rfm-null} is not a row of \cref{tab:agy-nulls}. It is a partial form of $\mathfrak N_{\mathrm{ex}}$, introduced here: it removes the mistranslation of aggregate reads and keeps the literal fusion and the attention rule of \cref{def:frm-two-group}, so the cross-covariances of the aggregates are still misread. Whether it counts among the nulls of type S of \cref{def:agy-nulls} is a choice that the definition does not make, and every conclusion drawn from it below is stated with that choice. Part (c) bounds the distance of the covariance from its symmetrized form and identifies the stationary laws with the symmetry of the split; convergence of the symmetrized covariance under the calibration loop is not proved, and is seen only in the computed orbit of \cref{chk:rfm-recheck}.
+
+\begin{proposition}[Change of representation]\label{prop:rfm-representation}
+Let the retention of \cref{def:frm-two-group}(vi) pull each estimate toward a declared default $\hat\alpha^0_{cd}$, the model itself having $\hat\alpha^0=0$.
+\begin{enumerate}
+\item[(a)] The map \eqref{eq:frm-meanfield} and its thresholds depend on the frames and the default only through the moduli $\vartheta^0_{cd}=|\theta_c-\theta_d-\hat\alpha^0_{cd}|$. The second moments at a given bias field depend on them only through the signed offsets $\theta_c-\theta_d-\hat\alpha^0_{cd}$, up to a common change of sign of all offsets. All of these are invariant under $\theta_c\mapsto\theta_c+\delta_c$, $\hat\alpha^0_{cd}\mapsto\hat\alpha^0_{cd}+\delta_c-\delta_d$.
+\item[(b)] With the default held at $0$ they are not invariant: $\delta_c=-\theta_c$ gives $\vartheta_{\max}=0$ and, by \cref{thm:rfm-obstruction}(b), no event at any $\gamma$.
+\item[(c)] An invertible recoding $T\bar\mu_c$ of the aggregate leaves closure and contrast unchanged. A recoding $T=\rho'\mathrm{Rot}(\delta)$ unknown to the readers shifts the mismatch by $\delta$ and replaces $D$ by $\rho'D$ and $\hat\sigma^2$ by $R_c^{(2)}+\rho'^2(\mathrm{MSE}_A-P_0+D)+P_0-\rho'D$.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}[Turnover]\label{def:rfm-turnover}
+Each round, before fusion, every agent is replaced independently with probability $g$. The newcomer takes the position, frame and sensor of its predecessor; its memory is $f$ times the current parent aggregate plus independent zero-mean noise of finite variance; each translation is handed over with probability $f_\alpha$ and otherwise reset to the declared start. The fidelity $f$ is the analog of $\mathsf f$ in \cref{prop:agy-identity}, with the current parent aggregate in place of the record.
+\end{definition}
+
+\begin{proposition}[Membership turnover]\label{prop:rfm-turnover}
+Under \cref{def:rfm-turnover}, with $\hat g=g(1-f_\alpha)$:
+\begin{enumerate}
+\item[(a)] the mean-field map of the bias fractions recorded after the replacement step is \eqref{eq:frm-meanfield} with $h$ replaced by $h_g=(1-\hat g)h$, so \cref{thm:rfm-thresholds,thm:rfm-obstruction} hold with $\mathsf p^\ast(g)=(1-h_g)/(\alpha h_g)$, increasing in $\hat g$. For $\hat g\ge g_c=1-1/((1+\alpha)h)$ every edge has $\liminf_tx_c(t)\ge\frac12$ at every $\gamma$: no translation stays learned;
+\item[(b)] at the depth-2 split with exact translations and fixed gains, the superunit mean is closed in conditional mean with multiplier $\lambda_g=\lambda(1-g(1-f))$. The part of $\bar m_S$ not explained by $\bar s_S$ has autocorrelation $\lambda_g^\tau$, the expected membership overlap is $(1-g)^\tau$, and the coarse memory outlasts the membership exactly when $g>(1-\lambda)/(1-\lambda(1-f))$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Agency test of the superunit]\label{prop:rfm-verdict}
+For a superunit at the depth-2 split, with coarse variable $\bar m_S$ and blanket input $\bar s_S$:
+\begin{enumerate}
+\item[(i)] the closure defect of \cref{def:agy-closure} vanishes, and with $y=\bar m_S$ the conditional mutual information $I(y_{t+1};y_{0:t-1}\mid y_t,\bar s_{S,0:t})$ of its input-conditional Markov defect vanishes for every $t$ and every initial law. This is the Markov defect of that definition when the initial law of the members is Gaussian and independent of the world and of the sensor noise; at the stationary law, where the members are correlated with the world, the independence proviso of the definition is not met and only the vanishing of this conditional quantity is claimed;
+\item[(ii)] (H-suff) and (H-phys) of \cref{thm:met-h5a} hold, the detectability in (H-phys) because $\bar F=F$ and $\rho(F)<1$, and (H-prot) fails, because the members run the level-0 fusion of \cref{def:frm-two-group}(v) and not the consensus filter of the pooled model. That theorem therefore does not apply to the superunit, and closure of the coarse state holds directly, by (i);
+\item[(iii)] the model has no acts, so (H-act), the agency index, $\mathfrak N_{\mathrm{eff}}$ and $\mathfrak N_{\mathrm{inf}}$ are inapplicable;
+\item[(iv)] under uniform partner draws redrawn every round (that variant of $\mathfrak N_{\mathrm{pr}}$, with which $\mathfrak N_{\mathrm{hab}}$, that is $\gamma=0$, coincides here) the mean-field map has only the uniform fixed point of \cref{thm:rfm-obstruction}(b), which selects no superunit. The variant of $\mathfrak N_{\mathrm{pr}}$ with partners drawn once is not covered;
+\item[(v)] the type-S clause fails in its translation-aware form, by \cref{prop:rfm-null}.
+\end{enumerate}
+With the translation-aware null admitted among the nulls of type S and evaluated at its stationary laws with the symmetry of the split, the superunit is not a meta-agent at any grade; that the null reaches such a law from the split is computed and not proved (\cref{chk:rfm-recheck}). Under the full exact-fusion null $\mathfrak N_{\mathrm{ex}}$ the clause is open.
+\end{proposition}
+
+\begin{observation}[Base point]\label{obs:rfm-window}
+For $n=4$, $M=3$, $\kappa_2=2$ (\cref{chk:rfm-null,chk:rfm-turnover}) the superunit has $r(S)=7.134$ against $6.066$ for the whole population in the exchangeable state of \cref{prop:rfm-null}, taken as the comparison medium. That state keeps the first-level parents and is invariant under permutations of the parents and of the members of a parent, not of all agents, so it is declared in the manner of clause (c) of \cref{def:col-baseline} and is not an instance of that clause; a medium exchangeable over all agents was not computed. An enumeration of all regions of that state finds no larger contrast, so $6.066$ is the supremum of \cref{def:col-baseline} for this medium and the admissible levels are $r_0\in(6.07,7.13]$. A parent inside the superunit has $r(c\mid S)=1.329$, down from $8.733$ before the event: the second event replaces the first level and does not nest it at a common grade. With faithful replacement ($f=1$) the contrast of the state recorded after fusion rises with $g$, from $7.13$ to $9.92$ at $g=0.2$, while the state recorded after the replacement step keeps $7.13$ at every $g$ (\cref{chk:rfm-recheck}).
+\end{observation}
+
+\begin{remark}[Scope]\label{rem:rfm-status}
+The inherited law of \cref{prop:rfm-inheritance} is exact at $\gamma=\infty$ and $\sigma_\alpha^2=0$. \Cref{thm:rfm-thresholds,thm:rfm-obstruction} and \cref{prop:rfm-turnover}(a) concern the frozen-calibration mean-field map, as \cref{thm:frm-formation} does, and the size condition of \cref{thm:rfm-obstruction}(c) exceeds the exact threshold size by four orders of magnitude at the base point (\cref{chk:rfm-obstruction}). \Cref{lem:rfm-nested-law} idealizes in-unit translations above level 1 as exact; the residual bias changes member mean-square error by less than $2\times10^{-4}$ in relative terms at the base point (\cref{chk:rfm-residual}). The retained constants $(\Lambda,\hat\sigma^2,D)$ do not close under iteration, since the depth-$\ell$ solution recalibrates every lower precision.
+\end{remark}
+
+\begin{openproblem}[Exact fusion at level 2]\label{open:rfm-exact-fusion}
+Under the full null $\mathfrak N_{\mathrm{ex}}$, in which readers also account for the cross-covariances of aggregates, decide whether any partition of the parents is selected with blocks at $r\ge r_0$. \Cref{prop:rfm-null} settles the translation-aware form only, from exchangeable starts and at every stationary law with the symmetry of the split.
+\end{openproblem}
+
+\begin{openproblem}[Competing parents and sharp sizes]\label{open:rfm-competing}
+Find thresholds for $\kappa_2<M-1$, where near parents compete for capacity, and a size condition in \cref{thm:rfm-obstruction}(c) of the order of the exact threshold sizes of \cref{chk:rfm-obstruction}.
+\end{openproblem}
+
+\begin{openproblem}[Calibration that tracks the forming law]\label{open:rfm-online}
+Show that the stochastic model with online calibration reaches the depth-2 split when $\gamma>\gamma_S^{(2)}$, or exhibit a start from which it does not, and find a closed extension of the map on $(\Lambda,\hat\sigma^2,D)$ (\cref{open:frm-self-consistent,open:frm-closure}).
+\end{openproblem}
+
+\begin{openproblem}[A level-2 meta-agent]\label{open:rfm-agent}
+Extend \cref{def:rfm-nested} by acts and decision states so that the agency index, $\mathfrak N_{\mathrm{eff}}$ and $\mathfrak N_{\mathrm{inf}}$ apply, and either exhibit a nested collective formed by this mechanism that meets the grade of \cref{def:agy-meta-agent}, or prove that none survives the nulls of type S.
+\end{openproblem}
+
+\begin{openproblem}[Closure under turnover]\label{open:rfm-turnover}
+For $g>0$ compute the closure defect of \cref{def:agy-closure} for $\bar m_S$, and treat newcomers that bring their own frames, which lower the coherence $\rho$ of \cref{lem:rfm-coherence}.
+\end{openproblem}

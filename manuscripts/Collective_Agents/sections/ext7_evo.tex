@@ -1,0 +1,156 @@
+\section{Reproducing collectives: fission, records and heritability}\label{sec:evo}
+
+This section addresses the open problem of evolutionary individuality, the question of how collective organization becomes a unit of selection with heritable collective variation. It does so conditionally. The dynamics of this manuscript produce neither reproduction nor fitness, so both are declared as inputs; with them, the identity machinery of \cref{prop:agy-identity} gives the heritability of a convention as a function of the founder bottleneck, the fidelity of a copied record and the relaxation parameters (\cref{prop:evo-transmission,thm:evo-record-channel}), the expected response to selection among collectives (\cref{prop:evo-price}), and, under a Gaussian closure that is assumed and not derived, the balance between selection and imperfect transmission (\cref{prop:evo-balance}). Left open are fitness and reproduction as events derived from the dynamics, heritable variation in the organizational parameters, a threshold for discrete conventions, and tradeoffs between collective traits (\cref{open:evo-fitness,open:evo-reproduction,open:evo-parameters,open:evo-threshold,open:evo-tradeoff}).
+
+The identity time of \cref{def:agy-identity} measures how long one collective keeps a convention while its members turn over. Evolutionary individuality asks for more: collectives that reproduce, heritable variation among them in a collective trait, and differences in reproductive success that depend on the trait. Reproduction is modeled below as a fission with a founder bottleneck and a copied record, and fitness as a number of daughters that the parental generation determines.
+
+Throughout, the hypotheses of \cref{prop:agy-identity} hold, namely a turnover rate $g>0$, newcomer noise of positive finite variance, $\omega>0$ and $\det\mathsf A>0$, and $\mathsf A$ and the newcomer fidelity $\mathsf f\in[0,1]$ are those of that proposition. The effective forgetting and read rates are $\tilde\varepsilon=\varepsilon+g(1-\mathsf f)$ and $\tilde\beta=\beta+g\mathsf f$, as in \cref{cor:hie-identity}, which writes the fidelity with the same symbol. We assume $\beta+g\mathsf f>0$ throughout: the record is read, by the members or by the newcomers, so that by \cref{prop:agy-identity}(a) the identity time $\tau_{\mathrm{id}}$ of the pair $(\bar\mu,z)$ is also that of the members' mean. Then $\tau_{\mathrm{id}}=1/\varpi_-$, where $\varpi_\pm=\frac12[\mathsf p_1+\mathsf p_2\pm((\mathsf p_1-\mathsf p_2)^2+4\omega\tilde\beta)^{1/2}]$, $\mathsf p_1=\varepsilon+\beta+g$ and $\mathsf p_2=\omega+\delta$. Sans-serif symbols introduced below are local to this section. In particular $\mathsf F$, $\mathsf m$, $\mathsf c$, $\mathsf N_{\mathrm{fis}}$, $\mathsf N_{\mathrm{rel}}$ and $\mathsf y_\ast$ are unrelated to the symbols $\mathsf F_{\mathrm{com}}$, $\mathsf m_1$, $\mathsf c_1$, $\mathsf N$ and $\mathsf y$ of \cref{sec:hie}, and $\mathsf f$ is the newcomer fidelity and not one of the coefficients $\mathsf f_t$ of \cref{lem:hie-record-blind}.
+
+\begin{definition}[Fission with a copied record]\label{def:evo-fission}
+A parent is a collective of \cref{prop:agy-identity} with $n\ge2$ positions, member states $\mu_1,\dots,\mu_n$ with mean $\bar\mu$, and record $z$, observed at the end of a generation of duration $\mathsf T>0$. The parental information $\mathcal H$ comprises the states of all parents at that time and everything determined earlier. Fix a founder number $\mathsf b\in\{0,\dots,n\}$ and a copy fidelity $\mathsf c\in[0,1]$. Each daughter is formed independently in four steps.
+\begin{enumerate}
+\item[(i)] A set $S$ of $\mathsf b$ positions is drawn uniformly; these founders keep their states.
+\item[(ii)] The daughter's record starts at $z'_0=\mathsf cz+\zeta$.
+\item[(iii)] The $n-\mathsf b$ vacant positions are filled at once by recruits with states $\mathsf f z'_0+\nu_i$.
+\item[(iv)] The daughter evolves for a time $\mathsf T$ under the dynamics of \cref{prop:agy-identity}, with noise increments of zero conditional mean given $\mathcal H$ and the daughter's own past.
+\end{enumerate}
+The noises $\zeta$ and $\nu_i$ have zero mean and variances $\mathsf s_z^2$ and $\mathsf s_\nu^2$, and $S$, $\zeta$ and the $\nu_i$ are independent of each other and of $\mathcal H$. In the variant without a record, with $\mathsf b\ge1$, recruits start at $\mathsf f m_S+\nu_i$, where $m_S$ is the founders' mean, and the daughter relaxes as in the last sentence of \cref{prop:agy-identity}(a). The number $\mathsf W_j\in\{0,1,2,\dots\}$ of daughters of parent $j$, its absolute fitness, is an input and is required to be $\mathcal H$-measurable.
+\end{definition}
+
+The definition excludes selection on a daughter's own state during its generation, and it replaces sequential recruitment by an instantaneous refill. Write $\bar{\mathsf b}=\mathsf b/n$ for the founder fraction, $\mathsf x=(\bar\mu,z)^\top$ for a parent's collective state, $\mathsf x'(\mathsf T)$ for a daughter's state at the end of its generation, and
+\begin{equation}\label{eq:evo-fission-matrix}
+\mathsf F=\begin{pmatrix}\bar{\mathsf b}&(1-\bar{\mathsf b})\mathsf f\mathsf c\\0&\mathsf c\end{pmatrix},\qquad\mathsf M=e^{\mathsf T\mathsf A}\mathsf F.
+\end{equation}
+
+\begin{proposition}[Transmission matrix and collective heritability]\label{prop:evo-transmission}
+In the fission model of \cref{def:evo-fission}:
+\begin{enumerate}
+\item[(a)] $\E[\mathsf x'(\mathsf T)\mid\mathcal H]=\mathsf M\mathsf x$. If the parents' states have covariance $\Sigma$, then $\Cov(\mathsf x'(\mathsf T),\mathsf x)=\mathsf M\Sigma$, and the regression of a trait $\mathsf a^\top\mathsf x'(\mathsf T)$ of the daughter on $\mathsf a^\top\mathsf x$ has slope $\mathsf a^\top\mathsf M\Sigma\mathsf a/(\mathsf a^\top\Sigma\mathsf a)$ when $\mathsf a^\top\Sigma\mathsf a>0$.
+\item[(b)] $\mathsf M$ has nonnegative entries, its spectral radius is
+\begin{equation}\label{eq:evo-heritability}
+\mathsf h=\tfrac12\bigl[\mathsf M_{11}+\mathsf M_{22}+\bigl((\mathsf M_{11}-\mathsf M_{22})^2+4\mathsf M_{12}\mathsf M_{21}\bigr)^{1/2}\bigr]<1,
+\end{equation}
+and there is a nonzero $\mathsf l\ge0$ with $\mathsf l^\top\mathsf M=\mathsf h\mathsf l^\top$. The heritable trait $y=\mathsf l^\top\mathsf x$ satisfies $\E[y'\mid\mathcal H]=\mathsf hy$, so its parent-offspring regression slope is $\mathsf h$ for every $\Sigma$ with $\mathsf l^\top\Sigma\mathsf l>0$. For $\mathsf b=0$ the heritable trait is the record, and for $\mathsf c=0$ and $\mathsf b\ge1$ it is the members' mean.
+\item[(c)] If $\mathsf b\ge1$ and $\mathsf c>0$, then $\mathsf l$ is positive and unique up to scale, $\mathsf M$ has a positive right eigenvector $r_{\mathsf M}$ for $\mathsf h$, and the following holds along a line of descent in which every collective founds at least one daughter and the daughter followed is selected by a rule independent of the states and noises of all collectives on the line: the descendant $\mathsf x^{(k)}$ after $k$ generations satisfies $\mathsf h^{-k}\E[\mathsf a^\top\mathsf x^{(k)}\mid\mathcal H]\to(\mathsf a^\top r_{\mathsf M})y/(\mathsf l^\top r_{\mathsf M})$ for every $\mathsf a$. The limit is nonzero exactly when $\mathsf a^\top r_{\mathsf M}\ne0\ne y$.
+\item[(d)] Without a record, $\E[\bar\mu'(\mathsf T)\mid\mathcal H]=\mathsf h_0\bar\mu$ with $\mathsf h_0=(\bar{\mathsf b}+(1-\bar{\mathsf b})\mathsf f)e^{-\tilde\varepsilon\mathsf T}$; put $\mathsf h_0=0$ for $\mathsf b=0$.
+\end{enumerate}
+\end{proposition}
+
+Proof in \cref{app:evo}; checked in \cref{chk:evo-fission}. The number $\mathsf h$ is a heritability in the regression sense, the slope of the offspring trait on the parent trait, for a convention measured from its neutral value $0$. A general linear trait has a slope that depends on the parental covariance; the heritable trait is the combination of members' mean and record for which it does not, and by (c) the conditional mean of every linear trait with $\mathsf a^\top r_{\mathsf M}\ne0$, in particular of every nonzero $\mathsf a\ge0$, decays along a line of descent at the rate $\mathsf h$ per generation; the remaining traits decay faster (proof of (c)). Without a record the members are the only channel, and $\mathsf h_0\le e^{-\tilde\varepsilon\mathsf T}$ survives a long generation only when forgetting is slow and recruits copy the founders almost faithfully. The next theorem compares the two channels, with $\mathsf u=(\mathsf p_1-\varpi_-)/(\varpi_+-\varpi_-)\in(0,1)$ and $\mathsf k=1+(1-\bar{\mathsf b})\mathsf f\omega/(\mathsf p_1-\varpi_-)$.
+
+\begin{theorem}[The record as an inheritance channel]\label{thm:evo-record-channel}
+In the fission model of \cref{def:evo-fission}:
+\begin{enumerate}
+\item[(a)] For every $\mathsf b$, $\mathsf c$ and $\mathsf T$,
+\begin{equation}\label{eq:evo-sandwich}
+e^{-\mathsf T/\tau_{\mathrm{id}}}\max\{\mathsf c\mathsf u,\bar{\mathsf b}(1-\mathsf u),\min\{\bar{\mathsf b},\mathsf c\mathsf k\}\}\le\mathsf h\le e^{-\mathsf T/\tau_{\mathrm{id}}}\max\{\bar{\mathsf b},\mathsf c\mathsf k\},
+\end{equation}
+$\mathsf he^{\mathsf T/\tau_{\mathrm{id}}}\to(1-\mathsf u)\bar{\mathsf b}+\mathsf u\mathsf c\mathsf k$ as $\mathsf T\to\infty$, and $\mathsf h\to\max\{\bar{\mathsf b},\mathsf c\}$ as $\mathsf T\to0$.
+\item[(b)] $\min\{\delta,\tilde\varepsilon\}\le1/\tau_{\mathrm{id}}\le\max\{\delta,\tilde\varepsilon\}$, with strict inequalities when $\delta\ne\tilde\varepsilon$. A member-written record lengthens the identity time beyond its value $1/\tilde\varepsilon$ without a record exactly when $\delta<\tilde\varepsilon$.
+\item[(c)] If $\mathsf c>0$, then $\mathsf h\ge\mathsf c\mathsf ue^{-\mathsf T/\tau_{\mathrm{id}}}$ for every $\mathsf b$, including $\mathsf b=0$. If also $\delta<\tilde\varepsilon$ and $\mathsf b\ge1$, then
+\begin{equation*}
+\frac{\mathsf h}{\mathsf h_0}\ge\frac{\mathsf c\mathsf u}{\bar{\mathsf b}+(1-\bar{\mathsf b})\mathsf f}e^{(\tilde\varepsilon-1/\tau_{\mathrm{id}})\mathsf T}\ge\mathsf c\mathsf ue^{(\tilde\varepsilon-1/\tau_{\mathrm{id}})\mathsf T},
+\end{equation*}
+which is unbounded in $\mathsf T$.
+\item[(d)] If $\delta\ge\tilde\varepsilon$ and $\mathsf b\ge1$, then $\mathsf h/\mathsf h_0\le[\max\{\bar{\mathsf b},\mathsf c\mathsf k\}/(\bar{\mathsf b}+(1-\bar{\mathsf b})\mathsf f)]e^{-(1/\tau_{\mathrm{id}}-\tilde\varepsilon)\mathsf T}$, which tends to $0$ as $\mathsf T\to\infty$ when $\delta>\tilde\varepsilon$. For every $\mathsf b\ge1$, $\lim_{\mathsf T\to\infty}\mathsf T^{-1}\log(\mathsf h/\mathsf h_0)=\tilde\varepsilon-1/\tau_{\mathrm{id}}$, which has the sign of $\tilde\varepsilon-\delta$. If the record is blank at birth, $\mathsf c=0$, then $\mathsf h=\bar{\mathsf b}[(1-\mathsf u)e^{-\varpi_-\mathsf T}+\mathsf ue^{-\varpi_+\mathsf T}]\le\mathsf b/n$.
+\item[(e)] Let the record be written only by non-members whose writes do not depend on the members' states, the case of \cref{prop:agy-identity}(b), and let recruits enter at $\mathsf fz_{\mathrm{ext}}(0)+\nu_i$, with no copy step, where $z_{\mathrm{ext}}$ is the record path. Assume that $z_{\mathrm{ext}}$ is locally integrable, that the founder set is uniform and the entry noises $\nu_i$ have mean zero conditionally on $\mathcal H$ and the whole path $z_{\mathrm{ext}}$, and that the relaxation noise of the daughter has zero conditional mean increments given $\mathcal H$, $z_{\mathrm{ext}}$ and the daughter's past. Then $\E[\bar\mu'(\mathsf T)\mid\mathcal H,z_{\mathrm{ext}}]$ equals $\bar{\mathsf b}e^{-(\varepsilon+\beta+g)\mathsf T}\bar\mu$ plus a function of the record path, and the coefficient is at most $(\mathsf b/n)e^{-g\mathsf T}$ and at most $\mathsf h_0$.
+\end{enumerate}
+\end{theorem}
+
+Proof in \cref{app:evo}; checked in \cref{chk:evo-heritability}. Part (c) is the positive result of this section, within the declared fission model: a copied record sustains heritability with no founders at all, and its advantage over inheritance through the members grows exponentially with the generation time whenever the record decays more slowly than the collective forgets. Parts (d) and (e) mark the limits. A record that decays faster than the members forget is a liability at long generations, although it can still help at short ones when $\mathsf c>\bar{\mathsf b}+(1-\bar{\mathsf b})\mathsf f$; with a record that is rebuilt and not copied, heritability is at most the founder fraction $\mathsf b/n$, although it can exceed the value $\mathsf h_0$ without a record, as \cref{tab:evo-worked} shows; and a record kept by an environment whose writes do not depend on the members gives persistence without heritable collective variation, the distinction that \cref{def:agy-identity} draws between the identity time and the conditional identity time given the exterior's exogenous input. \Cref{ex:evo-worked} gives numbers: with naive recruits, two founders out of twenty and a generation of twenty residence times, $\mathsf h=0.675$ with a copied record and $\mathsf h_0=1.7\times10^{-10}$ without one.
+
+\begin{corollary}[Heritability horizon]\label{cor:evo-horizon}
+Let $\mathsf c>0$ and $0<\mathsf h_\ast<\mathsf c\mathsf u$. Then $\mathsf h\ge\mathsf h_\ast$ for every founder number whenever $\mathsf T\le\tau_{\mathrm{id}}\log(\mathsf c\mathsf u/\mathsf h_\ast)$. Without a record, for $\mathsf b\ge1$ and $\tilde\varepsilon>0$, $\mathsf h_0\ge\mathsf h_\ast$ exactly when $\mathsf T\le\tilde\varepsilon^{-1}\log((\bar{\mathsf b}+(1-\bar{\mathsf b})\mathsf f)/\mathsf h_\ast)$.
+\end{corollary}
+
+Proof in \cref{app:evo}. Heritability concerns conditional means; variation among collectives comes from the noise of fission and relaxation.
+
+\begin{proposition}[Sources of variation]\label{prop:evo-variance}
+Let $\mathsf v_{\mathrm w}=\frac1n\sum_i(\mu_i-\bar\mu)^2$ be the parent's within-collective variance.
+\begin{enumerate}
+\item[(a)] The daughter's state at birth has conditional covariance
+\begin{equation}\label{eq:evo-noise}
+\mathsf N_{\mathrm{fis}}=\begin{pmatrix}\dfrac{\bar{\mathsf b}(1-\bar{\mathsf b})}{n-1}\mathsf v_{\mathrm w}+\dfrac{1-\bar{\mathsf b}}{n}\mathsf s_\nu^2+(1-\bar{\mathsf b})^2\mathsf f^2\mathsf s_z^2&(1-\bar{\mathsf b})\mathsf f\mathsf s_z^2\\[1.5ex](1-\bar{\mathsf b})\mathsf f\mathsf s_z^2&\mathsf s_z^2\end{pmatrix}
+\end{equation}
+given $\mathcal H$.
+\item[(b)] $\Cov(\mathsf x'(\mathsf T)\mid\mathcal H)=e^{\mathsf T\mathsf A}\mathsf N_{\mathrm{fis}}e^{\mathsf T\mathsf A^\top}+\mathsf N_{\mathrm{rel}}$, where $\mathsf N_{\mathrm{rel}}$ is the covariance added by the relaxation noise, an input that \cref{prop:agy-identity} leaves unspecified. Let $\mathsf V=\Var(y)$ for a parent drawn from a parental distribution with finite second moments, let $\mathsf V'=\Var(y')$ for its daughter when every parent founds one daughter, and let $\mathsf s^2=\E[\Var(y'\mid\mathcal H)]$. Then $\mathsf V'=\mathsf h^2\mathsf V+\mathsf s^2$. If $\mathsf s^2$ is the same in every generation, $\mathsf V$ converges to $\mathsf s^2/(1-\mathsf h^2)$, and at that value with $\mathsf s^2>0$ the parent-offspring correlation of $y$ is $\mathsf h$.
+\item[(c)] Without a record, $\Var(\bar\mu'_0\mid\mathcal H)=(\bar{\mathsf b}+(1-\bar{\mathsf b})\mathsf f)^2\frac{\mathsf v_{\mathrm w}}{\mathsf b}\frac{n-\mathsf b}{n-1}+\frac{1-\bar{\mathsf b}}{n}\mathsf s_\nu^2$, and $\mathsf h_0$ is nondecreasing in $\mathsf b$.
+\end{enumerate}
+\end{proposition}
+
+Proof in \cref{app:evo}; checked in \cref{chk:evo-fission}. \Cref{tab:evo-criteria} sets conditions on a unit of selection beside these quantities; the list is this section's own summary and is not attributed to a source. The bottleneck deserves a comment. Without a record, a tighter bottleneck never raises heritability; it converts within-collective variance into variance among collectives, completely for one founder and faithful recruits. With a copied record the recruits read the record, and by \cref{prop:evo-bottleneck} founders can lower heritability: at long generation times $\mathsf h$ decreases with $\mathsf b$ when $1/\tau_{\mathrm{id}}>\delta+\omega(1-\mathsf c\mathsf f)$ and increases with $\mathsf b$ when the inequality is reversed, and for $\mathsf c=\mathsf f=1$ the first case is the condition $\delta<\tilde\varepsilon$. The last row of the table is interpretive: the manuscript's integration is the mean-conserving communication and shared record that make the convention a collective variable, and no theorem here quantifies it.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Criterion & Model quantity & Status\\
+\midrule
+Variation among collectives & $\mathsf V$, fed by $\mathsf N_{\mathrm{fis}}$ and $\mathsf N_{\mathrm{rel}}$ & \cref{prop:evo-variance}\\
+Heritability & $\mathsf h$, the spectral radius of $\mathsf M$ & \cref{prop:evo-transmission,thm:evo-record-channel}\\
+Fitness differences & $\mathsf W_j$, $\mathsf d_{\mathrm{sel}}$ & declared input; \cref{prop:evo-price}\\
+Bottleneck & $\mathsf b$ & \cref{prop:evo-variance,prop:evo-bottleneck}\\
+Integration & communication and shared record & interpretive\\
+\bottomrule
+\end{tabular}
+\caption{Conditions for selection among collectives and the quantities of the fission model that carry them.}
+\label{tab:evo-criteria}
+\end{table}
+
+\begin{proposition}[Response to selection among collectives]\label{prop:evo-price}
+Let parents $j=1,\dots,N$ with states $\mathsf x_j$ found $\mathsf W_j$ daughters each by the fission of \cref{def:evo-fission}, with $\bar{\mathsf W}=\frac1N\sum_j\mathsf W_j>0$ and relative fitness $\mathsf w_j=\mathsf W_j/\bar{\mathsf W}$. For a trait $\mathsf a^\top\mathsf x$ with parental mean $\bar y$ and mean $\bar y'$ over all daughters at the end of their generation,
+\begin{equation}\label{eq:evo-price-general}
+\E[\bar y'-\bar y\mid\mathcal H]=\Cov_j(\mathsf w_j,\mathsf a^\top\mathsf M\mathsf x_j)+\mathsf a^\top(\mathsf M-I)\bar{\mathsf x},
+\end{equation}
+with $\Cov_j$ the covariance over parents and $\bar{\mathsf x}$ their mean state. For the heritable trait, with selection differential $\mathsf d_{\mathrm{sel}}=\Cov_j(\mathsf w_j,y_j)$,
+\begin{equation}\label{eq:evo-price}
+\E[\bar y'-\bar y\mid\mathcal H]=\mathsf d_{\mathrm{sel}}-(1-\mathsf h)(\bar y+\mathsf d_{\mathrm{sel}})=\mathsf h\mathsf d_{\mathrm{sel}}-(1-\mathsf h)\bar y,
+\end{equation}
+the sum of the selection covariance and a transmission term. The expected response is positive exactly when $\mathsf h\mathsf d_{\mathrm{sel}}>(1-\mathsf h)\bar y$, and with equal fitnesses in every generation $\E[\bar y_k]=\mathsf h^k\E[\bar y_0]$.
+\end{proposition}
+
+Proof in \cref{app:evo}; checked in \cref{chk:evo-price}. This is the Price decomposition \citep{price1970selection} for collectives, with the covariance identity proved as \cref{lem:evo-price-identity}; we have not read the paper of Price and cite it from its bibliographic record and from the account of \citet{harman2020science}. The transmission term is always a regression toward the neutral value, because within-collective dynamics forget, and selection must outpace it. Iterating the decomposition requires a closure for the trait distribution, which the fission model does not provide: the daughter's trait given its parent need not be normal, and by \eqref{eq:evo-noise} its conditional variance depends on the parent's within-collective variance.
+
+\begin{assumption}[Gaussian closure]\label{ass:evo-gaussian}
+The population of collectives is infinite; the heritable trait is normal among parents with mean $\bar y$ and variance $\mathsf V\ge0$; a daughter's trait given its parent's trait $y$ is normal with mean $\mathsf hy$, $0\le\mathsf h\le1$, and variance $\mathsf s^2>0$ independent of $y$; and a parent with trait $y$ founds daughters in proportion to $\mathsf W(y)=\exp(-(y-\mathsf y_\ast)^2/(2\mathsf v_{\mathrm s}))$ with $\mathsf v_{\mathrm s}>0$.
+\end{assumption}
+
+\begin{proposition}[Selection-transmission balance without a threshold]\label{prop:evo-balance}
+Under \cref{ass:evo-gaussian} the trait remains normal, with
+\begin{equation}\label{eq:evo-balance-recursion}
+\mathsf V'=\frac{\mathsf h^2\mathsf V\mathsf v_{\mathrm s}}{\mathsf V+\mathsf v_{\mathrm s}}+\mathsf s^2,\qquad\bar y'=\mathsf h\Bigl[\bar y+\frac{\mathsf V}{\mathsf V+\mathsf v_{\mathrm s}}(\mathsf y_\ast-\bar y)\Bigr],
+\end{equation}
+and from every initial condition the recursion converges to
+\begin{equation}\label{eq:evo-balance-fixed}
+\hat{\mathsf V}=\tfrac12\Bigl[\mathsf s^2-\mathsf v_{\mathrm s}(1-\mathsf h^2)+\bigl((\mathsf s^2-\mathsf v_{\mathrm s}(1-\mathsf h^2))^2+4\mathsf s^2\mathsf v_{\mathrm s}\bigr)^{1/2}\Bigr],\qquad\hat y=\frac{\mathsf h\mathsf i}{1-\mathsf h+\mathsf h\mathsf i}\mathsf y_\ast,\qquad\mathsf i=\frac{\hat{\mathsf V}}{\hat{\mathsf V}+\mathsf v_{\mathrm s}}.
+\end{equation}
+The retained fraction $\hat y/\mathsf y_\ast$ is continuous and strictly increasing in $\mathsf h$ on $[0,1]$, vanishes at $\mathsf h=0$, is positive for every $\mathsf h>0$ and equals $1$ only at $\mathsf h=1$; it is at least $\frac12$ exactly when $\mathsf h\mathsf i\ge1-\mathsf h$. For fixed $0<\mathsf h<1$ it is strictly increasing in $\mathsf s^2$ and tends to $0$ as $\mathsf s^2\to0$.
+\end{proposition}
+
+Proof in \cref{app:evo}; checked in \cref{chk:evo-balance}. Only the conditional mean $\mathsf hy$ of the assumption is derived from the fission model. Within the linear-Gaussian closure there is no analog of an error threshold: no critical heritability or copy noise exists below or above which selection retains nothing, and the retained displacement degrades continuously as the record's fidelity falls (\cref{lem:evo-monotone}). Transmission noise is necessary for a lasting response, since it restores the variance that selection consumes, and its cost is the fitness load of \eqref{eq:evo-balance-fitness}. A threshold does appear for a discrete convention with a bounded advantage $\mathsf m$ and retention probability $\mathsf q$, at $\mathsf m\mathsf q=1$ (\cref{prop:evo-two-type}); that model lies outside the linear-Gaussian setting.
+
+\begin{remark}[Relation to tradeoff breaking]\label{rem:evo-bourrat}
+This remark is interpretive. \citet{bourrat2022tradeoff} argue that particle and collective fitness cannot decouple when both are computed over the same events, in the same environment and on the same timescale, and propose tradeoffs between traits, and their breaking, as the description of a transition in individuality; they treat tradeoff breaking as a marker only when it is observed in the context of a transition, since it can also occur outside one. The fission model is consistent with the first point only trivially, since its members are recruited and have no fitness of their own. It follows the second in being trait-based, and it has a single trait, so it cannot express a tradeoff or its breaking. \Cref{rem:evo-bourrat-detail} gives the comparison and an interpretive candidate for a tradeoff, between the heritability of conventions and the shared-error floor of \cref{thm:hie-floor}.
+\end{remark}
+
+The theory does not supply the two events on which this section rests. Fitness is declared, reproduction is imposed, and the organizational parameters $\mathsf f$, $\omega$, $\beta$ and $\mathsf c$ that set the heritability are themselves fixed and carry no heritable variation.
+
+\begin{openproblem}[Endogenous fitness]\label{open:evo-fitness}
+Derive the number of daughters of a collective from quantities the manuscript already defines, for example a decreasing function of the stationary tracking error of a grounded coordinate, and determine whether the resulting fitness is measurable with respect to the parental generation as \cref{def:evo-fission} requires.
+\end{openproblem}
+
+\begin{openproblem}[Reproduction as a derived event]\label{open:evo-reproduction}
+Find dynamics within the framework under which a collective divides into collectives of the same kind, with a founder number and a record copy that are outcomes and not parameters, and with sequential recruitment in place of the instantaneous refill.
+\end{openproblem}
+
+\begin{openproblem}[Heritable organization]\label{open:evo-parameters}
+Let $\mathsf f$, $\omega$, $\beta$ or $\mathsf c$ vary among collectives and be transmitted at fission. The transmission is then no longer linear in the state, and the heritability of these parameters and the response of $\mathsf h$ itself to selection are not determined by the results above.
+\end{openproblem}
+
+\begin{openproblem}[Discrete conventions and a threshold]\label{open:evo-threshold}
+For the bistable convention of \cref{conj:agy-conformity-identity}, derive the probability that a daughter retains its parent's convention as a function of $\mathsf b$, $\mathsf c$ and $n$, and decide whether the threshold of \cref{prop:evo-two-type} follows.
+\end{openproblem}
+
+\begin{openproblem}[Tradeoffs and their breaking]\label{open:evo-tradeoff}
+With two collective traits, a convention's heritability and a grounded coordinate's shared-error floor, both controlled by the record's read weight, determine whether declared fitness functions of the two define a tradeoff in the sense of \citet{bourrat2022tradeoff} and whether any change of organization within the framework breaks it.
+\end{openproblem}

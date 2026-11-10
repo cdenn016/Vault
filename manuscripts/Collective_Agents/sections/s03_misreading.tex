@@ -1,0 +1,179 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:mis}}{Section 3}: misreading joint structure}\label{sup:mis}
+
+This section collects statements, examples and remarks of \cref{sec:mis} that the main text cites without stating in full. Proofs are in \cref{app:mis}.
+
+\subsection{Believed values}\label{sup:mis-believed-values}
+
+\begin{proposition}[Believed values]\label{prop:mis-believed-values}
+Let the receiver's prior be $\Ncal(m_i,P_i)$, and let $\Gamma^0_{ij}=\hat H_{ij}^\top\hat R_{ij}^{-1}\hat H_{ij}$ and $\Gamma^1_{ij}=\hat H_{ij}^\top(\hat R^1_{ij})^{-1}\hat H_{ij}$ be the precisions that levels 0 and 1 assign to a message, each defined when the noise it inverts is positive definite.
+\begin{enumerate}
+\item[(a)] $\mathcal V^0_i(\mathcal J)=\tfrac12\ln\det\bigl(I+P_i\sum_{j\in\mathcal J}\Gamma^0_{ij}\bigr)$ and $\mathcal V^1_i(\mathcal J)=\tfrac12\ln\det\bigl(I+P_i\sum_{j\in\mathcal J}\Gamma^1_{ij}\bigr)$, and $\mathcal V^0_i\ge\mathcal V^1_i$ when $\hat R_{ij}=R_c$.
+\item[(b)] Both believed values depend on a sender only through the vertex quantities $(\hat H_{ij},\hat R_{ij},\hat P_{ij})$ and on the receiver only through $P_i$; no cross-covariance of the two agents' errors enters.
+\item[(c)] Both are monotone and submodular in $\mathcal J$, so greedy attention under the capacity $\kappa$ attains at least $1-1/e$ of the largest believed value over sets of at most $\kappa$ senders.
+\end{enumerate}
+\end{proposition}
+% src: L1-P5
+
+Part (b) is the source of the trouble: a literal receiver scores a sender by its code, noise and posted confidence, never by what the two of them share. Part (c) is the classical guarantee for greedy maximization of monotone submodular functions \citep{nemhauser1978analysis}, and it gives literal attention a guarantee that the true value does not support. The proof, which includes the greedy bound, is in \cref{app:mis}, and \cref{chk:mis-values} tests submodularity numerically.
+
+\begin{example}[The true value is not submodular]\label{ex:mis-nonsubmodular}
+Let a scalar $\eta$ be read through unit codes without channel noise. Receiver $i$ has an estimate with error variance $4$, and senders $j$ and $k$ have estimates with error variances $1$ and error correlation $-0.99$; all errors are independent of $\eta$, and the receiver's is independent of the senders'. The best combination of the two messages has error precision $2/(1-0.99)=200$, so $\mathcal V^\ast_i(\{j\})=\mathcal V^\ast_i(\{k\})=\tfrac12\ln5=0.805$ while $\mathcal V^\ast_i(\{j,k\})=\tfrac12\ln801=3.343>1.609$. Complementary errors cancel, and two individually poor senders are worth more than the sum of their values.
+\end{example}
+% src: L1-X2
+
+\begin{lemma}[A belief message is an attenuated observation]\label{lem:mis-attenuation}
+Let the world have the prior $\Ncal(\bar\eta,P_0)$, let sender $j$ hold the posterior mean $m_j$ of $\eta$ given linear-Gaussian data, with posterior covariance $P_j$, and let $y_{ij}=H_jm_j+\nu$. Then
+\begin{equation}\label{eq:mis-attenuation}
+y_{ij}-H_j\bar\eta=B_j(\eta-\bar\eta)+\tilde\nu_j,\qquad B_j=H_j\bigl(I-P_jP_0^{-1}\bigr),
+\end{equation}
+where $\tilde\nu_j$ is Gaussian and independent of $\eta$, with covariance $H_j(P_j-P_jP_0^{-1}P_j)H_j^\top+R_c$.
+\end{lemma}
+% src: L3-P1
+
+Proof in \cref{app:mis}. The code that describes the message is the attenuated code $B_j$, and its noise includes the sender's estimation noise. Level 0 uses $H_j$ and $R_c$ and omits both; level 1 enlarges the noise but keeps the unattenuated code. When the receiver has information of its own, the overlap of the two agents' information must be made explicit, which the static common-source world of \cref{def:mis-common-source} does.
+
+\subsection{Overvaluation}\label{sup:mis-overvaluation}
+
+Double counting is the familiar form of misreading, and we first locate it exactly. The track model of multi-sensor fusion isolates error correlation: the receiver's and sender's estimates are $m_i=\eta+e_i$ and $m_j=\eta+e_j$ with jointly Gaussian errors independent of $\eta$, as under a flat prior, and the receiver's belief is $\Ncal(m_i,\sigma_i^2)$.
+
+\begin{proposition}[The overvaluation band]\label{prop:mis-track-band}
+In the scalar track model let the errors have variances $\sigma_i^2,\sigma_j^2$ and covariance $\sigma_{ij}$, $\lvert\sigma_{ij}\rvert<\sigma_i\sigma_j$, let the code be $g\neq0$, the channel noise $R_c\ge0$ and the level-1 header $\sigma_j^2$. With $S=g^2(\sigma_i^2+\sigma_j^2-2\sigma_{ij})+R_c$ and $R^{\mathrm{ex}}=g^2(\sigma_j^2-\sigma_{ij}^2/\sigma_i^2)+R_c$, the true value is $\mathcal V^\ast_i=\tfrac12\ln(S/R^{\mathrm{ex}})$, $\mathcal V^1_i$ is its value at $\sigma_{ij}=0$, $\mathcal V^0_i=\tfrac12\ln(1+g^2\sigma_i^2/R_c)\ge\mathcal V^1_i$, and
+\begin{equation}\label{eq:mis-band}
+\mathcal V^\ast_i<\mathcal V^1_i\iff0<\sigma_{ij}<\sigma_{\mathrm b}:=\frac{2\sigma_i^2(g^2\sigma_j^2+R_c)}{g^2(\sigma_i^2+\sigma_j^2)+R_c},
+\end{equation}
+while $\mathcal V^\ast_i>\mathcal V^1_i$ for $\sigma_{ij}<0$ and for $\sigma_{ij}>\sigma_{\mathrm b}$. For equal variances $\sigma_{\mathrm b}\ge\sigma_i\sigma_j$, so every positive correlation is overvalued; at $R_c=0$, $\sigma_{\mathrm b}$ is the harmonic mean of the variances, below $\sigma_i\sigma_j$ when $\sigma_i\neq\sigma_j$. If $\sigma_i<\sigma_j$, then $\sigma_{ij}=\sigma_i^2$ gives $\mathcal V^\ast_i=0$. For $R_c>0$, as $\sigma_{ij}\to-\sigma_i\sigma_j$, $\mathcal V^\ast_i\to\tfrac12\ln(1+g^2(\sigma_i+\sigma_j)^2/R_c)>\mathcal V^0_i$, and as $\sigma_{ij}\to\sigma_i\sigma_j$ the limit of $\mathcal V^\ast_i$ exceeds $\mathcal V^0_i$ exactly when $\sigma_j>2\sigma_i$.
+\end{proposition}
+% src: L1-P6
+
+Proof in \cref{app:mis}. Overvaluation is confined to a band of positive correlations. A sender whose error is the receiver's plus independent noise is worthless, yet a literal receiver counts it as independent evidence. Outside the band the exact receiver gains more than level 1 believes. The sender's error contains the multiple $\beta e_i$, $\beta=\sigma_{ij}/\sigma_i^2$, of the receiver's own error, which the receiver removes with its own estimate, leaving the observation $(1-\beta)\eta$ plus noise independent of its information; below the band, where the errors are complementary ($\beta<0$), and above it, this residual observation is worth more than the message read at level 1. The band is checked on random draws in \cref{chk:mis-scope}. In the common-source world the prior correlates every error with $\eta$, and the scope is set by codes, noise and the distribution of information (\cref{prop:mis-overvaluation-scope}).
+
+\begin{proposition}[Level-1 overconfidence]\label{prop:mis-level1-mse}
+In the static common-source world let $H_j$ be invertible and $R_c=0$. A level-1 receiver adopts the precision $\Lambda_i+\Lambda_j$, which counts $\Lambda^{\mathrm{sh}}_{ij}$ twice, and the mean $\hat P^{(1)}_i(\Lambda_im_i+\Lambda_jm_j)$ with $\hat P^{(1)}_i=(\Lambda_i+\Lambda_j)^{-1}$. Its actual mean-square-error matrix is
+\begin{equation}\label{eq:mis-level1-mse}
+\hat P^{(1)}_i\bigl(\Lambda_i+\Lambda_j+2\Lambda^{\mathrm{sh}}_{ij}\bigr)\hat P^{(1)}_i,
+\end{equation}
+which exceeds the claimed covariance $\hat P^{(1)}_i$ by $2\hat P^{(1)}_i\Lambda^{\mathrm{sh}}_{ij}\hat P^{(1)}_i$ and is at least the exact posterior covariance $(\Lambda_i+\Lambda_{j\setminus i})^{-1}$. In the symmetric scalar configuration the claimed variance is the actual one divided by $1+\phi$.
+\end{proposition}
+% src: L1-P9
+
+Proof in \cref{app:mis}. Nothing in the receiver's model reveals the excess, and repeating the exchange compounds it. In a scalar static world where each member senses once and the members form a connected undirected graph, let every member add its neighbors' natural parameters, with their posted precisions, to its own round after round; this is literal consensus, the update of this level-1 receiver iterated over the graph. Every member's mean then converges to a pool weighted by eigenvector centrality, the believed precision diverges, and on a regular graph a proper common prior is counted $n$ times, once for each member (\cref{prop:agy-literal-consensus}). The matrix \eqref{eq:mis-level1-mse} is checked in \cref{chk:mis-values}. The same overvaluation arises across levels when a member takes as its prior its collective's estimate, which already contains the member's own report: in a scalar tree one such literal reading leaves the overconfidence factor below two (\cref{prop:hie-literal-once}), while a record rebuilt every round from its readers' posteriors has an overconfidence factor that grows without bound in the number of rounds under every aggregation rule of \cref{prop:hie-literal-records} other than the exact one, which keeps each contribution once.
+
+\begin{proposition}[Dynamic worlds]\label{prop:mis-dynamic}
+\begin{enumerate}
+\item[(a)] In the scalar world $\eta_{t+1}=F\eta_t+w_t$ with $Q>0$, let agents $i$ and $j$ run steady-state Kalman filters on independent sensors $s_k=\eta+v_k$, $\Var(v_k)=R^s_k>0$, with gains $k^s_k$. Their filtered errors have the stationary cross-covariance
+\begin{equation}\label{eq:mis-dynamic}
+\Sigma_{ij}=\frac{(1-k^s_i)(1-k^s_j)Q}{1-(1-k^s_i)(1-k^s_j)F^2}>0,
+\end{equation}
+so a level-1 receiver of $j$'s filtered mean, $y_{ij}=H_jm_j+\nu$ with $H_j\neq0$ and $j$'s claimed filtered variance as header, is overconfident after reading it, and level 1 is inexact for these belief messages whatever $F$.
+\item[(b)] Let senders post predictive means with law headers, $y_{ij}=H_jFm_j+\nu$, let codes be known, and let $\Sigma_{kl}=\Cov(e_k,e_l)$ be the actual covariances of the filtered errors $e_k=m_k-\eta_t$ and $P_k$ their claimed covariances. A receiver that reads the header, which makes it a level-1 receiver, claims the innovation covariance $S^{\mathrm{cl}}_{ij}=H_j(FP_iF^\top+FP_jF^\top+2Q)H_j^\top+R_c$; the actual one is $S^{\mathrm{act}}_{ij}=H_jF(\Sigma_{ii}+\Sigma_{jj}-\Sigma_{ij}-\Sigma_{ji})F^\top H_j^\top+R_c$, and
+\begin{equation}\label{eq:mis-innovation-bias}
+S^{\mathrm{cl}}_{ij}-S^{\mathrm{act}}_{ij}=2H_jQH_j^\top+H_jF\bigl[(P_i-\Sigma_{ii})+(P_j-\Sigma_{jj})+\Sigma_{ij}+\Sigma_{ji}\bigr]F^\top H_j^\top .
+\end{equation}
+\end{enumerate}
+\end{proposition}
+% src: L1-P12; L7-M8 (dennis2026communicating, record P5.1)
+
+Proof in \cref{app:mis}. The world's innovation is a source every agent shares. For two tracks of one target, \citet{barshalom1986effect} found that common process noise makes the fused uncertainty area about 70 percent of a single sensor's, against 50 percent if the dependence is ignored. Part (b), from \citet{dennis2026communicating}, is the other face of that neglect: the common innovation cancels in the difference of two predictions but is counted twice in the claimed innovation covariance, so the correlation that makes a fused covariance optimistic makes the predicted innovation pessimistic. In reciprocal pairs that sense and listen to each other, the same report found claimed covariances of $0.35$ to $0.65$ times the actual error and claimed innovation covariances $3.0$ to $13.4$ times the actual ones. Part (a) is checked in \cref{chk:mis-dynamic}.
+
+\begin{openproblem}[Dynamic ratios]\label{open:mis-dynamic-ratio}
+Find in closed form the believed-to-true ratio for belief messages in a dynamic world with common process noise when the exact receiver fuses given $(m_i,y_{ij})$; only the cross-covariance \eqref{eq:mis-dynamic} is known.
+\end{openproblem}
+% src: L1-O1
+
+\subsection{Undervaluation}\label{sup:mis-undervaluation}
+
+\begin{example}[Common-information cancellation]\label{ex:mis-cancellation}
+In the static common-source world let $K=2$, $\mathcal U_i\subseteq\mathcal U_j$, $\Lambda^{\mathrm{sh}}_{ij}=\diag(\alpha_1,\alpha_2)$, $\Lambda_{j\setminus i}=\diag(0,\Gamma_{\mathrm{pr}})$, $H_j=(1,1)/\sqrt2$ and $R_c=0$. Then
+\begin{equation}\label{eq:mis-cancellation}
+\mathcal V^\ast_i=\tfrac12\ln\Bigl(1+\frac{\Gamma_{\mathrm{pr}}}{\alpha_2}\Bigr),\qquad\mathcal V^1_i=\tfrac12\ln\Bigl(1+\frac{\alpha_1^{-1}+\alpha_2^{-1}}{\alpha_1^{-1}+(\alpha_2+\Gamma_{\mathrm{pr}})^{-1}}\Bigr),
+\end{equation}
+and $\mathcal V^\ast_i-\mathcal V^1_i\to\tfrac12\ln((\alpha_1+\Gamma_{\mathrm{pr}})/\alpha_1)>0$ as $\alpha_2\to0$. At $\alpha_1=\Gamma_{\mathrm{pr}}=1$ and $\alpha_2=0.01$, $\mathcal V^\ast_i=2.308$ and $\mathcal V^1_i=1.973$; with $R_c=0.1$ instead, $\mathcal V^0_i=3.113>\mathcal V^\ast_i=2.216>\mathcal V^1_i=1.926$.
+\end{example}
+% src: L1-X3
+
+Derivation in \cref{app:mis}, numbers in \cref{chk:mis-scope}. The code mixes a coordinate on which the sender's information is entirely shared with one on which it is private. The exact receiver subtracts the shared part, which it knows, and reads the private part free of the noise that level 1 attributes to the shared part. Shared information is redundant, which lowers a message's value, and predictable, which raises the value of the rest; in scalar and aligned worlds only redundancy acts. Since $\mathcal U_i\subseteq\mathcal U_j$ here, part (e) of \cref{prop:mis-overvaluation-scope} fails at level 1.
+
+\begin{example}[Sender-side completion]\label{ex:mis-sender-completion}
+Let $K=2$, $\bar\eta=0$ and $P_0=\bigl(\begin{smallmatrix}1&\psi\\\psi&1\end{smallmatrix}\bigr)$ with $0<\lvert\psi\rvert<1$. The sender observes $\eta_1$ with noise precision $\Gamma_1$, the receiver observes $\eta_2$ with noise precision $\Gamma_2$, no source is shared, and $H_j=(0,1)$, so the message codes $\eta_2$. As $\Gamma_1,\Gamma_2\to\infty$,
+\begin{equation}\label{eq:mis-completion}
+\mathcal V^0_i\to0,\qquad\mathcal V^1_i\to0,\qquad\mathcal V^\ast_i\to\tfrac12\ln\bigl(1+\psi^2(1-\psi^2)/R_c\bigr).
+\end{equation}
+At $\psi=0.8$, $R_c=0.01$ and $\Gamma_1=\Gamma_2=10^4$, $\mathcal V^\ast_i=1.587$, $\mathcal V^1_i=1.35\times10^{-4}$ and $\mathcal V^0_i=4.97\times10^{-3}$. With the full-rank code $H_j=I_2$ and $R_c=\sigma_c^2I_2$ the limits are $\mathcal V^\ast_i\to\tfrac12\ln(1+(1+\psi^2)(1-\psi^2)/\sigma_c^2)$ and $\mathcal V^0_i\to\tfrac12\ln(1+(1-\psi^2)/\sigma_c^2)$, which are $0.966$ and $0.763$ at $\psi=0.8$, $\sigma_c^2=0.1$.
+\end{example}
+% src: L1-X4
+
+Derivation in \cref{app:mis}, numbers in \cref{chk:mis-scope}. In the limit the coded content is the sender's prior completion $\psi\eta_1$ of the coordinate the receiver already knows. It carries information about $\eta_1$, which a literal receiver attributes to $\eta_2$ and discards, and the ratio of true to believed value is unbounded. The receiver map $O$ completes unsent directions from the receiver's prior (\cref{prop:fw-prior-completion}); here the completion happened at the sender, and only a receiver that models the sender's prior can read it.
+
+\begin{observation}[Undervaluation outside the proved cases]\label{obs:mis-random-codes}
+In the two ensembles of random static common-source worlds specified at the head of \cref{chk:mis}, with the code and noise laws of \cref{chk:mis-scope} and one seed of the generator, $\mathcal V^\ast_i>\mathcal V^1_i$ in 221 of 5000 instances with invertible codes and channel noise (largest excess $0.70$ nats) and in 454 of 4000 instances with rank-limited codes (largest excess $0.95$ nats); $\mathcal V^\ast_i>\mathcal V^0_i$ in 2 of a second sample of 5000 instances with invertible noisy codes and in 17 of the 4000 rank-limited instances (largest excess $0.21$ nats, among the rank-limited instances). Among 5000 instances with $\mathcal U_i\subseteq\mathcal U_j$, $\mathcal V^\ast_i>\mathcal V^1_i$ in 386 and $\mathcal V^\ast_i>\mathcal V^0_i$ in none, as part (e) of \cref{prop:mis-overvaluation-scope} requires. The counts and largest excesses are properties of these ensembles and this seed; the searches establish that undervaluation occurs at both levels in both code regimes and give no frequency that is independent of the ensemble.
+\end{observation}
+% src: L1-X5; L1-P10 checks; L1-X3 search
+
+\begin{openproblem}[Scope of each direction]\label{open:mis-scope}
+Find necessary and sufficient conditions on codes, noise and the distribution of information for $\mathcal V^\ast_i\le\mathcal V^1_i$ and for $\mathcal V^\ast_i\le\mathcal V^0_i$ with rank-limited or noisy full-rank codes. Invariance of the coded subspace under the shared-information operator $P_j\Lambda^{\mathrm{sh}}_{ij}$ is not sufficient, since every invertible code has it and invertible noisy codes can be undervalued (\cref{obs:mis-random-codes}).
+\end{openproblem}
+% src: L1-O2
+
+\subsection{Echo chambers}\label{sup:mis-echo-chambers}
+
+\begin{proposition}[Closed pure-listening sets]\label{prop:mis-pure-listening}
+Let $C$, with $n=\lvert C\rvert$, be closed under attention and purely listening from round $t_0$ on, $k^s_i=0$ for $i\in C$, with errors $e_C$ and means $m_C$.
+\begin{enumerate}
+\item[(a)] In a static world $I(\eta;m_C(t))\le I(\eta;m_C(t_0))$, and in a stationary scalar world with $0\le F<1$, $I(\eta_t;m_C(t))\le F^{2(t-t_0)}I(\eta_{t_0};m_C(t_0))$.
+\item[(b)] Let $F=1$, $Q\ge0$ and $W_{CC}=M$ constant and row-stochastic with stationary law $\varpi$, and let every eigenvalue of $M$ other than a simple eigenvalue $1$ have modulus below one, as for irreducible aperiodic $M$. The common error $\bar e=\varpi^\top e_C$ is a random walk, $\bar e(t+1)=\bar e(t)+\varpi^\top\zeta_C(t)-w_t$, while the disagreement $(I-\one\varpi^\top)e_C$ has second moments bounded uniformly in $t$.
+\item[(c)] Let the world be static, let every member attend $n_{\mathrm{in}}$ members with assigned noise equal to the channel noise $R_c$, and let all members start with one claimed precision, so that $\hat\Lambda(t+1)=\hat\Lambda(t)+n_{\mathrm{in}}/R_c$ and $W_{CC}(t)=c_tI+(1-c_t)M$ with $c_t=\hat\Lambda(t)/\hat\Lambda(t+1)$ and $M$ the normalized attention matrix. If $M$ is doubly stochastic and normal with $1$ a simple eigenvalue, every member's error converges in mean square to one random limit $\bar e_\infty$ with $\Var(\bar e_\infty)\ge n^{-2}\one^\top\Cov(e_C(t_0))\one$, while the claimed variance $1/\hat\Lambda(t)$ decays like $R_c/(n_{\mathrm{in}}t)$ and the believed information $\tfrac12\ln(P_0\hat\Lambda(t))$ diverges like $\tfrac12\ln t$.
+\end{enumerate}
+\end{proposition}
+% src: L3-T1
+
+Proof in \cref{app:mis}. A closed group of listeners thus turns channel noise into confidence: its members converge on a shared error while their believed information diverges and, by (a), their true information can only fall. In the computed instances of \cref{chk:mis-listening}, five agents believe they hold $5.65$ nats while their true information falls from $0.896$ to $0.789$ nats. Consensus on a random limit for weights that are not doubly stochastic and normal, such as stars, is only computed there, not proved. Sensing does not remove the effect when receivers read law headers.
+
+\begin{example}[A complete group with law headers]\label{ex:mis-law-headers}
+Take $n$ identical agents in a closed complete group in a scalar world with $F=0.995$, $Q=0.01$ ($P_0=1.0025$), sensing noise $R^s_i=1$ and channel noise $R_c=0.2$, each reading the others with the assigned noise $R_c+\hat P^-$, where $\hat P^-$ is the common claimed predicted variance at its stationary value; reading this header makes them level-1 receivers. An isolated Kalman filter has predicted error $0.1000$. The stationary actual error is $0.159$, $0.302$ and $0.661$ at $n=2$, $8$ and $64$, while the error of a correlation-aware centralized fuser falls from $0.073$ to $0.018$ (\cref{chk:mis-law-headers}). The group is a weak echo chamber for every $n\ge2$ by \cref{thm:mis-echo-chambers}, whose hypotheses hold because the sensing gain is common and the weights are symmetric: the floor of \cref{prop:mis-mse-floor} is $0.116$ at $n=2$ and increases with $n$, so it exceeds the isolated error for every $n\ge2$. As $n\to\infty$ the claimed predicted variance tends to $Q$ and the sensing gain to zero, so $\liminf_n\E e_i^2\ge P_0$ and the ratio of actual to claimed variance has limit inferior at least $P_0/Q=1/(1-F^2)\approx100$; it is $52$ at $n=64$. Derivations are in \cref{app:mis}.
+\end{example}
+% src: L3-E3
+
+\begin{remark}[Echo chambers as equilibria of attention]\label{rem:mis-report-echo}
+In the earlier report \citep{dennis2026communicating}, receivers that learned message noise from innovations or tracked agreement formed, at attention capacity two, disjoint triangles, reciprocal pairs and chains in which nobody sensed the shared part of the world, as strict equilibria on open parameter sets. Every listener ended at $1.10$ to $1.26$ times the prior variance while believing it gained $0.22$ to $0.47$ nats per round, and none of these structures was an equilibrium under exact fusion.
+\end{remark}
+% src: L7-M17
+
+\subsection{Exact fusion}\label{sup:mis-exact-fusion}
+
+\begin{proposition}[Fusion with correlated errors]\label{prop:mis-correlated-fusion}
+Let receiver $i$'s prior error $e$ have covariance $P$, assigned correctly, and let a message $y=\hat H\eta+\tilde\nu$ have error covariance $R^{\mathrm a}=\Cov(\tilde\nu)$ and cross-covariance $X=\Cov(\tilde\nu,e)$. For a gain $\Kg$ the posterior error $e^+=(I-\Kg\hat H)e+\Kg\tilde\nu$ has covariance
+\begin{equation}\label{eq:mis-joseph}
+\Cov(e^+)=(I-\Kg\hat H)P(I-\Kg\hat H)^\top+\Kg R^{\mathrm a}\Kg^\top+(I-\Kg\hat H)X^\top\Kg^\top+\Kg X(I-\Kg\hat H)^\top.
+\end{equation}
+\begin{enumerate}
+\item[(a)] If the innovation covariance $S^\ast=\hat HP\hat H^\top+R^{\mathrm a}-\hat HX^\top-X\hat H^\top$ is invertible, the gain that minimizes $\Cov(e^+)$ in the Loewner order is $\Kg^\ast=(P\hat H^\top-X^\top)(S^\ast)^{-1}$.
+\item[(b)] The gain $\Kg_0=P\hat H^\top(\hat HP\hat H^\top+R^{\mathrm a})^{-1}$, which ignores $X$, claims the covariance $(I-\Kg_0\hat H)P$, and the actual covariance exceeds the claim by $(I-\Kg_0\hat H)X^\top\Kg_0^\top+\Kg_0X(I-\Kg_0\hat H)^\top$. For scalars with $R^{\mathrm a}>0$ the excess is $2\Kg_0(1-\Kg_0\hat H)X$, positive exactly when $\hat HX>0$, that is, when the decoded message error $\tilde\nu/\hat H$ and the receiver's error are positively correlated, and the receiver is then overconfident.
+\item[(c)] An echo of the receiver's own belief, $y=\hat Hm_i+\nu'$ with $\hat H\neq0$ and $\nu'$ independent of everything else, has true value $I(\eta;y\mid m_i)=0$, while level 0 believes it carries $\tfrac12\ln\det(I+\hat R^{-1}\hat HP\hat H^\top)>0$.
+\end{enumerate}
+\end{proposition}
+% src: L3-P5
+
+Proof in \cref{app:mis}. Exact inference is calibrated by construction, and this is enough to exclude echo chambers (\cref{prop:mis-exact-no-echo}).
+
+The demands of exact fusion are informational. The receiver must know which of its sources the sender used and, in a dynamic world, the cross-covariance of the two agents' errors, which past messages create. On a tree, shared information can be subtracted link by link, as the channel filters of decentralized fusion do \citep{grime1994data} and as part (c) of \cref{lem:mis-common-source} does for one link. On a graph with cycles evidence returns along several paths, and exact fusion needs provenance, a record of where each piece of content came from; storage for links and records under which fusion is exact is derived for one shared linear-Gaussian state with known sensing models in \cref{sec:prv}. Gaussian belief propagation gives correct means when it converges \citep{weiss2001correctness} and converges on walk-summable models \citep{malioutov2006walk}. Covariance intersection \citep{julier1997nondivergent} fuses estimates whose cross-covariance is unknown, but in the computations of the earlier report it left the claimed innovation covariance inflated by factors of $2.6$ to $9.5$ \citep{dennis2026communicating}. For abstract agents, citations, audit trails and sourcing rules supply provenance; this reading is interpretive.
+
+\begin{remark}[Exact fusion along a process]\label{rem:mis-exact-fusion}
+In the report of \citet{dennis2026communicating}, exact fusion in a dynamic world is cross-covariance-aware best linear unbiased fusion of the current message with the current estimate. It is Bayes under the conditional message likelihood of track-to-track fusion, its claimed covariance equals the true mean-square error along the process started from a common prior, and no update raises an agent's true error; but it is not the Bayes filter of all past data, and it needs the joint error covariance of all agents. It also couples agents in its own way: through the ambiguity term of the expected free energy a receiver can prefer the sender whose error is most correlated with its own.
+\end{remark}
+% src: L7-M10, L7-M11(c), L7-M18
+
+\subsection{Circulation and attribution}\label{sup:mis-circulation-and-attribution}
+
+Literal reading has one further failure that is neither over- nor undervaluation. Content that circulates around a cycle of level-0 receivers, each completing the directions a message does not carry with its own prior regression, can return amplified. The relevant object is the product of the receivers' gain-code maps around the cycle (\cref{def:coh-cycle-product}): with noiseless codes of rank below $K$ a story that circulates repeatedly grows geometrically exactly when this product has spectral radius above one, and with any codes amplification requires an edge on which the sender's coded prior variance exceeds the receiver's predictive variance of the message (\cref{thm:coh-amplification}). A common prior covariance excludes it, and so does assigned noise that covers the sender's coded uncertainty, which level-1 receivers provide when the posted covariance is the sender's prior (\cref{prop:coh-no-amplification}). Amplification needs no correlated errors, so it is not double counting, and it occurs at identity encodings with correct codes, so it is not a holonomy; it is a calibration failure for belief messages under heterogeneous prior structure, treated in \cref{sec:coh-amplification}.
+
+The exact-fusion receiver is also the reference against which collectives are attributed. The exact-fusion null of \cref{def:agy-nulls} replaces every receiver's literal likelihood, fusion and attention by exact fusion, with provenance for records, and a collective must survive it: the same partition must be selected, with its blocks at contrast at least the declared level. A structure that vanishes under this null is attributed to misreading joint structure, not to communication as action. In the two-group model of \cref{sec:frm}, clauses (T1) to (T3) and (T5) of a formation result (\cref{def:frm-target}) are theorems only at infinite policy precision $\gamma$ with noiseless angle observations, where the declared start is itself the split (\cref{thm:frm-formation}(e), \cref{thm:frm-split-contrast}), and the contrast clause (T3) only at the levels of the window of \cref{thm:frm-split-contrast}(c), which is nonempty at every computed parameter point (\cref{obs:frm-grid}). For finite $\gamma$ above the threshold $\gamma_S$ of \eqref{eq:frm-thresholds}, reachability of the split branch is a theorem about the frozen-calibration mean-field map (\cref{thm:frm-formation}(a),(b)), with the stochastic step from the full model to that map open (\cref{open:frm-closure}) and the contrast of the reached state computed at the base point only (\cref{obs:frm-exploration}). The persistence clause (T4) fails for the translation-aware null, so the model yields no formation result in the sense of \cref{def:frm-target}, and what forms there is a calibration-level effect of misreading in this sense. Receivers that know their translation errors pay no mistranslation cost, so the split fails the translation-aware form of the exact-fusion persistence clause, as \cref{prop:frm-exact-fusion} proves, while for full cross-covariance-aware exact fusion this conclusion is heuristic; at large policy precision the split's partition is predictable from the codes alone (\cref{sec:frm-nulls}). Online calibration from a symmetric start reaches the split's attention pattern (not necessarily a split selected by contrast) in 0 to 7 of 8 replicates per cell, with reruns of a single cell differing by up to three replicates, so the counts show little beyond the pattern being reached in some replicates and missed in others for $\gamma\ge160$, and the question is open (\cref{obs:frm-online,open:frm-online}); persistence with drifting frames and formation beyond this model are conjectures (\cref{conj:frm-drifting-frames,conj:frm-formation}).
+
+\subsection{Blindness to shared error}\label{sup:mis-blindness-to-shared-error}
+
+By \cref{lem:mis-social-blind}, a precision learned from agreement certifies mutual predictability, not accuracy. A receiver of class $\mathsf{C1i}$, which fits its assigned message noise to the second moment of its innovations relative to its own estimate, is blind to every error it shares with its senders ($\mathsf{C1g}$ learns on grounded rounds and is not covered by the lemma), and a group with a large common error looks calibrated from inside. Receivers that read law headers do not learn from innovations at all, and by part (b) of \cref{prop:mis-dynamic} the innovation covariance they claim counts the shared world innovation twice, although their actual innovations do not contain it. A record that the members write and read is blind in the same way: its top-down innovations do not change when the members share an error with it, and in a collective closed under attention, reading it slows the grounding-driven correction of that error (\cref{lem:hie-record-blind}).
+
+\subsection{Echo chambers in the literature}\label{sup:mis-echo-chambers-in-the-literature}
+
+In \cref{def:mis-echo}, small disagreement means mutually predictable beliefs. \citet{nguyen2020echo} distinguishes epistemic bubbles, which leave other voices out, from echo chambers, which actively exclude and discredit them; in our terms omission is closure of attention and discrediting is miscalibrated precision. Closure with literal fusion already yields small disagreement with large error, as \cref{prop:mis-mse-floor,lem:mis-disagreement,thm:mis-echo-chambers} show, and \cref{lem:mis-social-blind} shows why miscalibration then seals it.
+
+By \cref{prop:mis-exact-no-echo}, echo chambers need misspecification. \citet{madsen2018large} report persistent echo chambers among Bayesian agents who trust senders fully, treat each received belief as fresh Gaussian evidence and drop partners outside a confidence window; in our terms these are literal receivers with withdrawal by disagreement. Belief sharing in federated inference \citep{friston2024federated}, as we read it, also treats received beliefs as observations.

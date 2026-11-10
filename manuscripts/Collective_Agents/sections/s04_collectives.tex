@@ -1,0 +1,299 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:col}}{Section 4}: collectives}\label{sup:col}
+
+This section collects statements, examples and remarks of \cref{sec:col} that the main text cites without stating in full. Proofs are in \cref{app:col}.
+
+\subsection{Path blankets, shells and the Markov length}\label{sup:col-path-blankets-shells-and-the-markov-leng}
+
+\begin{remark}[Agent-level descriptions]\label{rem:col-agent-level}
+Assigning a role to each whole agent, as constructions of nested blankets do \citep{kirchhoff2018markov,palacios2020markov}, coarsens the variables of the canonical partition (\cref{def:col-partition}). An interior agent that senses the shared world then reads an exterior variable: each sensing event is a leak activated by its reader, at a rate bounded by a function of the sensing frequency that vanishes with it \citep{dennis2026communicating}. Channel-level roles move the sensing channel into $\sS$ and remove the leak. The grounding tension of \cref{asm:int-a11} survives as the leak of the world-conditional precision (\cref{thm:col-diffusive-precision}), which caps contrast and extent (\cref{thm:col-contrast-size}). We use agent-level descriptions only for layered partitions with one variable per agent (\cref{prop:col-two-hop}).
+\end{remark}
+% src: B1-R4, B1-R3, L7-P6(b), decision 1, C_critic D3
+
+\begin{example}[The collider]\label{ex:col-collider}
+Let three scalar variables with $Q^{\Xi}=I$ follow $X_{i,t+1}=\Xi^i_t$, $X_{b,t+1}=\alpha_1X_{i,t}+\alpha_2X_{e,t}+\Xi^b_t$ and $X_{e,t+1}=\Xi^e_t$, with $\alpha_1\alpha_2\neq0$, $\sI=\{i\}$, $\sB=\{b\}$ and $\sE=\{e\}$. Then $A_{\sI\sE}=A_{\sE\sI}=0$ and the noise is diagonal, but $A_{\sB\sI}^\top(Q^{\Xi}_{\sB\sB})^{-1}A_{\sB\sE}=\alpha_1\alpha_2$, and the path blanket fails on every window of two or more rounds, from every initial law. In each round the pair $(X_{i,t},X_{e,t})$ given $X_{b,t+1}$ has squared partial correlation $\alpha_1^2\alpha_2^2/((1+\alpha_1^2)(1+\alpha_2^2))$, so
+\begin{equation}\label{eq:col-collider}
+\iota_{\mathrm{path}}=\frac12\ln\frac{(1+\alpha_1^2)(1+\alpha_2^2)}{1+\alpha_1^2+\alpha_2^2},
+\end{equation}
+which is $0.1438$ nats per round at $\alpha_1=\alpha_2=1$ (\cref{chk:col-path}).
+\end{example}
+% src: L2-X1, C_critic V1
+
+\begin{proposition}[Two-hop shells]\label{prop:col-two-hop}
+Let one variable per agent follow \eqref{eq:col-joint} with one-hop local coupling on the communication graph, $A_{ij}\neq0$ only if $i=j$ or $i$ and $j$ are neighbors, and with per-agent noise.
+\begin{enumerate}
+\item[(a)] Every partition with $d(\sI,\sE)\ge3$ is an exact path blanket from every start with $X_{\sI,0}\perp X_{\sE,0}\mid X_{\sB,0}$, and its leak rate from the stationary start is zero when $\rho(A)<1$.
+\item[(b)] A partition with $d(\sI,\sE)=2$ is exact if and only if $\sum_{k\in\sB}A_{k\sI}^\top(Q^{\Xi}_{kk})^{-1}A_{k\sE}=0$; if some shell agent reads both sides, this fails outside a set of positive codimension.
+\item[(c)] Both statements hold for a fixed time-varying schedule of one-hop couplings. For every set $\sI$ the shell $\{k:1\le d(k,\sI)\le2\}$ satisfies (a), so the number of exact path blankets grows exponentially with the number of agents.
+\end{enumerate}
+\end{proposition}
+% src: L2-P6, L6-P1 and its corollary, L6-D1
+Proof in \cref{app:col}; checked in \cref{chk:col-path}. This is \cref{fig:col-partition}(b): a shell agent that reads both sides is a collider, and a second layer separates the readers of the interior from those of the exterior.
+
+\begin{proposition}[Memory and instantaneous blankets]\label{prop:col-memory}
+Suppose the path blanket holds on $[0,t]$ for every $t$.
+\begin{enumerate}
+\item[(a)] $X_{\sI,t}\perp X_{\sE,t}\mid X_{\sB,0:t}$, and the instantaneous leak is bounded by the memory of either side, $I(X_{\sI,t};X_{\sE,t}\mid X_{\sB,t})\le\min\{I(X_{\sI,t};X_{\sB,0:t-1}\mid X_{\sB,t}),I(X_{\sE,t};X_{\sB,0:t-1}\mid X_{\sB,t})\}$.
+\item[(b)] In the Gaussian case the blanket augmented by the filtered estimate $\hat X_{\sE,t}=\E[X_{\sE,t}\mid X_{\sB,0:t}]$ is an exact instantaneous blanket: $X_{\sI,t}\perp X_{\sE,t}\mid(X_{\sB,t},\hat X_{\sE,t})$.
+\item[(c)] If $\rho(A)<1$ and $AQ^{\Xi}=Q^{\Xi}A^\top$, which makes the stationary chain time reversible, and if the noise is independent across the partition and $A_{\sI\sE}=A_{\sE\sI}=0$, then the stationary precision is $(Q^{\Xi})^{-1}-A^\top(Q^{\Xi})^{-1}A$ and its interior-exterior block is $-A_{\sB\sI}^\top(Q^{\Xi}_{\sB\sB})^{-1}A_{\sB\sE}$. The stationary instantaneous blanket then holds exactly when the collider condition of \cref{thm:col-path-blanket} does.
+\end{enumerate}
+\end{proposition}
+% src: L2-P5, L2-P4, L2-E1
+Proof in \cref{app:col}. The present state of the shell does not screen interior from exterior because both remember the shell's past; the boundary's own filter of the exterior, the memory variable of \cref{asm:int-a7}, restores the blanket. A chain in which an interior variable reads a sensory variable that reads the exterior has an exact path blanket and a positive instantaneous leak (\cref{thm:col-boundary}(d), \cref{chk:col-path}). The condition $AQ^{\Xi}=Q^{\Xi}A^\top$ of part (c) is, for $\rho(A)<1$, exactly time reversibility of the stationary chain: with $\Sigma$ its stationary covariance, reversibility is $A\Sigma=\Sigma A^\top$, and $Q^{\Xi}=\Sigma-A\Sigma A^\top$ gives $Q^{\Xi}=(I-A^2)\Sigma$ in one direction and $\Sigma=(I-A^2)^{-1}Q^{\Xi}$ in the other, so part (c) covers reversible processes only, and for noise independent across the four classes of the canonical partition these are collectives without active states whose sensory states drive the exterior in return (\cref{rem:nrg-memory-scope}). Agents that sense an exogenous world never form a reversible process, so we condition on the world, which removes its memory. The remaining stationary law has blankets whose thickness is measured by a length of its own.
+
+\begin{theorem}[Thick shells]\label{thm:col-thick-shell}
+Let $e\sim\Ncal(0,\Sigma)$ on the vertices of a finite or countable graph with hop distance $d$, with blocks of dimension at most $K$, sphere sizes $\mathcal S(r)=\sup_i\#\{j:d(i,j)=r\}$, $0<\lambda_{\min}(\Sigma)\le\lambda_{\max}(\Sigma)<\infty$ and $\Vert\Sigma_{ij}\Vert\le B_\Sigma e^{-m_\Sigma d(i,j)}$, and put $\Pi=\Sigma^{-1}$. For $0\le m_\Pi<m_\Sigma$ let $\mathcal C(m_\Pi)=B_\Sigma\sum_{r\ge1}\mathcal S(r)e^{-m_\Sigma r}(e^{m_\Pi r}-1)$.
+\begin{enumerate}
+\item[(a)] If $\mathcal C(m_\Pi)<\lambda_{\min}(\Sigma)$, then $\Vert\Pi_{ij}\Vert\le B_\Pi e^{-m_\Pi d(i,j)}$ with $B_\Pi=(\lambda_{\min}(\Sigma)-\mathcal C(m_\Pi))^{-1}$.
+\item[(b)] For a partition $(\sI,\sB,\sE)$ with $\sI$ finite put $Z_{\sI\sE}=KB_\Pi^2\sum_{i\in\sI}\sum_{k\in\sE}e^{-2m_\Pi d(i,k)}$. If $\lambda_{\max}(\Sigma)^2Z_{\sI\sE}<1$, then
+\begin{equation}\label{eq:col-thick-shell}
+\iota_{\mathrm{inst}}\le\frac{\lambda_{\max}(\Sigma)^2Z_{\sI\sE}}{2(1-\lambda_{\max}(\Sigma)^2Z_{\sI\sE})}.
+\end{equation}
+\item[(c)] If $\mathcal S(r)\le B_{\mathcal G}r^{D-1}$ for $r\ge1$, $d(\sI,\sE)\ge h$ and $\sI$ has at most $n_\partial$ vertices at each distance from $\sE$, then $Z_{\sI\sE}\le B_*KB_\Pi^2n_\partial(1+h)^{D-1}e^{-2m_\Pi h}$ with $B_*$ depending only on $B_{\mathcal G}$, $D$ and $m_\Pi$, so the leak is $O(n_\partial h^{D-1}e^{-2m_\Pi h})$.
+\end{enumerate}
+\end{theorem}
+% src: L2-L2, L2-T2, L6-L1, C_critic V2
+Proof in \cref{app:col}, by the conjugation argument of \citet{combes1973asymptotic}; checked in \cref{chk:col-shell}. The leak across a shell decays at twice the decay rate of the precision. The rate that (a) guarantees is conservative: $0.010$ per hop on a ring where the precision decays at $0.94$ per hop.
+
+\begin{theorem}[An explicit Markov length]\label{thm:col-markov-bound}
+Let $\Sigma$ satisfy the hypotheses of \cref{thm:col-thick-shell}, with $\mathcal S(r)\le B_{\mathcal G}r^{D-1}$ for $r\ge1$.
+\begin{enumerate}
+\item[(a)] If $\Vert\Pi_{ij}\Vert\le B_\Pi e^{-m_\Pi d(i,j)}$ with $m_\Pi>0$, then $\xi_M\le1/(2m_\Pi)$.
+\item[(b)] With
+\begin{equation}\label{eq:col-mstar}
+m_*=\min\Bigl\{\frac{m_\Sigma}{D+1},\frac{\lambda_{\min}(\Sigma)m_\Sigma^{D+1}}{8e^{m_\Sigma}B_{\mathcal G}D!B_\Sigma}\Bigr\},
+\end{equation}
+$\Vert\Pi_{ij}\Vert\le2\lambda_{\min}(\Sigma)^{-1}e^{-m_*d(i,j)}$, and therefore
+\begin{equation}\label{eq:col-markov-bound}
+\xi_M\le\frac1{2m_*}=\max\Bigl\{\frac{D+1}{2m_\Sigma},\frac{4e^{m_\Sigma}B_{\mathcal G}D!B_\Sigma}{\lambda_{\min}(\Sigma)m_\Sigma^{D+1}}\Bigr\}.
+\end{equation}
+\item[(c)] Let the level-0 network have a time-invariant $W$ and a time-invariant law of the noise $\zeta(t)$, and satisfy the hypotheses of \cref{thm:sca-clustering}(b) and of its last clause, that is \textup{(Lin)}, \textup{(Loc)}, \textup{(C$_r$)} and \textup{(B)} of \cref{asm:sca-standing}, with constants $\lambda<1$, $q$ and $q_{\min}$, on a potential communication graph with $\mathcal S(r)\le B_{\mathcal G}r^{D-1}$ for $r\ge1$. Then its stationary world-conditional covariance $\Sigma$ satisfies the hypotheses of \cref{thm:col-thick-shell} with the constants of \cref{thm:sca-clustering}(b),
+\[
+\Vert\Sigma_{ij}\Vert\le\frac{q\lambda^{2\lceil d(i,j)/2\rceil}}{1-\lambda^2}\le B_\Sigma e^{-m_\Sigma d(i,j)},\qquad B_\Sigma=\frac q{1-\lambda^2},\quad m_\Sigma=\ln\frac1\lambda,
+\]
+and $\lambda_{\min}(\Sigma)\ge q_{\min}$, so that
+\[
+\xi_M\le\max\Bigl\{\frac{D+1}{2\ln(1/\lambda)},\frac{4B_{\mathcal G}D!q}{q_{\min}\lambda(1-\lambda^2)(\ln(1/\lambda))^{D+1}}\Bigr\}.
+\]
+\end{enumerate}
+\end{theorem}
+% src: B3-T2, L6-P3, L6-L1, L2-L2, C2 Section 2.3(f); the decay constants of (c) are those of thm:sca-clustering(b), re-derived in the proof
+Proof in \cref{app:col}. The bound depends on the decay of the covariance and on its conditioning $B_\Sigma/\lambda_{\min}(\Sigma)$. Inverse-closedness of exponentially localized matrices gives decay of the precision at some smaller rate \citep{jaffard1990proprietes}, banded matrices have explicit rates \citep{demko1984decay}, and \eqref{eq:col-mstar} makes the rate explicit for the matrices that arise here. As $\lambda\to1$ the bound of (c) grows like $(1-\lambda)^{-(D+2)}$. No bound by the correlation length alone is possible.
+
+\begin{remark}[A corrected error]\label{rem:col-shell-error}
+An earlier formulation of H1, which we had adopted, said that with a finite correlation length every region is an approximate blanket once its shell is thicker than $\xi$. \Cref{prop:col-markov-vs-correlation} shows that this is false in both directions. The formulation conflated two rates: the leak across a shell decays at twice the decay rate of the precision (\cref{thm:col-thick-shell}), and the precision and the covariance can decay at unrelated rates. In the hub family the mechanism is a hidden common cause: two listeners share the past broadcast of a source whose present state no longer carries it, so their errors form a moving-average field, and nothing in the present state of a shell screens the shared past. Contrast is bounded through $\xi_2$ (\cref{thm:col-contrast-size}); the boundary is governed by $\xi_M$.
+\end{remark}
+% src: B1-T4(c), B3-P5, L6-P4, F_brief H1 sharpening (withdrawn), L2 gloss after L2-T2 (withdrawn), decision 4
+
+The hub family of \cref{prop:col-markov-vs-correlation}(a) also shows that a bound on $\xi_M$ must depend on conditioning: its Markov length grows without bound with the anisotropy $q_{\mathrm{src}}/q_{\mathrm{lis}}$ of the local noise, which is $\operatorname{cond}(\Sigma)$ once $q_{\mathrm{lis}}\le(1-4a^2)q_{\mathrm{src}}$. We expect conditioning to enter only through this anisotropy.
+
+\begin{conjecture}[Markov length without conditioning]\label{conj:col-markov-length}
+For time-invariant networks on $\Z^D$ with local noise and row-sum contraction, errors of dimension at most $K$ and noise anisotropy $q/q_{\min}$, there is a function $B$ with $\xi_M\le B(q/q_{\min},K,D)(1+\xi)$. A family in this class with bounded $q/q_{\min}$, $K$ and $D$ along which $\xi_M/(1+\xi)$ is unbounded would refute it.
+\end{conjecture}
+% src: B3-C1, B3-O1
+A route to a proof through the conditional covariance of the previous state given the present one is described in \cref{rem:col-backward}. The evidence near the massless limit, where the correlation length diverges, points the same way.
+
+\begin{observation}[The massless limit does not lengthen the Markov length]\label{obs:col-massless}
+(i) For agents on $\Z$ with two-dimensional errors, $W_{ii}=\begin{pmatrix}c&\tilde a\\0&c\end{pmatrix}$ with $\tilde a\ge0$, $W_{i,i\pm1}=aI$, $Q^{\zeta}=qI$ and leak $\varepsilon=1-c-2a>0$, the precision symbol was computed in closed form by symbolic algebra. As $\varepsilon,\tilde a\to0$ with $\tilde a/\varepsilon$ fixed, \cref{thm:col-markov-bound}(a) gives $\xi_M/\xi\le[2\operatorname{Re}(1+i\tilde a/(2\varepsilon))^{1/2}]^{-1}\le\frac12$ asymptotically, between $0.455$ and $0.5$ under row-sum contraction, which forces $\tilde a<2\varepsilon$; at fixed $\tilde a>0$, outside that class, $\xi_M$ stays bounded while $\xi\sim(a/\varepsilon)^{1/2}$ diverges. (ii) On heterogeneous and directed chains and rings of $200$ scalar agents, $\xi_M/\xi$ stayed in $[0.18,0.63]$ as $\xi$ grew to between $8$ and $16$ hops. (iii) In random translation-invariant two-component systems the ratio of the precision decay length to $\xi$, which bounds $2\xi_M/\xi$, was at most $1.93$ with isotropic noise and grew with the noise anisotropy (\cref{chk:col-massless}).
+\end{observation}
+% src: B3-P6, B3-E1, L6-E2
+
+\subsection{Blanket existence selects nothing}\label{sec:col-selects}
+
+The results so far give exact or approximate blankets to almost every set of agents. Collected, they show that blankets cannot be what selects a collective.
+
+\begin{proposition}[Blanket existence selects nothing]\label{prop:col-selects-nothing}
+\begin{enumerate}
+\item[(a)] Under per-channel noise with separate channels, every set of agents is an exact path blanket under its canonical partition.
+\item[(b)] Under one-hop local coupling with per-agent noise, every set with a two-hop shell is an exact path blanket, and for reversible dynamics, or normal dynamics with isotropic noise, also an exact stationary blanket.
+\item[(c)] Under the hypotheses of \cref{thm:col-thick-shell}, every region whose interior is finite and $h$ hops from its exterior is an approximate instantaneous blanket, with a leak bound that depends on the region only through $n_\partial$ and $h$.
+\item[(d)] In a translation-invariant medium the path and instantaneous leaks of a region are invariant under translation of the region.
+\end{enumerate}
+Consequently a rule that selects collectives by the existence of blankets admits every set under (a), every set with a two-hop shell under (b) and every region whose shell is thick enough for its boundary under (c), and no rule based on blankets or leaks separates a region from its translates in a homogeneous medium. The rule that minimizes the leak per unit of boundary at a fixed shell width of at least two hops is degenerate: path leaks vanish for every candidate under (b), and so do the instantaneous leaks of reversible dynamics and of normal dynamics with isotropic noise.
+\end{proposition}
+% src: L2-P7, L2-P8, L6-P1 corollary, L6 Section 2.8
+Proof in \cref{app:col}. The degeneracy includes block media of large contrast (\cref{prop:col-block-media}), in which every region with a two-hop shell has zero path leak, inside a block or straddling blocks. A blanket is a property of a declared model and does not by itself make a set of agents an agent \citep{bruineberg2022emperors,biehl2021technical}; selection needs another criterion.
+
+\subsection{World-conditional law and diffusivity}\label{sup:col-world-conditional-law-and-diffusivity}
+
+\begin{remark}[Exact fusion and records]\label{rem:col-world-conditional}
+The definition of the world-conditional law (\cref{def:col-world-conditional}) applies verbatim to receivers that fuse exactly: given the world path, each member's error is a linear functional of local noises. Then $\Sigma^c$ no longer solves a Lyapunov equation in the members' states, as $\Sigma^{\mathrm{loc}}$ does in \cref{lem:fw-common-mode}(b), because exact fusion keeps a filter state larger than $\mu_i$, and in the limit of complete sharing every member holds the same estimate and $\Sigma^c$ becomes singular (\cref{open:col-exact-fusion}). Records enter the world-conditional law as nodes, so contrast is computed from the precision of the whole population of agents and records.
+\end{remark}
+% src: B1-R1, decision 13
+
+\begin{example}[Non-diffusive world-conditional precisions]\label{ex:col-non-diffusive}
+(a) Common listener. Let three agents have $W\ge0$ and diagonal $Q^{\zeta}\succ0$, let agents $1$ and $2$ attend no one, $W_{12}=W_{13}=W_{21}=W_{23}=0$ with $W_{11},W_{22}>0$, and let agent $3$ attend both, $W_{31},W_{32}>0$. Then $\Pi^c_{12}>0$: conditioning on a common listener makes two independent sources anticorrelated, which is explaining away. (b) Signed weights. For $W=0.2I+W_0$ with $(W_0)_{12}=(W_0)_{21}=0.4$, $(W_0)_{23}=(W_0)_{32}=-0.3$ and all other entries zero, $W$ is symmetric with $\rho(W)=0.7$, and with $Q^{\zeta}=I$, $\Pi^c=I-W^2$ has $\Pi^c_{13}=+0.12$. (c) Frequency. Among $2000$ random directed $W\ge0$ on four agents with row sums below one and $Q^{\zeta}=I$, $674$ have a positive off-diagonal entry of $\Pi^c$ ($365$ under a second sampling scheme), while a directed relay line and a directed three-agent chain stay diffusive. The sign rule of (a) does not extend beyond three agents: when the two silent agents also feed separate listeners that share a third silent source, $\Pi^c_{12}<0$ in $1328$ of $2000$ six-agent draws.
+\end{example}
+% src: B1-X1 (restricted per C2 S1), C2 S1, repair (ii)
+The proof of (a) is in \cref{app:col}; (b) is the computation $\Pi^c_{13}=-(W^2)_{13}=-(0.4)(-0.3)$, and the counts are described in \cref{chk:col-non-diffusive}. Non-reciprocal attention, which the agents' own choices produce, can therefore leave the diffusive class.
+
+\subsection{Contrast and baselines}\label{sup:col-contrast-and-baselines}
+
+\begin{remark}[Which contrast]\label{rem:col-which-contrast}
+The inequality $r'\ge r$ of \cref{lem:col-kron} can be strict by a large factor. For two equal blocks forming a closed population with uniform leak $\varepsilon^\Pi$ and an equitable cut of $\bar a^\partial$ per member, \cref{lem:col-kron} gives every member of $C_1$ the marginal leak $\varepsilon^\Pi(\varepsilon^\Pi+2\bar a^\partial)/(\varepsilon^\Pi+\bar a^\partial)$, close to $2\varepsilon^\Pi$ when $\varepsilon^\Pi\ll\bar a^\partial$. Then $r'(C_1)\ge(\varepsilon^\Pi+\lambda_2(L_{C_1}))(\varepsilon^\Pi+\bar a^\partial)/(\varepsilon^\Pi(\varepsilon^\Pi+2\bar a^\partial))$, about $(\varepsilon^\Pi+\lambda_2(L_{C_1}))/(2\varepsilon^\Pi)$, while $r(C_1)=(\varepsilon^\Pi+\lambda_2(L_{C_1}))/(\varepsilon^\Pi+\bar a^\partial)$: an ungrounded exterior returns the cut coupling as internal correlation. We compute contrast from the whole population's precision, the conservative choice; the marginal contrast is an upper bound for an analyst who observes only the members. For records, the agents' marginal precision is diffusive whenever the precision with record nodes is (\cref{lem:col-kron}), and it was diffusive in the instances checked with noiseless records. With noisy records it can fail to be diffusive (\cref{chk:col-kron}); the precision with record nodes is then not diffusive either, contrast and the size bound do not apply, and such populations fall under \cref{open:col-non-diffusive}.
+\end{remark}
+% src: B1-R2, decision 13, C2 S4
+
+\begin{remark}[Why the moment bound is part of the definition]\label{rem:col-moment}
+Including (M) in \cref{def:col-collective} is a choice of definition, not a derived result. Without it the world-conditional precision does not exist, and its finite-time analog acquires a diverging direction: attention that amplifies a shared error makes it grow geometrically, and correlations spread behind a front (\cref{ex:sca-amplifying-profile,prop:sca-rank-one,prop:sca-amplifying-site}). Such profiles are rumors, not collectives (\cref{rem:sca-rumors}). Without (M) only the finite-time statements of \cref{sec:sca-lightcone,sec:sca-nomoment} remain.
+\end{remark}
+% src: decision 16, B3-R1(i), C2 status item 3
+
+\begin{remark}[A weaker convention for the baseline]\label{rem:col-baseline-conventions}
+A weaker convention compares a region only with regions of its own size in the comparison medium, $r_0>r_{\mathrm{hom}}(|C|)$. It admits lower levels; we do not adopt it, and a result stated under it says so. The difference matters in finite closed populations, where the whole population is itself a region of large contrast when grounding is weak. In the two-group model of \cref{sec:frm} at its base point, the comparison population of eight agents has contrast $7.954$ as a whole while each group of the split has contrast $8.733$ when in-group translations are exact, $\sigma_\alpha^2=0$, so the admissible levels form the window $(7.954,8.733]$ and the significance of the split is $1.098$ (\cref{thm:frm-split-contrast}); the matched-size baseline there is $1$ and would admit levels down to $2.318$ (\cref{rem:frm-matched-baseline}). With noisy angle observations, $\sigma_\alpha^2=0.01$, simulated group contrasts are about $2$ percent higher and the admissible window is not computed (\cref{obs:frm-stochastic}). Over the grid of $162$ parameter points the significance lies between $1.009$ and $1.415$, and the split is a collective at every grid point (\cref{obs:frm-grid}).
+\end{remark}
+% src: decision 11, C2-5, C2 Section 2.3(a); numbers identical to thm:frm-split-contrast, obs:frm-grid, rem:frm-matched-baseline
+
+\begin{remark}[Structure in the declared geometry is assumed, not found]\label{rem:col-declared-geometry}
+This remark interprets the declared geometry. The comparison medium is built from it, so a partition that the declared geometry already contains is present in the comparison medium as well and cannot be found by contrast: a population whose declared geometry contains a partition is its own comparison medium for that partition. Two disjoint cliques of $n\ge2$ agents, with precision coupling $a^\Pi_{ij}=a>0$ inside each and uniform leak $\varepsilon^\Pi$, show both outcomes. Each clique has cut zero and $\lambda_2=na$, so $r=1+na/\varepsilon^\Pi$. Declared as an interaction graph, the cliques are their own comparison medium, the baseline is at least the contrast of a clique, and no region is a collective. Declared without geometry, they are compared with the exchangeable population of coupling $(n-1)a/(2n-1)$, whose baseline $1+2n(n-1)a/((2n-1)\varepsilon^\Pi)$ is attained by the whole population, and each clique is a collective at every leak, with significance $1.162$ at $n=4$ and $a/\varepsilon^\Pi=10$. A declared graph can still leave something to be found: two cliques of six agents with coupling $0.2$, joined by a perfect matching of coupling $0.05$, at leak $0.1$, have block contrast $8.667$; with the graph declared, the baseline is $4.500$, attained by the whole comparison population, and each clique is a collective with significance $1.926$, while without geometry the baseline is $12.455$ and neither clique is one (\cref{chk:col-declared}). Under the graph clause the topology is assumed and the heterogeneity of the weights on it is found. Under the exchangeable clause with the mean coupling and uniform leak, only regions denser than the population on average qualify, every member's internal coupling in a region of $n$ members among $N$ agents exceeding $(n-1)N/(n(N-1))$ times the mean total coupling of an agent, about half of it for pairs and about all of it for large regions (\cref{prop:ren-exchangeable}). Code domains of linear conformity on a ring can be found when the ring is declared and cannot when the ring without the walls between domains is declared (\cref{ex:hie-code-domains}). Which declaration is right is a statement about what the model is meant to explain: a model whose declared couplings contain a partition cannot claim to have found it (\cref{prop:hie-conformity}).
+\end{remark}
+% src: H6-R2, H6-E1, H6-E2, H6-P10, H6-P4 (code domains, stated in sec:hie), H4-P7 as restated by H6-P11
+
+The whole population is a region of a finite closed population, and whether it is a collective of its own comparison medium has an exact answer.
+
+\begin{proposition}[When a closed population is a collective]\label{prop:col-whole-population}
+Let a finite closed population of $N$ agents satisfy the moment bound (M), with diffusive positive definite world-conditional precision $\Pi=\diag(\varepsilon^\Pi)+L^\Pi$ and mean leak $\bar\varepsilon$, and let its comparison medium $\Pi_{\mathrm{hom}}=\bar\varepsilon I+L_{\mathrm{hom}}$ be obtained by replacing couplings and leaks by their means under clause (a), (b) or (c) of \cref{def:col-baseline}. Write $\xin(V)=\min_{f\perp\one}f^\top\Pi f/f^\top f$.
+\begin{enumerate}
+\item[(a)] If the whole population $V$ is a collective at some admissible level, then $\xin(V)>\bar\varepsilon+\lambda_2(L_{\mathrm{hom}})$; with uniform leak this reads $\lambda_2(L^\Pi)>\lambda_2(L_{\mathrm{hom}})$.
+\item[(b)] Let a group $\mathsf G$ of permutations of $V$ map the declared geometry to itself and act transitively on each set of pairs over which the comparison medium takes a mean, and, unless the leak is uniform, on $V$. Then $\Pi_{\mathrm{hom}}=|\mathsf G|^{-1}\sum_{g\in\mathsf G}P_g\Pi P_g^\top$, with $P_g$ the permutation matrices, $\xin(V)\le\bar\varepsilon+\lambda_2(L_{\mathrm{hom}})$, and $V$ is a collective at no level. This applies to the exchangeable clause with the symmetric group, to the lattice clause on a torus with its translations, and to the graph clause for a declared graph whose automorphisms act transitively on its vertices and on its edges, such as a ring, a complete graph or a hypercube.
+\item[(c)] Let the leak be uniform, $\varepsilon^\Pi$, and $\lambda_2(L^\Pi)>\lambda_2(L_{\mathrm{hom}})$. Then the comparison medium is connected, the largest grounding-free ratio $R^\star_{\mathrm{hom}}$ of its regions $C\subsetneq V$ with $|C|\ge2$ that its couplings connect is finite, and $V$ is a collective at every level in $(\bar r_{\mathrm{hom}},r(V)]$, a nonempty interval, whenever $\varepsilon^\Pi\le\lambda_2(L^\Pi)/(R^\star_{\mathrm{hom}}-1)$, and at every leak if $R^\star_{\mathrm{hom}}\le1$. With the couplings fixed, $V$ is therefore a collective at some admissible level for some leak if and only if $\lambda_2(L^\Pi)>\lambda_2(L_{\mathrm{hom}})$, and at a given leak if and only if, in addition, $1+\lambda_2(L^\Pi)/\varepsilon^\Pi$ exceeds the contrast of every proper region of the comparison medium.
+\item[(d)] The inequality of (c) can hold on a finite box. The path of four sites with couplings $0.9$, $1.2$ and $0.9$, declared on its box of $\Z$, has $\lambda_2(L^\Pi)=0.6$ against $2-2\cos(\pi/4)=0.586$ for the path with the mean coupling $1$, and with uniform leak its whole population is a collective exactly for $\varepsilon^\Pi<\frac13$, below which its contrast $1+0.6/\varepsilon^\Pi$ exceeds that of an end pair of the comparison path.
+\end{enumerate}
+\end{proposition}
+% src: H6-P1 with H6-L2; (d) H6-P1(d), whose exact threshold 1/3 is derived here
+Proof in \cref{app:col}; checked in \cref{chk:col-whole-population}. Under the exchangeable clause with the mean coupling, on a torus and on a declared graph whose automorphisms are transitive on vertices and edges, a finite closed population is never a collective of its own comparison medium; on boxes and on other declared graphs, with uniform leak, it can be one only when it is more connected than its comparison medium, and it then is one at weak grounding. In the two-grid example of \cref{tab:col-bridge} the union of the grids is the whole closed population, and by \cref{thm:col-bridge}(i) its algebraic connectivity is at most $2\bar a^\partial=0.0033$, against $0.0620$ for its comparison box, so the union is a collective at no leak (\cref{rem:col-bridge-reading}).
+
+\begin{openproblem}[Comparison media with record nodes]\label{open:col-records-baseline}
+Define the comparison medium of a population whose world-conditional precision includes record nodes (\cref{rem:col-world-conditional}). The clauses of \cref{def:col-baseline} take means over a declared geometry of the agents, so every record node needs a declared position, and the sets of pairs over which couplings that involve records are averaged must be declared with it. Until then the baseline is defined only for populations whose declared geometry covers every node of the precision.
+\end{openproblem}
+% src: H6-D1 status (O-H6-4: records as nodes not covered by decision 22), decision 13, decision 22
+
+\subsection{Lattices, block media and lengths}\label{sup:col-lattices-block-media-and-lengths}
+
+\begin{proposition}[Block media]\label{prop:col-block-media}
+\begin{enumerate}
+\item[(a)] Let $\Z^2$ be partitioned into square blocks of side $\ell_b$, with coupling $a_{\mathrm{in}}$ between neighbors inside a block and $a_{\mathrm{out}}$ between neighbors in different blocks, and uniform leak $\varepsilon^\Pi$. A block $C$ has $\lambda_2(L_C)=a_{\mathrm{in}}(2-2\cos(\pi/\ell_b))$ and $\cut(C)/n=4a_{\mathrm{out}}/\ell_b$, so
+\[
+r_\star(C)=\frac{\ell_b(2-2\cos(\pi/\ell_b))a_{\mathrm{in}}}{4a_{\mathrm{out}}}\approx\frac{\pi^2a_{\mathrm{in}}}{4\ell_ba_{\mathrm{out}}},\qquad r(C)=\frac{\varepsilon^\Pi+a_{\mathrm{in}}(2-2\cos(\pi/\ell_b))}{\varepsilon^\Pi+4a_{\mathrm{out}}/\ell_b}.
+\]
+\item[(b)] For a partition of a finite population into connected regions $C_1,\dots,C_M$ and $\Pi=\varepsilon^\Pi I+L^\Pi$, the eigenvalues of $\Pi$ satisfy
+\begin{equation}\label{eq:col-gap}
+\lambda_M(\Pi)\le\varepsilon^\Pi+2\max_j\frac{\cut(C_j)}{|C_j|},\qquad\lambda_{M+1}(\Pi)\ge\varepsilon^\Pi+\min_j\lambda_2(L_{C_j}),
+\end{equation}
+so uniform contrast of a partition forces a gap after the $M$ slowest modes: $M$ slow collective modes separated from all internal modes.
+\end{enumerate}
+\end{proposition}
+% src: L2-P9, L2-L3 context
+Proof in \cref{app:col}; checked in \cref{chk:col-lattice}, where $6\times6$ blocks with $a_{\mathrm{in}}=1$ reach $r_\star=402$ at $a_{\mathrm{out}}=10^{-3}$ but contrast only $3.66$ at $\varepsilon^\Pi=0.1$: grounding caps contrast. The converse of (b), that a spectral gap forces a partition into sets of high internal and low external conductance, is a theorem of graph partitioning for the normalized combinatorial Laplacian under a quantitative gap condition $\lambda_{k+1}\ge\mathrm{poly}(k)\lambda_k^{1/4}$ \citep{oveisgharan2014partitioning}; its transfer to diffusive precisions with grounding has not been established. Contrast is the spectral form, written for precision-weighted message passing, of the bicriteria notion of a clustering \citep{kannan2004clusterings} and of the fast internal and slow aggregate modes of nearly decomposable systems \citep{simon1961aggregation}.
+
+\begin{observation}[Observed baselines]\label{obs:col-baselines}
+Exhaustive enumeration of the regions connected by the kernel on $\Z$, up to nine sites, and of all regions of a $4\times4$ window of $\Z^2$ gives the maxima over the searched regions reported in \cref{tab:col-baselines}; those of $r$ are lower bounds on $\bar r_{\mathrm{hom}}$. Both columns are far below the bound \eqref{eq:col-lattice}, whose largest value over $n$ is $17.5$ for the two-dimensional kernel of the table, so baselines used in practice should be computed. In two dimensions every region examined has contrast at most one, the nearest-neighbor kernel reaching $1.000$ at the $2\times2$ square; in one dimension the nearest-neighbor baseline tends to $2$. At $c=0$ the update matrix is bipartite, the world-conditional law splits into two independent sublattice media, and the most contrasted region is a pair of next-nearest neighbors; this parity artifact must be excluded or handled on each sublattice.
+\end{observation}
+% src: B1-E1, C_critic V3
+The searches are described in \cref{chk:col-baselines}.
+
+\begin{remark}[The second-moment length and the decay length]\label{rem:col-lengths}
+For nearest-neighbor passing on $\Z^D$, \cref{thm:col-diffusive-precision}(e) gives $\varsigma_d^2=(4ca+8Da^2)/q=4a\lambda/q$ and $\varepsilon^\Pi=(1-\lambda^2)/q$, so $\xi_2^2=2a\lambda/(1-\lambda^2)=(a/\varepsilon)\cdot2\lambda/(1+\lambda)$, with $\varepsilon=1-\lambda$ the leak of $W$ and $\lambda=c+2Da$. The covariance summed over hyperplanes decays along each axis at the rate $m$ with $\cosh m=1+\varepsilon/(2a)$, in every dimension (\cref{thm:sca-oz}), and $\xi_2=(2\lambda/(1+\lambda))^{1/2}/(2\sinh(m/2))\le1/m$. So $\xi_2$ lies below both the Ornstein--Zernike length and $(a/\varepsilon)^{1/2}$ and agrees with both to leading order as $\varepsilon\to0$; for nearest-neighbor passing every size statement made with $\xi_2$ remains true with either length of H4. For translation-invariant kernels of finite range $\xi_2\le\xi_{\mathrm{OZ}}$ is proved in \cref{prop:sca-lengths-relation}; beyond that class it is not established. The correlational coherence count (\cref{def:sca-coherence}) and the reach of information measure other quantities and are compared with $\Lstar$ in \cref{tab:sca-sizes}. The one-round diameter of \cref{prop:abs-one-round} measures yet another and composes with the size bound instead of competing with it: it bounds the physical length of each coupling, while contrast bounds the extent in couplings (\cref{cor:abs-one-round-extent}).
+\end{remark}
+% src: B1-P3(c) (corrected per C2-2), C2 repair 6, repair (iii), B1-C1, B1-P7, C_critic D2, D7
+
+\subsection{The two-grid example}\label{sup:col-the-two-grid-example}
+
+\begin{observation}[The baseline of the two-grid population]\label{obs:col-bridge-baseline}
+Declare the population of \cref{tab:col-bridge} on its box of $6\times12$ sites of $\Z^2$, with the grids side by side and the six cross edges joining them. Under the lattice clause of \cref{def:col-baseline} its comparison medium is the box with coupling $\bar a_{\mathrm h}=0.91$ between horizontal neighbors, the mean over the $66$ horizontal neighbor pairs, coupling $\bar a_{\mathrm v}=1$ between vertical neighbors and uniform leak $\varepsilon^\Pi$; declared instead as its nearest-neighbor graph, under the graph clause, it has coupling $120.06/126=0.9529$ on every edge. In both cases, for every $\varepsilon^\Pi>0$,
+\begin{equation}\label{eq:col-bridge-baseline}
+\bar r_{\mathrm{hom}}=\max\Bigl\{1+\frac{\lambda_2(L_{\mathrm{hom}})}{\varepsilon^\Pi},\frac{\varepsilon^\Pi+\lambda_{\mathrm{sq}}}{\varepsilon^\Pi+c_{\mathrm{sq}}}\Bigr\},
+\end{equation}
+the larger of the contrasts of the whole comparison box and of a $2\times2$ square at its corner, with $(\lambda_2(L_{\mathrm{hom}}),\lambda_{\mathrm{sq}},c_{\mathrm{sq}})=(0.06201,1.82,0.955)$ under the lattice clause and $(0.06494,1.906,0.9529)$ under the graph clause; the two terms are equal at $\varepsilon^\Pi=0.0738$ and $0.0697$. This was established by evaluating the $104355$ connected regions of $2$ to $8$ sites and the complements of connected sets of $1$ to $3$ sites, by the bounds of \cref{lem:col-box-bounds} for regions of $9$ to $71$ sites, and by \cref{lem:col-uniform-leak} for disconnected regions; for every competitor, the leaks at which it is dominated by the first term and those at which it is dominated by the second are each given by one inequality linear in the leak, and together they cover $(0,\infty)$. Consequently each grid is a collective at some admissible level exactly for $5.060\times10^{-4}<\varepsilon^\Pi<0.4223$ under the lattice clause and $5.375\times10^{-4}<\varepsilon^\Pi<0.3672$ under the graph clause, at the levels $(\bar r_{\mathrm{hom}},r(C_1)]$, with largest significance $3.32$ at $\varepsilon^\Pi=0.0122$ ($3.20$ at $0.0126$ under the graph clause); the level $r_0=2$ is admissible exactly for $\varepsilon^\Pi>\lambda_2(L_{\mathrm{hom}})$; and each $2\times2$ square at a corner of the box, of contrast $(\varepsilon^\Pi+2)/(\varepsilon^\Pi+1)$, exceeds the baseline for $\varepsilon^\Pi>0.0661$ ($0.0694$), with significance at most $1.049$ ($1.008$), as does each $2\times2$ square at an end of the seam, of contrast $(\varepsilon^\Pi+2)/(\varepsilon^\Pi+1.005)$, for $\varepsilon^\Pi>0.0668$ ($0.2261$). Among the regions of the population itself, the connected regions of $2$ to $8$ sites, at leaks between $10^{-6}$ and $10^3$, the $1565$ rectangles of $2$ to $71$ sites, at every leak, and the union were examined, and of these only the two grids and the eight squares just named exceed the baseline at some leak under either clause; the remaining regions of more than eight sites were not examined.
+\end{observation}
+% src: H6-T1, H6-C1, H6-C2, H6-O1 (corner squares only), H6-P3, H6-L3, H6-L2; recomputed independently (chk:col-bridge-baseline)
+The computation is described in \cref{chk:col-bridge-baseline}. The formula is not general: in a box of $12\times3$ sites, blocks of full height at its ends compete with the corner square, and the same method leaves a gap between its bounds.
+
+\begin{remark}[Reading the bridge]\label{rem:col-bridge-reading}
+Spectral contrast measures the separation of timescales between internal disagreement and the collective mode, and the criterion $r\ge r_0$ is hierarchical: at weak grounding it returns each block and also their union. A returned set is a collective only at an admissible level, above the baseline of \cref{def:col-baseline}. Below the window the two kinds of criterion part in two different ways, which the closed forms of \cref{thm:col-bridge} locate for the two grids of \cref{tab:col-bridge} at $r_0=2$ and $\theta_0=\frac12$. Since $\xout(C_1\cup C_2)=\varepsilon^\Pi$ and $\xin(C_1\cup C_2)=\varepsilon^\Pi+\lambda_2(L^\Pi)$, the criterion returns the union exactly when $\varepsilon^\Pi\le\lambda_2(L^\Pi)/(r_0-1)$, and here $\lambda_2(L^\Pi)=0.003234$, inside the bracket $[0.003123,0.003333]$ of \eqref{eq:col-union}. The correlation of the block averages, computed from the identity of (ii), decreases in the leak and equals $\frac12$ at $\varepsilon^\Pi=0.001617$, inside the bracket $[0.001564,0.001667]$ that the two sides of \eqref{eq:col-corr} give. Below $\varepsilon^\Pi=0.001617$ the block averages are correlated above $\frac12$, so a correlation criterion does not separate the grids, and the criterion $r\ge2$ also returns the union. Between $0.001617$ and $0.003234$ the criterion $r\ge2$ still returns the union, while the block-average correlation is already below $\frac12$: the correlation criterion separates the grids, and the spectral criterion returns them together with their union. Above $0.003234$, up to $0.2646$, both criteria return the two grids and not their union. The window \eqref{eq:col-window}, $0.0033<\varepsilon^\Pi\le0.2646$, is the part of this range that the brackets certify, since its lower end $2\bar a^\partial$ is the upper end of the bracket on $\lambda_2(L^\Pi)$. Above the window $r(C_1)<r_0$ and the criterion returns nothing.
+
+Which returned sets are collectives is decided by the baseline, here that of the population declared on its $6\times12$ box (\cref{obs:col-bridge-baseline}). The union is the whole closed population, and its algebraic connectivity, $0.0032$, is far below the $0.0620$ of its comparison box, so it is a collective at no leak (\cref{prop:col-whole-population}(a)); wherever the criterion returns it, the level $2$ lies below the baseline, which exceeds $20$ there. Each grid is a collective, at the levels between the baseline and its contrast, for $5.06\times10^{-4}<\varepsilon^\Pi<0.4223$, with significance up to $3.32$ near $\varepsilon^\Pi=0.012$; below this range the whole comparison box has the larger contrast, above it a corner square of the comparison box does. The level $r_0=2$ is admissible only for $\varepsilon^\Pi>0.0620$, the right part of the window, where both grids are collectives at level $2$, so that there the sets which both criteria return are collectives. On the left part of the window, $0.0033<\varepsilon^\Pi\le0.0620$, the criterion $r\ge2$ returns the grids and not the union, but at a level below the baseline, which falls from $19.6$ to $2$ across this interval; the grids are collectives there only at levels between the baseline and their contrast. At strong grounding small compact pieces of the grids exceed the baseline by a few percent. These statements use the lattice clause; the graph clause moves the thresholds to $5.38\times10^{-4}$, $0.3672$ and $0.0649$ and changes no conclusion.
+
+The ultrametric contrast, a difference of log correlations, vanishes at weak grounding, where every world-conditional correlation of a closed population tends to one; at strong grounding it reduces to a comparison of couplings, $\ln(a^{\mathrm{bn}}/a^\partial_{\max})$, a statement about the attention graph rather than about collective dynamics, while the criterion $r\ge r_0$ returns nothing. The two kinds of criterion agree only when grounding lies between the cut coupling per member and the internal stiffness. Likewise the ultrametric statement that in a homogeneous medium no set of intermediate size has positive ultrametric contrast (\cref{prop:abs-homogeneous}) reaches, by a criterion that is not equivalent, the conclusion that follows from \cref{def:col-baseline,def:col-collective} once \cref{thm:col-lattice-contrast} makes the baseline of a homogeneous lattice finite: such a medium contains no collective.
+\end{remark}
+% src: B1-R5, C_critic D1; second paragraph H6 Section 3 (decision 22): H6-C1, H6-C2, H6-C3, H6-O1, HC_critic V9
+
+\subsection{Contrast and coherence with the collective average}\label{sec:col-coherence}
+
+Contrast is a statement about relaxation rates, while H1 speaks of coherence. Members of a contrasted region should therefore also be coherent with the region's average, and up to a dependence on dimension they are.
+
+\begin{proposition}[Contrast and coherence with the average]\label{prop:col-coherence-average}
+Let the leak be uniform and let $C$ be a region of $n$ members with average $\bar e_C=\frac1n\sum_{i\in C}e_i$ and standard deviations $\sigma_i=\Sigma_{ii}^{1/2}$.
+\begin{enumerate}
+\item[(a)] $\Var(\phi_C^\top e)\ge1/\xout(C)$, and $\Var(f^\top e_C)\le1/\xin(C)$ for every unit vector $f$ on $C$ orthogonal to $\one_C$.
+\item[(b)] The members' correlations with the average, weighted by their standard deviations, satisfy
+\begin{equation}\label{eq:col-coherence}
+\frac{\sum_{i\in C}\sigma_i\Corr(e_i,\bar e_C)}{\sum_{i\in C}\sigma_i}\ge\Bigl(\frac{r(C)}{r(C)+n-1}\Bigr)^{1/2}.
+\end{equation}
+\item[(c)] If $C$ is an isolated region, the whole of a closed population, then
+\[
+\frac1n\sum_{i\in C}\frac1{\Corr(e_i,\bar e_C)^2}=1+\varepsilon^\Pi T_C(\varepsilon^\Pi),\qquad T_C(\varepsilon^\Pi)=\sum_{k\ge2}\frac1{\varepsilon^\Pi+\lambda_k(L_C)},
+\]
+and an interval of $n$ members with nearest-neighbor coupling at contrast $r$ has $\varepsilon^\Pi T_C(\varepsilon^\Pi)<\pi^2/(6(r-1))$ at every $n$.
+\end{enumerate}
+\end{proposition}
+% src: B1-P4, B1-P5 (identity and D = 1)
+Proof in \cref{app:col}; checked in \cref{chk:col-coherence}. Part (b) gives coherence for regions of order $r$ members or fewer, and (c) at every size in one dimension. In higher dimension coherence fails for large regions.
+
+\begin{observation}[Coherence at fixed contrast depends on dimension]\label{obs:col-coherence-dimension}
+For isolated $\ell_b\times\ell_b$ boxes at contrast $r=5$, $\varepsilon^\Pi T_C$ is $1.40$, $1.72$, $2.01$ and $2.30$ at $\ell_b=8$, $16$, $32$ and $64$, with increments $0.32$, $0.29$ and $0.28$ per doubling against the limit $(\pi/8)\ln2=0.27$, the growth rate of $\pi\ln\ell_b/(2(r-1))$. For $\ell_b\times\ell_b\times\ell_b$ boxes it is $2.86$, $5.91$, $11.39$ and $21.81$ at $\ell_b=4$, $8$, $16$ and $32$, a linear growth whose ratio to the Riemann-sum estimate $0.2527\pi^2\ell_b/(r-1)$ is $1.15$, $1.19$, $1.14$ and $1.09$.
+\end{observation}
+% src: B1-P5 (D = 2, 3 numerical)
+A collective selected at fixed contrast is therefore coherent with its average in one dimension, marginally so in two, and not in three once it is large: its collective mode carries a vanishing share of each member's variance. The correlational coherence count of \cref{sec:sca} (\cref{def:sca-coherence}) shows the same dependence on dimension from the other side (\cref{cor:sca-size}).
+
+\subsection{Nested and multiplex collectives}\label{sup:col-nested-and-multiplex-collectives}
+
+\begin{proposition}[Nesting and multiplexity]\label{prop:col-nesting}
+\begin{enumerate}
+\item[(a)] Blankets nest: if $C_k\subseteq C$ and $\mathcal V(C_k)$ denotes the variables of the members of $C_k$, then $\sS(C)\cap\mathcal V(C_k)\subseteq\sS(C_k)$ and $\sA(C)\cap\mathcal V(C_k)\subseteq\sS(C_k)\cup\sA(C_k)$. Exactness of the path blanket at one level neither implies nor is implied by exactness at the other.
+\item[(b)] For one modality, the ultrametric classes of \cref{def:col-ultrametric}, at any heights, are nested or disjoint, and the sets of positive ultrametric contrast, which are such classes, form a rooted tree under inclusion. For several modalities with scales $\vartheta_c>0$, $\max_cu_{(c)}/\vartheta_c$ is an ultrametric whose balls, which we call composite classes, are intersections of balls of the modalities and are nested or disjoint; ultrametric classes of different modalities can cross, and $\min_cu_{(c)}$ is not an ultrametric in general.
+\item[(c)] In the joint process the canonical partition of a modality-$c$ collective puts in its blanket every channel of another modality through which a member reads or drives a non-member, and the modality-restricted partition is then not a path blanket. The split partition is an exact path blanket, given the remaining conditions of \cref{thm:col-path-blanket}, exactly when the within-member couplings between the modality-$c$ internal coordinates and the other coordinates and channels of members vanish in both directions.
+\end{enumerate}
+\end{proposition}
+% src: L2-P11, L2-P12, L5-P3, L5-P4
+Proof in \cref{app:col}. Nesting of ultrametric classes follows from the definition by hierarchical clustering and is not an empirical finding. Spectral contrast nests only as far as baselines allow. The criterion $r\ge r_0$ returns nested sets at weak grounding, through the hierarchy of timescales of \cref{thm:col-bridge}(iv), but a nest in one medium needs every set of the nest above the baseline, and a nest whose outermost set is the whole closed population is excluded except in media more connected than their comparison medium (\cref{prop:col-whole-population}). \Cref{obs:col-nested-medium} gives a nest in one medium and a hierarchy across levels in the same population. A member who integrates modalities, a citizen whose economic and linguistic beliefs interact, is a channel through which a linguistic community and a market leak into each other; the size of such cross-modal leaks is computed in \cref{sec:abs}.
+
+\begin{observation}[Nesting in one medium and across levels]\label{obs:col-nested-medium}
+Place the nested medium of \cref{prop:abs-hierarchy} with $b=2$, $n_{\mathrm H}=4$, $A_{\mathrm h}=1$ and $\mathfrak q=0.2$ on the sites $0,\dots,15$ of $\Z$, its blocks being the dyadic intervals, read its weights as the precision couplings $a^\Pi_{ij}$, take the precision leak $\varepsilon^\Pi=0.1$, and declare the boxes of $16$, $8$ and $4$ sites as the geometries of the coarse media of levels $0$, $1$ and $2$, with the lattice clause of \cref{def:col-baseline}. Enumerating every region of each comparison box gives the level-$0$ baseline $2.424$, while the blocks of $2$, $4$ and $8$ agents have contrasts $6.035$, $3.378$ and $1.667$. Each block of four agents and the two pairs inside it therefore form a nested collective of depth two in one medium at every level in $(2.424,3.378]$, and the blocks of eight agents are not collectives of that medium. Judged level by level, the blocks of $2$, $4$ and $8$ agents have the same contrasts in the coarse media of levels $0$, $1$ and $2$, whose baselines are $2.424$, $1.789$ and $1.301$, so the three block sizes are collectives of their levels and form a hierarchy with $l_{\max}=3$, with admissible levels in $(2.424,6.035]$, $(1.789,3.378]$ and $(1.301,1.667]$; the first and the last of these are disjoint, so the hierarchy needs a level declared for each coarse medium.
+\end{observation}
+% src: H6-D3 example and H6-O2 (q = 0.2, eps = 0.1), recomputed independently (chk:col-nested-medium)
+
+\subsection{Scope and reading of contrast}\label{sup:col-scope-and-reading-of-contrast}
+
+\begin{openproblem}[Contrast for non-diffusive precisions]\label{open:col-non-diffusive}
+Define contrast, and prove a size bound, for world-conditional precisions with positive off-diagonal entries, as produced by non-reciprocal attention. The problem is shared with \cref{sec:agy,sec:sca}; until it is solved contrast is not defined for such populations. The available substitute is the mutual-information selector used with the tests of \cref{prop:agy-tests}, and closure of the collective average under non-reversible drift is controlled by the drift-based contrast of \cref{thm:agy-closure-average}, which is not the precision-based contrast: \cref{prop:agy-drift-precision} bounds the difference of the corresponding rates by the stationary probability current, and the two contrasts differ in addition through the cut couplings, which the inward rate of \cref{def:col-contrast} removes and the drift-based inward rate keeps, so that they can differ even for reversible dynamics.
+\end{openproblem}
+% src: B1-O2, decision 14, decision 15, B4-P6(b), B3-T3, B3-R3, C2 Section 2.3(d)
+
+\begin{openproblem}[Exact fusion]\label{open:col-exact-fusion}
+Decide whether the world-conditional precision of receivers that fuse exactly is diffusive, and define contrast on members' residual disagreements when complete sharing makes $\Sigma^c$ singular.
+\end{openproblem}
+% src: B1-O1, B1-R1(b)
+
+The rates of \cref{def:col-contrast} have a dynamical and a statistical reading. Dynamically, for the reversible diffusion with drift $-\Pi^c$, whose stationary covariance is $\Sigma^c$, $\xout$ is the rate at which the members' average relaxes and $\xin$ the slowest relaxation rate of internal disagreement, so $r\gg1$ separates timescales. Statistically, $1/\xout$ is the variance of the collective coordinate $\phi_C^\top e$ given all orthogonal coordinates, outsiders' included, and $\xin$ is the smallest precision of a disagreement mode once couplings to outsiders are removed. A region with $r\gg1$ thus has a freely fluctuating collective coordinate and pinned internal disagreements, which is H1's requirement that coherence inside be much stronger than across the boundary. For non-reversible dynamics drift and precision differ, closure of the average is controlled by the contrast of the drift (\cref{thm:agy-closure-average,prop:agy-drift-precision}), and each statement names the contrast it uses. The two contrasts differ even without circulation: the drift-based inward rate keeps the couplings to outsiders on the diagonal, so for reversible drift it lies between $\xin(C)$ and $\xin(C)+\max_{i\in C}a^\partial_i$, the outward rates agree, and the drift-based contrast is at least $r(C)$. An analyst who sees only the members computes yet another quantity.
+
+\begin{lemma}[Members' marginal precision]\label{lem:col-kron}
+Let $\Pi=\diag(\varepsilon^\Pi)+L^\Pi$ be diffusive and positive definite on a finite set $V$, let $C\subseteq V$ and $\bar C=V\setminus C$, and let $\mathcal A_{C\bar C}$ be the matrix of couplings $a^\Pi_{ik}$, $i\in C$, $k\in\bar C$. The precision of the members' marginal law, $(\Sigma_{CC})^{-1}=\Pi_{CC}-\mathcal A_{C\bar C}\Pi_{\bar C\bar C}^{-1}\mathcal A_{\bar CC}$, is diffusive. Its leaks $\varepsilon^\Pi_C+\mathcal A_{C\bar C}\Pi_{\bar C\bar C}^{-1}\varepsilon^\Pi_{\bar C}$ lie between $\varepsilon^\Pi_C$ and $\varepsilon^\Pi_C+a^\partial_C$ entrywise, with $a^\partial_C$ the vector of cut couplings of the members, and its couplings $a^\Pi_{ij}+(\mathcal A_{C\bar C}\Pi_{\bar C\bar C}^{-1}\mathcal A_{\bar CC})_{ij}$ are at least $a^\Pi_{ij}$. The contrast $r'(C)$ computed from it satisfies $r'(C)\ge r(C)$.
+\end{lemma}
+% src: B1-L1
+Proof in \cref{app:col}; checked in \cref{chk:col-kron}. Marginalizing outsiders is a Kron reduction of the coupling graph.
+
+The clauses of \cref{def:col-baseline} contain the earlier conventions as special cases: a translation-invariant medium on $\Z^D$ or on a torus is its own comparison medium, a heterogeneous medium on $\Z^D$ is compared with the translation-invariant medium of its spatially averaged couplings and leak, and a finite population without geometry is compared with an exchangeable population of its size. A declaration states what the model takes as given, and the choice matters (\cref{rem:col-declared-geometry}). In the two-group model, clause (c) gives the population without frame mismatch in which every receiver attends $\kappa$ of the others uniformly at random, with exact translations and its own calibration (\cref{lem:frm-split-law,thm:frm-split-contrast}). The exchangeable population with the split's own mean coupling and leak would have the lower baseline $7.628$ at the base point, against $7.954$ (\cref{rem:col-baseline-conventions}), so the declared mechanism gives the more demanding comparison there (\cref{chk:col-declared}). The same holds at each of the $162$ points of the grid of \cref{obs:frm-grid}, where the declared mechanism gives the higher baseline by $0.5$ to $11.2$ percent and the split is a collective under both comparisons (\cref{chk:col-declared}). With uniform leak a region has $r(C)=(\varepsilon^\Pi+\lambda_2(L_C))/(\varepsilon^\Pi+\cut(C)/n)$, a region that its couplings do not connect has $r(C)\le1$, and a closed population has $r(V)=1+\lambda_2(L^\Pi)/\varepsilon^\Pi\ge1$, so the baseline of a finite closed comparison medium with uniform leak is attained by its whole population or by a region that its couplings connect (\cref{lem:col-uniform-leak} in \cref{app:col}).
+
+\subsection{Notes on extent and the bridge}\label{sup:col-notes-on-extent-and-the-bridge}
+
+\begin{openproblem}[Sharp constant and diameter]\label{open:col-extent}
+Decide whether $\pi/\sqrt{12}$ is the supremum of $\operatorname{sd}_d(C)(r(C)-1)^{1/2}/\xi_{2,d}$ over regions and media, compute exact homogeneous baselines beyond finite searches, and bound the diameter of contrast-selected regions, which the root-mean-square extent does not control.
+\end{openproblem}
+% src: B1-O3, B1-O4
+
+In the notation of \cref{def:col-ultrametric}, if $\mathcal U(C)>0$, every world-conditional canonical correlation across the boundary of $C$ is at most $e^{-\varpi_{\mathrm{out}}(C)}$, while any two members are joined by a chain of links with canonical correlation at least $e^{-u_{\mathrm{in}}(C)}$. Single linkage is used because its dendrogram is an ultrametric \citep{carlsson2010characterization}, which makes nesting automatic (\cref{prop:col-nesting}). Conditioning on the world is necessary when local noise is not large against the world's innovations: a common mode from those innovations bounds every unconditional correlation from below, so under the hypotheses of \cref{prop:abs-ultrametric-cap} the unconditional version of $\mathcal U$ is at most $\ln(1+\max_i\Sigma^c_{ii}/\Sigma_{\mathrm{cm}})$ for every nonempty proper subset, however strong its barriers, where $\Sigma_{\mathrm{cm}}$ is the variance of the common mode. In the scalar level-0 network $\Sigma_{\mathrm{cm}}=Q/(1-\lambda^2)$, with $Q$ the variance of the world innovation and $\lambda$ the common row sum of $W$, and the cap is $\ln(1+(1-\lambda^2)\max_i\Sigma^c_{ii}/Q)$. It tends to zero as grounding weakens only when $(1-\lambda^2)\max_i\Sigma^c_{ii}\to0$, as in extended media; in a finite closed population it does not vanish. For $N$ agents with $W=\lambda P$, $P$ symmetric and doubly stochastic, and local noise covariance $Q^\zeta=qI$, the uniform mode of $\Sigma^c$ alone contributes $q/(N(1-\lambda^2))$ to every diagonal entry, so the cap is at least $\ln(1+q/(NQ))$ at every $\lambda$, and it tends to this value as $\lambda\to1$ when $P$ is irreducible and aperiodic; it is of order $\ln(1+q/(nQ))$ for nearly isolated blocks of $n$ members while $1-\lambda^2$ is large against the coupling between the blocks and small against the spectral gap within them. The cap grows with $q/Q$: it forces every unconditional contrast to be small only when local noise is not large against the world innovation, $q/(NQ)\ll1$ at weak grounding, and when $q/Q$ is large the barriers remain visible in unconditional correlations. On the ring of \cref{chk:abs-cap} at $q/Q=100$ the unconditional contrast of one arc at leak $0.002$ is $1.445$ against the world-conditional $2.120$. The world-conditional contrast has no such cap and grows without bound as the barriers strengthen at fixed grounding.
+
+\begin{openproblem}[The bridge beyond two equal blocks]\label{open:col-bridge}
+Prove explicit two-sided bounds of the form \eqref{eq:col-union} and \eqref{eq:col-corr} for unequal blocks, for more than two blocks and for blocks coupled to an exterior, where the common mode is no longer an exact eigenvector of $\Pi$.
+\end{openproblem}
+% src: B1-O6

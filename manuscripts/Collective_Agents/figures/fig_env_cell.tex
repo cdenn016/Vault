@@ -1,0 +1,58 @@
+% Figure: coupling of the chemical and gravitational channels of the cell of ex:env-cell (coupling clause,
+% prop:env-selection(i)); signal-to-noise ratio of one reading against the radius of a buoyant particle.
+% Chemoreception, ex:env-cell(1): the volume-time average of prop:env-concentration with r_cell = 5 um,
+% D_m = 500 um^2/s, c_L = 1 nM = 0.6022 um^-3, T_int = 1 s, leading-term relative error
+% (3/(5 pi D_m r_cell c_L T_int))^{1/2} = 1.1263e-2; a signal of 5 (1) percent of c_L has ratio
+% (0.05/1.1263e-2)^2 = 19.707 ((0.01/1.1263e-2)^2 = 0.78829), as in ex:env-cell and chk:env-cell, which do not apply the
+% finite-time factor 0.7897. It does not depend on the particle radius.
+% Gravity sensing, ex:env-cell(4): ratio x_g^2/12 per independent reading, x_g = M_b g Z_box/(k_B T_K) with
+% g = 9.81 m/s^2, Z_box = 10 um, T_K = 310 K, k_B = 1.380649e-23 J/K, and buoyant mass M_b = (4/3) pi r^3 Delta rho
+% of a sphere with the density excess of protein, Delta rho = 369.86 kg/m^3 (partial specific volume 0.73 cm^3/g,
+% water 1000 kg/m^3, buoyancy factor 0.27). The 50 kDa protein (1 Da = 1.66053907e-27 kg; M_b = 2.2417e-23 kg; a
+% compact sphere of radius 2.4368 nm) has x_g = 5.1382e-7 and ratio 2.2000e-14, 13.658 orders of magnitude below one
+% (arrow) and 13.554 below the 1-percent ligand signal, as in chk:env-cell. On these axes x_g^2/12 is a straight line
+% of slope 6. x_g = 1 at r = 304.24 nm (shaded beyond, where sedimentation dominates; 275.15 nm at 500 kg/m^3). The
+% Fisher ratio of one reading for eta^g = g is x_g^2 Var(z/Z_box) = 1 - (x_g/2)^2/sinh^2(x_g/2) for the truncated
+% height law; x_g^2/12 is its small-x_g form, high by 0.13 percent at 166.4 nm and by 5.05 percent at x_g = 1 (1/12
+% against 0.079326). The solid branch is x_g^2/12 up to 166.4 nm and ends on the exact value at x_g = 1. The dashed
+% branch is the exact ratio with x_g = (r/304.24 nm)^3: it crosses 0.78829 at x_g = 4.642 (507.5 nm; 0.79 at 4.66,
+% 508 nm), is 0.99447 at 650 nm and tends to one (x_g = 35.51 at 1 um, 284.08 at 2 um), so it never reaches 19.707.
+% The form x_g^2/12 would reach 0.78829, 1 and 19.707 at x_g = 3.076, 3.464, 15.378 and is not the ratio of a reading
+% there. The particle of radius 1 um with density excess 500 kg/m^3 has x_g = 48.005. The dashed coordinates were
+% computed by work/fig_env_cell/exact_coords.py of the scratch area (mpmath, 30 digits, no random numbers; the closed
+% form agrees with quadrature of the height law to 4e-31 for x_g < 60).
+\begin{tikzpicture}[>={Stealth[length=1.8mm]}]
+  \begin{axis}[width=12.0cm, height=7cm, scale only axis, set layers, xmode=log, ymode=log,
+      xmin=1, xmax=2000, ymin=1e-16, ymax=1e3,
+      xtick={1,10,100,1000}, xticklabels={$1$,$10$,$100$,$1000$},
+      ytick={1e-15,1e-12,1e-9,1e-6,1e-3,1,1e3},
+      grid=major, grid style={gray!18},
+      xlabel={particle radius (nm)}, ylabel={signal-to-noise ratio per reading},
+      every axis label/.style={font=\small}, tick label style={font=\footnotesize}]
+    % regime where sedimentation dominates, x_g > 1 at the density of protein
+    \begin{pgfonlayer}{axis background}
+      \fill[orange!12] (axis cs:304.24,1e-16) rectangle (axis cs:2000,1e3);
+    \end{pgfonlayer}
+    \node[font=\footnotesize, orange!35!black, align=center, inner sep=1pt, fill=orange!12] at (axis cs:780,3e-9)
+      {sedimentation\\dominates,\\$x_{\mathrm g}>1$\\[3pt]$x_{\mathrm g}=48$ at radius\\$1$ $\mu$m and density\\excess $500$ kg/m$^3$};
+    % ratio one
+    \draw[gray!60!black, dashed] (axis cs:1,1) -- (axis cs:2000,1);
+    % chemoreception, ex:env-cell(1)
+    \draw[blue!70!black, thick] (axis cs:1,19.707) -- (axis cs:2000,19.707);
+    \draw[blue!70!black, thick, densely dashdotted] (axis cs:1,0.78829) -- (axis cs:2000,0.78829);
+    % gravity sensing at the density of protein: x_g^2/12 solid for x_g <= 1, exact ratio dashed beyond
+    \addplot[red!70!black, thick] coordinates {(2.4368,2.2e-14) (4.4552,8.2173e-13) (8.1455,3.0692e-11) (14.892,1.1464e-09) (27.228,4.2818e-08) (49.781,1.5993e-06) (91.016,5.9734e-05) (166.4,0.0022311) (304.24,0.079326)}
+      node[pos=0.62, sloped, above=1pt, inner sep=1pt, fill=white, font=\footnotesize, text=red!60!black] {gravity sensing, $x_{\mathrm g}^2/12$};
+    \addplot[red!70!black, thick, dashed] coordinates {(304.24,0.079326) (330,0.12533) (350,0.17268) (380,0.26431) (409.65,0.37751) (440,0.50913) (480,0.68384) (508,0.78989) (551.58,0.90782) (600,0.97253) (650,0.99447) (742.68,0.9999) (1000,1) (2000,1)};
+    % the 50 kDa protein
+    \addplot[only marks, mark=*, mark size=2.0pt, black] coordinates {(2.4368,2.2e-14)};
+    \node[font=\footnotesize, anchor=west, inner sep=1pt, fill=white] at (axis cs:2.75,6e-15) {$50$ kDa protein, $2.2\times10^{-14}$};
+    % gap to a ratio of one
+    \draw[<->, black!70, shorten <=2.5pt] (axis cs:2.4368,2.2e-14) -- (axis cs:2.4368,1);
+    \node[font=\footnotesize, anchor=west, align=left, inner sep=1pt, fill=white] at (axis cs:2.6,3e-7) {$13.66$ orders\\of magnitude};
+    % labels of the lines
+    \node[font=\footnotesize, blue!60!black, anchor=south west, inner sep=1pt, fill=white, yshift=2pt] at (axis cs:2.85,19.707) {chemoreception, $5$ percent signal: $19.7$};
+    \node[font=\footnotesize, blue!60!black, anchor=north west, inner sep=1pt, fill=white, yshift=-2pt] at (axis cs:2.85,0.78829) {chemoreception, $1$ percent signal: $0.79$};
+    \node[font=\footnotesize, gray!30!black, anchor=south west] at (axis cs:30,1) {ratio one};
+  \end{axis}
+\end{tikzpicture}

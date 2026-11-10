@@ -1,0 +1,170 @@
+\section{Conflicting objectives, deliberation time and scale selection}\label{sec:obj}
+
+This section addresses two open problems of the literature on collective active inference, conflicting objectives and collective policy, and scale and time laws: \cref{thm:agy-joint-acts,thm:agy-heterogeneous} decide when members with different targets form an exact potential game and bound the stationary deliberation law when they do not, without saying what conflict costs, how long deliberation takes or what can be identified from outside, and \cref{sec:ren} coarse-grains along declared frames without saying which frame to declare. For quadratic preferences over additive acts (\cref{sec:obj-deliberation}) the section proves that the antisymmetric part of the interaction matrix is the only obstruction to reversible deliberation on finite act sets and that on unbounded acts a reversible stationary law requires in addition a positive definite interaction matrix, that for two scalar members the existence of a stationary law depends on the protocol, a closed form for the cost of disagreement under shared precision and effect models, the spectral gap of heat-bath deliberation with tracking bounds for symmetric positive definite interaction, mixing and tracking bounds for finite policy sets under weak mutual influence, and that conflict is identified by reciprocity of the mean response or, under Langevin deliberation, by time-reversal asymmetry of lagged covariances, and under that protocol not by a stationary cross-section. For the stationary reversible diffusion of \cref{thm:ren-memory} (\cref{sec:obj-scale}) it proves that a predictive-information criterion selects frames in the spectral gaps of $\Pi$, that in the nested medium with $\mathfrak q<b$ the selected frames are the levels, with relaxation times that for $\mathfrak q<1$ in a deep hierarchy grow as a power of block size until the leak saturates them, that the Laplacian procedure of \cref{sec:ren-network} returns the same levels, that no threshold of a constant times $\ln N$ on the grounding-free ratio suffices for a region to be returned by that procedure, and that on a fixed tree the block coordinates stay exactly Markov under time-dependent couplings, with level clocks in place of elapsed time. Left open (\cref{sec:obj-open}) are the heat-bath stationary law for nonsymmetric interaction beyond two scalar members, preferences that are not quadratic and interacting effects, simultaneous moves and members who learn about one another, institutions whose protocol is not declared, the endogenous choice of the medium, declared frames that are not invariant, precisions without common invariant frames, nonreversible drifts, and the characterization of the regions the Laplacian procedure returns; proofs are in \cref{app:obj} and numerical checks in \cref{chk:obj}.
+
+\subsection{Rotation, cost and time of deliberation}\label{sec:obj-deliberation}
+
+\begin{definition}[Quadratic deliberation]\label{def:obj-quadratic}
+Let members $i=1,\dots,n$ choose acts $u_i\in\R^{d_i}$, $d_u=\sum_id_i$, with additive effects ($\mathcal B_{\mathrm{int}}=0$) and act parts $G^{\mathrm{act}}_i$ as in \eqref{eq:agy-act-efe}, each $\mathsf M^{(i)}_i$ of full column rank. The gradient profile is
+\begin{equation}\label{eq:obj-profile}
+\nabla_{u_i}G^{\mathrm{act}}_i(u)=\sum_jK_{ij}u_j+\mathsf h_i,\qquad K_{ij}=\mathsf M^{(i)\top}_i\Lambda^\star_i\mathsf M^{(i)}_j,\qquad\mathsf h_i=\mathsf M^{(i)\top}_i\Lambda^\star_i\mathsf z_i,
+\end{equation}
+with interaction matrix $K=(K_{ij})$, potential part $K_{\mathrm s}=(K+K^\top)/2$, rotational part $K_{\mathrm a}=(K-K^\top)/2$, $K_{\mathrm d}=\operatorname{blockdiag}(K_{ii})\succ0$ and $u^{\mathrm N}=-K^{-1}\mathsf h$ when $K$ is invertible. Heat-bath deliberation is (P4) of \cref{def:agy-group-model} with flat habits: at each event a uniformly chosen member redraws $u_i\sim\Ncal(-K_{ii}^{-1}(\sum_{j\ne i}K_{ij}u_j+\mathsf h_i),(\gamma K_{ii})^{-1})$. Langevin deliberation is $\mathrm du=-(Ku+\mathsf h)\mathrm dt+\sqrt{2/\gamma}\mathrm d\mathsf W_t$, every member descending its own gradient with independent noise.
+\end{definition}
+
+\begin{theorem}[Reversibility and rotation]\label{thm:obj-rotation}
+In the setting of \cref{def:obj-quadratic}:
+\begin{enumerate}
+\item[(a)] For displacements $\Delta_i,\Delta_j$ of two members, the four-cycle sum of \cref{thm:agy-joint-acts}(a) is
+\begin{equation}\label{eq:obj-cycle}
+\mathcal L_{ij}=\Delta_i^\top\bigl(K_{ji}^\top-K_{ij}\bigr)\Delta_j=-2\Delta_i^\top(K_{\mathrm a})_{ij}\Delta_j,
+\end{equation}
+so every restriction to finite act sets is reversible if and only if $K_{\mathrm a}=0$.
+\item[(b)] Heat-bath deliberation has a reversible stationary law if and only if $K_{\mathrm a}=0$ and $K\succ0$; the law is then $\Ncal(u^{\mathrm N},(\gamma K)^{-1})$ and is the unique stationary law.
+\item[(c)] Langevin deliberation has a stationary law if and only if every eigenvalue of $K$ has positive real part; the law is $\Ncal(u^{\mathrm N},\Sigma)$ with $K\Sigma+\Sigma K^\top=(2/\gamma)I$. Then $\mathsf Q=K\Sigma-\gamma^{-1}I$ is antisymmetric, $K=(\gamma^{-1}I+\mathsf Q)\Sigma^{-1}$, the stationary current velocity is $-\mathsf Q\Sigma^{-1}(u-u^{\mathrm N})$, and its mean square in units of the noise,
+\begin{equation}\label{eq:obj-entropy}
+\gamma\tr\bigl(\mathsf Q\Sigma^{-1}\mathsf Q^\top\bigr)=\gamma\tr\bigl(K\Sigma K^\top\bigr)-\tr K\ge0,
+\end{equation}
+vanishes if and only if the process is reversible, if and only if $K_{\mathrm a}=0$.
+\end{enumerate}
+\end{theorem}
+
+The antisymmetric part of the interaction matrix is therefore the cycle sum of \cref{thm:agy-agency}(a) in continuous acts, and it is the only obstruction to reversibility. This is the quadratic counterpart of the result of \citet{heins2023spin} that binary active-inference agents updating asynchronously sample the Gibbs law of a spin glass, an equivalence that they show to rest on symmetric couplings, obtained from equal precisions within each pair, and to fail under synchronous updates. Unlike finite policy sets, unbounded acts add a second requirement, $K\succ0$, and the two protocols respond differently to rotation.
+
+\begin{proposition}[Two members with scalar acts]\label{prop:obj-protocol}
+Let $n=2$, $d_1=d_2=1$ and $\chi=K_{12}K_{21}/(K_{11}K_{22})$. Langevin deliberation has a stationary law if and only if $\chi<1$; heat-bath deliberation if and only if $\lvert\chi\rvert<1$, and that law is the equal mixture of two Gaussian laws with mean $u^{\mathrm N}$, which is Gaussian if and only if $K_{12}=K_{21}$.
+\begin{enumerate}
+\item[(a)] (Rotation.) For $K=\bigl(\begin{smallmatrix}1&c\\-c&1\end{smallmatrix}\bigr)$, $\mathsf h=0$, the Langevin law is $\Ncal(0,\gamma^{-1}I)$ for every $c$, with $\gamma\tr(\mathsf Q\Sigma^{-1}\mathsf Q^\top)=2c^2$. The heat-bath law exists only for $\lvert c\rvert<1$ and is $\tfrac12\Ncal(0,s\bigl(\begin{smallmatrix}1&-c\\-c&1\end{smallmatrix}\bigr))+\tfrac12\Ncal(0,s\bigl(\begin{smallmatrix}1&c\\c&1\end{smallmatrix}\bigr))$ with $s=1/(\gamma(1-c^2))$; from every initial law with finite second moments the mean converges to $0$ if $c^2<3$ and the variance diverges if $c^2\ge1$.
+\item[(b)] (Escalation.) With shared effect models $\mathsf M=\bigl(\begin{smallmatrix}1&\alpha\\\alpha&1\end{smallmatrix}\bigr)$ and precisions $\Lambda^\star_1=\diag(\epsilon,1)$, $\Lambda^\star_2=\diag(1,\epsilon)$, $K$ is symmetric with $\chi=\alpha^2(1+\epsilon)^2/(\epsilon+\alpha^2)^2$; for $\alpha=0.5$, $\epsilon=0.1$, $\chi>1$ and neither protocol has a stationary law. With shared precision and effect models $K=\mathsf M^\top\Lambda^\star\mathsf M$ is a Gram matrix, $0\le\chi\le1$, and both protocols have a stationary law unless the two effect directions are collinear ($\chi=1$).
+\end{enumerate}
+\end{proposition}
+
+Part (a) extends the protocol dependence of \cref{ex:agy-no-potential} to a closed form: rotation leaves the Langevin law untouched, inflates and then destroys the heat-bath law. Part (b) shows that an exact potential game need not have a group posterior: members who each care most about the outcome coordinate the other controls escalate without bound.
+
+\begin{proposition}[Cost of disagreement]\label{prop:obj-cost}
+Let the members share $\Lambda^\star$ and the true effect models, with $\mathsf M=(\mathsf M_1,\dots,\mathsf M_n)$ of full column rank, and differ in their displacements $\mathsf z_i$, with mean $\bar{\mathsf z}$. Under either protocol the stationary law is $\mu=\Ncal(u^{\mathrm N},(\gamma K)^{-1})$, $K=\mathsf M^\top\Lambda^\star\mathsf M$, and
+\begin{equation}\label{eq:obj-cost}
+\E_\mu\sum_iG^{\mathrm{act}}_i-\min_u\sum_iG^{\mathrm{act}}_i(u)=\frac n2\mathsf w^\top K^{-1}\mathsf w+\frac{nd_u}{2\gamma},\qquad\mathsf w_i=\mathsf M_i^\top\Lambda^\star(\mathsf z_i-\bar{\mathsf z}).
+\end{equation}
+The law $\mu$ is the group posterior with flat habits and displacement $\mathsf z_{\mathrm N}=-\mathsf Mu^{\mathrm N}$, characterized on the range of the effects by $\mathsf M_j^\top\Lambda^\star\mathsf z_{\mathrm N}=\mathsf M_j^\top\Lambda^\star\mathsf z_j$ for all $j$. For two scalar acts with unit effect directions $e_i$ in the $\Lambda^\star$ inner product, $\cos\theta=\langle e_1,e_2\rangle_{\Lambda^\star}$ and $\eta_i=\langle e_i,(\mathsf z_1-\mathsf z_2)/2\rangle_{\Lambda^\star}$,
+\begin{equation}\label{eq:obj-cost-two}
+\frac n2\mathsf w^\top K^{-1}\mathsf w=\frac{\eta_1^2+2\cos\theta\eta_1\eta_2+\eta_2^2}{\sin^2\theta}.
+\end{equation}
+\end{proposition}
+
+The collective is an exact agent, but for a negotiated displacement in which each member's target prevails along its own effect directions, not for the mean target. The bias term is a quadratic counterpart of the simulation finding of \citet{ruizserra2025factorised} that the ensemble-level expected free energy of an iterated game, the sum of the players' expected free energies, is not necessarily minimized at the equilibria the players reach. The correspondence is interpretive: their players choose among discrete actions simultaneously and learn beliefs about one another, and they report no closed form. The bias diverges as the two effects become collinear, and a single agent holding the summed objective at precision $\gamma$ would pay only $d_u/(2\gamma)$ in fluctuations.
+
+\begin{theorem}[Deliberation time and tracking]\label{thm:obj-time}
+Let $K=K^\top\succ0$, $\mu=\Ncal(u^{\mathrm N},(\gamma K)^{-1})$, $\kappa=\lambda_{\min}(K_{\mathrm d}^{-1/2}KK_{\mathrm d}^{-1/2})\in(0,1]$, and let $\nu_t$ be the law after $t$ heat-bath events.
+\begin{enumerate}
+\item[(a)] In the transport distance $W_{2,K}$ of the norm $\lVert v\rVert_K^2=v^\top Kv$, $W_{2,K}(\nu_t,\mu)\le(1-\kappa/n)^{t/2}W_{2,K}(\nu_0,\mu)$, and the mean obeys $\lVert\E_{\nu_t}u-u^{\mathrm N}\rVert_K\le(1-\kappa/n)^t\lVert\E_{\nu_0}u-u^{\mathrm N}\rVert_K$ with equality along one direction.
+\item[(b)] The spectral gap of the heat-bath kernel on $L^2(\mu)$ equals $\kappa/n$.
+\item[(c)] For two members, $\kappa=1-\cos\theta_{\min}$ with $\cos\theta_{\min}$ the largest singular value of $K_{11}^{-1/2}K_{12}K_{22}^{-1/2}$; under shared $\Lambda^\star$ and effect models $\theta_{\min}$ is the smallest principal angle between the ranges of $(\Lambda^\star)^{1/2}\mathsf M_1$ and $(\Lambda^\star)^{1/2}\mathsf M_2$.
+\item[(d)] If the loads move, $\mathsf h=\mathsf h_t$ at event $t$, with $\lVert u^{\mathrm N}_{t+1}-u^{\mathrm N}_t\rVert_K\le\delta$, then
+\begin{equation}\label{eq:obj-tracking}
+\begin{gathered}
+\lVert\E_{\nu_t}u-u^{\mathrm N}_t\rVert_K\le(1-\kappa/n)^t\lVert\E_{\nu_0}u-u^{\mathrm N}_0\rVert_K+\frac{n\delta}{\kappa},\\
+W_{2,K}(\nu_t,\mu_t)\le(1-\kappa/n)^{t/2}W_{2,K}(\nu_0,\mu_0)+\frac{2n\delta}{\kappa},
+\end{gathered}
+\end{equation}
+and the constant $n/\kappa$ in the first bound cannot be improved: for a constant drift of $K$-norm $\delta$ per event along the slowest direction and zero initial lag, the lag at event $t$ has $K$-norm $\delta(1-(1-\kappa/n)^t)n/\kappa$, which increases to $n\delta/\kappa$ without reaching it.
+\end{enumerate}
+\end{theorem}
+
+Deliberation takes $1/\kappa$ rounds of $n$ events, and once the transient has decayed a collective whose Nash point moves at $K$-speed $v$ per round, that is $\delta=v/n$ per event, lags the moving group posterior by at most $v/\kappa$ in the mean and $2v/\kappa$ in $W_{2,K}$. Nearly collinear effects are therefore costly twice, in bias by \eqref{eq:obj-cost-two} and in time by (c). Finite policy sets admit analogous bounds without any potential.
+
+\begin{proposition}[Finite policy sets]\label{prop:obj-finite}
+Under (P3) and (P4) with arbitrary $G_i$, let $\mathfrak J_{ij}$ be the largest total variation distance between member $i$'s conditionals at two profiles of the others that differ only in member $j$'s policy, $\mathfrak D=\max_j\sum_{i\ne j}\mathfrak J_{ij}$, and $W_1$ the transport distance of the Hamming metric on profiles. Then $\mathfrak J_{ij}\le\tanh(\gamma\omega_{ij}/4)$, with $\omega_{ij}$ the largest oscillation in $\pi_i$ of the change of $G_i$ under a change of $\pi_j$, and one event contracts $W_1$ by $\rho=1-(1-\mathfrak D)/n$. If $\mathfrak D<1$,
+\begin{equation}\label{eq:obj-finite-mixing}
+\mathrm{TV}(\nu_t,\mathbb P^\infty)\le W_1(\nu_t,\mathbb P^\infty)\le n\Bigl(1-\frac{1-\mathfrak D}n\Bigr)^t,
+\end{equation}
+and for a second profile of expected free energies $G'_i$ on the same policy sets, with $\omega_i=\max_{\pi_{-i}}\operatorname{osc}_{\pi_i}(G'_i-G_i)$,
+\begin{equation}\label{eq:obj-finite-shift}
+W_1\bigl(\mathbb P^\infty,\mathbb P'^\infty\bigr)\le\frac{\sum_i\tanh(\gamma\omega_i/4)}{1-\mathfrak D}.
+\end{equation}
+If the expected free energies change between events, let $G_{i,t}$ be the profile in force at event $t$, $T_t$ its kernel, $\nu_{t+1}=\nu_tT_t$, $\mathfrak D_t$ and $\mathbb P^\infty_t$ the influence constant and the stationary law of $T_t$, and $\omega_{i,t}=\max_{\pi_{-i}}\operatorname{osc}_{\pi_i}(G_{i,t+1}-G_{i,t})$. If $\mathfrak D_t\le\bar{\mathfrak D}<1$ and $\frac1n\sum_i\tanh(\gamma\omega_{i,t}/4)\le\bar\tau$ for all $t$, then for all $t$
+\begin{equation}\label{eq:obj-finite-tracking}
+W_1\bigl(\nu_t,\mathbb P^\infty_t\bigr)\le\bar\rho^tW_1\bigl(\nu_0,\mathbb P^\infty_0\bigr)+\frac{n^2\bar\tau}{(1-\bar{\mathfrak D})^2},\qquad\bar\rho=1-\frac{1-\bar{\mathfrak D}}n.
+\end{equation}
+\end{proposition}
+
+The collective is within $\epsilon$ of its stationary law after $\ln(n/\epsilon)/(1-\mathfrak D)$ rounds, and if each member's expected free energy moves by at most $\dot\omega/n$ in oscillation per event, that is $\dot\omega$ per round, the expected fraction of members whose policy differs from an optimally coupled draw of the current stationary law is at most $\gamma\dot\omega/(4(1-\bar{\mathfrak D})^2)$ once the transient $\bar\rho^tW_1(\nu_0,\mathbb P^\infty_0)/n$ has decayed. \Cref{eq:obj-finite-shift} extends \eqref{eq:agy-contraction} to any two profiles.
+
+\begin{proposition}[What identifies conflict]\label{prop:obj-identification}
+(a) For Langevin deliberation, the interaction matrices with stationary law $\Ncal(u^{\mathrm N},\Sigma)$ are exactly $(\gamma^{-1}I+\mathsf Q)\Sigma^{-1}$ with $\mathsf Q$ antisymmetric; the family contains one potential game, $K_0=(\gamma\Sigma)^{-1}$, and for scalar acts every sufficiently small $\mathsf Q$ is realized by a quadratic deliberation. (b) Let $K$ be invertible. Under either protocol the existence of a stationary law does not depend on $\mathsf h$, and every stationary law with a finite first moment has mean $-K^{-1}\mathsf h$, so that $-\partial\E u/\partial\mathsf h=K^{-1}$; the game is a potential game if and only if this response is symmetric. (c) For Langevin deliberation the lagged covariance is $C(\tau)=e^{-K\tau}\Sigma$, so $K=-\dot C(0)\Sigma^{-1}$, $C(\tau)$ is symmetric for all $\tau$ if and only if $K_{\mathrm a}=0$, and $K^{-1}=\gamma\Sigma(I+\gamma\mathsf Q)^{-1}$.
+\end{proposition}
+
+A stationary cross-section of a collective's acts can thus never certify that its members pursue one objective: under Langevin deliberation a group model always fits. Conflict is identified by reciprocity of responses to shifted targets or by time-reversal asymmetry of lagged statistics. This bears on \cref{open:abs-institutions} and on group models fitted from outside. \citet{waade2025one} fit an active-inference model to the choices of a simulated collective that aggregates its members' votes on a bandit task, and find a much lower fitted action precision when the members hold conflicting preferences. In the present setting disagreement about targets alone moves the fitted target and leaves the fitted precision at $\gamma$, while rotation under heat-bath deliberation inflates the variance of each act by the factor $1/(1-c^2)$ of \cref{prop:obj-protocol}(a), which a fitted group model would read as lower action precision. The comparison is interpretive: their finding comes from simulation, and their collective aggregates discrete votes probabilistically, which is neither protocol of \cref{def:obj-quadratic}.
+
+\subsection{Selecting a scale}\label{sec:obj-scale}
+
+A declared frame is good at a horizon if what it discards does not help to predict. For the stationary reversible diffusion of \cref{thm:ren-memory}, a frame $\Phi$ with orthonormal columns ($0\le\rank\Phi\le N$), a horizon $\tau>0$ and a price $c>0$ in nats per retained coordinate, put
+\begin{equation}\label{eq:obj-criterion}
+J_{\tau,c}(\Phi)=I(x_0;x_\tau)-I(\Phi^\top x_0;x_\tau)+c\rank\Phi,
+\end{equation}
+the predictive information lost by the coarse description plus a resolution cost. The closure defect cannot replace the first two terms: $\mathcal D=0$ on every invariant frame, including the empty one and every level of the nested medium, so the defect plus a cost always selects nothing (\cref{rem:obj-degenerate}). Let $\iota(s)=-\frac12\ln(1-e^{-2s})$, a decreasing involution of $(0,\infty)$, and $\varsigma(c)=\iota(c)$.
+
+\begin{theorem}[Selected scales sit in spectral gaps]\label{thm:obj-selection}
+In the setting of \cref{thm:ren-memory}, with eigenvalues $\varpi_1\le\dots\le\varpi_N$ of $\Pi$, $\varpi_0=0$ and $\varpi_{N+1}=\infty$:
+\begin{enumerate}
+\item[(a)] $I(x_0;x_\tau)=\sum_k\iota(\varpi_k\tau)$, and every frame of rank $M$ has $I(\Phi^\top x_0;x_\tau)\le\sum_{k\le M}\iota(\varpi_k\tau)$, with equality when $\operatorname{range}\Phi=\operatorname{range}\mathsf V_{\mathrm s}$ and, if $\varpi_M<\varpi_{M+1}$, only then.
+\item[(b)] The minimum of $J_{\tau,c}$ is attained at rank
+\begin{equation}\label{eq:obj-rank}
+M^\ast(\tau,c)=\#\{k:\varpi_k<\varsigma(c)/\tau\},
+\end{equation}
+uniquely unless some $\varpi_k\tau=\varsigma(c)$. The frames of rank $M$ on the slow eigenspace are the only minimizers exactly for
+\begin{equation}\label{eq:obj-windows}
+\varsigma(c)/\varpi_{M+1}<\tau<\varsigma(c)/\varpi_M,
+\end{equation}
+an interval that is nonempty if and only if $\varpi_M<\varpi_{M+1}$. For $1\le M<N$ its logarithmic width is $\ln(\varpi_{M+1}/\varpi_M)$ whatever the price; the windows of $M=0$ and $M=N$ are the half-lines $\tau>\varsigma(c)/\varpi_1$ and $\tau<\varsigma(c)/\varpi_N$.
+\item[(c)] A declared frame with invariant range, $1\le\rank\Phi<N$ and $\varkappa_\perp>\varkappa_\Phi$ minimizes $J_{\tau,c}$ over all frames if and only if $\varsigma(c)/\varkappa_\perp\le\tau\le\varsigma(c)/\varkappa_\Phi$. For the block frame of an equitable partition into fewer than $N$ regions with uniform leak and $\xin^{\min}>2\xout^{\max}-\varepsilon^\Pi$, where $\xin^{\min}$ is the minimum of $\xin$ over the blocks with at least two members as in \cref{thm:ren-memory}(d), this holds for all $\tau\in[\varsigma(c)/\xin^{\min},\varsigma(c)/(2\xout^{\max}-\varepsilon^\Pi)]$.
+\end{enumerate}
+\end{theorem}
+
+Scale is thus selected by the horizon: a rank is chosen over a range of horizons only if the spectrum of $\Pi$ has a gap there, and the range is the logarithm of the gap ratio. Part (c) connects this to \cref{thm:ren-memory}(d): a partition into collectives of high contrast is the optimal description at every horizon between the internal relaxation time and the exchange time, up to the factor $\varsigma(c)$. With $\Pi=\varepsilon^\Pi I+L$, \eqref{eq:obj-rank} retains the Laplacian modes with eigenvalue strictly below $1/\tau_{\mathrm L}=\varsigma(c)/\tau-\varepsilon^\Pi$. This is the mode rule of the Laplacian renormalization group of \citet{villegas2023laplacian} as \cref{sec:ren-network} states it, with a mode at equality discarded by the convention fixed there; at equality both ranks minimize, so either convention is optimal. The rule is therefore information-optimal for the diffusion, with their diffusion time read as a prediction horizon; at $c=\iota(1)\approx0.073$ and vanishing leak the two times coincide. The leak adds a cutoff that the Laplacian procedure, which does not depend on $\varepsilon^\Pi$ (\cref{prop:ren-lrg}), cannot see: nothing is worth retaining beyond $\tau=\varsigma(c)/\varepsilon^\Pi$.
+
+\begin{theorem}[Selected levels and the scale-time law in the nested medium]\label{thm:obj-nested}
+In the nested medium of \cref{thm:ren-nested} with $\mathfrak q<b$, let $\mathsf g_l$ be as in \cref{prop:abs-hierarchy}, $\tau_l=1/(\varepsilon^\Pi+\mathsf g_l)$ for $1\le l\le n_{\mathrm H}$, $\tau_0=0$ and $\tau_{n_{\mathrm H}+1}=1/\varepsilon^\Pi$.
+\begin{enumerate}
+\item[(a)] The spectrum of $\Pi$ is $\varepsilon^\Pi$, simple, and $\varepsilon^\Pi+\mathsf g_l$ with multiplicity $(b-1)b^{n_{\mathrm H}-l}$, with $\mathsf g_1>\dots>\mathsf g_{n_{\mathrm H}}$. For $\varsigma(c)\tau_l<\tau<\varsigma(c)\tau_{l+1}$, $0\le l\le n_{\mathrm H}$, the minimizers of $J_{\tau,c}$ are exactly the frames spanning the level-$l$ block indicators (the agents for $l=0$, the population mean for $l=n_{\mathrm H}$); for $\tau>\varsigma(c)/\varepsilon^\Pi$ the minimizer is the empty frame. No other rank is selected on an interval of horizons.
+\item[(b)] For $\mathfrak q<1$ and $n_{\mathrm H}\to\infty$ at fixed $l$, $\mathsf g_l$ converges to $\mathsf g_1^\infty\mathfrak q^{l-1}$ with $\mathsf g_1^\infty=A_{\mathrm h}(1/(1-\mathfrak q)+1/(b-1))$ and, with $\lvert C_l\rvert=b^l$, the relaxation time of level $l$ converges:
+\begin{equation}\label{eq:obj-scale-time}
+\lim_{n_{\mathrm H}\to\infty}\tau_l=\frac{\mathfrak q\lvert C_l\rvert^{z_{\mathrm H}}}{\mathsf g_1^\infty+\varepsilon^\Pi\mathfrak q\lvert C_l\rvert^{z_{\mathrm H}}},\qquad z_{\mathrm H}=\frac{\ln(1/\mathfrak q)}{\ln b}:
+\end{equation}
+the relaxation time grows as the power $z_{\mathrm H}$ of block size, which is the power $y_{\mathrm{RG}}$ of linear size under the convention of \cref{thm:ren-nested}(b), until it saturates at $1/\varepsilon^\Pi$ where $\mathfrak x_l$ is of order one.
+\item[(c)] For every $\tau_{\mathrm L}>0$ the entries of $e^{-\tau_{\mathrm L}L}$ are positive, depend only on the level of the smallest common block and decrease strictly with it, and the procedure of \cref{sec:ren-network} returns exactly the level-$l$ blocks for $1/\mathsf g_l\le\tau_{\mathrm L}<1/\mathsf g_{l+1}$ ($\mathsf g_0=\infty$, $\mathsf g_{n_{\mathrm H}+1}=0$), whatever the order in which ties are broken. For a level-$l$ block $C$ with $1\le l<n_{\mathrm H}$ and grounding-free ratio $r_\star(C)=\lambda_2(L_C)\lvert C\rvert/\cut(C)$, this window meets the interval $(1/\lambda_2(L_C),\lvert C\rvert/\cut(C))$ of \cref{conj:ren-lrg} if and only if $r_\star(C)>b/(b-\mathfrak q)$.
+\end{enumerate}
+\end{theorem}
+
+The dynamic exponent of the nested medium equals its renormalization eigenvalue, as $2$ and $\sigma$ do on the lattice (\cref{prop:ren-exponents}(c)), and each level is the selected description for a window of horizons whose logarithmic width tends to $\ln(1/\mathfrak q)$ in a deep hierarchy with negligible leak. Part (c) turns the numerical statement of \cref{sec:ren-network} about the nested medium into a theorem with a constant threshold and no logarithm. The entropy of the Laplacian density of \citet{villegas2023laplacian} is not scale invariant here in their sense of a constant specific heat: its mean over a period $\ln(1/\mathfrak q)$ of $\ln\tau_{\mathrm L}$ tends to $\ln b/\ln(1/\mathfrak q)=1/z_{\mathrm H}$ (\cref{prop:obj-specific-heat}), and it is observed to oscillate within the period (\cref{chk:obj-specific-heat}). Outside the nested medium the real-space rule can fail.
+
+\begin{proposition}[A region of large ratio that is never a macronode]\label{prop:obj-lrg-counter}
+On the complete graph on $b\ge3$ vertices with unit couplings, so that $N=b$, a region $C$ of $b-1$ vertices has $r_\star(C)=b-1$, while for every $\tau_{\mathrm L}>0$ and every order of breaking ties the procedure of \cref{sec:ren-network} returns only the $b$ singletons ($\tau_{\mathrm L}<1/b$) or the whole graph ($\tau_{\mathrm L}\ge1/b$). Hence $r_\star(C)/\ln N$ is unbounded over regions that are never macronodes. The conjecture that, with uniform leak, every region $C$ whose ratio $r_\star(C)$ exceeds a constant times $\ln N$ is a macronode of the procedure at some $\tau_{\mathrm L}\in(1/\lambda_2(L_C),\lvert C\rvert/\cut(C))$ is therefore false for every value of the constant, which is why \cref{conj:ren-lrg} asks for a characterization of the regions returned in that interval and not for a threshold.
+\end{proposition}
+
+The same happens inside the nested medium for a level-one block with one site removed (\cref{chk:obj-lrg}). In both cases $C$ is not a local maximizer of $r_\star$: adding the missing site raises the ratio. Restricting the threshold conjecture to local maximizers does not rescue it on the available evidence: a clique joined by one edge to a long path is a strict local maximizer with $r_\star(C)/\ln N$ up to $95.2$, and the procedure did not return it at any scanned diffusion time in the interval (\cref{chk:ren-lrg}), a computation on grids that does not exclude narrow windows and is not a proof. What is proved in the direction of the threshold conjecture is \cref{thm:obj-nested}(c), for the level blocks of the nested medium, and \cref{prop:ren-lrg-agreement}, for two equitable blocks under its gap condition; the characterization that \cref{conj:ren-lrg} asks for is open (\cref{open:obj-scale}).
+
+\begin{proposition}[Level clocks without stationarity]\label{prop:obj-clocks}
+Let the level couplings $a^{\mathrm H}_l(t)\ge0$ and the leak $\varepsilon^\Pi(t)>0$ of the nested medium be locally integrable functions of time on a fixed tree, $\Pi(t)=\varepsilon^\Pi(t)I+L(t)$, and let $\mathrm dx=-\Pi(t)x\mathrm dt+\sqrt2\mathrm d\mathsf B_t$ from an arbitrary initial law.
+\begin{enumerate}
+\item[(a)] At every level the block coordinates are exactly Markov, $\mathrm dy=-\Pi_\Phi(t)y\mathrm dt+\sqrt2\mathrm d\mathsf B'_t$.
+\item[(b)] The component of $x$ in the level-$l$ eigenspace obeys $\E[x^{(l)}_t\mid x_s]=e^{-\Theta_l(s,t)}x^{(l)}_s$ with the clock
+\begin{equation}\label{eq:obj-clock}
+\Theta_l(s,t)=\int_s^t\bigl(\varepsilon^\Pi(r)+\mathsf g_l(r)\bigr)\mathrm dr,\qquad\mathsf g_l(r)=b^la^{\mathrm H}_l(r)+\sum_{l'>l}(b^{l'}-b^{l'-1})a^{\mathrm H}_{l'}(r),
+\end{equation}
+and $\Theta_{n_{\mathrm H}+1}=\int_s^t\varepsilon^\Pi$ for the population mean, counted as level $n_{\mathrm H}+1$ with $\mathsf g_{n_{\mathrm H}+1}=0$.
+\item[(c)] If $x_s$ is Gaussian with $\Cov(x_s)=\sum_lv_l(s)\mathsf E_l$ on the level eigenprojections $\mathsf E_l$, every $v_l(s)>0$, and $t>s$, the canonical correlations of $x_s$ and $x_t$ are $e^{-\tilde\Theta_l}$ with $\tilde\Theta_l=\Theta_l(s,t)+\frac12\ln(v_l(t)/v_l(s))$ and $v_l(t)=e^{-2\Theta_l(s,t)}v_l(s)+2\int_s^te^{-2\Theta_l(r,t)}\mathrm dr$. If moreover $a^{\mathrm H}_l(r)>a^{\mathrm H}_{l+1}(r)$ on $[s,t]$ (with $a^{\mathrm H}_{n_{\mathrm H}+1}=0$) and $v_l(s)\le v_{l+1}(s)$ for $1\le l\le n_{\mathrm H}$, then $\tilde\Theta_1>\dots>\tilde\Theta_{n_{\mathrm H}+1}$ and, with $\tilde\Theta_0=\infty$, the frames spanning the level-$l$ block indicators are the only minimizers of $I(x_s;x_t)-I(\Phi^\top x_s;x_t)+c\rank\Phi$ exactly when $\tilde\Theta_{l+1}<\varsigma(c)<\tilde\Theta_l$.
+\end{enumerate}
+\end{proposition}
+
+On a fixed tree the scale-time statement therefore survives time-dependent couplings and finite horizons with elapsed time replaced by the level clocks, each a strictly increasing operational time for its level. What blocks a general version is non-commutation: for $\Pi(t)$ that do not share invariant frames, a fixed frame acquires the two-time kernel $\Pi_{\perp\Phi}(t)^\top\mathsf U_\perp(t,s)\Pi_{\perp\Phi}(s)$ and a co-moving frame is coupled to its complement through $\dot\Phi^\top\Phi_\perp$ (\cref{rem:obj-nonstationary}).
+
+\subsection{What remains open}\label{sec:obj-open}
+
+\begin{openproblem}[Strategic deliberation]\label{open:obj-strategic}
+(a) Determine the heat-bath stationary law and its existence threshold for nonsymmetric $K$ beyond two scalar members; \cref{lem:obj-moments} gives only the second-moment criterion. (b) Extend \cref{prop:obj-cost,thm:obj-time} to preferences that are not quadratic and to interacting effects (\cref{thm:agy-joint-acts}(c)). (c) Treat simultaneous moves and members who hold and learn beliefs about one another's internal states, the setting of \citet{ruizserra2025factorised}; \cref{conj:agy-synchronous} is the first case. (d) Decide whether the reciprocity and time-reversal tests of \cref{prop:obj-identification} can be carried out on institutions, whose protocol is not declared; \cref{open:abs-institutions} stays open. (e) Bound mixing when $\mathfrak D\ge1$, and close the gap between \eqref{eq:obj-finite-tracking} and the observed lag (\cref{chk:obj-finite}).
+\end{openproblem}
+
+\begin{openproblem}[Endogenous and general scale selection]\label{open:obj-scale}
+(a) \Cref{thm:obj-selection} selects a frame given the medium; it does not determine the medium. Whether attention selected by expected free energy drives $a$ and $\varepsilon$ to open spectral gaps, and where, is a variant of \cref{open:sca-endogenous} and stays open. (b) Bound the excess of $J_{\tau,c}$ on a declared frame that is not invariant in terms of $\mathsf t_\Theta$. (c) Characterize the regions that the Laplacian procedure returns at some diffusion time in the interval of \cref{conj:ren-lrg}. In particular, decide whether a ratio $r_\star(C)$ above a constant times $\ln N$ suffices for regions that are local maximizers of $r_\star$ under the addition or removal of one site; the clique-and-path computations of \cref{chk:ren-lrg} speak against this restriction on the grids scanned and do not disprove it. (d) Extend \cref{prop:obj-clocks} to precisions $\Pi(t)$ without common invariant frames and to nonreversible drifts, where the optimal frames depend on the horizon.
+\end{openproblem}

@@ -1,0 +1,220 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:fw}}{Section 2}: the framework}\label{sup:fw}
+
+This section collects statements, examples and remarks of \cref{sec:fw} that the main text cites without stating in full. Proofs are in \cref{app:fw}.
+
+\subsection{Two receivers of one message}\label{sup:fw-two-receivers-of-one-message}
+
+Because the lift $O_{ij}$ of \eqref{eq:fw-gain} uses the receiver's prior, two receivers read one message differently.
+
+\begin{proposition}[Two receivers, one message]\label{prop:fw-two-receivers}
+% src: L1-P4
+Receivers $i$ and $k$ have priors $\Ncal(m_i,P_i)$ and $\Ncal(m_k,P_k)$ and read one message $y$ with the same likelihood $\Ncal(\hat H\eta,\hat R)$. Write $q_i^+$ and $q_k^+$ for their posteriors, $S_i,S_k$ and $\Kg_i,\Kg_k$ for their innovation covariances and gains, and $\Lambda_k^+=(P_k^+)^{-1}$.
+\begin{enumerate}
+\item[(a)] $m_i^+-m_k^+=(I-\Kg_i\hat H)(m_i-m_k)+(\Kg_i-\Kg_k)(y-\hat Hm_k)$.
+\item[(b)] $\Kg_i=\Kg_k$ if and only if $P_i\hat H^\top=P_k\hat H^\top$.
+\item[(c)] If $P_i=P_k$, then $\KL(q_i^+\Vert q_k^+)=\KL(q_i\Vert q_k)-\tfrac12(m_i-m_k)^\top\hat H^\top S_i^{-1}\hat H(m_i-m_k)$ for every $y$.
+\item[(d)] For any priors and any common likelihood with $\KL(q_i\Vert q_k)<\infty$,
+\[
+\E_{q_i(y)}\KL(q_i^+\Vert q_k^+)=\KL(q_i\Vert q_k)-\KL\bigl(q_i(y)\Vert q_k(y)\bigr),
+\]
+where $q_i(y)$ and $q_k(y)$ are the two receivers' predictive laws of the message.
+\item[(e)] The decoded contents are $\hat y^\circ_a=y-\hat RS_a^{-1}(y-\hat Hm_a)$, $a\in\{i,k\}$. If $\hat H$ has full row rank, then as $\hat R\to0$, $\hat Hm_i^+$ and $\hat Hm_k^+$ tend to $y$, and in the limit $m_i^+-m_k^+\in\ker\hat H$.
+\end{enumerate}
+\end{proposition}
+
+Receivers whose priors give the coded coordinates the same covariance with the whole state use the same gain, and receivers with equal prior covariances lose exactly the coded part of their disagreement, measured in the metric of the predicted message. In general the expected disagreement falls by the divergence between the receivers' predictions of the message, so receivers who predict a message alike are not brought closer on average. They disagree about what was said only through the channel noise, and about what it means through their prior lifts. Proof in \cref{app:fw}; checked in \cref{chk:fw-two-receivers}. A message can even create disagreement where the means agreed.
+
+\begin{example}[A message that creates disagreement]\label{ex:fw-disagreement}
+% src: L1-X1
+Let $K=2$, $\hat H=(1,0)$, $\hat R=\sigma^2$, $m_i=m_k=0$, and let the priors have unit variances and correlations $+\varrho$ and $-\varrho$ with $0<\varrho<1$. The receivers agree in their means and differ only in how they associate the uncoded coordinate with the coded one, and $\KL(q_i\Vert q_k)=2\varrho^2/(1-\varrho^2)$. After a message $y$, $m_i^+-m_k^+=(0,2\varrho y/(1+\sigma^2))$, the posterior covariances are mirror images with equal determinants, and
+\begin{equation}\label{eq:fw-disagreement}
+\KL(q_i^+\Vert q_k^+)=\frac{2\varrho^2}{1-\varrho^2}\Bigl(\frac{\sigma^2}{1+\sigma^2}+\frac{y^2}{(1+\sigma^2)^2}\Bigr).
+\end{equation}
+The message leaves the receivers further apart than before if and only if $\lvert y\rvert>\sqrt{1+\sigma^2}$, that is, whenever it deviates from their common prediction $y\sim\Ncal(0,1+\sigma^2)$ by more than one predictive standard deviation, for every $\varrho$. At $\varrho=0.8$ and $\sigma^2=0.5$ the prior divergence is $3.556$, the divergence after $y=0$ is $1.185$ and the coefficient of $y^2$ is $1.580$, so every message with $\lvert y\rvert>1.225$ separates the receivers. If $y$ has second moment $v$ under its true law, the expected divergence is $\KL(q_i\Vert q_k)+2\varrho^2(v-1-\sigma^2)/((1-\varrho^2)(1+\sigma^2)^2)$.
+\end{example}
+
+A stream of messages more variable than both receivers expect drives them apart on average. Read socially, and as an interpretation only, communities that agree on every coded quantity but read it into an uncoded one with opposite associations are polarized by news. Computation in \cref{app:fw}; checked in \cref{chk:fw-two-receivers}.
+
+\subsection{Recursive and ungrounded learning of codes}\label{sup:fw-recursive-and-ungrounded-learning-of-cod}
+
+The setting and notation are those of \cref{sec:fw-learning}: messages $y_t=H\phi_t+\nu_t$, the receiver's regressor $\hat\phi_t$, its second moment $M_2$ and the orthogonal projector $\mathcal P_M$ onto $\operatorname{col}(M_2)$.
+
+\begin{proposition}[A recursive learner keeps its prior where the data are silent]\label{prop:fw-rls}
+% src: L1-P17
+Let $\mathrm{vec}H\sim\Ncal(\mathrm{vec}H_0,P^H_0)$ a priori, let $R_w\succ0$ be a working noise and $X_t=\hat\phi_t^\top\otimes I_{r_c}$, and run, from $\hat h_0=\mathrm{vec}H_0$,
+\begin{equation}\label{eq:fw-rls}
+\begin{aligned}
+\hat h_{t+1}&=\hat h_t+P^H_tX_t^\top(X_tP^H_tX_t^\top+R_w)^{-1}(y_t-X_t\hat h_t),\\
+P^H_{t+1}&=P^H_t-P^H_tX_t^\top(X_tP^H_tX_t^\top+R_w)^{-1}X_tP^H_t.
+\end{aligned}
+\end{equation}
+\begin{enumerate}
+\item[(a)] $(\hat h_T,P^H_T)$ are the posterior mean and covariance of the Gaussian linear regression model; under exact joint attention with an exactly observing receiver and $R_w=R_c$ they are the exact posterior of the code.
+\item[(b)] If $P^H_0$ is a multiple of the identity, the posterior of $H(I-\mathcal P_M)$ equals its prior for every $T$.
+\item[(c)] Under the hypotheses of (b) and of \cref{prop:fw-grounded-identification}, $\hat h_T\to\mathrm{vec}\bigl(H\mathcal P_M+H_0(I-\mathcal P_M)\bigr)$ almost surely.
+\item[(d)] If, in addition, the rounds are independent and identically distributed and $\Cov(\phi_t\mid\mathcal Z_t)$ does not depend on $\mathcal Z_t$, then $T^{1/2}\bigl((\mathcal P_M\otimes I_{r_c})\hat h_T-\mathrm{vec}(H\mathcal P_M)\bigr)$ converges in law to $\Ncal(0,M_2^+\otimes R_{\mathrm{res}})$, with $R_{\mathrm{res}}=H\Cov(\phi_t\mid\mathcal Z_t)H^\top+R_c$, whatever the working noise.
+\end{enumerate}
+\end{proposition}
+
+Learning a code from data confined to a subspace keeps the prior on the rest, which is prior completion in code space. For dependent regressors least squares is strongly consistent under the eigenvalue conditions of \citet{lai1982least}. Proof in \cref{app:fw}; checked in \cref{chk:fw-learning}.
+
+\begin{proposition}[Ungrounded learning measures how differently agents are informed]\label{prop:fw-ungrounded-bias}
+% src: L1-P18, L1-P19
+Keep the hypotheses of \cref{prop:fw-grounded-identification}(a) except content calibration, and let $C_{\phi\hat\phi}=\E[\phi_t\hat\phi_t^\top]$.
+\begin{enumerate}
+\item[(a)] The minimum-norm least-squares estimate converges to $HC_{\phi\hat\phi}M_2^+$, the regression of messages on the receiver's beliefs. It equals the grounded limit $H\mathcal P_M$ if and only if $H\E[(\phi_t-\hat\phi_t)\hat\phi_t^\top]=0$, which content calibration guarantees.
+\item[(b)] Let both agents observe a state $\eta\sim\Ncal(0,P_0)$, drawn afresh each round, with sensing noises of covariances $R^s_i$, $R^s_j$ and cross-covariance $R^s_{ji}=\Cov(v_j,v_i)$; let the sender send its posterior mean $\phi=\Kg^s_j(\eta+v_j)$ and the receiver regress on its own, $\hat\phi=\Kg^s_i(\eta+v_i)$, with $\Kg^s_a=P_0(P_0+R^s_a)^{-1}$ invertible. The limit is $H\Kg^s_j(P_0+R^s_{ji})P_0^{-1}$, which does not depend on the receiver's noise. For scalars it is $Hk^s_j(1+R^s_{ji}/P_0)$ with $k^s_j=P_0/(P_0+R^s_j)$, and the bias is $H(R^s_{ji}-R^s_j)/(P_0+R^s_j)$.
+\item[(c)] Let each round be grounded with probability $p_g\in(0,1]$, independently of everything else, with an exact public referent of second moment $M_g\succ0$ as content and regressor, and ungrounded otherwise, with $C_{\phi\hat\phi}$ and $M_2$ those of the ungrounded rounds. Pooled least squares converges to $H[p_gM_g+(1-p_g)C_{\phi\hat\phi}][p_gM_g+(1-p_g)M_2]^{-1}$, and least squares on the grounded rounds alone converges to $H$.
+\end{enumerate}
+\end{proposition}
+
+With independent noises the receiver learns the code attenuated by the sender's shrinkage, $H\Kg^s_j$, which is also the slope of $\E[y_t\mid\eta]$: the ungrounded learner gets the level-0 likelihood right and the code wrong, which matters when the code is used to attribute beliefs to the sender or to score being understood. With identical data the bias vanishes. The pooled bias is $(1-p_g)H(C_{\phi\hat\phi}-M_2)[p_gM_g+(1-p_g)M_2]^{-1}$, so it vanishes linearly as $p_g\to1$, and a receiver that can tell grounded rounds from the others is consistent for every $p_g>0$. Proof in \cref{app:fw}; checked in \cref{chk:fw-learning}.
+
+\subsection{Records and performative acts}\label{sup:fw-records-and-performative-acts}
+
+The record model and its notation are those of \cref{def:fw-record-model}.
+
+\begin{proposition}[Latency, delay and optimal persistence of a record]\label{prop:fw-record-basics}
+% src: L1-P21, L1-P22
+Consider one record with write weight $\omega$ and decay $\delta$, $0<\omega+\delta\le1$.
+\begin{enumerate}
+\item[(a)] A write at round $s$ reaches a reader at rounds $t\ge s+1$ with weight proportional to $(1-\omega-\delta)^{t-s-1}$: the latency is one round, the normalized mean delay is $1/(\omega+\delta)$ and the decay time is $-1/\ln(1-\omega-\delta)$.
+\item[(b)] If readers attend the record independently with probability $p_r$ per round, the delay to the first reading is geometric with mean $1/p_r$, whatever the writer does next.
+\item[(c)] A record read by several agents is a hub: two readers that never attend each other are two hops apart through it.
+\item[(d)] Let $\eta_{t+1}=F\eta_t+w_t$ be a scalar world with $0<F<1$ and stationary variance $P_0$, let the written values be $u_t=\eta_t+v^w_t$ with noise variance $R^w$ and $\mathrm{snr}=P_0/R^w$, and let the record average them, $z(t+1)=(1-\omega)z(t)+\omega u_t$. Then
+\begin{equation}\label{eq:fw-record-corr}
+\Corr^2(z_t,\eta_t)=\frac{F^2\bigl(1-(1-\omega)^2\bigr)}{1-(1-\omega)^2F^2+\bigl(1-(1-\omega)F\bigr)^2/\mathrm{snr}},
+\end{equation}
+which is maximized at $1-\omega^\ast=\bigl(A-\sqrt{A^2-4F^2}\bigr)/(2F)\in(0,F)$, with $A=1+F^2+\mathrm{snr}(1-F^2)$. Equivalently $\omega^\ast=1-F(1-k^\ast)$, with $k^\ast$ the steady-state Kalman gain for observing $\eta$ through the writes; at $\omega^\ast$ the record is proportional to the Kalman one-step predictor and $\Corr^2(z_t,\eta_t)=1-P^-/P_0$, with $P^-$ the steady-state predictive variance.
+\end{enumerate}
+\end{proposition}
+
+Stigmergy decouples influence from co-presence, and a widely read record changes the graph on which distances, and hence correlation lengths, are measured. The optimal write weight is the leak $1-F(1-k^\ast)$ of the optimal predictor \citep{kalman1960new}: a record that forgets faster passes on write noise, and one that forgets more slowly keeps stale content. Proof in \cref{app:fw}; checked in \cref{chk:fw-records}.
+
+A performative act changes the world rather than the receiver's information about it, and reading it as a message is an error of a specific kind.
+
+\begin{proposition}[Performative acts are interventions]\label{prop:fw-performative}
+% src: L1-P24
+Let receiver $i$ hold $\Ncal(m_i,P_i)$ about $\eta_t$, and let $j$ announce an act $u$ that enters $\eta_{t+1}=F\eta_t+B^\eta_ju+w_t$ and is chosen independently of $\eta_t$ given $i$'s information.
+\begin{enumerate}
+\item[(a)] Read correctly, the act changes $i$'s prediction to $Fm_i+B^\eta_ju$ with covariance $FP_iF^\top+Q$ and carries no information about $\eta_t$. Read as a level-0 message $u=\hat H\eta_t+\nu$, it shifts $i$'s belief about $\eta_t$ by $\Kg(u-\hat Hm_i)$, lowers its covariance by $\Kg\hat HP_i$ and omits $B^\eta_ju$, so the predicted mean is off by $F\Kg(u-\hat Hm_i)-B^\eta_ju$.
+\item[(b)] An act set from beliefs, $u=H^{\mathrm a}_jm_j$, as a price set from a valuation, is both a message with code $H^{\mathrm a}_j$ and an intervention, and the correct receiver uses both terms.
+\item[(c)] An informative message changes $i$'s policy posterior only through its belief about the external states. A performative act changes the predicted outcomes $q_i(o\mid\pi)$ through the world's dynamics, and so changes the pragmatic value of $i$'s policies whenever it moves outcomes that enter $i$'s preferences, even when $i$'s beliefs about the act-independent world are unchanged.
+\end{enumerate}
+\end{proposition}
+
+Performative acts coordinate by changing what the others' actions lead to, informative messages by changing what the others believe; mistaking one for the other is the confusion of intervention with observation \citep{pearl2009causality}. What a receiver can learn about the sender's beliefs and about the world from acts that are both, such as prices set from valuations, is open. Proof in \cref{app:fw}.
+
+\subsection{Expected free energy of communication}\label{sec:fw-efe}
+
+Attention, addressing and content are policies, selected by their expected free energy; attention in particular sets the couplings of the networks studied in the later sections. A one-round policy $\pi=(\mathcal J,\mathcal A,c,u)$ has one outcome slot per attended source, one response slot per addressee (an echo or a reply) and, for performative acts, the affected preference-relevant outcomes. The hidden states are $(\eta,\alpha)$, where $\alpha$ collects the parameters of the agent's partner models.
+
+\begin{proposition}[Expected free energy of attention, addressing and content]\label{prop:fw-efe-communication}
+% src: L1-P13, L6-F8
+Let the preference factorize over slots. Then
+\[
+G(\pi)=-I_q\bigl((\eta,\alpha);o^\pi\bigr)-\E_{q(o^\pi\mid\pi)}\ln\tilde p(o^\pi)=\KL\bigl(q(o^\pi\mid\pi)\Vert\tilde p(o^\pi)\bigr)+\E_{q((\eta,\alpha)\mid\pi)}\mathbb H\bigl[p(o^\pi\mid\eta,\alpha,\pi)\bigr],
+\]
+the equality requiring that the information term use the exact posterior of the agent's own model. For linear-Gaussian slots:
+\begin{enumerate}
+\item[(a)] Attention. With known code and noise models, a preference $\Ncal(0,\Psi_{\mathrm{al}})$ over each attended message's innovation, an atom $p^\varnothing$ at the empty slot and no preference over world channels,
+\[
+G_i(\mathcal J)=-I_i(\eta;y_{\mathcal J})+\sum_{j\in\mathcal J}\Bigl[\tfrac12\tr\bigl(\Psi_{\mathrm{al}}^{-1}S_{ij}\bigr)+g_{\mathrm{al}}\Bigr]+\mathrm{const},
+\]
+where $I_i$ is the mutual information and $S_{ij}$ the predictive covariance of $y_{ij}$ under $i$'s model of the messages at its interpretation level: $S_{ij}=\hat H_{ij}P_i\hat H_{ij}^\top+\hat R_{ij}$ at level 0, $S_{ij}=\hat H_{ij}P_i\hat H_{ij}^\top+\hat R^1_{ij}$ at level 1 and $S_{ij}=\Cov(y_{ij}\mid\mathcal Z_i)$ under exact fusion; and $g_{\mathrm{al}}=\tfrac12\ln\det(2\pi\Psi_{\mathrm{al}})+\ln\bigl(p^\varnothing/(1-p^\varnothing)\bigr)$.
+\item[(b)] Addressing. If sender $j$ predicts the response of addressee $i$ as $\Ncal(\bar o_{ji},S^{\mathrm{tx}}_{ji})$ under its partner model, with conditional noise $R^{\mathrm{tx}}_{ji}$, and prefers $\Ncal(0,\Psi_{\mathrm{tx}})$, then
+\[
+G^{\mathrm{tx}}_j(\mathcal A,c,u)-G^{\mathrm{tx}}_j(\text{silence})=\sum_{i\in\mathcal A}\Bigl[\tfrac12\bar o_{ji}^\top\Psi_{\mathrm{tx}}^{-1}\bar o_{ji}+\tfrac12\tr\bigl(\Psi_{\mathrm{tx}}^{-1}S^{\mathrm{tx}}_{ji}\bigr)-\tfrac12\ln\det\bigl(S^{\mathrm{tx}}_{ji}(R^{\mathrm{tx}}_{ji})^{-1}\bigr)+g_{\mathrm{tx}}\Bigr],
+\]
+with $g_{\mathrm{tx}}=\tfrac12\ln\det(2\pi\Psi_{\mathrm{tx}})+\ln\bigl(p^\varnothing/(1-p^\varnothing)\bigr)+g_{\mathrm{use}}$ and $g_{\mathrm{use}}\ge0$ a cost of use per addressee.
+\item[(c)] When two slots of one policy depend on a common hidden variable and are conditionally independent given it, as listening to $i$ and addressing $i$ both inform the model of $i$, their joint information is at most the sum of their informations.
+\end{enumerate}
+\end{proposition}
+
+The mutual information in (a) is the believed value of attention, $\mathcal V^0_i(\mathcal J)$ at level 0 and $\mathcal V^1_i(\mathcal J)$ at level 1 in the notation of \cref{def:mis-values}, which \cref{prop:mis-believed-values} gives in closed form; under exact fusion it is the true value $\mathcal V^\ast_i(\mathcal J)$. For one attended message the map $S\mapsto\tfrac12\tr(\Psi_{\mathrm{al}}^{-1}S)-\tfrac12\ln\det S$ is strictly convex with minimum at $S=\Psi_{\mathrm{al}}$, so the preference to predict attended messages balances messages the receiver cannot yet predict against messages it can. At levels 0 and 1 this term contains no sender mean; under exact fusion $S_{ij}$ falls as the sender's error correlates with the receiver's, so the preference pulls toward correlated senders. Proof in \cref{app:fw}.
+
+For world channels, over which (a) places no preference, the epistemic term is information about the present state, so it carries no horizon: for linear sensors under a binding budget on the information they carry, it takes the same value at every sensor that spends the budget, whatever the sensor reads (\cref{rem:env-efe-horizon-free}). Selection by predictive information needs a horizon in the epistemic term or a pragmatic term, and the horizon-$h$ attention objective of \cref{def:env-attention-objective} has both, with a contingent act; \cref{thm:env-control} gives the sensors it selects, and \cref{rem:env-two-step} computes the literal two-step expected free energy of sensing and then acting.
+
+The author's preference to predict and to be predicted, which echoes the generalized synchrony of \citet{friston2015duet}, has two admissible formalizations as prior preferences of a sender $j$ over an outcome it observes after speaking to $i$. The receiver's reading of a message is its noiseless lift $\hat m_{ij}=m_i+O_{ij}(y_{ij}-\hat H_{ij}m_i)$, the belief it attributes to the sender, which satisfies $\hat H_{ij}\hat m_{ij}=y_{ij}$. Being understood is a preference $\Ncal(0,\Psi_{\mathrm u})$ over the understanding error $\psi_{ij}=H_j\hat m_{ij}-u_j$, the discrepancy between the reading re-encoded with the true code and what was sent, which the sender receives as an echo or infers from the receiver's behavior. Being predicted is a preference $\Ncal(0,\Psi_{\mathrm p})$ over the receiver's prediction error $\varphi_{ij}=y_{ij}-\hat H_{ij}m_i$, observed as a reply.
+
+\begin{proposition}[Anatomy of the two errors]\label{prop:fw-understood-predicted}
+% src: L1-P14, L7-P7
+With $u_j=H_jm_j+h_j$ and $y_{ij}=u_j+\nu_{ij}$,
+\begin{equation}\label{eq:fw-two-errors}
+\psi_{ij}=\nu_{ij}-(\hat H_{ij}-H_j)\hat m_{ij},\qquad\varphi_{ij}=H_j(m_j-m_i)+h_j-(\hat H_{ij}-H_j)m_i+\nu_{ij}.
+\end{equation}
+At correct code models, which identity encodings with a shared public code provide without any learning, $\psi_{ij}=\nu_{ij}$: being understood is satisfied by every content, honest or not, and is blind to agreement, whereas $\varphi_{ij}$ contains the coded disagreement $H_j(m_j-m_i)$. If the reading were the posterior mean $m_i^+$ instead of the lift, the understanding error at correct codes would be $\hat RS^{-1}(H_jm_i-u_j)+(I-\hat RS^{-1})\nu_{ij}$, which is free of beliefs only as the channel becomes noiseless.
+\end{proposition}
+
+At correct code models the map from sent to read content is the identity and the echo is pure noise, so $\E[\psi_{ij}\psi_{ij}^\top]=R_c$ for all beliefs and every content: being understood reduces to being heard. With uncertain codes the excess $-(\hat H_{ij}-H_j)\hat m_{ij}$ applies the code error to a reading that itself depends on the code model. Under Gaussian code error its second moment is finite only for $K\ge r_c+2$ (\cref{thm:lrn-understanding-moment}), and where it is finite its closed form is open (\cref{open:fw-understanding-risk}); in the computed instances the term $\sigma_H^2\E\Vert\hat m_{ij}\Vert^2I$ with the reading at the true code carried between 69 and 98 percent of the diagonal excess of the second moment, truncated in the instance with $K=r_c+1$ where the full moment is infinite, a share that depends on the instance (\cref{chk:fw-efe,rem:lrn-correction-sign}). Being predicted keeps its content: the reply is the coded disagreement plus noise. Proof in \cref{app:fw}; checked in \cref{chk:fw-efe}.
+
+\begin{openproblem}[Understanding risk under code uncertainty]\label{open:fw-understanding-risk}
+% src: L1-O3, L1-P15(b)
+Let $\mathrm{vec}(\hat H_{ij}-H_j)\sim\Ncal(0,\sigma_H^2I)$. Under the hypotheses of \cref{thm:lrn-understanding-moment} the moment $\E\Vert\psi_{ij}\Vert^p$ of the understanding error is finite if and only if $p<K-r_c+1$, so the second moment exists only for $K\ge r_c+2$. For $K\ge r_c+2$, find $\E[\psi_{ij}\psi_{ij}^\top]$ in closed form, including the terms that come from the dependence of the reading $\hat m_{ij}$ on the code model; \cref{prop:lrn-understanding-expansion} gives it to order $\sigma_H^2$. For $K\le r_c+1$, find instead the moment truncated to the event $\Vert\hat H_{ij}-H_j\Vert_F\le\rho$ with $\rho$ below the smallest singular value of $H_j$, or the second moment when the reading uses the regularized gain $P_i\hat H_{ij}^\top(\hat H_{ij}P_i\hat H_{ij}^\top+\hat R)^{-1}$ with a fixed $\hat R\succ0$ in place of $O_{ij}$; both are finite when $m_i$ and $u_j$ have finite second moments.
+\end{openproblem}
+
+\begin{proposition}[Bounded-confidence addressing and pandering]\label{prop:fw-bounded-confidence}
+% src: L1-P15
+Let sender $j$'s partner model be $m_i\sim\Ncal(\bar m_{ji},\bar P_{ji})$ and let $\mathrm{vec}(\hat H_{ij}-H_j)\sim\Ncal(0,\sigma_H^2I)$, independent of each other and of $\nu_{ij}$, with content $u_j=H_jm_j+h_j$, and write $S_{ji}=H_j\bar P_{ji}H_j^\top+\sigma_H^2\bigl(\Vert\bar m_{ji}\Vert^2+\tr\bar P_{ji}\bigr)I+R_c$.
+\begin{enumerate}
+\item[(a)] $\E[\varphi_{ij}\varphi_{ij}^\top]=\bigl(H_j(m_j-\bar m_{ji})+h_j\bigr)\bigl(H_j(m_j-\bar m_{ji})+h_j\bigr)^\top+S_{ji}$.
+\item[(b)] Let $I^{\mathrm{tx}}_{ji}:=\mathbb H[\varphi_{ij}]-\tfrac12\ln\det(2\pi eR_c)$ be the information that the reply to honest content carries about $(m_i,\hat H_{ij})$ under $j$'s model, with $\mathbb H[\varphi_{ij}]$ the entropy of the predictive law of the reply. It does not depend on $m_j$, and $I^{\mathrm{tx}}_{ji}\le\tfrac12\ln\det(S_{ji}R_c^{-1})$ with equality when that law is Gaussian, as it is at $\sigma_H^2=0$. At $\gamma\to\infty$ and with honest content, being predicted makes $j$ address $i$ if and only if
+\begin{gather*}
+\tfrac12\bigl\Vert H_j(m_j-\bar m_{ji})\bigr\Vert^2_{\Psi_{\mathrm p}^{-1}}<\Xi^{\mathrm{ex}}_{ji}:=-\tfrac12\tr\bigl(\Psi_{\mathrm p}^{-1}S_{ji}\bigr)+I^{\mathrm{tx}}_{ji}-g_{\mathrm{tx}},\\
+\Xi^{\mathrm{ex}}_{ji}\le\Xi_{ji}:=-\tfrac12\tr\bigl(\Psi_{\mathrm p}^{-1}S_{ji}\bigr)+\tfrac12\ln\det\bigl(S_{ji}R_c^{-1}\bigr)-g_{\mathrm{tx}}.
+\end{gather*}
+At $\sigma_H^2=0$ the two thresholds coincide and $j$ addresses $i$ if and only if the left side is below $\Xi_{ji}$. For $\sigma_H^2>0$ the reply is a mixture of Gaussians over the partner's belief, the bound $\Xi_{ji}$ is the threshold of the Gaussian with the moments of (a), and the inequality with $\Xi_{ji}$ is necessary for addressing and can fail to be sufficient (\cref{chk:fw-efe}). In both cases the log-odds of addressing $i$ against silence at finite $\gamma$ fall linearly, with slope $\gamma/2$, in the squared believed coded disagreement $\Vert H_j(m_j-\bar m_{ji})\Vert^2_{\Psi_{\mathrm p}^{-1}}$. Under being understood with known codes the value of addressing does not depend on beliefs.
+\item[(c)] With an honesty habit $E(h_j)\propto\exp(-\tfrac12h_j^\top\Psi_{\mathrm h}^{-1}h_j)$, the most probable content under being predicted is
+\[
+u_j^\ast=(I-\Gamma)H_jm_j+\Gamma H_j\bar m_{ji},\qquad\Gamma=\bigl(\gamma\Psi_{\mathrm p}^{-1}+\Psi_{\mathrm h}^{-1}\bigr)^{-1}\gamma\Psi_{\mathrm p}^{-1}.
+\]
+Under being understood at known codes the expected free energy does not depend on $h_j$, and the habit selects honest content.
+\item[(d)] If $j$ first hears $i$ and updates its partner model to $(\bar m^+_{ji},\bar P^+_{ji})$ while its own belief $m_j$ is held fixed, then under $j$'s partner model $\E[(m_j-\bar m^+_{ji})(m_j-\bar m^+_{ji})^\top+\bar P^+_{ji}]=(m_j-\bar m_{ji})(m_j-\bar m_{ji})^\top+\bar P_{ji}$ and $\E\Vert\bar m^+_{ji}\Vert^2+\tr\bar P^+_{ji}=\Vert\bar m_{ji}\Vert^2+\tr\bar P_{ji}$, so the partner-model update alone leaves the expected being-predicted risk of addressing $i$ unchanged. If the message is $y_{ji}=H_im_i+\nu_{ji}$ with known code $H_i$ and $\nu_{ji}\sim\Ncal(0,R_c)$, the partner model is updated with the gain $L^{\mathrm p}_{ji}=\bar P_{ji}H_i^\top(S^{\mathrm p}_{ji})^{-1}$, $S^{\mathrm p}_{ji}=H_i\bar P_{ji}H_i^\top+R_c$, and $j$ also updates its own belief from the same message, $m_j^+=m_j+L_j(y_{ji}-H_im_j)$ with any gain $L_j$, then with $d_{ji}=m_j-\bar m_{ji}$,
+\begin{multline*}
+\E\bigl[(m^+_j-\bar m^+_{ji})(m^+_j-\bar m^+_{ji})^\top+\bar P^+_{ji}\bigr]=(I-L_jH_i)d_{ji}d_{ji}^\top(I-L_jH_i)^\top\\
++L_jS^{\mathrm p}_{ji}L_j^\top-L_jH_i\bar P_{ji}-\bar P_{ji}H_i^\top L_j^\top+\bar P_{ji},
+\end{multline*}
+so by (a) the expected being-predicted risk of addressing $i$ with honest content changes by $\tfrac12\tr(\Psi_{\mathrm p}^{-1}H_j\Delta_{ji}H_j^\top)$, with $\Delta_{ji}$ the right side minus $d_{ji}d_{ji}^\top+\bar P_{ji}$; this change vanishes at $L_j=0$, and more generally whenever $H_jL_j=0$, and for $H_j\ne0$ it is nonzero for every gain outside a proper algebraic subset of the gains. For scalar beliefs with unit codes the left side changes by $-L_j(2-L_j)d_{ji}^2+L_j(L_j-2L^{\mathrm p}_{ji})(\bar P_{ji}+R_c)$, which is negative when $0<L_j<2L^{\mathrm p}_{ji}$ and positive when $d_{ji}=0$ and $L_j>2L^{\mathrm p}_{ji}$.
+\end{enumerate}
+\end{proposition}
+
+Senders who want to be predicted address the partners they believe already agree with them, the rule of bounded-confidence opinion models \citep{deffuant2000mixing,hegselmann2002opinion} applied on the sender's side, and they shade their content toward what partners expect. Senders who want to be understood choose partners for a shared code, not for agreement. The partner-model update produces no risk-based reciprocity between listening to and addressing the same partner. The listener's own belief update changes the risk of addressing that partner in the next round by the amount in (d), which is nonzero for generic gains: in the scalar case it lowers the risk, by reducing the believed coded disagreement, whenever the listener weights the message positively and less than twice as heavily in its own belief as in its partner model, and it can raise the risk otherwise. Whether a horizon-two expected free energy, which can value listening before addressing within one policy, produces reciprocity is open. The two readings of the alignment preference therefore select different communication graphs from one population. Proof in \cref{app:fw}; checked in \cref{chk:fw-efe}.
+
+\begin{conjecture}[Bounded-confidence fragmentation]\label{conj:fw-fragmentation}
+% src: L1-C1
+In populations of being-predicted senders whose partner models are learned from replies, the addressing graph converges to a union of belief clusters whose number decreases as the thresholds $\Xi^{\mathrm{ex}}_{ji}$ grow, as in bounded-confidence dynamics \citep{hegselmann2002opinion}, while populations of being-understood senders with shared codes keep a connected addressing graph.
+\end{conjecture}
+
+The conjecture is untested. Since $\Xi^{\mathrm{ex}}_{ji}$, like its Gaussian bound $\Xi_{ji}$, depends on the partner covariance $\bar P_{ji}$, which contact reduces, the correspondence with bounded confidence is exact only for frozen partner models.
+
+\subsection{Frames}\label{sup:fw-frames}
+
+Frames $U_i$, the public code $T_c$ and the effective codes $H_j=T_cU_j$ are as in \cref{sec:fw-codes,sec:fw-frames}.
+
+\begin{proposition}[Inference is frame covariant]\label{prop:fw-frame-covariance}
+% src: L1-P25, L1-P26
+\begin{enumerate}
+\item[(a)] The Kalman filter run in internal coordinates returns $(U_im_i,U_iP_iU_i^\top)$ at every step, where $(m_i,P_i)$ is the world-coordinate filter, so the decoded belief $U_i^{-1}\mu_i$ does not depend on the frame.
+\item[(b)] Under a redescription $U_i\mapsto GU_i$ together with $i$'s own internal code $T^{(i)}_c\mapsto T^{(i)}_cG^{-1}$, every message, every belief in world coordinates, every information quantity and every expected free energy is unchanged; an agent-specific internal code therefore makes the frame unobservable.
+\item[(c)] Under a change of world coordinates $\eta\mapsto\mathcal T\eta$, beliefs transform covariantly ($m_i\mapsto\mathcal Tm_i$, $P_i\mapsto\mathcal TP_i\mathcal T^\top$) and codes as $H\mapsto H\mathcal T^{-1}$; messages, mutual informations, divergences between beliefs, Mahalanobis risks and expected free energies over sensory outcomes are invariant.
+\item[(d)] Under a change of public coordinates $y\mapsto By$, $B\in\GL(r_c)$, with $T_c\mapsto BT_c$, $R_c\mapsto BR_cB^\top$ and every $\hat H_{ij}\mapsto B\hat H_{ij}$, decoded beliefs and informations are invariant. Expected free energy over messages is not: with the preference transformed as a density, each attended message shifts it by $\ln\lvert\det B\rvert$, so comparisons between attention sets with different numbers of messages depend on the public coordinates.
+\end{enumerate}
+\end{proposition}
+
+Frames therefore have observable effects only through communication. With a shared public code, the frame-dependent quantities are the effective codes, the receivers' models of them and the translations between internal coordinates, and they are physical: senders with different frames mean different things by one signal. Proof in \cref{app:fw}; checked in \cref{chk:fw-frames}.
+
+\begin{proposition}[Frames are identifiable only modulo the stabilizer of the code]\label{prop:fw-frame-identifiability}
+% src: L1-P27, L7-G3
+Messages in modality $c$ depend on $U_j$ only through $T_cU_j$: encodings $U_j$ and $U'_j$ with $T_c(U'_j-U_j)=0$ give the same conditional law of messages given the sender's belief, and when that belief has a positive-definite second moment, encodings with $T_c(U'_j-U_j)\neq0$ give different conditional laws. The set $\{X\in\R^{K\times K}:T_cX=0\}$ has dimension $K(K-r_c)$. With several modalities the equivalence is modulo $\{X:T_cX=0\text{ for every }c\in\mathcal M\}$, of dimension $K(K-\rank[T_c]_{c\in\mathcal M})$, where $[T_c]_{c\in\mathcal M}$ stacks the codes. Mismatches in this set cost nothing in reception.
+\end{proposition}
+
+The count agrees with that for $\GL(K)$ dictionaries in \citet{dennis2026communicating}, and pooling modalities identifies more of a sender's frame, as in \citet{dennis2026magent}. Proof in \cref{app:fw}; checked in \cref{chk:fw-frames}. Outside the stabilizer a misidentified code has a cost, which \cref{prop:fw-misidentified-code} in \cref{app:fw} gives in closed form. In particular, for a receiver with prior mean $m_i=0$ and error measured in the prior Mahalanobis norm $\Vert\cdot\Vert_{P_i^{-1}}$, if a misidentified frame rotates a rank-one code at fixed $P_i$-norm by a $P_i$-angle $\vartheta$, listening is worse than silence exactly when $\vartheta>60^\circ$, whatever the channel noise (\cref{prop:fw-misidentified-code}(c)); with a nonzero prior mean or another weight the threshold angle depends on the instance.
+
+\subsection{Level-0 network}\label{sup:fw-level-0-network}
+
+The remark concerns the scalar level-0 network of \cref{def:fw-level0}.
+
+\begin{remark}[Scalar level-0 gains are convex weights]\label{rem:fw-convex-gains}
+% src: B3-L1(e)
+A scalar literal receiver with claimed prior variance $P_i$, sensing noise $R^s_i$ and assigned message noises $\hat R_{ij}$ has claimed posterior variance $P^+_i=\bigl(P_i^{-1}+(H^s_i)^2/R^s_i+\sum_j\hat H_{ij}^2/\hat R_{ij}\bigr)^{-1}$ and gains $k^s_i=P^+_i(H^s_i)^2/R^s_i$ and $k_{ij}=P^+_i\hat H_{ij}^2/\hat R_{ij}$, so that $k^s_i+\sum_jk_{ij}=1-P^+_i/P_i<1$. With exact code models and $F\ge0$, every attention schedule therefore gives $W\ge0$ entrywise with row sums $F(1-k^s_i)$, which yields the row-sum contraction of \cref{sec:sca} whenever $F<1$ (\cref{prop:sca-sufficient}(a)). Column sums are not controlled: a broadcaster's column sum grows with its audience.
+\end{remark}

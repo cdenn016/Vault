@@ -1,0 +1,297 @@
+% Section 11 of "Communication, Coherence and Collective Agents".
+\section{Meta-agents as agents}\label{sec:met}
+% src: H3 (H3-D1 to H3-D5, H3-L0, H3-T1, H3-P1 to H3-P6, H3-X1 to H3-X3, H3-T2, H3-L2, H3-L3, H3-P4, H3-E1 to H3-E3, H3-T4, H3-R1 to H3-R8, H3 open items O1 to O7), H4-P10, H1-P3, HC_critic V2, V5, V6, V7, V10 and Sections 2.2 to 2.7, M_spec_H5 decisions 19 to 21 and Section 4
+
+The meta-agents of \cref{sec:agy} are sets of agents selected by contrast and graded by closure, interaction necessity and agency. Hypothesis H5a asks that a meta-agent be an agent in the sense of \cref{sec:fw}, with internal, sensory, active and external states of its own, external states that obey a law of their own given its acts, internal states that encode a belief about them, and a joint act that follows a posterior over policies. In the author's example a corporation senses prices and the conduct of other firms, not a physical environment; we call the closed law of such coarse external states, given the coarse act, the meta-agent's abstract physics.
+
+This section proves H5a as an exact conditional theorem in the linear-Gaussian framework (\cref{thm:met-h5a}), with coarse states declared as linear functions of the joint process \eqref{eq:col-joint}. The coarse sensory and active states form an exact path blanket when the sensory state is the information-form statistic of what the members sense; the coarse exterior has a closed law given the coarse act exactly when the kernel of its map is invariant under the exterior dynamics and the coarse exterior reads the members' channels only through the coarse act; the members' average estimate is then, up to their averaged computation noise, the predictive mean of the steady-state coarse filter at every number of consensus rounds, and that filter mean, with the steady-state covariance, parametrizes the meta-agent's predictive law from the centralized start with stationary initial covariance; and joint acts follow a group posterior. We compute what fails without each hypothesis (\cref{tab:met-hypotheses}). Error bounds exist for the blanket, the abstract physics and agency separately but not for the whole theorem (\cref{open:met-approximate}), and since no property uses contrast, H5a describes a meta-agent and selects none (\cref{rem:met-no-selection}). The examples of failing blanket conditions, the aggregate exteriors, the relations among the closure notions, the literal and level-0 aggregates, the two-firm model in which every property is computed and the open problems are in the Supplement (\cref{sup:met}).
+
+Throughout, the joint process has per-channel noise, and stationary statements assume $\rho(A)<1$, under which it has a stationary law with finite second moments, the form that the moment bound (M) of \cref{asm:sca-standing} takes for it. Theorems are for linear-Gaussian models; discrete state spaces and nonlinear dynamics appear only as open problems. Messages from a meta-agent to its members are the subject of \cref{sec:hie}, and nothing here uses them.
+
+\subsection{Coarse variables and the meta-agent's partition}\label{sec:met-coarse}
+
+\begin{definition}[Coarse variables]\label{def:met-coarse}
+Let $C$ be a set of $n$ agents with the canonical partition $(\sI,\sS,\sA,\sE)$ of \cref{def:col-partition} for the joint process \eqref{eq:col-joint}. Coarse variables of $C$ are declared before the analysis through linear maps $\mathsf P_{\mathrm I},\mathsf P_{\mathrm S},\mathsf P_{\mathrm A},\mathsf P_{\mathrm E}$ of full row rank,
+\begin{equation}\label{eq:met-coarse}
+y_C=\mathsf P_{\mathrm I}X_{\sI},\qquad s_C=\mathsf P_{\mathrm S}X_{\sS},\qquad a_C=\mathsf P_{\mathrm A}X_{\sA},\qquad\eta_C=\mathsf P_{\mathrm E}X_{\sE},\qquad b_C=(s_C,a_C)=\mathsf P_{\mathrm B}X_{\sB},
+\end{equation}
+the coarse internal, sensory, active and external states and the coarse blanket, with $\mathsf P_{\mathrm B}=\diag(\mathsf P_{\mathrm S},\mathsf P_{\mathrm A})$; $\mathsf P_{\mathrm I}$ is the map $\mathsf P$ of \cref{def:agy-closure}. When the sensory channels read the exterior through $\eta_C$, $A_{\sS\sE}=\mathcal H\mathsf P_{\mathrm E}$ with $\mathcal H$ of full column rank, the information-form sensory state is $s_C=\mathcal H^\top R_{\sS}^{-1}X_{\sS}$, where $R_{\sS}=Q^{\Xi}_{\sS\sS}$, and its information matrix is $\Lambda^s=\mathcal H^\top R_{\sS}^{-1}\mathcal H$.
+
+(Normalizations.) For scalar member variables $x=(x_i)_{i\in C}$ one coarse coordinate has three normalizations: the average $\bar y_C=n^{-1}\one_C^\top x$, the unit-norm coordinate $\phi_C^\top x=n^{1/2}\bar y_C$ of \cref{def:col-contrast}, and the sum $\one_C^\top x$. For a partition into blocks $C_1,\dots,C_M$ the corresponding maps are the block-average map $\mathsf{Avg}$, with rows $n_j^{-1}\one_{C_j}^\top$, the block frame $\Phi$ of \cref{thm:col-bridge}, whose columns are the unit-norm block indicators $\phi_{C_j}$, and the block-sum matrix $\mathsf P$, with rows $\one_{C_j}^\top$; thus $\mathsf P=\diag(n_j)\mathsf{Avg}$ and $\Phi^\top=\diag(n_j^{-1/2})\mathsf P$.
+\end{definition}
+% src: H3-D1; M_spec_H5 Section 4 (coarse variables); HC_critic 2.4
+
+The three normalizations have the same row space, on which alone exact closure depends (\cref{thm:met-abstract-physics}(c)), and closure defects, correlations and Markov errors are invariant under invertible rescaling of coarse coordinates, so every closure statement is the same in the three; contrast is always computed with $\phi_C$. \Cref{sec:hie,sec:ren,sec:env} use these conventions.
+
+The sense in which the external states of a meta-agent are abstract, although every coarse variable is a function of the joint process, is discussed as an interpretation in the Supplement (\cref{rem:met-abstract}).
+
+\subsection{The coarse blanket}\label{sec:met-blanket}
+
+\begin{definition}[Coarse path blankets and residual assignments]\label{def:met-coarse-blanket}
+On a window $[0,T]$ the weak coarse path blanket holds when $y_{C,0:T}\perp\eta_{C,0:T}\mid b_{C,0:T}$, and the strong coarse path blanket when $X_{\sI,0:T}\perp X_{\sE,0:T}\mid b_{C,0:T}$; the strong form implies the weak one for every $\mathsf P_{\mathrm I}$ and $\mathsf P_{\mathrm E}$. The coarse leak is $\iota^C_T=I(X_{\sI,0:T};X_{\sE,0:T}\mid b_{C,0:T})$ and the coarse leak rate is $\limsup_T\iota^C_T/T$, as in \cref{def:col-blankets}. A residual assignment completes $\mathsf P_{\mathrm B}$ to an invertible map $\mathcal T=(\mathsf P_{\mathrm B};\mathsf Z_{\mathrm{in}};\mathsf Z_{\mathrm{out}})$ of the blanket coordinates and places $\mathfrak r_{\mathrm{in}}=\mathsf Z_{\mathrm{in}}X_{\sB}$ with the interior and $\mathfrak r_{\mathrm{out}}=\mathsf Z_{\mathrm{out}}X_{\sB}$ with the exterior, giving the partition $\sI'=(X_{\sI},\mathfrak r_{\mathrm{in}})$, $\sB'=b_C$, $\sE'=(\mathfrak r_{\mathrm{out}},X_{\sE})$. With $\mathcal S$ equal to $\mathcal T$ on $X_{\sB}$ and to the identity elsewhere, $\tilde X=\mathcal SX$ follows \eqref{eq:col-joint} with $\tilde A=\mathcal SA\mathcal S^{-1}$ and $\tilde Q=\mathcal SQ^{\Xi}\mathcal S^\top\succ0$.
+\end{definition}
+% src: H3-D2
+
+\begin{figure}[t]
+  \centering
+  \input{figures/fig_met_partition}
+  \caption{\textbf{A meta-agent as an agent.} Left: three members of $C$ (dashed box), each with a sensory channel (orange) that reads the exterior, an internal state $\mu_i$ (blue) that exchanges messages with the other members, and an active channel (red) that the exterior reads; the rows are the role groups $X_{\sS}$, $X_{\sI}$ and $X_{\sA}$ of the canonical partition, and the exterior $X_{\sE}$ is on the right. Declared linear maps of full row rank (double arrows) send these groups to the coarse states $y_C$, $s_C$, $a_C$ and $\eta_C$ of \eqref{eq:met-coarse}. The sensory map gives the information-form statistic $s_C=\mathcal H^\top R_{\sS}^{-1}X_{\sS}$, with information matrix $\Lambda^s=\mathcal H^\top R_{\sS}^{-1}\mathcal H$, and the residuals $\mathfrak r_{\mathrm S}=\mathsf Z_{\mathrm S}X_{\sS}$ and $\mathfrak r_{\mathrm A}=\mathsf Z_{\mathrm A}X_{\sA}$, which complete $\mathsf P_{\mathrm B}=\diag(\mathsf P_{\mathrm S},\mathsf P_{\mathrm A})$ to an invertible map, are assigned to the interior side (dashed arrows), so that the coarse blanket $b_C=(s_C,a_C)$ lies between the coarse interior and the coarse exterior. The sensory channels read the exterior only through $\eta_C$ and read no interior or active variable (top line), and the exterior reads the members only through the coarse act, $A_{\sE\sA}=\mathsf L_{\mathrm E}\mathsf P_{\mathrm A}$ and $A_{\sE\sS}=0$ (bottom line). With $\mathcal H$ of full column rank and memoryless channels these couplings satisfy conditions (a1) and (a2) of \cref{prop:met-sufficiency}, and from a start that satisfies (a3), $b_C$ is an exact strong coarse path blanket on every window. When in addition $\mathsf P_{\mathrm E}A_{\sE\sE}=\bar F\mathsf P_{\mathrm E}$, that is, when $\ker\mathsf P_{\mathrm E}$ is invariant under $A_{\sE\sE}$, the coarse exterior obeys the closed law $\eta_{C,t+1}=\bar F\eta_{C,t}+\bar Ba_{C,t}+\bar w_t$ given the coarse act, with $\bar B=\mathsf P_{\mathrm E}\mathsf L_{\mathrm E}$, the abstract physics of $C$ (\cref{thm:met-abstract-physics}).}
+  \label{fig:met-partition}
+\end{figure}
+
+\begin{theorem}[Coarse path blankets]\label{thm:met-coarse-blanket}
+Let $X$ follow \eqref{eq:col-joint} on $[0,T]$, $T\ge2$, from $X_0\sim\Ncal(\bar X_0,\Sigma_0)$ with $\Sigma_0\succ0$, independent of the noise, with the canonical partition of $C$ and noise independent across $(\sI,\sB,\sE)$.
+\begin{enumerate}
+\item[(a)] For a residual assignment, $X_{\sI',0:T}\perp X_{\sE',0:T}\mid b_{C,0:T}$ if and only if the general conditions of \cref{thm:col-path-blanket}(a) hold for $(\tilde A,\tilde Q,\mathcal S\Sigma_0\mathcal S^\top)$ and the partition $(\sI',\sB',\sE')$. If $\tilde Q$ is block diagonal for that partition, they read
+\begin{equation}\label{eq:met-coarse-pb}
+\tilde A_{\sI'\sE'}=0,\qquad\tilde A_{\sE'\sI'}=0,\qquad\tilde A_{\sB'\sI'}^\top\tilde Q_{\sB'\sB'}^{-1}\tilde A_{\sB'\sE'}=0,\qquad X_{\sI',0}\perp X_{\sE',0}\mid b_{C,0},
+\end{equation}
+and they imply the strong and the weak coarse path blankets.
+\item[(b)] (Without an assignment.) Complete $\mathsf P_{\mathrm B}$ by any $\mathsf Z$ to an invertible map, put $\mathfrak r=\mathsf ZX_{\sB}$, and let $J$ be the precision of the path of $(X_{\sI},b_C,\mathfrak r,X_{\sE})$ on $[0,T]$. The strong coarse path blanket holds if and only if $J_{\sI\sE}-J_{\sI\mathfrak r}J_{\mathfrak r\mathfrak r}^{-1}J_{\mathfrak r\sE}=0$. Under the fine path blanket $J_{\sI\sE}=0$, and the condition is $J_{\sI\mathfrak r}J_{\mathfrak r\mathfrak r}^{-1}J_{\mathfrak r\sE}=0$. Let $J^{\mathrm b}$ be the precision of the paths of $(X_{\sI},X_{\sE})$ given $b_{C,0:T}$, the Schur complement of $J_{\mathfrak r\mathfrak r}$ in the block of $J$ that omits $b_C$, so that $J^{\mathrm b}_{\sI\sE}$ is the matrix above. The coarse leak is $\iota^C_T=-\frac12\ln\det(I-MM^\top)$ with $M=(J^{\mathrm b}_{\sI\sI})^{-1/2}J^{\mathrm b}_{\sI\sE}(J^{\mathrm b}_{\sE\sE})^{-1/2}$.
+\end{enumerate}
+\end{theorem}
+% src: H3-T1; HC_critic V5
+Proof in \cref{app:met}; checked in \cref{chk:met-blanket}. Part (b) is exact but not interpretable. The coarse blanket is related to the fine one in neither direction: \cref{ex:met-summary-leak} in the Supplement has a fine path blanket and a leaking coarse one, and in \cref{ex:col-collider}, where the fine blanket leaks, the coarse blanket with no coordinates separates the two independent outer variables. Whether every exact coarse blanket arises from a residual assignment that satisfies (a) is open. The next proposition gives interpretable sufficient conditions.
+
+\begin{proposition}[Sufficient conditions for a coarse blanket]\label{prop:met-sufficiency}
+In the setting of \cref{thm:met-coarse-blanket}, with per-channel noise:
+\begin{enumerate}
+\item[(a)] (The information-form statistic.) Assume the following.
+\begin{enumerate}
+\item[(a1)] The sensory channels read the exterior through a few coordinates, $A_{\sS\sE}=\mathcal H\mathsf G_{\mathrm E}$ with $\mathcal H$ of full column rank and $\mathsf G_{\mathrm E}$ of full row rank, both equal to the number of those coordinates; they read no interior or active variable, $A_{\sS\sI}=0$ and $A_{\sS\sA}=0$; and their memory is closed by the statistic: with $\mathsf P_{\mathrm S}=\mathcal H^\top R_{\sS}^{-1}$, $\mathsf P_{\mathrm S}A_{\sS\sS}=\mathcal C\mathsf P_{\mathrm S}$ for some $\mathcal C$, as for memoryless channels and for channels with equal memories.
+\item[(a2)] The exterior reads the members only through the coarse act: $A_{\sE\sS}=0$ and $A_{\sE\sA}=\mathsf L_{\mathrm E}\mathsf P_{\mathrm A}$ for some matrix $\mathsf L_{\mathrm E}$.
+\item[(a3)] $(X_{\sI},\mathfrak r_{\mathrm S},\mathfrak r_{\mathrm A})_0\perp X_{\sE,0}\mid b_{C,0}$, where $\mathfrak r_{\mathrm S}=\mathsf Z_{\mathrm S}X_{\sS}$ and $\mathfrak r_{\mathrm A}=\mathsf Z_{\mathrm A}X_{\sA}$, and the rows of $\mathsf Z_{\mathrm S}$ and $\mathsf Z_{\mathrm A}$ span $\{z:z\mathcal H=0\}$ and $\{z:zQ^{\Xi}_{\sA\sA}\mathsf P_{\mathrm A}^\top=0\}$.
+\end{enumerate}
+Then, with $s_C=\mathcal H^\top R_{\sS}^{-1}X_{\sS}$ and both residuals assigned to the interior, the strong coarse path blanket holds on every window, whatever the interior reads in the blanket and whatever the active channels read among collective variables. For memoryless channels the sensory residual is pure noise, independent of the exterior path and of $s_C$.
+\item[(b)] (Closure of the blanket summary.) Let the noise be independent across $(\sI,\sB,\sE)$, and assume (b1) $A_{\sI\sB}=\mathcal B_{\sI}\mathsf P_{\mathrm B}$, (b2) $A_{\sE\sB}=\mathcal B_{\sE}\mathsf P_{\mathrm B}$ and (b3) $\mathsf P_{\mathrm B}A_{\sB\sB}=\mathcal A_{bb}\mathsf P_{\mathrm B}$ for some matrices $\mathcal B_{\sI},\mathcal B_{\sE},\mathcal A_{bb}$. Then $(X_{\sI},b_C,X_{\sE})$ is a linear-Gaussian Markov process whose path law is the marginal of that of $X$, and the strong coarse path blanket holds on $[0,T]$ if and only if (b4) $(\mathsf P_{\mathrm B}A_{\sB\sI})^\top(\mathsf P_{\mathrm B}Q^{\Xi}_{\sB\sB}\mathsf P_{\mathrm B}^\top)^{-1}\mathsf P_{\mathrm B}A_{\sB\sE}=0$ and (b5) $X_{\sI,0}\perp X_{\sE,0}\mid b_{C,0}$. Condition (b4) holds when $s_C$ reads no interior variable, $a_C$ reads no exterior variable and their noises are independent.
+\item[(c)] (Ancillary residuals.) Under (a1), for a coarse sensory map $\mathsf P_{\mathrm S}$ and a complement $\mathsf Z$ with $\mathsf ZR_{\sS}\mathsf P_{\mathrm S}^\top=0$, the residual $\mathsf ZX_{\sS}$ reads no exterior variable if and only if $\operatorname{row}(\mathcal H^\top R_{\sS}^{-1})\subseteq\operatorname{row}(\mathsf P_{\mathrm S})$.
+\end{enumerate}
+\end{proposition}
+% src: H3-P1, H3-P2; HC_critic V5 (scope)
+Proof in \cref{app:met}; checked in \cref{chk:met-blanket}. Under (a), everything in the members' sensory channels other than the information-form statistic is noise that carries nothing about the exterior, so members may read their own channels without opening a leak, and by (c) an ancillary residual requires that statistic. The scope is set by (a1) and (a2): the exterior may not read the members' sensory channels, and no sensory channel may read an individual member's act (\cref{ex:met-reafference}), while a firm's act that reaches its sensors through the price, an exterior variable, is allowed. Reading the blanket through $s_C$ inside and through $a_C$ outside is not enough without (b3). \Cref{fig:met-partition} draws the coarse variables of a meta-agent with the residual assignment of \cref{prop:met-sufficiency}(a) and the closure condition of \cref{thm:met-abstract-physics}.
+
+Three examples show how the sufficient conditions fail. In a model with two memoryless sensory channels and an exterior that is independent across rounds, an equal-weight summary leaks whenever the interior's gains on the two channels differ and the noise variances of the channels differ; sensory channels with unequal memories violate (a1) at the information-form statistic; and a collective sensor that reads one member's act violates (b3) (Supplement, \cref{ex:met-summary-leak,ex:met-channel-memory,ex:met-reafference}).
+
+Small violations of the sufficient conditions leak at a rate quadratic in their size.
+
+\begin{proposition}[Approximate coarse blankets]\label{prop:met-leak-bound}
+For a residual assignment with $\tilde Q$ block diagonal for $(\sI',\sB',\sE')$ and a start with $(\tilde\Sigma_0^{-1})_{\sI'\sE'}=0$, where $\tilde\Sigma_0=\mathcal S\Sigma_0\mathcal S^\top$, abbreviate $\tilde Q_{\sI'\sI'}$ to $\tilde Q_{\sI'}$, and similarly, and put
+\begin{equation}\label{eq:met-leak-blocks}
+\mathsf D_{\mathrm c}=\tilde A_{\sI'\sI'}^\top\tilde Q_{\sI'}^{-1}\tilde A_{\sI'\sE'}+\tilde A_{\sB'\sI'}^\top\tilde Q_{\sB'}^{-1}\tilde A_{\sB'\sE'}+\tilde A_{\sE'\sI'}^\top\tilde Q_{\sE'}^{-1}\tilde A_{\sE'\sE'},\qquad\mathsf D_1=\tilde Q_{\sI'}^{-1}\tilde A_{\sI'\sE'},\qquad\mathsf D_2=\tilde Q_{\sE'}^{-1}\tilde A_{\sE'\sI'},
+\end{equation}
+$\mathsf k=\Vert\mathsf D_{\mathrm c}\Vert+\Vert\mathsf D_1\Vert+\Vert\mathsf D_2\Vert$ and $\mathsf k_F^2=\Vert\mathsf D_{\mathrm c}\Vert_F^2+\Vert\mathsf D_1\Vert_F^2+\Vert\mathsf D_2\Vert_F^2$. Assume $\rho(\tilde A_{\sI'\sI'})<1$ and $\rho(\tilde A_{\sE'\sE'})<1$, let $\mathfrak s_{\sI'}=\sum_{l\ge0}\Vert\tilde A_{\sI'\sI'}^l\Vert$ and $\mathfrak v_{\sI'}=\max\{\lambda_{\max}(\tilde\Sigma_0),\lambda_{\max}(\tilde Q_{\sI'})\}$, define $\mathfrak s_{\sE'}$ and $\mathfrak v_{\sE'}$ likewise, and put $\mathfrak c_C=(\mathfrak v_{\sI'}\mathfrak v_{\sE'})^{1/2}\mathfrak s_{\sI'}\mathfrak s_{\sE'}$. If $\mathfrak c_C\mathsf k<1$, then for every $T$
+\begin{equation}\label{eq:met-leak-bound}
+\iota^C_T\le I(X_{\sI',0:T};X_{\sE',0:T}\mid b_{C,0:T})\le\frac{T\mathfrak c_C^2\mathsf k_F^2}{2(1-\mathfrak c_C^2\mathsf k^2)}.
+\end{equation}
+The three blocks vanish under \eqref{eq:met-coarse-pb} and are linear in $\tilde A_{\sI'\sE'}$, $\tilde A_{\sE'\sI'}$ and the coarse collider term, so the bound on the leak rate is quadratic in the violation.
+\end{proposition}
+% src: H3-P3 (constants renamed per HC_critic 2.7: beta to k, beta_F to k_F, D to D_c; kappa_C to c_C)
+Proof in \cref{app:met}. Perturbing the information-form weights of the three-member system of \cref{chk:met-blanket} by $\mathsf h(1,-1,0)$ gives leak rates proportional to $\mathsf h^2$, as the proposition predicts, but the constant $\mathfrak c_C=45.1$ makes the bound conservative by four orders of magnitude (\cref{chk:met-leak-bound}, \cref{open:met-leak-constant}).
+
+\subsection{The abstract physics}\label{sec:met-physics}
+
+No exterior variable reads an interior one, so the exterior evolves as $X_{\sE,t+1}=A_{\sE\sE}X_{\sE,t}+A_{\sE\sB}X_{\sB,t}+\Xi^{\sE}_t$, the recursion of \cref{def:agy-closure} with the blanket as input. Whether a declared coarse exterior obeys a law of its own given the coarse act is therefore the closure question of \cref{def:agy-closure} asked of the exterior.
+
+\begin{definition}[Closure of coarse states and abstract physics]\label{def:met-abstract-physics}
+Let $C$ have coarse variables as in \cref{def:met-coarse}.
+\begin{enumerate}
+\item[(i)] (Interior.) The coarse internal state is exactly closed given $b_C$ when $\mathsf P_{\mathrm I}A_{\sI\sI}=\bar A_y\mathsf P_{\mathrm I}$ and $\mathsf P_{\mathrm I}A_{\sI\sB}=\bar B_y\mathsf P_{\mathrm B}$ for some $\bar A_y,\bar B_y$, so that $y_{C,t+1}=\bar A_yy_{C,t}+\bar B_yb_{C,t}+\mathsf P_{\mathrm I}\Xi^{\sI}_t$. In the stationary process its closure defect is $\mathfrak d^C_{\mathrm{cl}}=I(y_{C,t+1};X_{\sI,t},X_{\sB,t}\mid y_{C,t},b_{C,t})$.
+\item[(ii)] (Exterior.) The coarse exterior has an exact abstract physics given $a_C$ when $\mathsf P_{\mathrm E}A_{\sE\sE}=\bar F\mathsf P_{\mathrm E}$, $\mathsf P_{\mathrm E}A_{\sE\sS}=0$ and $\mathsf P_{\mathrm E}A_{\sE\sA}=\bar B\mathsf P_{\mathrm A}$ for some $\bar F,\bar B$, so that
+\begin{equation}\label{eq:met-abstract-physics}
+\eta_{C,t+1}=\bar F\eta_{C,t}+\bar Ba_{C,t}+\bar w_t,\qquad\bar w_t=\mathsf P_{\mathrm E}\Xi^{\sE}_t\sim\Ncal(0,\bar Q),\qquad\bar Q=\mathsf P_{\mathrm E}Q^{\Xi}_{\sE\sE}\mathsf P_{\mathrm E}^\top,
+\end{equation}
+with $\bar w_t$ independent of $X_{0:t}$. In the stationary process its closure defect and its relative predictive defect for each coordinate $\alpha$ of $\eta_C$ are
+\begin{equation}\label{eq:met-exterior-defects}
+\mathfrak d^{\mathrm E}_{\mathrm{cl}}=I\bigl(\eta_{C,t+1};X_{\sE,t},X_{\sB,t}\bigm|\eta_{C,t},a_{C,t}\bigr),\qquad\mathfrak e^{\mathrm E}_\alpha=\frac{\E\bigl(\E[\eta_{C,t+1,\alpha}\mid X_t]-\E[\eta_{C,t+1,\alpha}\mid\eta_{C,t},a_{C,t}]\bigr)^2}{\Var(\eta_{C,t+1,\alpha})}.
+\end{equation}
+\item[(iii)] (Vocabulary.) A coarse variable is exactly closed when its map satisfies the conditions of (i) or (ii), which are kernel-invariance conditions (\cref{thm:met-abstract-physics}(c)). It is closed of order $d$ when it becomes exactly closed after $d$ linear functionals of the hidden coordinates are adjoined to it, the least such $d$ being its minimal order $d^\ast$; this order counts hidden coordinates and bounds from above the closure order $\mathrm{ord}(\alpha_{\mathrm M})$ of \cref{def:agy-closure}(iii), which counts functionals of the filter state and can be smaller (see the discussion after \cref{thm:met-abstract-physics}). It is approximately closed when a stated memory measure, a defect of (i) or (ii), a Markov error or the weight of the memory kernels of \cref{thm:agy-mori-zwanzig}, lies below a stated bound. The abstract physics of a meta-agent is the exactly or approximately closed law of its coarse exterior given its coarse act; whether a meta-agent has one is decided by \cref{thm:met-abstract-physics,prop:met-memory}, never assumed.
+\end{enumerate}
+\end{definition}
+% src: H3-D3, H3-D4, decision 19, HC_critic 2.2
+
+The relative predictive defect measures memory against the variance of the coarse exterior rather than against its own noise, which matters for aggregates (\cref{rem:met-aggregate-defect}). An exterior that reads the members only through the coarse act is closed of order at most $\dim X_{\sE}-\dim\eta_C$, so a closure claim for a finite population has content only through its order or its memory bound.
+
+\begin{definition}[Lumpable partition]\label{def:met-lumpable}
+Let $A$ be a square matrix indexed receiver first, so that $A_{uv}$ is the weight that $u$ places on $v$, and let $\{\mathfrak B_\alpha\}$ be a partition of its index set. The partition is lumpable for $A$ when, for every pair of blocks $\alpha,\beta$, the total weight that the receivers of block $\alpha$ place on sender $v$,
+\begin{equation}\label{eq:met-lumpable}
+\sum_{u\in\mathfrak B_\alpha}A_{uv},
+\end{equation}
+is the same for every $v\in\mathfrak B_\beta$. The common value $\bar A_{\alpha\beta}$ is the coarse weight; equivalently, the block-sum matrix satisfies $\mathsf PA=\bar A\mathsf P$.
+\end{definition}
+% src: H3-T2(e), H4-T18(2), H5-P5(b), unified per HC_critic V6
+
+For one block it is equality of the column sums of $A$ (\cref{prop:met-level0,prop:env-aggregate-closure}); for a Markov chain with transition matrix $A^\top$ it is lumpability in the sense of \citet{kemeny1960finite}.
+
+\begin{theorem}[Exact abstract physics]\label{thm:met-abstract-physics}
+Let $\eta_C=\mathsf P_{\mathrm E}X_{\sE}$ and $a_C=\mathsf P_{\mathrm A}X_{\sA}$ be of full row rank, and let $\mathcal O$ be the observability matrix of $(\mathsf P_{\mathrm E},A_{\sE\sE})$, with block rows $\mathsf P_{\mathrm E}A_{\sE\sE}^l$, $0\le l<\dim X_{\sE}$. The following are equivalent.
+\begin{enumerate}
+\item[(a)] (Algebraic.) $\mathsf P_{\mathrm E}A_{\sE\sE}=\bar F\mathsf P_{\mathrm E}$, $\mathsf P_{\mathrm E}A_{\sE\sS}=0$ and $\mathsf P_{\mathrm E}A_{\sE\sA}=\bar B\mathsf P_{\mathrm A}$ for some $\bar F,\bar B$.
+\item[(b)] (Dynamical.) For every initial law, \eqref{eq:met-abstract-physics} holds at every round; equivalently, in the representation of $\eta_C$ by \cref{thm:agy-mori-zwanzig} with the blanket as input, the memory kernels, the initial-state term and the colored noise vanish and the input term is a function of $a_C$.
+\item[(c)] (Kernel invariance.) $\ker\mathsf P_{\mathrm E}$ is invariant under $A_{\sE\sE}$, equivalently $\rank\mathcal O=\rank\mathsf P_{\mathrm E}$, and $\mathsf P_{\mathrm E}A_{\sE\sS}=0$ and $\mathsf P_{\mathrm E}A_{\sE\sA}$ vanishes on $\ker\mathsf P_{\mathrm A}$.
+\item[(d)] (Stationary, when $\rho(A)<1$.) $\mathfrak d^{\mathrm E}_{\mathrm{cl}}=0$.
+\end{enumerate}
+In addition:
+\begin{enumerate}
+\item[(e)] (Block sums.) If $\mathsf P_{\mathrm E}$ is the block-sum matrix of a partition of the exterior coordinates, the first condition of (a) holds if and only if the partition is lumpable for $A_{\sE\sE}$ (\cref{def:met-lumpable}), and then $\bar F$ is the matrix of coarse weights.
+\item[(f)] (Minimal closed extension.) The row space $\mathcal R^\ast=\operatorname{row}\mathcal O$ is the smallest space of row vectors that contains $\operatorname{row}\mathsf P_{\mathrm E}$ and is invariant under right multiplication by $A_{\sE\sE}$, and every coarse exterior $\mathsf P^\ast X_{\sE}$ that contains $\eta_C$ and satisfies the first condition of (a) has $\operatorname{row}\mathsf P^\ast\supseteq\mathcal R^\ast$. A coarse exterior with row space $\mathcal R^\ast$ satisfies the first condition of (a); it has an exact abstract physics given $a_C$ if and only if $\mathsf P^\ast A_{\sE\sS}=0$ and $\mathsf P^\ast A_{\sE\sA}$ vanishes on $\ker\mathsf P_{\mathrm A}$, and if it has none, no coarse exterior containing $\eta_C$ has one. When it has one, the minimal order of $\eta_C$ is $d^\ast=\rank\mathcal O-\rank\mathsf P_{\mathrm E}$, the observability rank of the memory system of \cref{thm:agy-mori-zwanzig} for $\eta_C$, and $\ker\mathcal O$ is the largest $A_{\sE\sE}$-invariant subspace of $\ker\mathsf P_{\mathrm E}$.
+\end{enumerate}
+\end{theorem}
+% src: H3-T2; HC_critic V6; decision 19 (minimal order)
+Proof in \cref{app:met}; checked in \cref{chk:met-physics}. Every declared coarse exterior thus has a unique smallest closed completion, made of $\eta_C$ and the part of the hidden exterior that $\eta_C$ eventually feels; a meta-agent that models only $\eta_C$ with a Markov law is misspecified unless $d^\ast=0$, and \cref{ex:met-two-firms} computes the cost. The hidden filter of \cref{thm:agy-closure-identity}(d) is another completion, closed in law, and its least order at tolerance zero is the closure order $\mathrm{ord}(0)$ of \cref{def:agy-closure}(iii). The two orders differ in kind: $d^\ast$ counts linear functionals of the hidden coordinates and asks for a closed equation of motion, whereas $\mathrm{ord}(\alpha_{\mathrm M})$ counts linear functionals of the filter state and asks for a Markov law of the observed path within the tolerance $\alpha_{\mathrm M}$. They are related by $\mathrm{ord}(\alpha_{\mathrm M})\le\mathrm{ord}(0)\le\rank\mathcal O-\rank\mathsf P_{\mathrm E}$: the coordinates adjoined in $\mathcal R^\ast$ may be taken as functionals of the hidden coordinates, their conditional mean given the path of $\eta_C$ and the input path is the same functional of the filter state, and that mean together with $\eta_C$ is a Markov state for the law of $\eta_C$ given the input path. The second inequality can be strict. For $\eta_{t+1}=\frac14\eta_t+\sqrt{7/8}z_t+\mathfrak n_t$ and $z_{t+1}=\frac12z_t+\mathfrak n'_t$ with independent noises of unit variance, the stationary $\eta$ is a first-order autoregression with coefficient $\frac12$ and innovation variance $2$, so that $\mathrm{ord}(0)=0$ while $\rank\mathcal O-\rank\mathsf P_{\mathrm E}=1$ (\cref{chk:met-orders}). The value of $\mathrm{ord}(0)$ in general, a problem of minimal stochastic realization, is open (\cref{sec:agy}). Renormalization and aggregation use part (e) (\cref{thm:ren-closure,prop:env-aggregate-closure}). \Citet{rosas2024software} characterize closed levels of stationary processes without an environment through lumpability of causal states; the theorem is a linear-Gaussian, input-driven and one-step counterpart (\cref{prop:met-closure-notions}).
+
+When the exterior is not exactly closed, its memory is bounded by the coupling between $\eta_C$ and the hidden exterior and by a timescale ratio of the exterior.
+
+\begin{proposition}[Approximate abstract physics]\label{prop:met-memory}
+In the setting of \cref{thm:met-abstract-physics}, write the exterior in Mori coordinates $(\eta_C,x_\perp)$ with blocks $A_{yy},A_{y\perp},A_{\perp y},A_{\perp\perp}$ of $A_{\sE\sE}$ and input blocks $B_y=\mathsf P_{\mathrm E}A_{\sE\sB}$ and $B_\perp$, as in \cref{thm:agy-mori-zwanzig}.
+\begin{enumerate}
+\item[(a)] (Memory kernels.) If $\Vert A_{\perp\perp}^l\Vert\le M_\perp\alpha_\perp^l$ with $\alpha_\perp<1$, the kernels of \cref{thm:agy-mori-zwanzig} obey
+\[
+\Vert\Gamma_l\Vert\le M_\perp\Vert A_{y\perp}\Vert\Vert A_{\perp y}\Vert\alpha_\perp^{l-1},\qquad\Vert\Gamma^{\sB}_l\Vert\le M_\perp\Vert A_{y\perp}\Vert\Vert B_\perp\Vert\alpha_\perp^{l-1},
+\]
+and their total weights over $l\ge1$ are at most the same expressions with $\alpha_\perp^{l-1}$ replaced by $(1-\alpha_\perp)^{-1}$.
+\item[(b)] (Defects.) Let $x=(X_{\sE,t},X_{\sB,t})$, $\mathsf G=\mathsf P_{\mathrm E}(A_{\sE\sE}\ A_{\sE\sB})$, $\mathsf c=(\eta_{C,t},a_{C,t})$, and let $\Sigma_{x\mid\mathsf c}$ be the stationary conditional covariance of $x$ given $\mathsf c$. Then $\mathfrak d^{\mathrm E}_{\mathrm{cl}}=\frac12\ln\det(I+\bar Q^{-1}\mathsf G\Sigma_{x\mid\mathsf c}\mathsf G^\top)\le\frac12\tr(\bar Q^{-1}\mathsf G\Sigma_{x\mid\mathsf c}\mathsf G^\top)$ and $\mathfrak e^{\mathrm E}_\alpha=(\mathsf G\Sigma_{x\mid\mathsf c}\mathsf G^\top)_{\alpha\alpha}/\Var(\eta_{C,\alpha})$; both vanish under \cref{thm:met-abstract-physics}(a).
+\item[(c)] (One coordinate, continuous time.) Let the exterior obey $\mathrm dX_{\sE}=-M_{\sE}X_{\sE}\mathrm dt+\sqrt2\mathrm d\mathsf B_t$ with the input held fixed and $M_{\sE}+M_{\sE}^\top\succ0$, let $\eta_C=\phi^\top X_{\sE}$ with $\lvert\phi\rvert=1$, let $r_\phi=\xin^M/\xout^M>1$ be the drift-based contrast of the coordinate, with the rates of \cref{lem:met-unit-coordinate}(a), and let $\hat\sigma=\max(\sigma_{\mathrm{row}},\sigma_{\mathrm{col}})/\xout^M$. For symmetric $M_{\sE}$, $\Xi\le\hat\sigma^2/(r_\phi(r_\phi-1)^2)$. For general $M_{\sE}$, $\Xi\le304\hat\sigma^2/(r_\phi(r_\phi-1)^2)$ whenever $\hat\sigma\le(r_\phi-1)/4$ and $\hat\sigma^2\le(r_\phi-1)/2$.
+\item[(d)] (One coordinate, discrete time.) For a reversible exterior with spectrum in $[0,1)$ and the input held fixed, $\eta_C=f^\top X_{\sE}$, the drift-based discrete contrast $r^{\mathrm d}=\xin^{\mathrm d}/\xout^{\mathrm d}>1$ and $\mathsf s=\sigma^{\mathrm d}/\xout^{\mathrm d}$ of \cref{lem:met-discrete-closure}(a), $\Xi^{\mathrm d}\le2\mathsf s^2/(r^{\mathrm d}(r^{\mathrm d}-1)^2)$.
+\end{enumerate}
+\end{proposition}
+% src: H3-P4, sharpened through the merged lemmas (HC_critic V2, V10); constant 304 from thm:agy-closure-average(b)(iii)
+Proof in \cref{app:met}. At fixed relative dispersion the bound on the memory of a coordinate falls like the inverse cube of its drift-based contrast, which compares the slowest relaxation of the hidden exterior with that of the abstract variable. For a reversible continuous-time exterior the drift is the stationary precision. When the exterior is a single region $C'$ with everything outside it held fixed and $\eta_C$ is its average in the unit-norm normalization, the outward rate is $\xout(C')$ of \cref{def:col-contrast} and the inward rate lies between $\xin(C')$ and $\xin(C')+\max_{i\in C'}a^\partial_i$, because the drift keeps the cut couplings on the diagonal, so the drift-based contrast is at least $r(C')$ and exceeds it in general with no circulation at all. When the exterior is larger than the region, the inward rate is a minimum over every direction of the exterior orthogonal to the average, the slow modes outside the region included, and can fall below $\xin(C')$. For non-reversible drift the rates differ in addition by a term set by the stationary current (\cref{prop:agy-drift-precision}).
+
+For an exterior made of a price and $N\ge2$ outside traders, with the price and the traders' average as coarse exterior, the abstract physics is exact if and only if the traders' persistences are all equal; in general the stationary average obeys an exact equation with a memory kernel whose weight need not vanish as $N$ grows, while the variance of its colored noise is $O(1/N)$ (Supplement, \cref{ex:met-traders}). The consequence for the information-form defect of aggregates is in \cref{rem:met-aggregate-defect}.
+
+In an example where the exterior contains a ring $C'$ of eight other agents with symmetric update and $\eta_C$ is the average of $C'$, the Markov error of the free dynamics of $\eta_C$ falls from $7.8\times10^{-3}$ to $8.1\times10^{-6}$ as the drift-based discrete contrast of $C'$ (\cref{lem:met-discrete-closure}) rises from $1.06$ to $10.04$ (Supplement, \cref{ex:met-other-collectives}). That contrast is computed from the drift of $C'$ with $C$'s act held fixed; it is not the precision-based contrast of \cref{def:col-contrast}, which selects collectives.
+
+\subsection{Closure lemmas}\label{sec:met-lemmas}
+
+The memory bounds above extend \cref{thm:agy-closure-average} to arbitrary coordinates and to discrete time. For a symmetric matrix $\mathsf M$, a unit vector $\phi$ and a matrix $Z$ whose rows are an orthonormal basis of $\phi^\perp$, write
+\begin{equation}\label{eq:met-rates}
+\xout(\mathsf M,\phi)=\phi^\top\mathsf M\phi,\qquad\xin(\mathsf M,\phi)=\lambda_{\min}(Z\mathsf MZ^\top),\qquad\sigma(\mathsf M,\phi)=\lvert Z\mathsf M\phi\rvert=\bigl\lvert(\mathsf M-\xout(\mathsf M,\phi))\phi\bigr\rvert,
+\end{equation}
+the rates and the dispersion of \cref{thm:agy-closure-average} with $\phi_C$ replaced by $\phi$. For the block $\Pi_{CC}$ of a diffusive precision and $\phi=\phi_C$, $\xout(\Pi_{CC},\phi_C)=\xout(C)$, $\sigma(\Pi_{CC},\phi_C)=\sigma_C$, and $\xin(\Pi_{CC},\phi_C)\ge\xin(C)$ because the cut couplings stay on the diagonal.
+
+\begin{lemma}[Closure bounds for any coordinate]\label{lem:met-unit-coordinate}
+\begin{enumerate}
+\item[(a)] \Cref{thm:agy-closure-average} holds with $\phi_C$ replaced by any unit vector $\phi$ and $Z$ by an orthonormal basis of $\phi^\perp$: in part (b) with $\xout^M=\phi^\top M\phi$, $\xin^M=\lambda_{\min}(ZM_{\mathrm{sym}}Z^\top)$, $\sigma_{\mathrm{row}}=\lvert ZM\phi\rvert$ and $\sigma_{\mathrm{col}}=\lvert ZM^\top\phi\rvert$, and in part (a), for symmetric positive definite $M$, with $\xout$, $\xin$ and $\sigma_C$ replaced by the rates \eqref{eq:met-rates} of $(M,\phi)$. The readings of these quantities through row and column sums, leaks and attention hold for $\phi_C$ only.
+\item[(b)] Let $M$ be symmetric positive definite with $\xin(M,\phi)>\xout(M,\phi)$. Then the smallest eigenvalue $\varpi_1$ of $M$ is simple, its eigenvector $\mathsf u_1$ satisfies $\tan\angle(\phi,\mathsf u_1)\le\sigma(M,\phi)/(\xin(M,\phi)-\xout(M,\phi))$, and the Markov error of $y=\phi^\top x$ in the stationary process $\mathrm dx=-Mx\mathrm dt+\sqrt2\mathrm d\mathsf B_t$ satisfies
+\begin{equation}\label{eq:met-unit-markov}
+\Xi\le\Bigl(\frac{\sigma(M,\phi)}{\xin(M,\phi)-\xout(M,\phi)}\Bigr)^2\frac{\xout(M,\phi)}{\xin(M,\phi)},
+\end{equation}
+with no condition on $\sigma(M,\phi)$. For $M=\Pi_{CC}$ and $\phi=\phi_C$, where $\xin(\Pi_{CC},\phi_C)\ge\xin(C)$, the right-hand side is, under the hypothesis $\xin(C)>\xout(C)$ of \cref{thm:agy-closure-average}(a), at most that of \eqref{eq:agy-markov-sym}, which likewise carries no condition on $\sigma_C$.
+\end{enumerate}
+\end{lemma}
+% src: H3-L3 (written proof as required by HC_critic Section 3), HC_critic V2 (tangent bound and sharper Markov bound)
+Proof in \cref{app:met}; checked in \cref{chk:met-lemmas}.
+
+\begin{lemma}[Discrete-time closure of one coordinate]\label{lem:met-discrete-closure}
+Let $x_{t+1}=Ax_t+\mathfrak n_t$ with $\mathfrak n_t\sim\Ncal(0,Q^{\mathfrak n})$, $Q^{\mathfrak n}\succ0$, independent across rounds, be reversible, $AQ^{\mathfrak n}=Q^{\mathfrak n}A^\top$, and let $y=f^\top x$ with $f\neq0$. Put $\tilde A=(Q^{\mathfrak n})^{-1/2}A(Q^{\mathfrak n})^{1/2}$, which is symmetric, and $\phi=(Q^{\mathfrak n})^{1/2}f/\lvert(Q^{\mathfrak n})^{1/2}f\rvert$; let $\varpi_1\le\varpi_2\le\dots$ be the eigenvalues of $I-\tilde A$, $\mathsf u_1$ an eigenvector of $\varpi_1$, and, in the stationary process, $\Xi^{\mathrm d}=\sup_{u\in\mathbb N}\lvert\Corr(y_t,y_{t+u})-(1-\varpi_1)^u\rvert$.
+\begin{enumerate}
+\item[(a)] (Drift rates.) Let the spectrum of $A$ lie in $[0,1)$, let $\xout^{\mathrm d}$, $\xin^{\mathrm d}$ and $\sigma^{\mathrm d}$ be the rates \eqref{eq:met-rates} of $(I-\tilde A,\phi)$, and let $\xin^{\mathrm d}>\xout^{\mathrm d}$. Then $\varpi_1$ is simple, $\xout^{\mathrm d}-(\sigma^{\mathrm d})^2/(\xin^{\mathrm d}-\xout^{\mathrm d})\le\varpi_1\le\xout^{\mathrm d}$, $\tan\angle(\phi,\mathsf u_1)\le\sigma^{\mathrm d}/(\xin^{\mathrm d}-\xout^{\mathrm d})$, and
+\begin{equation}\label{eq:met-discrete}
+\Xi^{\mathrm d}\le\tan^2\angle(\phi,\mathsf u_1)\frac{\varpi_1(2-\varpi_1)}{\varpi_2(2-\varpi_2)}\le\Bigl(\frac{\sigma^{\mathrm d}}{\xin^{\mathrm d}-\xout^{\mathrm d}}\Bigr)^2\frac{\xout^{\mathrm d}(2-\xout^{\mathrm d})}{\xin^{\mathrm d}(2-\xin^{\mathrm d})}\le2\Bigl(\frac{\sigma^{\mathrm d}}{\xin^{\mathrm d}-\xout^{\mathrm d}}\Bigr)^2\frac{\xout^{\mathrm d}}{\xin^{\mathrm d}}.
+\end{equation}
+\item[(b)] (Precision rates.) Under the same spectral condition, let $\xout^\Pi$, $\xin^\Pi$ and $\sigma^\Pi$ be the rates of $(I-\tilde A^2,\phi)$, where $I-\tilde A^2=(Q^{\mathfrak n})^{1/2}\Pi(Q^{\mathfrak n})^{1/2}$ is the whitened stationary precision of $x$. If $\xin^\Pi>\xout^\Pi$, then $\tan\angle(\phi,\mathsf u_1)\le\sigma^\Pi/(\xin^\Pi-\xout^\Pi)$ and $\Xi^{\mathrm d}\le(\sigma^\Pi/(\xin^\Pi-\xout^\Pi))^2\xout^\Pi/\xin^\Pi$.
+\item[(c)] (Mixed signs.) If the spectrum of $A$ lies in $(-1,1)$ and its largest eigenvalue is $\rho(A)$, then under $\xin^{\mathrm d}>\xout^{\mathrm d}$ the tangent bound of (a) holds and $\Xi^{\mathrm d}\le2\tan^2\angle(\phi,\mathsf u_1)(1-\rho(A)^2)/(1-\max_{l\ge2}(1-\varpi_l)^2)$.
+\end{enumerate}
+For a level-0 collective with the exterior held fixed, symmetric $W_{CC}$ with spectrum in $[0,1)$ and $Q^\zeta_{CC}=qI$, (a) applies with $A=W_{CC}$ and $\phi=\phi_C$; then $\xout^{\mathrm d}$ and $\sigma^{\mathrm d}$ are the mean and the root-mean-square dispersion of the members' total leaks $1-\sum_{j\in C}W_{ij}$, and $\xin^{\mathrm d}/\xout^{\mathrm d}$ is the drift-based discrete contrast of $C$.
+\end{lemma}
+% src: H3-L2 merged with H4-P10 (HC_critic V10, 2.6): tangent bound without sigma < gap; part (b) added here and checked
+Proof in \cref{app:met}; checked in \cref{chk:met-lemmas}, including recursions with $\sigma^{\mathrm d}\ge\xin^{\mathrm d}-\xout^{\mathrm d}$. Part (b) uses the stationary precision of the members with the exterior held fixed, which differs from the block of the population's world-conditional precision on which contrast is defined, so the lemma settles the reversible case of \cref{open:agy-discrete-closure} for one coordinate, and that problem remains open for the precision-based contrast of \cref{def:col-contrast} and for non-reversible recursions.
+
+The closure notions in use are related exactly: in the stationary case without input, kernel invariance, a vanishing closure defect, vanishing dynamical dependence at every $t\ge1$ and one-step informational closure coincide, and of their approximate forms the closure defect is the largest (Supplement, \cref{prop:met-closure-notions}).
+
+\subsection{The meta-agent's inference}\label{sec:met-inference}
+
+The coarse generative model of $C$ is the linear-Gaussian state-space model with state $\eta_C$, dynamics $(\bar F,\bar B,\bar Q)$ of \eqref{eq:met-abstract-physics} with $a_C$ as a known input, and observation $s_{C,t+1}=\Lambda^s\eta_{C,t}+\bar v_t$, $\bar v_t\sim\Ncal(0,\Lambda^s)$, the law of the information-form statistic of memoryless readers of $\eta_C$. Let $\mathcal F_t$ be generated by the meta-agent's initial information $\mathcal I_0$ and by $(s_{C,1:t},a_{C,0:t})$. Because $s_{C,t}$ reads $\eta_{C,t-1}$, the one-round latency of \eqref{eq:col-joint}, the law of $\eta_{C,t}$ given $\mathcal F_t$ is the meta-agent's predictive law of the current exterior.
+
+\begin{proposition}[Consensus on contributions gives the coarse filter]\label{prop:met-consensus-filter}
+Assume the following.
+\begin{enumerate}
+\item[(S)] The exterior-facing sensory channels are memoryless readers of $\eta_C$, $X_{\sS,t+1}=\mathcal H\eta_{C,t}+\Xi^{\sS}_t$ with $R_{\sS}$ block diagonal over channels and $\mathcal H=\mathcal H_0\mathsf G_\eta$, $\mathcal H_0$ of full column rank and $\mathsf G_\eta$ of full row rank ($\mathsf G_\eta=I$ when every coordinate of $\eta_C$ is sensed), and read no interior or active variable. Condition (a1) of \cref{prop:met-sufficiency} then holds with $\mathcal H_0$ for $\mathcal H$ and $\mathsf G_{\mathrm E}=\mathsf G_\eta\mathsf P_{\mathrm E}$, and $s_C=\mathcal H^\top R_{\sS}^{-1}X_{\sS}$, the image of the statistic $\mathcal H_0^\top R_{\sS}^{-1}X_{\sS}$ of that proposition under the injective map $\mathsf G_\eta^\top$, satisfies $s_{C,t+1}=\Lambda^s\eta_{C,t}+\bar v_t$ with $\Lambda^s=\mathcal H^\top R_{\sS}^{-1}\mathcal H\succeq0$ and $\bar v_t\sim\Ncal(0,\Lambda^s)$, a Gaussian law that is degenerate when $\Lambda^s$ is singular. When $\mathsf G_\eta\ne I$ the map $\mathcal H^\top R_{\sS}^{-1}=\mathsf G_\eta^\top\mathcal H_0^\top R_{\sS}^{-1}$ is not of full row rank; the coarse sensory state in the sense of \cref{def:met-coarse} is then $s^0_C=\mathcal H_0^\top R_{\sS}^{-1}X_{\sS}$, whose map has full row rank, and $s_C=\mathsf G_\eta^\top s^0_C$ is its image under an injective linear map, so the two generate the same conditioning and the coarse blanket, the leaks and the closure defects computed with either coincide.
+\item[(X)] The coarse exterior has an exact abstract physics with $\bar Q\succ0$, and the exterior reads the members only through $a_C$, condition (a2) of \cref{prop:met-sufficiency}.
+\item[(Ind)] Conditionally on $\mathcal I_0$, $\eta_{C,0}\sim\Ncal(\hat\eta^-_0,P^-_0)$, independent of the initial collective variables.
+\end{enumerate}
+Then:
+\begin{enumerate}
+\item[(a)] For every $t$, $\eta_{C,t}\mid\mathcal F_t\sim\Ncal(\hat\eta^-_t,P^-_t)$, computed by the Kalman filter of the coarse generative model with $a_C$ as a known input,
+\begin{equation}\label{eq:met-filter}
+\begin{gathered}
+\hat\eta^{\mathrm f}_{t-1}=\hat\eta^-_{t-1}+P^{\mathrm f}_{t-1}\bigl(s_{C,t}-\Lambda^s\hat\eta^-_{t-1}\bigr),\qquad(P^{\mathrm f}_{t-1})^{-1}=(P^-_{t-1})^{-1}+\Lambda^s,\\
+\hat\eta^-_t=\bar F\hat\eta^{\mathrm f}_{t-1}+\bar Ba_{C,t-1},\qquad P^-_t=\bar FP^{\mathrm f}_{t-1}\bar F^\top+\bar Q,
+\end{gathered}
+\end{equation}
+and conditioning in addition on the paths of all members' sensory channels and internal states leaves this law unchanged: the coarse blanket is sufficient for the meta-agent's inference.
+\item[(b)] (Implementation by members.) Let member $i$ own the channels $X_{\sS_i}$, with blocks $\mathcal H_i$ and $R_{\sS,i}$ and contribution $h^s_i(t)=\mathcal H_i^\top R_{\sS,i}^{-1}X_{\sS_i,t}$, so that $s_{C,t}=\sum_ih^s_i(t)$. Let the pair $(\bar F,\Lambda^s)$ be detectable, that is, $\rho(\bar F-\mathsf L\Lambda^s)<1$ for some matrix $\mathsf L$, as when $\rho(\bar F)<1$ or $\Lambda^s\succ0$, so that the steady-state covariances exist (\cref{lem:met-riccati}). Let the members run $n_{\mathrm c}\ge0$ rounds of consensus with a matrix $\mathcal W$ that preserves sums, $\one^\top\mathcal W=\one^\top$, giving $\tilde h(t)=(\mathcal W^{n_{\mathrm c}}\otimes I)h^s(t)$, followed by
+\begin{equation}\label{eq:met-member-filter}
+\hat\eta^{(i)}_t=\bar F\bigl[\hat\eta^{(i)}_{t-1}+\bar P\bigl(n\tilde h_i(t)-\Lambda^s\hat\eta^{(i)}_{t-1}\bigr)\bigr]+\bar Ba_{C,t-1},
+\end{equation}
+with the steady-state filtered and predicted covariances $\bar P$ and $\bar P^-$ of \eqref{eq:met-filter}. Then the average $y_{C,t}=n^{-1}\sum_i\hat\eta^{(i)}_t$ obeys the steady-state form of \eqref{eq:met-filter} pathwise, for every $n_{\mathrm c}\ge0$; from the centralized start it equals $\hat\eta^-_t$ when $P^-_0=\bar P^-$. The deviations $\mathrm{dev}_i=\hat\eta^{(i)}-y_C$ obey $\mathrm{dev}_i(t)=\bar F(I-\bar P\Lambda^s)\mathrm{dev}_i(t-1)+n\bar F\bar P(\tilde h_i(t)-\bar h^s(t))$, and for symmetric, doubly stochastic and nonnegative $\mathcal W$ they obey a bound of the form of \cref{prop:agy-consensus}(b), with the factor $\rho_\perp^{n_{\mathrm c}}$.
+\item[(c)] Every member's belief $\Ncal(\hat\eta^{(i)}_t,\bar P^-)$ is a translate of one Gaussian law.
+\end{enumerate}
+\end{proposition}
+% src: H3-P5, H3-D5; HC_critic V7(a) (predictive law, one-round latency); number of rounds renamed n_{\mathrm c} (HC_critic 2.7)
+Proof in \cref{app:met}; checked in \cref{chk:met-inference}. At $n_{\mathrm c}=0$ no contribution passes between members, each multiplies its own contribution by $n$ and is individually poor, and the average still obeys the steady-state filter, whose state is the exact predictive mean from the centralized start with $P^-_0=\bar P^-$. Communication buys the members' agreement, which enters agency through habit tilts (\cref{thm:met-h5a}(v)). Theorem~1 of \citet{olfatisaber2005distributed} needs exact average consensus at every step; part (b) adds that with consensus that preserves sums the average is exact at every number of rounds, and only the members' deviations depend on that number.
+
+In the setting of \cref{prop:met-consensus-filter}(b), a collective belief formed at every step as the product of the members' posteriors, each computed from a common predicted prior, counts the prediction $n$ times: its covariance converges to a fixed point $P_{\mathrm b}\preceq\bar P$, so the literal collective is overconfident, and when the resulting estimator is stable it is also less accurate than the exact one (Supplement, \cref{prop:met-literal-aggregation}).
+
+The average of level-0 receivers, which fuse literally with fixed gains, is a fixed linear filter of their inputs and in general not the coarse filter. For scalar level-0 members with exact code models the average of the predicted means obeys an exact recursion with two memory terms, the dispersion of the members' total leaks and the imbalance between the attention a member receives and gives inside $C$; for $F\neq0$ it is exactly closed given the gain-weighted coarse sensory state if and only if the update of the members' means has equal column sums (Supplement, \cref{prop:met-level0}).
+
+\subsection{Agency of the coarse act}\label{sec:met-agency}
+
+A meta-agent acts through its coarse act. When the members' interventions $u_i$ enter it additively, $a_C=\sum_i\mathsf P_{\mathrm A,i}u_i$ with $\mathsf P_{\mathrm A,i}$ the part of $\mathsf P_{\mathrm A}$ acting on member $i$'s channels, the abstract physics \eqref{eq:met-abstract-physics} moves the coarse exterior as in the joint-act model (Supplement, \cref{def:agy-joint-acts}), with $\bar F$ for $F$ and effects $\bar B\mathsf P_{\mathrm A,i}$. Under the consensus filter the members' beliefs are translates of one law (\cref{prop:met-consensus-filter}(c)), so \cref{thm:agy-joint-acts}(b) of the Supplement applies with the coarse predictive law as the declared belief; this is part (v) of \cref{thm:met-h5a}, and without its hypotheses the potential fails (Supplement, \cref{thm:agy-joint-acts}(a),(c), \cref{ex:agy-no-potential}).
+
+\subsection{Hypothesis H5a assembled}\label{sec:met-h5a}
+
+\begin{theorem}[A meta-agent with an abstract environment]\label{thm:met-h5a}
+Let $C$ be a set of $n$ agents of the joint process \eqref{eq:col-joint} with the canonical partition, per-channel noise and $\rho(A)<1$. Declare $s_C=\mathcal H^\top R_{\sS}^{-1}X_{\sS}$, $a_C=\mathsf P_{\mathrm A}X_{\sA}$ and $\eta_C=\mathsf P_{\mathrm E}X_{\sE}$, and let $y_C=(y^\eta_C,y^\alpha_C)$ be the averages of the members' filter states and of their stored copies of the coarse act. Assume the following.
+\begin{enumerate}
+\item[(H-suff)] Condition (S) of \cref{prop:met-consensus-filter} and condition (a2) of \cref{prop:met-sufficiency}.
+\item[(H-phys)] An exact abstract physics, \cref{thm:met-abstract-physics}(a), with $(\bar F,\Lambda^s)$ detectable in the sense of \cref{prop:met-consensus-filter}(b), as when $\rho(\bar F)<1$.
+\item[(H-prot)] The members read $a_C$, store it for one round and run the consensus filter \eqref{eq:met-member-filter} with a matrix $\mathcal W$ that preserves sums, $n_{\mathrm c}\ge0$ rounds and the steady-state covariances, and (Ind) of \cref{prop:met-consensus-filter} holds.
+\item[(H-act)] For (v) only: at a decision state the members hold beliefs $\Ncal(m_i,P)$ about the current $\eta_C$ with a common $P$, and deliberate under (P2) to (P4) of \cref{def:agy-group-model} over interventions $u_i\in\mathcal U_i$ with $a_C=\sum_i\mathsf P_{\mathrm A,i}u_i$, with a shared preference precision $\Lambda^\star$, common targets $o^\star$ on outcomes $\mathsf H_\star\eta_C'$, and the true effects $\mathsf M_i=\mathsf H_\star\bar B\mathsf P_{\mathrm A,i}$.
+\end{enumerate}
+Then:
+\begin{enumerate}
+\item[(i)] (Blanket.) $(s_C,a_C)$ is an exact strong coarse path blanket on every window, from every start that satisfies (a3) of \cref{prop:met-sufficiency}; from the stationary start the coarse leak rate is zero. If (H-suff) is violated by a perturbation that keeps the hypotheses of \cref{prop:met-leak-bound} (a residual assignment with $\tilde Q$ block diagonal, stable $\tilde A_{\sI'\sI'}$ and $\tilde A_{\sE'\sE'}$, and $\mathfrak c_C\mathsf k<1$), the window leak from a start with $(\tilde\Sigma_0^{-1})_{\sI'\sE'}=0$ obeys \eqref{eq:met-leak-bound}, which is quadratic in the violation.
+\item[(ii)] (Closure of the coarse internal state.) In the round indexing of \eqref{eq:col-joint}, $y^\eta_{C,t+1}=\bar F(I-\bar P\Lambda^s)y^\eta_{C,t}+\bar F\bar Ps_{C,t}+\bar By^\alpha_{C,t}$ and $y^\alpha_{C,t+1}=a_{C,t}$, each plus the average of the members' computation noises, so $y_C$ is exactly closed given $b_C$ and $\mathfrak d^C_{\mathrm{cl}}=0$. Of the hypotheses, this part uses only (H-prot), and it holds for any fixed matrices in place of $(\bar F,\bar P,\bar B,\Lambda^s)$ in \eqref{eq:met-member-filter}, in particular for members that run a bounded model.
+\item[(iii)] (Abstract physics.) \Cref{eq:met-abstract-physics} holds exactly; when (H-phys) holds only approximately, the memory of $\eta_C$ obeys \cref{prop:met-memory}.
+\item[(iv)] (A model of the abstract environment.) $y^\eta_{C,t+1}$ is the predictive mean $\hat\eta^-_t$ of the steady-state coarse filter plus the response of the stable matrix $\bar F(I-\bar P\Lambda^s)$ to the averaged computation noise. With the centralized start and $P^-_0=\bar P^-$, $(\hat\eta^-_t,\bar P^-)$ parametrizes the meta-agent's predictive law of the current exterior, the law of $\eta_{C,t}$ given $\mathcal F_t$, which equals its law given the paths of the fine blanket and of the interior, and $y^\eta_{C,t+1}\to\hat\eta^-_t$ in mean square, uniformly in $t$, as the computation noise vanishes. With noiseless member computation the members' deviations from $y^\eta_C$ obey \cref{prop:met-consensus-filter}(b); with computation noise the deviation recursion of that proposition gains two driving terms, the centered computation noise of the member's filter state and $\bar B$ times the centered computation noise of its stored act.
+\item[(v)] (Agency.) The stationary law of deliberation is the group posterior of the group model with belief $\Ncal(m_C,P)$, $m_C=n^{-1}\sum_im_i$, preference precision $\Lambda^\star$, the true effects, precision $\gamma$ and product habits tilted by $e^{-\gamma\mathcal T_i}$, where
+\begin{equation}\label{eq:met-tilt}
+\mathcal T_i(u_i)=\bigl\langle\mathsf H_\star\bar F(m_i-m_C),\mathsf M_iu_i\bigr\rangle_{\Lambda^\star},\qquad\lvert\mathcal T_i(u_i)\rvert\le\Vert\Lambda^\star\Vert\Vert\mathsf H_\star\bar F\Vert\lvert m_i-m_C\rvert\lvert\mathsf M_iu_i\rvert.
+\end{equation}
+Under (iv), with the members' means equal to their filter states, $m_C=y^\eta_C$ is the meta-agent's predictive mean up to the response to the computation noise, and the tilts are bounded through the deviations of (iv). For symmetric, doubly stochastic and nonnegative $\mathcal W$ with $\rho_\perp<1$ the part of the deviations governed by \cref{prop:met-consensus-filter}(b) vanishes as $n_{\mathrm c}\to\infty$, so the deviations vanish in that limit up to the response of $\bar F(I-\bar P\Lambda^s)$ to the members' centered computation noises, which does not depend on $n_{\mathrm c}$ and is absent when the member computation is noiseless.
+\end{enumerate}
+\end{theorem}
+% src: H3-T4 (exact conditional theorem, HC_critic V7); (iv) indexed as a predictive law per HC_critic V7(a); no approximate H5a theorem per V7(b)
+Proof in \cref{app:met}; every property is computed in \cref{ex:met-two-firms}. The theorem is exact and conditional: error bounds exist for (i), (iii) and (v); for (iv) under approximate closure the only ones are the conditional bound of \cref{thm:apx-posterior} and the finite-horizon bound (Supplement, \cref{prop:apx-posterior-finite}), a path relative entropy that accumulates over the horizon, and for (ii) under level-0 protocols there is none beyond \cref{prop:met-level0} (\cref{open:met-approximate}).
+
+\begin{remark}[H5a does not select collectives]\label{rem:met-no-selection}
+Properties (i) to (v) hold for every set $C$ that satisfies the hypotheses of \cref{thm:met-h5a}, at every $n_{\mathrm c}\ge0$, and contrast enters none of them; at $n_{\mathrm c}=0$ the members exchange no contributions and (iv) still holds for the average. Hypothesis H5a is therefore a statement about the structure that a meta-agent has, not a criterion for which sets of agents are meta-agents. As for the boundary property (\cref{thm:col-boundary}(e)), selection stays with contrast at a declared level above the baseline and with the null family (\cref{def:col-collective,thm:agy-h1}). Contrast enters H5a in two places only: through the closure of level-0 averages (\cref{prop:met-level0}, \cref{thm:agy-h1}(c)) and, as a drift-based contrast, through the closure of an exterior made of other collectives (\cref{ex:met-other-collectives}).
+\end{remark}
+% src: H3-R6 (in the main text per HC_critic V7(c))
+
+\Cref{tab:met-hypotheses} lists what fails when each hypothesis is dropped.
+
+\begin{table}[t]
+\centering\small
+\caption{What fails in \cref{thm:met-h5a} without each hypothesis. Numbers refer to \cref{ex:met-two-firms} unless another result is cited.}
+\label{tab:met-hypotheses}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}@{}}
+\toprule
+Hypothesis dropped & What fails & Where\\
+\midrule
+$s_C$ the information-form statistic & both coarse blankets leak at a positive rate ($0.044$ nats per round with an equal-weight summary) & \cref{ex:met-summary-leak}, \cref{ex:met-two-firms}\\
+memoryless or summary-closed channels & the information-form $s_C$ is a coarse collider & \cref{ex:met-channel-memory}\\
+the exterior reads only $a_C$; no sensor reads one member's act & the exterior reads interior-side residuals ($\mathfrak d^{\mathrm E}_{\mathrm{cl}}=4.2\times10^{-4}$), or a coarse collider appears & \cref{chk:met-physics}, \cref{ex:met-reafference}\\
+closure of $\eta_C$ & a Markov model of $\eta_C$ is misspecified ($0.074$ nats), or the minimal closed extension is needed; aggregates keep memory as $N\to\infty$ & \cref{thm:met-abstract-physics}(f), \cref{ex:met-traders}\\
+consensus on information contributions & a product pool of local filters is overconfident ($0.127$ nats, \cref{tab:met-firms}); literal pooling from a common prior likewise; level-0 averages carry memory & \cref{prop:met-literal-aggregation}, \cref{prop:met-level0}\\
+shared preference precision, true and additive effects & no exact potential; deliberation is not reversible and depends on the protocol & \cref{thm:agy-joint-acts}(a),(c), \cref{ex:agy-no-potential}\\
+the moment bound, $\rho(A)<1$ & no stationary law: leak rates and defects are undefined, the finite-window statements remain & \cref{def:col-collective}\\
+contrast & nothing in (i) to (v) & \cref{rem:met-no-selection}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A worked model of a price and two firms of four members each computes every property of \cref{thm:met-h5a} (Supplement, \cref{sec:met-firms}, \cref{ex:met-two-firms,tab:met-firms}). For a firm that models the price together with its competitor's coarse states, a five-dimensional abstract physics, every property holds exactly; a firm that ignores its competitor and runs a bounded model of the price with its own order flow as input claims a predictive law at a relative entropy of $0.074$ nats to the exact one. The reading of the model as a corporation and its market is an interpretation (\cref{rem:met-corporation}).
+
+Four problems are left open: an error term for property (iv) under approximate closure together with a memory bound for the coarse internal state under level-0 protocols, the existence of finite-dimensional pairs of mutually exact filters, a leak bound that is sharp in its constant, and versions of the theorems of this section for discrete state spaces and nonlinear dynamics (Supplement, \cref{sec:met-open}: \cref{open:met-approximate,open:met-mutual,open:met-leak-constant,open:met-nonlinear}).

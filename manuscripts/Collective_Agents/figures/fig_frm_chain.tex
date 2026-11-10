@@ -1,0 +1,66 @@
+% Figure: the two-group model (def:frm-two-group) and the formation chain of sec:frm.
+% Schematic; frames drawn at the base-point angle vartheta = pi/2. Base-point numbers are those of the section,
+% recomputed with numpy from the split fixed point of lem:frm-split-law (kappa = n - 1 = 3, calibration and claimed
+% prior variance solved jointly), lem:frm-calibration and thm:frm-split-contrast: in-group calibrated noise 0.29872,
+% MSE 0.24872, D_cal 1.24123, unlearned cross edge 0.29872 + 1.24123 (1 - cos(pi/2)) = 1.53995, r(A) = 8.7329;
+% baseline 7.9543 from the same lemma for the comparison medium (8 agents, each attending 3 of the other 7 at random,
+% at its own calibration fixed point 0.29632).
+\begin{tikzpicture}[>={Stealth[length=1.8mm]}, every node/.style={font=\small},
+    agA/.style={circle, draw=blue!55!black, fill=blue!12, inner sep=0pt, minimum size=9mm},
+    agB/.style={circle, draw=green!45!black, fill=green!14, inner sep=0pt, minimum size=9mm},
+    ing/.style={gray!60!black, thick},
+    crs/.style={red!60!black, thick, densely dashed},
+    box/.style={draw=gray!60, fill=blue!4, rounded corners=4pt, align=flush center, inner sep=4pt, minimum height=2.25cm, text width=3.25cm},
+    link/.style={->, thick, black!75},
+    tl/.style={font=\footnotesize, inner sep=1pt}]
+  % (a) the two-group model
+  \node[anchor=west, inner sep=0pt] at (0,8.3) {\textbf{(a)} two groups, one public code};
+  % agents with their private frames (first axis with an arrowhead): U_i = I_2 on A, Rot(vartheta) on B
+  \foreach \nm/\x/\y in {a1/1.1/7.0, a2/2.6/7.0, a3/1.1/5.5, a4/2.6/5.5} {
+    \node[agA] (\nm) at (\x,\y) {};
+    \draw[->, blue!45!black, thick, >={Stealth[length=1.2mm]}] (\x-0.12,\y-0.12) -- ++(0.32,0);
+    \draw[blue!45!black, thick] (\x-0.12,\y-0.12) -- ++(0,0.28);
+  }
+  \foreach \nm/\x/\y in {b1/6.5/7.0, b2/8.0/7.0, b3/6.5/5.5, b4/8.0/5.5} {
+    \node[agB] (\nm) at (\x,\y) {};
+    \draw[->, green!35!black, thick, >={Stealth[length=1.2mm]}] (\x+0.12,\y-0.12) -- ++(0,0.32);
+    \draw[green!35!black, thick] (\x+0.12,\y-0.12) -- ++(-0.28,0);
+  }
+  % in-group edges: exact translations
+  \foreach \u/\v in {a1/a2, a3/a4, a1/a3, a2/a4, a1/a4, a2/a3, b1/b2, b3/b4, b1/b3, b2/b4, b1/b4, b2/b3}
+    \draw[ing] (\u) -- (\v);
+  % cross edges: learned rotation with error
+  \foreach \u/\v in {a2/b1, a4/b3, a2/b3, a4/b1}
+    \draw[crs] (\u) -- (\v);
+  \node[font=\footnotesize, red!50!black] at (4.55,7.75) {learned $\mathrm{Rot}(\hat\alpha_{ij})$, error $\phi_{ij}$};
+  \node[font=\footnotesize] at (1.85,4.75) {group $A$, $U_i=I_2$};
+  \node[font=\footnotesize] at (7.25,4.75) {group $B$, $U_i=\mathrm{Rot}(\vartheta)$};
+  % the frames differ by a rotation
+  \coordinate (fo) at (9.35,5.85);
+  \draw[->, blue!45!black, thick, densely dotted] (fo) -- ++(0.85,0);
+  \draw[->, green!35!black, thick] (fo) -- ++(0,0.85);
+  \draw[gray!50!black] ($(fo)+(0.5,0)$) arc[start angle=0, end angle=90, radius=0.5];
+  \node[font=\footnotesize] at ($(fo)+(0.55,0.55)$) {$\vartheta$};
+  \node[font=\footnotesize] at ($(fo)+(0.42,-0.32)$) {frames};
+  % message model
+  \node[draw=gray!60, fill=white, rounded corners=4pt, anchor=north east, align=left, font=\footnotesize, inner sep=5pt] (msg) at (16.3,7.95)
+    {every agent broadcasts $\mu_j=U_jm_j$\\
+     through the public code $T_c=I_2$;\\
+     receiver $i$ reads $y_{ij}=\mu_j+\nu_{ij}$ as\\
+     $\tilde y_{ij}=U_i^{-1}\mathrm{Rot}(\hat\alpha_{ij})y_{ij}$\\
+     $\phantom{\tilde y_{ij}}=\mathrm{Rot}(\phi_{ij})m_j+\tilde\nu_{ij}$\\[3pt]
+     \tikz[baseline=-0.6ex]\draw[gray!60!black, thick] (0,0) -- (0.6,0); in-group: $\phi_{ij}=0$\\
+     \tikz[baseline=-0.6ex]\draw[red!60!black, thick, densely dashed] (0,0) -- (0.6,0); cross: $\phi_{ij}=\hat\alpha_{ij}-\alpha^\star_{ij}$};
+  % (b) the formation chain
+  \node[anchor=west, inner sep=0pt] at (0,3.55) {\textbf{(b)} the formation chain};
+  \node[box] (cal) at (1.765,1.65) {\textbf{calibration}\\[1pt]{\footnotesize $\hat\sigma^2_{ij}=\sigma_c^2+\mathrm{MSE}_j$\\$+D_{\mathrm{cal}}(1-\cos\phi_{ij})$\\[2pt]\color{gray!40!black}$0.299$ in-group,\\$1.540$ unlearned cross}};
+  \node[box] (att) at (6.022,1.65) {\textbf{attention}\\[1pt]{\footnotesize $q_i(J)\propto\exp(\gamma\mathcal V_i(J))$\\over sets of $\kappa$ senders,\\$\mathcal V_i(J)=\tfrac K2\log\hat\Lambda^+_i(J)$}};
+  \node[box] (cpl) at (10.279,1.65) {\textbf{couplings}\\[1pt]{\footnotesize gains $k_{ij}=\varpi_{ij}/\hat\Lambda^+_i(J)$\\on attended edges give\\$\Pi^c_A$ with leak $\varepsilon^\Pi$\\and coupling $a^\Pi$}};
+  \node[box] (con) at (14.536,1.65) {\textbf{contrast}\\[1pt]{\footnotesize $r(A)=1+\dfrac{\psi_{\one}-\psi_\perp}{1-\lambda^2}$\\[2pt]\color{gray!40!black}$r(A)=8.73$,\\baseline $\bar r_{\mathrm{hom}}=7.954$}};
+  \node[box, text width=6.4cm, minimum height=1.3cm, fill=green!6] (lrn) at (3.894,-0.8) {\textbf{translation learning}\\[1pt]{\footnotesize attended edges: $\hat\alpha_{ij}\to\alpha^\star_{ij}$ at gain $\alpha$\\every edge: $\hat\alpha_{ij}\leftarrow h\hat\alpha_{ij}$, toward the identity}};
+  \draw[link] (cal) -- node[tl, above=1pt] {T1} (att);
+  \draw[link] (att) -- node[tl, above=1pt] {T2} (cpl);
+  \draw[link] (cpl) -- node[tl, above=1pt] {T3} (con);
+  \draw[link] (att.south) -- node[tl, right=1pt] {$J_i(t)$} (att.south |- lrn.north);
+  \draw[link] (cal.south |- lrn.north) -- node[tl, left=1pt] {$\phi_{ij}$} (cal.south);
+\end{tikzpicture}

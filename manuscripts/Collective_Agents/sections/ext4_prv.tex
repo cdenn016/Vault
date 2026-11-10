@@ -1,0 +1,123 @@
+\section{Evidence provenance and institutional memory}\label{sec:prv}
+
+This section addresses the open problem of evidence provenance and institutional memory: how a collective that communicates repeatedly through loops, shared records and changing membership can keep its confidence in line with its evidence, posed for records and hierarchies in \cref{open:hie-provenance}. For one shared linear-Gaussian state with known sensing models it establishes storage for links and records under which fusion equals the Kalman filter on the observations that can have arrived: one Gaussian pair per link suffices on trees without process noise and on stars at full reporting rate; with process noise, an invertible transition matrix and intermittent blind reports, a list of items indexed by time and as long as the reporting gap is needed and suffices; and on graphs with cycles, in the two settings treated, storage that does not grow with elapsed time suffices once members carry identifiers, whereas no deterministic rule without identifiers is exact for every value of the data on rings of two sizes. Under turnover the stored statistic belongs to the occupant of a position and must be reset with it, and in a static world the expected share of observations that never reaches the record has a closed form. Left open are hierarchies with a different variable at every node, the least storage of an exact protocol on a graph with cycles, encoders that know the model but report off a common schedule, the loss under turnover with process noise and sparse writes, which is computed only numerically, and source overlap or sensing models that are uncertain to the members, which are not treated.
+
+A record that reposts posteriors counts shared evidence more than once, and \cref{prop:hie-record-filter} gives both the cure for memoryless members, when the record starts from the common prior, and, in a scalar example, the size of the error without it. \Cref{open:hie-provenance} asks what a record must carry once members keep their own filters and histories; the results below answer it for one shared state only, so that problem is narrowed and not closed. The obstruction on cycles is removed by identifiers, by a ring size built into the rule or, with probability one, by random keys. Proofs and secondary results are in \cref{app:prv}, and the computations in \cref{chk:prv}.
+
+The state follows $x_{t+1}=Ax_t+w^x_t$ with $w^x_t\sim\Ncal(0,Q_x)$ and $x_0\sim\Ncal(m_0,P_0)$, $P_0\succ0$. Members $i=1,\dots,n$ sit at the nodes of a connected graph $G$ and observe $o_{i,t}=H_ix_t+v_{i,t}$ with $v_{i,t}\sim\Ncal(0,R_i)$, $R_i\succ0$, all noises independent. A pair $(\Lambda,h)$ stands for the density proportional to $\exp(h^\top x-\frac12x^\top\Lambda x)$. The prior pair is $\pi_0=(\Lambda_0,\Lambda_0m_0)$ with $\Lambda_0=P_0^{-1}$, the item of an observation is $e_{i,t}=(\Lambda^{\mathrm o}_i,h^{\mathrm o}_{i,t})$ with $\Lambda^{\mathrm o}_i=H_i^\top R_i^{-1}H_i$ and $h^{\mathrm o}_{i,t}=H_i^\top R_i^{-1}o_{i,t}$, and $\Pi$ is the one-step prediction of a pair \eqref{eq:prv-predict}, defined when $A$ is invertible or $Q_x\succ0$. This is the setting of \cref{prop:hie-record-filter}, with the record as the hub of a star.
+
+\begin{definition}[Provenance protocol]\label{def:prv-protocol}
+The information set $D_v$ of node $v$ is empty at the start; an observation by $v$ at time $t$ adds the key $(v,t)$, and a report $u\to v$ over a link of $G$ replaces $D_v$ by $D_u\cup D_v$. A protocol assigns states to nodes and links, a message to every report and an update to every event. It is exact if after every event the output of each node $v$ is the pair of $p(x_t\mid o_{D_v})$. Its provenance statistic is what nodes and links store beyond the node outputs, measured in real numbers. A protocol is anonymous if nodes carry no identifiers and run one deterministic rule that does not depend on $G$. An encoder is blind if the message of a member is a function of its own data that does not depend on the sensing models, schedules or data of other members, and model-aware otherwise.
+\end{definition}
+
+Exactness is equality with the Kalman filter \citep{kalman1960new} run on the observations that can have reached the node.
+
+\begin{theorem}[One pair per link on trees]\label{thm:prv-tree}
+Let $G$ be a tree.
+\begin{enumerate}
+\item[(a)] Let $Q_x=0$. Nodes keep pairs $s_v$ about $x_0$ and links keep pairs $c_{uv}$, all initially $\pi_0$. An observation of $v$ at time $t$ adds $((A^t)^\top\Lambda^{\mathrm o}_vA^t,(A^t)^\top h^{\mathrm o}_{v,t})$ to $s_v$; a report $u\to v$ sets $s_v\leftarrow s_v+s_u-c_{uv}$ and then $c_{uv}\leftarrow s_u$. After any finite sequence of observations and reports, in any order,
+\[
+s_v=\pi_0+\sum_{e\in D_v}e,\qquad c_{uv}=\pi_0+\sum_{e\in D_u\cap D_v}e,
+\]
+so $s_v$ is the pair of $p(x_0\mid o_{D_v})$, the posterior of $x_t=A^tx_0$ is its image under $A^t$, which has a pair when $A$ is invertible, and the protocol keeps $d(d+3)/2$ numbers per link. It is exact for $x_0$ for every $A$, and exact in the sense of \cref{def:prv-protocol}, that is for $x_t$, when $A$ is invertible.
+\item[(b)] Let $G$ be a star with hub $z$, let $A$ be invertible or $Q_x\succ0$, and let every member run the private filter $p_{i,t}=\Pi(p_{i,t-1})+e_{i,t}$, $p_{i,0}=\pi_0$, and report $p_{i,t}$ at every step. The hub's recursion
+\[
+s_t=\Pi(s_{t-1})+\sum_i\bigl(p_{i,t}-\Pi(c_{i,t-1})\bigr),\qquad c_{i,t}=p_{i,t},\qquad s_0=c_{i,0}=\pi_0,
+\]
+is the centralized Kalman filter. The same holds when members adopt $s_t$ after each round and $c_{i,t}=s_t$, the mechanism of \cref{prop:hie-record-filter}(a).
+\end{enumerate}
+\end{theorem}
+
+The link pair is a channel filter of decentralized fusion in the sense of \cref{sup:mis-exact-fusion}. By the fusion identity (\cref{lem:prv-fusion}), exact fusion over a link needs only the posterior given the common information, provided the two private parts are conditionally independent given the state and the common part. Without process noise the proviso holds on a tree for every schedule. With process noise it holds on a star at full rate, and the stored pair must be predicted before it is subtracted (\cref{rem:prv-predicted,chk:prv-tree}). At a lower rate the rule is overconfident already for two members and two steps: it claims precision $43/15$ against the exact $19/7$, and the mean-square error of its mean is $231/215$ times the claimed variance (\cref{prop:prv-intermittent}). For $F=0.99$, $Q=0.02$ and five members the ratio of error to claim rises from $1.08$ at every second step to $1.62$ at every tenth (\cref{chk:prv-intermittent}).
+
+\begin{theorem}[Intermittent reports need the window ledger]\label{thm:prv-window}
+Let $Q_x\succ0$ and let $A$ be invertible. Member $i$ observes at the $k$ steps since its last report and then sends $\varphi_i(o_{i,1},\dots,o_{i,k})$ with a blind encoder. The receiver holds a Gaussian law of the state at the last report with positive definite covariance and, for each step $\tau$ of the window, further evidence with likelihood $\exp(g_\tau^\top x_\tau-\frac12x_\tau^\top D_\tau x_\tau)$, $D_\tau\succeq0$, from other members. If the receiver can compute the exact posterior mean of $x_k$ for every value of the data and every choice of $(D_\tau,g_\tau)_{\tau\le k}$, then the window ledger $(h^{\mathrm o}_{i,\tau})_{\tau\le k}$ is a function of the message. In particular a linear encoder has rank at least $k\rank H_i$. Conversely the ledger, $k\rank H_i$ numbers, suffices for the exact posterior.
+\end{theorem}
+
+The provenance statistic of a dynamic record is therefore a list of items indexed by time, as long as the reporting gap. The bound fails for $Q_x=0$, where \cref{thm:prv-tree}(a) applies, and for $A=0$ (\cref{rem:prv-window-scope}). Blindness is what it prices: on a common schedule, with a hub that holds nothing else, model-aware members can each send $d$ numbers per contact with no link storage (\cref{prop:prv-aware}).
+
+\begin{theorem}[No anonymous exact protocol on cycles]\label{thm:prv-cover}
+Let $Q_x=0$, $A=I$ and $n\ge3$. Identical members with $\Lambda^{\mathrm o}\ne0$ sit on the cycle $C_n$, observe once, and then exchange messages with both neighbors in synchronous rounds. No anonymous protocol, with states and messages of any dimension, outputs the exact pair $\pi_0+\sum_se_s$ at every node from some round on, for every value of the data and every labeling of the ports, on both $C_n$ and $C_{2n}$.
+\end{theorem}
+
+The proof lifts an execution on $C_n$ to $C_{2n}$, where every node behaves as its image while the required precision differs by $n\Lambda^{\mathrm o}$; with constant data the same comparison excludes any two ring sizes (\cref{cor:prv-sizes}). Storage plays no part in the argument, and the natural guess that no summary of bounded size can be exact on a cycle is false once members carry identifiers (\cref{prop:prv-ledger}). The absence of identifiers is not decisive either (\cref{prop:prv-anon}): hop counters built for one ring size are exact on that size, and random keys are exact with probability one for every value of the data. The theorem excludes one deterministic rule that is exact for all data on two sizes. The familiar local rules fail at once on the static triangle, where after $r$ rounds the product rule holds $3^{r-1}$ copies of each item and the channel rule of \cref{thm:prv-tree} counts $2r+1$ items in place of three (\cref{prop:prv-ring}).
+
+\begin{proposition}[Ledgers keyed by member and time]\label{prop:prv-ledger}
+Let $G$ be connected, let members carry identifiers and share a clock, let every member observe at every step, and let one flooding round follow each step, in which every node sends each neighbor its fresh item and the items it first acquired in the previous round and discards duplicates by key $(s,\tau)$. Let $\delta(v,s)=\max(\operatorname{dist}(v,s)-1,0)$ and let $\operatorname{ecc}(v)$ be the eccentricity of $v$.
+\begin{enumerate}
+\item[(a)] The item $(s,\tau)$ first reaches $v$ in round $\tau+\delta(v,s)$, so $D_v(t)=\{(s,\tau):\tau\le t-\delta(v,s)\}$.
+\item[(b)] If $A$ is invertible or $Q_x\succ0$, a node that keeps a base pair for time $t-\operatorname{ecc}(v)+1$ and the later items computes the pair of $p(x_t\mid o_{D_v(t)})$ exactly. The filter uses $\sum_s(\operatorname{ecc}(v)-1-\delta(v,s))$ stored items; with the items held one more round to be forwarded, the node stores at most $n\max(\operatorname{ecc}(v)-1,1)$ items and one time per source, and at most $n$ items cross a link per round.
+\item[(c)] A node that knows its distances to all sources can sum the items of each time slice on arrival, and then stores $\operatorname{ecc}(v)$ pairs, a distance table and, for one round, the at most $n-1$ items it has yet to forward.
+\end{enumerate}
+\end{proposition}
+
+With identifiers, a window as long as the eccentricity of the node suffices on a graph with cycles, whatever the elapsed time. In a static world a counter and a cumulative pair per source suffice under any schedule (\cref{prop:prv-clock}).
+
+\begin{proposition}[Covariance intersection]\label{prop:prv-ci}
+Let $G$ be connected and let $A$ be invertible or $Q_x\succ0$. At every step each member predicts, applies the Kalman update for its own observation with its claimed covariance, and replaces its pair by a convex combination $\sum_{j\in N[i]}\omega_{ij}(\Lambda_j,h_j)$ of the pairs in its closed neighborhood, with deterministic weights. Suppose that the initial means are deterministic and that the second-moment matrix $\E(m_i-x_0)(m_i-x_0)^\top$ of every member's initial error, called its error covariance below, is at most its claimed covariance in the positive semidefinite order.
+\begin{enumerate}
+\item[(a)] At every time the error covariance of every member is at most its claimed covariance $\Lambda_i^{-1}$, with no stored provenance.
+\item[(b)] If the members are identical and share the prior, every claimed covariance equals that of a member that never communicates, for every graph and all weights. If all members start from $\pi_0$ and two members of one closed neighborhood have $\Lambda^{\mathrm o}_j\ne0$, the protocol is not exact.
+\item[(c)] The error covariance of member $i$ is at least $\Cov(x_t\mid o_{D_i(t)})$, with $D_i(t)$ as in \cref{prop:prv-ledger}(a).
+\item[(d)] For identical scalar members with $H=1$ that start from $\pi_0$, on the complete graph with weights $1/n$ and $Q>0$, the mean-square error of every member converges to $((1-K)^2Q+K^2R/n)/(1-(1-K)^2F^2)$, where $K=P_{\mathrm{loc}}/R$ and $P_{\mathrm{loc}}$ is the limit of the variance of a solitary filter.
+\end{enumerate}
+\end{proposition}
+
+Covariance intersection, the fusion rule for unknown cross-covariance recalled in \cref{sup:mis-exact-fusion}, is therefore safe without provenance, and for identical members the safety has a price: the claim is that of a solitary member whatever is heard (\cref{obs:prv-ring}).
+
+\begin{observation}[Rings without provenance]\label{obs:prv-ring}
+For $F=0.99$, $Q=0.02$, $R=1$ on rings of $n=3,4,5,6,8$ members with one exchange per step, the product rule claims variance $0.0095$ with error $26.7$ to $26.9$ times the claim. The channel rule claims $0.0510$ with error $1.52$ times the claim at $n=3$ and $1.12$ at $n=8$. Covariance intersection with equal weights claims $0.1239$, with error $0.61$ to $0.67$ times the claim and $1.18$ to $1.37$ times the exact variance, where a solitary member has $1.77$ to $2.25$ (\cref{chk:prv-ring,chk:prv-ci}).
+\end{observation}
+
+\Cref{prop:agy-identity} treats turnover for a convention that no member senses; the next proposition treats sensed evidence.
+
+\begin{proposition}[Turnover]\label{prop:prv-turnover}
+Let $Q_x=0$ and $A=I$, and let the record $z$ be the hub of a star with $n$ positions. The occupant of position $i$ observes at every step and keeps its raw observations. At steps $k,2k,\dots$ it writes summaries $y=S_io$ of its unwritten observations, with $S_i$ of full row rank, each carrying information $\Lambda^S_i=H_i^\top S_i^\top(S_iR_iS_i^\top)^{-1}S_iH_i\preceq\Lambda^{\mathrm o}_i$. At the end of every step, after the write if there is one, each occupant is replaced independently with probability $g\in(0,1)$; a leaver takes its raw and unwritten observations, and the newcomer reads the record.
+\begin{enumerate}
+\item[(a)] Under the protocol of \cref{thm:prv-tree}(a), resetting the link pair to the record's pair at the read preserves exactness. If the predecessor's link pair is kept, the newcomer's first report makes the record count twice every item that it held at the read and had not shared with the predecessor.
+\item[(b)] At write times $t$ the record's pair is exact for what was written, and its precision $\Lambda_z(t)$ satisfies
+\begin{equation}\label{eq:prv-rho}
+\E\Lambda_z(t)=\Lambda_0+t\rho(g,k)\sum_i\Lambda^S_i,\qquad\rho(g,k)=\frac{1-(1-g)^k}{gk},
+\end{equation}
+with $\rho(g,1)=1$ and $\rho(g,k)\to1$ as $g\to0$.
+\item[(c)] At a write time $t$, before the replacements of that step, the record together with the raw observations of the present occupants has precision $\Lambda_{\mathrm{coll}}(t)$ with expectation $\E\Lambda_z(t)+g^{-1}(1-(1-g)^t)\sum_i(\Lambda^{\mathrm o}_i-\Lambda^S_i)$. Its deficit against all observations ever made is $\sum_i[(t-N^W_i)\Lambda^{\mathrm o}_i+(N^W_i-a_i)(\Lambda^{\mathrm o}_i-\Lambda^S_i)]$, where $N^W_i$ counts the written observations of position $i$ and $a_i$ is the tenure of its occupant. The deficit vanishes for all $g$ and $k$ if leavers write on exit and summaries are lossless.
+\end{enumerate}
+\end{proposition}
+
+Institutional memory has an exact price in this model: an expected fraction $1-\rho(g,k)$ of the observations never reaches the record, and what rank-limited summaries discard of the rest survives only for the tenure of the member who saw it, $1/g$ steps on average. An exit write and a summary that spans the row space of $H_i^\top R_i^{-1}$ remove both losses. With process noise, full-rate writes of full pairs make turnover free once the link pair is reset (\cref{rem:prv-turnover-dynamic}); for sparser writes the loss is known only numerically.
+
+\begin{observation}[Turnover with process noise]\label{obs:prv-turnover}
+For $F=0.99$, $Q=0.02$, $R=1$, $n=5$ and a record that fuses exactly what it receives, the mean record variance at write times exceeds the centralized variance by factors $1.010$, $1.029$ and $1.039$ at $g=0.05$ and $k=2,5,10$, and by $1.044$, $1.128$ and $1.187$ at $g=0.20$ (\cref{chk:prv-turnover}). These are Monte Carlo means; a rerun moved four of the six by $0.001$ (\cref{chk:prv-independent}).
+\end{observation}
+
+\begin{table}[tb]
+\centering
+\caption{Storage of provenance for $n$ members, state dimension $d$ and $T$ rounds; a pair is $d(d+3)/2$ numbers (\cref{rem:prv-memory}).}\label{tab:prv-memory}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}@{}}
+\toprule
+Scheme & Storage & Exact when\\
+\midrule
+Channel pairs & one pair per link & tree and $Q_x=0$; star at full rate\\
+Window ledger, blind & $k\rank H_i$ numbers per member & star, reports every $k$ steps\\
+Model-aware summary & $d$ numbers per member, no link state & star, common schedule\\
+Cumulative pairs per source & $n$ pairs and counters per node & any graph, $Q_x=0$\\
+Ledger keyed by member and time & at most $n\max(\operatorname{ecc}(v)-1,1)$ items per node & any graph, one flooding round per step\\
+Ledger keyed by observation & $nT$ items & any graph and schedule\\
+Covariance intersection & none & consistent; not exact when two members of a closed neighborhood are informative\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:prv-memory} collects the storage of the schemes. All results concern one shared state. The tree of \cref{def:hie-tree} with $\Psi_u\succ0$ has a different variable at every node, and its dynamic version is not treated here.
+
+\begin{openproblem}[Minimal provenance with identifiers]\label{open:prv-minimal}
+For $Q_x=0$ on a graph with cycles and an arbitrary schedule, \cref{prop:prv-clock} is exact with $n$ pairs per node. Determine the least storage of an exact protocol as a function of $n$ and of the cycle structure of $G$, and whether growth with $n$ is necessary.
+\end{openproblem}
+
+\begin{openproblem}[Model-aware encoders off schedule]\label{open:prv-aware}
+Between the $d$ numbers of \cref{prop:prv-aware} and the $k\rank H_i$ numbers of \cref{thm:prv-window}, determine the least message dimension for exact fusion when encoders know the model but reports are asynchronous or the schedule is random.
+\end{openproblem}
+
+\begin{openproblem}[Hierarchies and lossy turnover]\label{open:prv-hierarchy}
+Determine the provenance statistic for dynamic trees with distinct node variables, the part of \cref{open:hie-provenance} that the results of this section do not reach, and a closed form for the loss under turnover when $Q_x\succ0$ and $k>1$. Randomized rules without identifiers can be exact on cycles with probability one (\cref{prop:prv-anon}(c)); whether a continuous deterministic anonymous rule can be exact with probability one from a round that depends on the data is open (\cref{rem:prv-cover-scope}).
+\end{openproblem}

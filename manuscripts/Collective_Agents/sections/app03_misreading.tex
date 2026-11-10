@@ -1,0 +1,151 @@
+\section{Proofs for \texorpdfstring{Section~\ref{sec:mis}}{misreading}}\label{app:mis}
+
+Throughout, for jointly Gaussian vectors $I(\eta;y)=\tfrac12\ln\det\Cov(y)-\tfrac12\ln\det\Cov(y\mid\eta)$. For $P\succ0$ the map $X\mapsto\ln\det(I+PX)=\ln\det(I+P^{1/2}XP^{1/2})$ is nondecreasing on positive-semidefinite matrices in the Loewner order, and strictly increasing: if $X\preceq X'$ and $X\neq X'$, every eigenvalue of $P^{1/2}XP^{1/2}$ is at most the corresponding eigenvalue of $P^{1/2}X'P^{1/2}$ and the traces differ, so the determinant increases strictly. We use $\det(I+AB)=\det(I+BA)$ without comment.
+
+\begin{proof}[Proof of \cref{prop:mis-believed-values}]
+(a) At levels 0 and 1 the messages are modeled as conditionally independent given $\eta$, with likelihoods $\Ncal(\hat H_{ij}\eta,\hat R_{ij})$ and $\Ncal(\hat H_{ij}\eta,\hat R^1_{ij})$. Bayes' rule adds their precisions, so with $\Gamma_{ij}$ standing for $\Gamma^0_{ij}$ or $\Gamma^1_{ij}$ the modeled posterior covariance is $(\Lambda_i+\sum_{j\in\mathcal J}\Gamma_{ij})^{-1}$ whatever the messages, and the modeled mutual information is $\tfrac12\ln\det P_i+\tfrac12\ln\det(\Lambda_i+\sum_j\Gamma_{ij})=\tfrac12\ln\det(I+P_i\sum_j\Gamma_{ij})$. If $\hat R_{ij}=R_c$, then $\hat R_{ij}\preceq\hat R^1_{ij}$, so $\Gamma^0_{ij}\succeq\Gamma^1_{ij}$ (inversion reverses and congruence preserves the order) and $\mathcal V^0_i\ge\mathcal V^1_i$. (b) is read off (a).
+
+(c) Fix the level, write $f(\mathcal J)$ for its believed value and $\Lambda_{\mathcal J}=\Lambda_i+\sum_{k\in\mathcal J}\Gamma_{ik}$. For $j\notin\mathcal J$,
+\begin{equation*}
+f(\mathcal J\cup\{j\})-f(\mathcal J)=\tfrac12\ln\det(\Lambda_{\mathcal J}+\Gamma_{ij})-\tfrac12\ln\det\Lambda_{\mathcal J}=\tfrac12\ln\det\bigl(I+\Gamma_{ij}^{1/2}\Lambda_{\mathcal J}^{-1}\Gamma_{ij}^{1/2}\bigr)\ge0 .
+\end{equation*}
+If $\mathcal J\subseteq\mathcal J'$ and $j\notin\mathcal J'$, then $\Lambda_{\mathcal J}\preceq\Lambda_{\mathcal J'}$, hence $\Lambda_{\mathcal J'}^{-1}\preceq\Lambda_{\mathcal J}^{-1}$ and the gain at $\mathcal J'$ is at most the gain at $\mathcal J$. Nonnegative gains give monotonicity and decreasing gains give submodularity. Greedy attention starts from $\mathcal J_0=\varnothing$ and adds at each step a sender of largest gain. Let $\mathcal J^\ast$ maximize $f$ over sets of at most $\kappa$ senders and put $\delta_l=f(\mathcal J^\ast)-f(\mathcal J_l)$. Monotonicity, then submodularity applied to the senders of $\mathcal J^\ast\setminus\mathcal J_l$ added one at a time, and then the greedy choice give
+\begin{equation*}
+f(\mathcal J^\ast)\le f(\mathcal J_l\cup\mathcal J^\ast)\le f(\mathcal J_l)+\sum_{j\in\mathcal J^\ast\setminus\mathcal J_l}\bigl(f(\mathcal J_l\cup\{j\})-f(\mathcal J_l)\bigr)\le f(\mathcal J_l)+\kappa\bigl(f(\mathcal J_{l+1})-f(\mathcal J_l)\bigr),
+\end{equation*}
+so $\delta_{l+1}\le(1-1/\kappa)\delta_l$. Since $f(\varnothing)=0$, $\delta_\kappa\le(1-1/\kappa)^\kappa f(\mathcal J^\ast)\le e^{-1}f(\mathcal J^\ast)$, which is the bound of \citet{nemhauser1978analysis}. If at most $\kappa$ senders are available, greedy attention takes all of them and is optimal by monotonicity.
+\end{proof}
+% src: L1-P5
+
+\begin{proof}[Proof of \cref{lem:mis-attenuation}]
+The Bayes error $\eta-m_j$ is uncorrelated with every square-integrable function of the sender's data, in particular with $m_j$, so $\Cov(\eta,m_j)=\Cov(m_j)$, and the law of total covariance, with the posterior covariance $P_j$ not depending on the data, gives $\Cov(m_j)=P_0-P_j$. The pair $(\eta,m_j)$ is jointly Gaussian with $\E m_j=\bar\eta$, so $m_j-\bar\eta=(P_0-P_j)P_0^{-1}(\eta-\bar\eta)+\tilde m_j$ with $\tilde m_j$ Gaussian, independent of $\eta$, and of covariance $(P_0-P_j)-(P_0-P_j)P_0^{-1}(P_0-P_j)=(P_0-P_j)P_0^{-1}P_j=P_j-P_jP_0^{-1}P_j$. Since $(P_0-P_j)P_0^{-1}=I-P_jP_0^{-1}$, applying $H_j$ and adding the channel noise, which is independent of $(\eta,\tilde m_j)$, gives \eqref{eq:mis-attenuation} with $\tilde\nu_j=H_j\tilde m_j+\nu$.
+\end{proof}
+% src: L3-P1
+
+\begin{proof}[Proof of \cref{lem:mis-common-source}]
+(a) Substituting $o_u=H^s_u\eta+v_u$ into $\Lambda_km_k=\Lambda_0\bar\eta+\sum_{u\in\mathcal U_k}(H^s_u)^\top(R^s_u)^{-1}o_u$ and using $\sum_{u\in\mathcal U_k}\Gamma_u=\Lambda_k-\Lambda_0$ gives
+\begin{equation*}
+e_k=P_k\Bigl(\Lambda_0(\bar\eta-\eta)+\sum_{u\in\mathcal U_k}(H^s_u)^\top(R^s_u)^{-1}v_u\Bigr).
+\end{equation*}
+The terms are independent with covariances $\Lambda_0P_0\Lambda_0=\Lambda_0$ and $\Gamma_u$, so $\Var(e_k)=P_k\Lambda_kP_k=P_k$. The errors $e_i$ and $e_j$ share only $\bar\eta-\eta$ and the noises of shared sources, so $\Cov(e_i,e_j)=P_i\Lambda^{\mathrm{sh}}_{ij}P_j$, and $\Cov(e_k,\eta)=-P_k\Lambda_0P_0=-P_k$. In the symmetric scalar configuration $P_i=P_j=P$ and the correlation is $P(\Lambda_0+\Gamma_{\mathrm{com}})=\phi$.
+
+(b) Write $\Lambda_jm_j=\Lambda_0\bar\eta+h^{\mathrm{sh}}_{ij}+h_{j\setminus i}$ with $h_{j\setminus i}=\sum_{u\in\mathcal U_j\setminus\mathcal U_i}(H^s_u)^\top(R^s_u)^{-1}o_u=\Lambda_{j\setminus i}\eta+\tilde v_{j\setminus i}$, where $\tilde v_{j\setminus i}\sim\Ncal(0,\Lambda_{j\setminus i})$ involves only noises of sources outside $\mathcal U_i$ and is independent of $(\eta,\mathcal Z_i)$. Given $\mathcal Z_i$, the terms $\Lambda_0\bar\eta$ and $h^{\mathrm{sh}}_{ij}$ are known, and the shifted message is
+\begin{equation*}
+\tilde y_{ij}:=y_{ij}-H_jP_j(\Lambda_0\bar\eta+h^{\mathrm{sh}}_{ij})=A_{ij}\eta+H_jP_j\tilde v_{j\setminus i}+\nu .
+\end{equation*}
+It is a linear-Gaussian observation of $\eta$ with code $A_{ij}$ and noise covariance $R^{\mathrm{ex}}_{ij}\succ0$, conditionally independent of $\mathcal Z_i$ given $\eta$. As $y_{ij}-\tilde y_{ij}$ is $\mathcal Z_i$-measurable, $I(\eta;y_{ij}\mid\mathcal Z_i)=I(\eta;\tilde y_{ij}\mid\mathcal Z_i)$, the information of this observation under the prior $\Ncal(m_i,P_i)$, which is \eqref{eq:mis-true-value}.
+
+(c) With $H_j$ invertible and $R_c=0$, observing $y_{ij}$ given $\mathcal Z_i$ is observing $h_{j\setminus i}$, whose likelihood is proportional in $\eta$ to $\exp(\eta^\top h_{j\setminus i}-\tfrac12\eta^\top\Lambda_{j\setminus i}\eta)$ (also when $\Lambda_{j\setminus i}$ is singular, since $h_{j\setminus i}$ then lies in its range). The update adds $\Lambda_{j\setminus i}=\Lambda_j-\Lambda^{\mathrm{sh}}_{ij}$ to the precision and $h_{j\setminus i}=\Lambda_jm_j-\Lambda_0\bar\eta-h^{\mathrm{sh}}_{ij}$ to the information vector $\Lambda_im_i$, and the information gained is $\tfrac12\ln\det((\Lambda_i+\Lambda_{j\setminus i})P_i)$.
+
+(d) The exact update conditions $\Ncal(m_i,P_i)$ on $\tilde y_{ij}$, an observation with code $A_{ij}$ and noise $R^{\mathrm{ex}}_{ij}\succ0$, so by \cref{prop:fw-update-subspace} its mean moves within $\operatorname{col}(P_iA_{ij}^\top)=\operatorname{col}(P_i\Lambda_{j\setminus i}P_jH_j^\top)$, while a literal update uses the code $H_j$.
+\end{proof}
+% src: L1-P7, L1-P8
+
+\begin{proof}[Proof of \cref{prop:mis-track-band}]
+Given $(\eta,m_i)$ the receiver's error $e_i=m_i-\eta$ is known, and $e_j\mid e_i\sim\Ncal(\beta e_i,\sigma_j^2-\sigma_{ij}^2/\sigma_i^2)$ with $\beta=\sigma_{ij}/\sigma_i^2$, independently of $\eta$. Hence
+\begin{equation*}
+y_{ij}=\tilde g\eta+g\beta m_i+\tilde\nu,\qquad\tilde g=g(1-\beta),\qquad\Var(\tilde\nu)=R^{\mathrm{ex}}>0,
+\end{equation*}
+an observation of $\eta$ given $m_i$ with code $\tilde g$ and noise $R^{\mathrm{ex}}$. Under the belief $\Ncal(m_i,\sigma_i^2)$ it carries $\tfrac12\ln(1+\tilde g^2\sigma_i^2/R^{\mathrm{ex}})$, and $\tilde g^2\sigma_i^2+R^{\mathrm{ex}}=S$ on expanding, so $\mathcal V^\ast_i=\tfrac12\ln(S/R^{\mathrm{ex}})$. The level-1 model is the case $\sigma_{ij}=0$, and level 0 uses the noise $R_c\le g^2\sigma_j^2+R_c$.
+
+Let $S_0$ and $R_0$ be the values of $S$ and $R^{\mathrm{ex}}$ at $\sigma_{ij}=0$, so that $S=S_0-2g^2\sigma_{ij}$ and $R^{\mathrm{ex}}=R_0-g^2\sigma_{ij}^2/\sigma_i^2$. Then $\mathcal V^\ast_i<\mathcal V^1_i$ if and only if $SR_0<S_0R^{\mathrm{ex}}$, and $SR_0-S_0R^{\mathrm{ex}}=(g^2\sigma_{ij}/\sigma_i^2)(S_0\sigma_{ij}-2\sigma_i^2R_0)$, so the condition is $\sigma_{ij}(2\sigma_i^2R_0-S_0\sigma_{ij})>0$. For $\sigma_{ij}>0$ this holds exactly when $\sigma_{ij}<2\sigma_i^2R_0/S_0=\sigma_{\mathrm b}$. For $\sigma_{ij}<0$ the second factor is positive, so the product is negative and $\mathcal V^\ast_i>\mathcal V^1_i$; for $\sigma_{ij}>\sigma_{\mathrm b}$ the second factor is negative and the same conclusion holds. For equal variances $\sigma^2$, $\sigma_{\mathrm b}=2\sigma^2(g^2\sigma^2+R_c)/(2g^2\sigma^2+R_c)\ge\sigma^2=\sigma_i\sigma_j$, so the band contains every admissible positive covariance. At $R_c=0$, $\sigma_{\mathrm b}=2\sigma_i^2\sigma_j^2/(\sigma_i^2+\sigma_j^2)$, a harmonic mean, which is below the geometric mean $\sigma_i\sigma_j$ when $\sigma_i\neq\sigma_j$. If $\sigma_i<\sigma_j$, the value $\sigma_{ij}=\sigma_i^2$ is admissible and gives $\beta=1$, $\tilde g=0$, so $\mathcal V^\ast_i=0$. As $\sigma_{ij}\to-\sigma_i\sigma_j$, $R^{\mathrm{ex}}\to R_c$ and $S\to g^2(\sigma_i+\sigma_j)^2+R_c$, and the limit exceeds $\mathcal V^0_i$ because $(\sigma_i+\sigma_j)^2>\sigma_i^2$. As $\sigma_{ij}\to\sigma_i\sigma_j$, $\mathcal V^\ast_i\to\tfrac12\ln(1+g^2(\sigma_j-\sigma_i)^2/R_c)$, which exceeds $\mathcal V^0_i$ exactly when $(\sigma_j-\sigma_i)^2>\sigma_i^2$, that is $\sigma_j>2\sigma_i$.
+\end{proof}
+% src: L1-P6
+
+\begin{proof}[Proof of \cref{prop:mis-overvaluation-scope}]
+(a) As in \cref{prop:mis-believed-values}(a), since $R_c\preceq R_c+H_jP_jH_j^\top$.
+
+(b) Let $K=1$ and let $g\neq0$ be the code gain. If $\Lambda_{j\setminus i}=0$, the message is a function of the receiver's data and of channel noise independent of $\eta$, so $\mathcal V^\ast_i=0<\mathcal V^1_i$. Otherwise $R^{\mathrm{ex}}_{ij}=g^2P_j^2\Lambda_{j\setminus i}+R_c>0$, \eqref{eq:mis-true-value} gives $A_{ij}=gP_j\Lambda_{j\setminus i}$, and
+\begin{equation*}
+\mathcal V^\ast_i=\tfrac12\ln\Bigl(1+\frac{g^2P_j^2\Lambda_{j\setminus i}^2P_i}{g^2P_j^2\Lambda_{j\setminus i}+R_c}\Bigr),\qquad\mathcal V^1_i=\tfrac12\ln\Bigl(1+\frac{g^2P_i}{g^2P_j+R_c}\Bigr).
+\end{equation*}
+Put $x=P_j\Lambda_{j\setminus i}=1-P_j\Lambda^{\mathrm{sh}}_{ij}$. Dividing by $g^2P_i$ and clearing the positive denominators, $\mathcal V^\ast_i<\mathcal V^1_i$ is equivalent to $xg^2P_j^2\Lambda_{j\setminus i}+x^2R_c<g^2P_j^2\Lambda_{j\setminus i}+R_c$, which holds because $\Lambda^{\mathrm{sh}}_{ij}\ge\Lambda_0>0$ forces $0<x<1$. In the flat-prior limit $x=1$ exactly when no source is shared, and then the two sides coincide.
+
+(c) \Cref{lem:mis-common-source}(c) gives $\mathcal V^\ast_i$. Level 1 assigns the precision $H_j^\top(H_jP_jH_j^\top)^{-1}H_j=\Lambda_j$, so $\mathcal V^1_i=\tfrac12\ln\det(I+P_i\Lambda_j)$, and $\Lambda_j-\Lambda_{j\setminus i}=\Lambda^{\mathrm{sh}}_{ij}\succeq\Lambda_0\succ0$ gives the strict inequality.
+
+(d) Each source $o_u$ splits into its information vector $h_u=(H^s_u)^\top(R^s_u)^{-1}o_u=\Gamma_u\eta+n_u$, $n_u\sim\Ncal(0,\Gamma_u)$, and the residual $o_u-H^s_u\Gamma_u^+h_u$, which equals $(I-H^s_u\Gamma_u^+(H^s_u)^\top(R^s_u)^{-1})v_u$ because $H^s_u$ vanishes on $\ker\Gamma_u$; the residual is uncorrelated with $n_u$, hence independent of $h_u$, of $\eta$ and of every other variable. Every belief, message and value is therefore unchanged when the raw data are replaced by the information vectors. In an aligned world the coordinates of $\eta$ under the prior, of the noises $n_u$ and of the channel noise are independent across the common basis, every posterior covariance is diagonal, so the $d$th coordinate of each agent's mean depends only on $d$th coordinates, and each message coordinate reads one coordinate. The joint law of the world, the data and the messages factorizes over coordinates, and so do the level-0 and level-1 models, whose noises $R_c$ and $R_c+H_jP_jH_j^\top$ are diagonal. Every value is therefore a sum over coded coordinates of the values of scalar common-source worlds with proper priors, uncoded coordinates contribute nothing, and (a) and (b) apply coordinatewise.
+
+(e) Here $\Lambda_i=\Lambda^{\mathrm{sh}}_{ij}$. Let $Y_j=P_j\Lambda_{j\setminus i}=I-P_j\Lambda^{\mathrm{sh}}_{ij}$, so $A_{ij}=H_jY_j$, and $\Gamma^0=H_j^\top R_c^{-1}H_j$. Since $R^{\mathrm{ex}}_{ij}\succeq R_c$, $A_{ij}^\top(R^{\mathrm{ex}}_{ij})^{-1}A_{ij}\preceq Y_j^\top\Gamma^0Y_j$, and by monotonicity
+\begin{equation*}
+\mathcal V^\ast_i\le\tfrac12\ln\det\bigl(I+P_iY_j^\top\Gamma^0Y_j\bigr)=\tfrac12\ln\det\bigl(I+(\Gamma^0)^{1/2}Y_jP_iY_j^\top(\Gamma^0)^{1/2}\bigr).
+\end{equation*}
+Using $P_i\Lambda^{\mathrm{sh}}_{ij}=I$, $Y_jP_iY_j^\top=P_i-2P_j+P_j\Lambda^{\mathrm{sh}}_{ij}P_j\preceq P_i-P_j\preceq P_i$, because $\Lambda^{\mathrm{sh}}_{ij}\preceq\Lambda_j$ gives $P_j\Lambda^{\mathrm{sh}}_{ij}P_j\preceq P_j$. Hence $\mathcal V^\ast_i\le\tfrac12\ln\det(I+(\Gamma^0)^{1/2}P_i(\Gamma^0)^{1/2})=\mathcal V^0_i$.
+\end{proof}
+% src: L1-P10
+
+\begin{proof}[Proof of \cref{prop:mis-level1-mse}]
+Decoding $y_{ij}$ gives $m_j$, which level 1 reads as $\Ncal(\eta,P_j)$ independent of its own information; Bayes' rule gives the precision $\Lambda_i+\Lambda_j$ and the stated mean. Because $\hat P^{(1)}_i(\Lambda_i+\Lambda_j)=I$, the error is $\hat P^{(1)}_i(\Lambda_ie_i+\Lambda_je_j)$, and by \cref{lem:mis-common-source}(a) with $\Lambda_kP_k=I$ its covariance is $\hat P^{(1)}_i(\Lambda_i+\Lambda_j+2\Lambda^{\mathrm{sh}}_{ij})\hat P^{(1)}_i$. Subtracting $\hat P^{(1)}_i=\hat P^{(1)}_i(\Lambda_i+\Lambda_j)\hat P^{(1)}_i$ leaves $2\hat P^{(1)}_i\Lambda^{\mathrm{sh}}_{ij}\hat P^{(1)}_i$. The exact posterior mean minimizes the mean-square-error matrix among estimators built from $(\mathcal Z_i,y_{ij})$, and its error covariance is $(\Lambda_i+\Lambda_{j\setminus i})^{-1}$ by \cref{lem:mis-common-source}(c). In the symmetric scalar configuration the claimed variance is $P/2$ and the actual one $P(1+\phi)/2$.
+\end{proof}
+% src: L1-P9
+
+\begin{proof}[Proof of \cref{prop:mis-closed-ratios}]
+(a) In \eqref{eq:mis-true-value} with scalars, $A_{ij}=gP\Gamma_{\mathrm{pr}}$, $R^{\mathrm{ex}}_{ij}=g^2P^2\Gamma_{\mathrm{pr}}+R_c$ and $P\Gamma_{\mathrm{pr}}=1-\phi$, so after division by $g^2P$, $A_{ij}^2P/R^{\mathrm{ex}}_{ij}=(1-\phi)^2/(1-\phi+\varrho_c)$. Levels 1 and 0 see the signal variance $g^2P$ with noises $g^2P+R_c$ and $R_c$. The expansion follows from $\ln(1+x)=x+O(x^2)$ with $x=(1-\phi)^2/\varrho_c+O((1-\phi)^3)$; at $\varrho_c=0$, $\mathcal V^\ast_i=\tfrac12\ln(2-\phi)$ and $\mathcal V^1_i=\tfrac12\ln2$.
+
+(b) Under a flat prior the errors are independent of $\eta$, with variances $P$ and covariance $\phi P$ by \cref{lem:mis-common-source}(a) at $\Lambda_0=0$, and the receiver's posterior is $\Ncal(m_i,P)$. \Cref{prop:mis-track-band} with $\sigma_i^2=\sigma_j^2=P$ and $\sigma_{ij}=\phi P$ gives $S/(g^2P)=2(1-\phi)+\varrho_c$ and $R^{\mathrm{ex}}/(g^2P)=1-\phi^2+\varrho_c$.
+
+(c) The messages $m_r+\nu_l$, $l=1,\dots,n_{\mathrm r}$, depend on $\eta$ and the receiver's data only through $m_r$, and their average $m_r+\bar\nu$, $\Var(\bar\nu)=R_c/n_{\mathrm r}$, is sufficient for $m_r$. \Cref{lem:mis-common-source}(b) with private precision $\Gamma_{\mathrm{rel}}$, unit code and noise $R_c/n_{\mathrm r}$ gives $A=P_r\Gamma_{\mathrm{rel}}$ and $R^{\mathrm{ex}}=P_r^2\Gamma_{\mathrm{rel}}+R_c/n_{\mathrm r}$, hence the formula, which increases in $n_{\mathrm r}$ to the stated limit. Level 1 reads the $n_{\mathrm r}$ messages as independent observations, each with noise $P_r+R_c$.
+\end{proof}
+% src: L1-P11
+
+\begin{proof}[Proof of \cref{prop:mis-dynamic}]
+(a) Let $m_k(t)$ be agent $k$'s filtered mean of $\eta_t$ and $e^+_k(t)=m_k(t)-\eta_t$. The update $m_k(t+1)=Fm_k(t)+k^s_k(\eta_{t+1}+v_k(t+1)-Fm_k(t))$ gives $e^+_k(t+1)=(1-k^s_k)(Fe^+_k(t)-w_t)+k^s_kv_k(t+1)$. The steady-state predicted variance $P^-_k$ solves $P^-_k=F^2(1-k^s_k)P^-_k+Q$ with $k^s_k=P^-_k/(P^-_k+R^s_k)\in(0,1)$, so $F^2(1-k^s_k)=1-Q/P^-_k<1$ and hence $(1-k^s_i)(1-k^s_j)F^2\le(1-k^s_i)F^2<1$. The sensing noises are independent of each other and of the world, so the stationary cross-covariance satisfies $\Sigma_{ij}=(1-k^s_i)(1-k^s_j)(F^2\Sigma_{ij}+Q)$, which is \eqref{eq:mis-dynamic}, positive since $Q>0$. Each steady-state filter is calibrated about its own error: its claimed filtered variance is $\Sigma_{kk}$. A level-1 receiver reading the belief message $y_{ij}=H_jm_j(t)+\nu$, $H_j\neq0$, with the header $\Sigma_{jj}$ is therefore in the setting of \cref{prop:mis-correlated-fusion} with $X=H_j\Sigma_{ij}$, and its actual posterior variance exceeds its claim by $2\Kg_0(1-\Kg_0H_j)H_j\Sigma_{ij}>0$, since $0<\Kg_0H_j<1$. An exact posterior claims a variance equal to the mean-square error of its mean, so level 1 is not exact.
+
+(b) The receiver predicts the message as $H_jFm_i$, so its innovation is $y_{ij}-H_jFm_i=H_jF(e_j-e_i)+\nu$, in which the common innovation cancels; its covariance is $S^{\mathrm{act}}_{ij}$. The receiver models its own predictive error with covariance $FP_iF^\top+Q$ and the message's predictive error, independent of its own, with the header $FP_jF^\top+Q$, which gives $S^{\mathrm{cl}}_{ij}$. Subtracting gives \eqref{eq:mis-innovation-bias}.
+\end{proof}
+% src: L1-P12; L7-M8
+
+\begin{proof}[Derivation of \cref{ex:mis-cancellation}]
+Here $\Lambda_i=\diag(\alpha_1,\alpha_2)$ and $\Lambda_j=\diag(\alpha_1,\alpha_2+\Gamma_{\mathrm{pr}})$. With $H_j=(1,1)/\sqrt2$, $A_{ij}=H_jP_j\Lambda_{j\setminus i}=(0,\Gamma_{\mathrm{pr}}/(\alpha_2+\Gamma_{\mathrm{pr}}))/\sqrt2$ and $R^{\mathrm{ex}}_{ij}=\Gamma_{\mathrm{pr}}/(2(\alpha_2+\Gamma_{\mathrm{pr}})^2)$, so $A_{ij}P_iA_{ij}^\top/R^{\mathrm{ex}}_{ij}=\Gamma_{\mathrm{pr}}/\alpha_2$. Level 1 sees the signal variance $H_jP_iH_j^\top=\tfrac12(\alpha_1^{-1}+\alpha_2^{-1})$ and the noise $H_jP_jH_j^\top=\tfrac12(\alpha_1^{-1}+(\alpha_2+\Gamma_{\mathrm{pr}})^{-1})$. As $\alpha_2\to0$, $\mathcal V^\ast_i=\tfrac12\ln(\Gamma_{\mathrm{pr}}/\alpha_2)+o(1)$ and $\mathcal V^1_i=\tfrac12\ln(\alpha_2^{-1}/(\alpha_1^{-1}+\Gamma_{\mathrm{pr}}^{-1}))+o(1)$, whose difference tends to $\tfrac12\ln((\alpha_1+\Gamma_{\mathrm{pr}})/\alpha_1)$. The numbers evaluate these formulas and, for $R_c=0.1$, \eqref{eq:mis-true-value} and \cref{prop:mis-believed-values}(a).
+\end{proof}
+% src: L1-X3
+
+\begin{proof}[Derivation of \cref{ex:mis-sender-completion}]
+Given $o_1=\eta_1+v_1$ with $\Var(v_1)=\Gamma_1^{-1}$, the sender's posterior mean is $m_j=(1,\psi)^\top\bar\Gamma_1o_1$ with $\bar\Gamma_1=\Gamma_1/(1+\Gamma_1)$, so $y_{ij}=\psi\bar\Gamma_1(\eta_1+v_1)+\nu$. Given $\eta_1$, $y_{ij}$ is independent of $(\eta_2,o_2)$, so $I(\eta;y_{ij}\mid o_2)=I(\eta_1;y_{ij}\mid o_2)$, and with $\Var(\eta_1\mid o_2)=1-\psi^2\Gamma_2/(1+\Gamma_2)$,
+\begin{equation*}
+\mathcal V^\ast_i=\tfrac12\ln\Bigl(1+\frac{\psi^2\bar\Gamma_1^2\Var(\eta_1\mid o_2)}{\psi^2\bar\Gamma_1^2\Gamma_1^{-1}+R_c}\Bigr).
+\end{equation*}
+Level 0 models $y_{ij}\sim\Ncal(\eta_2,R_c)$ given $\eta$, with $\Var(\eta_2\mid o_2)=(1+\Gamma_2)^{-1}$, so $\mathcal V^0_i=\tfrac12\ln(1+(1+\Gamma_2)^{-1}/R_c)$; level 1 adds the header $[P_j]_{22}=1-\psi^2\bar\Gamma_1$ to the noise. Letting $\Gamma_1,\Gamma_2\to\infty$ gives \eqref{eq:mis-completion}. For $H_j=I_2$ and $R_c=\sigma_c^2I_2$, the mutual informations are continuous functions of the joint covariance as long as the conditional covariance of the message given $\eta$ and the receiver's data stays nonsingular, which $\sigma_c^2>0$ ensures. In the limit the receiver knows $\eta_2$ and the message is $(\eta_1,\psi\eta_1)+\nu$, an observation of $\eta_1$ with precision $(1+\psi^2)/\sigma_c^2$ under the variance $1-\psi^2$; level 0 believes it observes $\eta$ with noise $\sigma_c^2I_2$ under posterior variances $1-\psi^2$ and $0$.
+\end{proof}
+% src: L1-X4
+
+\begin{proof}[Proof of \cref{prop:mis-mse-floor}]
+Unrolling \eqref{eq:mis-level0} gives $e(t)=\sum_{s\ge0}W^s(\zeta(t-1-s)-w_{t-1-s}\one)$, convergent in mean square because $\rho(W)<1$, with independent local and common parts (\cref{lem:fw-common-mode}). Hence $\E e_i^2\ge\E(e^{\mathrm{com}}_i)^2=Q\sum_{s\ge0}((W^s\one)_i)^2$. The row sums of $W$ are $\lambda_i=F(1-k^s_i)$, and their minimum is $\lambda_{\min}=F(1-k^s_{\max})$. Since $W\ge0$ and $W\one\ge\lambda_{\min}\one\ge0$ entrywise, induction gives $W^s\one\ge\lambda_{\min}^s\one$. The smallest row sum of a nonnegative matrix is at most its spectral radius, so $\lambda_{\min}\le\rho(W)<1$, and summing the geometric series gives $\E e_i^2\ge Q/(1-\lambda_{\min}^2)$, which is \eqref{eq:mis-floor}. If $C$ is closed under attention, the rows of $W$ indexed by $C$ vanish outside $C$, so $e_C(t+1)=W_{CC}e_C(t)+\zeta_C(t)-w_t\one$ is a closed recursion, stationary when $\rho(W_{CC})<1$; $W$ is block triangular for the split of $V$ into $C$ and its complement, so $\rho(W_{CC})\le\rho(W)$. The argument applies to $W_{CC}$, whose row sums are $F(1-k^s_i)$, $i\in C$. For pure listeners the bound is $Q/(1-F^2)=P_0$.
+\end{proof}
+% src: L3-P6
+
+\begin{proof}[Proof of \cref{lem:mis-disagreement}]
+Write $\lambda=F(1-k^s)$ for the common row sum of $W_{CC}=\lambda M$, let $J_\varpi=\one\varpi^\top$ and $\tilde e=(I-J_\varpi)e_C$. Reversibility gives $\varpi^\top M=\varpi^\top$, and $M\one=\one$, so $J_\varpi M=MJ_\varpi=J_\varpi$ and $(I-J_\varpi)M=(M-J_\varpi)(I-J_\varpi)$. With $(I-J_\varpi)\one=0$,
+\begin{equation*}
+\tilde e(t+1)=\lambda(M-J_\varpi)\tilde e(t)+(I-J_\varpi)\zeta_C(t),
+\end{equation*}
+in which $w_t$ no longer appears. In the inner product $\langle x,x'\rangle_\varpi=\sum_i\varpi_ix_ix'_i$ reversibility makes $M$ self-adjoint and $J_\varpi$ the orthogonal projection onto the constants, so $M-J_\varpi$ is self-adjoint, vanishes on the constants and agrees with $M$ on $\{x:\varpi^\top x=0\}$, which $M$ maps into itself; its norm is $\sigma_\ast$, and $\lVert I-J_\varpi\rVert_\varpi\le1$. Since $\lambda\sigma_\ast<1$, the stationary disagreement is $\sum_{s\ge0}\lambda^s(M-J_\varpi)^s(I-J_\varpi)\zeta_C(t-1-s)$, and independence across rounds gives
+\begin{equation*}
+\E\lVert\tilde e\rVert_\varpi^2\le\sum_{s\ge0}(\lambda\sigma_\ast)^{2s}\E\lVert\zeta_C\rVert_\varpi^2=\frac{\bar q_\varpi}{1-\lambda^2\sigma_\ast^2},
+\end{equation*}
+which is the bound with $\lambda^2=F^2(1-k^s)^2$.
+Finally $m_i-m_j=e_i-e_j=\tilde e_i-\tilde e_j$, and $(\tilde e_i-\tilde e_j)^2\le2\tilde e_i^2+2\tilde e_j^2\le(4/\varpi_{\min})\lVert\tilde e\rVert_\varpi^2$ because $\varpi_i\tilde e_i^2\le\lVert\tilde e\rVert_\varpi^2$.
+\end{proof}
+% src: L3-P7
+
+\begin{proof}[Proof of \cref{prop:mis-pure-listening}]
+(a) From $t_0$ on, $Y=m_C(t)$ is a linear function of $m_C(t_0)$ and of channel noises independent of $(\eta,m_C(t_0))$, so in a static world the data-processing inequality gives the claim. In a stationary scalar world write $\eta_t=F^{t-t_0}\eta_{t_0}+\bar w_t$, where $\bar w_t=\sum_{s=t_0}^{t-1}F^{t-1-s}w_s$ collects the innovations after $t_0$ and is independent of $(\eta_{t_0},m_C(t_0))$ and of the channel noises, hence of $Y$. All variables are jointly Gaussian, $\Cov(Y,\eta_t)=F^{t-t_0}\Cov(Y,\eta_{t_0})$ and $\Var(\eta_t)=\Var(\eta_{t_0})=P_0$, so the squared multiple correlations satisfy $\mathsf R^2(Y,\eta_t)=F^{2(t-t_0)}\mathsf R^2(Y,\eta_{t_0})$. For scalar $\eta$, $I(Y;\eta)=-\tfrac12\ln(1-\mathsf R^2(Y,\eta))$, and $x\mapsto-\ln(1-x)$ is convex on $[0,1)$ and vanishes at $0$, so $-\ln(1-F^{2(t-t_0)}x)\le-F^{2(t-t_0)}\ln(1-x)$ for $x\in[0,1)$. This gives $I(Y;\eta_t)\le F^{2(t-t_0)}I(Y;\eta_{t_0})$, and data processing gives $I(Y;\eta_{t_0})\le I(m_C(t_0);\eta_{t_0})$.
+
+(b) With $k^s=0$ and $F=1$, $e_C(t+1)=Me_C(t)+\zeta_C(t)-w_t\one$. Multiplying by $\varpi^\top$ and using $\varpi^\top M=\varpi^\top$, $\varpi^\top\one=1$ gives the random walk, whose independent increments have variance $\sum_i\varpi_i^2q_i+Q$. With $J_\varpi=\one\varpi^\top$, the disagreement satisfies $\tilde e(t+1)=(M-J_\varpi)\tilde e(t)+(I-J_\varpi)\zeta_C(t)$, as in the proof of \cref{lem:mis-disagreement}. Since $M$ and $J_\varpi$ commute and $J_\varpi$ projects onto $\operatorname{span}(\one)$ along $\{x:\varpi^\top x=0\}$, the spectrum of $M-J_\varpi$ is that of $M$ with the simple eigenvalue $1$ replaced by $0$, so $\rho(M-J_\varpi)<1$, $\lVert(M-J_\varpi)^s\rVert$ decays geometrically, and the second moments of $\tilde e(t)$ are bounded uniformly in $t$ for any initial law with finite second moments.
+
+(c) Each member's message gains are $k_{ij}(t)=R_c^{-1}/\hat\Lambda(t+1)=(1-c_t)/n_{\mathrm{in}}$, so $\zeta_i(t)=((1-c_t)/n_{\mathrm{in}})\sum_j\nu_{ij}(t)$ has variance $(1-c_t)^2R_c/n_{\mathrm{in}}$, and $1-c_t=(n_{\mathrm{in}}/R_c)/\hat\Lambda(t+1)$ is of order $1/t$. Since $M$ is doubly stochastic, $\one^\top W_{CC}(t)=\one^\top$, and $\bar e=n^{-1}\one^\top e_C$ satisfies $\bar e(t+1)=\bar e(t)+n^{-1}\one^\top\zeta_C(t)$. The increments are independent, of mean zero, independent of $\bar e(t_0)$ and of summable variance, so $\bar e(t)$ is Cauchy in mean square and converges to some $\bar e_\infty$ with $\Var(\bar e_\infty)\ge\Var(\bar e(t_0))=n^{-2}\one^\top\Cov(e_C(t_0))\one$. The matrices $W_{CC}(t)$ commute with $\one\one^\top$, so $\tilde e=(I-n^{-1}\one\one^\top)e_C$ satisfies $\tilde e(t+1)=W_{CC}(t)\tilde e(t)+(I-n^{-1}\one\one^\top)\zeta_C(t)$. On the invariant subspace $\one^\perp$ the normal matrix $M$ has eigenvalues $x\neq1$ with $\lvert x\rvert\le1$, hence $\operatorname{Re}x<1$, and
+\begin{equation*}
+\lvert c+(1-c)x\rvert^2=1-2c(1-c)(1-\operatorname{Re}x)-(1-c)^2(1-\lvert x\rvert^2)\le1-2c(1-c)\operatorname{gap}(M),
+\end{equation*}
+with $\operatorname{gap}(M)=\min_{x\neq1}(1-\operatorname{Re}x)>0$. As $W_{CC}(t)$ is normal, $\mathcal X_t=\E\lVert\tilde e(t)\rVert^2$ satisfies $\mathcal X_{t+1}\le(1-A_t)\mathcal X_t+B_t$ with $A_t=2c_t(1-c_t)\operatorname{gap}(M)\in[0,1]$ and $B_t=n(1-c_t)^2R_c/n_{\mathrm{in}}$; the cross term vanishes because $\zeta_C(t)$ is independent of $\tilde e(t)$. Since $c_t\to1$ and $1-c_t$ is of order $1/t$, $\sum_tA_t=\infty$ and $B_t/A_t\to0$. Given $\bar{\mathcal X}>0$, for $t$ beyond some $t_1$ we have $B_t\le\bar{\mathcal X}A_t$, hence $(\mathcal X_{t+1}-\bar{\mathcal X})^+\le(1-A_t)(\mathcal X_t-\bar{\mathcal X})^+$ and $(\mathcal X_t-\bar{\mathcal X})^+\le\exp(-\sum_{s=t_1}^{t-1}A_s)(\mathcal X_{t_1}-\bar{\mathcal X})^+\to0$. So $\limsup_t\mathcal X_t\le\bar{\mathcal X}$ for every $\bar{\mathcal X}>0$, $\mathcal X_t\to0$, and $e_i(t)=\bar e(t)+\tilde e_i(t)\to\bar e_\infty$ in mean square for every member. Finally $1/\hat\Lambda(t)=1/(\hat\Lambda(t_0)+(t-t_0)n_{\mathrm{in}}/R_c)$, so $\tfrac12\ln(P_0\hat\Lambda(t))=\tfrac12\ln t+O(1)$.
+\end{proof}
+% src: L3-T1
+
+\begin{proof}[Derivations for \cref{ex:mis-law-headers}]
+By symmetry every member has the same claimed predicted variance and reads $n-1$ messages, each with assigned noise $R_c+\hat P^-$, so the stationary claimed predicted variance $\hat P^-_n$ is a fixed point of $f_n(p)=F^2/g_n(p)+Q$, with $g_n(p)=1/p+1/R^s_i+(n-1)/(R_c+p)$ the claimed precision after an update. The map $f_n$ is increasing in $p$ and strictly decreasing in $n$, and its derivative $F^2(p^{-2}+(n-1)(R_c+p)^{-2})/g_n(p)^2$ is at most $F^2<1$, because $g_n(p)^2\ge(p^{-1}+(n-1)(R_c+p)^{-1})^2\ge p^{-2}+(n-1)(R_c+p)^{-2}$. Hence $p-f_n(p)$ is strictly increasing, negative at $p=Q$ and positive for large $p$, so $\hat P^-_n$ is unique. Since $\hat P^-_n-f_{n+1}(\hat P^-_n)>\hat P^-_n-f_n(\hat P^-_n)=0$ and $p-f_{n+1}(p)$ is strictly increasing, $\hat P^-_{n+1}<\hat P^-_n$. The claimed updated variance $\hat P^+_n=(\hat P^-_n-Q)/F^2$ and the sensing gain $k^s_n=\hat P^+_n/R^s_i$ decrease in $n$ as well. The gains form a nonnegative $W$ with row sums $F(1-k^s_n)<1$ (\cref{rem:fw-convex-gains}), so \cref{prop:mis-mse-floor} gives $\E e_i^2\ge Q/(1-F^2(1-k^s_n)^2)$, a bound that increases with $n$. The group is closed, its sensing gain is common and its weights are symmetric, so $W=F(1-k^s_n)M$ with $M$ symmetric and row-stochastic, hence reversible with respect to the uniform law, and \cref{lem:mis-disagreement} and \cref{thm:mis-echo-chambers} apply with $\alpha_{\mathcal A}$ equal to this bound. At $n=2$, $\hat P^-_2=0.0488$, $k^s_2=0.0392$ and the bound is $0.116$, above the isolated predicted error $0.1000$, which is $\mathcal A^{\mathrm{iso}}_C$ for every member. Because the bound increases with $n$, $\alpha_{\mathcal A}>\mathcal A^{\mathrm{iso}}_C$ for every $n\ge2$, and the group is a weak echo chamber. For the limit, $g_n(\hat P^-_n)\ge(n-1)/(R_c+\hat P^-_n)$ gives $\hat P^+_n\le(R_c+\hat P^-_n)/(n-1)$, and the fixed-point equation $\hat P^-_n=F^2\hat P^+_n+Q$ gives $Q\le\hat P^-_n\le(Q+F^2R_c/(n-1))/(1-F^2/(n-1))$ for every $n\ge2$. Hence $\hat P^-_n\to Q$, $k^s_n\le(R_c+\hat P^-_n)/((n-1)R^s_i)\to0$, the bound tends to $Q/(1-F^2)=P_0$, and the ratio of actual to claimed predicted variance has limit inferior at least $P_0/Q=1/(1-F^2)$.
+\end{proof}
+% src: L3-E3
+
+\begin{proof}[Proof of \cref{prop:mis-correlated-fusion}]
+The update is $m_i^+=m_i+\Kg(y-\hat Hm_i)$, so $e^+=e+\Kg\tilde y$ with the innovation $\tilde y=\tilde\nu-\hat He$, and expanding the covariance of $(I-\Kg\hat H)e+\Kg\tilde\nu$ gives \eqref{eq:mis-joseph}. (a) $\Cov(e,\tilde y)=X^\top-P\hat H^\top$ and $\Cov(\tilde y)=S^\ast$; completing the square, $\Cov(e+\Kg\tilde y)=(\Kg-\Kg^\ast)S^\ast(\Kg-\Kg^\ast)^\top+P-\Cov(e,\tilde y)(S^\ast)^{-1}\Cov(\tilde y,e)$, which is smallest in the Loewner order at $\Kg^\ast$. (b) For $\Kg_0$, $(I-\Kg_0\hat H)P\hat H^\top=\Kg_0(\hat HP\hat H^\top+R^{\mathrm a})-\Kg_0\hat HP\hat H^\top=\Kg_0R^{\mathrm a}$, so the first two terms of \eqref{eq:mis-joseph} sum to $(I-\Kg_0\hat H)P-\Kg_0R^{\mathrm a}\Kg_0^\top+\Kg_0R^{\mathrm a}\Kg_0^\top=(I-\Kg_0\hat H)P$, and the remaining two terms are the excess. For scalars it equals $2P\hat HR^{\mathrm a}X/(\hat H^2P+R^{\mathrm a})^2$, which has the sign of $\hat HX$, and $\Cov(\tilde\nu/\hat H,e)=X/\hat H$ has the same sign. (c) The echo is a function of $m_i$ and of noise independent of $(\eta,m_i)$, so $I(\eta;y\mid m_i)=0$, while level 0 computes the information of an observation of $\eta$ with code $\hat H\neq0$ and noise $\hat R$ under the prior covariance $P$.
+\end{proof}
+% src: L3-P5

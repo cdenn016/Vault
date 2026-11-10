@@ -1,0 +1,71 @@
+% Figure: (a) canonical partition with channel-level roles on a chain; (b) a two-hop shell on the square lattice.
+\begin{tikzpicture}[>={Stealth[length=1.6mm]}, every node/.style={font=\small},
+    roleI/.style={fill=blue!22, draw=blue!55!black},
+    roleS/.style={fill=orange!45, draw=orange!70!black},
+    roleA/.style={fill=red!35, draw=red!65!black},
+    roleE/.style={fill=gray!25, draw=gray!60},
+    chan/.style={rectangle, minimum size=2.6mm, inner sep=0pt},
+    outp/.style={regular polygon, regular polygon sides=3, minimum size=4.2mm, inner sep=0pt},
+    intl/.style={circle, minimum size=6mm, inner sep=0pt}]
+  % panel (a): chain of five agents, collective {2,3,4}
+  \node[font=\small\bfseries] at (-0.9,1.55) {(a)};
+  % world bar
+  \node[draw=gray!60, fill=blue!5, rounded corners=3pt, minimum width=8.6cm, minimum height=0.5cm, font=\footnotesize] (world) at (3.6,-1.45) {shared world $\eta$};
+  % roles: L = left input, R = right input, O = output message, M = internal, W = world sensor
+  \foreach \p/\x/\L/\R/\O/\M/\W in {
+      1/0.0/roleE/roleE/roleE/roleE/roleE,
+      2/1.8/roleS/roleI/roleA/roleI/roleS,
+      3/3.6/roleI/roleI/roleI/roleI/roleS,
+      4/5.4/roleI/roleS/roleA/roleI/roleS,
+      5/7.2/roleE/roleE/roleE/roleE/roleE} {
+    \node[intl, \M] (M\p) at (\x,0) {$\mu_{\p}$};
+    \node[chan, \L] (L\p) at (\x-0.5,0) {};
+    \node[chan, \R] (R\p) at (\x+0.5,0) {};
+    \node[outp, \O] (O\p) at (\x,0.78) {};
+    \node[chan, \W] (W\p) at (\x,-0.62) {};
+    \draw[gray!70!black] (L\p) -- (M\p);
+    \draw[gray!70!black] (R\p) -- (M\p);
+    \draw[gray!70!black] (W\p) -- (M\p);
+    \draw[gray!70!black] (M\p) -- (O\p);
+    \draw[->, gray!65] (world.north -| W\p) -- (W\p);
+  }
+  % messages: each output is read by both neighbors
+  \foreach \p/\q in {1/2, 2/3, 3/4, 4/5} {
+    \draw[->, blue!55!black, thin] (O\p.east) to[bend left=18] (L\q.north);
+    \draw[->, blue!55!black, thin] (O\q.west) to[bend right=18] (R\p.north);
+  }
+  % collective boundary
+  \draw[dashed, thick, black!70, rounded corners=8pt] (1.05,-1.0) rectangle (6.15,1.2);
+  \node[anchor=south, font=\footnotesize] at (3.6,1.2) {collective $C=\{2,3,4\}$};
+  % legend
+  \begin{scope}[shift={(0.1,-2.35)}]
+    \node[chan, roleI] (l1) at (0,0) {}; \node[right=2pt of l1, font=\footnotesize] {$\sI$ internal};
+    \node[chan, roleS] (l2) at (2.0,0) {}; \node[right=2pt of l2, font=\footnotesize] {$\sS$ sensory};
+    \node[chan, roleA] (l3) at (4.0,0) {}; \node[right=2pt of l3, font=\footnotesize] {$\sA$ active};
+    \node[chan, roleE] (l4) at (5.9,0) {}; \node[right=2pt of l4, font=\footnotesize] {$\sE$ exterior};
+  \end{scope}
+  % panel (b): square lattice, interior block and a two-hop shell (Manhattan distance)
+  \begin{scope}[shift={(9.6,-1.75)}]
+    \node[font=\small\bfseries] at (-0.35,3.3) {(b)};
+    \foreach \x in {0,...,10} \draw[gray!30] (\x*0.33,0) -- (\x*0.33,8*0.33);
+    \foreach \y in {0,...,8} \draw[gray!30] (0,\y*0.33) -- (10*0.33,\y*0.33);
+    \foreach \x in {0,...,10} {
+      \foreach \y in {0,...,8} {
+        % interior block: x in 4..6, y in 3..5; Manhattan distance to the block
+        \pgfmathsetmacro{\dx}{max(0, max(4-\x, \x-6))}
+        \pgfmathsetmacro{\dy}{max(0, max(3-\y, \y-5))}
+        \pgfmathtruncatemacro{\dd}{\dx+\dy}
+        \ifnum\dd=0
+          \node[circle, inner sep=0pt, minimum size=2.4mm, roleI] at (\x*0.33,\y*0.33) {};
+        \else\ifnum\dd<3
+          \node[circle, inner sep=0pt, minimum size=2.4mm, fill=violet!35, draw=violet!70!black] at (\x*0.33,\y*0.33) {};
+        \else
+          \node[circle, inner sep=0pt, minimum size=2.0mm, roleE] at (\x*0.33,\y*0.33) {};
+        \fi\fi
+      }
+    }
+    \node[circle, inner sep=0pt, minimum size=2.4mm, roleI] (k1) at (0.1,-0.6) {}; \node[right=2pt of k1, font=\footnotesize] {$\sI$};
+    \node[circle, inner sep=0pt, minimum size=2.4mm, fill=violet!35, draw=violet!70!black] (k2) at (0.9,-0.6) {}; \node[right=2pt of k2, font=\footnotesize] {shell $\sB$};
+    \node[circle, inner sep=0pt, minimum size=2.0mm, roleE] (k3) at (2.6,-0.6) {}; \node[right=2pt of k3, font=\footnotesize] {$\sE$};
+  \end{scope}
+\end{tikzpicture}

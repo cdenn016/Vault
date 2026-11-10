@@ -1,0 +1,36 @@
+% Figure: communication passes through external states (direct message, record, performative act).
+\begin{tikzpicture}[>={Stealth[length=2mm]}, every node/.style={font=\small},
+    blank/.style={circle, draw, inner sep=0pt, minimum size=6.6mm},
+    msg/.style={->, thick, blue!65!black},
+    rec/.style={->, thick, green!45!black},
+    perf/.style={->, thick, red!65!black},
+    sens/.style={->, gray!70, dashed}]
+  % external states
+  \fill[rounded corners=6pt, top color=gray!8, bottom color=gray!22] (-0.4,-0.05) rectangle (14.9,2.5);
+  \node[draw=gray!60, fill=blue!5, rounded corners=4pt, minimum width=12.8cm, minimum height=0.75cm] (eta) at (7,0.5) {world $\eta_t$};
+  \node[draw, fill=white, rounded corners=2pt, minimum width=1.5cm, minimum height=0.55cm, font=\footnotesize] (chan) at (4.4,1.72) {channel};
+  \node[draw, cylinder, shape border rotate=90, aspect=0.22, minimum width=1.45cm, minimum height=0.75cm, fill=green!8, font=\footnotesize] (rec) at (9.6,1.72) {record $z_k$};
+  \node[below=0pt of chan, font=\scriptsize\itshape, inner sep=1pt] {holds one round};
+  \node[below=0pt of rec, font=\scriptsize\itshape, inner sep=1pt] {persists};
+  \node[font=\small\itshape] at (7.25,-0.42) {external states};
+  % agents
+  \foreach \nm/\x in {i/2.2, j/7.0, k/11.8} {
+    \node[draw, rounded corners=8pt, minimum width=3.0cm, minimum height=1.95cm, fill=white] (A\nm) at (\x,4.55) {};
+    \node[above=1pt of A\nm.north] {agent $\nm$};
+    \node[blank, fill=blue!12, minimum size=8mm] (mu\nm) at (\x,4.95) {$\mu_\nm$};
+    \node[blank, fill=orange!25] (s\nm) at ($(\x,3.6)+(-0.8,0)$) {$s_\nm$};
+    \node[blank, fill=red!15] (a\nm) at ($(\x,3.6)+(0.8,0)$) {$a_\nm$};
+    \draw[->, gray!80!black] (s\nm) -- (mu\nm);
+    \draw[->, gray!80!black] (mu\nm) -- (a\nm);
+    \draw[sens] (eta.north -| s\nm) -- (s\nm);
+  }
+  \node[left=1pt, font=\footnotesize, gray!80!black] at ($(eta.north -| si)!0.3!(si)$) {sensing};
+  % direct message
+  \draw[msg] (ai) -- node[pos=0.45, left=2pt, font=\footnotesize] {speech act} (chan);
+  \draw[msg] (chan) -- node[pos=0.55, right=2pt, font=\footnotesize] {$y_{ji}$} (sj);
+  % stigmergic record
+  \draw[rec] (aj) -- node[pos=0.45, left=2pt, font=\footnotesize] {writes} (rec);
+  \draw[rec] (rec) -- node[pos=0.55, right=2pt, font=\footnotesize] {read later} (sk);
+  % performative act
+  \draw[perf] (ak) -- node[pos=0.5, right=2pt, font=\footnotesize, align=left] {performative\\act} (eta.north -| ak);
+\end{tikzpicture}

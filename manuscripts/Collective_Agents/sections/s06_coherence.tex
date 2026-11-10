@@ -1,0 +1,238 @@
+\section{Additional results for \texorpdfstring{Section~\ref{sec:coh}}{Section 6}: coherence}\label{sup:coh}
+
+This section collects statements, examples and remarks of \cref{sec:coh} that the main text cites without stating in full. Proofs are in \cref{app:coh}.
+
+\subsection{Fidelity}\label{sec:coh-fidelity}
+
+Fidelity decides how far content can travel before nothing of it remains. Its loss along a path is governed by strong data processing, whose coefficient has a closed form for Gaussian channels. We write $\sigma_1(M)\ge\sigma_2(M)\ge\cdots$ for the singular values of a matrix $M$.
+
+\begin{proposition}[Gaussian strong data processing]\label{prop:coh-sdpi}
+Let $X$ be a centered Gaussian vector with nonsingular covariance, and let the channel $\mathsf K$ be $Y=BX+n_{\mathsf K}$ with $n_{\mathsf K}\sim\Ncal(0,R_{\mathsf K})$ independent of $X$ and $R_{\mathsf K}\succ0$. Put $M_{XY}=\Cov(Y)^{-1/2}B\Cov(X)^{1/2}$, whose singular values are the canonical correlations of $(X,Y)$. Then
+\begin{equation}\label{eq:coh-sdpi}
+s_{\mathrm{KL}}(P_X,\mathsf K):=\sup_{0<\KL(Q_X\Vert P_X)<\infty}\frac{\KL(Q_X\mathsf K\Vert P_X\mathsf K)}{\KL(Q_X\Vert P_X)}=\sigma_1(M_{XY})^2,
+\end{equation}
+attained by mean shifts along the top canonical direction. Consequently $I(U;Y)\le\sigma_1(M_{XY})^2I(U;X)$ whenever $U$, $X$, $Y$ form a Markov chain, and the constant is best possible.
+\end{proposition}
+% src: L3-P2; literature per B6-F4 (Bakry-Gentil-Ledoux Theorem 5.2.1 read in the restatement of Ledoux-Nourdin-Peccati)
+
+For a Gaussian source and an additive Gaussian channel the coefficient is known in substance (\cref{sec:rel-sdpi}), while for non-Gaussian pairs the mutual-information constant can exceed the squared maximal correlation \citep{anantharam2013maximal}, which we read in abstract. Our proof uses only the decay of relative entropy along the Ornstein--Uhlenbeck semigroup, and it composes along relays.
+
+\begin{proposition}[Relay paths]\label{prop:coh-relay}
+Let $X_0,X_1,\dots,X_L$ be a Markov chain of centered, jointly Gaussian vectors with nonsingular covariances and nonsingular conditional covariances $\Cov(X_k\mid X_{k-1})$, and let $M_k=\Cov(X_k)^{-1/2}\Cov(X_k,X_{k-1})\Cov(X_{k-1})^{-1/2}$.
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item $\Cov(X_L)^{-1/2}\Cov(X_L,X_0)\Cov(X_0)^{-1/2}=M_LM_{L-1}\cdots M_1$, so the top canonical correlation of $(X_0,X_L)$ is at most $\prod_k\sigma_1(M_k)$.
+\item The channel from $X_0$ to $X_L$ has $s_{\mathrm{KL}}=\sigma_1(M_L\cdots M_1)^2\le\prod_k\sigma_1(M_k)^2$, and $I(U;X_L)\le\bigl(\prod_k\sigma_1(M_k)^2\bigr)I(U;X_0)$ whenever $U$, $X_0,\dots,X_L$ form a Markov chain.
+\item For scalar chains the correlation of $X_0$ and $X_L$ is the product of the correlations of consecutive variables, and
+\[ I(X_0;X_L)=-\tfrac12\ln\bigl(1-\Corr(X_0,X_L)^2\bigr). \]
+\end{enumerate}
+\end{proposition}
+% src: L3-P3
+
+Equality in (a) holds when the top left singular vector of each $M_k$ is a top right singular vector of $M_{k+1}$. Proofs in \cref{app:coh-fidelity}; checks in \cref{chk:coh-sdpi,chk:coh-relay}. The coefficient of a hop depends on the law of what enters it, so the rate along a path is set by what relays send: about a static world, relays that do not sense lose information doubly exponentially, exponentially or only algebraically as they forward posterior means, content scaled to unit variance or unbiased estimates, and in a persistent world the per-hop factor of pure relays with gain $g$ is $\psi=F^2g/(1-F^2(1-g))\le F^2$, which tends to one as $F\to1$, so pure relays become massless only in that limit (\cref{app:coh-fidelity}).
+% src: L3-E1, L3-E2
+
+In a network the same contraction acts hop by hop, and with the light cone and the clustering bound (\cref{thm:sca-lightcone,thm:sca-clustering}) it bounds what an agent holds about anything injected elsewhere.
+
+\begin{proposition}[Information decays at twice the mass]\label{prop:coh-info-decay}
+Let scalar agents in a linear-Gaussian world run a level-0 network with exact code models.
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item Let the connected part of their errors obey
+\[ e(t+1)=W(t)e(t)+\zeta(t),\qquad\lambda=\sup_t\max_i\sum_j|W_{ij}(t)|<1, \]
+under \textup{(Lin)}, \textup{(G)} and \textup{(Loc)} (\cref{asm:sca-standing}), each $\zeta_i(t)$ containing a component of variance at least $q_{\min}>0$ independent of everything else. Let a scalar $U$ of finite variance, independent of the world, the initial errors and the other noise components jointly, enter only through agent $j$ at rounds $t'\le s$, as $\zeta_j(t')=g_j(t')U+\zeta'_j(t')$ with $|g_j(t')|\le\bar g$. Then for $t>s$ and $Z$ the connected error $e_i(t)$ or the mean $m_i(t)$,
+\[ I(U;Z)\le\frac{\bar g^2\Var(U)}{2q_{\min}(1-\lambda)^2}\lambda^{2\max\{d(i,j),t-1-s\}}. \]
+\item On the infinite ring with $W_{ii}=c\ge0$, $W_{ij}=a>0$ for neighbors and $\lambda=c+2a=1-\varepsilon<1$, local noise of variance $q$ and a stationary scalar world, the information $I$ that $m_i(t)$ carries about the whole sequence of local noises injected at $j$ satisfies
+\[ \lim_{d(i,j)\to\infty}\frac{-\ln I}{d(i,j)}=2m,\qquad\cosh m=1+\frac{\varepsilon}{2a}. \]
+\end{enumerate}
+\end{proposition}
+% src: L3-P4, L4-P17, critic C9 (information length xi/2); ring rate proved here
+
+Information is quadratic in influence: a source entering at $j$ moves $m_i$ through an entry of the resolvent of $W$, which decays at the mass, so the information length is $\xi/2$ in the Ornstein--Zernike form of \cref{thm:sca-oz}. On the ring the proof bounds the prefactor between a multiple of $1/d(i,j)$ and a constant; a saddle-point estimate suggests $d(i,j)^{-1/2}$, which improves the fit of the check but is not proved. Proof in \cref{app:coh-fidelity}; checked in \cref{chk:coh-info-decay}.
+
+\subsection{Withdrawal across complementary access}\label{sup:coh-withdrawal-across-complementary-access}
+
+The example below complements \cref{thm:coh-withdrawal}, in the notation of \cref{def:coh-calibration-model}.
+
+\begin{example}[Unique information keeps an inconsistent edge]\label{ex:coh-unique-information}
+Let group $A$ sense only $\eta_1$ and group $B$ both coordinates, with $\sigma_\eta^2=1$, $R_c=0.1$, sensing noise $R^s=1$ in $A$ and $R^s=0.5$ in $B$, $\kappa=1$ and $\mathsf{C1g}$ calibration per coordinate. A receiver in $A$ keeps attending a cross-group sender with mistranslation $\mathrm{Rot}(0.3)$, $\mathrm{Rot}(1.0)$ or $\mathrm{Rot}(\pi/2)$: the believed values of the cross edge are $0.640$, $0.370$ and $0.241$, against $0.153$ for the in-group sender (\cref{chk:coh-withdrawal}). The inconsistency sits on an attended edge, so withdrawal can fail when a cut separates complementary access to the world.
+\end{example}
+% src: L3-E8
+
+\subsection{Flatness, coded consistency and frustration}\label{sup:coh-flatness-coded-consistency-and-frustrati}
+
+The consensus space $\mathrm{Cons}(\Theta)$ and the holonomies are those of \cref{def:coh-components,thm:coh-holonomy}, and the frustration $\mathfrak F$, its operator $\mathcal L$, the precisions $\varpi_{ij}$ and the metrics $M_i$ are those of \cref{prop:coh-frustration}.
+
+\begin{proposition}[True translations are flat]\label{prop:coh-flat-true}
+Let every agent encode one world through an invertible encoding, linear ($\mu_i=U_im_i$) or general ($\mathcal E_i$). The true translations $U_iU_j^{-1}$, in general $\mathcal E_i\circ\mathcal E_j^{-1}$, have identity holonomy around every closed walk. On a weakly connected attention graph their consensus space is $\{(U_ix)_{i\in V}:x\in\R^K\}$, of dimension $K$, and the least eigenvalue of their frustration form (\cref{prop:coh-frustration}) is zero. Hence positive least frustration of the translations agents use arises only from learned translations that differ from the true ones, from generative models that are not invertible encodings of the true world, or from agents whose internal spaces do not encode one common space.
+\end{proposition}
+% src: L7-P8, L6-P7(c)
+
+Consensus about $\eta$ is thus always possible in principle, and the consistency component of H3 measures the error of learned translations, which grounded learning removes on attended edges (\cref{prop:frm-flattening}). Much of that error is also invisible: in the tangent learning model of \citet{dennis2026magent} with an isotropic anchor, no loop prior and grounded messages on every edge, private encodings near a common frame leave first-order learned holonomy only on cycles whose edges carry codes with different kernels, such as cycles read through different modalities, and to first order in the frame error none of it is detectable from messages (\cref{app:coh-consistency}). Between two language communities, sets of agents that share one encoding, the true translations are one fixed map per direction on all bridges, so the wall between them is flat in the sense of \citet{dennis2026magent}. Proof in \cref{app:coh-consistency}.
+% src: L7-P9, L7-P10, L7-G7, L7-G10, L1-P27
+
+\begin{openproblem}[Frustration for general translations]\label{open:coh-frustration-metric}
+For translations in $\GL(K)$ no continuous conjugation-invariant function of the holonomy vanishes only at the identity, since the identity is a limit of conjugates of every unipotent matrix \citep{dennis2026magent}. Find frustration bounds under a declared metric, for example one built from the receivers' covariances, and the correlation functions of transported averaging under frustration beyond the bottom of the spectrum.
+\end{openproblem}
+% src: L3-O2, L3-O5
+
+With rank-limited codes only what is talked about must agree, and the holonomy criterion gives way to a sheaf-theoretic one.
+
+\begin{proposition}[Coded consistency]\label{prop:coh-coded}
+Let a public code $T_c$ of rank $r_c$ be shared, and let receiver $i$ compare the message $T_c\mu_j$ with its prediction $T_c\Theta_{ij}^{-1}\mu_i$. Coded consensus is the space $H^0(\mathfrak S)=\ker\delta_{\mathfrak S}$ of global sections of the cellular sheaf $\mathfrak S$ on $\mathcal G_{\mathrm a}$ with vertex stalks $\R^K$, edge stalks $\R^{r_c}$, restriction maps $T_c\Theta_{ij}^{-1}$ on the receiver's side and $T_c$ on the sender's side, and coboundary $(\delta_{\mathfrak S}\mu)_{j\to i}=T_c\Theta_{ij}^{-1}\mu_i-T_c\mu_j$.
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item $\dim H^0(\mathfrak S)\ge NK-|\mathcal E_{\mathrm a}|r_c$.
+\item The holonomy criterion does not characterize coded consensus: on the directed three-cycle with $K=2$, $T_c=(1\ 0)$ and translations that rotate by $0.3$, $0.5$ and $\pi/2-0.8$, whose holonomy is a quarter turn, $\mathrm{Cons}(\Theta)=0$ while $\dim H^0(\mathfrak S)=3$.
+\end{enumerate}
+\end{proposition}
+% src: L3-D6, L3-P12, L3-E5, L6-O3
+
+The coded frustration $\Vert\delta_{\mathfrak S}\mu\Vert^2$ replaces $\mathfrak F$, and narrow codes impose fewer consistency constraints, so low fidelity buys tolerance of diverse frames. This is the discourse sheaf of \citet{hansen2021opinion}, with spectral theory in \citet{hansen2019toward}; we read their abstracts. Which over-constrained subgraphs raise $\dim H^0(\mathfrak S)$ above $\max\{NK-|\mathcal E_{\mathrm a}|r_c,0\}$ is open; in 200 random coded instances it exceeded that value in 4 (\cref{chk:coh-frustration}). Proof in \cref{app:coh-consistency}.
+
+Frustration also supplies a mass to agents that average transported content without sensing, a role that grounding plays otherwise.
+
+\begin{proposition}[Frustration acts like grounding]\label{prop:coh-frustration-grounding}
+Let the translations be orthogonal, the precisions equal to one and $M_i=I$, let $\Delta_{\mathrm a}$ be the maximal degree of $\mathcal G_{\mathrm a}$, in- and out-edges counted, and consider transported averaging $\mu(t+1)=(1-\varepsilon)(I-\alpha\mathcal L)\mu(t)+\zeta(t)$ with leak $\varepsilon\in[0,1)$ and step $0<\alpha\le1/(2\Delta_{\mathrm a})$. Then $\Vert(1-\varepsilon)(I-\alpha\mathcal L)\Vert_2=(1-\varepsilon)(1-\alpha\lambda_{\min}(\mathcal L))$, so every configuration contracts at least at the effective leak $\varepsilon_{\mathrm{cal}}=\varepsilon+(1-\varepsilon)\alpha\lambda_{\min}(\mathcal L)$. On a cycle whose holonomy has smallest eigen-angle $\phi$ the gain $\alpha\lambda_{\min}(\mathcal L)$ is $4\alpha\sin^2(\phi/(2N))$, a finite-size effect.
+\end{proposition}
+% src: L3-P13; torus computation L3-E6
+
+Pure listeners ($\varepsilon=0$) in a frustrated network therefore still have a mass; reading it as a correlation length $\xi\approx\sqrt{a/\varepsilon_{\mathrm{cal}}}$ is a heuristic for the slowest mode only. Uniform frustration acts like a magnetic field: on a $24\times24$ torus with $\mathrm{SO}(2)$ translations of uniform flux per plaquette, with each lattice edge attended in one direction, the least eigenvalue of $\mathcal L$ equals the flux per plaquette to within $1.1$ percent, and the lowest level has complex multiplicity equal to the number of flux quanta, twice that as a real eigenspace of $\mathcal L$ (\cref{chk:coh-frustration}). Proof in \cref{app:coh-consistency}.
+
+\begin{proposition}[Attended frustration]\label{prop:coh-attended-frustration}
+Let frames and translations be orthogonal, and let only edges with $\Vert\Upsilon_e-I\Vert\le\delta_{\mathrm{att}}$ in the spectral norm be attended. Every attended closed walk $\mathfrak c$ has $\Vert\Hol(\mathfrak c)-I\Vert\le|\mathfrak c|\delta_{\mathrm{att}}$, and every attended cycle graph, with unit precisions and $M_i=I$, has $\lambda_{\min}(\mathcal L)\le(\pi\delta_{\mathrm{att}}/2)^2$, whatever its length.
+\end{proposition}
+% src: L3-P17; converse from L3-E9 with its heuristic step marked
+
+The converse fails silently: a ring whose edges carry $\mathrm{Rot}(\phi_{\mathrm e})$ with $2\sin(\phi_{\mathrm e}/2)\le\delta_{\mathrm{att}}$ keeps every edge attended while its holonomy, a rotation by $N\phi_{\mathrm e}$, can be large. With grounding we expect such holonomy to be invisible to every member once the cycle is much longer than $\xi$, because information decays at twice the mass (\cref{prop:coh-info-decay}); this is a heuristic. Proof in \cref{app:coh-consistency}.
+
+\subsection{Excluding and exhibiting amplification}\label{sup:coh-excluding-and-exhibiting-amplification}
+
+The notation is that of \cref{def:coh-cycle-product,thm:coh-amplification}.
+
+\begin{proposition}[What excludes amplification]\label{prop:coh-no-amplification}
+Each of the following forces $\rho(A_{\mathfrak c})\le1$, with strict inequality where stated.
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item A common prior covariance, $P_j=P$ for all $j$: then $\mathfrak r_e=\mathrm{snr}_e/(1+\mathrm{snr}_e)\le1$, with strict inequality for the cycle if every $\hat R_i\succ0$.
+\item A small spread of priors: with $\operatorname{sp}(P\Vert P')=\ln\lambda_{\max}(P'^{-1}P)$, it suffices that $\sum_{(i\to j)\in\mathfrak c}\operatorname{sp}(P_i\Vert P_j)\le2\sum_{e\in\mathfrak c}\ln(1+\mathrm{snr}_e^{-1})$. With the Thompson distance $\operatorname{dist}_{\mathrm T}(P,P')=\max\{\operatorname{sp}(P\Vert P'),\operatorname{sp}(P'\Vert P)\}$, priors within $\delta_{\mathrm T}$ of a common $P$ satisfy this when $\delta_{\mathrm T}\le N^{-1}\sum_e\ln(1+\mathrm{snr}_e^{-1})$.
+\item Assigned noise covering the sender's coded uncertainty, $\hat R_i\succeq X_{ii}$ for every sender: then $\mathfrak r_e<1$ on every edge and $\rho(A_{\mathfrak c})<1$ for any priors and codes. Level-1 receivers satisfy this when the posted covariance is the sender's prior.
+\item A common code read with common noise, $H_i=H$ and $\hat R_i=\hat R\succ0$: then $\rho(A_{\mathfrak c})\le\prod_j\Vert Y_j(I+Y_j)^{-1}\Vert<1$ with $Y_j=\hat R^{-1/2}HP_jH^\top\hat R^{-1/2}$, for any priors; likewise for a common code of rank one read with sender-specific positive scalar noises.
+\end{enumerate}
+\end{proposition}
+% src: B5-P13, B5-P14, L1-P29(b), L4-P19(b)
+
+Only the spread from sender to receiver enters (b), and the noise terms are what make a positive spread admissible; for noiseless codes no spread condition suffices (\cref{ex:coh-amplification}(ii)). A common code of rank at least two read with sender-specific noise covariances can amplify without bound: with common code $I_2$, the priors of \cref{ex:coh-amplification}(i) at $\alpha_a=\alpha_b=\alpha$, and assigned noise covariances $\diag(r,M)$ for sender $b$ and $\diag(M,r)$ for sender $a$, the spectral radius tends as $M\to\infty$ to the value $\alpha^2x/(1+r)^2$ of the coordinate codes of the example, which is unbounded in $x$; at $\alpha=0.9$, $x=4$ and $r=0.1$ it is $1.36$, $2.36$ and $2.64$ at $M=1$, $10$ and $100$ (\cref{chk:coh-amplification}). A large assigned noise on one coordinate turns the common code into an effective coordinate code. For codes of rank one the cycle eigenvalue is a product of cosines in the receivers' prior metrics, noise factors at most one, and the prior-mismatch factor $\prod_i\Vert\bm h_i\Vert_{P_i}/\Vert\bm h_i\Vert_{P_{i^+}}$, where $\bm h_i^\top$ is sender $i$'s code and $i^+$ its receiver (\cref{lem:coh-rank-one}): amplification needs some sender to believe its coded content more variable than its receiver does.
+
+\begin{example}[Amplifying cycles]\label{ex:coh-amplification}
+(i) Two receivers with priors $P_a=\begin{pmatrix}1&\alpha_a\sqrt x\\\alpha_a\sqrt x&x\end{pmatrix}$ and $P_b=\begin{pmatrix}x&\alpha_b\sqrt x\\\alpha_b\sqrt x&1\end{pmatrix}$ exchange messages, $b$ sending the first coordinate to $a$ and $a$ the second to $b$, with channel noise $R_c$. Each believes the coordinate it does not hear to be highly variable and correlated with the one it hears, and the cycle eigenvalue is $\alpha_a\alpha_bx/(1+R_c)^2$, which is $2.68$ at $\alpha_a=\alpha_b=0.9$, $x=4$, $R_c=0.1$. Among 3000 random three-cycles in two dimensions with noiseless codes of rank one the largest spectral radius was $2.60$ with heterogeneous priors and at most $0.9987$ with a common prior.
+(ii) Noiseless cycles amplify at arbitrarily small spread. For $0<u<\frac12$ let $P=\begin{pmatrix}1&1-u\\1-u&1\end{pmatrix}$, $P_a=D_aPD_a$, $P_b=D_bPD_b$ with $D_a=\diag(1,1+2u)$, $D_b=\diag(1+2u,1)$, and let $a$ send the second coordinate to $b$ and $b$ the first to $a$, noiselessly. Then $\rho(A_{\mathfrak c})=(1-u)^2(1+2u)^2>1$, while
+\[ \operatorname{dist}_{\mathrm T}(P_a,P)=\operatorname{dist}_{\mathrm T}(P_b,P)=\ln(1+2u)+\arccosh\Bigl(1+\frac{2u}{(2-u)(1+2u)}\Bigr)=\sqrt{2u}\bigl(1+O(\sqrt u)\bigr); \]
+at $u=0.002$ the spectral radius is $1.003988$ at Thompson distance $0.0671$. Computations in \cref{app:coh-amplification}; checked in \cref{chk:coh-amplification}.
+\end{example}
+% src: L4-P19(c), L1-X6, B5-X1
+
+Heterogeneous prior structure is not itself an error: it arises from heterogeneous information, and amplification survives when every prior is exactly right.
+
+\begin{observation}[Amplification without misspecified priors]\label{obs:coh-amplification-information}
+When every prior is the exact posterior of one common prior given private linear-Gaussian data, level-0 cycles with codes of rank one still amplify: over 20000 random draws the largest spectral radius was $6.26$ for noiseless codes and $5.48$ with channel noise $0.05$ (\cref{chk:coh-amplification}).
+\end{observation}
+% src: B5-X2
+
+\begin{remark}[Where amplification sits]\label{rem:coh-amplification-class}
+Amplification acts on a product of gain-code maps, which are neither translations nor invertible, and it occurs at identity encodings with correct codes, where translations are flat (\cref{prop:coh-flat-true}); it is therefore not inconsistency. It occurs in a single circulation with independent errors and concerns the size of the transferred content, not the precision assigned to it, so it is not double counting (\cref{prop:mis-overvaluation-scope}). We classify it under calibration: it needs an edge on which the sender's coded prior variance exceeds the receiver's predictive variance of the message (\cref{thm:coh-amplification}), and assigned noise covering the sender's coded uncertainty excludes it (\cref{prop:coh-no-amplification}(c)). Since it survives exact priors (\cref{obs:coh-amplification-information}), the remedy is calibrated reading of senders' uncertainty, as at level 1, not common priors.
+\end{remark}
+% src: B5-R2, critic C4, decision 9
+
+\begin{openproblem}[Amplification beyond noiseless circulation]\label{open:coh-amplification-noisy}
+Characterize amplification for noisy circulation, where $A_{1N}$ in the round-trip map is not idempotent, and for dynamic cycles in which senders post posterior rather than prior covariances. For a common code of rank at least two read with sender-specific noise covariances, amplification occurs and is unbounded (the instance following \cref{prop:coh-no-amplification}); what remains open there is a condition on the assigned noise covariances, weaker than the common noise of \cref{prop:coh-no-amplification}(d), that excludes it.
+\end{openproblem}
+% src: B5-O6
+
+\subsection{Adoption rule and conjectures on code domains}\label{sup:coh-adoption-rule-and-conjectures-on-code-do}
+
+The code game is that of \cref{def:coh-code-game}, its pairwise form and the potential $\Phi_{\mathrm{code}}$ are those of \cref{prop:coh-code-potential}(a), and the stochastically stable configuration is that of \cref{thm:coh-domains-1d}(a).
+
+\begin{proposition}[Adoption rule]\label{prop:coh-adoption}
+In the code game with uniform habits, agent $i$'s policy posterior is $q_i(\sigma)\propto\exp(-\gamma G_i(\sigma))$, so that, with $u^+_i$ partners using $+1$,
+\[ q_i(+1)=\operatorname{sig}\bigl(\gamma[\mathcal F_i(u^+_i)-\mathcal F_i(\mathsf d_i-u^+_i)]+2\gamma h_i\bigr),\qquad\operatorname{sig}(z)=\frac{1}{1+e^{-z}}. \]
+As a function of the local frequency $x=u^+_i/\mathsf d_i$:
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item the adoption curve is nondecreasing and symmetric, $q_i(+1\mid x,h_i)=1-q_i(+1\mid1-x,-h_i)$;
+\item for a value affine in $u$ with slope $J$, $q_i(+1)=\operatorname{sig}(\gamma J\mathsf d_i(2x-1)+2\gamma h_i)$, with slope $\gamma J\mathsf d_i/2$ at $x=\frac12$; with $h_i=0$ the curve lies above the diagonal immediately to the majority side of $\frac12$ if and only if $\gamma J\mathsf d_i>2$, and then the map $x\mapsto q_i(+1\mid x)$ has stable fixed points $x_\pm=1-x_\mp$, an unstable one at $\frac12$, and $x_-=e^{-\gamma J\mathsf d_i}(1+o(1))$ as $\gamma J\mathsf d_i\to\infty$;
+\item at finite $\gamma$ the curve has an innovation floor, $q_i(+1\mid x=0)=\operatorname{sig}(-\gamma[\mathcal F_i(\mathsf d_i)-\mathcal F_i(0)]+2\gamma h_i)>0$, which acts as a leak, and as $\gamma\to\infty$ it tends to the deterministic best response wherever $G_i(+1)\ne G_i(-1)$ and to $\frac12$ where $G_i(+1)=G_i(-1)$. When $h_i=0$ and $\mathcal F_i$ is strictly increasing, as \eqref{eq:coh-value} is without a binding capacity, the best response is the majority rule, with $\frac12$ at a tie; under a binding capacity $\mathcal F_i(u^+_i)=\mathcal F_i(\mathsf d_i-u^+_i)$ can hold away from a tie, and the limit is $\frac12$ there as well.
+\end{enumerate}
+\end{proposition}
+% src: B5-P9; answers L5-O1 for the adoption rule
+
+No preference for conformity is assumed: the nonlinearity comes from the logistic policy posterior and from the growth of epistemic value with the number of matched partners. The fixed points in (b) are self-consistent frequencies of a large population in which every agent sees the population frequency, and \cref{prop:abs-conformity} compares the rule with the power rule of models of dialect formation. Proofs in \cref{app:coh-codes}. In the mean field in which partners and record report the same frequency, a record of the code that the members write and read with cavity priors adds its read weight to the slope in (b), so the adoption map becomes bistable at lower policy precision (\cref{prop:hie-record-bistability}).
+
+\begin{conjecture}[Code domains under random pulls]\label{conj:coh-imry-ma}
+Consider the pairwise code game on a communication graph of dimension $D$ with nearest-neighbor attention, coupling $J$ and independent $\Ncal(0,h^2)$ pulls, at its stochastically stable configuration, let $h/J\to0$, and write $L_{\mathrm{dom}}$ for the typical linear size of a domain.
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item For $D=2$ no code spans a large population, and, under the identification of $L_{\mathrm{dom}}$ with the correlation length of \citet{ding2023correlation}, $\ln L_{\mathrm{dom}}\asymp(J/h)^{4/3}$.
+\item For $D\ge3$ one code spans the population.
+\item For codes in a continuous group, such as rotations of an encoding with a mismatch cost proportional to one minus the cosine of the angle between neighboring codes, as the calibrated noise of \cref{thm:coh-withdrawal}(a) is for rotations, $L_{\mathrm{dom}}$ is of order $(J/h)^{2/(4-D)}$ for $D<4$, and no code spans the population for $D\le4$.
+\item If translations are learned with persistent independent noise in a continuous group, consistent-translation domains are finite on planar communication graphs, while on three-dimensional or richer graphs global consistency is possible at small noise.
+\end{enumerate}
+\end{conjecture}
+% src: B5-C2 as repaired by C2_check S5 (exponent 4/3 only under the declared heuristic identification), L3-C2, L6-C1, L6-C2
+
+The corresponding statements for random-field models are theorems or established heuristics, collected in \cref{sec:rel-disorder} at the level at which we read them \citep{imry1975random,aizenman1989rounding,aizenman1990rounding,bricmont1988phase,abbe2018group}. \citet{ding2023correlation} define the correlation length of the two-dimensional random-field Ising model as the box size at which the influences of the random field and of the boundary condition on the magnetization are comparable, and prove that at zero temperature it grows like $\exp(\Theta((J/h)^{4/3}))$; \citet{ding2026phase} extend this below the critical temperature. We read both abstracts. Identifying that length with the size of code domains is our heuristic, so the exponent $4/3$ in (a) is conjectured under that declared identification, and the Imry--Ma estimate $\ln L_{\mathrm{dom}}\asymp(J/h)^2$ is neither confirmed nor refuted by what we read. All parts remain conjectures, because the theorems concern equilibrium measures of models onto which the code game maps only in the weak-message limit, and part (d) concerns translations whose errors come from coupled learning, not from independent noise on edges. Under \cref{asm:int-a8} the dimension is that of the communication graph, and graphs with long-range edges are expected to behave as high-dimensional.
+
+\begin{conjecture}[Surface tension and coarsening]\label{conj:coh-coarsening}
+For the pairwise code game on $\Z^2$ without pulls, asynchronous logit code dynamics at large policy precision coarsens from disordered initial conditions: domain walls move by curvature, and the typical domain size grows as $t^{1/2}$.
+\end{conjecture}
+% src: B5-C1
+
+Without pulls the stationary law of the pairwise game is the Ising Gibbs measure with neighboring codes coupled at strength $\gamma J/2$, which on $\Z^2$ has two ordered phases when $\gamma J/2$ exceeds $\frac12\ln(1+\sqrt2)$ \citep{onsager1944crystal}; the conjecture concerns how boundaries present initially disappear. Curvature-driven motion of walls is the classical picture of coarsening \citep{allen1979microscopic,bray1994theory}, of which we read only records and an abstract, and \citet{burridge2017spatial} obtains growth as the square root of time for dialect boundaries. In one dimension the innovation floor keeps walls at density $1/(1+e^{\gamma J})$ (\cref{thm:coh-domains-1d}(c)).
+
+With several features the concavity of \cref{lem:coh-c1-value} couples their walls; an isogloss is the boundary of one linguistic feature.
+
+\begin{conjecture}[Withdrawal bundles isoglosses]\label{conj:coh-bundling}
+Let agents choose codes for several binary features, and let the mismatch cost of an edge be a concave function of the number of features mismatched on it, as for $\mathsf{C1}$ calibration with or without withdrawal (\cref{lem:coh-c1-value}). Then in the stochastically stable configuration walls of different features attract, so isoglosses bundle; with additive costs they are independent.
+\end{conjecture}
+% src: B5-C3
+
+On a chain with two features, $J=3$ and unit Gaussian pulls, a wall of the second feature sits on the same edge as a wall of the first with probability $0.057$ under additive cost, as independence predicts, and $0.366$ and $0.662$ when two mismatches cost $1.5J$ and $1.1J$, against $0.066$ and $0.090$ under independence (\cref{chk:coh-bundling}). Moving a wall onto an edge that carries a wall of the other feature saves the difference between two single costs and one double cost; a proof needs the statistics of the joint minimizer, which we do not have. The S\'eguy curves that walls produce are in \cref{prop:abs-seguy}.
+
+\subsection{Placement on the grounding trade-off}\label{sup:coh-placement-on-the-grounding-trade-off}
+
+The setting is the ring of \cref{sec:coh-tension}, and the curve is that of \cref{fig:coh-tension}.
+
+Where agents settle on the curve is set by how they assign precision. Precision on a channel is a belief, optimized by free-energy minimization on a slower timescale, and that optimization reads the wrong statistic.
+
+\begin{proposition}[Where free-energy minimization places a level-0 agent]\label{prop:coh-placement}
+Let a level-0 receiver on the ring hold its claimed prior variance $\hat P^-$ fixed and choose its message precision $\varpi_{\mathrm y}\le1/R_c$ to minimize the time-averaged variational free energy of a neighbor's message, scored by its predictive density $\Ncal(m_i,\hat P^-+1/\varpi_{\mathrm y})$.
+\begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
+\item The minimizer is moment matching: $1/\varpi_{\mathrm y}=\max\{R_c,\E(y_{ij}-m_i)^2-\hat P^-\}$.
+\item For neighbors $i$ and $j$, $\E(y_{ij}-m_i)^2=2(\Sigma^c_{ii}-\Sigma^c_{ij})+R_c$, which contains no shared error, and the assigned message noise sits at its floor $R_c$ whenever $2(\Sigma^c_{ii}-\Sigma^c_{ij})\le\hat P^-$.
+\item If the receiver also sets its sensing noise by moment matching of its sensory innovations $s_i-m_i$, it assigns the noise $R^s+\E e_i^2-\hat P^-$, which exceeds $R^s$ whenever its claimed prior variance lies below its actual prior mean-square error.
+\end{enumerate}
+\end{proposition}
+% src: L3-P21 items 1 and 2
+
+A receiver that calibrates its message precision from social innovations is pushed toward trusting neighbors as much as the channel allows, and one that calibrates its senses the same way reads the shared error as sensor noise, senses less and raises the shared error further. Proof in \cref{app:coh-tension}.
+
+\begin{observation}[Placement on the trade-off]\label{obs:coh-placement}
+At $F=0.99$, $Q=0.02$, $R^s=1$ and $R_c=0.1$, where $P_0=1.005$ and an isolated agent's Kalman error is $0.1415$ (\cref{chk:coh-grounding}), the social optimum over common gains has $\xi=0.96$ and error $0.115$. The correlation-aware best response, in which each agent fuses its own estimate, observation and neighbors' messages by the best linear unbiased rule given the stationary joint covariance including the common mode, iterated to a symmetric fixed point whose existence and uniqueness are not proved, has $\xi=1.05$ and error $0.123$. Level-0 agents that set message precision by \cref{prop:coh-placement}(a) settle at the noise floor with $\xi=2.64$ and error $0.350$; setting sensing precision the same way, they assign it $0.72$ against the true $1.0$ and settle at $\xi=2.93$ and error $0.425$. Along the family of \cref{fig:coh-tension} a message's receiver fidelity, conditioned on the receiver's signals through the current round and on its neighbors' earlier messages, is $0.012$ nats at $\varpi_{\mathrm y}=\varpi_{\mathrm s}$ and falls to $0.002$ nats at $\varpi_{\mathrm y}=10\varpi_{\mathrm s}$ and below $10^{-4}$ nats at $\varpi_{\mathrm y}=100\varpi_{\mathrm s}$, while its believed fidelity rises from $0.04$ nats at $\varpi_{\mathrm y}=\varpi_{\mathrm s}$ to $1.53$ nats at $\varpi_{\mathrm y}=1000\varpi_{\mathrm s}$.
+\end{observation}
+% src: L3-E10, L3-P21 item 3, L3-P19 table
+
+Individual free-energy minimization thus lands on the long-$\xi$, low-accuracy side of the social optimum, slightly for correlation-aware agents and far for level-0 agents. The same floor appears in the report of November 7 \citep{dennis2026communicating} as a plateau of the coupling that learned noise models produce, on which every sufficiently correlated partner ties.
+
+\begin{conjecture}[An externality of sensing]\label{conj:coh-externality}
+For correlation-aware agents on translation-invariant graphs, the symmetric myopic Nash equilibrium of the gain game has a smaller sensing gain and a longer correlation length than the social optimum over common gains.
+\end{conjecture}
+% src: L3-C3
+
+The reason we expect is that an agent's sensing makes its messages informative to its neighbors, a benefit its own expected free energy does not count; only the parameter point of \cref{obs:coh-placement} has been computed. The direction matches informational free-riding and herding in economics \citep{banerjee1992simple,bikhchandani1992theory,galeotti2010law}, which we know from records and abstracts.
+
+\begin{remark}[Consequence for hypothesis H4]\label{rem:coh-h4}
+In a medium with uniform leak a collective at level $r_0$ has root-mean-square extent at most $\xi_2/\sqrt{r_0-1}$ per coordinate (\cref{cor:col-lstar}), with $\xi_2\le\xi$ on translation-invariant media with finite-range kernels (\cref{rem:col-lengths}), while a long $\xi$ costs shared error (\cref{thm:coh-grounding-tension}). The two bounds are proved in different settings, so we read them together only as an interpretation: large accurate collectives need more than homogeneous local message passing, such as specialized sensors, aggregation hierarchies or records that raise the effective persistence (\cref{sec:sca}), and long-range coherence produced by over-weighting messages is a symptom of misspecification.
+\end{remark}
+% src: L3 Section 5 closing paragraph, A11, B1-C1, B1-P3
+
+Of these remedies, records that the members both write and read do not escape the tension in the shared part of the error of a grounded coordinate: in the level-0 network of a collective closed under attention such a record raises the shared-error floor (\cref{thm:hie-floor}), and under the conditions of \cref{conj:hie-top-down} positive precision assigned to it raises the common-mode part of every member's stationary mean-square error. The total error rises when the local-noise part is a small share of it, as in every instance computed in \cref{obs:hie-top-down}(a), and can fall otherwise: at weak sensing and strong message precision the instances of \cref{obs:hie-top-down}(c) show a fall of $1$ to $4$ percent before the error rises again.
+
+\subsection{What coherence contributes to formation}\label{sec:coh-formation}
+
+Hypothesis H3 says that collective interiors are regions of high fidelity, calibrated precision and consistent translation, and that inconsistency and low fidelity concentrate at boundaries. \Cref{sec:coh} supports a qualified version. In the static two-group model attention withdraws from inconsistent edges when receivers are calibrated, capacity is scarce relative to consistent alternatives, and the cost of mistranslation exceeds the information advantage of the cross-group sender (\cref{thm:coh-withdrawal}); $\mathsf{C0}$ receivers cannot withdraw (\cref{prop:coh-c0-blind}) and $\mathsf{C2}$ receivers have no reason to. Withdrawn edges are those of low calibrated precision, so boundaries are low-fidelity in the calibrated sense. Withdrawal can fail across complementary access to the world (\cref{ex:coh-unique-information}) and does not see inconsistency spread thinly along attended cycles (\cref{prop:coh-attended-frustration}). Because true translations are flat (\cref{prop:coh-flat-true}), the inconsistency that drives withdrawal is learning error, which grounded learning confines to unattended edges (\cref{prop:frm-flattening}). Calibration learned from social innovations is blind to shared error (\cref{lem:mis-social-blind}), so an interior can be consistent and mutually calibrated and still be an echo chamber; the accuracy side of H3 must be measured with grounding statistics, and the grounding tension prices coherence that reaches far (\cref{thm:coh-grounding-tension,obs:coh-placement}).
+
+Whether withdrawal, learning and attention together produce collectives is the subject of \cref{sec:frm}. In its two-group model the chain from calibrated precision through attention and couplings to contrast is closed by theorem only at $\gamma=\infty$ with noiseless angle observations, $\sigma_\alpha^2=0$: there the declared start is itself the split, and \cref{thm:frm-split-contrast}, a theorem about the world-conditional error law at the split and not about the map, shows that the two groups are exactly the collectives at every level of its admissible window (see also \cref{thm:frm-formation}(e)). For $\gamma_S<\gamma<\infty$ reachability of the split branch is a theorem about the frozen-calibration mean-field map (\cref{thm:frm-formation}(a),(b)), and the contrast of the reached state is computed at the base point (\cref{obs:frm-exploration}); the stochastic-approximation step from the full model to that map is open (\cref{open:frm-closure}), and online calibration from a symmetric start reaches the split's attention pattern (not necessarily a split selected by contrast) in 0 to 7 of 8 replicates per cell, with reruns of a cell differing by up to three replicates (\cref{obs:frm-online,open:frm-online}). These collectives are a calibration-level effect of misreading joint structure: receivers that know their translation errors pay no mistranslation cost, so the split fails the translation-aware form of the exact-fusion persistence clause, as \cref{prop:frm-exact-fusion} proves, while for full cross-covariance-aware exact fusion, in which receivers also model the cross-covariances of their errors, this conclusion is heuristic in this model. Above the threshold $\gamma_T$ of \cref{thm:frm-formation}(b) the split coincides with the code partition. Persistence under exact fusion with drifting frames (\cref{conj:frm-drifting-frames}) and formation beyond the two-group model (\cref{conj:frm-formation}) are conjectures.

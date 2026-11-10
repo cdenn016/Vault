@@ -1,0 +1,96 @@
+% Figure: a meta-agent as an agent (def:met-coarse, def:met-coarse-blanket, thm:met-coarse-blanket,
+% prop:met-sufficiency, thm:met-abstract-physics). Schematic; it plots no data. Notation and conditions as in sec:met.
+% Left: three members of C (dashed box); each has one sensory channel (orange square, role S), one internal state mu_i
+% (blue, role I) that exchanges messages with the other members (internal) and one active channel (red triangle,
+% role A); the rows are the role groups X_S, X_I, X_A of the canonical partition. Right: the exterior X_E (gray).
+% Double arrows: the declared coarse maps of full row rank, y_C = P_I X_I, s_C = P_S X_S, a_C = P_A X_A,
+% eta_C = P_E X_E (eq:met-coarse), with the information-form statistic P_S = H^T R_S^{-1}. Dashed arrows: the
+% residuals r_S = Z_S X_S and r_A = Z_A X_A that complete P_B = diag(P_S, P_A) to an invertible map, assigned to the
+% interior side as in prop:met-sufficiency(a), so the partition is I' = (X_I, r_S, r_A), B' = b_C, E' = X_E. Center:
+% the coarse blanket b_C = (s_C, a_C) between y_C and eta_C, with the coarse sensing s_{C,t+1} = Lambda^s eta_{C,t}
+% + vbar_t, Lambda^s = H^T R_S^{-1} H, the coarse act entering the exterior through Bbar, and the closed law of
+% eq:met-abstract-physics, eta_{C,t+1} = Fbar eta_{C,t} + Bbar a_{C,t} + wbar_t, exact when P_E A_EE = Fbar P_E
+% (kernel invariance, thm:met-abstract-physics(c)) together with P_E A_ES = 0 and P_E A_EA = Bbar P_A, which the
+% drawn couplings satisfy. Top line: the sensory channels read the exterior only through eta_C, A_SE = H P_E, and
+% read no interior or active variable (a1, memoryless channels). Bottom line: the exterior reads the members only
+% through the coarse act, A_EA = L_E P_A and A_ES = 0 (a2), so Bbar = P_E L_E (L_E is the sans-serif L_E of
+% prop:met-sufficiency(a2), renamed from a calligraphic G_E that collided with the reserved graph symbol).
+\begin{tikzpicture}[>={Stealth[length=1.6mm]}, every node/.style={font=\small},
+    roleI/.style={fill=blue!22, draw=blue!55!black},
+    roleS/.style={fill=orange!45, draw=orange!70!black},
+    roleA/.style={fill=red!35, draw=red!65!black},
+    roleE/.style={fill=gray!25, draw=gray!60},
+    chan/.style={rectangle, minimum size=2.6mm, inner sep=0pt},
+    outp/.style={regular polygon, regular polygon sides=3, minimum size=4.2mm, inner sep=0pt},
+    intl/.style={circle, minimum size=6mm, inner sep=0pt},
+    coarse/.style={circle, minimum size=8.4mm, inner sep=0pt, thick},
+    resid/.style={rectangle, minimum size=3.2mm, inner sep=0pt, fill=blue!22, thick},
+    map/.style={double, double distance=1.1pt, -Implies, gray!55!black},
+    rmap/.style={->, gray!55!black, densely dashed},
+    flow/.style={->, gray!70!black},
+    act/.style={->, red!65!black, thick},
+    lab/.style={font=\footnotesize, inner sep=1.5pt},
+    mlab/.style={font=\footnotesize, inner sep=1.5pt, text=black}]
+  % members of C: one column per member, one row per channel role
+  \fill[orange!12, rounded corners=3pt] (0.8,6.62) rectangle (4.2,7.38);
+  \fill[blue!8, rounded corners=3pt] (0.8,4.62) rectangle (4.2,5.38);
+  \fill[red!10, rounded corners=3pt] (0.8,2.62) rectangle (4.2,3.38);
+  \node[anchor=east] at (0.55,7.0) {$X_{\sS}$};
+  \node[anchor=east] at (0.55,5.0) {$X_{\sI}$};
+  \node[anchor=east] at (0.55,3.0) {$X_{\sA}$};
+  \foreach \p/\x in {1/1.3, 2/2.5, 3/3.7} {
+    \node[chan, roleS] (S\p) at (\x,7.0) {};
+    \node[intl, roleI] (M\p) at (\x,5.0) {$\mu_{\p}$};
+    \node[outp, roleA] (A\p) at (\x,3.0) {};
+    \draw[flow] (S\p) -- (M\p);
+    \draw[flow] (M\p) -- (A\p.north);
+  }
+  \draw[<->, blue!55!black] (M1) -- (M2);
+  \draw[<->, blue!55!black] (M2) -- (M3);
+  \draw[dashed, thick, black!70, rounded corners=8pt] (0.65,2.45) rectangle (4.35,7.55);
+  \node[anchor=south west, font=\footnotesize] at (0.65,7.55) {$C$};
+  % coarse states
+  \fill[orange!10, rounded corners=4pt] (8.28,2.35) rectangle (9.12,7.65);
+  \node[rotate=90, font=\footnotesize] at (8.7,5.0) {$b_C=(s_C,a_C)$};
+  \node[coarse, roleI] (yC) at (6.4,5.0) {$y_C$};
+  \node[coarse, roleS] (sC) at (8.7,7.0) {$s_C$};
+  \node[coarse, roleA] (aC) at (8.7,3.0) {$a_C$};
+  \node[coarse, roleE] (eC) at (11.0,5.0) {$\eta_C$};
+  \node[resid, draw=orange!70!black] (rS) at (6.4,6.15) {};
+  \node[resid, draw=red!65!black] (rA) at (6.4,3.85) {};
+  \node[lab, anchor=west] at (rS.east) {$\mathfrak r_{\mathrm S}$};
+  \node[lab, anchor=west] at (rA.east) {$\mathfrak r_{\mathrm A}$};
+  \node[font=\footnotesize, align=center, gray!40!black] at (7.55,5.0) {interior\\side};
+  \node[font=\footnotesize, align=center, gray!40!black] at (9.85,5.0) {exterior\\side};
+  % coarse dynamics
+  \draw[flow] (eC) -- node[mlab, above right=-1pt, pos=0.8] {$\Lambda^s$} (sC);
+  \draw[flow] (sC) -- (yC);
+  \draw[flow] (yC) -- (aC);
+  \draw[act] (aC) -- node[lab, below right=-1pt, pos=0.45] {$\bar B$} (eC);
+  \draw[flow] (eC) to[out=-55, in=-125, looseness=6] node[mlab, below] {$\bar F$} (eC);
+  % exterior
+  \node[draw=gray!60, fill=gray!8, rounded corners=4pt, minimum width=2.8cm, minimum height=2.2cm] (ext) at (14.1,5.0) {};
+  \node[font=\footnotesize, anchor=north] at (ext.north) {exterior $X_{\sE}$};
+  \foreach \k/\x in {1/13.4, 2/14.1, 3/14.8}
+    \node[intl, roleE, minimum size=5mm] (E\k) at (\x,4.6) {};
+  \draw[flow] (E1) -- (E2);
+  \draw[flow] (E2) -- (E3);
+  \draw[flow] (E3) to[bend left=40] (E1);
+  % declared coarse maps
+  \draw[map] (4.2,7.0) -- node[mlab, above] {$\mathsf P_{\mathrm S}=\mathcal H^\top R_{\sS}^{-1}$} (sC);
+  \draw[map] (4.2,5.0) -- node[mlab, above] {$\mathsf P_{\mathrm I}$} (yC);
+  \draw[map] (4.2,3.0) -- node[mlab, below] {$\mathsf P_{\mathrm A}$} (aC);
+  \draw[map] (ext.west) -- node[mlab, above] {$\mathsf P_{\mathrm E}$} (eC);
+  \draw[rmap] (4.2,6.8) -- node[mlab, below left=-2pt, pos=0.45] {$\mathsf Z_{\mathrm S}$} (rS.west);
+  \draw[rmap] (4.2,3.2) -- node[mlab, above left=-2pt, pos=0.45] {$\mathsf Z_{\mathrm A}$} (rA.west);
+  % abstract physics
+  \node[draw=gray!60, fill=white, rounded corners=3pt, align=center, font=\footnotesize, inner sep=3pt] at (12.45,6.95)
+    {abstract physics of $C$\\$\eta_{C,t+1}=\bar F\eta_{C,t}+\bar Ba_{C,t}+\bar w_t$\\closed when $\mathsf P_{\mathrm E}A_{\sE\sE}=\bar F\mathsf P_{\mathrm E}$};
+  % fine couplings between the members and the exterior
+  \draw[gray!70!black] (15.3,6.1) -- (15.3,8.3) -- (1.3,8.3);
+  \foreach \p in {1,2,3} \draw[flow] (S\p.north |- 0,8.3) -- (S\p.north);
+  \node[lab, anchor=south] at (8.0,8.3) {$A_{\sS\sE}=\mathcal H\mathsf P_{\mathrm E}$: the sensory channels read $\eta_C$};
+  \foreach \p in {1,2,3} \draw[red!65!black, semithick] (A\p.south) -- (A\p.south |- 0,1.8);
+  \draw[act] (1.3,1.8) -- (14.1,1.8) -- (ext.south);
+  \node[lab, anchor=north] at (8.0,1.74) {$A_{\sE\sA}=\mathsf L_{\mathrm E}\mathsf P_{\mathrm A}$ and $A_{\sE\sS}=0$: the exterior reads the members only through $a_C$};
+\end{tikzpicture}

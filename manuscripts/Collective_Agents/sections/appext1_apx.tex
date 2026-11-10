@@ -1,0 +1,301 @@
+% Proofs for the section on approximate meta-agents and controlled renormalization.
+% Every proof below was reconstructed from the hypotheses of the statements by the independent check.
+\section{Proofs for \texorpdfstring{Section~\ref{sec:apx}}{approximate meta-agents}}\label{app:apx}
+
+Throughout, $\lvert v\rvert$ is the Euclidean norm, $\Vert M\Vert$ the spectral norm, $\Vert M\Vert_{\mathrm F}$ the Frobenius norm, $\Vert X\Vert_{L^2}=(\E\lvert X\rvert^2)^{1/2}$, and $\preceq$ the order of symmetric matrices. The matrices $C^\sharp$ and $Z^\sharp$ are the blocks of the inverse of $\binom CZ$, so that $CC^\sharp=I$, $ZZ^\sharp=I$, $CZ^\sharp=0$, $ZC^\sharp=0$ and $C^\sharp C+Z^\sharp Z=I$, and $A_{yy}=CAC^\sharp$, $A_{y\perp}=CAZ^\sharp$, $A_{\perp y}=ZAC^\sharp$, $A_{\perp\perp}=ZAZ^\sharp$. The randomization $\omega$ of a causal coarse policy takes values in a standard Borel space, has the same law under the fine process and under the declared model, and is independent of $(x_0,\mathfrak n)$ in the first and of $(\hat y_0,\hat w)$ in the second; the second moments $\E\lvert u_t\rvert^2$ are finite under the fine process. Regular conditional laws exist because all spaces are standard Borel. For a symmetric $S\succeq0$ with $CSC^\top\succ0$ put
+\begin{equation}\label{eq:apx-condition-map}
+\Pi_C(S)=S-SC^\top(CSC^\top)^{-1}CS ,
+\end{equation}
+the covariance of a Gaussian vector with covariance $S$ given its image under $C$; it satisfies $C\Pi_C(S)=0$ and $0\preceq\Pi_C(S)\preceq S$, and it is nondecreasing in $S$, because $\Pi_C(S)=\min_K(I-KC)S(I-KC)^\top$.
+
+\begin{lemma}[Separation]\label{lem:apx-separation}
+\begin{enumerate}
+\item[(a)] For every causal coarse policy and every $t\ge0$, the conditional law of $x_t$ given $\mathcal G_t=\sigma(y_{0:t},\omega)$ is $\Ncal(\hat x_t,P_t)$, where $\hat x_t$ is a measurable function of $(y_{0:t},\omega)$ with $C\hat x_t=y_t$ and
+\begin{equation}\label{eq:apx-pt}
+P_0=\Pi_C(\Sigma_0),\qquad P_{t+1}=\Pi_C\bigl(AP_tA^\top+Q\bigr)
+\end{equation}
+is deterministic and the same for all causal coarse policies, with $CP_t=0$. The conditional law of $y_{t+1}$ given $\mathcal G_t$ is $\Ncal(CA\hat x_t+CBu_t,S_t)$ with $S_t=Q^y+CAP_tA^\top C^\top\succ0$.
+\item[(b)] Let $s_{t+1}=Hy_t+v_t$ with $v_t\sim\Ncal(0,R)$ independent of each other and of $(x_0,\mathfrak n,\omega)$, $R\succ0$, and let $u_t=\pi_t(s_{1:t},\omega)$. Then the conditional laws of $x_t$ given $(s_{1:t},\omega)$ and given $(s_{1:t+1},\omega)$ are $\Ncal(\hat x^-_t,\Sigma^-_t)$ and $\Ncal(\hat x^{\mathrm f}_t,\Sigma^{\mathrm f}_t)$ with
+\begin{equation}\label{eq:apx-record-filter}
+\Sigma^-_0=\Sigma_0,\qquad\Sigma^{\mathrm f}_t=\Sigma^-_t-\Sigma^-_tC^\top H^\top\bigl(HC\Sigma^-_tC^\top H^\top+R\bigr)^{-1}HC\Sigma^-_t,\qquad\Sigma^-_{t+1}=A\Sigma^{\mathrm f}_tA^\top+Q ,
+\end{equation}
+which no such policy changes, and $\hat x^-_{t+1}=A\hat x^{\mathrm f}_t+Bu_t$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The proof is by induction on $t$. Since $x_0\sim\Ncal(m_0,\Sigma_0)$ is independent of $\omega$ and $C\Sigma_0C^\top\succ0$, Gaussian conditioning on $y_0=Cx_0$ gives the law $\Ncal(m_0+\Sigma_0C^\top(C\Sigma_0C^\top)^{-1}(y_0-Cm_0),\Pi_C(\Sigma_0))$, and conditioning on $\omega$ as well changes nothing. Assume the claim at $t$. By construction $x_t$ and $y_{0:t}$ are measurable functions of $(x_0,\mathfrak n_{0:t-1},\omega)$, so $\mathfrak n_t$ is independent of $(x_t,\mathcal G_t)$, and $u_t$ is $\mathcal G_t$-measurable. Given $\mathcal G_t$ the vector $x_{t+1}=Ax_t+Bu_t+\mathfrak n_t$ is therefore Gaussian with mean $A\hat x_t+Bu_t$ and covariance $AP_tA^\top+Q$, and its image $y_{t+1}=Cx_{t+1}$ is Gaussian with mean $CA\hat x_t+CBu_t$ and covariance $C(AP_tA^\top+Q)C^\top=S_t\succeq Q^y\succ0$. Conditioning the pair $(x_{t+1},y_{t+1})$, which is jointly Gaussian given $\mathcal G_t$, on $y_{t+1}$ gives a Gaussian law with covariance $\Pi_C(AP_tA^\top+Q)$ and a mean that is an affine function of $y_{t+1}$ with $\mathcal G_t$-measurable coefficients. Since $\mathcal G_{t+1}=\mathcal G_t\vee\sigma(y_{t+1})$, this is the claim at $t+1$. The identities $C\hat x_t=y_t$ and $CP_t=0$ hold because $Cx_t=y_t$ is $\mathcal G_t$-measurable.
+
+(b) The same induction applies with the two conditioning steps of \cref{eq:apx-record-filter}. Given $(s_{1:t},\omega)$ and the induction hypothesis $x_t\sim\Ncal(\hat x^-_t,\Sigma^-_t)$, the reading $s_{t+1}=HCx_t+v_t$ is jointly Gaussian with $x_t$, because $v_t$ is independent of $(x_t,s_{1:t},\omega)$, and conditioning on it gives $\Ncal(\hat x^{\mathrm f}_t,\Sigma^{\mathrm f}_t)$. The act $u_t$ is measurable in $(s_{1:t},\omega)$ and $\mathfrak n_t$ is independent of $(x_t,s_{1:t+1},\omega)$, so $x_{t+1}$ given $(s_{1:t+1},\omega)$ is $\Ncal(A\hat x^{\mathrm f}_t+Bu_t,A\Sigma^{\mathrm f}_tA^\top+Q)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:apx-path}]
+Both $P^\pi$ and $\hat P^\pi$ are laws of $(\omega,y_0,\dots,y_T)$ on the same standard Borel space. Under $P^\pi$ the randomization has its law, $y_0\sim P_{y_0}=\Ncal(Cm_0,C\Sigma_0C^\top)$ is independent of it, and by \cref{lem:apx-separation}(a) the kernel of $y_{t+1}$ given $(\omega,y_{0:t})$ is $\Ncal(CA\hat x_t+CBu_t,S_t)$. Under $\hat P^\pi$ the randomization has the same law, $y_0\sim\hat P_0$ is independent of it, and the kernel of $y_{t+1}$ given $(\omega,y_{0:t})$ is $\Ncal(\bar Ay_t+\bar Bu_t,\bar Q)$ with the same $u_t=\pi_t(y_{0:t},\omega)$. The chain rule for relative entropy, which holds with values in $[0,\infty]$ on standard Borel spaces, gives
+\begin{equation*}
+\KL\bigl(P^\pi\Vert\hat P^\pi\bigr)=\KL\bigl(P_{y_0}\Vert\hat P_0\bigr)+\sum_{t=0}^{T-1}\E^\pi\KL\Bigl(\Ncal\bigl(CA\hat x_t+CBu_t,S_t\bigr)\Big\Vert\Ncal\bigl(\bar Ay_t+\bar Bu_t,\bar Q\bigr)\Bigr),
+\end{equation*}
+the term of $\omega$ being zero. The relative entropy of $\Ncal(m,S)$ from $\Ncal(\hat m,\bar Q)$ is $h(\bar Q^{-1}S)+\frac12\Vert m-\hat m\Vert^2_{\bar Q^{-1}}$, and $CA\hat x_t-\bar Ay_t=(CA-\bar AC)\hat x_t=D\hat x_t$ because $y_t=C\hat x_t$. Hence the summand is $h(\bar Q^{-1}S_t)+\frac12\E^\pi\Vert D\hat x_t+Eu_t\Vert^2_{\bar Q^{-1}}$, the second form of the statement; it is finite because $\E\lvert u_t\rvert^2<\infty$ and, by induction on the recursion, $\E\lvert x_t\rvert^2<\infty$.
+
+For the first form write $\delta_t=D\hat x_t+Eu_t+D(x_t-\hat x_t)$. Given $\mathcal G_t$ the last term has mean zero and covariance $DP_tD^\top$, and the first two are $\mathcal G_t$-measurable, so $\E^\pi\Vert\delta_t\Vert^2_{\bar Q^{-1}}=\E^\pi\Vert D\hat x_t+Eu_t\Vert^2_{\bar Q^{-1}}+\tr(\bar Q^{-1}DP_tD^\top)$. Since $CP_t=0$, $DP_tD^\top=CAP_tA^\top C^\top=S_t-Q^y$. Finally
+\begin{equation*}
+h\bigl(\bar Q^{-1}S_t\bigr)=h\bigl(\bar Q^{-1}Q^y\bigr)+\tfrac12\tr\bigl(\bar Q^{-1}CAP_tA^\top C^\top\bigr)-\tfrac12\ln\det\bigl((Q^y)^{-1}S_t\bigr),
+\end{equation*}
+and the term subtracted on the right is $\mathfrak d_{\mathrm{dyn},t}$. Adding the two displays gives \cref{eq:apx-path}. The expression for $\mathfrak d_{\mathrm{dyn},t}$ is that of \cref{prop:met-closure-notions}(b) with $\mathsf P=C$, $Q^{\mathfrak n}=Q$ and $P^{\mathrm f}_t=P_t$; by \cref{lem:apx-separation}(a) it is also the conditional mutual information $I(y_{t+1};x_t\mid y_{0:t},\omega)$ under every causal coarse policy.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:apx-uniform}]
+The moment bounds of the statement are
+\begin{equation}\label{eq:apx-moments}
+\begin{aligned}
+\bar X&=\frac{1}{1-g_\kappa}\Bigl[M\mu_0+\frac{M\Vert B\Vert\bar c}{1-\alpha}+M\Bigl(\frac{\tr Q}{1-\alpha^2}\Bigr)^{1/2}\Bigr],\\
+\bar X_\perp&=\min\Bigl\{\Vert Z\Vert\bar X,\ M_\perp\Vert Z\Vert\mu_0+\frac{M_\perp}{1-\alpha_\perp}\bigl[(\Vert A_{\perp y}\Vert+\kappa\Vert B_\perp\Vert)\Vert C\Vert\bar X+\Vert B_\perp\Vert\bar c\bigr]+M_\perp\Bigl(\frac{\tr Q^\perp}{1-\alpha_\perp^2}\Bigr)^{1/2}\Bigr\},
+\end{aligned}
+\end{equation}
+and the claim is $\sup_t\Vert x_t\Vert_{L^2}\le\bar X$ and $\sup_t\Vert x_{\perp,t}\Vert_{L^2}\le\bar X_\perp$ for every $\pi\in\mathcal P(\kappa,\bar c)$. The first entry of the minimum does not use the hypothesis on $A_{\perp\perp}$, which can therefore be dropped with $\bar X_\perp=\Vert Z\Vert\bar X$.
+
+Let $a_t=\Vert x_t\Vert_{L^2}$. From $x_t=A^tx_0+\sum_{s<t}A^{t-1-s}(Bu_s+\mathfrak n_s)$, the bound $\lvert u_s\rvert\le\kappa\Vert C\Vert\lvert x_s\rvert+\bar c$, the independence of the noise terms and $\tr(A^jQA^{j\top})\le\Vert A^j\Vert^2\tr Q$,
+\begin{equation*}
+a_t\le M\mu_0+\frac{M\Vert B\Vert}{1-\alpha}\Bigl(\kappa\Vert C\Vert\max_{s<t}a_s+\bar c\Bigr)+M\Bigl(\frac{\tr Q}{1-\alpha^2}\Bigr)^{1/2}=(1-g_\kappa)\bar X+g_\kappa\max_{s<t}a_s .
+\end{equation*}
+Since $M\ge1$ and $g_\kappa<1$, $a_0\le\mu_0\le\bar X$, and induction gives $a_t\le\bar X$ for all $t$. Hence $\Vert x_{\perp,t}\Vert_{L^2}\le\Vert Z\Vert\bar X$. The second entry of the minimum follows in the same way from $x_{\perp,t+1}=A_{\perp\perp}x_{\perp,t}+A_{\perp y}y_t+B_\perp u_t+Z\mathfrak n_t$, with $\Vert y_s\Vert_{L^2}\le\Vert C\Vert\bar X$ and $\Vert u_s\Vert_{L^2}\le\kappa\Vert C\Vert\bar X+\bar c$.
+
+Since $x=C^\sharp y+Z^\sharp x_\perp$, $Dx=(A_{yy}-\bar A)y+A_{y\perp}x_\perp$, so $\Vert\delta_t\Vert_{L^2}\le\Vert A_{yy}-\bar A\Vert\Vert C\Vert\bar X+\Vert A_{y\perp}\Vert\bar X_\perp+\Vert E\Vert(\kappa\Vert C\Vert\bar X+\bar c)=\bar{\mathfrak d}$. Inserting $\E^\pi\Vert\delta_t\Vert^2_{\bar Q^{-1}}\le\bar{\mathfrak d}^2/\lambda_{\min}(\bar Q)$ and $\mathfrak d_{\mathrm{dyn},t}\ge0$ in \cref{eq:apx-path} gives \cref{eq:apx-uniform}.
+\end{proof}
+
+\begin{remark}[The small-gain condition]\label{rem:apx-smallgain}
+Let $n=2$, $A=\mathsf aI$ with $0<\mathsf a<1$, $Q=I$, $C=(1\ \ 0)$, $B=(1\ \ 0)^\top$, $\bar A=\mathsf a$, $\bar B=\frac12$ and $u_t=\kappa y_t$ with $\kappa>0$. Then $D=0$, $E=\frac12$, $\delta_t=\frac12\kappa y_t$, $M=1$, $\alpha=\mathsf a$ and $g_\kappa=\kappa/(1-\mathsf a)$. The closed loop is $y_{t+1}=(\mathsf a+\kappa)y_t+\mathfrak n_{1,t}$, so $\E\delta_t^2=\frac14\kappa^2[(\mathsf a+\kappa)^{2t}\E y_0^2+\sum_{j<t}(\mathsf a+\kappa)^{2j}]$, which is bounded in $t$ exactly when $g_\kappa<1$ and grows like $(\mathsf a+\kappa)^{2t}$ when $g_\kappa>1$. In this family the condition $g_\kappa<1$ of \cref{cor:apx-uniform} is therefore necessary for a bound linear in $T$. In general it is sufficient and not necessary, since it ignores the sign of the feedback.
+\end{remark}
+
+\begin{proof}[Proof of \cref{prop:apx-timestep}]
+With the stated scaling, $D=CA-\bar AC=\mathsf hD_{\mathrm c}$, $E=\mathsf hE_{\mathrm c}$, $Q^y=\mathsf h\mathsf q^y$ and $\bar Q^{-1}Q^y=\bar{\mathsf q}^{-1}\mathsf q^y$, and the horizons are the integers $T=\tau/\mathsf h$. Because $CP_t=0$, $CAP_tA^\top C^\top=\mathsf h^2CFP_tF^\top C^\top$, so that $\bar Q^{-1}S_t=\bar{\mathsf q}^{-1}(\mathsf q^y+\mathsf hCFP_tF^\top C^\top)$.
+
+Lower bound. By the second form of the summand in \cref{thm:apx-path}, $\KL(P^\pi\Vert\hat P^\pi)\ge\sum_{t<T}h(\bar Q^{-1}S_t)$ for every causal coarse policy. By \cref{eq:apx-pt} and the monotonicity of $\Pi_C$, $P_t$ is at most the covariance of the uncontrolled state, so for $t\le T$
+\begin{equation*}
+\Vert P_t\Vert\le\Vert A\Vert^{2t}\Vert\Sigma_0\Vert+\mathsf h\Vert\mathsf q\Vert\sum_{j<t}\Vert A\Vert^{2j}\le e^{2\Vert F\Vert\tau}\bigl(\Vert\Sigma_0\Vert+\tau\Vert\mathsf q\Vert\bigr),
+\end{equation*}
+because $\Vert A\Vert\le e^{\mathsf h\Vert F\Vert}$. Hence $\bar Q^{-1}S_t\to\bar{\mathsf q}^{-1}\mathsf q^y$ uniformly in $t\le T$ as $\mathsf h\to0$, and since $h$ is continuous on matrices with positive determinant, $\mathsf h\sum_{t<T}h(\bar Q^{-1}S_t)\to\tau h(\bar{\mathsf q}^{-1}\mathsf q^y)$. The limit is positive when $\bar{\mathsf q}\ne\mathsf q^y$, because $h(M)=\frac12\sum_ig(\lambda_i)$ over the eigenvalues of $M$, which are positive here, and $g$ vanishes only at $1$. The bound holds uniformly over the causal coarse policies, which may depend on $\mathsf h$.
+
+Upper bound. When $\bar{\mathsf q}=\mathsf q^y$ the first term of the summand in \cref{eq:apx-path} vanishes, and $\mathfrak d_{\mathrm{dyn},t}\ge0$, so the summand is at most $\frac12\E^\pi\Vert\mathsf hD_{\mathrm c}x_t+\mathsf hE_{\mathrm c}u_t\Vert^2_{(\mathsf h\mathsf q^y)^{-1}}=\frac{\mathsf h}{2}\E^\pi\Vert D_{\mathrm c}x_t+E_{\mathrm c}u_t\Vert^2_{(\mathsf q^y)^{-1}}$. For the boundedness let $a_t=\Vert x_t\Vert_{L^2}$, $\mathsf c_1=\Vert F\Vert+\kappa\Vert G\Vert\Vert C\Vert$ and $\mathsf h\le1$. Since $\mathfrak n_t$ is independent of $(x_t,u_t)$ and $\lvert u_t\rvert\le\kappa\Vert C\Vert\lvert x_t\rvert+\bar c$,
+\begin{equation*}
+a_{t+1}^2\le\bigl((1+\mathsf h\mathsf c_1)a_t+\mathsf h\Vert G\Vert\bar c\bigr)^2+\mathsf h\tr\mathsf q\le(1+\mathsf h)(1+\mathsf h\mathsf c_1)^2a_t^2+\mathsf h\bigl[(1+\mathsf h)\Vert G\Vert^2\bar c^2+\tr\mathsf q\bigr],
+\end{equation*}
+by $(p+q)^2\le(1+\mathsf h)p^2+(1+\mathsf h^{-1})q^2$. With $(1+\mathsf h)(1+\mathsf h\mathsf c_1)^2\le e^{\mathsf h(1+2\mathsf c_1)}$ this gives, for all $t\le T$,
+\begin{equation*}
+a_t^2\le\bar X_\tau^2:=e^{(1+2\mathsf c_1)\tau}\bigl(\mu_0^2+\tau\bigl[2\Vert G\Vert^2\bar c^2+\tr\mathsf q\bigr]\bigr),
+\end{equation*}
+and therefore
+\begin{equation*}
+\KL\bigl(P^\pi\Vert\hat P^\pi\bigr)-\KL\bigl(P_{y_0}\Vert\hat P_0\bigr)\le\frac{\tau}{2\lambda_{\min}(\mathsf q^y)}\Bigl(\Vert D_{\mathrm c}\Vert\bar X_\tau+\Vert E_{\mathrm c}\Vert\bigl(\kappa\Vert C\Vert\bar X_\tau+\bar c\bigr)\Bigr)^2
+\end{equation*}
+for every $\pi\in\mathcal P(\kappa,\bar c)$ and every $\mathsf h\le1$, a bound that does not depend on $\mathsf h$. No stability or small-gain hypothesis is used on a fixed physical horizon.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:apx-kernel-floor}]
+Here $C=(1\ \ 0)$, $Z=(0\ \ 1)$, $A_{yy}=\mathsf b$, $A_{y\perp}=\mathsf g$, $A_{\perp y}=0$ and $A_{\perp\perp}=\mathsf a$, so $\Gamma_l=A_{y\perp}A_{\perp\perp}^{l-1}A_{\perp y}=0$ for every $l\ge1$, and the orthogonal force of \cref{thm:agy-mori-zwanzig} is $\mathfrak f_{t+1}=\mathsf gx_{2,t}+\mathfrak n_{1,t}$, of stationary variance $1+\mathsf g^2V$ and of covariance $\mathsf g^2\mathsf a^jV$ at lag $j\ge1$. Truncating the kernel at any order and replacing $\mathfrak f$ by white Gaussian noise of variance $\sigma^2>0$ gives the declared model $\bar A=\mathsf b$, $\bar Q=\sigma^2$, without input, for which $D=CA-\bar AC=(0\ \ \mathsf g)$.
+
+Let $x_0\sim\Ncal(0,\Sigma_0)$ with $\Var(x_{2,0})=V$, so that $x_{2,t}$ is stationary with mean zero. By \cref{lem:apx-separation}(a), $P_t$ has the single nonzero entry $P^\perp_t=\Var(x_{2,t}\mid y_{0:t})$, and \cref{eq:apx-pt} reads
+\begin{equation*}
+P^\perp_{t+1}=f\bigl(P^\perp_t\bigr),\qquad f(P)=1+\frac{\mathsf a^2P}{1+\mathsf g^2P},
+\end{equation*}
+while $S_t=1+\mathsf g^2P^\perp_t$. The map $f$ is nondecreasing, concave and bounded on $[0,\infty)$ with $f(0)=1$, so $f(P)-P$ has a single zero $P_\infty>0$, is positive below it and negative above it, and $P^\perp_t$ converges monotonically to $P_\infty$. Since $V=\mathsf a^2V+1$, $f(V)-V=-\mathsf a^2\mathsf g^2V^2/(1+\mathsf g^2V)$, which is negative when $\mathsf a\ne0$ and zero when $\mathsf a=0$; hence $P_\infty<V$ if $\mathsf a\ne0$ and $P_\infty=V=1$ if $\mathsf a=0$.
+
+By the second form of the summand in \cref{thm:apx-path} and $\E\hat x_{2,t}^2=V-P^\perp_t$, the summand at time $t$ is
+\begin{equation*}
+h\bigl(S_t/\sigma^2\bigr)+\frac{\mathsf g^2(V-P^\perp_t)}{2\sigma^2}=\frac12\Bigl[\frac{1+\mathsf g^2V}{\sigma^2}-1-\ln\frac{1+\mathsf g^2P^\perp_t}{\sigma^2}\Bigr].
+\end{equation*}
+The initial term of \cref{eq:apx-path} is finite, so the rate $\lim_{T\to\infty}T^{-1}\KL(P\Vert\hat P)$ exists and equals the right side with $P_\infty$ in place of $P^\perp_t$. As a function of $\sigma^2$ this is minimal at $\sigma^2=1+\mathsf g^2V$, where it equals $\frac12\ln((1+\mathsf g^2V)/(1+\mathsf g^2P_\infty))$. This is positive when $\mathsf a\ne0$. When $\mathsf a=0$ the force $\mathfrak f$ is white, the coarse process is a first-order autoregression and the rate at $\sigma^2=1+\mathsf g^2$ is zero.
+\end{proof}
+
+\begin{remark}[Scope of \cref{prop:apx-kernel-floor}]\label{rem:apx-kernel-scope}
+The kernels of \cref{thm:agy-mori-zwanzig} depend on the complement $Z$. The proposition concerns the complement $x_\perp=x_2$, for which $A_{\perp y}=0$. For the complement of part (a) of that theorem, chosen so that $x_\perp$ and $y$ are uncorrelated in the stationary law, the kernels of this example do not vanish in general, and the truncation of those kernels is not analyzed here.
+\end{remark}
+
+The filter of the unresolved coordinate, used in \cref{thm:apx-order-d}, is the following. Let $\hat\xi_t=Z\hat x_t=\E[x_{\perp,t}\mid\mathcal G_t]$ and $P^\perp_t=ZP_tZ^\top$. Since $CP_t=0$, $P_t=Z^\sharp P^\perp_tZ^{\sharp\top}$, so $S_t=Q^y+A_{y\perp}P^\perp_tA_{y\perp}^\top$ and $CA\hat x_t=A_{yy}y_t+A_{y\perp}\hat\xi_t$. Given $\mathcal G_t$, the pair $(x_{\perp,t+1},y_{t+1})$ is Gaussian with cross-covariance $A_{\perp\perp}P^\perp_tA_{y\perp}^\top+Q^{\perp y}$, and conditioning on $y_{t+1}$ gives, with
+\begin{equation*}
+G_t=\bigl(A_{\perp\perp}P^\perp_tA_{y\perp}^\top+Q^{\perp y}\bigr)S_t^{-1},\qquad\Phi_t=A_{\perp\perp}-G_tA_{y\perp},
+\end{equation*}
+the recursion
+\begin{equation}\label{eq:apx-perp-filter}
+\hat\xi_{t+1}=\Phi_t\hat\xi_t+A_{\perp y}y_t+B_\perp u_t+G_t\bigl(y_{t+1}-A_{yy}y_t-B_yu_t\bigr).
+\end{equation}
+The error $\epsilon_t=x_{\perp,t}-\hat\xi_t$ obeys $\epsilon_{t+1}=\Phi_t\epsilon_t+Z\mathfrak n_t-G_tC\mathfrak n_t$, with $\mathfrak n_t$ independent of $\epsilon_t$, so
+\begin{equation}\label{eq:apx-joseph}
+P^\perp_{t+1}=\Phi_tP^\perp_t\Phi_t^\top+\Cov\bigl(Z\mathfrak n_t-G_tC\mathfrak n_t\bigr)\succeq\Phi_tP^\perp_t\Phi_t^\top+Q^{\perp\mid y},
+\end{equation}
+because $Q^\perp-GQ^{y\perp}-Q^{\perp y}G^\top+GQ^yG^\top\succeq Q^{\perp\mid y}$ for every matrix $G$. The order-$d$ model is defined for $t\ge d$: $\hat\xi^{(d)}_t$ is the value at time $t$ of the recursion \cref{eq:apx-perp-filter}, with the exact $\Phi_s$ and $G_s$, started at time $t-d$ from the value $0$. It is a function of $(y_{t-d:t},u_{t-d:t-1})$, and
+\begin{equation*}
+\hat\xi_t-\hat\xi^{(d)}_t=\Psi_{t,d}\hat\xi_{t-d},\qquad\Psi_{t,d}=\Phi_{t-1}\Phi_{t-2}\cdots\Phi_{t-d},\qquad\Psi_{t,0}=I .
+\end{equation*}
+
+\begin{proof}[Proof of \cref{thm:apx-order-d}]
+The kernel of the coarse law is $\Ncal(A_{yy}y_t+B_yu_t+A_{y\perp}\hat\xi_t,S_t)$ and that of the order-$d$ model is $\Ncal(A_{yy}y_t+B_yu_t+A_{y\perp}\hat\xi^{(d)}_t,S_t)$, so their expected relative entropy is $\frac12\E^\pi\Vert A_{y\perp}\Psi_{t,d}\hat\xi_{t-d}\Vert^2_{S_t^{-1}}$.
+
+Since $Q\succ0$, $Q^{\perp\mid y}\succ0$ and $\mathsf q_\perp>0$. By \cref{eq:apx-joseph}, $P^\perp_s\succeq\mathsf q_\perp I$ for every $s\ge1$, and for every $s\ge0$, using $P^\perp_{s+1}\preceq\bar pI$,
+\begin{equation*}
+\Phi_sP^\perp_s\Phi_s^\top\preceq P^\perp_{s+1}-\mathsf q_\perp I\preceq\Bigl(1-\frac{\mathsf q_\perp}{\bar p}\Bigr)P^\perp_{s+1}=\theta P^\perp_{s+1} ,
+\end{equation*}
+with $\theta\in[0,1)$ because $\bar p\ge\Vert P^\perp_1\Vert\ge\mathsf q_\perp$. Iterating over $s=t-d,\dots,t-1$ gives $\Psi_{t,d}P^\perp_{t-d}\Psi_{t,d}^\top\preceq\theta^dP^\perp_t$. Next, $\E^\pi[\hat\xi_s\hat\xi_s^\top]\preceq\E^\pi[x_{\perp,s}x_{\perp,s}^\top]\preceq\bar X_\perp^2I$, and for $s=t-d\ge1$ the right side is at most $(\bar X_\perp^2/\mathsf q_\perp)P^\perp_{t-d}$. Therefore
+\begin{equation*}
+\E^\pi\bigl\Vert A_{y\perp}\Psi_{t,d}\hat\xi_{t-d}\bigr\Vert^2_{S_t^{-1}}\le\frac{\bar X_\perp^2}{\mathsf q_\perp}\tr\bigl(S_t^{-1}A_{y\perp}\Psi_{t,d}P^\perp_{t-d}\Psi_{t,d}^\top A_{y\perp}^\top\bigr)\le\theta^d\frac{\bar X_\perp^2}{\mathsf q_\perp}\tr\bigl(S_t^{-1}A_{y\perp}P^\perp_tA_{y\perp}^\top\bigr).
+\end{equation*}
+If $\lambda_i\ge0$ are the eigenvalues of $(Q^y)^{-1/2}A_{y\perp}P^\perp_tA_{y\perp}^\top(Q^y)^{-1/2}$, the last trace is $\sum_i\lambda_i/(1+\lambda_i)\le\sum_i\ln(1+\lambda_i)=2\mathfrak d_{\mathrm{dyn},t}$, which gives \cref{eq:apx-order-d}.
+
+The restriction $t\ge d+1$ is needed. At $t=d$ the window starts at time $0$, where $P^\perp_0=Z\Pi_C(\Sigma_0)Z^\top$ can be arbitrarily small while $\hat\xi_0$ is not, and the bound then fails (\cref{chk:apx-memory}). If $A_{\perp\perp}=0$ then $\Phi_t=-Q^{\perp y}S_t^{-1}A_{y\perp}$, which is nonzero when $Q^{\perp y}S_t^{-1}A_{y\perp}\ne0$. The predictor of the coarse path can then depend on the entire past although every kernel $\Gamma_l$ with $l\ge2$ vanishes; it does so in the scalar instance of \cref{chk:apx-memory}, where the stationary value of $\Phi_t$ is a nonzero number.
+\end{proof}
+
+\begin{lemma}[Comparison for the filter equation]\label{lem:apx-riccati}
+Let $\mathsf F$ be a square matrix, $\mathsf J$ a matrix with as many columns, $R\succ0$, and for $P\succeq0$ let $\varphi(P)=P-P\mathsf J^\top(\mathsf JP\mathsf J^\top+R)^{-1}\mathsf JP$ and $\mathcal T_N(P)=\mathsf F\varphi(P)\mathsf F^\top+N$; write $\varphi=\varphi_R$ when the dependence on $R$ matters.
+\begin{enumerate}
+\item[(a)] $\varphi(P)=\min_K[(I-K\mathsf J)P(I-K\mathsf J)^\top+KRK^\top]$ and $\mathsf F\varphi(P)\mathsf F^\top=\min_K[(\mathsf F-K\mathsf J)P(\mathsf F-K\mathsf J)^\top+KRK^\top]$ in the order of symmetric matrices. Hence $0\preceq\varphi(P)\preceq P$, and $\varphi_R(P)$ is nondecreasing in $P$ and in $R$.
+\item[(b)] $\varphi_R(\mu P)=\mu\varphi_{R/\mu}(P)$ for $\mu>0$; hence $\varphi_R(\mu P)\preceq\mu\varphi_R(P)$ for $\mu\ge1$ and $\varphi_R(\mu P)\succeq\mu\varphi_R(P)$ for $0<\mu\le1$.
+\item[(c)] If $X_i\succeq0$ solve $X_i=\mathcal T_{N_i}(X_i)$ for $i=1,2$, with $N_2\succ0$ and $N_1\preceq cN_2$ for a constant $c\ge1$, then $X_1\preceq cX_2$. In particular, for $N\succ0$ the equation $X=\mathcal T_N(X)$ has at most one solution $X\succeq0$.
+\item[(d)] If $(\mathsf F,\mathsf J)$ is detectable and $N\succ0$, the solution $X\succeq0$ of $X=\mathcal T_N(X)$ exists, $X\succeq N$, and with $L=X\mathsf J^\top(\mathsf JX\mathsf J^\top+R)^{-1}=\varphi(X)\mathsf J^\top R^{-1}$ the matrices $\mathsf F(I-L\mathsf J)$ and $(I-L\mathsf J)\mathsf F$ have spectral radius less than $1$. If $\rho(\mathsf F)<1$, then $X\preceq Y$ for the solution $Y$ of $Y=\mathsf FY\mathsf F^\top+N$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) With $\Sigma=\mathsf JP\mathsf J^\top+R\succ0$ and $K_\star=P\mathsf J^\top\Sigma^{-1}$, expanding the square gives $(I-K\mathsf J)P(I-K\mathsf J)^\top+KRK^\top=\varphi(P)+(K-K_\star)\Sigma(K-K_\star)^\top$, and in the same way $(\mathsf F-K\mathsf J)P(\mathsf F-K\mathsf J)^\top+KRK^\top=\mathsf F\varphi(P)\mathsf F^\top+(K-\mathsf FK_\star)\Sigma(K-\mathsf FK_\star)^\top$. For fixed $K$ the left sides are nondecreasing in $P$ and in $R$, and a minimum of nondecreasing maps that is attained is nondecreasing. Taking $K=0$ gives $\varphi(P)\preceq P$.
+
+(b) $\varphi_R(\mu P)=\mu P-\mu^2P\mathsf J^\top(\mu\mathsf JP\mathsf J^\top+R)^{-1}\mathsf JP=\mu[P-P\mathsf J^\top(\mathsf JP\mathsf J^\top+R/\mu)^{-1}\mathsf JP]$, and (a) compares $\varphi_{R/\mu}$ with $\varphi_R$.
+
+(c) From $X_2=\mathcal T_{N_2}(X_2)\succeq N_2\succ0$, the set of $\lambda\ge1$ with $X_1\preceq\lambda cX_2$ is nonempty and closed; let $\lambda_\star$ be its least element and suppose $\lambda_\star>1$. By (a) and (b) with $\mu=\lambda_\star c\ge1$,
+\begin{equation*}
+X_1=\mathcal T_{N_1}(X_1)\preceq\mathsf F\varphi(\lambda_\star cX_2)\mathsf F^\top+N_1\preceq\lambda_\star c\mathsf F\varphi(X_2)\mathsf F^\top+cN_2=\lambda_\star cX_2-(\lambda_\star-1)cN_2 .
+\end{equation*}
+With $\nu=\lambda_{\min}(N_2)/\Vert X_2\Vert\in(0,1]$ one has $N_2\succeq\nu X_2$, so $X_1\preceq(\lambda_\star-(\lambda_\star-1)\nu)cX_2$ with $1\le\lambda_\star-(\lambda_\star-1)\nu<\lambda_\star$, which contradicts the choice of $\lambda_\star$. Hence $\lambda_\star=1$. Uniqueness follows by applying this twice with $N_1=N_2=N$ and $c=1$.
+
+(d) Let $K_0$ be such that $\rho(\mathsf F-K_0\mathsf J)<1$ and let $Y_0\succeq0$ solve $Y_0=(\mathsf F-K_0\mathsf J)Y_0(\mathsf F-K_0\mathsf J)^\top+K_0RK_0^\top+N$. The iterates $X^{(0)}=0$, $X^{(j+1)}=\mathcal T_N(X^{(j)})$ are nondecreasing, because $X^{(1)}=N\succeq X^{(0)}$ and $\mathcal T_N$ is nondecreasing, and they satisfy $X^{(j)}\preceq Y_0$ by induction, because (a) gives $\mathcal T_N(P)\preceq(\mathsf F-K_0\mathsf J)P(\mathsf F-K_0\mathsf J)^\top+K_0RK_0^\top+N$. They converge, and the limit solves $X=\mathcal T_N(X)$ by continuity of $\varphi$. If $\rho(\mathsf F)<1$ one may take $K_0=0$, which gives $X\preceq Y$. By (a) with $K=\mathsf FL$, $X=\mathsf F(I-L\mathsf J)X(I-L\mathsf J)^\top\mathsf F^\top+\mathsf FLRL^\top\mathsf F^\top+N$. If $v^*\mathsf F(I-L\mathsf J)=\lambda v^*$ with $v\ne0$, then $(1-\lvert\lambda\rvert^2)v^*Xv\ge v^*Nv>0$, so $\lvert\lambda\rvert<1$; and $(I-L\mathsf J)\mathsf F$ has the same nonzero eigenvalues. Finally $\varphi(X)\mathsf J^\top=X\mathsf J^\top\Sigma^{-1}(\Sigma-\mathsf JX\mathsf J^\top)=X\mathsf J^\top\Sigma^{-1}R$ with $\Sigma=\mathsf JX\mathsf J^\top+R$.
+\end{proof}
+
+The fine filter of \cref{lem:apx-separation}(b) is the case $\mathsf F=A$, $\mathsf J=HC$, $N=Q$, and the declared filter is the case $\mathsf F=\bar A$, $\mathsf J=H$, $N=\bar Q$, for which $\varphi=\varphi_R$ of the main text. Since $\rho(A)<1$, \cref{lem:apx-riccati}(d) gives a unique $\Sigma^-\succeq0$ with $\Sigma^-=A\Sigma^{\mathrm f}A^\top+Q$, where $\Sigma^{\mathrm f}$ is obtained from $\Sigma^-$ by the middle formula of \cref{eq:apx-record-filter}, and $\Sigma^{\mathrm f}\preceq\Sigma^-\preceq\Sigma_x$. That the fine filter is stationary means $\Sigma_0=\Sigma^-$, so that $\Sigma^-_t=\Sigma^-$ and $\Sigma^{\mathrm f}_t=\Sigma^{\mathrm f}$ for all $t$. Detectability of $(\bar A,H)$ gives $P^-_{\mathrm b}$, with $P^-_{\mathrm b}\succeq\bar Q\succ0$, $P_{\mathrm b}=\varphi_R(P^-_{\mathrm b})=((P^-_{\mathrm b})^{-1}+H^\top R^{-1}H)^{-1}\succ0$, $L=P^-_{\mathrm b}H^\top(HP^-_{\mathrm b}H^\top+R)^{-1}=P_{\mathrm b}H^\top R^{-1}$, and $\rho(\Psi')=\rho(\Psi)<1$ for $\Psi'=\bar A(I-LH)$ and $\Psi=(I-LH)\bar A$. The declared filter is $\hat\eta^-_{t+1}=\bar A(\hat\eta^-_t+L(s_{t+1}-H\hat\eta^-_t))+\bar Bu_t$, started from any $\hat\eta^-_0$ with $\E\lvert C\hat x^-_0-\hat\eta^-_0\rvert^2<\infty$.
+
+\begin{proof}[Proof of \cref{thm:apx-posterior}]
+Fixed-point identity. By \cref{lem:apx-separation}(b) in the stationary regime, $P_{\mathrm e}=C\Sigma^-C^\top=CA\Sigma^{\mathrm f}A^\top C^\top+Q^y$. Inserting $CA=\bar AC+D$ gives $CA\Sigma^{\mathrm f}A^\top C^\top=\bar AC\Sigma^{\mathrm f}C^\top\bar A^\top+\Delta$, and $C\Sigma^{\mathrm f}C^\top=P_{\mathrm e}-P_{\mathrm e}H^\top(HP_{\mathrm e}H^\top+R)^{-1}HP_{\mathrm e}=\varphi_R(P_{\mathrm e})$. Hence
+\begin{equation}\label{eq:apx-fixed-point}
+P_{\mathrm e}=\bar A\varphi_R(P_{\mathrm e})\bar A^\top+Q^y+\Delta ,
+\end{equation}
+the filter equation of the declared model with $\bar Q$ replaced by $Q^y+\Delta$, which is symmetric and satisfies $Q^y+\Delta\succeq c_-\bar Q\succ0$.
+
+Sandwich. \Cref{lem:apx-riccati}(c) with $X_1=P_{\mathrm e}$, $N_1=Q^y+\Delta$, $X_2=P^-_{\mathrm b}$, $N_2=\bar Q$ and $c=c_+$ gives $P_{\mathrm e}\preceq c_+P^-_{\mathrm b}$. With $X_1=P^-_{\mathrm b}$, $N_1=\bar Q$, $X_2=P_{\mathrm e}$, $N_2=Q^y+\Delta$ and $c=1/c_-\ge1$ it gives $P^-_{\mathrm b}\preceq P_{\mathrm e}/c_-$. This step needs $c_->0$.
+
+Decomposition. Let $e_t=C\hat x^-_t-\hat\eta^-_t$. Both laws in $\Delta\mathcal F_t$ are Gaussian, so
+\begin{equation}\label{eq:apx-excess-split}
+\Delta\mathcal F_t=h\bigl((P^-_{\mathrm b})^{-1}P_{\mathrm e}\bigr)+\tfrac12\E\Vert e_t\Vert^2_{(P^-_{\mathrm b})^{-1}} .
+\end{equation}
+The eigenvalues of $(P^-_{\mathrm b})^{-1}P_{\mathrm e}$ lie in $[c_-,c_+]$ and $g$ is decreasing on $(0,1]$ and increasing on $[1,\infty)$, so the first term is at most $\frac k2\max\{g(c_+),g(c_-)\}$.
+
+Error recursion. The innovation $\iota_t=s_{t+1}-HC\hat x^-_t=HC(x_t-\hat x^-_t)+v_t$ is, given $(s_{1:t},\omega)$, Gaussian with mean zero and covariance $\Sigma_\iota=HP_{\mathrm e}H^\top+R$; the $\iota_t$ are therefore independent and identically distributed. With $L_{\mathrm e}=P_{\mathrm e}H^\top\Sigma_\iota^{-1}$, $C\hat x^{\mathrm f}_t=C\hat x^-_t+L_{\mathrm e}\iota_t$, and $C\hat x^-_{t+1}=CA\hat x^{\mathrm f}_t+CBu_t=\bar AC\hat x^{\mathrm f}_t+\bar Bu_t+d_t$ with $d_t=D\hat x^{\mathrm f}_t+Eu_t$. Since $s_{t+1}-H\hat\eta^-_t=\iota_t+He_t$, subtracting the declared filter gives
+\begin{equation}\label{eq:apx-error-recursion}
+e_{t+1}=\Psi'e_t+\bar A(L_{\mathrm e}-L)\iota_t+d_t .
+\end{equation}
+The act $u_t$ is measurable in $(s_{1:t},\omega)$, so $d_t=\E[\delta_t\mid s_{1:t+1},\omega]$ and $\Vert d_t\Vert_{L^2}\le\Vert\delta_t\Vert_{L^2}$.
+
+Gain difference. By \cref{lem:apx-riccati}(d) applied to \cref{eq:apx-fixed-point}, $L_{\mathrm e}=\varphi_R(P_{\mathrm e})H^\top R^{-1}$, so $L_{\mathrm e}-L=WH^\top R^{-1}$ with $W=\varphi_R(P_{\mathrm e})-\varphi_R(P^-_{\mathrm b})$. By the sandwich and \cref{lem:apx-riccati}(a),(b), $c_-P_{\mathrm b}\preceq\varphi_R(P_{\mathrm e})\preceq c_+P_{\mathrm b}$, hence $-\mathfrak cP_{\mathrm b}\preceq W\preceq\mathfrak cP_{\mathrm b}$ and $\Vert W\Vert\le\mathfrak c\Vert P_{\mathrm b}\Vert$. Since $\Sigma_\iota\preceq c_+HP^-_{\mathrm b}H^\top+R$,
+\begin{equation*}
+\tr\bigl((L_{\mathrm e}-L)\Sigma_\iota(L_{\mathrm e}-L)^\top\bigr)=\tr\bigl(WH^\top R^{-1}\Sigma_\iota R^{-1}HW\bigr)\le k\mathfrak c^2\Vert P_{\mathrm b}\Vert^2\mathfrak g^2 .
+\end{equation*}
+
+Conclusion. Solving \cref{eq:apx-error-recursion} and using the independence of the innovations,
+\begin{equation*}
+\Vert e_t\Vert_{L^2}\le\Vert\Psi'^t\Vert\Vert e_0\Vert_{L^2}+\sum_{s<t}\Vert\Psi'^{t-1-s}\Vert\Vert\delta_s\Vert_{L^2}+\Bigl(\sum_{j<t}\Vert\Psi'^j\bar A\Vert^2\Bigr)^{1/2}\sqrt k\mathfrak c\Vert P_{\mathrm b}\Vert\mathfrak g .
+\end{equation*}
+Since $\rho(\Psi')<1$, the sums $\mathcal S'$ and $\mathcal S'_2$ are finite, the first term tends to zero, and
+\begin{equation*}
+\limsup_t\sum_{s<t}\Vert\Psi'^{t-1-s}\Vert\Vert\delta_s\Vert_{L^2}\le\mathcal S'\limsup_s\Vert\delta_s\Vert_{L^2}\le\mathcal S'\bar{\mathfrak d}.
+\end{equation*}
+With $\Vert e_t\Vert^2_{(P^-_{\mathrm b})^{-1}}\le\lvert e_t\rvert^2/\lambda_{\min}(P^-_{\mathrm b})$ and \cref{eq:apx-excess-split} this is \cref{eq:apx-posterior}.
+
+A priori constants. Since $\Sigma^{\mathrm f}\preceq\Sigma_x$, $\Vert D\Sigma^{\mathrm f}D^\top\Vert\le\sigma_D^2$ and $\Vert C\Sigma^{\mathrm f}D^\top\Vert\le\Vert C\Sigma^{\mathrm f}C^\top\Vert^{1/2}\Vert D\Sigma^{\mathrm f}D^\top\Vert^{1/2}\le\varsigma_y\sigma_D$, so $\Vert\Delta\Vert\le\vartheta$ and $Q^y-\vartheta I\preceq Q^y+\Delta\preceq Q^y+\vartheta I$. With $\vartheta I\preceq(\vartheta/\lambda_{\min}(\bar Q))\bar Q$ the constants of the statement satisfy $c_-\bar Q\preceq Q^y+\Delta\preceq c_+\bar Q$; they are admissible when the resulting $c_-$ is positive, and the theorem gives nothing otherwise.
+\end{proof}
+
+\begin{proposition}[Filtered law]\label{prop:apx-posterior-filtered}
+Under the hypotheses of \cref{thm:apx-posterior}, the exact law of $y_t$ given $(s_{1:t+1},\omega)$ is $\Ncal(C\hat x^{\mathrm f}_t,\varphi_R(P_{\mathrm e}))$, the declared filter holds $\Ncal(\hat\eta^{\mathrm f}_t,P_{\mathrm b})$ with $\hat\eta^{\mathrm f}_t=\hat\eta^-_t+L(s_{t+1}-H\hat\eta^-_t)$, one has $c_-P_{\mathrm b}\preceq\varphi_R(P_{\mathrm e})\preceq c_+P_{\mathrm b}$, and
+\begin{equation}\label{eq:apx-posterior-filtered}
+\limsup_{t\to\infty}\E\KL\Bigl(\Ncal\bigl(C\hat x^{\mathrm f}_t,\varphi_R(P_{\mathrm e})\bigr)\Big\Vert\Ncal\bigl(\hat\eta^{\mathrm f}_t,P_{\mathrm b}\bigr)\Bigr)\le\frac k2\max\{g(c_+),g(c_-)\}+\frac{\bigl(\mathcal S^{\mathrm f}\bar{\mathfrak d}+\mathfrak c\Vert P_{\mathrm b}\Vert\mathfrak g\sqrt k\mathcal S^{\mathrm f}_2\bigr)^2}{2\lambda_{\min}(P_{\mathrm b})},
+\end{equation}
+with $\mathcal S^{\mathrm f}=\sum_{j\ge0}\Vert\Psi^j(I-LH)\Vert$ and $\mathcal S^{\mathrm f}_2=(\sum_{j\ge0}\Vert\Psi^j\Vert^2)^{1/2}$.
+\end{proposition}
+
+\begin{proof}
+The covariance statement is the sandwich for $\varphi_R(P_{\mathrm e})$ from the previous proof. Let $e^{\mathrm f}_t=C\hat x^{\mathrm f}_t-\hat\eta^{\mathrm f}_t=(I-LH)e_t+(L_{\mathrm e}-L)\iota_t$. By \cref{eq:apx-error-recursion},
+\begin{equation*}
+e^{\mathrm f}_{t+1}=\Psi e^{\mathrm f}_t+(I-LH)d_t+(L_{\mathrm e}-L)\iota_{t+1},
+\end{equation*}
+so $e^{\mathrm f}_t=\Psi^t(I-LH)e_0+\sum_{s<t}\Psi^{t-1-s}(I-LH)d_s+\sum_{s\le t}\Psi^{t-s}(L_{\mathrm e}-L)\iota_s$, and the three terms are bounded as before, with $\lambda_{\min}(P_{\mathrm b})$ in place of $\lambda_{\min}(P^-_{\mathrm b})$ because the reference covariance is now $P_{\mathrm b}$.
+\end{proof}
+
+The constants of \cref{eq:apx-posterior-filtered} differ from those of \cref{eq:apx-posterior}: $\lambda_{\min}(P_{\mathrm b})\le\lambda_{\min}(P^-_{\mathrm b})$, and the factor $I-LH$ cannot be removed from $\mathcal S^{\mathrm f}$ at no cost, since its spectral norm can exceed $1$. Whether \cref{eq:apx-posterior} holds verbatim for the filtered law with $\Psi$ in place of $\Psi'$ was neither proved nor refuted.
+
+\begin{proof}[Proof of \cref{cor:apx-memory}]
+Without input, $B=0$, $\bar B=0$ and $\delta_t=Dx_t$. Write $\Sigma_y=C\Sigma_xC^\top$ and $\Sigma_{x\mid y}=\Pi_C(\Sigma_x)$. The moment-matched $\bar A=CA\Sigma_xC^\top\Sigma_y^{-1}$ gives $D\Sigma_xC^\top=CA\Sigma_xC^\top-\bar A\Sigma_y=0$, and therefore
+\begin{equation*}
+D\Sigma_xD^\top=CA\Sigma_xA^\top C^\top-CA\Sigma_xC^\top\Sigma_y^{-1}C\Sigma_xA^\top C^\top=CA\Sigma_{x\mid y}A^\top C^\top .
+\end{equation*}
+In the stationary law, $x_t$ given $y_t$ is Gaussian with covariance $\Sigma_{x\mid y}$ and $y_{t+1}=CAx_t+C\mathfrak n_t$, so the closure defect $\mathfrak d_{\mathrm{cl}}=I(y_{t+1};x_t\mid y_t)$ of \cref{def:agy-closure}(i), here without a blanket variable, is
+\begin{equation*}
+\mathfrak d_{\mathrm{cl}}=\tfrac12\ln\det\bigl(I+(Q^y)^{-1}D\Sigma_xD^\top\bigr),
+\end{equation*}
+the Gaussian form of \cref{prop:met-closure-notions}(a) and \cref{prop:met-memory}(b). The largest eigenvalue of $(Q^y)^{-1/2}D\Sigma_xD^\top(Q^y)^{-1/2}$ is at least $\sigma_D^2/\Vert Q^y\Vert$, and the determinant is at least $1$ plus that eigenvalue, so $e^{2\mathfrak d_{\mathrm{cl}}}\ge1+\sigma_D^2/\Vert Q^y\Vert$, which is the first claim.
+
+Defect energy. The fine filter is stationary, so $\Cov(x_0)=\Sigma^-\preceq\Sigma_x$, and by induction $\Cov(x_t)\preceq\Sigma_x$ for all $t$, because $A\Sigma_xA^\top+Q=\Sigma_x$. The mean of $x_t$ is $A^tm_0$, which tends to zero. Hence $\limsup_t\E\lvert Dx_t\rvert^2\le\tr(D\Sigma_xD^\top)\le k\sigma_D^2$, and $\bar{\mathfrak d}=\sqrt k\sigma_D$ is admissible in \cref{thm:apx-posterior}. If $m_0=0$ the bound holds for every $t$.
+
+Detectability. Since $D\Sigma_xC^\top=0$, $\Sigma_y=CA\Sigma_xA^\top C^\top+Q^y=\bar A\Sigma_y\bar A^\top+D\Sigma_xD^\top+Q^y$ with $Q^y\succ0$, so $\rho(\bar A)<1$ and $(\bar A,H)$ is detectable for every $H$.
+
+Constants. With $\bar Q=Q^y$ the a priori constants of \cref{thm:apx-posterior} are $c_\pm=1\pm\mathsf x$, which are admissible when $\mathsf x<1$, and $\mathfrak c=\mathsf x$. From the power series, $g(1+\mathsf x)=\mathsf x-\ln(1+\mathsf x)\le\mathsf x^2/2$ and $g(1-\mathsf x)=\sum_{j\ge2}\mathsf x^j/j\le\mathsf x^2/(2(1-\mathsf x))$, so $\frac k2\max\{g(c_+),g(c_-)\}\le\frac k4\mathsf x^2/(1-\mathsf x)$. By \cref{lem:apx-riccati}(d), $\lambda_{\min}(P^-_{\mathrm b})\ge\lambda_{\min}(Q^y)$. Inserting these in \cref{eq:apx-posterior} gives the stated bound.
+
+Order. By the first claim $\sigma_D^2=O(\mathfrak d_{\mathrm{cl}})$, hence $\vartheta=O(\mathfrak d_{\mathrm{cl}}^{1/2})$ and $\mathsf x^2=O(\mathfrak d_{\mathrm{cl}})$, and the bound is $O(\mathfrak d_{\mathrm{cl}})$ along every family of instances on which $\Vert\bar A\Vert$, $\varsigma_y$, $\Vert Q^y\Vert$, $\lambda_{\min}(Q^y)^{-1}$, $\mathcal S'$, $\mathcal S'_2$, $\Vert P_{\mathrm b}\Vert$ and $\mathfrak g$ stay bounded. Without such a restriction the constants can grow as the defect shrinks, and no order is claimed.
+\end{proof}
+
+\begin{proposition}[Finite horizon without stationarity]\label{prop:apx-posterior-finite}
+Let the meta-agent run the time-varying filter of the declared model from the declared initial law: $\hat P^-_0=\hat\Sigma_0$, $\hat\eta^-_0=\hat m_0$, $L_t=\hat P^-_tH^\top(H\hat P^-_tH^\top+R)^{-1}$, $\hat P^-_{t+1}=\bar A\varphi_R(\hat P^-_t)\bar A^\top+\bar Q$ and $\hat\eta^-_{t+1}=\bar A(\hat\eta^-_t+L_t(s_{t+1}-H\hat\eta^-_t))+\bar Bu_t$. Let the policy be $u_t=\pi_t(s_{1:t},\omega)$ with $\E\lvert u_t\rvert^2<\infty$. Without any hypothesis of stability, stationarity or detectability, for every $t\ge0$,
+\begin{equation}\label{eq:apx-posterior-finite}
+\E\KL\Bigl(P\bigl(y_t\in\cdot\mid s_{1:t},\omega\bigr)\Big\Vert\Ncal\bigl(\hat\eta^-_t,\hat P^-_t\bigr)\Bigr)\le\KL\bigl(P^{\pi'}\Vert\hat P^{\pi'}\bigr),
+\end{equation}
+where the right side is the path relative entropy of \cref{thm:apx-path} at horizon $T=t$ for the causal coarse policy $\pi'_j(y_{0:j},\omega')=\pi_j(Hy_0+v_0,\dots,Hy_{j-1}+v_{j-1},\omega)$ with randomization $\omega'=(\omega,v_{0:t-1})$. At $t=0$ the two sides are equal.
+\end{proposition}
+
+\begin{proof}
+Let $\mathbb P$ and $\hat{\mathbb P}$ be the laws of $(\omega,s_{1:t},y_t)$ under the fine process and under the declared model read through the same channel and driven by the same maps. By \cref{lem:apx-separation}(b) applied to the declared model, with $(A,B,Q,C)$ replaced by $(\bar A,\bar B,\bar Q,I)$, the conditional law of $y_t$ given $(\omega,s_{1:t})$ under $\hat{\mathbb P}$ is $\Ncal(\hat\eta^-_t,\hat P^-_t)$. The chain rule gives
+\begin{equation*}
+\KL\bigl(\mathbb P\Vert\hat{\mathbb P}\bigr)=\KL\bigl(\mathbb P_{(\omega,s_{1:t})}\Vert\hat{\mathbb P}_{(\omega,s_{1:t})}\bigr)+\E\KL\Bigl(P\bigl(y_t\in\cdot\mid s_{1:t},\omega\bigr)\Big\Vert\Ncal\bigl(\hat\eta^-_t,\hat P^-_t\bigr)\Bigr),
+\end{equation*}
+and the first term on the right is nonnegative. The vector $(\omega,s_{1:t},y_t)$ is the same measurable function of $(\omega',y_{0:t})$ under both laws, $\omega'$ has the same law under both and is independent of $(x_0,\mathfrak n)$ and of $(\hat y_0,\hat w)$, and $\pi'$ is a causal coarse policy. Relative entropy does not increase under a measurable map, so $\KL(\mathbb P\Vert\hat{\mathbb P})\le\KL(P^{\pi'}\Vert\hat P^{\pi'})$. At $t=0$ both sides of \cref{eq:apx-posterior-finite} are $\KL(P_{y_0}\Vert\hat P_0)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:apx-score}]
+Here $\Lambda^\star\succeq0$ is symmetric, the offsets $c_t$ and the targets $o^\star_t$ are deterministic, $G_t=\frac12\E^\pi\Vert y_t-o^\star_t\Vert^2_{\Lambda^\star}$ and $\hat G_t$ is the same expression under the declared model. Under the fine process $y_{t+1}=\bar A_Ky_t+\bar Bc_t+\delta_t+C\mathfrak n_t$. Let $\zeta_t=(Q^y)^{-1/2}C\mathfrak n_t$, which are independent standard normal vectors, and define on the same probability space $\hat y_{t+1}=\bar A_K\hat y_t+\bar Bc_t+\bar Q^{1/2}\zeta_t$, where $\hat y_0$ is drawn from the conditional law of an optimal coupling of $(P_{y_0},\hat P_0)$ given $y_0$, independently of everything else. Then $\hat y_0$ is independent of $(\zeta_t)$, so $\hat y$ has the law of the declared model under the same feedback, and $\Vert y_0-\hat y_0\Vert_{L^2}=w_0$. The difference $\Delta_t=y_t-\hat y_t$ obeys $\Delta_{t+1}=\bar A_K\Delta_t+\delta_t+\Gamma\zeta_t$ with $\Gamma=(Q^y)^{1/2}-\bar Q^{1/2}$, hence
+\begin{equation*}
+\Delta_t=\bar A_K^t\Delta_0+\sum_{s<t}\bar A_K^{t-1-s}\delta_s+\sum_{s<t}\bar A_K^{t-1-s}\Gamma\zeta_s .
+\end{equation*}
+The last sum has squared $L^2$ norm $\sum_{s<t}\Vert\bar A_K^{t-1-s}\Gamma\Vert_{\mathrm F}^2\le\beta^2\sum_{j<t}\Vert\bar A_K^j\Vert^2$, and the triangle inequality in $L^2$ gives $W_2(P^\pi_{y_t},\hat P^\pi_{y_t})\le\Vert\Delta_t\Vert_{L^2}\le w_t$.
+
+For the score, $G_t^{1/2}$ and $\hat G_t^{1/2}$ are the $L^2$ norms of $(\Lambda^\star/2)^{1/2}(y_t-o^\star_t)$ and $(\Lambda^\star/2)^{1/2}(\hat y_t-o^\star_t)$, so $\lvert G_t^{1/2}-\hat G_t^{1/2}\rvert\le(\Vert\Lambda^\star\Vert/2)^{1/2}\Vert\Delta_t\Vert_{L^2}\le a_t$ and $\lvert G_t-\hat G_t\rvert=\lvert G_t^{1/2}-\hat G_t^{1/2}\rvert(G_t^{1/2}+\hat G_t^{1/2})\le a_t(2\hat G_t^{1/2}+a_t)$. Summing over $t$ bounds $\lvert G(\pi)-\hat G(\pi)\rvert$.
+
+For state feedback $u_t=k_t(y_t)$ with $\lvert k_t(y)-k_t(y')\rvert\le\kappa\lvert y-y'\rvert$, the same coupling gives $\Delta_{t+1}=\bar A\Delta_t+\bar B(k_t(y_t)-k_t(\hat y_t))+\delta_t+\Gamma\zeta_t$, so with $\ell=\Vert\bar A\Vert+\kappa\Vert\bar B\Vert$ and $\Vert\Gamma\zeta_t\Vert_{L^2}=\beta$, $\Vert\Delta_{t+1}\Vert_{L^2}\le\ell\Vert\Delta_t\Vert_{L^2}+\Vert\delta_t\Vert_{L^2}+\beta$, and induction gives $\Vert\Delta_t\Vert_{L^2}\le\ell^tw_0+\sum_{s<t}\ell^{t-1-s}(\Vert\delta_s\Vert_{L^2}+\beta)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:apx-softmax}]
+Here $\gamma>0$ and $E(\pi)>0$ for every $\pi\in\Pi$. Let $f=\hat G-G$ and $R=\gamma\operatorname{osc}$. Then $\hat p/p=e^{-\gamma f}/\E_pe^{-\gamma f}$.
+
+Log-ratio. Since $-\gamma\max f\le\ln\E_pe^{-\gamma f}\le-\gamma\min f$, $\ln(\hat p(\pi)/p(\pi))=-\gamma f(\pi)-\ln\E_pe^{-\gamma f}$ lies between $-\gamma(f(\pi)-\min f)$ and $\gamma(\max f-f(\pi))$, hence in $[-R,R]$.
+
+Relative entropy. $\KL(p\Vert\hat p)=\gamma\E_pf+\ln\E_pe^{-\gamma f}=\psi(-\gamma)$ with $\psi(s)=\ln\E_pe^{s(f-\E_pf)}$. One has $\psi(0)=0$, $\psi'(0)=0$, and $\psi''(s)$ is the variance of $f$ under the law proportional to $pe^{sf}$, which is at most $\operatorname{osc}^2/4$ because $f$ takes values in an interval of length $\operatorname{osc}$. Taylor's formula gives $\psi(-\gamma)\le\gamma^2\operatorname{osc}^2/8$.
+
+Total variation. The distance is $\max_{S\subseteq\Pi}(\hat p(S)-p(S))$. With the weights $w=e^{-\gamma(f-\max f)}\in[1,e^R]$ and $a=p(S)$,
+\begin{equation*}
+\hat p(S)=\frac{\sum_Spw}{\sum_Spw+\sum_{\Pi\setminus S}pw}\le\frac{ae^R}{ae^R+1-a},
+\end{equation*}
+because the ratio increases with the first sum and decreases with the second. The function $a\mapsto ae^R/(ae^R+1-a)-a$ on $[0,1]$ is maximal at $a=1/(1+e^{R/2})$, where it equals $(e^{R/2}-1)/(e^{R/2}+1)=\tanh(R/4)$. The value is attained: for two policies with equal habits, $\gamma(G(\pi_1)-G(\pi_2))=R/2$ and $\gamma(\hat G(\pi_1)-\hat G(\pi_2))=-R/2$, one has $p=(a,1-a)$ and $\hat p=(1-a,a)$ with $a=1/(1+e^{R/2})$, and $1-2a=\tanh(R/4)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:apx-levels}]
+(a) With $C^{(0)}=I$, $D^{\mathrm{tot}}_0=0$ and $E^{\mathrm{tot}}_0=0$,
+\begin{equation*}
+D^{\mathrm{tot}}_{l+1}=C_{l+1}\bigl(D^{\mathrm{tot}}_l+\bar A_lC^{(l)}\bigr)-\bar A_{l+1}C_{l+1}C^{(l)}=C_{l+1}D^{\mathrm{tot}}_l+D_{l+1}C^{(l)},
+\end{equation*}
+and $E^{\mathrm{tot}}_{l+1}=C_{l+1}(E^{\mathrm{tot}}_l+\bar B_l)-\bar B_{l+1}=C_{l+1}E^{\mathrm{tot}}_l+E_{l+1}$.
+
+(b) By (a) and $y^{(l)}_t=C^{(l)}x_t$, $D^{\mathrm{tot}}_{l+1}x_t+E^{\mathrm{tot}}_{l+1}u_t=C_{l+1}(D^{\mathrm{tot}}_lx_t+E^{\mathrm{tot}}_lu_t)+D_{l+1}y^{(l)}_t+E_{l+1}u_t$, and the triangle inequality in $L^2$ gives the recursion. A policy that is causal in the top-level variable is a causal coarse policy for $C=C^{(l)}$ at every level $l$, since the top-level variable is a linear image of $y^{(l)}$. If $C^{(l)}$ has full row rank and $C^{(l)}\Sigma_0C^{(l)\top}\succ0$, \cref{thm:apx-path} applies to the retained variable $y^{(l)}$ and the declared model $(\bar A_l,\bar B_l,\bar Q_l)$, with $\delta_t=D^{\mathrm{tot}}_lx_t+E^{\mathrm{tot}}_lu_t$; dropping $\mathfrak d_{\mathrm{dyn},t}\ge0$ and using $\E\lvert\delta_t\rvert^2\le\mathfrak e_l^2$ gives \cref{eq:apx-uniform} with $Q^y=C^{(l)}QC^{(l)\top}$, $\bar Q=\bar Q_l$ and $\bar{\mathfrak d}=\mathfrak e_l$.
+
+(c) Let $\mu_l$ and $\nu_l$ be the laws of $y^{(l)}_t$ under the fine process and under the level-$l$ model, both of finite second moment, and let $C_{l+1}\mu_l$ denote the image law. Then $\mu_{l+1}=C_{l+1}\mu_l$, the image of a coupling of $(\mu_l,\nu_l)$ under $C_{l+1}$ applied to both entries is a coupling of the images, so $W_2(C_{l+1}\mu_l,C_{l+1}\nu_l)\le\Vert C_{l+1}\Vert\varepsilon_l$, and the triangle inequality for $W_2$ gives $\varepsilon_{l+1}\le\Vert C_{l+1}\Vert\varepsilon_l+W_2(C_{l+1}\nu_l,\nu_{l+1})$. The statement is metric and uses nothing about the models beyond finite second moments.
+\end{proof}

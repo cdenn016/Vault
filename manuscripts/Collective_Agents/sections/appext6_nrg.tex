@@ -1,0 +1,235 @@
+% Proofs for the section on energetic viability (key nrg).
+\section{Proofs for \texorpdfstring{Section~\ref{sec:nrg}}{energetic viability}}\label{app:nrg}
+
+The proofs follow the order of \cref{sec:nrg}. \Cref{ass:nrg-setting} is in force throughout, and in this appendix we abbreviate $\mathsf Q=Q^{\Xi}$ and $\widetilde{\mathsf Q}=\widetilde Q^{\Xi}$, keeping $Q$ for the innovation variance of the scalar world of \cref{def:nrg-architectures}. The transition density of \cref{eq:col-joint} is $k(x'\mid x)=\Ncal(x';Ax,\mathsf Q)$, the stationary density is $\pi=\Ncal(0,\Sigma)$, and $\Cov(X_{t+1},X_t)=A\Sigma$. Beyond the two lemmas below we use only the nonnegativity of relative entropy, its monotonicity under a measurable map applied to both arguments, and the chain rule for mutual information.
+
+\begin{lemma}[Relative entropy of centered Gaussian laws]\label{lem:nrg-gauss}
+For positive definite $k\times k$ matrices $S_0$ and $S_1$,
+\[
+\KL\bigl(\Ncal(0,S_0)\Vert\Ncal(0,S_1)\bigr)=\tfrac12\bigl[\tr(S_1^{-1}S_0)-k+\ln\det S_1-\ln\det S_0\bigr],
+\]
+and the value is zero if and only if $S_0=S_1$.
+\end{lemma}
+
+\begin{proof}
+With $U\sim\Ncal(0,S_0)$, the logarithm of the ratio of the two densities at $U$ is $-\tfrac12U^\top S_0^{-1}U+\tfrac12U^\top S_1^{-1}U-\tfrac12\ln\det S_0+\tfrac12\ln\det S_1$, and $\E U^\top S^{-1}U=\tr(S^{-1}S_0)$. Relative entropy vanishes only when the two laws agree, and a centered Gaussian law determines its covariance.
+\end{proof}
+
+\begin{lemma}[Stationary covariances]\label{lem:nrg-facts}
+\begin{enumerate}
+\item[(i)] $\Sigma\succeq\mathsf Q\succ0$, and the covariance of $(X_0,\dots,X_n)$ is positive definite for every $n\ge0$.
+\item[(ii)] $\widetilde{\mathsf Q}=\Cov(X_0\mid X_1)\succ0$ and $\det\widetilde{\mathsf Q}=\det\mathsf Q$.
+\item[(iii)] $\mathsf J-A\mathsf JA^\top=A\mathsf Q-\mathsf QA^\top$, and $\mathsf J=\sum_{k\ge0}A^k(A\mathsf Q-\mathsf QA^\top)(A^\top)^k$. In particular $\mathsf J=0$ if and only if $A\mathsf Q=\mathsf QA^\top$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Since $\rho(A)<1$, $\Sigma=\sum_{k\ge0}A^k\mathsf Q(A^\top)^k\succeq\mathsf Q$. The vector $(X_0,\dots,X_n)$ is the image of $(X_0,\Xi_0,\dots,\Xi_{n-1})$, whose covariance $\diag(\Sigma,\mathsf Q,\dots,\mathsf Q)$ is positive definite, under a linear map that is block lower triangular with identity diagonal blocks, hence invertible.
+
+(ii) By (i) the covariance of $(X_0,X_1)$, with blocks $\Sigma$, $\Sigma A^\top$, $A\Sigma$, $\Sigma$, is positive definite. Its Schur complement with respect to the first diagonal block is $\Sigma-A\Sigma\Sigma^{-1}\Sigma A^\top=\mathsf Q$, and with respect to the second it is $\Sigma-\Sigma A^\top\Sigma^{-1}A\Sigma=\widetilde{\mathsf Q}$, the conditional covariance of $X_0$ given $X_1$. Both are positive definite, and the determinant of the joint covariance equals $\det\Sigma\det\mathsf Q$ and $\det\Sigma\det\widetilde{\mathsf Q}$.
+
+(iii) Using $\mathsf Q=\Sigma-A\Sigma A^\top$,
+\[
+A\mathsf Q-\mathsf QA^\top=A\Sigma-A^2\Sigma A^\top-\Sigma A^\top+A\Sigma(A^\top)^2=(A\Sigma-\Sigma A^\top)-A(A\Sigma-\Sigma A^\top)A^\top .
+\]
+If $Z=AZA^\top$ then $Z=A^kZ(A^\top)^k\to0$, so the equation $Z-AZA^\top=B$ has at most one solution, and the convergent series $\sum_kA^kB(A^\top)^k$ is one.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:nrg-ep}]
+We first show that the window divergence is additive. At the point $(x_0,\dots,x_n)$ the law of $(X_0,\dots,X_n)$ and the law of the reversed window $(X_n,\dots,X_0)$ have the densities
+\[
+\pi(x_0)\prod_{t<n}k(x_{t+1}\mid x_t)\qquad\text{and}\qquad\pi(x_n)\prod_{t<n}k(x_t\mid x_{t+1}).
+\]
+Both are nondegenerate Gaussian densities by \cref{lem:nrg-facts}(i), and the logarithm of their ratio is a quadratic form, so its expectation is finite and
+\[
+\mathsf D_n=\E\bigl[\ln\pi(X_0)-\ln\pi(X_n)\bigr]+\sum_{t<n}\E\ln\frac{k(X_{t+1}\mid X_t)}{k(X_t\mid X_{t+1})}=n\E\ln\frac{k(X_1\mid X_0)}{k(X_0\mid X_1)},
+\]
+because $X_0$ and $X_n$ have the same law and the pairs $(X_t,X_{t+1})$ have the same law for all $t$. Hence $\mathsf D_n=n\mathsf D_1$ and $\mathsf{ep}=\mathsf D_1$.
+
+Next we compute the one-step value. Since $\ln k(x'\mid x)=-\tfrac12(x'-Ax)^\top\mathsf Q^{-1}(x'-Ax)-\tfrac12\ln\det(2\pi\mathsf Q)$ and $\E(X_1-AX_0)(X_1-AX_0)^\top=\mathsf Q$,
+\[
+\mathsf{ep}=\tfrac12\tr\bigl(\mathsf Q^{-1}(\mathsf M-\mathsf Q)\bigr),\qquad\mathsf M=\E(X_0-AX_1)(X_0-AX_1)^\top=\Sigma-\Sigma(A^\top)^2-A^2\Sigma+A\Sigma A^\top .
+\]
+With $\mathsf Q=\Sigma-A\Sigma A^\top$ this gives $\mathsf M-\mathsf Q=2A\Sigma A^\top-A^2\Sigma-\Sigma(A^\top)^2=\mathsf JA^\top-A\mathsf J$. Since $\mathsf J^\top=-\mathsf J$ and $\mathsf Q^{-1}$ is symmetric, $\tr(\mathsf Q^{-1}A\mathsf J)=\tr(\mathsf J^\top A^\top\mathsf Q^{-1})=-\tr(\mathsf Q^{-1}\mathsf JA^\top)$, so $\mathsf{ep}=\tr(\mathsf Q^{-1}\mathsf JA^\top)$, the first expression in \cref{eq:nrg-ep}.
+
+For the decomposition into two nonnegative terms, note that
+\[
+\mathsf J\Sigma^{-1}\mathsf J^\top=(A\Sigma-\Sigma A^\top)\Sigma^{-1}(\Sigma A^\top-A\Sigma)=A\Sigma A^\top-A^2\Sigma-\Sigma(A^\top)^2+\Sigma A^\top\Sigma^{-1}A\Sigma,
+\]
+so $\mathsf M=\widetilde{\mathsf Q}+\mathsf J\Sigma^{-1}\mathsf J^\top$ and the second expression in \cref{eq:nrg-ep} follows. Its second term is $\tfrac12\Vert\mathsf Q^{-1/2}\mathsf J\Sigma^{-1/2}\Vert_F^2\ge0$, with equality exactly when $\mathsf J=0$. For the first term, the eigenvalues of $\mathsf Q^{-1/2}\widetilde{\mathsf Q}\mathsf Q^{-1/2}$ are positive with product $\det\widetilde{\mathsf Q}/\det\mathsf Q=1$ by \cref{lem:nrg-facts}(ii), so their arithmetic mean is at least one, that is, $\tr(\mathsf Q^{-1}\widetilde{\mathsf Q})\ge d$ with $d=\dim X$, and $\tfrac12\tr(\mathsf Q^{-1}(\widetilde{\mathsf Q}-\mathsf Q))\ge0$.
+
+For the equivalences, if $\mathsf{ep}=0$ both terms vanish, so $\mathsf J=0$; if $\mathsf J=0$ the first expression gives $\mathsf{ep}=0$. By \cref{lem:nrg-facts}(iii), $\mathsf J=0$ if and only if $A\mathsf Q=\mathsf QA^\top$. The chain is time reversible when $(X_0,\dots,X_n)$ and $(X_n,\dots,X_0)$ have the same law for every $n$, that is, when $\mathsf D_n=0$ for every $n$, which by additivity is $\mathsf{ep}=0$.
+
+For normal drift, let $AA^\top=A^\top A$ and $\mathsf Q=qI$. Then $\Sigma=q\sum_k(AA^\top)^k=q(I-AA^\top)^{-1}$ commutes with $A$ and $A^\top$, and $\mathsf{ep}=q^{-1}\tr(\mathsf JA^\top)=\tr\bigl((A-A^\top)(I-AA^\top)^{-1}A^\top\bigr)$. A real normal matrix is unitarily diagonalizable, $A=U\Lambda U^*$ and $A^\top=U\overline\Lambda U^*$, so
+\[
+\mathsf{ep}=\sum_k\frac{(\lambda_k-\overline{\lambda_k})\overline{\lambda_k}}{1-\vert\lambda_k\vert^2}=\sum_k\frac{\vert\lambda_k\vert^2-\operatorname{Re}(\lambda_k^2)}{1-\vert\lambda_k\vert^2}=\sum_k\frac{2(\operatorname{Im}\lambda_k)^2}{1-\vert\lambda_k\vert^2},
+\]
+where the second equality holds because the sum is real and the last because $\vert\lambda\vert^2-\operatorname{Re}(\lambda^2)=2(\operatorname{Im}\lambda)^2$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:nrg-blanket}]
+Let $\mathsf{ep}=0$, so that $A\mathsf Q=\mathsf QA^\top$ by \cref{thm:nrg-ep}, and let $\mathsf Q$ be block diagonal over $(\sI,\sS,\sA,\sE)$. The block $(\sE,\sA)$ of this identity reads $A_{\sE\sA}\mathsf Q_{\sA\sA}=\mathsf Q_{\sE\sE}A_{\sA\sE}^\top$. No active variable reads an exterior variable (\cref{def:col-partition}), so $A_{\sA\sE}=0$ and, $\mathsf Q_{\sA\sA}$ being invertible, $A_{\sE\sA}=0$. An active variable drives at least one variable that is not collective, so every column of $A_{\sE\sA}$ is nonzero; hence $\sA=\varnothing$. The block $(\sE,\sS)$ reads $A_{\sE\sS}\mathsf Q_{\sS\sS}=\mathsf Q_{\sE\sE}A_{\sS\sE}^\top$, which is the stated reciprocity. For the last sentence, a collective with an active state violates the first conclusion. If $\sS\neq\varnothing$ and $A_{\sE\sS}=0$, reciprocity would force $A_{\sS\sE}=0$, whereas every sensory variable reads a variable that is not collective, so every row of $A_{\sS\sE}$ is nonzero. In both cases $\mathsf{ep}\neq0$, and $\mathsf{ep}\ge0$.
+\end{proof}
+
+\begin{remark}[Scope of the reversible case of \cref{prop:col-memory}]\label{rem:nrg-memory-scope}
+For the canonical partition with noise independent across the four classes $(\sI,\sS,\sA,\sE)$, in particular for per-channel noise, the hypotheses of \cref{prop:col-memory}(c) contain those of \cref{cor:nrg-blanket} with $\mathsf{ep}=0$. In that case the proposition describes collectives without active states whose sensory states drive the exterior with the weights $\mathsf Q_{\sE\sE}A_{\sS\sE}^\top\mathsf Q_{\sS\sS}^{-1}$. This restricts its range of application and does not affect its proof; the sentence on agents that sense an exogenous world, in the paragraph that follows the proposition, is the case $A_{\sE\sS}=0$ with $\sS\neq\varnothing$. If the noise of sensory and active states is correlated, the block $(\sE,\sB)$ of $A\mathsf Q=\mathsf QA^\top$ gives $A_{\sE\sB}=\mathsf Q_{\sE\sE}A_{\sB\sE}^\top\mathsf Q_{\sB\sB}^{-1}$, whose active columns $\mathsf Q_{\sE\sE}A_{\sS\sE}^\top(\mathsf Q_{\sB\sB}^{-1})_{\sS\sA}$ need not vanish, so the corollary does not extend to noise that is independent only across $(\sI,\sB,\sE)$. A witness is $A=\kappa\mathsf QM$ with $\kappa>0$, $M$ symmetric, $M_{\sI\sE}=0$ and $M_{\sA\sE}=-\mathsf Q_{\sA\sA}^{-1}\mathsf Q_{\sA\sS}M_{\sS\sE}$: then $A\mathsf Q=\kappa\mathsf QM\mathsf Q=\mathsf QA^\top$, $A_{\sI\sE}=0$, $A_{\sE\sI}=0$ and $A_{\sA\sE}=0$, while $A_{\sE\sA}=\kappa\mathsf Q_{\sE\sE}M_{\sA\sE}^\top$ and $A_{\sS\sE}=\kappa(\mathsf Q_{\sS\sS}-\mathsf Q_{\sS\sA}\mathsf Q_{\sA\sA}^{-1}\mathsf Q_{\sA\sS})M_{\sS\sE}$. With one variable of each class, ordered $(\sI,\sS,\sA,\sE)$, take $\kappa=\tfrac12$,
+\[
+\mathsf Q=\begin{pmatrix}0.5&0&0&0\\0&1&0.45&0\\0&0.45&0.8&0\\0&0&0&1.2\end{pmatrix},\qquad
+M=\begin{pmatrix}0.7&0.3&-0.2&0\\0.3&-0.4&0.25&0.6\\-0.2&0.25&0.5&-0.3375\\0&0.6&-0.3375&0.3\end{pmatrix}.
+\]
+Then $\mathsf Q\succ0$, $\rho(A)=0.356$, $A_{\sS\sE}=717/3200$, $A_{\sE\sS}=9/25$, $A_{\sE\sA}=-81/400$ and $A_{\sA\sE}=0$, so the partition is canonical with one sensory and one active variable, and $\mathsf{ep}=0$ by \cref{thm:nrg-ep}. With the same $A$ and the entry $\mathsf Q_{\sS\sA}$ set to zero, $\mathsf{ep}=0.0722$ (\cref{chk:nrg-indep}).
+\end{remark}
+
+\begin{proof}[Proof of \cref{thm:nrg-coarse}]
+Write $\mathbf Y_n=(Y_0,\dots,Y_n)$ and $\mathbf Y_n^{\mathrm r}=(Y_n,\dots,Y_0)=\mathsf P_n\mathbf Y_n$.
+
+(a) Nonnegativity is that of relative entropy. The map $(x_0,\dots,x_n)\mapsto(Cx_0,\dots,Cx_n)$ sends the law of $(X_0,\dots,X_n)$ to that of $\mathbf Y_n$ and the law of $(X_n,\dots,X_0)$ to that of $\mathbf Y_n^{\mathrm r}$, so $\mathsf D_n(C)\le\mathsf D_n=n\mathsf{ep}$ by monotonicity and \cref{thm:nrg-ep}. Dropping the last coordinate sends the law of $\mathbf Y_{n+1}$ to that of $\mathbf Y_n$ and the law of $\mathbf Y_{n+1}^{\mathrm r}=(Y_{n+1},\dots,Y_0)$ to that of $(Y_{n+1},\dots,Y_1)$, which equals the law of $\mathbf Y_n^{\mathrm r}$ by stationarity; hence $\mathsf D_n(C)\le\mathsf D_{n+1}(C)$. Dividing $0\le\mathsf D_n(C)\le n\mathsf{ep}$ by $n$ places the hidden dissipation in $[0,\mathsf{ep}]$.
+
+(b) For $s\ge t$, $\Cov(Y_s,Y_t)=CA^{s-t}\Sigma C^\top=\Gamma_{s-t}$. The covariance $\mathsf T_n$ of $\mathbf Y_n$ is the image of the covariance of $(X_0,\dots,X_n)$, positive definite by \cref{lem:nrg-facts}(i), under the map $I\otimes C$ of full row rank, so $\mathsf T_n\succ0$. The covariance of $\mathbf Y_n^{\mathrm r}$ is $\mathsf P_n\mathsf T_n\mathsf P_n^\top$, with the same determinant, and \cref{lem:nrg-gauss} with $k=(n+1)m$ gives the formula.
+
+(c) By \cref{lem:nrg-gauss}, $\mathsf D_n(C)=0$ if and only if $\mathsf T_n=\mathsf P_n\mathsf T_n\mathsf P_n^\top$. The block $(s,t)$ of the right side is $\Cov(Y_{n-s},Y_{n-t})$, which is $\Gamma_{s-t}^\top$ for $s\ge t$. Hence $\mathsf D_n(C)=0$ if and only if $\Gamma_k=\Gamma_k^\top$ for $k=1,\dots,n$, and $\mathsf D_n(C)=0$ for all $n$ if and only if every $\Gamma_k$ is symmetric. By the Cayley--Hamilton theorem each $A^k$ with $k\ge d$ is a real linear combination of $I,A,\dots,A^{d-1}$, so each $\Gamma_k$ is a real linear combination of $\Gamma_0,\dots,\Gamma_{d-1}$, and $\Gamma_0=C\Sigma C^\top$ is symmetric. Symmetry for $k=1,\dots,d-1$ therefore implies symmetry for all $k$.
+
+(d) For $m=1$ each $\Gamma_k$ is a number, so (c) applies, $\mathsf D_n(C)=0$ for all $n$, and the hidden dissipation is $\mathsf{ep}-0$.
+\end{proof}
+
+\begin{proof}[Details for \cref{ex:nrg-ring}]
+The cyclic shift $P$ is a permutation matrix, hence orthogonal, and $A=cI+aP$ is normal with eigenvalues $\lambda_j=c+ae^{2\pi ij/3}$, $j=0,1,2$, and $\rho(A)\le\vert c\vert+\vert a\vert<1$. The eigenvalue $\lambda_0$ is real, and $\lambda_1,\lambda_2$ have imaginary parts $\pm\tfrac{\sqrt3}2a$ and squared modulus $c^2-ac+a^2$. The last formula of \cref{thm:nrg-ep} gives $\mathsf{ep}=2\cdot2\cdot\tfrac34a^2/(1-c^2+ac-a^2)=3a^2/(1-c^2+ac-a^2)$, which is $0.75/0.81=25/27$ at $c=0.3$, $a=0.5$. The mean $\tfrac13(1,1,1)X$ and a single coordinate are scalar descriptions, reversible by \cref{thm:nrg-coarse}(d). The value for a pair of agents is numerical: $\mathsf D_n(C)/n=0.34596$ at $n=128$ and the integral \cref{eq:nrg-spectral} equals $0.34665$ (\cref{chk:nrg-coarse}); \cref{thm:nrg-coarse}(a) guarantees only that it lies in $[0,25/27]$.
+\end{proof}
+
+\subsection*{Information flow}
+
+In the setting of \cref{thm:nrg-flow}, $\mathsf Q=\diag(\mathsf Q_{\mathrm{uu}},\mathsf Q_{\mathrm{vv}})$, so $k(x'\mid x)=k_{\mathrm u}(x'_{\mathrm u}\mid x)k_{\mathrm v}(x'_{\mathrm v}\mid x)$ with $k_{\mathrm u}(x'_{\mathrm u}\mid x_{\mathrm u},x_{\mathrm v})=\Ncal(x'_{\mathrm u};A_{\mathrm{uu}}x_{\mathrm u}+A_{\mathrm{uv}}x_{\mathrm v},\mathsf Q_{\mathrm{uu}})$. In \cref{eq:nrg-flows} the symbol $k_{\mathrm u}(x_{\mathrm u}\mid x'_{\mathrm u},x_{\mathrm v})$ is this function with its first two arguments exchanged, and $k_{\mathrm u}(X_{\mathrm u}\mid X')=k_{\mathrm u}(X_{\mathrm u}\mid X'_{\mathrm u},X'_{\mathrm v})$. The covariance of $(X,X')$ is positive definite by \cref{lem:nrg-facts}(i), so every subvector of $(X,X')$ has a nondegenerate Gaussian law, all entropies and mutual informations below are finite, and so are the expectations in \cref{eq:nrg-flows}, which are expectations of quadratic forms:
+\begin{equation}\label{eq:nrg-flows-explicit}
+\begin{aligned}
+\mathsf s_{\mathrm u}&=\tfrac12\tr\bigl(\mathsf Q_{\mathrm{uu}}^{-1}(\E\mathsf l\mathsf l^\top-\mathsf Q_{\mathrm{uu}})\bigr),&\mathsf l&=X_{\mathrm u}-A_{\mathrm{uu}}X'_{\mathrm u}-A_{\mathrm{uv}}X_{\mathrm v},\\
+\mathsf{ep}_{\mathrm u}&=\tfrac12\tr\bigl(\mathsf Q_{\mathrm{uu}}^{-1}(\E\mathsf l'\mathsf l'^\top-\mathsf Q_{\mathrm{uu}})\bigr),&\mathsf l'&=X_{\mathrm u}-A_{\mathrm{uu}}X'_{\mathrm u}-A_{\mathrm{uv}}X'_{\mathrm v}.
+\end{aligned}
+\end{equation}
+The two differ only in whether the partner enters the reversed step with its old or its new value.
+
+\begin{proof}[Proof of \cref{thm:nrg-flow}]
+(a) By the proof of \cref{thm:nrg-ep}, $\mathsf{ep}=\E\ln\bigl(k(X'\mid X)/k(X\mid X')\bigr)$, and the factorization of $k$ splits the logarithm into the two terms whose expectations are $\mathsf{ep}_{\mathrm u}$ and $\mathsf{ep}_{\mathrm v}$. For the lower bound let $\mathsf R=k_{\mathrm u}(X_{\mathrm u}\mid X')/k_{\mathrm u}(X'_{\mathrm u}\mid X)$, so that $\mathsf{ep}_{\mathrm u}=-\E\ln\mathsf R\ge-\ln\E\mathsf R$ by Jensen's inequality. The joint density of $(X,X')$ is $\pi(x)k_{\mathrm u}(x'_{\mathrm u}\mid x)k_{\mathrm v}(x'_{\mathrm v}\mid x)$, hence
+\[
+\E\mathsf R=\int\pi(x)k_{\mathrm v}(x'_{\mathrm v}\mid x)\Bigl[\int k_{\mathrm u}(x_{\mathrm u}\mid x'_{\mathrm u},x'_{\mathrm v})dx'_{\mathrm u}\Bigr]dxdx'_{\mathrm v}.
+\]
+When $A_{\mathrm{uu}}$ is invertible the substitution $y=A_{\mathrm{uu}}x'_{\mathrm u}$ shows that the inner integral of $\Ncal(x_{\mathrm u};A_{\mathrm{uu}}x'_{\mathrm u}+A_{\mathrm{uv}}x'_{\mathrm v},\mathsf Q_{\mathrm{uu}})$ over $x'_{\mathrm u}$ is $\vert\det A_{\mathrm{uu}}\vert^{-1}$, and the remaining integral is one. Hence $\E\mathsf R=\vert\det A_{\mathrm{uu}}\vert^{-1}$ and $\mathsf{ep}_{\mathrm u}\ge\ln\vert\det A_{\mathrm{uu}}\vert$.
+
+(b) The function $x_{\mathrm u}\mapsto k_{\mathrm u}(x_{\mathrm u}\mid x'_{\mathrm u},x_{\mathrm v})$ is a normal density, so $\pi^+(x'_{\mathrm u},x_{\mathrm v})k_{\mathrm u}(x_{\mathrm u}\mid x'_{\mathrm u},x_{\mathrm v})$ is a probability density, that of the nondegenerate Gaussian law $P^{\mathrm{fr}}$. The law $P$ of $(X_{\mathrm u},X_{\mathrm v},X'_{\mathrm u})$ has density $\pi(x_{\mathrm u},x_{\mathrm v})k_{\mathrm u}(x'_{\mathrm u}\mid x_{\mathrm u},x_{\mathrm v})$. Therefore
+\[
+\KL(P\Vert P^{\mathrm{fr}})=\E\ln\frac{k_{\mathrm u}(X'_{\mathrm u}\mid X_{\mathrm u},X_{\mathrm v})}{k_{\mathrm u}(X_{\mathrm u}\mid X'_{\mathrm u},X_{\mathrm v})}+\E\ln\frac{\pi(X_{\mathrm u},X_{\mathrm v})}{\pi^+(X'_{\mathrm u},X_{\mathrm v})}=\mathsf s_{\mathrm u}-h(X_{\mathrm u},X_{\mathrm v})+h(X'_{\mathrm u},X_{\mathrm v}),
+\]
+with $h$ the differential entropy. Since $X'_{\mathrm u}$ and $X_{\mathrm u}$ have the same law,
+\[
+\mathsf i_{\mathrm u}=\bigl[h(X'_{\mathrm u})+h(X_{\mathrm v})-h(X'_{\mathrm u},X_{\mathrm v})\bigr]-\bigl[h(X_{\mathrm u})+h(X_{\mathrm v})-h(X_{\mathrm u},X_{\mathrm v})\bigr]=h(X_{\mathrm u},X_{\mathrm v})-h(X'_{\mathrm u},X_{\mathrm v}),
+\]
+and the two displays give $\KL(P\Vert P^{\mathrm{fr}})=\mathsf s_{\mathrm u}-\mathsf i_{\mathrm u}$.
+
+(c) The chain rule applied in two orders gives
+\[
+I(X_{\mathrm u};X_{\mathrm v})+I(X'_{\mathrm u};X_{\mathrm v}\mid X_{\mathrm u})=I(X'_{\mathrm u},X_{\mathrm u};X_{\mathrm v})=I(X'_{\mathrm u};X_{\mathrm v})+I(X_{\mathrm u};X_{\mathrm v}\mid X'_{\mathrm u})\ge I(X'_{\mathrm u};X_{\mathrm v}),
+\]
+which is $\mathsf i_{\mathrm u}\le\mathsf{te}_{\mathrm v\to\mathrm u}$. Since $X'_{\mathrm u}=A_{\mathrm{uu}}X_{\mathrm u}+A_{\mathrm{uv}}X_{\mathrm v}+\Xi_{\mathrm u}$ with $\Xi_{\mathrm u}\sim\Ncal(0,\mathsf Q_{\mathrm{uu}})$ independent of $X$, the conditional covariance of $X'_{\mathrm u}$ given $X_{\mathrm u}$ is $\mathsf Q_{\mathrm{uu}}+A_{\mathrm{uv}}\Sigma_{\mathrm v\mid\mathrm u}A_{\mathrm{uv}}^\top$ and given $(X_{\mathrm u},X_{\mathrm v})$ it is $\mathsf Q_{\mathrm{uu}}$, so
+\[
+\mathsf{te}_{\mathrm v\to\mathrm u}=\tfrac12\ln\det\bigl(\mathsf Q_{\mathrm{uu}}+A_{\mathrm{uv}}\Sigma_{\mathrm v\mid\mathrm u}A_{\mathrm{uv}}^\top\bigr)-\tfrac12\ln\det\mathsf Q_{\mathrm{uu}},
+\]
+which is the stated formula.
+
+(d) By stationarity $I(X'_{\mathrm u};X'_{\mathrm v})=I(X_{\mathrm u};X_{\mathrm v})$, so $\mathsf i_{\mathrm u}+\mathsf i_{\mathrm v}=I(X'_{\mathrm u};X_{\mathrm v})+I(X_{\mathrm u};X'_{\mathrm v})-2I(X_{\mathrm u};X_{\mathrm v})$, which is the negative of the bracket in the statement.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:nrg-blanket-flow}]
+A matrix $\mathsf Q$ that is block diagonal over $(\sI,\sS,\sA,\sE)$ is block diagonal over $(\mathrm u,\mathrm v)=(\sI\cup\sB,\sE)$, so \cref{thm:nrg-flow} applies in both directions. By \cref{def:col-partition} no internal variable reads or drives an exterior variable and no active variable reads one: $A_{\sI\sE}=0$, $A_{\sE\sI}=0$ and $A_{\sA\sE}=0$. The only nonzero rows of $A_{\mathrm{uv}}$ are therefore the sensory rows, $A_{\mathrm{uv}}\Sigma_{\sE\mid\mathrm u}A_{\mathrm{uv}}^\top$ vanishes outside its block $(\sS,\sS)$, where it equals $A_{\sS\sE}\Sigma_{\sE\mid\mathrm u}A_{\sS\sE}^\top$, and since $\mathsf Q_{\mathrm{uu}}=\diag(\mathsf Q_{\sI\sI},\mathsf Q_{\sS\sS},\mathsf Q_{\sA\sA})$ the determinant in \cref{thm:nrg-flow}(c) reduces to the first line of \cref{eq:nrg-blanket-te}. In the other direction the only nonzero columns of $A_{\mathrm{vu}}$ are the blanket columns, so $A_{\mathrm{vu}}\Sigma_{\mathrm u\mid\sE}A_{\mathrm{vu}}^\top=A_{\sE\sB}\Sigma_{\sB\mid\sE}A_{\sE\sB}^\top$, where $\Sigma_{\sB\mid\sE}=\Sigma_{\sB\sB}-\Sigma_{\sB\sE}\Sigma_{\sE\sE}^{-1}\Sigma_{\sE\sB}$ is the blanket block of $\Sigma_{\mathrm u\mid\sE}$; this is the second line. The inequalities are \cref{thm:nrg-flow}(b) and (c) for each side.
+\end{proof}
+
+\begin{example}[A four-variable blanket]\label{ex:nrg-blanket-instance}
+Take one variable of each class, ordered $(\sI,\sS,\sA,\sE)$, with
+\[
+A=\begin{pmatrix}0.5&0.4&0&0\\0&0.3&0&0.6\\0.5&0&0.2&0\\0&0&0.4&0.7\end{pmatrix},\qquad\mathsf Q=\diag(0.2,0.1,0.1,1).
+\]
+The sensory variable reads the exterior, the internal variable reads the sensory one, the active variable reads the internal one and drives the exterior, and $\rho(A)=0.936$. By \cref{cor:nrg-blanket} the process is irreversible, and \cref{thm:nrg-ep} gives $\mathsf{ep}=6.0995$ nats per round. For the collective $\mathrm u=\sI\cup\sB$ the computation of \cref{chk:nrg-flow} gives $\mathsf s_{\mathrm u}=5.1336$, $\mathsf i_{\mathrm u}=0.7848$, $\mathsf{te}_{\sE\to\mathrm u}=0.8225$ and $\mathsf{ep}_{\mathrm u}=6.0995$; for the exterior, $\mathsf s_{\sE}=0.0206$, $\mathsf i_{\sE}=-0.1505$, $\mathsf{te}_{\mathrm u\to\sE}=0.0336$ and $\mathsf{ep}_{\sE}=-5.1\times10^{-5}$. All inequalities of \cref{thm:nrg-flow,cor:nrg-blanket-flow} hold, the collective gains about $0.78$ nats about its exterior per round through one sensory channel whose transfer entropy is $0.82$, and three statements familiar from continuous time fail: $\mathsf i_{\mathrm u}+\mathsf i_{\sE}=0.634\neq0$, $\mathsf s_{\mathrm u}+\mathsf s_{\sE}-\mathsf{ep}=-0.945\neq0$, and $\mathsf{ep}_{\sE}<0$.
+\end{example}
+
+\begin{example}[A negative partial entropy production]\label{ex:nrg-negative-partial}
+For two scalar blocks with $A=\bigl(\begin{smallmatrix}0.1&0.05\\0.9&0.5\end{smallmatrix}\bigr)$ and $\mathsf Q=\diag(1,0.05)$, \cref{eq:nrg-flows-explicit} gives $\mathsf{ep}_{\mathrm u}=-0.0451$ and $\mathsf{ep}_{\mathrm v}=16.2362$, with sum $\mathsf{ep}=16.1911$ and with $\mathsf{ep}_{\mathrm u}\ge\ln\vert A_{\mathrm{uu}}\vert=-2.30$ as \cref{thm:nrg-flow}(a) requires (\cref{chk:nrg-flow}). The partial terms of the additive decomposition are therefore not entropy productions of the parts, and the Jensen bound is the only general lower bound we have for them.
+\end{example}
+
+\begin{remark}[What does not transfer from continuous time]\label{rem:nrg-continuous}
+For a bipartite Markov jump process, in which the two parts never change in the same instant, \citet{horowitz2014thermodynamics} show that the entropy production rate is the sum of two partial rates, each nonnegative and, in a steady state, equal to the entropy flow of one part minus the information flow into it, and that the two information flows then cancel. Their derivation is for jump processes; we cite no corresponding result for diffusions. In discrete time both blocks are updated in one round, and the reversed step of block $\mathrm u$ can be taken with the partner at its old value, which gives $\mathsf s_{\mathrm u}$, or at its new value, which gives $\mathsf{ep}_{\mathrm u}$. The first choice keeps the second-law form $\mathsf s_{\mathrm u}\ge\mathsf i_{\mathrm u}$ of \cref{thm:nrg-flow}(b) and loses additivity; the second keeps additivity, \cref{thm:nrg-flow}(a), and loses the sign. The sum of the information flows is the mixed second difference of \cref{thm:nrg-flow}(d), which is negative in $24$ of $400$ random instances and positive in the others (\cref{chk:nrg-flow}). Under the scaling $A=I+hG$, $\mathsf Q=hD$ the two defects $\mathsf s_{\mathrm u}+\mathsf s_{\mathrm v}-\mathsf{ep}$ and $\mathsf i_{\mathrm u}+\mathsf i_{\mathrm v}$ halve, per unit time, each time $h$ is halved in the instance of \cref{chk:nrg-flow}, consistent with defects of order $h^2$ per round. This scaling is a numerical observation on one instance; a proof is part of \cref{open:nrg-parity}, and we neither cite nor prove that the identities of a bipartite diffusion are recovered as $h\to0$.
+\end{remark}
+
+\subsection*{The bridge and the scale theorem}
+
+\begin{proof}[Proof of \cref{prop:nrg-channel}]
+(a) Since $R\succ0$ and $\Sigma_x\succeq0$, $y$ is Gaussian with positive definite covariance $\Sigma_x+R$ and $y$ given $x$ has covariance $R$, so
+\[
+I(y;x)=h(y)-h(y\mid x)=\tfrac12\ln\det(\Sigma_x+R)-\tfrac12\ln\det R=\tfrac12\ln\det\bigl(I+R^{-1/2}\Sigma_xR^{-1/2}\bigr),
+\]
+and \cref{prem:nrg-register} gives the cost. Let $\lambda_1,\dots,\lambda_m\ge0$ be the eigenvalues of $R^{-1/2}\Sigma_xR^{-1/2}$. Under the thermal clause $E_{\mathrm{sig}}=\tfrac12k_{\mathrm B}\mathsf T\E x^\top R^{-1}x=\tfrac12k_{\mathrm B}\mathsf T\tr(R^{-1}\Sigma_x)=\tfrac12k_{\mathrm B}\mathsf T\sum_k\lambda_k$, while $I(y;x)=\tfrac12\sum_k\ln(1+\lambda_k)\le\tfrac12\sum_k\lambda_k$, so $E_{\mathrm{sig}}\ge k_{\mathrm B}\mathsf TI(y;x)$. For a scalar channel $\lambda_1=e^{2I(y;x)}-1$, which gives the last formula.
+
+(b) As in the statement, $q_e$ is the variance of $w_t$ and $P_e=q_e/(1-\mathsf f^2)$ is the stationary variance of the source. The pair $X=(z,e)$ obeys \cref{eq:col-joint} with
+\[
+A=\begin{pmatrix}\mathsf r&\omega\\0&\mathsf f\end{pmatrix},\qquad\mathsf Q=\diag(q_z,q_e)\succ0,\qquad\rho(A)=\max\{\vert\mathsf r\vert,\vert\mathsf f\vert\}<1,
+\]
+so \cref{ass:nrg-setting} holds with blocks $\mathrm u=z$ and $\mathrm v=e$ and independent noise, and \cref{thm:nrg-flow}(b) gives $\mathsf s_z\ge\mathsf i_z$. For jointly Gaussian scalars with correlation $\varrho$ the mutual information is $-\tfrac12\ln(1-\varrho^2)$, so it remains to find the correlation of $z_{t+1}$ and $e_t$. The noise $w_t$ is independent of $(e_t,z_t,\zeta^z_t)$ and hence of $z_{t+1}$, so $\operatorname{Cov}(z_{t+1},e_{t+1})=\operatorname{Cov}(z_{t+1},\mathsf fe_t+w_t)=\mathsf f\operatorname{Cov}(z_{t+1},e_t)$. By stationarity the left side is $\varrho_{ze}\sqrt{V_zP_e}$ with $V_z$ the stationary variance of the record, and $e_t$ has variance $P_e$, so the correlation of $z_{t+1}$ and $e_t$ is $\varrho_{ze}/\mathsf f$. Its square is below one because the covariance of $(X_t,X_{t+1})$ is positive definite by \cref{lem:nrg-facts}(i). Therefore
+\[
+\mathsf i_z=I(z_{t+1};e_t)-I(z_t;e_t)=\tfrac12\ln\frac{1-\varrho_{ze}^2}{1-\varrho_{ze}^2/\mathsf f^2},
+\]
+which is nonnegative because $\vert\mathsf f\vert<1$. In closed form, stationarity of $\mathsf c=\operatorname{Cov}(z_t,e_t)$ and of $V_z$ gives $\mathsf c=\mathsf f(\omega P_e+\mathsf r\mathsf c)$ and $V_z=\omega^2P_e+\mathsf r^2V_z+2\omega\mathsf r\mathsf c+q_z$, that is,
+\[
+\mathsf c=\frac{\mathsf f\omega P_e}{1-\mathsf f\mathsf r},\qquad V_z=\frac{\omega^2P_e+2\omega\mathsf r\mathsf c+q_z}{1-\mathsf r^2},\qquad\varrho_{ze}^2=\frac{\mathsf c^2}{V_zP_e}.
+\]
+For the limit, hold $P_e$, $\omega$, $\mathsf r$ and $q_z$ fixed. The quantity $1-\varrho_{ze}^2/\mathsf f^2$ is the ratio of the conditional variance of $z_{t+1}$ given $e_t$ to $V_z$, and that conditional variance is at least $q_z$ because $\zeta^z_t$ is independent of $(e_t,z_t)$. The triangle inequality in $L^2$ applied to $z_{t+1}=\mathsf rz_t+\omega e_t+\zeta^z_t$ gives $\sqrt{V_z}\le\vert\mathsf r\vert\sqrt{V_z}+\vert\omega\vert\sqrt{P_e}+\sqrt{q_z}$, hence $V_z\le\bar V=\bigl(\vert\omega\vert\sqrt{P_e}+\sqrt{q_z}\bigr)^2/(1-\vert\mathsf r\vert)^2$ for every $\mathsf f$. With $\ln(1+a)\le a$ and $\varrho_{ze}^2/\mathsf f^2<1$,
+\[
+\mathsf i_z=\tfrac12\ln\Bigl(1+\frac{(\varrho_{ze}^2/\mathsf f^2)(1-\mathsf f^2)}{1-\varrho_{ze}^2/\mathsf f^2}\Bigr)\le\frac{1-\mathsf f^2}{2(1-\varrho_{ze}^2/\mathsf f^2)}\le\frac{(1-\mathsf f^2)\bar V}{2q_z},
+\]
+which tends to zero as $\vert\mathsf f\vert\to1$. The bound uses that $\bar V$ does not depend on $\mathsf f$, which is where the fixed variance $P_e$ enters. At fixed $q_e$ the variance $P_e$ diverges as $\vert\mathsf f\vert\to1$ and the limit fails. Let $\mathsf u$ be the conditional variance of $z_t$ given $e_t$. Since $z_t$ and $z_{t+1}$ have the same law, $\mathsf i_z=h(z_t\mid e_t)-h(z_{t+1}\mid e_t)=\tfrac12\ln\bigl(\mathsf u/(\mathsf r^2\mathsf u+q_z)\bigr)$. The stationary source has the backward representation $e_{s-1}=\mathsf fe_s+b_s$ with $b_s\sim\Ncal(0,q_e)$ independent of $(e_s,e_{s+1},\dots)$, so that $e_{t-1-k}-\mathsf f^{k+1}e_t=\sum_{j=0}^k\mathsf f^{k-j}b_{t-j}$, and inserting this in $z_t=\sum_{k\ge0}\mathsf r^k(\omega e_{t-1-k}+\zeta^z_{t-1-k})$ gives
+\[
+\mathsf u=\frac{1}{1-\mathsf r^2}\Bigl(q_z+\frac{\omega^2q_e}{(1-\mathsf f\mathsf r)^2}\Bigr).
+\]
+At fixed $q_e$ this has a finite limit as $\mathsf f\to1$, and likewise as $\mathsf f\to-1$, with $(1-\mathsf r^2)\mathsf u>q_z$ because $\omega\ne0$, so $\mathsf i_z$ tends to a positive number (\cref{chk:nrg-indep}).
+\end{proof}
+
+\begin{remark}[The accounting behind the margins]\label{rem:nrg-accounting}
+In the complete graph agent $i$ operates one sensor register, whose input is $\eta_t$ and which acquires $I_s=\tfrac12\ln(1+P_0/R^s)$ nats, and $N-1$ message registers, each with input $s_j$ of variance $P_0+R^s$, acquiring $I_m=\tfrac12\ln\bigl(1+(P_0+R^s)/R_c\bigr)$ nats. In the record architecture each agent operates its sensor register, one write register on the record with input $s_j$, and one read register with input $z$ of variance $P_0+(R^s+R_c)/N$, acquiring
+\[
+I_r(N)=\tfrac12\ln\Bigl(1+\frac{P_0+(R^s+R_c)/N}{R_c}\Bigr),
+\]
+which decreases in $N$ to $\tfrac12\ln(1+P_0/R_c)$. By \cref{prem:nrg-register} the work per agent and round is at least $k_{\mathrm B}\mathsf T\mathsf c_\bullet(N)$, by \cref{prem:nrg-resource} the harvest is at most $\mathsf xk_{\mathrm B}\mathsf TI^{\mathrm{pred}}_\bullet(N)$, and the surplus, harvest minus work, is at most $k_{\mathrm B}\mathsf T\mathsf m_\bullet(N)$. Averaging at the record is counted as free, which can only favor the record; its effect on the comparison is discussed in \cref{rem:nrg-premises}.
+\end{remark}
+
+\begin{proof}[Proof of \cref{thm:nrg-scale}]
+Throughout, $w_t$ is independent of $\eta_t$ and of everything stored in round $t$, so for any stored Gaussian data $\mathsf d$ with $p=\operatorname{Var}(\eta_t\mid\mathsf d)$ one has $\operatorname{Var}(\eta_{t+1}\mid\mathsf d)=F^2p+Q$ and
+\begin{equation}\label{eq:nrg-pred}
+I(\mathsf d;\eta_{t+1})=\tfrac12\ln\frac{P_0}{F^2p+Q},\qquad I(\mathsf d;\eta_t)=\tfrac12\ln\frac{P_0}{p}.
+\end{equation}
+Since $Q=(1-F^2)P_0$, the first quantity is smaller than the second exactly when $p<P_0$, and it is smaller than $\tfrac12\ln(P_0/Q)=I_\eta$ exactly when $p>0$.
+
+(a) Given $\eta_t$, the data $(s_i,(y_{ij})_{j\ne i})$ of agent $i$ in $K_N$ are independent observations $s_i=\eta_t+v_i$ and $y_{ij}=\eta_t+v_j+\nu_{ij}$ of $\eta_t$ with noise variances $R^s$ and $R^s+R_c$. Precisions add, so $p=p_K(N)$ as stated, and \cref{eq:nrg-pred} is the formula for $I^{\mathrm{pred}}_K(N)$. It increases with $N$ because $p_K(N)$ decreases, and it is below $I_\eta$ because $p_K(N)>0$ and $F\ne0$.
+
+(b) Both architectures store $s_i$, so $p\le(1/P_0+1/R^s)^{-1}<P_0$ and, by the remark after \cref{eq:nrg-pred}, $I^{\mathrm{pred}}_\bullet(N)<I(\mathsf d;\eta_t)$. It remains to bound $I(\mathsf d;\eta_t)$ by the cost. In $K_N$ write $y=(y_{ij})_{j\ne i}$. The chain rule, the fact that conditioning does not increase entropy, and subadditivity of entropy give
+\[
+I(s_i,y;\eta_t)=I_s+h(y\mid s_i)-h(y\mid s_i,\eta_t)\le I_s+\sum_{j\ne i}h(y_{ij})-h\bigl(y\mid\eta_t,(s_j)_j\bigr).
+\]
+Given all sensor values the entries of $y$ are the independent variables $s_j+\nu_{ij}$, so the last entropy is $\sum_{j\ne i}h(\nu_{ij})=\sum_{j\ne i}h(y_{ij}\mid s_j)$, and the right side is $I_s+\sum_{j\ne i}I(y_{ij};s_j)=I_s+(N-1)I_m=\mathsf c_K(N)$. In the record architecture $\nu^r_i$ is independent of $(z,\eta_t,s_i)$, so
+\begin{align*}
+I(s_i,r_i;\eta_t)&=I_s+h(r_i\mid s_i)-h(r_i\mid s_i,\eta_t)\le I_s+h(r_i)-h(r_i\mid z,s_i,\eta_t)\\
+&=I_s+h(r_i)-h(r_i\mid z)=I_s+I_r(N),
+\end{align*}
+which is less than $\mathsf c_R(N)$ because $I_m>0$. Hence $I^{\mathrm{pred}}_\bullet(N)<\mathsf c_\bullet(N)$ and $\mathsf m_\bullet(N)<(\mathsf x-1)I^{\mathrm{pred}}_\bullet(N)\le0$ when $\mathsf x\le1$.
+
+(c) If $\mathsf x=0$ then $\mathsf m_K(N)=-\mathsf c_K(N)<0$. If $\mathsf x>0$, part (a) gives $\mathsf m_K(N)<\mathsf xI_\eta-I_s-(N-1)I_m$, and the right side is at most zero exactly when $N\ge1+(\mathsf xI_\eta-I_s)/I_m=N_K$.
+
+(d) Agent $i$ stores $s_i=\eta_t+v_i$ and $r_i=\eta_t+\mathsf n_i$ with $\mathsf n_i=N^{-1}\sum_j(v_j+\nu^w_j)+\nu^r_i$. The noise pair $(v_i,\mathsf n_i)$ is independent of $\eta_t$ and has variances $\mathsf a=R^s$ and $\mathsf b=(R^s+R_c)/N+R_c$ and covariance $\mathsf c=R^s/N$, with $\mathsf a\mathsf b-\mathsf c^2>0$. Two observations with unit loading and this noise covariance carry precision $(\mathsf a+\mathsf b-2\mathsf c)/(\mathsf a\mathsf b-\mathsf c^2)$ about $\eta_t$, so
+\[
+I^{\mathrm{pred}}_R(N)=\tfrac12\ln\frac{P_0}{F^2p_R(N)+Q},\qquad p_R(N)=\Bigl(\frac1{P_0}+\frac{\mathsf a+\mathsf b-2\mathsf c}{\mathsf a\mathsf b-\mathsf c^2}\Bigr)^{-1}.
+\]
+As $N\to\infty$, $\mathsf b\to R_c$ and $\mathsf c\to0$, the precision tends to $1/R^s+1/R_c$, $p_R(N)\to p_\infty$, and $I_r(N)\to\tfrac12\ln(1+P_0/R_c)$ by \cref{rem:nrg-accounting}, which gives the limit $\mathsf m_R^\infty$. For the comparison,
+\[
+\mathsf m_R(N)-\mathsf m_K(N)=\mathsf x\bigl(I^{\mathrm{pred}}_R(N)-I^{\mathrm{pred}}_K(N)\bigr)+(N-2)I_m-I_r(N)\ge-\mathsf xI_\eta+(N-2)I_m-I_r(1),
+\]
+using $I^{\mathrm{pred}}_R(N)\ge0$, $I^{\mathrm{pred}}_K(N)<I_\eta$ from (a), and $I_r(N)\le I_r(1)$, where $I_r(1)=\tfrac12\ln\bigl(1+(P_0+R^s+R_c)/R_c\bigr)$ is the value of the formula of \cref{rem:nrg-accounting} at $N=1$. The right side is positive when $N>2+(\mathsf xI_\eta+I_r(1))/I_m$.
+\end{proof}
+
+\begin{remark}[What the premises supply and what they do not]\label{rem:nrg-premises}
+Every statement of \cref{sec:nrg-bridge,sec:nrg-scale} that mentions $k_{\mathrm B}\mathsf T$ is conditional on the premise it cites or, for the signal energy of \cref{prop:nrg-channel}(a), on the thermal clause stated there, and neither the premises nor that clause are derived from the model. \Cref{prem:nrg-register} is taken over from \citet{sagawa2009minimal}, whose bound is stated for a memory with finitely many outcomes that is measured against a system and then erased in contact with a bath; we have not checked that a register holding a real-valued Gaussian reading falls under those hypotheses, and for that reason the premise is stated directly for the mutual information acquired. \Cref{prem:nrg-resource} is a declared linear cap on harvest, and the exchange ratio $\mathsf x$ is not computed from a model of the exterior. The margins are one-sided for three further reasons: the lower bounds on work need not be attainable, the upper bound on harvest need not be attainable, and costs of the agents' own computation, of averaging at the record, and of maintaining the record against the flow $\mathsf i_z$ of \cref{prop:nrg-channel}(b) are omitted. Adding the omitted costs can only lower the margins, so \cref{thm:nrg-scale}(b) and (c) are unaffected; the comparison in \cref{thm:nrg-scale}(d) is a statement about the declared costs $\mathsf c_K$ and $\mathsf c_R$ only, and a cost of the record that grew with $N$ per agent would move its crossover. The conclusion that survives all of this is the one that uses the bounds in their valid direction: a negative margin excludes an architecture under the premises, and the linear growth of $\mathsf c_K$ against the cap $\mathsf xI_\eta$ makes the complete graph excluded beyond $N_K$.
+\end{remark}
