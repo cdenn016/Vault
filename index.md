@@ -54,6 +54,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[belief-inertia|The Inertia of Belief]]
 
 ## 🧩 Themes — cross-paper synthesis
+- [[Collective agents literature map]] — reading map of the references cited by the collective-agents manuscript, grouped by the question each group answers
 - [[Chris Fields and physics as communication]] — communication, reference frames, memory, agent organization, quantum geometry, and their distinct assumptions
 - [[Attention mechanisms — theory and positional structure]]
 - [[Consciousness and the hard problem]]
@@ -414,6 +415,267 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+
+### Collective agents references, November 10, 2026
+
+The reading map is [[Collective agents literature map]]. The collection adds 256 reference notes under `sources/refs/`; 109 have a local PDF.
+
+- [[abbe-2018-group-synchronization-grids]] — Abbe et al. (2018), Group synchronization on grids
+- [[aguilera-2023-free-energy-principle]] — Aguilera et al. (2023), From the free energy principle to a confederation of Bayesian mechanics: Reply to comments on "How particular is the physics of the free energy principle?"
+- [[aguilera-2023-knitting-markov-blanket]] — Aguilera et al. (2023), Knitting a Markov Blanket is Hard When You are Out-of-Equilibrium: Two Examples in Canonical Nonequilibrium Models
+- [[ahlswede-1976-spreading-sets-product]] — Ahlswede and Gács (1976), Spreading of Sets in Product Spaces and Hypercontraction of the Markov Operator
+- [[aizenman-1989-rounding-first-order]] — Aizenman and Wehr (1989), Rounding of first-order phase transitions in systems with quenched disorder
+- [[aizenman-1990-rounding-effects-quenched]] — Aizenman and Wehr (1990), Rounding effects of quenched randomness on first-order phase transitions
+- [[akaike-1975-markovian-representation-stochastic]] — Akaike (1975), Markovian Representation of Stochastic Processes by Canonical Variables
+- [[alesina-1997-number-size-nations]] — Alesina and Spolaore (1997), On the Number and Size of Nations
+- [[allen-1979-microscopic-antiphase-boundary]] — Allen and Cahn (1979), A microscopic theory for antiphase boundary motion and its application to antiphase domain coarsening
+- [[alos-ferrer-2010-logit-response-dynamics]] — Alós-Ferrer and Netzer (2010), The logit-response dynamics
+- [[amemiya-1965-convergence-random-products]] — Amemiya and Ando (1965), Convergence of random products of contractions in Hilbert space
+- [[amemiya-1972-effect-aggregation-prediction]] — Amemiya and Wu (1972), The Effect of Aggregation on Prediction in the Autoregressive Model
+- [[anantharam-1989-proof-markov-chain]] — Anantharam and Tsoucas (1989), A proof of the Markov chain tree theorem
+- [[anantharam-2013-maximal-correlation-hypercontractivity]] — Anantharam et al. (2013), On Maximal Correlation, Hypercontractivity, and the Data Processing Inequality studied by Erkip and Cover
+- [[anderson-1983-imagined-communities-reflections]] — Anderson (1983), Imagined Communities: Reflections on the Origin and Spread of Nationalism
+- [[anderson-2003-gravity-gravitas-solution]] — Anderson and Wincoop (2003), Gravity with Gravitas: A Solution to the Border Puzzle
+- [[arefizadeh-2024-characterizations-potential-ordinal]] — Arefizadeh et al. (2024), On Characterizations of Potential and Ordinal Potential Games
+- [[aronszajn-1950-reproducing-kernels]] — Aronszajn (1950), Theory of reproducing kernels
+- [[arrow-1974-limits-organization]] — Arrow (1974), The Limits of Organization
+- [[austin-1962-how-do-things]] — Austin (1962), How to Do Things with Words
+- [[badea-2012-rate-convergence-method]] — Badea et al. (2012), The rate of convergence in the method of alternating projections
+- [[bakry-2014-analysis-geometry-markov]] — Bakry et al. (2014), Analysis and Geometry of Markov Diffusion Operators
+- [[ballu-2024-asymptotics-green-functions]] — Ballu (2024), Asymptotics of Green functions for Markov-additive processes: an approach via dyadic splitting of integrals
+- [[bamieh-2012-coherence-large-scale]] — Bamieh et al. (2012), Coherence in Large-Scale Networks: Dimension-Dependent Limitations of Local Feedback
+- [[bar-shalom-1981-track-track-correlation]] — Bar-Shalom (1981), On the track-to-track correlation problem
+- [[bar-shalom-1986-effect-common-process]] — Bar-Shalom and Campo (1986), The Effect of the Common Process Noise on the Two-Sensor Fused-Track Covariance
+- [[barnett-2023-dynamical-independence-discovering]] — Barnett and Seth (2023), Dynamical independence: Discovering emergent macroscopic processes in complex dynamical systems
+- [[benaim-1999-dynamics-stochastic-approximation]] — Benaïm (1999), Dynamics of stochastic approximation algorithms
+- [[berg-1977-physics-chemoreception]] — Berg and Purcell (1977), Physics of chemoreception
+- [[berglund-2006-noise-induced-phenomena]] — Berglund and Gentz (2006), Noise-Induced Phenomena in Slow-Fast Dynamical Systems: A Sample-Paths Approach
+- [[berthelon-2008-conservation-distance-international]] — Berthelon and Freund (2008), On the Conservation of Distance in International Trade
+- [[bertschinger-2006-information-closure-systems]] — Bertschinger et al. (2006), Information and closure in systems theory
+- [[bettencourt-2007-growth-innovation-scaling]] — Bettencourt et al. (2007), Growth, Innovation, Scaling, and the Pace of Life in Cities
+- [[bettencourt-2013-origins-scaling-cities]] — Bettencourt (2013), The Origins of Scaling in Cities
+- [[bialek-2005-physical-limits-biochemical]] — Bialek and Setayeshgar (2005), Physical limits to biochemical signaling
+- [[biskup-2004-scaling-chemical-distance]] — Biskup (2004), On the scaling of the chemical distance in long-range percolation models
+- [[bleher-1995-purity-limiting-gibbs]] — Bleher et al. (1995), On the purity of the limiting Gibbs state for the Ising model on the Bethe lattice
+- [[blume-1993-statistical-mechanics-strategic]] — Blume (1993), The Statistical Mechanics of Strategic Interaction
+- [[boudourides-2026-boundary-value-friedkin]] — Boudourides (2026), Boundary-Value Friedkin-Johnsen Dynamics and Influence-Based Centralities on Networks
+- [[bourrat-2022-tradeoff-breaking-model]] — Bourrat et al. (2022), Tradeoff breaking as a model of evolutionary transitions in individuality and limits of the fitness-decoupling metaphor
+- [[bradde-2017-pca-meets-rg]] — Bradde and Bialek (2017), PCA Meets RG
+- [[bravyi-2006-lieb-robinson-bounds]] — Bravyi et al. (2006), Lieb-Robinson Bounds and the Generation of Correlations and Topological Quantum Order
+- [[bray-1994-phase-ordering-kinetics]] — Bray (1994), Theory of phase-ordering kinetics
+- [[bricmont-1988-phase-transition-3d]] — Bricmont and Kupiainen (1988), Phase transition in the 3d random field Ising model
+- [[bubley-1997-path-coupling-technique]] — Bubley and Dyer (1997), Path coupling: A technique for proving rapid mixing in Markov chains
+- [[burridge-2017-spatial-evolution-human]] — Burridge (2017), Spatial Evolution of Human Dialects
+- [[campanino-2003-ornstein-zernike-finite]] — Campanino et al. (2003), Ornstein-Zernike theory for finite range Ising models above $T_c$
+- [[candogan-2013-dynamics-near-potential]] — Candogan et al. (2013), Dynamics in near-potential games
+- [[carlsson-2010-characterization-stability-convergence]] — Carlsson and Mémoli (2010), Characterization, Stability and Convergence of Hierarchical Clustering Methods
+- [[carne-1985-transmutation-formula-markov]] — Carne (1985), A transmutation formula for Markov chains
+- [[carroll-2006-measurement-error-nonlinear]] — Carroll et al. (2006), Measurement Error in Nonlinear Models: A Modern Perspective
+- [[cartwright-1956-structural-balance-generalization]] — Cartwright and Harary (1956), Structural balance: a generalization of Heider's theory
+- [[castello-2006-ordering-dynamics-two]] — Castelló et al. (2006), Ordering Dynamics with Two Non-Excluding Options: Bilingualism in Language Competition
+- [[catal-2025-belief-sharing-blessing]] — Çatal et al. (2025), Belief Sharing: A Blessing or a Curse
+- [[cavagna-2010-scale-free-correlations]] — Cavagna et al. (2010), Scale-free correlations in starling flocks
+- [[chalk-2018-unified-efficient-predictive]] — Chalk et al. (2018), Toward a unified theory of efficient, predictive, and sparse coding
+- [[champion-2026-reframing-expected-free]] — Champion et al. (2026), Reframing the Expected Free Energy: Four Formulations and a Unification
+- [[chandrasekaran-2012-latent-variable-graphical]] — Chandrasekaran et al. (2012), Latent variable graphical model selection via convex optimization
+- [[chaney-2018-gravity-equation-international]] — Chaney (2018), The Gravity Equation in International Trade: An Explanation
+- [[chou-2026-systematic-empirical-comparison]] — Chou et al. (2026), A systematic empirical comparison of active inference and reinforcement learning models in accounting for decision-making under uncertainty
+- [[combes-1973-asymptotic-behaviour-eigenfunctions]] — Combes and Thomas (1973), Asymptotic behaviour of eigenfunctions for multiparticle Schrödinger operators
+- [[constant-2019-regimes-expectations-active]] — Constant et al. (2019), Regimes of Expectations: An Active Inference Model of Social Conformity and Human Decision Making
+- [[courtois-1977-decomposability-queueing-computer]] — Courtois (1977), Decomposability: Queueing and Computer System Applications
+- [[crawford-1982-strategic-information-transmission]] — Crawford and Sobel (1982), Strategic Information Transmission
+- [[cremer-2007-language-firm]] — Crémer et al. (2007), Language and the Theory of the Firm
+- [[creutzig-2008-predictive-coding-slowness]] — Creutzig and Sprekeler (2008), Predictive Coding and the Slowness Principle: An Information-Theoretic Approach
+- [[creutzig-2009-past-future-information]] — Creutzig et al. (2009), Past-future information bottleneck in dynamical systems
+- [[daft-1984-model-organizations-interpretation]] — Daft and Weick (1984), Toward a Model of Organizations as Interpretation Systems
+- [[dahlhaus-2000-graphical-interaction-models]] — Dahlhaus (2000), Graphical interaction models for multivariate time series
+- [[davis-1970-rotation-eigenvectors-perturbation]] — Davis and Kahan (1970), The Rotation of Eigenvectors by a Perturbation. III
+- [[de-vries-2026-active-inference-physical]] — Vries (2026), Active Inference for Physical AI Agents – An Engineering Perspective
+- [[demarzo-2003-persuasion-bias-social]] — DeMarzo et al. (2003), Persuasion Bias, Social Influence, and Unidimensional Opinions
+- [[demko-1984-decay-rates-inverses]] — Demko et al. (1984), Decay rates for inverses of band matrices
+- [[deutsch-1953-nationalism-social-communication]] — Deutsch (1953), Nationalism and Social Communication: An Inquiry into the Foundations of Nationality
+- [[ding-2023-correlation-length-two]] — Ding and Wirth (2023), Correlation length of the two-dimensional random field Ising model via greedy lattice animal
+- [[ding-2026-phase-transition-critical]] — Ding et al. (2026), A phase transition and critical phenomenon for the two-dimensional random field Ising model
+- [[disdier-2008-puzzling-persistence-distance]] — Disdier and Head (2008), The Puzzling Persistence of the Distance Effect on Bilateral Trade
+- [[dobrushin-1968-description-random-field]] — Dobrushin (1968), The Description of a Random Field by Means of Conditional Probabilities and Conditions of Its Regularity
+- [[dobrushin-1970-prescribing-system-random]] — Dobrushin (1970), Prescribing a System of Random Variables by Conditional Distributions
+- [[duminil-copin-2016-proof-sharpness-phase]] — Duminil-Copin and Tassion (2016), A New Proof of the Sharpness of the Phase Transition for Bernoulli Percolation and the Ising Model
+- [[durant-2017-long-term-stochastic]] — Durant et al. (2017), Long-Term, Stochastic Editing of Regenerative Anatomy via Targeting Endogenous Bioelectric Gradients
+- [[dyson-1969-existence-phase-transition]] — Dyson (1969), Existence of a phase-transition in a one-dimensional Ising ferromagnet
+- [[eichler-2006-fitting-graphical-interaction]] — Eichler (2006), Fitting Graphical Interaction Models to Multivariate Time Series
+- [[engel-1996-how-wide-border]] — Engel and Rogers (1996), How Wide Is the Border?
+- [[enke-2019-correlation-neglect-belief]] — Enke and Zimmermann (2019), Correlation Neglect in Belief Formation
+- [[evans-1999-signal-propagation-noisy]] — Evans and Schulman (1999), Signal propagation and noisy circuits
+- [[evans-2000-broadcasting-trees-ising]] — Evans et al. (2000), Broadcasting on trees and the Ising model
+- [[eyster-2010-naive-herding-rich]] — Eyster and Rabin (2010), Naïve Herding in Rich-Information Settings
+- [[feder-1980-futures-markets-firm]] — Feder et al. (1980), Futures Markets and the Theory of the Firm under Price Uncertainty
+- [[fisher-1972-critical-exponents-long]] — Fisher et al. (1972), Critical Exponents for Long-Range Interactions
+- [[fisher-2001-nonequilibrium-dynamics-random]] — Fisher et al. (2001), Nonequilibrium dynamics of random field Ising spin chains: Exact results via real space renormalization group
+- [[friedrichs-1937-certain-inequalities-characteristic]] — Friedrichs (1937), On certain inequalities and characteristic value problems for analytic functions and for functions of two variables
+- [[friston-2015-active-inference-epistemic-value]] — Friston et al. (2015), Active inference and epistemic value
+- [[friston-2017-deep-temporal-models]] — Friston et al. (2017), Deep temporal models and active inference
+- [[friston-2021-parcels-particles-markov]] — Friston et al. (2021), Parcels and particles: Markov blankets in the brain
+- [[friston-2021-sophisticated-inference]] — Friston et al. (2021), Sophisticated Inference
+- [[friston-2021-stochastic-chaos-markov]] — Friston et al. (2021), Stochastic Chaos and Markov Blankets
+- [[friston-2022-very-particular-comment]] — Friston (2022), Very particular: Comment on "How particular is the physics of the free energy principle?"
+- [[friston-2023-path-integrals-particular]] — Friston et al. (2023), Path integrals, particular kinds, and strange things
+- [[furstenberg-1960-products-random-matrices]] — Furstenberg and Kesten (1960), Products of Random Matrices
+- [[galbraith-1974-organization-design-information]] — Galbraith (1974), Organization Design: An Information Processing View
+- [[galeotti-2010-law-few]] — Galeotti and Goyal (2010), The Law of the Few
+- [[garicano-2000-hierarchies-organization-knowledge]] — Garicano (2000), Hierarchies and the Organization of Knowledge in Production
+- [[gel-fand-1959-calculation-amount-information]] — Gel'fand and Yaglom (1959), Calculation of the amount of information about a random function contained in another such function
+- [[givon-2004-extracting-macroscopic-dynamics]] — Givon et al. (2004), Extracting macroscopic dynamics: model problems and algorithms
+- [[gol-dsheid-1989-lyapunov-indices-product]] — Gol'dsheid and Margulis (1989), Lyapunov indices of a product of random matrices
+- [[golub-2010-naive-learning-social]] — Golub and Jackson (2010), Naïve Learning in Social Networks and the Wisdom of Crowds
+- [[gomez-marin-2007-bounding-dissipation-stochastic]] — Gomez-Marin et al. (2007), Bounding dissipation in stochastic models
+- [[gordon-2021-relevance-renormalization-group]] — Gordon et al. (2021), Relevance in the Renormalization Group and in Information Theory
+- [[granger-1980-long-memory-relationships]] — Granger (1980), Long memory relationships and the aggregation of dynamic models
+- [[grasse-1959-reconstruction-nid-coordinations]] — Grassé (1959), La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes natalensis et Cubitermes sp. La théorie de la stigmergie: essai d'interprétation du comportement des termites constructeurs
+- [[griffiths-2007-language-evolution-iterated]] — Griffiths and Kalish (2007), Language Evolution by Iterated Learning With Bayesian Agents
+- [[grime-1994-data-fusion-decentralized]] — Grime and Durrant-Whyte (1994), Data fusion in decentralized sensor networks
+- [[gross-1975-logarithmic-sobolev-inequalities]] — Gross (1975), Logarithmic Sobolev Inequalities
+- [[grossman-1976-efficiency-competitive-stock]] — Grossman (1976), On the Efficiency of Competitive Stock Markets Where Trades Have Diverse Information
+- [[grossman-1980-impossibility-informationally-efficient]] — Grossman and Stiglitz (1980), On the Impossibility of Informationally Efficient Markets
+- [[guivarc-h-1985-frontiere-furstenberg-proprietes]] — Guivarc'h and Raugi (1985), Frontière de Furstenberg, propriétés de contraction et théorèmes de convergence
+- [[haken-1983-synergetics-introduction]] — Haken (1983), Synergetics: An Introduction
+- [[halperin-1962-product-projection-operators]] — Halperin (1962), The product of projection operators
+- [[harary-1953-notion-balance-signed]] — Harary (1953), On the notion of balance of a signed graph
+- [[harman-2020-when-science-mirrors]] — Harman (2020), When science mirrors life: on the origins of the Price equation
+- [[harnad-1990-symbol-grounding-problem]] — Harnad (1990), The symbol grounding problem
+- [[hartich-2014-stochastic-thermodynamics-bipartite]] — Hartich et al. (2014), Stochastic thermodynamics of bipartite systems: transfer entropy inequalities and a Maxwell's demon interpretation
+- [[hastings-2004-locality-quantum-markov]] — Hastings (2004), Locality in Quantum and Markov Dynamics on Lattices and Networks
+- [[hastings-2006-spectral-gap-exponential]] — Hastings and Koma (2006), Spectral Gap and Exponential Decay of Correlations
+- [[hayek-1945-use-knowledge-society]] — Hayek (1945), The Use of Knowledge in Society
+- [[heins-2022-sparse-coupling-markov]] — Heins and Costa (2022), Sparse coupling and Markov blankets: A comment on "How particular is the physics of the Free Energy Principle?" by Aguilera, Millidge, Tschantz and Buckley
+- [[hellwig-1980-aggregation-information-competitive]] — Hellwig (1980), On the Aggregation of Information in Competitive Markets
+- [[hendrickx-2010-distributed-anonymous-discrete]] — Hendrickx et al. (2010), Distributed anonymous discrete function computation
+- [[hesp-2019-multi-scale-view]] — Hesp et al. (2019), A Multi-scale View of the Emergent Complexity of Life: A Free-Energy Proposal
+- [[heylighen-2016-stigmergy-universal-coordination]] — Heylighen (2016), Stigmergy as a Universal Coordination Mechanism I: Definition and Components
+- [[ho-1966-effective-construction-linear]] — Ho and Kalman (1966), Effective construction of linear state-variable models from input/output functions
+- [[horowitz-2014-thermodynamics-continuous-information]] — Horowitz and Esposito (2014), Thermodynamics with Continuous Information Flow
+- [[hotelling-1936-relations-two-sets]] — Hotelling (1936), Relations Between Two Sets of Variates
+- [[imry-1975-random-field-instability]] — Imry and Ma (1975), Random-Field Instability of the Ordered State of Continuous Symmetry
+- [[innis-1950-empire-communications]] — Innis (1950), Empire and Communications
+- [[ito-2013-information-thermodynamics-causal]] — Ito and Sagawa (2013), Information Thermodynamics on Causal Networks
+- [[jaffard-1990-proprietes-matrices-bien]] — Jaffard (1990), Propriétés des matrices "bien localisées" près de leur diagonale et quelques applications
+- [[jeffrey-1965-logic-decision]] — Jeffrey (1965), The Logic of Decision
+- [[jiang-2011-statistical-ranking-combinatorial]] — Jiang et al. (2011), Statistical Ranking and Combinatorial Hodge Theory
+- [[jordan-1982-competitive-allocation-process]] — Jordan (1982), The Competitive Allocation Process Is Informationally Efficient Uniquely
+- [[kalman-1960-approach-linear-filtering]] — Kalman (1960), A New Approach to Linear Filtering and Prediction Problems
+- [[kannan-2004-clusterings-good-bad]] — Kannan et al. (2004), On clusterings: Good, bad and spectral
+- [[kastel-2023-small-steps-mankind]] — Kastel et al. (2023), Small steps for mankind: Modeling the emergence of cumulative culture from joint active inference communication
+- [[kato-1949-upper-lower-bounds]] — Kato (1949), On the Upper and Lower Bounds of Eigenvalues
+- [[kaufmann-2021-active-inference-model]] — Kaufmann et al. (2021), An Active Inference Model of Collective Intelligence
+- [[kawai-2007-dissipation-phase-space]] — Kawai et al. (2007), Dissipation: The Phase-Space Perspective
+- [[kayalar-1988-error-bounds-method]] — Kayalar and Weinert (1988), Error bounds for the method of alternating projections
+- [[kelly-1979-reversibility-stochastic-networks]] — Kelly (1979), Reversibility and Stochastic Networks
+- [[kesten-1966-additional-limit-theorems]] — Kesten and Stigum (1966), Additional Limit Theorems for Indecomposable Multidimensional Galton-Watson Processes
+- [[kiebel-2008-hierarchy-time-scales]] — Kiebel et al. (2008), A Hierarchy of Time-Scales and the Brain
+- [[kivela-2014-multilayer-networks]] — Kivelä et al. (2014), Multilayer Networks
+- [[koch-janusz-2018-mutual-information-neural]] — Koch-Janusz and Ringel (2018), Mutual information, neural networks and the renormalization group
+- [[kocherlakota-1998-money-memory]] — Kocherlakota (1998), Money Is Memory
+- [[kolchinsky-2018-semantic-information-autonomous]] — Kolchinsky and Wolpert (2018), Semantic information, autonomous agency and non-equilibrium statistical physics
+- [[kopecka-2017-strange-products-projections]] — Kopecká and Paszkiewicz (2017), Strange products of projections
+- [[kuchling-2020-morphogenesis-bayesian-inference]] — Kuchling et al. (2020), Morphogenesis as Bayesian inference: A variational approach to pattern formation and control in complex biological systems
+- [[kushner-1997-stochastic-approximation-algorithms]] — Kushner and Yin (1997), Stochastic Approximation Algorithms and Applications
+- [[kuwahara-2020-clustering-conditional-mutual]] — Kuwahara et al. (2020), Clustering of Conditional Mutual Information for Quantum Gibbs States above a Threshold Temperature
+- [[kuwahara-2020-strictly-linear-light]] — Kuwahara and Saito (2020), Strictly Linear Light Cones in Long-Range Interacting Systems of Arbitrary Dimensions
+- [[lai-1982-least-squares-estimates]] — Lai and Wei (1982), Least Squares Estimates in Stochastic Regression Models with Applications to Identification and Control of Dynamic Systems
+- [[lambiotte-2008-geographical-dispersal-mobile]] — Lambiotte et al. (2008), Geographical Dispersal of Mobile Communication Networks
+- [[ledoux-2015-stein-method-logarithmic]] — Ledoux et al. (2015), Stein's method, logarithmic Sobolev and transport inequalities
+- [[leipus-2013-aggregation-long-memory]] — Leipus et al. (2013), Aggregation and long memory: recent developments
+- [[lenggenhager-2020-optimal-renormalization-group]] — Lenggenhager et al. (2020), Optimal Renormalization Group Transformation from Information Theory
+- [[levin-2022-technological-approach-mind]] — Levin (2022), Technological Approach to Mind Everywhere: An Experimentally-Grounded Framework for Understanding Diverse Bodies and Minds
+- [[liben-nowell-2005-geographic-routing-social]] — Liben-Nowell et al. (2005), Geographic Routing in Social Networks
+- [[lieb-1972-finite-group-velocity]] — Lieb and Robinson (1972), The finite group velocity of quantum spin systems
+- [[lieb-2001-analysis]] — Lieb and Loss (2001), Analysis
+- [[lin-2017-why-does-deep]] — Lin et al. (2017), Why Does Deep and Cheap Learning Work So Well?
+- [[lindley-1956-measure-information-provided]] — Lindley (1956), On a Measure of the Information Provided by an Experiment
+- [[list-2011-group-agency-possibility]] — List and Pettit (2011), Group Agency: The Possibility, Design, and Status of Corporate Agents
+- [[loomis-1949-inequality-related-isoperimetric]] — Loomis and Whitney (1949), An inequality related to the isoperimetric inequality
+- [[lyons-1990-random-walks-percolation]] — Lyons (1990), Random Walks and Percolation on Trees
+- [[lyons-1992-random-walk-random]] — Lyons and Pemantle (1992), Random Walk in a Random Environment and First-Passage Percolation on Trees
+- [[mackowiak-2009-optimal-sticky-prices]] — Maćkowiak and Wiederholt (2009), Optimal Sticky Prices under Rational Inattention
+- [[mackowiak-2018-dynamic-rational-inattention]] — Maćkowiak et al. (2018), Dynamic rational inattention: Analytical results
+- [[mackowiak-2023-rational-inattention-review]] — Maćkowiak et al. (2023), Rational Inattention: A Review
+- [[madsen-2018-large-networks-rational]] — Madsen et al. (2018), Large networks of rational agents form persistent echo chambers
+- [[makur-2020-broadcasting-random-directed]] — Makur et al. (2020), Broadcasting on Random Directed Acyclic Graphs
+- [[makur-2020-comparison-contraction-coefficients]] — Makur and Zheng (2020), Comparison of Contraction Coefficients for $f$-Divergences
+- [[march-1991-exploration-exploitation-organizational]] — March (1991), Exploration and Exploitation in Organizational Learning
+- [[marchetti-1994-anthropological-invariants-travel]] — Marchetti (1994), Anthropological Invariants in Travel Behavior
+- [[marchioro-1978-velocity-perturbation-infinite]] — Marchioro et al. (1978), Velocity of a perturbation in infinite lattice systems
+- [[marschak-1972-economic-teams]] — Marschak and Radner (1972), Economic Theory of Teams
+- [[mccallum-1995-national-borders-matter]] — McCallum (1995), National Borders Matter: Canada-U.S. Regional Trade Patterns
+- [[meshulam-2019-coarse-graining-fixed]] — Meshulam et al. (2019), Coarse Graining, Fixed Points, and Scaling in a Large Population of Neurons
+- [[metivier-2014-spreading-perturbations-long]] — Métivier et al. (2014), Spreading of Perturbations in Long-Range Interacting Classical Lattice Models
+- [[mokhtarian-2004-ttb-not-ttb]] — Mokhtarian and Chen (2004), TTB or not TTB, that is the question: a review and analysis of the empirical literature on travel time (and money) budgets
+- [[monderer-1996-potential-games]] — Monderer and Shapley (1996), Potential Games
+- [[mora-2010-limits-sensing-temporal]] — Mora and Wingreen (2010), Limits of sensing temporal concentration changes by single cells
+- [[morris-2002-social-value-public]] — Morris and Shin (2002), Social Value of Public Information
+- [[mossel-2001-reconstruction-trees-beating]] — Mossel (2001), Reconstruction on Trees: Beating the Second Eigenvalue
+- [[mossel-2016-efficient-bayesian-learning]] — Mossel et al. (2016), Efficient Bayesian Learning in Social Networks with Gaussian Estimators
+- [[mount-1974-informational-size-message]] — Mount and Reiter (1974), The Informational Size of Message Spaces
+- [[murray-watters-2026-decay-impact-network]] — Murray-Watters et al. (2026), The Decay of Impact with Network Distance in Linear Diffusion Processes
+- [[nachtergaele-2006-lieb-robinson-bounds]] — Nachtergaele and Sims (2006), Lieb-Robinson Bounds and the Exponential Clustering Theorem
+- [[nemhauser-1978-analysis-approximations-maximizing]] — Nemhauser et al. (1978), An analysis of approximations for maximizing submodular set functions—I
+- [[nerbonne-2010-measuring-diffusion-linguistic]] — Nerbonne (2010), Measuring the Diffusion of Linguistic Change
+- [[newman-2006-modularity-community-structure]] — Newman (2006), Modularity and Community Structure in Networks
+- [[ney-1966-martin-boundary-random]] — Ney and Spitzer (1966), The Martin boundary for random walk
+- [[nguyen-2020-echo-chambers-epistemic]] — Nguyen (2020), Echo chambers and epistemic bubbles
+- [[nomura-2026-social-reality-construction]] — Nomura and Horii (2026), Social Reality Construction via Active Inference: Modeling the Dialectic of Conformity and Creativity
+- [[nuijten-2026-what-type-inference]] — Nuijten et al. (2026), What Type of Inference is Active Inference?
+- [[olfati-saber-2005-distributed-kalman-filter]] — Olfati-Saber (2005), Distributed Kalman Filter with Embedded Consensus Filters
+- [[olver-2010-nist-handbook-mathematical]] — Olver et al. (2010), NIST Handbook of Mathematical Functions
+- [[onsager-1944-crystal-statistics-two]] — Onsager (1944), Crystal Statistics. I. A Two-Dimensional Model with an Order-Disorder Transition
+- [[ornstein-1914-accidental-deviations-density]] — Ornstein and Zernike (1914), Accidental deviations of density and opalescence at the critical point of a single substance
+- [[oseledets-1968-multiplicative-ergodic-theorem]] — Oseledets (1968), A multiplicative ergodic theorem. Lyapunov characteristic numbers for dynamical systems
+- [[oveis-gharan-2014-partitioning-expanders]] — Gharan and Trevisan (2014), Partitioning into Expanders
+- [[pavliotis-2008-multiscale-methods-averaging]] — Pavliotis and Stuart (2008), Multiscale Methods: Averaging and Homogenization
+- [[pearl-1988-probabilistic-reasoning-intelligent]] — Pearl (1988), Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference
+- [[pearl-2009-causality-models-reasoning]] — Pearl (2009), Causality: Models, Reasoning, and Inference
+- [[pezzulo-2018-hierarchical-active-inference]] — Pezzulo et al. (2018), Hierarchical Active Inference: A Theory of Motivated Control
+- [[polyanskiy-2017-strong-data-processing]] — Polyanskiy and Wu (2017), Strong Data-Processing Inequalities for Channels and Bayesian Networks
+- [[polyanskiy-2019-application-information-percolation]] — Polyanskiy and Wu (2019), Application of the information-percolation method to reconstruction problems on graphs
+- [[prager-1960-convergence-principle-hilbert]] — Práger (1960), On a convergence principle in the Hilbert space
+- [[price-1970-selection-covariance]] — Price (1970), Selection and Covariance
+- [[puplinskaite-2009-aggregation-random-coefficient]] — Puplinskaitė and Surgailis (2009), Aggregation of random-coefficient AR(1) process with infinite variance and common innovations
+- [[radner-1962-team-decision-problems]] — Radner (1962), Team Decision Problems
+- [[radner-1993-organization-decentralized-information]] — Radner (1993), The Organization of Decentralized Information Processing
+- [[ramstead-2016-cultural-affordances-scaffolding]] — Ramstead et al. (2016), Cultural Affordances: Scaffolding Local Worlds Through Shared Intentionality and Regimes of Attention
+- [[ramstead-2021-multiscale-integration-beyond]] — Ramstead et al. (2021), Multiscale integration: beyond internalism and externalism
+- [[rauch-1999-networks-versus-markets]] — Rauch (1999), Networks versus Markets in International Trade
+- [[raz-2009-estimating-lieb-robinson]] — Raz and Sims (2009), Estimating the Lieb-Robinson Velocity for Classical Anharmonic Lattice Systems
+- [[ribeiro-2023-mathematical-models-explain]] — Ribeiro and Rybski (2023), Mathematical Models to Explain the Origin of Urban Scaling Laws
+- [[roldan-2010-estimating-dissipation-single]] — Roldán and Parrondo (2010), Estimating Dissipation from Single Stationary Trajectories
+- [[rosas-2020-causal-blankets-algorithmic]] — Rosas et al. (2020), Causal Blankets: Theory and Algorithmic Framework
+- [[sachdeva-2021-optimal-prediction-resource]] — Sachdeva et al. (2021), Optimal prediction with resource constraints using the information bottleneck
+- [[sagawa-2009-minimal-energy-cost]] — Sagawa and Ueda (2009), Minimal Energy Cost for Thermodynamic Information Processing: Measurement and Information Erasure
+- [[sang-2025-stability-mixed-state]] — Sang and Hsieh (2025), Stability of Mixed-State Quantum Phases via Finite Markov Length
+- [[sasaki-2017-cumulative-culture-can]] — Sasaki and Biro (2017), Cumulative culture can emerge from collective intelligence in animal groups
+- [[savage-1960-statistical-model-gross]] — Savage and Deutsch (1960), A Statistical Model of the Gross Analysis of Transaction Flows
+- [[scharf-1998-wiener-filters-canonical]] — Scharf and Thomas (1998), Wiener filters in canonical coordinates for transform coding, filtering, and quantizing
+- [[seguy-1971-relation-entre-distance]] — Séguy (1971), La relation entre la distance spatiale et la distance lexicale
+- [[shalizi-2025-what-macrostate-subjective]] — Shalizi and Moore (2025), What Is a Macrostate? Subjective Observations and Objective Dynamics
+- [[sheppard-1899-application-error-cases]] — Sheppard (1899), On the Application of the Theory of Error to Cases of Normal Distribution and Normal Correlation
+- [[singer-2011-angular-synchronization-eigenvectors]] — Singer (2011), Angular synchronization by eigenvectors and semidefinite programming
+- [[steinwender-2018-real-effects-information]] — Steinwender (2018), Real Effects of Information Frictions: When the States and the Kingdom Became United
+- [[stewart-1973-error-perturbation-bounds]] — Stewart (1973), Error and Perturbation Bounds for Subspaces Associated with Certain Eigenvalue Problems
+- [[still-2014-information-bottleneck-approach]] — Still (2014), Information Bottleneck Approach to Predictive Inference
+- [[temple-1928-rayleigh-principle-applied]] — Temple (1928), The Theory of Rayleigh's Principle as Applied to Continuous Systems
+- [[theraulaz-1999-brief-history-stigmergy]] — Theraulaz and Bonabeau (1999), A Brief History of Stigmergy
+- [[tomasello-2005-understanding-sharing-intentions]] — Tomasello et al. (2005), Understanding and sharing intentions: The origins of cultural cognition
+- [[toulouse-1977-frustration-effect-spin]] — Toulouse (1977), Theory of the frustration effect in spin glasses: I
+- [[tran-2020-hierarchy-linear-light]] — Tran et al. (2020), Hierarchy of Linear Light Cones with Long-Range Interactions
+- [[varopoulos-1985-long-range-estimates]] — Varopoulos (1985), Long range estimates for Markov chains
+- [[veissiere-2020-thinking-through-other]] — Veissière et al. (2020), Thinking through other minds: A variational approach to cognition and culture
+- [[von-neumann-1950-functional-operators-volume]] — Neumann (1950), Functional Operators, Volume II: The Geometry of Orthogonal Spaces
+- [[weiss-2001-correctness-belief-propagation]] — Weiss and Freeman (2001), Correctness of Belief Propagation in Gaussian Graphical Models of Arbitrary Topology
+- [[wilks-1938-large-sample-distribution]] — Wilks (1938), The Large-Sample Distribution of the Likelihood Ratio for Testing Composite Hypotheses
+- [[wolpert-2001-optimal-payoff-functions]] — Wolpert and Tumer (2001), Optimal payoff functions for members of collectives
+- [[working-1960-correlation-first-differences]] — Working (1960), Note on the Correlation of First Differences of Averages in a Random Chain
+- [[zaffaroni-2004-contemporaneous-aggregation-linear]] — Zaffaroni (2004), Contemporaneous aggregation of linear dynamic models in large economies
+- [[zaghw-2026-renormalising-generative-models]] — Zaghw et al. (2026), Renormalising Generative Models for Active Inference: Foundations, Derivations, and Verification
+- [[zaslavsky-1989-biased-graphs-bias]] — Zaslavsky (1989), Biased graphs. I. Bias, balance, and gains
 
 ### Chris Fields literature, November 1, 2026
 
