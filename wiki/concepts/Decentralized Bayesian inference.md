@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-20
+updated: 2026-11-11
 ---
 
 # Decentralized Bayesian inference
@@ -52,6 +52,14 @@ Evidence lineage belongs in the formal state rather than in bookkeeping outside 
 ## Scope boundaries
 
 Static [[Probabilistic opinion pooling]] aggregates opinions without specifying an evidence-generating protocol. [[Non-Bayesian social learning]] studies truth learning under deliberately simplified social updates rather than exact distributed Bayes. [[Common knowledge and Bayesian agreement]] establishes agreement under a common prior and common knowledge, not convergence of a decentralized algorithm. These theories answer related but noninterchangeable questions.
+
+## Hierarchical consensus with finitely many rounds, November 11, 2026
+
+Consensus on information contributions, in which each agent holds the information vector and information matrix of its own sensor and the common prior is added once, reproduces the centralized Gaussian posterior when the sums are exact ([[olfati-saber-2005-distributed-kalman-filter]]). [[dennis-2026-collective-agents-renormalization-results]] treats a hierarchy that runs finitely many consensus rounds at each level and passes one representative's estimate of each unit's sum upward. The belief at the top is then a pool in which the contribution of agent $j$ is counted $\mathfrak c_{Ij}$ times by the top-level member $I$, a product over the levels of entries of powers of the consensus matrices. Let $\mathsf d_l$ be the largest value, over the units of level $l$, of the number of children minus one times the mixing factor of the unit raised to the number of rounds. Every count satisfies $\lvert\mathfrak c_{Ij}-1\rvert\le\prod_l(1+\mathsf d_l)-1$, and the bound is attained. Errors of the levels therefore compound multiplicatively: each level amplifies the error inherited from below and adds its own. The error of the top-level mean is an exact linear expression in the count errors, the top-level precision lies between explicit multiples of the exact one, and a bound on the relative entropy to the centralized posterior follows when the total count error is below one. For $L$ levels and a target total error $\mathfrak k_\star\le1$ it suffices to run $\ln(2L(n_J-1)/\mathfrak k_\star)/\ln(1/\rho_{\perp,J})$ rounds in every unit with $n_J\ge2$ children and mixing factor $\rho_{\perp,J}>0$, and one round in a unit with $n_J\ge2$ and $\rho_{\perp,J}=0$.
+
+The hypotheses are symmetric, doubly stochastic, entrywise nonnegative consensus matrices, one representative per unit, noiseless rounds and the information form. Two properties of flat consensus do not carry over. The counts sum to the number of agents only when the units of each level have equal numbers of children, and the average of the top-level estimates no longer obeys the centralized filter pathwise, because it inherits the errors of the lower representatives. The companion statement for literal reading of posted beliefs is that a regular hierarchy counts the common prior once per agent, as flat literal consensus does, and that with unequal groups the group whose graph has the largest spectral radius dominates the top-level belief exponentially in the number of lower-level rounds, the persuasion bias of [[demarzo-2003-persuasion-bias-social]] multiplied across levels. With exact sums the information form is closed under hierarchy and the posterior form is not.
+
+This is the evidence-lineage problem of the diagnostics section above inside a hierarchical protocol. The information form adds no error of its own; the error enters through the representatives and the finite number of rounds, and the bound on the relative entropy is not sharp.
 
 ## Sources
 

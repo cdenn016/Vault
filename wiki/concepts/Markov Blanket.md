@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Markov Blanket
@@ -199,3 +199,9 @@ The distinction matters when comparing a boundary, an observation protocol, and 
 ## Collective agents references, November 10, 2026
 
 [[Collective agents literature map]] groups the references ingested on November 10, 2026. Its section on active inference, expected free energy and Markov blankets holds the exchange on whether sparse coupling yields a blanket, in [[friston-2021-stochastic-chaos-markov]], [[aguilera-2023-knitting-markov-blanket]], [[heins-2022-sparse-coupling-markov]] and [[friston-2022-very-particular-comment]], and the sources on the decay of conditional mutual information, [[kuwahara-2020-clustering-conditional-mutual]] and [[sang-2025-stability-mixed-state]].
+
+## An approximate meta-agent when coarse blanket conditions fail, November 11, 2026
+
+In the linear-Gaussian model of the collective-agents manuscript, the pair of coarse sensory state and coarse act of a collective is an exact coarse path blanket only under conditions on what the members' sensors read and on how the exterior reads the members. [[dennis-2026-collective-agents-approximate-blanket-conditions]] treats the case in which those conditions fail in any of five ways: sensors that read exterior coordinates outside the coarse exterior, a coarse sensory state formed with weights other than those of the information-form statistic, sensors with memory, sensors that read members' acts or internal states, and an exterior that reads the members one by one. The coarse pair then need not screen off, in the weak or in the strong sense, and the theorem asserts no bound on its leak. What it keeps is a filtering statement under weaker hypotheses, the canonical partition, in which no internal and no active variable reads the exterior and the exterior reads no internal variable, per-channel noise, a stable joint process, members that run a consensus filter and a Gaussian start: the members' sensory channels, net of what they read inside the collective, are a sufficient record for the exterior, whose law given the paths of all collective variables is Gaussian with a covariance that no member's computation or act changes. This is a statement about one conditional law. It is not the fine path blanket, which can fail under the same violations.
+
+With the members' channels as the record, the belief of the collective is measured against the law of the coarse exterior given those channels, and the error terms of the approximate meta-agent for the path law and the belief are of second order in the violations. The law given a coarse record is a second reference. For a coarse record that contains the coarse blanket path and determines the mean of the belief, the two excesses differ by a conditional mutual information that is at most the leak of the coarse blanket on the window, stays bounded as the window grows, and vanishes when the coarse blanket is exact. A bound on the leak itself through the defects of the declared models is open. The synthesis is [[Approximate meta-agent theorem]].
