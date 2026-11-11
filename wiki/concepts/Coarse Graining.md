@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Coarse Graining
@@ -56,6 +56,10 @@ and information-bottleneck search for candidate partitions, while
 [[geiger-temmel-2013-information-preserving-aggregation]] gives conditions for lossless aggregation
 in its declared finite-chain setting. [[ahn-2018-bucket-renormalization]] is a complementary
 factor-graph/tensor-network approximate-inference comparator.
+
+## Memory of a coarse variable that is not closed, November 11, 2026
+
+A coarse variable of a linear system is closed exactly when the kernel of the coarse map is invariant under the dynamics. When it is not, the summary obeys a closed recursion plus a defect, and the size of that defect can be bounded through the structure of the fine update. For the average of agents that fuse messages literally with fixed gains, [[dennis-2026-collective-agents-approximate-meta-agent]] bounds the defect through the dispersions of the row sums and of the column sums of the update of the members' means and a mixing constant on their deviations, and shows that the one-step closure defect in information form has a floor that mixing does not lower, so that the energy of the defect and the kernel weights are the better measures of memory. The synthesis is [[Approximate meta-agent theorem]].
 
 ## Related
 

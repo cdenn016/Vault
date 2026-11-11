@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-11-07
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Active inference communication and collective boundaries
@@ -63,6 +63,10 @@ The preprint [[beck-2025-dynamic-markov-blanket-detection]] infers changing inte
 [[biehl-2021-technical-critique]] shows that particular FEP arguments use inequivalent blanket conditions and require additional assumptions. Drift sparsity and instantaneous conditional independence must be distinguished. This restricts the inference from interaction structure to statistical screening-off; it does not prohibit constructing agents with explicitly specified EFE objectives. See [[Markov blanket interpretation debate]].
 
 > [!note] Editorial: A collective-boundary claim must identify the variables, partition, probability law, and time scope of the claimed independence. A community in a similarity graph, an interaction boundary, a steady-state blanket, and a path blanket are different objects. Neither a coordinate-frame convention nor low message rank supplies those missing statistical conditions. The geometric communication framework and the formation claim must be connected by an explicit model and evidence.
+
+## Error terms when a collective is only approximately closed
+
+The sources above ask when a set of agents has a boundary and a model of its own. A separate question is what such a collective loses when the coarse variables it models do not close. In a linear-Gaussian model of communicating agents, [[dennis-2026-collective-agents-approximate-meta-agent]] bounds the expected relative entropy from the exact predictive law to the belief of a collective that filters a non-closed coarse exterior with a Markov model, with no smallness condition, and assembles the bound with an exact coarse blanket and an exactly closed coarse internal state into an approximate form of the meta-agent theorem; for members that fuse literally it bounds the memory of their average. The blanket conditions are kept exact in these statements, so they complement the detection and critique literature of the preceding section and do not answer it. See [[Approximate meta-agent theorem]].
 
 ## Reading route
 
