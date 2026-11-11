@@ -31,6 +31,8 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-interacting-cue-result]] — supplied two-agent posterior-sampling protocol; normalized finite histories, correlated inference, exact joint-private-record retention with fixed reconstruction, four-weight exchange, Gaussian closure and retention limits; theory only
 - [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; implemented in VFE_3.0 on October 6, unevaluated
 - [[dennis-2026-collective-agents-approximate-meta-agent]] — approximate meta-agent section of the collective-agents manuscript: excess relative entropy of a Markov filter without a smallness condition, the assembled approximate meta-agent theorem, memory of the average of level-0 members; theory only
+- [[dennis-2026-collective-agents-approximate-blanket-conditions]] — approximate meta-agent section of the collective-agents manuscript, second set: a declared filter with an observation defect and a summarized record, the approximate meta-agent theorem without exact blanket conditions, the belief of a collective of level-0 members, the Markov error of one coordinate without reversibility; theory only
+- [[dennis-2026-collective-agents-renormalization-results]] — renormalization supplement of the collective-agents manuscript: first-order error of the memoryless elimination of internal states, finite-round consensus on contributions across levels, exponential decay of decimated kernels on Z^D, non-monotone effective rank along a relay and the reworded rank conjecture; theory only
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
 - [[dennis-2026-attention-unified]] — unified six-note companion, primary exponential group links, implementation crosswalk, and future GL(K) integration map
@@ -69,6 +71,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[SPD-manifold geometry and Riemannian optimization]]
 - [[Meta-agents and hierarchical emergence]]
 - [[Approximate meta-agent theorem]] (error terms for a collective whose coarse variables are not closed; linear-Gaussian model)
+- [[Effective rank along relays]] (rank of content shared across hops; proved limit and monotonicity cases, a counterexample without a common direction, and the open conjecture; linear-Gaussian model)
 - [[Statistical physics of social systems and collective behavior]]
 - [[Structural realism and philosophy of science]]
 - [[Transformer interpretability and scaling]]

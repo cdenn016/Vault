@@ -122,6 +122,8 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 
 [[dennis-2026-collective-agents-approximate-meta-agent]] (2026-11-11) bounds the excess relative entropy of a stationary Kalman filter run on a declared Markov model of a coarse variable that is not closed: an exact quadratic equation for the difference of the predictive covariances and a contraction of the declared filter in its own metric give a bound with no smallness condition, which is assembled into an approximate meta-agent theorem; a companion result bounds the memory of the average of fixed-gain literal receivers. Synthesis in [[Approximate meta-agent theorem]].
 
+[[dennis-2026-collective-agents-approximate-blanket-conditions]] (2026-11-11) is the companion of [[dennis-2026-collective-agents-approximate-meta-agent]]. It bounds the excess relative entropy of a stationary Kalman filter that reads a summary of a finer record through a declared observation model that may be wrong, with an exact information term for the insufficiency of the summary; assembles the approximate meta-agent theorem without exact blanket conditions, with the members' channels as the record; gives the exact excess relative entropy of the belief carried by the average of fixed-gain literal receivers; and bounds the distance between the autocorrelation of one coordinate of a linear recursion and a geometric sequence without reversibility. Theory only. Synthesis in [[Approximate meta-agent theorem]].
+
 ## Communication policies and collective boundaries, November 7, 2026
 
 These sources are connected in [[Active inference communication and collective boundaries]].
