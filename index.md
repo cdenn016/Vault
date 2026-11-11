@@ -30,6 +30,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-cue-result-memory]] — standalone note: cue/result generative memory as an MLP replacement; exact posterior, moment projection, response identity, mixture-of-experts reduction, diagonal-record form, gauge structure, regime prior through depth; theory only
 - [[dennis-2026-interacting-cue-result]] — supplied two-agent posterior-sampling protocol; normalized finite histories, correlated inference, exact joint-private-record retention with fixed reconstruction, four-weight exchange, Gaussian closure and retention limits; theory only
 - [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; implemented in VFE_3.0 on October 6, unevaluated
+- [[dennis-2026-collective-agents-approximate-meta-agent]] — approximate meta-agent section of the collective-agents manuscript: excess relative entropy of a Markov filter without a smallness condition, the assembled approximate meta-agent theorem, memory of the average of level-0 members; theory only
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
 - [[dennis-2026-attention-unified]] — unified six-note companion, primary exponential group links, implementation crosswalk, and future GL(K) integration map
@@ -67,6 +68,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[PIFB2 refactor foundations September 2026]]
 - [[SPD-manifold geometry and Riemannian optimization]]
 - [[Meta-agents and hierarchical emergence]]
+- [[Approximate meta-agent theorem]] (error terms for a collective whose coarse variables are not closed; linear-Gaussian model)
 - [[Statistical physics of social systems and collective behavior]]
 - [[Structural realism and philosophy of science]]
 - [[Transformer interpretability and scaling]]

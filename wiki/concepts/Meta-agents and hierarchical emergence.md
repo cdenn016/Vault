@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Meta-agents and hierarchical emergence
@@ -228,3 +228,7 @@ Fields and Levin's account of objects and processes emphasizes that recognizing 
 ## Collective agents references, November 10, 2026
 
 [[Collective agents literature map]] groups the references ingested on November 10, 2026. Its sections on closure, lumpability and model reduction and on organizations, markets and teams as information processors hold the sources closest to this page, among them [[barnett-2023-dynamical-independence-discovering]], [[shalizi-2025-what-macrostate-subjective]], [[courtois-1977-decomposability-queueing-computer]] and [[list-2011-group-agency-possibility]].
+
+## Error terms for an approximately closed meta-agent, November 11, 2026
+
+The constructions on this page say when a parent exists and what it retains; they do not say how wrong a parent's belief is when the summary it models is not closed. [[Approximate meta-agent theorem]] collects the first such statements, from [[dennis-2026-collective-agents-approximate-meta-agent]], in a linear-Gaussian model of communicating agents: a bound, with no smallness condition, on the excess relative entropy of a collective that filters a non-closed coarse exterior with a Markov model; an assembled theorem in which the coarse blanket and the closure of the coarse internal state stay exact while the abstract physics, the belief and the joint act carry error terms; and a bound on the memory of the average of members that fuse literally, whose closure defect in information form has a floor that mixing does not lower. These statements concern that model and transfer to the gauge-VFE meta-agent only as a template for what an error analysis must contain.
