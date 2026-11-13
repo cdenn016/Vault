@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-11-07
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 
 # Active inference communication and collective boundaries
@@ -71,6 +71,10 @@ The sources above ask when a set of agents has a boundary and a model of its own
 ## Error terms when the coarse blanket conditions fail, November 11, 2026
 
 The section on error terms above records statements in which the blanket conditions of the collective are exact. [[dennis-2026-collective-agents-approximate-blanket-conditions]] adds a theorem for the same linear-Gaussian model without them. It allows sensors that read hidden exterior coordinates, a coarse sensory state formed with other weights, sensors with memory or reafference, and an exterior that reads the members one by one, and it requires only the canonical partition, in which no internal and no active variable reads the exterior and the exterior reads no internal variable, per-channel noise, a stable joint process and members that run a consensus filter. In the terms of the editorial note of the preceding section, the theorem names its variables, law and time scope: the law that is computed exactly is that of the exterior given the paths of the members' sensory channels, and the belief of the collective is measured against it. The theorem does not establish that the coarse sensory state and the coarse act screen off, and it gives no bound on their leak through the defects of the declared models; it relates the leak on a window to the difference between measuring the belief against the members' channels and against a coarse record. It therefore still does not answer the detection and critique literature, and it adds to it one case in which an agent-like description with stated error terms survives the failure of the coarse blanket. See [[Approximate meta-agent theorem]] and [[Markov Blanket]].
+
+## Federated inference and belief sharing, November 13, 2026
+
+Where [[friston-frith-2015-duet]] and [[friston-frith-2015-hermeneutics]] treat two agents that take turns, [[friston-2024-federated-inference]] treats three that broadcast continuously, with a common generative model and an assumed common allocentric frame; [[Federated inference]] has the details. On the three questions separated above, what to express, when an exchange is useful and how a recipient responds, the paper fixes the first two by construction and learns the third only as a code. Expression is a readout of the posterior predictive distribution over each shared factor, and the only policy selected by expected free energy is the direction of gaze. There is no choice of partner, in contrast to [[albarracin-2022-epistemic-communities]]: every speaker enters with coefficient one. Interpretation is observation through a likelihood from beliefs to words. What the paper adds is learning of that likelihood by Dirichlet updates gated by expected free energy, and its emergence among naive agents through Bayesian model reduction. The paper states that a code that emerged in one simulated group would not let its agents communicate with agents from the earlier simulations (it runs no cross-group test), an instance of the distinction drawn in the editorial note of the section on learning content, access, and interpretation between a learned code and agreement on meaning.
 
 ## Reading route
 

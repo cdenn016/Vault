@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-11-13
 ---
 
 # Multi-agent variational free energy
@@ -141,6 +141,12 @@ The individual-to-group free-energy question has a conditional answer in the exa
 The strongest direct overlap with the 2026 Bouchaffra preprints is the separate `grand_canonical_meta_agent_formation.tex` note. A coalition is equivalent to a binary membership vector; inverse temperature maps to membership temperature; a chemical-potential term can be absorbed into coalition energy; and a Harsanyi or Möbius expansion maps to a full hyperedge expansion of occupation energy. Gauge-transported divergences then provide a special invariant interaction coefficient. This shared Gibbs variational form rules out broad priority claims about collective variational principles or Gibbs coalition laws. It does not erase the distinction that [[bouchaffra-2026-collective-variational-principle]] declares a coalition energy alongside local free energies, while the core Gauge-VFE theory begins from one normalized agent-and-record law and separately proves its local and coarse identities.
 
 The literature also fixes the Bayesian-mechanics boundary. Gauge covariance and natural-gradient VFE descent do not establish stationary stochastic dynamics, Markov blankets, synchronization maps, or physical time. A genuine multi-agent Bayesian mechanics must prove individual and group blankets and construct equivariant synchronization maps compatible with the coarse channel and retained holonomy. Until then, Gauge-VFE is a multi-agent variational and geometric extension program adjacent to Bayesian mechanics, not a completed generalization of it.
+
+## The federated joint free energy read from the full text, November 13, 2026
+
+The comparator section above records that [[friston-2024-federated-inference]] defines a specialized joint free energy over agents. The full text, summarized in [[Federated inference]], writes that functional only in part. Its Eq. 7 prints the terms that depend on one agent's expectation $\mathbf{s}$ over a shared factor: the negative entropy of $\mathbf{s}$, and minus the expectation under $\mathbf{s}$ of the summed log-likelihood and log-prior messages of all agents. The stationary belief is the renormalized product of the agents' own posteriors with unit exponents, which the paper distinguishes from Bayesian belief updating because priors are inherited along with likelihoods.
+
+> [!note] Editorial: With $r_m$ the normalized exponential of agent $m$'s messages and $M$ agents in the sum, the printed terms equal $\sum_m D_{\mathrm{KL}}[\mathbf{s}\|r_m]+(M-1)H[\mathbf{s}]$ up to a constant. A peer therefore enters as a likelihood factor, a cross-entropy term, where the social block of this page has a divergence whose minimizer at fixed peers and weights is a geometric pool with exponents that sum to one. Every speaker has coefficient one, where the block has optimized attention rows $\beta_{ij}$ with an entropy term, and the frame is assumed common, so no $\Omega_{ij}$ appears. Setting $\Omega_{ij}=I$ in the peer-KL term does not produce the federated functional; the paper is a comparator with a declared message likelihood.
 
 ## Exact local--collective histories and their geometry
 
