@@ -120,6 +120,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Belief inertia]]
 - [[Collective active inference]]
 - [[Evidence lower bound (ELBO)]]
+- [[Federated inference]]
 - [[Information bottleneck]]
 - [[Markov blanket interpretation debate]]
 - [[Meta-agents and hierarchical emergence]]

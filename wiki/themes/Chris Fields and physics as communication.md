@@ -5,7 +5,7 @@ aliases: ["Chris Fields literature map", "Fields communication program"]
 tags: [cluster/participatory, cluster/participatory/quantum-foundations, cluster/multi-agent, cluster/vfe, project/multi-agent]
 status: draft
 created: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-13
 ---
 
 # Chris Fields and physics as communication
@@ -59,6 +59,10 @@ Three uses of free energy must be kept distinct: a statistical variational bound
 Federated inference models communicated beliefs through an observation and action scheme. It is a useful comparator for interacting agents, but its likelihood and common-model assumptions are substantive. The earlier immutable note [[friston-2024-federated-inference]] overstates its relationship to the project's peer-KL energy when it calls that energy the same functional and identifies a flat-connection reduction. This synthesis does not adopt that equivalence. A reduction requires a common generative law, explicit message likelihoods, and treatment of dependence and reused evidence. [[Collective active inference]], [[dennis-2026-interacting-cue-result]]
 
 The biological formation papers propose more specific mechanisms: protective somatic organization under supplied costs and exposure, compartmentalization through differentiated boundary reference frames, and neuromorphic development with morphological freedom and resource constraints. The evolutionary/developmental variational synthesis instead works with particular partitions, a nonequilibrium steady-state setting, timescale assumptions, and a genotype–phenotype likelihood. These are substantive constructions to compare; their hypotheses should remain attached when asking whether they yield a retained parent law in another model. [[fields-2019-somatic-multicellularity-as-a-satisficing-solution-to-the-prediction-error-minimization-problem]], [[fields-2024-the-free-energy-principle-induces-compartmentalization]], [[fields-2022-the-free-energy-principle-induces-neuromorphic-development]], [[friston-2023-a-variational-synthesis-of-evolutionary-and-developmental-dynamics]]
+
+## Shared frames in federated inference, November 13, 2026
+
+A reading of the full text of [[friston-2024-federated-inference]], on which Fields is a coauthor, locates the points at which it meets the program described on this page; [[Federated inference]] gives the account. The paper restricts belief sharing to beliefs about the same states of the world under a shared frame of reference and cites [[fields-2022-neurons-as-hierarchies-of-quantum-reference-frames]] for the condition. It describes the convergence of naive agents on a common code as convergence to a frame of reference, citing [[fields-2022-a-free-energy-principle-for-generic-quantum-systems]] and [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]]. Its Section 6.2 reinterprets the simulations without an embedding space: agents with conditionally independent states and a classical channel discover a common error-correcting code, and communication and space are called dual, with a citation to the work of Fields, Glazebrook and Marcianò on communication protocols and quantum error-correcting codes. In the simulations the frame is a classical allocentric labeling of nine locations that every agent is given, and Section 6.2 is interpretation with no added analysis. The paper contains no quantum reference frame transformation ([[Quantum reference frames]]) and no transport between agents' frames, so the cautions of the preceding paragraphs apply unchanged.
 
 ## What the geometry papers add
 

@@ -3,7 +3,6 @@ type: concept
 title: "Collective active inference"
 aliases:
   - "Collective active inference"
-  - "Federated inference"
   - "Group-level active inference"
   - "Multi-agent active inference"
 tags:
@@ -14,7 +13,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-11-10
+updated: 2026-11-13
 ---
 
 # Collective active inference
@@ -109,3 +108,7 @@ The Fields collection connects collective inference to physical interfaces, refe
 ## Collective agents references, November 10, 2026
 
 [[Collective agents literature map]] groups the references ingested on November 10, 2026. Its sections on communication as action and on active inference, expected free energy and Markov blankets hold the sources closest to this page, among them [[catal-2025-belief-sharing-blessing]], [[kaufmann-2021-active-inference-model]], [[kastel-2023-small-steps-mankind]] and [[nomura-2026-social-reality-construction]].
+
+## Federated inference in detail, November 13, 2026
+
+[[Federated inference]] now holds the detailed account of [[friston-2024-federated-inference]], written from the full published article, and this page keeps a summary. Three sentinel agents with a common generative model and an assumed common allocentric frame infer the location, proximity and pose of a subject that each of them sees only in part. The only action selected by expected free energy is the direction of gaze. Speech is a readout: each agent broadcasts its posterior predictive distribution over every shared factor through an auditory modality, and the others read the broadcast as an observation through an identity or permutation likelihood, which the paper shows for the identity likelihood (and asserts for any permutation) to be formally the addition of the speakers' log posteriors with unit coefficients (its Eqs. 6 to 8). The likelihood from beliefs to words is learned by Dirichlet updates gated by expected free energy, and three naive agents arrive at a common code through Bayesian model reduction. The paper assumes the common frame and constructs no group-level agent. The scope correction recorded above remains in force, and the dedicated page states what a reduction to the transported peer-KL energy would require.

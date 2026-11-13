@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 
 # Decentralized Bayesian inference
@@ -60,6 +60,12 @@ Consensus on information contributions, in which each agent holds the informatio
 The hypotheses are symmetric, doubly stochastic, entrywise nonnegative consensus matrices, one representative per unit, noiseless rounds and the information form. Two properties of flat consensus do not carry over. The counts sum to the number of agents only when the units of each level have equal numbers of children, and the average of the top-level estimates no longer obeys the centralized filter pathwise, because it inherits the errors of the lower representatives. The companion statement for literal reading of posted beliefs is that a regular hierarchy counts the common prior once per agent, as flat literal consensus does, and that with unequal groups the group whose graph has the largest spectral radius dominates the top-level belief exponentially in the number of lower-level rounds, the persuasion bias of [[demarzo-2003-persuasion-bias-social]] multiplied across levels. With exact sums the information form is closed under hierarchy and the posterior form is not.
 
 This is the evidence-lineage problem of the diagnostics section above inside a hierarchical protocol. The information form adds no error of its own; the error enters through the representatives and the finite number of rounds, and the bound on the relative entropy is not sharp.
+
+## Belief sharing in federated inference, November 13, 2026
+
+[[friston-2024-federated-inference]] uses the word federated for something other than the federated learning and partitioned variational inference listed above: active-inference agents with a common generative model broadcast posterior beliefs about hidden states at every time step ([[Federated inference]]). Against the specification in the definition section, the paper declares a common model and prior, transmits a posterior predictive distribution over each shared factor, and has the receiver read it as an observation through an identity likelihood, which amounts to adding the senders' log posteriors with unit coefficients (its Eqs. 6 and 8). The paper itself calls this formally distinct from Bayesian belief updating, since agents inherit one another's priors as well as likelihoods. An agent does not hear its own broadcast, which the paper says precludes double counting of its own log posterior.
+
+> [!note] Editorial: On this page's terms the scheme is posterior multiplication without the prior correction $p_0^{1-n}$ and without evidence lineage, so the common prior enters once per agent and evidence can return through other agents on later rounds. The paper analyzes neither effect, and its demonstrations use agents with complementary fields of view. [[catal-2025-belief-sharing-blessing]] and [[Probabilistic opinion pooling]] are the nearest comparisons in the vault.
 
 ## Sources
 
