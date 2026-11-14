@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-11-14
 ---
 
 # Group equivariance
@@ -55,6 +55,13 @@ Third, equivariance is the architectural counterpart of the *reparameterization 
 
 > [!note] Editorial: In practice the model targets *approximate* or *soft* equivariance — `GL(k)` is non-compact and the retraction/optimization are inexact — so equivariance is better read as an inductive bias and a design target than as an exactly enforced identity at every layer.
 
+## Equivariant Markov kernels and orbit variables, November 14, 2026
+
+[[rosas-2026-symmetry-hierarchical-emergence]] uses equivariance as a property of stochastic dynamics rather than of network layers (version read: the arXiv preprint arXiv:2512.00984v1). A Markov process on a discrete space $\mathcal X$ on which a finite group $G$ acts is called dynamically equivariant when $p(g\cdot x_{t+1}\mid g\cdot x_t)=p(x_{t+1}\mid x_t)$ for all states and all $g\in G$. For a deterministic map $f$ this is the self-equivariant case $f(g\cdot x)=g\cdot f(x)$ of the Definition above; the paper notes that deterministic systems are covered once initial conditions are random and that its result extends the classical factoring of symmetries out of equivariant maps. The invariant in play is the orbit map $\phi_G(x)=\{g\cdot x:g\in G\}$. The result is that the orbit variable $\phi_G(X_t)$ predicts its own future as well as the full state does (Corollary 1), with one such level for every subgroup $H\le G$ and the level of $G$ informationally closed with respect to the level of $H$ (Corollary 2). A hidden Markov model whose measurement channel and initial law are equivariant under the same group has orbit variables that again form a hidden Markov model (Theorem 2). In its outlook the paper points to the architectures of [[bronstein-2021-geometric-deep-learning]] and to equivariant recurrent networks as ways to use these levels, and to weaker symmetries of fibration type as a way to widen their scope; these are proposals and no architecture is built. [[Coarse Graining]] gives the statements in full.
+
+> [!note] Editorial: global and local actions under Corollary 2
+> The following is an exact consequence of the paper's Corollary 2 that the paper does not state; it was checked for this note. Let a finite group $K$ act on a discrete single-site space $\mathcal X_0$, let $X_t$ be a Markov process with values in $\mathcal X_0^N$, let the product group $K^N$ act site by site, and let $\Delta(K)=\{(k,\ldots,k)\}$ be its diagonal subgroup. The product action is a finite analogue of the position-dependent transformations of [[Gauge transformation]], and the diagonal action is the analogue of the global symmetry. If the kernel is equivariant under $K^N$, then Corollary 2 with $G=K^N$ and $H=\Delta(K)$ gives two informationally closed levels, the invariants of the global action and the invariants of the local action, with the local level closed with respect to the global one. The global level is the finer of the two. The $K^N$-orbit of a configuration is the product of its single-site orbits, while its $\Delta(K)$-orbit has at most $|K|$ elements, so the levels differ as soon as $N\ge2$ and $K$ moves some point: for a point with an orbit of size $m\ge2$, the constant configuration has a product orbit of size $m^N$ and a diagonal orbit of size $m$. What the global level keeps and the local level discards is the relative configuration of the sites. The same argument applies to any action of $K^N$, including one on a state enlarged by link variables that transform at both ends, in which case the local level consists of the gauge-equivalence classes. If the kernel is equivariant under $\Delta(K)$ only, the corollary yields the global level alone. For the $\mathrm{GL}(k)$ frames of this program the relation is interpretive. The paper's results are stated for finite groups and discrete variables, and its Reynolds average $|G|^{-1}\sum_g$ has no normalized counterpart on a non-compact group. The program's states are Gaussian parameters in continuous spaces, for which a deterministic equivariant update still induces a well-defined map on orbits for any group, while the information-theoretic statements would need a separate treatment. Whether the program's update, read as a transition law, is equivariant under the local action or only the global one is not settled by this note.
+
 ## In this work
 
 Group equivariance surfaces wherever the configuration commits to a symmetry group and then arranges computation to respect it:
@@ -80,6 +87,7 @@ Group equivariance surfaces wherever the configuration commits to a symmetry gro
 - [[bleecker-1981-gauge-theory-variational-principles]] — canonical bundle-connection-and-variational-principle reference behind the gauge formalism.
 - [[fulton-harris-1991-representation-theory]] — irrep classification and Clebsch-Gordan machinery behind `block_glk` gauge and the isotypic head mixers.
 - [[cohen-2018-spherical-cnns]] — `SO(3)`-equivariant spherical convolution via irrep/Fourier analysis; geometric-DL sibling of gauge attention.
+- [[rosas-2026-symmetry-hierarchical-emergence]] (symmetry-derived closed levels and abstract beliefs; read from the arXiv preprint)
 
 ## See also
 

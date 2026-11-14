@@ -15,7 +15,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-11-11
+updated: 2026-11-14
 ---
 
 # Renormalization group flow
@@ -84,6 +84,10 @@ The rate lies strictly between $bm_1$, the rate per coarse step at which the hyp
 
 The correction to the exponential for other block factors and dimensions is a numerical observation in the manuscript and is not proved; the rate along directions other than the axes and the rate for kernels beyond nearest neighbors are not determined. The statement above that pure decimation composes trivially stands, with the qualification that in two and more dimensions the composed map lands in a family of couplings of infinite range, whose decay is now proved in this one class.
 
+## Orbit coarse-graining compared with renormalization, November 14, 2026
+
+[[rosas-2026-symmetry-hierarchical-emergence]] states how its use of symmetry differs from the one on this page (version read: the arXiv preprint arXiv:2512.00984v1). By the paper's account, renormalization explains emergence near criticality through scale invariance and, more generally, through effective field theories that filter irrelevant degrees of freedom, and symmetry there determines which operators are compatible and constrains the emergent laws. In the paper a symmetry of the dynamics fixes the coarse-graining map itself, as the map to orbits, and the conclusion is exact informational closure of the orbit variable in finite systems. The paper has no rescaling step, no flow on a space of couplings, and no fixed points or universality classes. Its nearest analogue of blocking is in the Ehrenfest diffusion of $n$ particles: subgroups of the permutation group that permute particles only within blocks of $M$ give block counts $z^k_t\in\{0,\ldots,M\}$ as closed variables, larger subgroups give coarser closed variables down to the total count, and the paper likens this to the merging of microscopic degrees of freedom into effective units. By its Corollary 2 the level of a larger subgroup is informationally closed with respect to the level of a smaller one, so coarse-graining steps along a chain of subgroups compose exactly, and by its Corollary 3 each level carries an exact Bayesian filter for an observer whose measurements share the symmetry. This bears on the section "Composability is the exception, not the rule": the paper states in a footnote that equivariance is sufficient for closure and that Markov lumpability is necessary, so equivariance of the transition kernel is one structural source of the lumpability that the section, citing [[kemeny-snell-1960-finite-markov-chains]], calls exceptional. The paper does not cite that reference. The paper cites [[kadanoff1966scaling]] for the renormalization background and names [[berman-2023-bayesian-renormalization]], [[koch-janusz-2018-mutual-information-neural]] and [[lenggenhager-2020-optimal-renormalization-group]] as approaches with which its results might be combined; no such combination is carried out.
+
 ## Sources
 
 - [[wilson-1971-rg-critical-phenomena]] — the RG transformation realizing Kadanoff block-spin scaling; fixed points and the relevant/irrelevant/marginal operator taxonomy.
@@ -101,6 +105,7 @@ The correction to the exponential for other block factors and dimensions is a nu
 - [[berker-1979-hierarchical-lattice-rg]], [[kadanoff-1976-migdal-recursion]] — hierarchical lattices, the self-similar substrates on which real-space RG composes exactly.
 - [[kemeny-snell-1960-finite-markov-chains]] — lumpability as the exceptional condition for a coarse-grained Markov chain to stay Markov.
 - [[csiszar-1975-i-divergence-geometry]] — I-projection and IPF convergence.
+- [[rosas-2026-symmetry-hierarchical-emergence]] (symmetry-derived closed levels and abstract beliefs; read from the arXiv preprint)
 
 ## See also
 

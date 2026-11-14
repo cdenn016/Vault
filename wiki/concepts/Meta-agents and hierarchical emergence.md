@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # Meta-agents and hierarchical emergence
@@ -204,6 +204,7 @@ A learned Gaussian template bank in the vfe3 block MLP can be read as a populati
 - [[sakthivadivel-2022-weak-markov-blankets]] — blankets that hold at one scale or timescale and fail at another (informal).
 - [[sandved-smith-2024-metacognitive-particles]] — inward nesting of particles holding beliefs about beliefs; conjectured unrepresented innermost level.
 - [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]] — hierarchy of dissipative structures with rising efficiency constraints (heuristic argument).
+- [[rosas-2026-symmetry-hierarchical-emergence]] (symmetry-derived closed levels and abstract beliefs; read from the arXiv preprint)
 
 ## See also
 
@@ -254,3 +255,10 @@ On nesting, [[sakthivadivel-2022-weak-markov-blankets]] describes informally str
 
 > [!note] Editorial: bearing on the gauge-VFE meta-agent
 > The commuting condition states what the barycenter construction on this page owes: the pooled parent, evolved by its own update, should agree with the pooling of the evolved constituents within a stated error. Proposition IV.2 is a candidate formal template for that square. The match is an analogy, since its beliefs are possibilistic sets with no Gaussian, Fisher or transport structure. The inward nesting and the dissipative hierarchy are analogies as well.
+
+## Symmetry-derived levels and matching belief hierarchies, November 14, 2026
+
+[[rosas-2026-symmetry-hierarchical-emergence]] adds a mechanism to the criteria collected in the preceding section, in a setting far from this page's construction: finite groups acting on discrete-state, discrete-time Markov processes (version read: the arXiv preprint arXiv:2512.00984v1; the Science Advances text was not available). A Markov kernel that is equivariant under a group $G$ has an informationally closed orbit variable for every subgroup of $G$, and the level of a larger subgroup is closed with respect to the level of a smaller one, so the subgroup lattice supplies a hierarchy of exactly closed levels (its Corollaries 1 and 2). On the observer's side, if the measurement channel and the initial law share the symmetry, the orbit variables of state and measurement form a hidden Markov model, and the belief $b^*_t=p(z_t\mid v_{0:t})$ about a coarse level updates by a Bayesian filter that never consults the finer level (Theorem 2 and Corollary 3). A commuting square of the kind that [[heins-2026-collective-sensing-bayesian-inference]] formulates as a test and [[baltieri-2025-bayesian-internal-model-principle]] proves for possibilistic beliefs appears here between two levels of one observer's probabilistic beliefs, and not between a collective's physical evolution and a belief update: under the condition $I(Z_t;Y_{0:t})=I(Z_t;V_{0:t})$ of Corollary 4, marginalizing the micro-level belief and then updating equals updating and then marginalizing, $b^*_t=P_{\phi_G}b_t$. Without that condition the coarse belief is still the exact posterior given the coarse record, with its own update, and is less informative than the marginal of the fine belief; the paper's Ehrenfest example is of this second kind. The paper presents equivariance as sufficient for such hierarchies and names Markov lumpability as the necessary condition. The statements are given in full on [[Coarse Graining]].
+
+> [!note] Editorial: bearing on the gauge-VFE meta-agent
+> The relation is interpretive, and three differences block an exact transfer. First, the paper's coarse-grainings are orbit maps, which are invariant under the group, whereas the barycenter on this page is described as gauge-covariant, transforming with the frames, so the parent is not the orbit variable of the frame group. The symmetry whose orbits resemble pooling is permutation of the members of a cluster; its orbit variable is the multiset of member states, and a barycenter is a coarser function of that multiset which Corollaries 1 and 2 do not cover. Second, the paper assumes a finite group, discrete states, discrete time, a fixed Markov kernel and a fixed group action, whereas the construction here has the continuous non-compact group $GL^+(K)$, Gaussian parameters, and memberships and top-down priors that change when a parent forms. Third, whether the model's update, read as a transition law, is equivariant under any of these actions is not asserted here. What the paper supplies is a pair of exact conditions to aim at: a parent level is closed when it is the orbit variable of a symmetry of the dynamics, and its belief agrees with the marginal of the members' joint belief when the coarse record is sufficient in the sense of Corollary 4. [[Group equivariance]] records what Corollary 2 implies for global and local group actions.

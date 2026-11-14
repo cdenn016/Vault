@@ -217,3 +217,7 @@ These 58 sources are grouped by question in [[Collective agents literature map]]
 - [[smithe-2023-compositional-bayesian-brain]]
 - [[virgo-2021-interpreting-dynamical-systems-bayesian]]
 - [[virgo-2022-sensorimotor-history-markov-blankets]]
+
+## Symmetry and hierarchical emergence, November 14, 2026
+
+- [[rosas-2026-symmetry-hierarchical-emergence]]

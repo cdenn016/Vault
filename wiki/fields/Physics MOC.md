@@ -296,3 +296,7 @@ These 81 sources are grouped by question in [[Collective agents literature map]]
 - [[sandved-smith-2024-metacognitive-particles]]
 - [[spisak-2026-self-orthogonalizing-attractor-networks]]
 - [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]]
+
+## Symmetry and hierarchical emergence, November 14, 2026
+
+- [[rosas-2026-symmetry-hierarchical-emergence]]

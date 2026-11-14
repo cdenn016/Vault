@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # Coarse Graining
@@ -101,6 +101,7 @@ The expansions in the ratio of timescales of [[vankampen-1985-elimination-fast-v
 - [[sakthivadivel-2026-markov-interacting-particles]] — the path-space blanket defect bounds what coarse-grained observers can distinguish (proved).
 - [[pearson-2026-flux-defined-markov-blanket]] — data processing bound for coarse summaries; thick-band screening occurs around placebo regions as well (numerical).
 - [[sakthivadivel-2022-weak-markov-blankets]] — adiabatic sketch that timescale separation sparsifies solenoidal coupling.
+- [[rosas-2026-symmetry-hierarchical-emergence]] (symmetry-derived closed levels and abstract beliefs; read from the arXiv preprint)
 
 ## Collective agents references, November 10, 2026
 
@@ -114,3 +115,47 @@ Three sources concern conditional independence under coarse description. [[sakth
 
 > [!note] Editorial: bearing on coarse blankets of collectives
 > The inequality in the Gray-Scott study holds the conditioning variable fixed, and the note on [[sakthivadivel-2026-markov-interacting-particles]] records no statement for a coarsened boundary. A meta-agent replaces a fine boundary by a coarse one, so the leak of a coarse blanket stays the open quantity recorded on [[Approximate meta-agent theorem]]. The possibilistic belief of Proposition IV.2 is a template by analogy only.
+
+## Symmetry as a sufficient condition for informationally closed levels, November 14, 2026
+
+[[rosas-2026-symmetry-hierarchical-emergence]] proposes symmetry of the dynamics as a sufficient source of exactly closed coarse variables in discrete-time, discrete-state stochastic processes, and of a matching hierarchy of beliefs for an observer. The version read is the arXiv preprint (arXiv:2512.00984v1, titled "Symmetries at the origin of hierarchical emergence"); the Science Advances text was not available, and the numbering of results below follows the preprint. For a process $X_t$ on $\mathcal X$ and a coarse-graining $Z_t=\phi(X_t)$, the paper takes information closure as its definition of an emergent level, citing [[bertschinger-2006-information-closure-systems]] and Chang et al. (2020) for it (the closely related usage in [[rosas-2024-software-natural-world]] is cited by the paper for self-contained levels),
+
+$$
+I(X_{\le t};Z_{t+1:t+L})-I(Z_{\le t};Z_{t+1:t+L})=0\quad\text{for all }L\in\mathbb N\text{ and }t\in\mathbb Z,
+$$
+
+which is equivalent to $p(z_{t+1:t+L}\mid x_{\le t})=p(z_{t+1:t+L}\mid z_{\le t})$ almost surely. A finite group $G$ acting on $\mathcal X$ defines the orbit map $\phi_G(x)=\{g\cdot x:g\in G\}$. Theorem 1 states that $\phi_G(X_t)$ is informationally closed if and only if the group average (Reynolds operator) of the block transition law, $|G|^{-L}\sum_{g_{t+1},\ldots,g_{t+L}}p(g_{t+1}\cdot x_{t+1},\ldots,g_{t+L}\cdot x_{t+L}\mid x_{\le t})$, is unchanged when group elements act on the conditioning past. A Markov process is called dynamically equivariant when
+
+$$
+p(g\cdot x_{t+1}\mid g\cdot x_t)=p(x_{t+1}\mid x_t)\quad\text{for all }x_t,x_{t+1}\in\mathcal X\text{ and }g\in G,
+$$
+
+and Corollary 1 states that the orbit variable $Z_t=\phi_G(X_t)$ of such a process is informationally closed. Two footnotes fix the scope. Every partition of a discrete state space is the orbit partition of some group, the product of the symmetric groups of its cells, so writing a coarse-graining as an orbit map is no restriction and the hypothesis that carries the result is equivariance of the kernel. Equivariance is sufficient and not necessary: the paper names Markov lumpability as the necessary condition (the vault's reference for lumpability is [[kemeny-snell-1960-finite-markov-chains]], which the paper does not cite) and remarks, without development, that lumpability can be read as a local symmetry in the formalism of fibration symmetries.
+
+Corollary 2 turns one symmetry into a hierarchy. If $X_t$ is a Markov process equivariant with respect to $G$ and $H$ is a subgroup of $G$, then with $Z_t=\phi_G(X_t)$ and $Z'_t=\phi_H(X_t)$ the coarser variable $Z_t$ is informationally closed with respect to both $X_t$ and $Z'_t$. The proof uses that equivariance under $G$ restricts to $H$, that $G$-orbits are unions of $H$-orbits so that $Z_t$ is a function of $Z'_t$, and the data processing inequality. The closed levels are therefore indexed by the subgroups of $G$, from the identity map for the trivial subgroup to the coarsest level for $G$ itself, and the assignment respects inclusion without being injective: in the paper's six-state chain with $D_3$ symmetry the rotation subgroup and the full group give the same partition. The first case study is a stochastic Hopfield network with Hebbian weights. The paper takes the group of neuron permutations that preserve every pattern overlap, identifies the vector of Mattis magnetizations $Z^\mu_t=n^{-1}q_\mu\cdot X_t$ as its orbit variable, and argues that the transition law depends on the state only through that vector, so that the magnetization is informationally closed and the law of the retrieved pattern depends on the initial state only through its magnetization. Storing every rotation and reflection of a set of letters on a square array adds a $D_4$ symmetry whose subgroups give further closed levels, for example letter identity alone, or letter identity together with whether the letter is reflected. In a simulation of a $20\times20$ network trained with the pseudo-inverse rule, the paper reports that these levels predict their own state 250 steps ahead better than random coarse-grainings of equal cardinality (its Figure 2E).
+
+> [!note] Editorial: two qualifications of the Hopfield example
+> Both were found on reading, are recorded in the source note, and were checked by hand only; neither is stated in the paper. The orbit variable of the group of pattern-preserving permutations is the vector of sums of the state over classes of neurons with identical pattern entries, which can be strictly finer than the magnetization, so the magnetization is the orbit variable only up to that refinement. With the zero diagonal of the Hebbian rule, the input to a neuron depends on the magnetization and on a self-term of order $m/n$, so dependence of the transition law on the magnetization alone is exact when the diagonal weights are kept and approximate otherwise. The kernel is equivariant under the pattern-preserving permutations in either case, so the paper's Corollary 1 applies exactly to the class-sum variable.
+
+The second half concerns an observer who filters a hidden Markov model with latent state $X_t$ and measurements $Y_t$. The model is called equivariant when one group acts on both spaces with
+
+$$
+p(g\cdot x_{t+1}\mid g\cdot x_t)=p(x_{t+1}\mid x_t),\qquad p(g\cdot y_t\mid g\cdot x_t)=p(y_t\mid x_t),\qquad p(g\cdot x_0)=p(x_0).
+$$
+
+Theorem 2 states that the orbit variables $Z_t=\phi_G(X_t)$ and $V_t=\psi_G(Y_t)$ then form a hidden Markov model of their own. With the standard filter $b_t=\mathrm{Norm}(\mathrm{diag}(L_{y_t})T_tb_{t-1})=:U(y_t,b_{t-1})$ for the belief $b_t(x_t)=p(x_t\mid y_{0:t})$ ([[sarkka-svensson-2023-bayesian-filtering-smoothing]]), Corollary 3 states that the abstract belief $b^*_t=p(z_t\mid v_{0:t})$ obeys a recursion of the same form, $b^*_t=U(v_t,b^*_{t-1})$, and that
+
+$$
+b^*_t=P_{\phi_G}\mathbb E\{B_t\mid V_{0:t}=v_{0:t}\},
+$$
+
+where $B_t$ is the micro-level belief as a random variable and $P_{\phi_G}$ is the 0-1 matrix that sums a belief over orbits. The abstract belief is thus a mixture, over the measurement sequences that share the coarse record, of marginalized micro-level beliefs. The paper notes that beliefs about an arbitrary coarse-graining of the latent state satisfy the same mixture formula and are in general not Markovian, so in general they cannot be updated by a filter of the form of the standard one; that the symmetric ones do is the content of the corollary. Corollary 4 gives a sufficient condition for the mixture to collapse: if
+
+$$
+I(Z_t;Y_{0:t})-I(Z_t;V_{0:t})=0,
+$$
+
+then $b^*_t=P_{\phi_G}b_t$, and marginalizing a micro-level belief commutes with updating it. The paper gives the equivalent form $p(z_t\mid y_{0:t})=p(z_t\mid g_0\cdot y_0,\ldots,g_t\cdot y_t)$ for all $g_k\in G$. When the condition fails, $P_{\phi_G}b_t$ is more informative about $Z_t$ than $b^*_t$ and may have no update that avoids $b_t$, since $(Z_t,Y_t)$ need not be a hidden Markov model. In Ehrenfest's two-chamber diffusion of $n$ particles observed through a binary symmetric channel, permutation symmetry gives the particle count as the coarsest closed level and the sum of the binary readings as its measurement; the abstract belief has $n+1$ entries against $2^n$ for the micro-level belief, and the paper states that the condition of Corollary 4 does not hold there even for a permutation-invariant prior. The preprint restricts its presentation to finite groups, discrete variables and discrete time, and Corollaries 1 and 2 and Theorem 2 assume a Markov latent process. According to the abstract of the published version, which was not read, that version also treats Boolean models of gene regulation, where the symmetries are found from the dynamics, and epidemic modeling.
+
+> [!note] Editorial: relation to the linear closure statements on this page
+> For a linear system $x_{t+1}=Ax_t+\mathfrak n_t$ on which a finite group acts through matrices $\rho(g)$ that commute with $A$ and preserve the noise law, the kernel is equivariant in the paper's sense, and the Reynolds projector $P=|G|^{-1}\sum_g\rho(g)$ commutes with $A$, so the linear invariant $Px$ is closed in the sense of the sections above: the kernel of $P$ is invariant under $A$ and $Px_{t+1}=APx_t+P\mathfrak n_t$. This is an exact elementary statement checked for this note. It is not in the paper, whose theorems are stated for discrete state spaces, so the paper's information-theoretic results do not cover it as written. For the permutation group acting on $n$ identical agents, $Px$ is the vector of averages, and commutation of $A$ with all permutations forces equal row sums and equal column sums, and equal column sums alone already give the exact closure of the average recorded above, so the symmetric case is a special case of that condition. The linear invariant is in general coarser than the orbit variable, and Corollary 2 covers orbit variables of subgroups only. For nonlinear equivariant dynamics the paper therefore gives closure of the orbit, which for exchangeable agents is the multiset of member states, and gives none for an average. The paper is silent on the cases of nonzero dispersion that the statements above bound.

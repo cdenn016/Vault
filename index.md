@@ -174,6 +174,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Geometric singular perturbation theory]]
 - [[Renormalization group flow]]
 - [[Meta-agents and hierarchical emergence]] (formation as a crossover in rescaled time; what a collective discards and keeps; founding memory)
+- [[rosas-2026-symmetry-hierarchical-emergence|Symmetry as a common origin of hierarchical emergence and abstraction]] (equivariant Markov kernels, orbit variables as informationally closed levels, abstract beliefs; arXiv preprint read)
 
 ### Participatory realism, quantum foundations, holography & consciousness
 - [[Combination problem]]
