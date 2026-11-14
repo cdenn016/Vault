@@ -1,0 +1,47 @@
+% Proposed text for Attention/minimal_agent_model.tex (file not edited).
+% Line numbers refer to the working copy as read on 2026-11-14.
+% All macros used below (\qt, \Gauss, \KL, \Thcmp) are defined in that file's preamble,
+% and all cited labels (ma:eq:link_identity, ma:eq:gibbs, ma:eq:weights, ma:app:item2) exist in it.
+% The parts depend on one another: att-3, part 2 speaks of the utterance law, mean and covariance,
+% which att-5, part 1 declares, so the two are to be applied together.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% att-3, part 1. Line 124, the paragraph that follows Lemma ma:lem:link.
+% Insert after its first sentence, the one ending
+% "... carried into the receiver's frame by a group-valued link."
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The three divergences of Eq.~\eqref{ma:eq:link_identity} are one number, and they differ in who can evaluate them. The receiver evaluates the first, from its own query law and the key law it receives; the last contains both frames and is a description of that cost, formed by neither agent. At full rank the key law $(S_{K,h})_*\qt_j$ is an invertible image of the sender's reference law under the map $S_{K,h}$, which carries no agent index, so a sender that emits it discloses its whole reference belief $\qt_j$ to any receiver that knows that map and keeps only its frame $U_j$ private.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% att-3, part 2. Line 220, paragraph "Full rank: one link weighs and transports."
+% Apply together with att-5, part 1.
+% Replace its last sentence,
+%   "That variant is declared, not derived from the record model, and its relation
+%    to the exact model is that of an approximation, made precise below."
+% by the following three sentences (the original sentence is kept as the last one).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In that variant the receiver evaluates the cost in the comparison space, as $D_{ij}=\KL(q_{Q,i}\|p_{K,j})$ of Eq.~\eqref{ma:eq:gibbs} with $S_K=T$, from its own query law and the utterance law it receives, mean and covariance, and it forms the message as $U_iS_Q^{-1}\sum_j\beta_{ij}T\xi_j$ from the utterance means, which equals $\sum_j\beta_{ij}\Thcmp_{ij}\mu_j$ because $\Thcmp_{ij}\mu_j=U_iS_Q^{-1}T\xi_j$; the two-frame expressions describe these computations, and neither agent applies the other's frame. With $T$ invertible and known to the receiver, the utterance law $\Gauss(T\xi_j,TC_jT^\top)$ determines $\qt_j$, so in the full-rank case a sender that transmits this law transmits its complete reference belief, and the privately held part of its state reduces to the frame $U_j$. That variant is declared, not derived from the record model, and its relation to the exact model is that of an approximation, made precise below.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% att-5, part 1. Line 150, the paragraph that follows the display of Eq. ma:eq:weights
+% (the one that begins "Since $S_{Q,h}$ has full row rank and $C_i\succ0$, ...").
+% Append at the end of that paragraph, after the sentence ending
+% "... for the between-source spread of the utterances."
+% The several-head case is stated in att-5, part 2, after the proposition.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The utterance of sender $j$ in head $h$ is the law $(T_h)_*\qt_j=\Gauss\bigl(T_h\xi_j,V^{(h)}_{K,j}\bigr)$ of its observable, mean and covariance. The weights and the gain of Eq.~\eqref{ma:eq:weights} read sender $j$ only through this pair and contain nothing of $U_j$, so the coded covariance $V^{(h)}_{K,j}$ is part of what the sender posts. When $V^{(h)}_{K,j}=V^{(h)}_K$ is common to all senders and known to the receiver, these quantities need no posted covariance.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% att-5, part 2. Line 195, the paragraph that follows Proposition ma:prop:minimal.
+% Insert after the sentence
+% "The second condition holds automatically for point-mass senders."
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+It is a property of the sender's covariance that the per-head utterance laws do not contain, since they carry the diagonal blocks $T_hC_jT_h^\top$ and not the cross-head blocks $T_hC_jT_g^\top$. For one head, and for several heads under this second condition, the exact posterior reads sender $j$ only through its per-head utterance laws. When the condition fails, two heads that select the same source have records correlated through $T_hC_jT_g^\top$ (Appendix~\ref{ma:app:item2}), and the exact posterior also reads these cross-head blocks. A receiver that applies item (b) therefore either takes the condition as a declared property of the senders or is posted the stacked utterance law $\Gauss(T\xi_j,TC_jT^\top)$ with $T=[T_1;\cdots;T_H]$, on which it can check the condition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional, abstract (line 47), to agree with att-5, part 1.
+% Replace
+%   "each sender emits one linear observable of its belief per head, the utterance,"
+% by the following phrase.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+each sender emits the law of one linear observable of its belief per head, the utterance,
