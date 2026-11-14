@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-11-07
+updated: 2026-11-13
 ---
 
 # Expected Free Energy
@@ -243,4 +243,17 @@ the E-step covariance gradient — the canonical-vs-reduced choice the manuscrip
 [[friston-2017-active-inference-process-theory]] ·
 [[friston-2016-active-inference-learning]] ·
 [[smith-2022-active-inference-tutorial]] ·
-[[millidge-2021-whence-expected-free-energy]]
+[[millidge-2021-whence-expected-free-energy]], [[barp-2022-geometric-methods-sampling]], [[millidge-2021-mathematical-walkthrough-fep]], [[friston-2020-sentience-markovian-monism]], [[heins-2026-collective-sensing-bayesian-inference]]
+
+## Derivations from path probabilities and steady-state densities, November 13, 2026
+
+Four papers from the Bayesian mechanics literature reach expected free energy by routes other than the POMDP definition above. [[barp-2022-geometric-methods-sampling|Barp et al. 2022]] partition a process into external, observable and autonomous paths $(s,o,a)$, define a precise agent by the condition that $P(\pi\mid s)$ is a Dirac measure, and derive
+
+$$
+-\log P(a_{>t}\mid\pi_{\le t})=E_{P(s,o\mid a_{>t},\pi_{\le t})}[\log P(s\mid a_{>t},\pi_{\le t})-\log P(s,o\mid\pi_{\le t})],
+$$
+
+so that expected free energy is the negative log probability of an autonomous path, with a risk plus ambiguity form. Their footnote 10 says the cancellation behind this identity is shown only for countable path spaces, by personal communication, and the source note observes that the hypothesis excludes agents with intrinsic noise. [[millidge-2021-mathematical-walkthrough-fep|Millidge, Seth and Buckley 2021]] define $G$ as ambiguity plus risk with the steady-state density as generative model and show that it bounds the expected predictive surprisal, with equality at steady state; the further claim that $G$ is a Lyapunov function is asserted. [[friston-2020-sentience-markovian-monism|Friston, Wiese and Hobson 2020]] argue informally that systems differ by a critical time after which information length stops growing and that temporally deep systems appear to select actions by $G$. [[heins-2026-collective-sensing-bayesian-inference|Heins 2026]] (Appendix C) minimizes a one-step risk over unit headings for a collective and from its stationarity condition obtains $a^*\propto(\Sigma_{\mathrm{school}}+(\lambda/\alpha)I)^{-1}\mu_{\mathrm{school}}$, with information gain neglected.
+
+> [!note] Editorial: bearing on the contested derivation
+> The precise-agent identity starts from the probability of an autonomous path and does not pass through present-time VFE. It holds under a deterministic-agent hypothesis and a countable-path caveat, so the warning above stands.

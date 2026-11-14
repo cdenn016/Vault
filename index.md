@@ -422,6 +422,47 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 📄 Sources — papers
 
+### Bayesian mechanics literature, November 13, 2026
+
+Thirty-six papers on Bayesian mechanics, its mathematical foundations, its critics and independent formal accounts, each with a local PDF; the synthesis is on [[Bayesian mechanics]].
+
+- [[baltieri-2020-predictions-eye-beholder]] — Baltieri et al. (2020), Predictions in the eye of the beholder: an active inference account of Watt governors
+- [[baltieri-2025-bayesian-internal-model-principle]] — Baltieri et al. (2025), A Bayesian Interpretation of the Internal Model Principle
+- [[barp-2021-measure-preserving-diffusions]] — Barp et al. (2021), A Unifying and Canonical Description of Measure-Preserving Diffusions
+- [[barp-2022-geometric-methods-sampling]] — Barp et al. (2022), Geometric Methods for Sampling, Optimisation, Inference and Adaptive Agents
+- [[biehl-2023-interpreting-systems-pomdps]] — Biehl and Virgo (2023), Interpreting systems as solving POMDPs: a step towards a formal understanding of agency
+- [[dacosta-2021-neural-dynamics-active-inference]] — Costa et al. (2021), Neural Dynamics under Active Inference: Plausibility and Efficiency of Information Processing
+- [[dacosta-2023-entropy-production-stationary-diffusions]] — Costa and Pavliotis (2023), The entropy production of stationary diffusions
+- [[dacosta-2025-generalized-coordinates-sde]] — Costa et al. (2025), A Theory of Generalized Coordinates for Stochastic Differential Equations
+- [[feng-2011-potential-flux-decomposition]] — Feng and Wang (2011), Potential and flux decomposition for dynamical systems and non-equilibrium thermodynamics: Curvature, gauge field, and generalized fluctuation-dissipation theorem
+- [[friston-2012-fep-biological-systems]] — Friston (2012), A Free Energy Principle for Biological Systems
+- [[friston-2012-free-energy-value-attractors]] — Friston and Ao (2012), Free Energy, Value, and Attractors
+- [[friston-2020-sentience-markovian-monism]] — Friston et al. (2020), Sentience and the Origins of Consciousness: From Cartesian Duality to Markovian Monism
+- [[friston-2021-interesting-observations-fep]] — Friston et al. (2021), Some Interesting Observations on the Free Energy Principle
+- [[friston-2026-generative-modelling-nonequilibrium]] — Friston et al. (2026), A framework for the use of generative modelling in non-equilibrium statistical mechanics
+- [[heins-2022-particular-flows-attracting-sets]] — Heins (2022), Particular flows and attracting sets: A comment on "How particular is the physics of the free energy principle?" by Aguilera, Millidge, Tschantz and Buckley
+- [[heins-2026-collective-sensing-bayesian-inference]] — Heins (2026), Collective Sensing as Emergent Bayesian Inference
+- [[isomura-2023-bayesian-mechanics-self-organising]] — Isomura (2023), Bayesian mechanics of self-organising systems
+- [[kim-2021-bayesian-mechanics-perceptual-inference]] — Kim (2021), Bayesian mechanics of perceptual inference and motor control in the brain
+- [[kim-2024-bayesian-mechanics-synaptic-learning]] — Kim (2024), Bayesian Mechanics of Synaptic Learning Under the Free-Energy Principle
+- [[millidge-2021-mathematical-walkthrough-fep]] — Millidge et al. (2021), A Mathematical Walkthrough and Discussion of the Free Energy Principle
+- [[parr-2021-memory-markov-blankets]] — Parr et al. (2021), Memory and Markov Blankets
+- [[pearson-2026-flux-defined-markov-blanket]] — Pearson (2026), Does a Flux-Defined Markov Blanket Screen Self-Replicating Gray--Scott Spots? A Computational Test of a Blanket Condition from the Free Energy Principle
+- [[polettini-2012-nonequilibrium-thermodynamics-gauge]] — Polettini (2012), Nonequilibrium thermodynamics as a gauge theory
+- [[ramstead-2022-notation-minima-comment]] — Ramstead and Sakthivadivel (2022), Some Minimal Notes on Notation and Minima: A Comment on "How Particular is the Physics of the Free Energy Principle?" by Aguilera, Millidge, Tschantz, and Buckley
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]] — Sakthivadivel (2022), Entropy-Maximising Diffusions Satisfy a Parallel Transport Law
+- [[sakthivadivel-2022-functorial-statistical-physics]] — Sakthivadivel (2022), Functorial Statistical Physics: Feynman--Kac Formulae and Information Geometries
+- [[sakthivadivel-2022-regarding-flows-fep]] — Sakthivadivel (2022), Regarding Flows Under the Free Energy Principle: A Comment on "How Particular is the Physics of the Free Energy Principle?" by Aguilera, Millidge, Tschantz, and Buckley
+- [[sakthivadivel-2022-weak-markov-blankets]] — Sakthivadivel (2022), Weak Markov Blankets in High-Dimensional, Sparsely-Coupled Random Dynamical Systems
+- [[sakthivadivel-2023-worked-example-classical-objects]] — Sakthivadivel (2023), A Worked Example of the Bayesian Mechanics of Classical Objects
+- [[sakthivadivel-2026-markov-interacting-particles]] — Sakthivadivel (2026), The nonequilibrium statistical mechanics of Markov interacting particles
+- [[sandved-smith-2024-metacognitive-particles]] — Sandved-Smith and Costa (2024), Metacognitive particles, mental action and the sense of agency
+- [[smithe-2023-compositional-bayesian-brain]] — Smithe (2023), Mathematical Foundations for a Compositional Account of the Bayesian Brain
+- [[spisak-2026-self-orthogonalizing-attractor-networks]] — Spisak and Friston (2026), Self-orthogonalizing attractor neural networks emerging from the free energy principle
+- [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]] — Ueltzhöffer et al. (2021), A Drive towards Thermodynamic Efficiency for Dissipative Structures in Chemical Reaction Networks
+- [[virgo-2021-interpreting-dynamical-systems-bayesian]] — Virgo et al. (2021), Interpreting Dynamical Systems as Bayesian Reasoners
+- [[virgo-2022-sensorimotor-history-markov-blankets]] — Virgo et al. (2022), Embracing sensorimotor history: Time-synchronous and time-unrolled Markov blankets in the free-energy principle
+
 ### Collective agents references, November 10, 2026
 
 The reading map is [[Collective agents literature map]]. The collection adds 256 reference notes under `sources/refs/`; 109 have a local PDF.

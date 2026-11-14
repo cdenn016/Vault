@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-11-13
 ---
 
 # Variational free energy
@@ -84,6 +84,12 @@ Variational free energy surfaces throughout the model and config:
 - [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 ELBO and mean-field EM as belief-side comparison material.
 - [[wainwright-2008-graphical-models-variational|wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference and the free-energy bound.
 - [[beal-2003-variational-bayesian|beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound; direct antecedent of iterative VFE minimization.
+- [[friston-2012-fep-biological-systems]] — free energy as a function of system states with fictive model variables; sufficiency proved under exact inference.
+- [[friston-2026-generative-modelling-nonequilibrium]] — free-energy flow obtained by a stipulated-KL construction; Lyapunov reading asserted.
+- [[ramstead-2022-notation-minima-comment]] — no free energy over external states; gradients related through the synchronization map.
+- [[isomura-2023-bayesian-mechanics-self-organising]] — Helmholtz energy identified with variational free energy by construction.
+- [[smithe-2023-compositional-bayesian-brain]] — strict composition of relative entropy, lax composition of free energy with an explicit correction term.
+- [[dacosta-2025-generalized-coordinates-sde]] — generalized filtering flow with a kinematic term; convergence not proved.
 
 ## See also
 
@@ -108,3 +114,16 @@ Variational free energy surfaces throughout the model and config:
 ## Related sources (ingested 2026-06-20)
 
 - [[friston-2016-active-inference-learning]] — Active-inference treatment of learning as free-energy minimization over time;
+
+## Free energy of a physical system in the Bayesian mechanics literature, November 13, 2026
+
+The Bayesian mechanics papers treat free energy as a function of the states of a physical system. In [[friston-2012-fep-biological-systems|Friston 2012]] the variables $\psi$ of the generative model are fictive, internal states $\mu$ parameterize a proposal density, and
+
+$$
+\mathcal F=\int q(\psi\mid\mu)\ln\frac{q(\psi\mid\mu)}{p(s,\psi\mid m)}d\psi,
+$$
+
+depends on system states alone; that minimizing it suffices for least action on surprisal is proved under the assumption of exact inference. [[friston-2026-generative-modelling-nonequilibrium|Friston, Ramstead and Sakthivadivel 2026]] obtain a flow on $F(\mu,b)=D_{KL}(q(\eta;\sigma(\mu))\Vert p(\eta\mid b))-\log p(\mu,b)$ by adding a KL term stipulated to vanish, and assert without proof that $F$ is a Lyapunov function of the deterministic flow. [[ramstead-2022-notation-minima-comment|Ramstead and Sakthivadivel 2022]] state that the principle makes no statement about free energy over external states: the surprisal gradient over external states and the free energy gradient over internal states are related through the synchronization map and share zeros without sharing trajectories. [[isomura-2023-bayesian-mechanics-self-organising|Isomura 2023]] identifies the Helmholtz energy $\langle\mathcal H+\beta^{-1}\log\pi\rangle_\pi$ with free energy at $\beta=1$, which holds by construction once $e^{-\mathcal H}$ is declared the generative model. [[smithe-2023-compositional-bayesian-brain|Smithe 2023]] proves that relative entropy composes strictly by its chain rule while free energy is only a lax loss model, and that free energy is lax monoidal with an explicit laxator (Corollary 5.4.13) measuring the error of inverting parallel channels independently under a correlated prior. [[dacosta-2025-generalized-coordinates-sde|Da Costa et al. 2025]] derive the generalized filtering flow $\dot\mu_t=\mathbf D\mu_t-\lambda\nabla_\mu V$ under the local linear approximation; its convergence is not proved.
+
+> [!note] Editorial: coupling terms between agents
+> Smithe's laxator measures what independent inference loses under a correlated joint prior. Its relation to inter-agent coupling terms in a multi-agent free energy is an analogy and not a theorem.

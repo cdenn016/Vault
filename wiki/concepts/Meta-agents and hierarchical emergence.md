@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 
 # Meta-agents and hierarchical emergence
@@ -199,6 +199,11 @@ A learned Gaussian template bank in the vfe3 block MLP can be read as a populati
 - [[zhou-2005-discrete-hierarchy-group-sizes]], [[palla-2007-social-group-evolution]] — empirical layering (branching ratio near three) and accretion dynamics of human groups.
 - [[smoluchowski-1916-coagulation]] — binary-merger kinetics, the physics prototype of staged aggregation.
 - [[mengistu-2016-evolutionary-origins-hierarchy]] — connection costs as the driver of evolved hierarchy, the external evidence that priced formation produces structure.
+- [[heins-2026-collective-sensing-bayesian-inference]] — commuting criterion between physical evolution and belief update under a fixed coarse-graining map (formulated, not tested).
+- [[baltieri-2025-bayesian-internal-model-principle]] — a dynamics-preserving surjection gives the coarse system a consistent possibilistic belief about the fine one (proved, discrete deterministic case).
+- [[sakthivadivel-2022-weak-markov-blankets]] — blankets that hold at one scale or timescale and fail at another (informal).
+- [[sandved-smith-2024-metacognitive-particles]] — inward nesting of particles holding beliefs about beliefs; conjectured unrepresented innermost level.
+- [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]] — hierarchy of dissipative structures with rising efficiency constraints (heuristic argument).
 
 ## See also
 
@@ -240,3 +245,12 @@ The statements of the preceding section keep the blanket conditions exact and gi
 ## Consensus, relays and elimination across levels, November 11, 2026
 
 Four statements of [[dennis-2026-collective-agents-renormalization-results]] concern what passes between the levels of a hierarchy of collectives in the linear-Gaussian model of the collective-agents manuscript. A hierarchy that pools information contributions with finitely many consensus rounds per level miscounts each agent's contribution by a factor whose error compounds multiplicatively over the levels, with an attained bound ([[Decentralized Bayesian inference]]). The content shared along a relay of codes has an effective rank that falls with hop distance when the codes share a direction and need not fall monotonically when they do not, and a meta-level hop that averages its members' projections first raises the rank and then lowers it with depth ([[Effective rank along relays]]). Eliminating the internal states of members without memory has an error of first order in the ratio of timescales, with a proved coefficient under stated hypotheses ([[Coarse Graining]]). Decimating the nearest-neighbor lattice medium in two or more dimensions generates couplings of unbounded range that decay exponentially at a proved rate ([[Renormalization group flow]]). As with [[Approximate meta-agent theorem]], these statements concern that model, and they bear on the gauge-VFE meta-agent as examples of what a theory of levels has to quantify.
+
+## Criteria and templates for emergent levels from the Bayesian mechanics batch, November 13, 2026
+
+Five sources ingested on November 13, 2026 bear on what a claim of an emergent level must show. [[heins-2026-collective-sensing-bayesian-inference]] states in its Appendix B the test that would establish that a collective realizes a group-level inference: for a fixed coarse-graining map $C$, physical evolution $F_y$ and belief update $B_y$, the two should commute within a stated error, $C(F_y(s)) \approx B_y(C(s))$. The paper formulates the test and does not carry it out. [[baltieri-2025-bayesian-internal-model-principle]] proves a discrete, deterministic relative of this square. When an autonomous system $\mathsf{M}$ models $\mathsf{X}$ through a state surjection $\mu_s$ that commutes with the dynamics, updating $\mathsf{M}$ and then taking the fiber $\mu_s^{-1}$ equals taking the fiber and then applying the coarsened dynamics of $\mathsf{X}$ (Proposition IV.2), and the fibers give a consistent possibilistic filtering interpretation (Theorem IV.5) whose beliefs are disjoint sets that ignore observations.
+
+On nesting, [[sakthivadivel-2022-weak-markov-blankets]] describes informally strongly mixing subsystems with very weak blankets that form a cohesive whole at a larger scale, and sketches an adiabatic argument that separation of timescales leaves many zero entries in the solenoidal matrix. [[sandved-smith-2024-metacognitive-particles]] nests inward: a particle inside a particle holds beliefs about the sufficient statistics of the outer level's belief, a definition extended to $N$ levels, with an informal argument that the depth is finite and a conjectured innermost core that is never the target of further beliefs. [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]] argues heuristically, without simulation of this part, that dissipative structures each feeding on the gradient left by the previous level form a hierarchy in which the minimum viable efficiency rises with level; that paper uses no blankets and makes no inference claim.
+
+> [!note] Editorial: bearing on the gauge-VFE meta-agent
+> The commuting condition states what the barycenter construction on this page owes: the pooled parent, evolved by its own update, should agree with the pooling of the evolved constituents within a stated error. Proposition IV.2 is a candidate formal template for that square. The match is an analogy, since its beliefs are possibilistic sets with no Gaussian, Fisher or transport structure. The inward nesting and the dissipative hierarchy are analogies as well.

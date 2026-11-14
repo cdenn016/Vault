@@ -5,7 +5,7 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-13
 ---
 
 # Mathematics MOC
@@ -297,3 +297,17 @@ These 97 sources are grouped by question in [[Collective agents literature map]]
 - [[varopoulos-1985-long-range-estimates]]
 - [[von-neumann-1950-functional-operators-volume]]
 - [[zaslavsky-1989-biased-graphs-bias]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[baltieri-2025-bayesian-internal-model-principle]]
+- [[barp-2021-measure-preserving-diffusions]]
+- [[barp-2022-geometric-methods-sampling]]
+- [[dacosta-2023-entropy-production-stationary-diffusions]]
+- [[dacosta-2025-generalized-coordinates-sde]]
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]]
+- [[sakthivadivel-2022-functorial-statistical-physics]]
+- [[sakthivadivel-2022-weak-markov-blankets]]
+- [[sakthivadivel-2026-markov-interacting-particles]]
+- [[smithe-2023-compositional-bayesian-brain]]
+- [[virgo-2021-interpreting-dynamical-systems-bayesian]]

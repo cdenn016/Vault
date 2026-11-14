@@ -206,6 +206,7 @@ The pages [[Collective active inference]], [[Multi-agent variational free energy
 - [[kaufmann-2021-active-inference-model]]: cited for endogenous alignment of agents' free-energy minima.
 - [[constant-2019-regimes-expectations-active]] and [[veissiere-2020-thinking-through-other]]: cited for shared worlds and cultural niche construction.
 - [[catal-2025-belief-sharing-blessing]]: later comparator on sharing posteriors versus sharing likelihoods; not cited by the paper.
+- [[heins-2026-collective-sensing-bayesian-inference]] — precision-weighted natural-parameter pooling of patch posteriors and its measured overconfidence under overlapping evidence (simulated).
 
 ## See also
 
@@ -223,3 +224,20 @@ The pages [[Collective active inference]], [[Multi-agent variational free energy
 - [[Chris Fields and physics as communication]]
 - [[Collective agents literature map]]
 - [[friston-2024-supervised-structure-learning]]: a separate paper on structure learning with expected-free-energy model priors, not cited by this one.
+
+## Precision-weighted pooling in a collective-sensing model, November 13, 2026
+
+[[heins-2026-collective-sensing-bayesian-inference]] uses the name federated inference for a pooling step whose form differs from Eq. 6 of this page. Each spatial patch of a simulated fish school yields a Gaussian posterior over the local darkness gradient, and the school posterior sums the patch contributions in natural parameters (its Eq. 10),
+
+$$
+\Lambda_{\mathrm{school}} = \Lambda_0 + \sum_{p \in A} \hat{\sigma}_p^{-2} \tilde{G}_p,
+$$
+
+$$
+\mu_{\mathrm{school}} = \Lambda_{\mathrm{school}}^{-1} \sum_{p \in A} \hat{\sigma}_p^{-2} g_p.
+$$
+
+The prior precision $\Lambda_0$ enters once, and each patch contributes its likelihood term weighted by a plug-in noise precision. The pooling assumes that patches are conditionally independent given a common gradient. The simulations report overconfident posteriors: the patch-level ratio of squared error to posterior variance rises above one at $N = 32$ and reaches 2.98 at $N = 128$, and assigning each agent to a unique window lowers the patch-level ratio from 1.84 to 0.91 while the school-level ratio falls only from 15.97 to 10.39, still far above one. The author names overlapping windows, shared agents and temporal correlation as violations of the independence behind the pooling. The patches are an observer's partition, and no fish holds or broadcasts a belief.
+
+> [!note] Editorial: comparison with the unit-weight sum of log posteriors
+> Eq. 6 of [[friston-2024-federated-inference]] adds whole log posteriors with coefficient one, so prior messages enter once per agent. Eq. 10 of the collective-sensing paper adds likelihood contributions and counts the prior once, which is exact Gaussian fusion when the patch likelihoods are conditionally independent. Its measured overconfidence bears on the cost of shared evidence, the issue this page records as unaddressed in the federated-inference paper, but does not isolate it, since the school-level ratio stays far above one with unique windows. The comparison is an analogy between two constructions in different models, and no result transfers from one to the other. Both assume a common frame, so neither involves transport. [[Decentralized Bayesian inference]] and [[Conservative information fusion]] are the vault pages on fusing dependent evidence.

@@ -1,0 +1,68 @@
+---
+type: paper
+title: "The nonequilibrium statistical mechanics of Markov interacting particles"
+aliases: ["Sakthivadivel 2026 markov interacting particles"]
+authors: ["Dalton A. R. Sakthivadivel"]
+year: 2026
+venue: "arXiv preprint (cond-mat.stat-mech; cross-listed math-ph, math.PR, nlin.AO)"
+arxiv: "2607.13391"
+doi: "10.48550/arXiv.2607.13391"
+url: "https://arxiv.org/abs/2607.13391"
+version: "arXiv:2607.13391v1 [cond-mat.stat-mech], stamped 15 Jul 2026, with the title-page date printed as 16th July 2026; 37 pages; no journal reference."
+tags: [cluster/vfe, cluster/multi-agent, project/multi-agent, field/physics, field/mathematics, field/statistics]
+created: 2026-11-13
+updated: 2026-11-13
+---
+
+# The nonequilibrium statistical mechanics of Markov interacting particles
+
+> [!info] Citation
+> Dalton A. R. Sakthivadivel (2026). *The nonequilibrium statistical mechanics of Markov interacting particles*. arXiv preprint (cond-mat.stat-mech; cross-listed math-ph, math.PR, nlin.AO). [arXiv:2607.13391](https://arxiv.org/abs/2607.13391)
+
+[Local PDF](../pdfs/sakthivadivel-2026-markov-interacting-particles.pdf), 37 pages; retrieved November 13, 2026. Version read: arXiv:2607.13391v1 [cond-mat.stat-mech], stamped 15 Jul 2026, with the title-page date printed as 16th July 2026; 37 pages; no journal reference. Reading basis: The first reader worked from the extracted text and did not see the typeset pages. The note rests on the extracted text alone. I read text pages 1 to 37 in full, proofs included. No equation was checked against a rendered page; the equations reported are those whose extracted form is unambiguous (the source is amsart LaTeX and extracts cleanly). An independent check on November 13, 2026 compared this note with page images of the PDF (pages viewed: page-001, 002, 008, 009, 010, 011, 012, 014, 016, 017, 018, 019, 020, 021, 022, 024, 025, 026, 027, 028, 029, 030, 033, 034, 036). Confirmed against those pages: (5.1), (5.2), the disintegration in Theorem 5.3, (6.1) as cited, (6.4), (6.5), (6.6), (6.7), Theorem 6.3 entropy identity H(P|R) = (1/2) E_P int ||u_t||^2 dt, (6.8), (7.1) with drift dependences (Y,A), (Y,S,A), (X,S), (X,S,A), (8.3), (10.1), J = b rho - div(D rho), (10.4), Definition 11.1 (both forms), Corollary 11.4 Pinsker bound, Definition 12.5 (G_T, E_T, ep), (12.3), (12.6), (12.8), (12.9), (12.10), (12.11)/(12.12) as paraphrased, (12.18) as paraphrased, (12.21). Page locators for Theorems 5.3, 6.1, Proposition 6.2, Theorems 6.4, 7.2, 8.3, 10.1, 10.2, Proposition 10.5, Theorem 11.2, Proposition 12.6, Theorem 12.17 and Theorem 15.3 checked and correct. Title, author, arXiv stamp 2607.13391v1 [cond-mat.stat-mech] 15 Jul 2026, title-page date 16th July 2026 and 37 pages confirmed. Summary item (4) on page 36 confirmed; a text search finds no other mention of large deviations. My own check of the Gaussian case agrees with the note: the mean-field reverse relative entropy minimum (1/2) log(det Lambda_YY det Lambda_XX / det Lambda) equals (1/2) log(det C_YY det C_XX / det C).
+
+## TL;DR
+
+Sakthivadivel recasts the Markov boundary between an exterior process $Y$, a boundary process $B$ and an interior process $X$ as factorization of a regular conditional probability on path space, $Y_{[0,T]} \perp X_{[0,T]} \mid B_{[0,T]}$, and gives equivalent or sufficient criteria in dominated, Ito, Gaussian, generator and stationary regimes. When exact factorization fails, the conditional mutual information $G_T = I(Y_{[0,T]}; X_{[0,T]} \mid B_{[0,T]})$ is proposed as the canonical error; it is related to distinguishability under coarse observation, to the excess free energy of a factorized approximation and to control cost, and it is shown to be logically independent of entropy production.
+
+## Problem & setting
+
+The paper asks when the conditional law of exterior and interior histories given the boundary history is a product measure, for a continuous process $Z_t = (Y_t, B_t, X_t)$ on Polish state spaces, and how that property appears in path likelihoods and information quantities. It separates the instantaneous statement $Y_t \perp X_t \mid B_t$ from the path space statement $Y_{[0,T]} \perp X_{[0,T]} \mid B_{[0,T]}$ and states on page 2 that the two are not equivalent. Standing assumptions are standard Borel spaces, so that disintegrations exist and are unique up to null sets (Theorem 2.3), domination of the boundary-conditioned law by a product of clamped reference laws, and for the diffusion results weak well-posedness, Novikov's condition and independent Brownian blocks. The prior work drawn on is probabilistic and thermodynamic: Onsager and Machlup path densities, Girsanov's theorem, Follmer's entropy identity, the Boue and Dupuis representation, the Schrodinger bridge literature, and the thermodynamics of information (Still et al.; Horowitz and Esposito; Parrondo, Horowitz and Sagawa). The text never uses the terms Markov blanket or free energy principle and cites none of that literature; it speaks of Markov boundaries and of sensor and actuator variables.
+
+## Method
+
+The basic object is the disintegration $P_T(dy, db, dx) = P^b(dy, dx) P_B(db)$ of the joint path law. Definition 5.2 calls $B_{[0,T]}$ a path space Markov boundary when $P_T(dy, dx \mid b) = P_T(dy \mid b) P_T(dx \mid b)$ for $P_B$-almost every $b$ (5.1). Under domination by a product reference $Q^b_Y \otimes Q^b_X$, with density $H_b = dP^b / d(Q^b_Y \otimes Q^b_X)$, the criterion becomes multiplicative separation $H_b(y,x) = U_b(y) V_b(x)$ (5.2), or additive separation of the path log likelihood, $\log L_B(b \mid y, x) = A_b(y) + C_b(x) + K(b)$ (6.4). For an Ito system (6.1) with boundary equation in observation form $dB_t = h(Y_t, X_t, B_t) dt + \Sigma_B(B_t) dW^B_t$ (6.5), the log likelihood is the Girsanov functional (6.6), and Theorem 6.3 records the entropy identity $H(P \mid R) = \tfrac{1}{2} E_P \int_0^T \|u_t\|^2 dt$ for a drift $u$ relative to Wiener measure $R$. Section 7 specializes to a sensor and actuator system (7.1) in which the exterior drift depends on $(Y, A)$, the sensory drift on $(Y, S, A)$, the interior drift on $(X, S)$ and the active drift on $(X, S, A)$. Section 10 treats stationary diffusions with density $\rho \propto e^{-\Phi}$, current $J = b\rho - \nabla \cdot (D\rho)$ and the decomposition $b = \rho^{-1} \nabla \cdot (D\rho) + \rho^{-1} J$ (10.4). The defect is the conditional information gap of Definition 11.1, $G_T = I(Y_{[0,T]}; X_{[0,T]} \mid B_{[0,T]}) = \int H(P^b_{Y,X} \mid P^b_Y \otimes P^b_X) P_B(db)$. Section 12 compares it with the time-reversal relative entropy $E_T = H(P_T \mid P_T^{\dagger})$ and the entropy production rate $e_p = \lim_{T \to \infty} E_T / T$ (Definition 12.5), and introduces, for a Gibbs form $\Pi_b(d\omega) = Z_b^{-1} \exp[-\beta A_b(\omega)] \Pi^0_b(d\omega)$ (12.8), the functional $G_b(q) = E_q A_b + k_B T_{\mathrm{bath}} H(q \mid \Pi^0_b)$ (12.9) and the factorization defect $\Delta_{\mathrm{fac}}(b) = \inf_{q_Y \otimes q_X} H(q_Y \otimes q_X \mid \Pi_b)$ (12.10).
+
+## Key results
+
+All results are stated as theorems with short proofs built on standard facts; there are no simulations. Theorem 5.3 (page 8) proves that the path space boundary property is equivalent to the separation (5.2), and Theorem 6.1 (page 9) restates it for Ito systems whose conditional density has a Bayes-Girsanov form. Proposition 6.2 (page 10) shows that when the normalized drift difference splits as $r_Y(y_t, b_t) + r_X(x_t, b_t)$ the likelihood separates exactly when the mixed energy $\int_0^T \langle r_Y, r_X \rangle dt$ separates additively. Theorem 6.4 (page 11) gives a generator criterion: under uniqueness of the martingale problem, the conditional law is a product of independent coordinate processes if and only if $\mathcal{L}^b_t = \mathcal{L}^b_{Y,t} \otimes 1 + 1 \otimes \mathcal{L}^b_{X,t}$ (6.8). Theorem 7.2 (page 12) proves that a sensor and actuator system with independent Brownian blocks and a conditionally independent initial law has an exact path space boundary given both sensory and active histories. Theorem 8.3 (page 14) shows that path space independence yields instantaneous independence exactly when a conditional covariance of boundary-history conditional means vanishes (8.3), and Proposition 15.2 gives the same obstruction for a hidden common cause. Theorems 10.1 and 10.2 and Proposition 10.5 (pages 17 to 18) give the stationary criteria: the potential splits as $\Phi = \Phi_Y(y,b) + \Phi_X(x,b) + \Phi_B(b)$, and for an Ao-type drift it suffices in addition that the $(Y,X)$ blocks of $\Gamma$ vanish and those of $Q$ vanish or act only through $B$. Theorem 11.2 (page 19) proves $G_T \geq 0$ with equality exactly at a path space boundary, Corollary 11.4 gives $E_B \|P^b_{Y,X} - P^b_Y \otimes P^b_X\|^2_{TV} \leq \tfrac{1}{2} G_T$, and Proposition 12.2 bounds what any coarse-grained observer can distinguish by $G_T$. Proposition 12.6 (page 22) shows that an exact boundary does not imply zero entropy production, and conversely. Theorem 12.11 gives $e_p = \int J_\pi^{\top} D^{\dagger} J_\pi / \pi dx$ (12.3), and Theorem 12.13 splits dissipation into housekeeping and excess parts with $\tfrac{d}{dt} H(p_t \mid \pi) = -\sigma^{\mathrm{ex}}_t$ (12.6). Theorem 12.17 (page 27) proves $G_b(q) = G^*_b + k_B T_{\mathrm{bath}} H(q \mid \Pi_b)$, so the best product law costs $k_B T_{\mathrm{bath}} \Delta_{\mathrm{fac}}(b)$ in excess free energy; Theorem 12.20 bounds from below, by the same quantity, the control energy needed to hold a product law. Example 12.23 gives the Gaussian value $\Delta_{\mathrm{fac}}(b) = \tfrac{1}{2} \log (\det C^b_{YY} \det C^b_{XX} / \det C^b)$ (12.21). Theorem 15.3 (pages 33 to 34) collects the criteria by regime.
+
+## Limits
+
+The author states that the instantaneous and path space statements differ, that the thermodynamic readings depend on a Gibbs path law, local detailed balance and an isothermal convention (Section 12.6, Remark 12.19), and that a small $G_T$ does not imply small housekeeping heat (Section 12.7). The clamped reference laws are not constructed in general; page 9 says their construction depends on the model. My observations: Theorems 6.1, 9.6 and 10.2 assume the structural form that makes factorization immediate, so their content is the reformulation. Theorem 11.2 concerns the inclusive projection $H(P \mid Q_Y \otimes Q_X)$, whose minimum is the conditional mutual information, while Theorem 11.3 and definition (12.10) minimize the reverse relative entropy $H(q_Y \otimes q_X \mid \Pi_b)$. By my hand calculation the two minima coincide for Gaussians, as (12.21) reflects, but they differ for general laws, so the identification of the product free energy excess with the conditional mutual information is not established outside the Gaussian case. Summary item (4) on page 36 cites a large-deviation model-selection result that has no counterpart in the body.
+
+## Relevance to this research
+
+> [!note] Editorial: relation to the gauge-theoretic free energy program
+> For the program this paper bears on Markov blankets of individuals and collectives and has no gauge, bundle or Fisher-metric content. What it would supply is a graded replacement for an exact blanket: the path space conditional mutual information $G_T$, with a closed Gaussian form (12.21) in terms of the boundary-conditioned cross-covariance that can be evaluated for Gaussian beliefs. Proposition 12.2 says that any coarse-grained observation distinguishes coupled from separated ensembles by at most $G_T$, which is the kind of monotonicity a meta-agent blanket claim needs under coarse-graining. Theorem 12.17 ties the price of a factorized (mean-field) description across a boundary to a relative entropy, which parallels the cost of a factorized recognition density in a multi-agent free energy; that parallel is interpretive, since the paper's $q$ is a law over hidden exterior and interior paths and not an agent's belief. Theorem 8.3 is a challenge: separation by boundary histories does not give same-time conditional independence between agents. Proposition 12.6 separates blanket quality from irreversibility, which matters when conservative currents are added to belief dynamics. The word fibrewise in the paper refers to disintegration over boundary paths, not to statistical fibers. The paper builds no synchronization map and makes no inference claim about the interior.
+
+## Cross-links
+
+Concepts: [[Markov Blanket]]; [[Markov blanket interpretation debate]]; [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Stochastic Thermodynamics]]; [[Mutual information]]; [[Mean-Field Approximation]]; [[Data processing inequality]].
+
+Related sources: [[horowitz-2014-thermodynamics-continuous-information]]; [[hartich-2014-stochastic-thermodynamics-bipartite]]; [[sakthivadivel2022-bayesian-mechanics-geometry]]; [[aguilera-2023-knitting-markov-blanket]]; [[friston-2023-path-integrals-particular]]; [[dacosta-2021-bayesian-mechanics]]; [[rosas-2020-causal-blankets-algorithmic]]; [[sakthivadivel-2022-weak-markov-blankets]]; [[sakthivadivel-2022-regarding-flows-fep]]; [[virgo-2022-sensorimotor-history-markov-blankets]]; [[parr-2021-memory-markov-blankets]]; [[dacosta-2023-entropy-production-stationary-diffusions]].
+
+## BibTeX
+
+```bibtex
+@misc{sakthivadivel2026markov,
+  author = {Sakthivadivel, Dalton A. R.},
+  title = {The nonequilibrium statistical mechanics of {M}arkov interacting particles},
+  year = {2026},
+  eprint = {2607.13391},
+  archivePrefix = {arXiv},
+  primaryClass = {cond-mat.stat-mech},
+  doi = {10.48550/arXiv.2607.13391},
+  note = {arXiv v1, 15 July 2026}
+}
+```

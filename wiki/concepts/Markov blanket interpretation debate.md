@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-19
-updated: 2026-10-20
+updated: 2026-11-13
 ---
 
 # Markov blanket interpretation debate
@@ -46,6 +46,20 @@ It is worth recalling that the *deflationary* reading the critics urge — a bla
 - [[kirchhoff-2018-markov-blankets-of-life|kirchhoff-2018-markov-blankets-life]] — the constructive nested-blanket precedent for multi-scale, recursively composed agents.
 - [[west-harrison-1997-bayesian-forecasting]] — dynamic Bayesian forecasting: the deflationary "internal state tracks/forecasts the environment" reading of the blanket.
 - [[smith-1979-steady-forecasting]] — steady-state forecasting limit; the minimal, least-contested synchronization-map interpretation.
+- [[friston-2021-interesting-observations-fep]] — reply to the technical critique; concedes that sparsity and conditional independence are inequivalent and that the bound need not be constant.
+- [[sakthivadivel-2022-regarding-flows-fep]] — reply to the quantitative critique; concedes its derivations and conjectures a path-based formulation.
+- [[ramstead-2022-notation-minima-comment]] — reply to the quantitative critique; accepts the linear results and states the principle is silent on real versus describable minimization.
+- [[heins-2022-particular-flows-attracting-sets]] — partial rebuttal of the block-diagonal claim on one numerical linear example.
+- [[sakthivadivel-2022-weak-markov-blankets]] — probabilistic reply to the rarity objection over an assumed random ensemble.
+- [[friston-2020-sentience-markovian-monism]] — the belief geometry described by its authors as an as-if description.
+- [[sakthivadivel-2023-worked-example-classical-objects]] — footnote granting the as-if reading for non-agential objects.
+- [[friston-2026-generative-modelling-nonequilibrium]] — generative model as the modeler's map; inference as an as-if description; examples called constructions.
+- [[baltieri-2020-predictions-eye-beholder]] — worked instrumentalist case: an active inference model of the Watt governor.
+- [[millidge-2021-mathematical-walkthrough-fep]] — assumption-by-assumption audit of the free energy lemma.
+- [[virgo-2021-interpreting-dynamical-systems-bayesian]] — consistent Bayesian interpretations depend on the machine alone and are not unique.
+- [[biehl-2023-interpreting-systems-pomdps]] — model chosen independently of the environment and judged by consistency.
+- [[baltieri-2025-bayesian-internal-model-principle]] — internal model as a map between system descriptions held by a designer.
+- [[pearson-2026-flux-defined-markov-blanket]] — computational test of the screening condition in a nonlinear spatially extended system.
 
 ## See also
 
@@ -58,3 +72,11 @@ It is worth recalling that the *deflationary* reading the critics urge — a bla
 - [[Meta-agents and hierarchical emergence]]
 - [[Gauge transformation]]
 - [[Renormalization group flow]]
+
+## Replies, concessions and tests from the Bayesian mechanics batch, November 13, 2026
+
+The replies to the technical and quantitative critiques are now in the vault, and each concedes part of its target. Answering [[biehl-2021-technical-critique]], [[friston-2021-interesting-observations-fep]] grants that flow sparsity and steady-state conditional independence do not imply one another, that the KL bound is unbounded and need not be constant, and that the principle does not claim that self-organization minimizes variational free energy; it restricts the principle to blankets that arise from sparse coupling. Answering [[aguilera-2022-particular-physics]], [[sakthivadivel-2022-regarding-flows-fep]] calls the two critiques mathematically correct and conjectures a path-based remedy, [[ramstead-2022-notation-minima-comment]] accepts the linear results and traces one disputed assumption to notation, and [[heins-2022-particular-flows-attracting-sets]] accepts the statement about marginal flows at the conditional mode while contesting, on one numerical example, that only block-diagonal solenoidal coupling is admissible. [[sakthivadivel-2022-weak-markov-blankets]] answers the rarity objection with a concentration bound over an assumed random ensemble of couplings.
+
+Lineage authors also state the as-if reading themselves. [[ramstead-2022-notation-minima-comment]] says the principle is silent on whether systems minimize free energy or are only describable so. [[friston-2020-sentience-markovian-monism]] calls the belief description as-if unless further conditions hold, and [[sakthivadivel-2023-worked-example-classical-objects]] grants the same for non-agential objects in a footnote. [[friston-2026-generative-modelling-nonequilibrium]] separates the modeler's generative model from the variational density attributed to the particle, obtains the free-energy flow by stipulating that a KL term vanishes, and adds that models built with the principle can still be reified.
+
+From outside the lineage, [[baltieri-2020-predictions-eye-beholder]] recovers, under two chosen assumptions, the linearized engine equation of a Watt governor from the action update of a linear-Gaussian active inference model and argues that the generative model belongs to the observer. [[millidge-2021-mathematical-walkthrough-fep]] audits the derivation step by step: the inference reading is exact only for conditional modes, given an invertible differentiable synchronization map, a Laplace density and, by its Appendix 10.3.2, block-diagonal solenoidal coupling. [[virgo-2021-interpreting-dynamical-systems-bayesian]] and [[biehl-2023-interpreting-systems-pomdps]] keep the reasoner's model separate from the true environment, so beliefs can be consistent and wrong, and the first adds that interpretations are not unique; [[baltieri-2025-bayesian-internal-model-principle]] places the control-theoretic internal model in an external designer's description of the systems. [[pearson-2026-flux-defined-markov-blanket]] tests screening numerically in Gray-Scott spots: neither a flux-defined nor a concentration-defined boundary renders interior and exterior conditionally independent, and a linear-Gaussian free energy that tracks the spot life cycle is computable, which the author states is not evidence of inference.

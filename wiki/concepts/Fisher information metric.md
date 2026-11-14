@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-11-13
 ---
 
 # Fisher information metric
@@ -183,6 +183,10 @@ Here $N$ is a quantum channel and $x$ a state tangent. Their scalar construction
 
 - [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; stiff/sloppy as relevant/irrelevant; the information-shell scheme.
 - [[gabrielli-2025-network-renormalization]] — §6.4 names Fisher information and information geometry as the route to parameter relevance on networks, without deriving it.
+- [[friston-2020-sentience-markovian-monism]] — intrinsic and extrinsic information geometries on the internal states of a blanketed particle; restated from Friston 2019 with no new proofs.
+- [[millidge-2021-mathematical-walkthrough-fep]] — the same pair of metrics in an assumption-by-assumption rederivation.
+- [[dacosta-2021-neural-dynamics-active-inference]] — Fisher metric on the simplex and a closed-form distance that is a chord, not the Fisher-Rao arc.
+- [[parr-2021-memory-markov-blankets]] — information-length difference across a blanket as a measure of memory.
 
 ## See also
 
@@ -195,3 +199,16 @@ Here $N$ is a quantum channel and $x$ a state tangent. Their scalar construction
 - [[SPD-manifold geometry and Riemannian optimization]]
 - [[Quantum information geometry]]
 - [[Physics from Fisher information]]
+
+## Fisher metrics of a blanketed particle, the simplex, and information length, November 13, 2026
+
+In the Bayesian mechanics literature the internal states of a particle with a [[Markov Blanket|Markov blanket]] carry two Fisher metrics. [[friston-2020-sentience-markovian-monism|Friston, Wiese and Hobson 2020]] define an extrinsic metric on the beliefs $q_\mu(\eta)$ about external states that internal states parameterize,
+
+$$
+g(\mu)=\nabla_{\mu'\mu'}D[q_{\mu'}(\eta)\Vert q_\mu(\eta)]|_{\mu'=\mu},
+$$
+
+and an intrinsic metric that takes time as the statistical parameter of the density over internal states. The paper states that for Gaussian beliefs the extrinsic metric equals the conditional precision, a loose statement that concerns the mean only. The paper imports its mathematics from Friston (2019), proves nothing new, and describes the belief geometry as an as-if description. [[millidge-2021-mathematical-walkthrough-fep|Millidge, Seth and Buckley 2021]] restate the pair, with the extrinsic metric defined on densities parameterized through the synchronization map between conditional modes. For categorical beliefs [[dacosta-2021-neural-dynamics-active-inference|Da Costa et al. 2021]] derive $g(s)=\mathrm{diag}(s_i^{-1})$ and the distance $2\Vert\sqrt{s^{(1)}}-\sqrt{s^{(0)}}\Vert$; the source note points out that this is a chord distance in the positive orthant, the Fisher-Rao arc length within the simplex being $2\arccos\sum_i\sqrt{s^{(0)}_is^{(1)}_i}$. [[parr-2021-memory-markov-blankets|Parr et al. 2021]] accumulate information length as $\sqrt{2D_{KL}}$ between successive densities and use the difference between the joint density and the blanket marginal as a measure of memory across a blanket, examined by simulation in a linear Gaussian example.
+
+> [!note] Editorial: relation to statistical fibers
+> The extrinsic geometry is the single-particle counterpart of a Gaussian statistical fiber with its Fisher metric. The correspondence is interpretive: these papers have one particle, no connection and no transport between belief manifolds. The information length of Parr et al. approximates a Fisher arclength of the kind used above for information duration, applied to a relaxing density.

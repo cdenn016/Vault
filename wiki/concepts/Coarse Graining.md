@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 
 # Coarse Graining
@@ -95,7 +95,22 @@ The expansions in the ratio of timescales of [[vankampen-1985-elimination-fast-v
 - [[beny-osborne-2015-info-geometric-rg]] — coarse-graining as metric contraction on a statistical manifold.
 - [[garciaperez-2018-multiscale]] — geometric renormalization of real networks by latent-space proximity.
 - [[verlinde-2011-entropic-gravity]] — coarse-graining and entropic descriptions of dynamics.
+- [[baltieri-2025-bayesian-internal-model-principle]] — Definition II.7 (model as dynamics-preserving surjection) and Proposition IV.2 (coarse system holds a consistent possibilistic belief about the fine one).
+- [[virgo-2021-interpreting-dynamical-systems-bayesian]] — pullback of a consistent interpretation along a map of machines (example).
+- [[biehl-2023-interpreting-systems-pomdps]] — remark that a non-injective interpretation map coarse-grains the internal state.
+- [[sakthivadivel-2026-markov-interacting-particles]] — the path-space blanket defect bounds what coarse-grained observers can distinguish (proved).
+- [[pearson-2026-flux-defined-markov-blanket]] — data processing bound for coarse summaries; thick-band screening occurs around placebo regions as well (numerical).
+- [[sakthivadivel-2022-weak-markov-blankets]] — adiabatic sketch that timescale separation sparsifies solenoidal coupling.
 
 ## Collective agents references, November 10, 2026
 
 [[Collective agents literature map]] groups the references ingested on November 10, 2026. Its sections on closure, lumpability and model reduction and on renormalization, aggregation and long memory hold the sources closest to this page, among them [[givon-2004-extracting-macroscopic-dynamics]], [[koch-janusz-2018-mutual-information-neural]], [[gordon-2021-relevance-renormalization-group]] and [[meshulam-2019-coarse-graining-fixed]].
+
+## Coarse-graining of interpretations and of blanket defects, November 13, 2026
+
+[[baltieri-2025-bayesian-internal-model-principle]] gives a categorical form of dynamics-preserving aggregation. Its Definition II.7 calls a map of systems $\mu: \mathsf{X} \to \mathsf{M}$ a model when $\mu_s$ is surjective on states and $\mu_i(x, -)$ is surjective on inputs, which for autonomous systems is a state surjection that commutes with the dynamics; the source note reads this as a lumpability-type condition. Proposition IV.2 proves, for discrete deterministic systems, that the fiber relation $\mu_s^{-1}$ intertwines the coarse update with the fine dynamics followed by closure under $\mu_s$, and Theorem IV.5 builds on it a consistent possibilistic belief of the coarse state about the fine one. In the same line of work, [[virgo-2021-interpreting-dynamical-systems-bayesian]] shows in an example that a consistent interpretation pulls back along a map that intertwines the dynamics of two machines (its eq. 76), and [[biehl-2023-interpreting-systems-pomdps]] remarks, in one sentence and without a result, that a non-injective interpretation map coarse-grains the internal state.
+
+Three sources concern conditional independence under coarse description. [[sakthivadivel-2026-markov-interacting-particles]] proves that the path-space conditional mutual information $G_T$ bounds what any coarse-grained observer can distinguish (Proposition 12.2), a data-processing statement for its blanket defect. [[pearson-2026-flux-defined-markov-blanket]] uses a two-sided data processing inequality so that dependence between coarse interior and exterior summaries is a lower bound for finer descriptions with the conditioning variable held fixed. It reports numerically that a band of ambient field about one spot radius thick screens the interior of Gray-Scott spots and does the same around placebo disks that contain no spot, so thick-band screening is a property of a short-range field in that model and is not evidence of inference. [[sakthivadivel-2022-weak-markov-blankets]] sketches, without proof, an adiabatic argument that separation of timescales leaves many zero entries in the solenoidal matrix.
+
+> [!note] Editorial: bearing on coarse blankets of collectives
+> The inequality in the Gray-Scott study holds the conditioning variable fixed, and the note on [[sakthivadivel-2026-markov-interacting-particles]] records no statement for a coarsened boundary. A meta-agent replaces a fine boundary by a coarse one, so the leak of a coarse blanket stays the open quantity recorded on [[Approximate meta-agent theorem]]. The possibilistic belief of Proposition IV.2 is a template by analogy only.

@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-11-13
 ---
 
 # Parallel transport
@@ -87,6 +87,10 @@ Parallel transport surfaces wherever per-token beliefs or gauge-frame quantities
 - [[huang-2017-spdnet]] — deep SPD-matrix network grounding tangent-space and transport operations.
 - [[wang-2023-riemannian-self-attention-spd]] — SPD-manifold self-attention aggregating transported covariances.
 - [[fuchs-2020-se3-transformer]] — SE(3)-equivariant transport operator built from steerable kernels and Wigner-D matrices; the attention-mechanism analogue of gauge parallel transport.
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]] — flat abelian connection $dJ$ of constrained maximum entropy; transport $\exp\{-\int\varphi^*A\}$.
+- [[polettini-2012-nonequilibrium-thermodynamics-gauge]] — transport along paths of a Markov jump process with edge connection $\log(w_{ij}/w_{ji})$.
+- [[feng-2011-potential-flux-decomposition]] — Wilson line $e^{-\Delta s_m}$ of an abelian connection on the state space of a diffusion.
+- [[barp-2021-measure-preserving-diffusions]] — gauge freedom of the probability-current potential, distinct from a connection.
 
 ## See also
 
@@ -100,3 +104,10 @@ Parallel transport surfaces wherever per-token beliefs or gauge-frame quantities
 - [[Fisher information metric]]
 - [[SPD-manifold geometry and Riemannian optimization]]
 - [[Gauge equivariance and geometric deep learning]]
+
+## Abelian transport in maximum entropy and stochastic thermodynamics, November 13, 2026
+
+Three sources give abelian examples of the transport defined above, each on the state space of a single stochastic system. In [[sakthivadivel-2022-entropy-maximising-parallel-transport|Sakthivadivel 2022]] the constraint function $J$ of a [[Maximum entropy|maximum-entropy]] problem supplies the connection $dJ$ on a principal bundle whose structure group is the positive reals. The density $p=e^{-\lambda J}$ is a covariantly constant section of the associated line bundle, transport along a path $\varphi$ is $\exp\{-\int\varphi^*A\}$, and the level sets of $J$ are the integral curves of the kernel of the pulled-back connection. The connection is exact, so the transport is path independent; the vault's note records that the statement and the proof of the transport proposition disagree in sign and factor. [[polettini-2012-nonequilibrium-thermodynamics-gauge|Polettini 2012]] defines transport along a path of a Markov jump process by $\psi_{i_n}=\exp\Sigma(\eta)\psi_{i_0}$, where $\Sigma(\eta)$ sums the edge variables $A_{ij}=\log(w_{ij}/w_{ji})$ and the group is $(\mathbb{R}^+,\times)$; all loops are trivial exactly under detailed balance. [[feng-2011-potential-flux-decomposition|Feng and Wang 2011]] treat $e^{-\Delta s_m}$, built from the medium entropy along a path of a diffusion, as a Wilson line of the connection $A_i=-D^{-1}_{ij}\tilde F_j$, whose curvature vanishes when the steady-state flux vanishes. [[barp-2021-measure-preserving-diffusions|Barp et al. 2021]] use gauge language for a different object, the freedom $A\mapsto A+\mathrm{curl}_P(V)$ in the bi-vector potential of a stationary probability current, which they compare to electromagnetic gauge freedom.
+
+> [!note] Editorial: contrast with transport between agents
+> The first three examples rescale a probability weight by a positive scalar over the state space of one system, whereas the transport on this page carries Gaussian beliefs between agents or tokens under a nonabelian $\mathrm{GL}(K)$ action, so the correspondence is an analogy and not a theorem. What is exact is narrower: the absolute value of the determinant of the transport is a positive-scalar transport of density values between agents with Polettini's transformation law, and it is trivial around every cycle for pure-gauge transport (derivation of November 13, 2026, `docs/research/2026-11-13-abelian-sector-of-gauge-transport.md`; summary on [[Bayesian mechanics]]). The potential freedom in Barp et al. is a different redundancy from a frame change on a bundle of beliefs and defines no transport.

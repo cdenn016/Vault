@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-07-13
+updated: 2026-11-13
 ---
 
 # Mass as Fisher information
@@ -117,6 +117,9 @@ Under the primary first-order linearization, $\dot\delta=-\eta G^{-1}H_F\delta$.
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and geometric-mechanics precedents.
 - [[martins-2015-opinion-particles]] -- direct opinion-inertia comparator.
 - [[dennis-2026-dynamic-links]] -- increment precision as the inertial mass of a maximum a posteriori path (Euclidean sign), for latent link fields over depth.
+- [[kim-2021-bayesian-mechanics-perceptual-inference]] — kinetic coefficient equal to the precision of the transition noise; Fisher comparison is editorial.
+- [[kim-2024-bayesian-mechanics-synaptic-learning]] — inverse noise variance as mass in an Onsager-Machlup action.
+- [[sakthivadivel-2023-worked-example-classical-objects]] — contrast case in which mass and precision are separate parameters.
 
 ## See also
 
@@ -126,3 +129,10 @@ Under the primary first-order linearization, $\dot\delta=-\eta G^{-1}H_F\delta$.
 - [[Natural gradient]]
 - [[Multi-agent variational free energy]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
+
+## Generative precision as mass and its Fisher value, November 13, 2026
+
+[[kim-2021-bayesian-mechanics-perceptual-inference|Kim 2021]] derives, from a Laplace-encoded free energy treated as a Lagrangian, a kinetic coefficient $m_w=1/(\sigma_w(1-\rho^2))$ on the state rate, where $\sigma_w$ is the variance of the transition noise and $\rho$ its correlation with the sensory noise. The Hamiltonian is $H=T+V$ with $V=\tfrac12m_z(\rho^2-1)(\varphi-g)^2$. [[kim-2024-bayesian-mechanics-synaptic-learning|Kim 2024]] uses $m=1/\sigma^2$ for each coordinate of a state and weight pair, with the action built from Onsager-Machlup path densities. Both papers call the mass a metaphor, and neither identifies it with a Fisher information. In [[sakthivadivel-2023-worked-example-classical-objects|Sakthivadivel 2023]] the two roles belong to different quantities: mass is a parameter of the mean constraint on trajectories, precision is a separate Lagrange multiplier, and the classical limit is placed at infinite precision, though the paper states that limit inconsistently.
+
+> [!note] Editorial: a comparison the papers do not draw
+> The Fisher information of a Gaussian location parameter is the inverse variance, and $m_w$ is the $ww$ entry of the inverse noise covariance for any $\rho$, so Kim's mass agrees in value with a Fisher mass in this Gaussian case. This is an editorial comparison that neither paper makes. It concerns the precision of a transition noise in a flat coordinate and leaves the metric $G(q)$ of a belief family untouched. Kim's potential $V$ is non-positive for $|\rho|<1$, the Euclidean sign of the maximum a posteriori path described above, which is consistent with the saddle spectrum recorded on [[Hamiltonian belief dynamics]]. The mass is specified independently of the sensory term, as the degeneracy argument above requires.
