@@ -28,6 +28,11 @@ The local sections $\zeta_i$ are marginals of $Q$, with dependence on the record
 
 The generative law reads latent coordinates and declared parameters, not the live recognition law $Q$. A model evaluator may read a latent model presentation $m_i$. Replacing a generative factor by another agent's current posterior changes the model during inference and requires a separate predictive, conditional or learning interpretation.
 
+\subsection{Access and the standing of the collective law}\label{sec:access_convention}
+The construction separates what an agent holds from what is written about the population. Agent $i$ holds its own section $\zeta_i$, its prior, its frame presentation $U_i$, the interface maps of its own endpoints (its sender readout $S_i$ and its receiver reconstruction $R_i$), the records selected by its access map and, where a consensus potential is used, its own source-prior row $\pi_i$, temperature and attention row $\beta_i$ together with the laws $q_j\mathcal K_{ij}$ that its incoming channels deliver into its own fiber, with the model-channel counterparts of each. These delivered laws are called received laws below. In the full-state idealization of Remark~\ref{rem:full_state_idealization} the agents also share, as structure, the reference fiber that serves as the message space. The access map of an agent is declared data: it selects the subcollection of records that the agent can read, and it is distinct from the scope $\partial a$ of latent coordinates that a record kernel reads. No agent holds another agent's frame, another agent's belief or model before it has passed through a channel, another agent's attention row, a cross covariance between the states of two agents, or the structural collection $X$ as a whole.
+
+The joint recognition law $Q$, the collection $X$ and the value $\mathcal F_V[Q;X,o]$ are therefore objects of the population-level description. Writing them asserts neither that some agent holds them nor that an additional observer inside the model does. A stationarity condition of $\mathcal F_V$, a flow of $Q$, or a test that reads the value of $\mathcal F_V$ is a statement about the population law under a declared kinetic choice. It is not thereby an update that each agent can run from what it holds. An agent-level statement requires a separate check that the update of $\zeta_i$ is a function of the quantities listed in the previous paragraph. The receiver-side response to a received law in Appendix~\ref{sec:rock_derivations}, which reads the sender only through that law, is of this kind. The exact receiver update of Proposition~\ref{prop:sp_receiver_update} is a different statement. It is a conditional identity of the population model, for the law of $k_i$ given the records and every latent coordinate other than $k_i$ and its source label $J_i$, the source label being marginalized, and its dependence on the sources passes only through their coded states $B_{ij}k_j$. Those are latent values, which the list above does not give to the receiver, and the identity is not an update of the section $\zeta_i$, so it is not counted as an agent-level result. The correlated terms of Eq.~\eqref{eq:correlated_link_cost}, which read a cross covariance, the latent-link recognition law of Section~\ref{sec:latent_lie_links}, and the sender-row terms of the mean, covariance and frame gradients of the Gaussian consensus specialization (Appendix~\ref{app:gradients}) are not agent-level either. Section~\ref{sec:access_obligations} records them as open.
+
 \subsection{Latent links share the evidence bound}\label{sec:latent_link_bound}
 The held-link model extends by treating the generators of Eq.~\eqref{eq:pifb_latent_link_chart} as latent coordinates. For one channel put $\mathcal T=\mathfrak g^{E_+}$ and choose an inner product, Gaussian anchors $\mathring\alpha_e$ and positive-definite prior covariances $\mathring\Sigma_e$ on its summands. Define
 \begin{equation}
@@ -151,7 +156,7 @@ E_{ij}^{\mathcal K}=D_{\mathrm{KL}}(q_i\|q_j\mathcal K_{ij}),\qquad
 E_{ij}^{m}=D_{\mathrm{KL}}(s_i\|s_j\mathcal K^m_{ij}).
 \label{eq:channel_consensus_cost}
 \end{equation}
-The corresponding pointwise composite potential is
+The second argument of each cost is a received law in the sense of Section~\ref{sec:access_convention}: receiver $i$ holds $q_j\mathcal K_{ij}$ as a law on its own fiber and does not read $q_j$ before the channel. The corresponding pointwise composite potential is
 \begin{equation}
 \begin{split}
 \mathcal E(c)={}&\sum_iD_{\mathrm{KL}}(q_i\|p_i)
@@ -164,7 +169,7 @@ The corresponding pointwise composite potential is
 \end{split}
 \label{eq:pointwise_free_energy}
 \end{equation}
-All quantities here are evaluated at $c$. Source rows range over agents present on the relevant overlaps. Reduced-space divergences can replace the costs when comparison is defined in message space. Equation~\eqref{eq:pointwise_free_energy} is a well-defined scalar potential where its terms are finite. It is not asserted to be the evidence bound of Eq.~\eqref{eq:population_joint}.
+All quantities here are evaluated at $c$. Source rows range over agents present on the relevant overlaps. Reduced-space divergences can replace the costs when comparison is defined in message space. Equation~\eqref{eq:pointwise_free_energy} is a well-defined scalar potential where its terms are finite. It is not asserted to be the evidence bound of Eq.~\eqref{eq:population_joint}. As a sum over all agents it is a population-level potential. The terms of row $i$ are functions of agent $i$'s own laws and of its received laws, while a derivative with respect to agent $i$'s law also collects the rows of every agent to which $i$ sends, and those rows are held by their receivers.
 
 For a fixed source-template family, the normalized row mixture
 \begin{equation}
@@ -220,5 +225,5 @@ for fixed temperatures and source priors. Changing priors contributes
 $-\tau\sum_{ij}\beta_{ij}^*d\log\pi_{ij}$ and its model counterpart; changing the channels also contributes through the costs. These terms cannot be discarded while learning the corresponding parameters.
 
 The invertible noiseless specialization
-$\mathcal K_{ij}(x,\cdot)=\delta_{\Omega_{ij}x}$ recovers the old transported Gaussian consensus model. Sections~\ref{sec:precision_envelope} and~\ref{sec:mass}, and the Gaussian appendices, retain its detailed calculations under their stated restrictions. The principal construction of the monograph is the normalized collective model with selective interactions. Its consequences and those of the consensus specialization are kept separate.
+$\mathcal K_{ij}(x,\cdot)=\delta_{\Omega_{ij}x}$ recovers the old transported Gaussian consensus model. Sections~\ref{sec:precision_envelope} and~\ref{sec:mass}, and the Gaussian appendices, retain its detailed calculations under their stated restrictions. In that specialization the received law is the sender's whole law (Remark~\ref{rem:full_state_idealization}), and the sender-row terms of its gradients have population-level standing only (Section~\ref{sec:access_obligations}). The principal construction of the monograph is the normalized collective model with selective interactions. Its consequences and those of the consensus specialization are kept separate.
 

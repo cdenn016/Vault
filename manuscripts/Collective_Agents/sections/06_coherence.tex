@@ -32,6 +32,8 @@ The world $\eta\sim\Ncal(0,\sigma_\eta^2I_K)$ is drawn afresh in every round. Ag
 \end{definition}
 % src: L3-D7, L3-D8, critic D5 (ladder mapping)
 
+The slope $g_j$ in the receiver's model of $\tilde y_{ij}$ belongs to receiver $i$'s model of what $j$'s content summarizes (\cref{sec:fw}), and the receiver's own data identify it without access to the sender's sensing noise. Since $\Cov(m_j)=g_j^2(\sigma_\eta^2+R^s_j)I_K=g_j\sigma_\eta^2I_K$ and $\Upsilon_{ij}$ is orthogonal, $\Cov(\tilde y_{ij})=(g_j\sigma_\eta^2+R_c)I_K$ whatever the mistranslation, so that $g_j=(K^{-1}\E\Vert\tilde y_{ij}\Vert^2-R_c)/\sigma_\eta^2$, a function of the second moment of the messages that $i$ receives, the channel noise variance and the prior variance of $i$'s own model. The grounded rounds of class $\mathsf{C1g}$ are rounds on which the receiver observes $\eta$ itself, a declared hypothesis of that class (\cref{def:fw-calibration}); with sensing noises independent across agents, $v_i$ is independent of $(\tilde y_{ij},\eta)$, and the population value $K^{-1}\E\Vert\tilde y_{ij}-g_j\eta\Vert^2$ of that class equals $K^{-1}\E\Vert\tilde y_{ij}-g_js_i\Vert^2-g_j^2R^s_i$, which a receiver that senses forms from its own reading $s_i$.
+
 \begin{proposition}[$\mathsf{C0}$ receivers cannot withdraw]\label{prop:coh-c0-blind}
 \begin{enumerate}\renewcommand{\labelenumi}{(\alph{enumi})}
 \item For a $\mathsf{C0}$ receiver the expected free energy of an attention policy depends on the actual mistranslations only through the receiver's current belief, never through a term for the mistranslation itself.
@@ -138,6 +140,8 @@ Agents on an attention graph whose edges are attended in both directions each ch
 with $u$ replaced by $\min\{u,\kappa\}$ and $\mathsf d_i$ by $\kappa$ under a capacity $\kappa<\mathsf d_i$. Each agent also has a pull $h_i$, a prior preference for its native code that enters its expected free energy, so that $G_i(\sigma)=-\mathcal F_i(u_i(\sigma))-h_i\sigma$ up to terms free of $\sigma$.
 \end{definition}
 % src: L3-D9, B5 Section 3.1, B5-L1
+
+The count $u_i(\sigma)$ is not a reading of the partners' choices as such. A partner's code shows in the messages that $i$ receives from it, and under $\mathsf{C1}$ calibration receiver $i$'s own calibrated precision of a partner is $\varpi^{=}$ or $\varpi^{\neq}$ according to whether that partner's code matches the code $i$ currently uses. Hence $u_i(\sigma_i)$ is the number of partners that $i$ registers at $\varpi^{=}$, and $u_i(-\sigma_i)=\mathsf d_i-u_i(\sigma_i)$ because codes are binary. The game assumes that this calibration has settled between revisions, so that the counts are current when $i$ resamples its code; under a capacity $\kappa<\mathsf d_i$ the count runs over all $\mathsf d_i$ partners, so the assumption covers the precisions that $i$ holds for partners it does not attend in the current round. Calibration that lags the partners' revisions is not modeled.
 
 The pull must sit in the expected free energy, not in the habit $E_i$: a habit enters the policy posterior as $\ln E_i$ beside $-\gamma G_i$ and vanishes relative to the couplings as $\gamma\to\infty$. A value affine in $u$ with a slope common to all agents, as in the weak-message limit $\varpi^{=}\ll\Lambda^{\mathrm{own}}$ of \eqref{eq:coh-value}, makes the game pairwise. Away from that limit the value is concave in $u$, and with several features the value an edge loses to mistranslation is concave and subadditive in the number of mismatched features (\cref{lem:coh-c1-value}, in \cref{app:coh-codes}).
 

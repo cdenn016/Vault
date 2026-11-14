@@ -4,6 +4,8 @@
 
 An interaction compares or transmits information between agents. Its law may depend on the agents' current statistical states. The general object is a normalized Markov channel between represented spaces; exponential links of matrix generators are one constitutive example of such a channel, not the definition of an interaction. Gauge covariance specifies how this dependence is represented when coordinates change; it does not require the interaction to be a frame identification or select a unique mechanism. We first construct these interactions at one context. Transport between different contexts is a separate datum, whose transformation law is recorded in \cref{app:connection}.
 
+In the terms of \cref{def:access}, the channels, links, and generator rules of this chapter are constitutive: each belongs to the declared interaction and is applied by neither endpoint, and the frames and reference laws in its formula are the describer's coordinates of that mechanism, as stated after that definition. The exception is a code or code model that a construction declares an endpoint to hold, as in \cref{def:int-coded-cost}, which that endpoint applies. Receiver $i$ holds the communicated law of each incoming edge, and a cost built from that law and its own law is agent-computable for $i$. \Cref{ch:communication-links} treats instead a link whose reference value the receiver holds as its dictionary for the sender. What the communicated law discloses about the sender depends on the channel; \cref{prop:int-coded-cost} and the paragraph after it compare an invertible link with a code in this respect.
+
 \section{Two sectors and their comparison spaces}
 
 Fix a context $c$ and a finite set of agents defined there. Write
@@ -153,7 +155,48 @@ e^{OT}v=v\quad(v\in\ker T),\qquad
 \begin{proof}
 The rank statement follows from factorization. The exponential series and $e^{OT}e^{-OT}=I$ prove invertibility. Every positive power of $OT$ vanishes on $\ker T$, and every such power has image in $\operatorname{im}O$. Summing the convergent series proves the remaining assertions.
 \end{proof}
-Thus the exponential link retains an identity action in unread directions. It is a different operation from sending only the selective content $OTv$. Because the link is invertible, \cref{prop:kl-coordinate} gives $\KL(\nu_i\Vert(\Theta_{ij})_\#\nu_j)=\KL((\Theta_{ij}^{-1})_\#\nu_i\Vert\nu_j)$: an exponential link of a low-rank generator compares complete laws and discards nothing. Information-discarding, or selective, channels are noninvertible kernels of \cref{def:int-channel}. The identity self-link also differs from a coarse internal loop: a parent may retain nonidentity loop information inherited from several child interactions.
+Thus the exponential link retains an identity action in unread directions. It is a different operation from sending only the selective content $OTv$. Because the link is invertible, \cref{prop:kl-coordinate} gives $\KL(\nu_i\Vert(\Theta_{ij})_\#\nu_j)=\KL((\Theta_{ij}^{-1})_\#\nu_i\Vert\nu_j)$: an exponential link of a low-rank generator compares complete laws and discards nothing. Information-discarding, or selective, channels are noninvertible kernels of \cref{def:int-channel}, and \cref{def:int-coded-cost} builds a cost from one. The identity self-link also differs from a coarse internal loop: a parent may retain nonidentity loop information inherited from several child interactions.
+
+A code is a Markov kernel from a displayed content space to a standard Borel message space $H_a$. A noiseless code is a measurable map, for example the displayed sending map $T_j^a(U_j^a)^{-1}$. The comparison in a common message space mentioned after \cref{eq:int-kernel-covariance} uses two codes, one for each endpoint of an edge.
+
+\definitionheading{Coded comparison cost}{def:int-coded-cost}
+On an edge $j\to i$ in sector $a$, let the declared channel be a code $\mathcal T_j^a:E_j^a\rightsquigarrow H_a$ of the source, so that the communicated law is the message law $\nu_j^a\mathcal T_j^a$ on $H_a$, and let receiver $i$ hold a code model $\mathcal C_{ij}^a:E_i^a\rightsquigarrow H_a$ for that edge. The coded comparison cost is
+\begin{equation}
+D_{ij}^{a,\mathrm{cod}}=\KL\bigl(\nu_i^a\mathcal C_{ij}^a\Vert\nu_j^a\mathcal T_j^a\bigr).
+\label{eq:int-coded-cost}
+\end{equation}
+The source applies $\mathcal T_j^a$ when a construction declares that the source holds it, and the code is constitutive otherwise; the receiver applies its code model to its own law. The message space carries no frame. Under passive changes the codes are re-expressed by $\mathcal T_j^{a\prime}(g_j^ay,\cdot)=\mathcal T_j^a(y,\cdot)$ and $\mathcal C_{ij}^{a\prime}(g_i^ay,\cdot)=\mathcal C_{ij}^a(y,\cdot)$, which leaves both message laws, and hence the cost, unchanged.
+
+\propositionheading{Coded and complete-law costs}{prop:int-coded-cost}
+In the setting of \cref{def:int-coded-cost}, suppress the sector index.
+\begin{enumerate}
+\item[(i)] The cost $D_{ij}^{\mathrm{cod}}$ is agent-computable for $i$ in the sense of \cref{def:access}: it is a Borel function of the received message law $\nu_j\mathcal T_j$ and of the law $\nu_i\mathcal C_{ij}$, which $i$ forms from its own law and its code model. It depends on the source only through the message law.
+\item[(ii)] Let $\Theta_{ij}:E_j\to E_i$ be a bimeasurable bijection, and suppose that the code model is the source code read through it, $\mathcal C_{ij}(\Theta_{ij}y,\cdot)=\mathcal T_j(y,\cdot)$ for $\nu_j$-almost every $y$. Write $\nu_{ij}=(\Theta_{ij})_\#\nu_j$ for the law that the link would deliver. Then
+\begin{equation}
+D_{ij}^{\mathrm{cod}}\leq\KL(\nu_i\Vert\nu_{ij}),
+\label{eq:int-coded-bound}
+\end{equation}
+including when the right side is infinite. When the right side is finite,
+\begin{equation}
+\KL(\nu_i\Vert\nu_{ij})
+=D_{ij}^{\mathrm{cod}}
++\int\KL\bigl(\nu_i^h\Vert\nu_{ij}^h\bigr)(\nu_i\mathcal C_{ij})(dh),
+\label{eq:int-coded-gap}
+\end{equation}
+where $\nu_i^h$ and $\nu_{ij}^h$ are the conditional laws of the content given the coded value $h$ under the joint laws $\nu_i(dy)\mathcal C_{ij}(y,dh)$ and $\nu_{ij}(dy)\mathcal C_{ij}(y,dh)$.
+\end{enumerate}
+\begin{proof}
+For (i), $\nu_i\mapsto\nu_i\mathcal C_{ij}$ is measurable for the evaluation sigma-algebras, and relative entropy is a Borel function of a pair of laws \citep[Lemma~5.2.2]{Gray1990}; the remaining assertions restate \cref{eq:int-coded-cost}. For (ii), the change of variables $y'=\Theta_{ij}y$ and the hypothesis give, for every measurable $A\subseteq H$,
+\begin{equation}
+(\nu_{ij}\mathcal C_{ij})(A)
+=\int\mathcal C_{ij}(\Theta_{ij}y,A)\nu_j(dy)
+=\int\mathcal T_j(y,A)\nu_j(dy)
+=(\nu_j\mathcal T_j)(A).
+\end{equation}
+Hence $D_{ij}^{\mathrm{cod}}=\KL(\nu_i\mathcal C_{ij}\Vert\nu_{ij}\mathcal C_{ij})$ compares the two content laws $\nu_i$ and $\nu_{ij}$ through the common kernel $\mathcal C_{ij}$. The data-processing inequality for relative entropy under a Markov kernel on standard Borel spaces \citep[Chapter~5]{Gray1990} gives \cref{eq:int-coded-bound}. When $\KL(\nu_i\Vert\nu_{ij})$ is finite, \cref{thm:predictive-chain} with $s=\nu_i$, $t=\nu_{ij}$, and $K=\mathcal C_{ij}$ is \cref{eq:int-coded-gap}.
+\end{proof}
+
+The proof of \cref{eq:int-coded-bound} uses only the measurability of $\Theta_{ij}$; for a bijection the right side is the cost \cref{eq:int-peer-divergence} of a link that discards nothing. The gap in \cref{eq:int-coded-gap} is the disagreement in the distinctions that the code does not transmit, and it vanishes exactly when the two conditional laws agree for $\nu_i\mathcal C_{ij}$-almost every coded value. Of the source, the coded cost discloses to the receiver the message law alone. That law is unchanged by a passive change at the source, so it carries nothing of the source's frame, and two source laws with the same message law give the same cost whatever their conditional laws given the coded value. Of the receiver, the cost discloses nothing to the source, because the receiver forms it and no return message is declared. At fixed frames, take the message space to be a copy of $E_i$ with its coordinates frozen, the code model to be the identity, and $\mathcal T_j(y,\cdot)=\delta_{\Theta_{ij}y}$. The coded cost is then the complete-law cost of the link, with the disclosure stated in \cref{def:access}. A passive change $g_i$ at the receiver does not move the frozen copy; the code model becomes $y\mapsto\delta_{g_i^{-1}y}$ and the value is unchanged, so the code model is the identity at the fixed frame only. The rows, potentials, and flows of \cref{ch:dynamics} are defined with the costs \cref{eq:int-peer-divergence}. Substituting the coded cost defines a different objective, and the only relation between the two asserted here is \cref{prop:int-coded-cost}. When $\Theta_{ij}$ is the displayed form of a dictionary whose reference value the receiver holds (\cref{it1:dictionary}), the effective code \cref{it1:effective-code}, read on the receiver's displayed content, satisfies the hypothesis of part (ii) and involves the receiver's own frame alone; \cref{ch:communication-links} states what messages identify of it.
 
 \section{An explicit constitutive family for general laws}
 
@@ -183,6 +226,8 @@ Consequently
 Multiplication with the transformed receiving column gives $L_{ij}^{a\prime}=h_a^{-1}L_{ij}^a h_a$.
 \end{proof}
 No fixed Euclidean metric was inserted into this comparison: the source covariance supplies the inverse bilinear form and transforms with the law. Finite moments and invertible covariance are assumptions of this example alone. Centered laws give zero generators in this family, so it does not encode all distinctions between laws. The family is never reciprocal on independent means: if $\mu_i^a$ and $\mu_j^a$ are linearly independent and $\lambda_{ij}^a,\lambda_{ji}^a\neq0$, then $\Theta_{ij}^a\Theta_{ji}^a\neq I$. Indeed, in reference coordinates $e^{L_{ij}}=I+\varphi_1(t_{ij})L_{ij}$ with $t_{ij}=\Tr L_{ij}$ and $\varphi_1(t)=(e^t-1)/t>0$, extended by $\varphi_1(0)=1$, because $L_{ij}^2=t_{ij}L_{ij}$ for a rank-one matrix; hence the inverse of $e^{L_{ji}}$ is $I-\varphi_1(-t_{ji})L_{ji}$ and $e^{L_{ij}}e^{L_{ji}}=I$ would force $\varphi_1(t_{ij})L_{ij}=-\varphi_1(-t_{ji})L_{ji}$, an equality of two nonzero rank-one matrices with images $\operatorname{span}\mu_i$ and $\operatorname{span}\mu_j$.
+
+The two factors of the content map $M_{ij}=U_iO_iT_jU_j^{-1}$ of this family are local to the endpoints in displayed coordinates. The sending map is $T_jU_j^{-1}y=(U_j\mu_j)^T(U_j\Sigma_jU_j^T)^{-1}y$, formed from the sender's displayed mean and covariance, and the receiving map is $U_iO_it=(U_i\mu_i)t$, formed from the receiver's displayed mean. The link is not local in this way. By the rank-one formula above, $\Theta_{ij}=U_iU_j^{-1}+\lambda_{ij}\varphi_1(t_{ij})M_{ij}$, which contains the frame ratio $U_iU_j^{-1}$ and the scalar $t_{ij}=\lambda_{ij}\mu_j^T\Sigma_j^{-1}\mu_i$ pairing the two reference laws; it has the constitutive standing stated at the beginning of the chapter.
 
 For a non-Gaussian example in two dimensions, take independent centered Laplace coordinates of variance one and translate their joint law to means $e_1$ and $e_2$ for two agents. Both covariances equal $I$. With identity frames and unit edge coefficients,
 \begin{equation}
@@ -248,6 +293,6 @@ d\mathcal E=d_{\nu}\mathcal E+
 D\mathcal L_{ij}^a[d\bar{\boldsymbol\nu}^a]\rangle.
 \label{eq:int-total-variation}
 \end{equation}
-This statement uses a differentiable statistical family and differentiable constitutive maps. It includes both the sender and receiver occurrences, and every other law on which the generator depends. Freezing the link during an update defines another declared dynamics; it is not generally the derivative of the substituted objective. Nor does substituting live recognition laws into a likelihood make that likelihood part of a fixed generative model during recognition variation.
+This statement uses a differentiable statistical family and differentiable constitutive maps. It includes both the sender and receiver occurrences, and every other law on which the generator depends. The total variation is therefore describer-level (\cref{rem:access-standing}): its sum includes edges that are not incident on the agent whose law varies, and its source occurrences read the laws of receivers. The per-agent dynamics of \cref{def:dyn-per-agent-flow} keeps only an agent's own first variations at the communicated laws and requires its incoming channels not to depend on its own laws. Freezing the link during an update defines another declared dynamics; it is not generally the derivative of the substituted objective. Nor does substituting live recognition laws into a likelihood make that likelihood part of a fixed generative model during recognition variation.
 
 An inherited parent's state must determine its future boundary response, including the law dependence of its generators. If two child configurations with identical retained data give different future responses, those data do not support autonomous closure.
