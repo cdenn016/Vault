@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-07
+updated: 2026-11-13
 ---
 
 # CS-ML MOC
@@ -220,3 +220,16 @@ These 40 sources are grouped by question in [[Collective agents literature map]]
 - [[weiss-2001-correctness-belief-propagation]]
 - [[wolpert-2001-optimal-payoff-functions]]
 - [[zaghw-2026-renormalising-generative-models]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[baltieri-2020-predictions-eye-beholder]]
+- [[baltieri-2025-bayesian-internal-model-principle]]
+- [[barp-2021-measure-preserving-diffusions]]
+- [[barp-2022-geometric-methods-sampling]]
+- [[biehl-2023-interpreting-systems-pomdps]]
+- [[friston-2012-free-energy-value-attractors]]
+- [[millidge-2021-mathematical-walkthrough-fep]]
+- [[smithe-2023-compositional-bayesian-brain]]
+- [[spisak-2026-self-orthogonalizing-attractor-networks]]
+- [[virgo-2021-interpreting-dynamical-systems-bayesian]]

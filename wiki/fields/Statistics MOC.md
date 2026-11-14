@@ -5,7 +5,7 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 
 # Statistics MOC
@@ -193,3 +193,27 @@ These 58 sources are grouped by question in [[Collective agents literature map]]
 - [[wilks-1938-large-sample-distribution]]
 - [[working-1960-correlation-first-differences]]
 - [[zaffaroni-2004-contemporaneous-aggregation-linear]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[baltieri-2025-bayesian-internal-model-principle]]
+- [[barp-2021-measure-preserving-diffusions]]
+- [[barp-2022-geometric-methods-sampling]]
+- [[biehl-2023-interpreting-systems-pomdps]]
+- [[dacosta-2021-neural-dynamics-active-inference]]
+- [[dacosta-2023-entropy-production-stationary-diffusions]]
+- [[dacosta-2025-generalized-coordinates-sde]]
+- [[friston-2012-fep-biological-systems]]
+- [[friston-2021-interesting-observations-fep]]
+- [[friston-2026-generative-modelling-nonequilibrium]]
+- [[heins-2026-collective-sensing-bayesian-inference]]
+- [[isomura-2023-bayesian-mechanics-self-organising]]
+- [[parr-2021-memory-markov-blankets]]
+- [[pearson-2026-flux-defined-markov-blanket]]
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]]
+- [[sakthivadivel-2022-functorial-statistical-physics]]
+- [[sakthivadivel-2023-worked-example-classical-objects]]
+- [[sakthivadivel-2026-markov-interacting-particles]]
+- [[smithe-2023-compositional-bayesian-brain]]
+- [[virgo-2021-interpreting-dynamical-systems-bayesian]]
+- [[virgo-2022-sensorimotor-history-markov-blankets]]

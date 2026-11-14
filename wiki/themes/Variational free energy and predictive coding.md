@@ -8,7 +8,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-08-20
+updated: 2026-11-13
 ---
 
 # Variational free energy and predictive coding
@@ -108,6 +108,10 @@ convergence open) are questions this program also owes for the same term in cont
 The collective literature separates three uses of free-energy language that should not be collapsed. [[heins-2023-spin-glass-active-inference]] gives an exact but fragile collective reduction under symmetric precisions, a particular factorized generative model, and asynchronous updates. [[palacios-2020-hierarchical-markov-blankets]] and [[waade-2025-as-one-and-many]] make group-level agency conditional on a higher-order Markov blanket rather than a consequence of coupling alone. [[friston-2024-federated-inference]] defines a specialized joint free energy over agents while distinguishing it from Bayesian belief updating.
 
 Distributed variational inference starts from a different object: a declared shared posterior or global approximation whose factors are partitioned across sites. [[ashman-2022-partitioned-variational-inference]] is the cleanest site-factor comparator. Its evidence accounting and update schedules do not make the sites embodied active-inference agents, but they supply the relevant exactness standard for any claim that local objectives optimize one global ELBO. The recent [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] preprints remain an unreviewed watchlist.
+
+## Bayesian mechanics literature, November 13, 2026
+
+Thirty-six further sources on Bayesian mechanics were read on November 13, 2026, and their synthesis is on [[Bayesian mechanics]]. Three points bear on the picture drawn above. The lineage's latest statement, [[friston-2026-generative-modelling-nonequilibrium]], describes the inference reading of a blanketed system as an as-if description supplied by the modeler, and [[baltieri-2020-predictions-eye-beholder]] argues for the same reading from a worked example; [[millidge-2021-mathematical-walkthrough-fep]] lists the assumptions under which the reading is exact or approximate. The flow decomposition on which free-energy descent rests has rigorous statements with explicit hypotheses in [[dacosta-2023-entropy-production-stationary-diffusions]] and [[barp-2021-measure-preserving-diffusions]] (see [[Nonequilibrium steady state]] and [[Stochastic Thermodynamics]]). The blanket condition is treated as graded, and as a statement about histories, in [[sakthivadivel-2022-weak-markov-blankets]], [[sakthivadivel-2026-markov-interacting-particles]] and [[virgo-2022-sensorimotor-history-markov-blankets]] (see [[Markov Blanket]]).
 
 ## Sources synthesized
 

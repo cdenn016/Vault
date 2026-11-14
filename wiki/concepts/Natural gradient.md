@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-11-13
 ---
 
 # Natural gradient
@@ -154,6 +154,9 @@ When the link generators are latent variables of the free energy ([[dennis-2026-
   marginal families, with scope distinct from the project's passive-frame quotient.
 - [[kunin-2021-neural-mechanics]] — symmetry-induced conservation laws of gradient flow and their breaking by weight decay, momentum, stochasticity, and discretization.
 - [[du-2018-balanced-layers]] — gradient flow preserves the balance of consecutive layers in homogeneous networks.
+- [[dacosta-2021-neural-dynamics-active-inference]] — discrete active-inference updates agree with simplex natural-gradient steps to first order; information lengths compared by simulation.
+- [[barp-2022-geometric-methods-sampling]] — information tensors for natural gradient descent on Stein and maximum mean discrepancies.
+- [[isomura-2023-bayesian-mechanics-self-organising]] — Euclidean metric adopted in place of the natural gradient in a steepest-descent derivation.
 
 ## See also
 
@@ -175,3 +178,16 @@ When the link generators are latent variables of the free energy ([[dennis-2026-
 - [[kingma-ba-2015-adam]] — Adaptive first-order optimizer
 - [[loshchilov-hutter-2019-adamw]] — Decoupled weight decay
 - [[yang-2022-tensor-programs-v-mup]] — muP (maximal-update parametrization): width-stable init and learning-rate scaling, bearing on whether $\phi$/$\sigma$ init and $\kappa$ in $\tau=\kappa\sqrt{\dim_h}$ transfer across the K-sweep
+
+## Natural gradient in discrete active inference and in kernel discrepancies, November 13, 2026
+
+[[dacosta-2021-neural-dynamics-active-inference|Da Costa et al. 2021]] compare the state-estimation dynamics of discrete active inference, $\dot v=-\nabla_sF$ with $s=\sigma(v)$ a [[Softmax|softmax]], against natural gradient descent on the simplex, where the Fisher metric is $g(s)=\mathrm{diag}(s_0^{-1},\dots,s_n^{-1})$. A first-order Taylor expansion shows that one discrete update $s\leftarrow\sigma(\ln s-\epsilon\nabla_sF)$ equals one normalized natural-gradient step up to higher order in $\epsilon$. The authors state that this does not guarantee agreement of the paths, and they support the comparison by simulation on two tasks, where the Fisher information lengths of the two schemes are nearly identical. The source note adds an observation the paper does not make: by the chain rule the continuous-time flow is
+
+$$
+\dot s=-(\mathrm{diag}(s)-ss^\top)\nabla_sF,
+$$
+
+which is the Fisher natural gradient restricted to the tangent space of the simplex, in [[Replicator dynamics|replicator]] form. [[barp-2022-geometric-methods-sampling|Barp et al. 2022]] (Section 4) give information tensors for natural gradient descent on kernel Stein and maximum mean discrepancies, stated with citations and without proofs. [[isomura-2023-bayesian-mechanics-self-organising|Isomura 2023]] sets the natural gradient aside and adopts a Euclidean metric for simplicity in its steepest-descent argument.
+
+> [!note] Editorial: scope for Gaussian beliefs
+> The softmax result holds for categorical beliefs of one agent. Its transfer to Gaussian belief updates on statistical fibers is an analogy, since no Gaussian or SPD geometry appears in the paper. Isomura's metric choice marks where a Fisher version of that construction would enter.

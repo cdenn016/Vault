@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-07
+updated: 2026-11-13
 ---
 
 # Physics MOC
@@ -267,3 +267,32 @@ These 81 sources are grouped by question in [[Collective agents literature map]]
 - [[temple-1928-rayleigh-principle-applied]]
 - [[toulouse-1977-frustration-effect-spin]]
 - [[tran-2020-hierarchy-linear-light]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[dacosta-2023-entropy-production-stationary-diffusions]]
+- [[feng-2011-potential-flux-decomposition]]
+- [[friston-2012-fep-biological-systems]]
+- [[friston-2012-free-energy-value-attractors]]
+- [[friston-2020-sentience-markovian-monism]]
+- [[friston-2021-interesting-observations-fep]]
+- [[friston-2026-generative-modelling-nonequilibrium]]
+- [[heins-2022-particular-flows-attracting-sets]]
+- [[heins-2026-collective-sensing-bayesian-inference]]
+- [[isomura-2023-bayesian-mechanics-self-organising]]
+- [[kim-2021-bayesian-mechanics-perceptual-inference]]
+- [[kim-2024-bayesian-mechanics-synaptic-learning]]
+- [[millidge-2021-mathematical-walkthrough-fep]]
+- [[parr-2021-memory-markov-blankets]]
+- [[pearson-2026-flux-defined-markov-blanket]]
+- [[polettini-2012-nonequilibrium-thermodynamics-gauge]]
+- [[ramstead-2022-notation-minima-comment]]
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]]
+- [[sakthivadivel-2022-functorial-statistical-physics]]
+- [[sakthivadivel-2022-regarding-flows-fep]]
+- [[sakthivadivel-2022-weak-markov-blankets]]
+- [[sakthivadivel-2023-worked-example-classical-objects]]
+- [[sakthivadivel-2026-markov-interacting-particles]]
+- [[sandved-smith-2024-metacognitive-particles]]
+- [[spisak-2026-self-orthogonalizing-attractor-networks]]
+- [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]]

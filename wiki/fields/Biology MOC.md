@@ -5,7 +5,7 @@ aliases: [field/biology, Biology sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-13
 ---
 
 # Biology MOC
@@ -93,3 +93,10 @@ These 18 sources are grouped by question in [[Collective agents literature map]]
 - [[sasaki-2017-cumulative-culture-can]]
 - [[theraulaz-1999-brief-history-stigmergy]]
 - [[tomasello-2005-understanding-sharing-intentions]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[friston-2012-fep-biological-systems]]
+- [[friston-2026-generative-modelling-nonequilibrium]]
+- [[heins-2026-collective-sensing-bayesian-inference]]
+- [[ueltzhoffer-2021-thermodynamic-efficiency-dissipative]]

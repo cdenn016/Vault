@@ -5,7 +5,7 @@ aliases: [field/neuroscience, Neuroscience sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-07
+updated: 2026-11-13
 ---
 
 # Neuroscience MOC
@@ -106,3 +106,25 @@ These 29 sources are grouped by question in [[Collective agents literature map]]
 - [[rosas-2020-causal-blankets-algorithmic]]
 - [[veissiere-2020-thinking-through-other]]
 - [[zaghw-2026-renormalising-generative-models]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[baltieri-2020-predictions-eye-beholder]]
+- [[dacosta-2021-neural-dynamics-active-inference]]
+- [[friston-2012-fep-biological-systems]]
+- [[friston-2012-free-energy-value-attractors]]
+- [[friston-2020-sentience-markovian-monism]]
+- [[friston-2021-interesting-observations-fep]]
+- [[heins-2022-particular-flows-attracting-sets]]
+- [[isomura-2023-bayesian-mechanics-self-organising]]
+- [[kim-2021-bayesian-mechanics-perceptual-inference]]
+- [[kim-2024-bayesian-mechanics-synaptic-learning]]
+- [[millidge-2021-mathematical-walkthrough-fep]]
+- [[parr-2021-memory-markov-blankets]]
+- [[pearson-2026-flux-defined-markov-blanket]]
+- [[ramstead-2022-notation-minima-comment]]
+- [[sakthivadivel-2022-regarding-flows-fep]]
+- [[sandved-smith-2024-metacognitive-particles]]
+- [[smithe-2023-compositional-bayesian-brain]]
+- [[spisak-2026-self-orthogonalizing-attractor-networks]]
+- [[virgo-2022-sensorimotor-history-markov-blankets]]

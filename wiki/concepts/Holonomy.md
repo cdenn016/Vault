@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-11-13
 ---
 
 # Holonomy
@@ -115,6 +115,10 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 - [[absil-2008-optimization-matrix-manifolds]] — retractions and vector transports as first-order surrogates for geodesic transport.
 - [[ollivier-2015-riemannian-metrics-nn]], [[amari-1998-natural-gradient]] — metric/Fisher preconditioning that makes transport reparameterization-invariant.
 - [[bleecker-1981-gauge-theory-variational-principles]] — canonical bundle-connection-and-variational-principle reference behind the gauge formalism (connections, curvature, and holonomy on principal bundles).
+- [[polettini-2012-nonequilibrium-thermodynamics-gauge]] — Wilson loops of $\log(w_{ij}/w_{ji})$ equal cycle affinities; flatness is Kolmogorov's criterion.
+- [[feng-2011-potential-flux-decomposition]] — abelian connection of a diffusion whose curvature vanishes with the steady-state flux; loop entropy as curvature flux.
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]] — exact connection $dJ$ of constrained maximum entropy, trivial holonomy.
+- [[barp-2021-measure-preserving-diffusions]] — gauge freedom of the probability-current potential, distinct from a connection.
 
 ## See also
 
@@ -130,3 +134,14 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 - [[Fisher information metric]]
 - [[SPD-manifold geometry and Riemannian optimization]]
 - [[Gauge equivariance and geometric deep learning]]
+
+## Abelian holonomy and detailed balance, November 13, 2026
+
+Abelian holonomy has a thermodynamic reading in two sources outside the free energy literature and a trivial instance inside it. For a Markov jump process on a finite connected graph, [[polettini-2012-nonequilibrium-thermodynamics-gauge|Polettini 2012]] takes the edge connection $A_{ij}=\log(w_{ij}/w_{ji})$. The logarithm of the Wilson loop of a cycle is its affinity, equal to Clausius's $\oint\delta q/T$, Kolmogorov's criterion for detailed balance is the statement that every Wilson loop is unity, and the $|E|-|V|+1$ fundamental cycles of a spanning tree determine the connection up to gauge. For a diffusion, [[feng-2011-potential-flux-decomposition|Feng and Wang 2011]] take $A_i=-D^{-1}_{ij}\tilde F_j$ with curvature $R_{ij}=\partial_iA_j-\partial_jA_i$, which vanishes when the steady-state flux vanishes and is nonzero otherwise, and obtain for the medium entropy around a closed loop
+
+$$T\Delta s^C_m=-\oint_CA_idx_i=-\frac{1}{2}\int_\Sigma d\sigma_{ij}R_{ij},$$
+
+a gauge-invariant quantity that they compare with a Berry phase without computing a topological invariant. The connection $dJ$ of constrained [[Maximum entropy|maximum entropy]] in [[sakthivadivel-2022-entropy-maximising-parallel-transport|Sakthivadivel 2022]] is exact, so its holonomy is trivial on every loop, and the construction covers gradient drift only. [[barp-2021-measure-preserving-diffusions|Barp et al. 2021]] attach gauge language to the freedom $A\mapsto A+\mathrm{curl}_P(V)$ of a bi-vector potential for the stationary probability current, which is a redundancy of a potential.
+
+> [!note] Editorial: contrast with the holonomy on this page
+> These holonomies are positive scalars on cycles in the state space of one system, so they commute, whereas the triangle holonomies elsewhere on this page are $\mathrm{GL}(K)$ matrices on a graph of agents or tokens and are defined up to conjugacy. Reading curvature of inter-agent transport as broken detailed balance is an analogy and not a theorem: a derivation of November 13, 2026 (`docs/research/2026-11-13-abelian-sector-of-gauge-transport.md`) shows that flatness of the transport and detailed balance of the attention matrix read as a jump process on agents are independent, and that the determinant of a holonomy enters the cycle affinity of that process as one term, $(2/\tau)\log|\det\mathrm{Hol}|$. Separately, and the potential freedom in Barp et al. is a different redundancy from a frame change on a bundle of beliefs.

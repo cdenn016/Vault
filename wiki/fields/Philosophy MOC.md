@@ -5,7 +5,7 @@ aliases: [field/philosophy, Philosophy sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-13
 ---
 
 # Philosophy MOC
@@ -95,3 +95,12 @@ These 10 sources are grouped by question in [[Collective agents literature map]]
 - [[nguyen-2020-echo-chambers-epistemic]]
 - [[ramstead-2016-cultural-affordances-scaffolding]]
 - [[ramstead-2021-multiscale-integration-beyond]]
+
+## Bayesian mechanics literature, November 13, 2026
+
+- [[baltieri-2020-predictions-eye-beholder]]
+- [[biehl-2023-interpreting-systems-pomdps]]
+- [[friston-2020-sentience-markovian-monism]]
+- [[friston-2026-generative-modelling-nonequilibrium]]
+- [[sandved-smith-2024-metacognitive-particles]]
+- [[virgo-2022-sensorimotor-history-markov-blankets]]

@@ -15,7 +15,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-07-13
+updated: 2026-11-13
 ---
 
 # Belief inertia
@@ -112,6 +112,9 @@ Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-20
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and information-geometric mechanics.
 - [[girolami-calderhead-2011-riemann-hmc]] -- Fisher/Riemannian kinetic geometry with the metric kept distinct from target curvature.
 - [[nevin-mandell-atak-1983-behavioral-momentum]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- behavioral persistence and alternative oscillation mechanisms.
+- [[kim-2021-bayesian-mechanics-perceptual-inference]] — generative precisions called neural inertial masses, as a metaphor, in a least-action formulation.
+- [[kim-2024-bayesian-mechanics-synaptic-learning]] — mass as inverse noise variance for states and weights, tied to temperature and friction.
+- [[sakthivadivel-2023-worked-example-classical-objects]] — mass as a parameter of the mean constraint, separate from the precision multiplier.
 
 ## See also
 
@@ -122,3 +125,10 @@ Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-20
 - [[Natural gradient]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[SocialPhysics]]
+
+## Precision as inertial mass in least-action recognition dynamics, November 13, 2026
+
+Two papers by Kim obtain an inertial term without a kinetic postulate, because velocity enters through a dynamical generative prior. In [[kim-2021-bayesian-mechanics-perceptual-inference|Kim 2021]] the model $\dot\mu=f(\mu)+w$, $\varphi=g(\mu)+z$, with Gaussian white noises of variances $\sigma_w$, $\sigma_z$ and correlation $\rho$, yields a Lagrangian whose coefficients $m_i=1/(\sigma_i(1-\rho^2))$ the author calls neural inertial masses, explicitly as a metaphor. [[kim-2024-bayesian-mechanics-synaptic-learning|Kim 2024]] sets $m_\mu=1/\sigma_\mu^2$ and $m_w=1/\sigma_w^2$ for postsynaptic activity and synaptic weight; its fluctuation-dissipation relation $\sigma_\mu^2=2\gamma_\mu^{-1}k_BT$ then implies $m_\mu=\gamma_\mu/(2k_BT)$. [[sakthivadivel-2023-worked-example-classical-objects|Sakthivadivel 2023]] assigns the two roles to different quantities: the mass of a classical particle is a given parameter inside the mean constraint $E_{p(q)}[q]=\iint F(\eta)/m$, the precision is a separate multiplier $\lambda_1$ with the heuristic $\lambda_1\propto D^{-1}$, and the classical path is placed at the infinite-precision limit, a limit the paper states inconsistently, in an argument that presupposes the classical law.
+
+> [!note] Editorial: comparison with the three-tensor separation
+> In Kim's models the mass on the state rate is the precision of a declared transition noise, a specified $M$ distinct from the sensory term and comparable to the increment-prior mass of the editorial above. Its value coincides with a Fisher information for a Gaussian location parameter, a comparison the papers do not draw (see [[Mass as Fisher information]]). The setting is one agent in flat coordinates with no covariance dynamics, fibers or transport, and the linear flows have eigenvalues in opposite-sign pairs, so they do not relax (see [[Hamiltonian belief dynamics]]). Sakthivadivel's construction keeps mass and precision apart and gives no support to a precision-as-inertia reading.

@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-23
+updated: 2026-11-13
 ---
 
 # Gauge transformation
@@ -76,6 +76,10 @@ Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manif
 - [[bleecker-1981-gauge-theory-variational-principles]] — canonical bundle-connection-and-variational-principle reference behind the gauge formalism.
 - [[fournel-2014-gauge-invariant-composite-fields]] — the dressing field method: gauge-invariant composite fields built with a dressing field.
 - [[francois-2019-artificial-gauge-symmetries]] — criterion (C1): a local dressing field signals an artificial gauge symmetry.
+- [[polettini-2012-nonequilibrium-thermodynamics-gauge]] — change of prior as an abelian gauge transformation of a Markov process; relative entropy as the entropy shift.
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]] — change of constraint as gauge transformation $p\mapsto e^{-\lambda J'}p$ of the maximum-entropy density.
+- [[feng-2011-potential-flux-decomposition]] — gauge shift of the abelian connection of a diffusion, meaning left open.
+- [[barp-2021-measure-preserving-diffusions]] — potential freedom $A\mapsto A+\mathrm{curl}_P(V)$ for the stationary probability current.
 
 ## See also
 
@@ -93,3 +97,10 @@ Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manif
 - [[Structural realism]]
 - [[Quantum reference frames]]
 - [[Dressing field method]]
+
+## Abelian gauge transformations of probability weights, November 13, 2026
+
+Four sources on stochastic dynamics use the word gauge for abelian redundancies of a single system. [[polettini-2012-nonequilibrium-thermodynamics-gauge|Polettini 2012]] postulates invariance of a Markov jump process under local rescaling of the density, $\rho_i\to e^{-\varphi_i}\rho_i$, read as a change of prior. The rates transform as $w_{ij}\to w_{ij}e^{\varphi_j}$, the currents are invariant, the edge potential $A_{ij}=\log(w_{ij}/w_{ji})$ shifts by $\varphi_j-\varphi_i$, and the Gibbs-Shannon entropy shifts by $\delta S=\langle\varphi\rangle_\rho=-S(\rho'\|\rho)$. The rate law rests on a plausibility argument, and the author acknowledges that whether a change of prior is a gauge transformation or a diffeomorphism is contested. In [[sakthivadivel-2022-entropy-maximising-parallel-transport|Sakthivadivel 2022]] a change of constraint in a [[Maximum entropy|maximum-entropy]] problem acts as $p\mapsto e^{-\lambda J'}p$, and in its Example 1 the flat connection shifts as $A_i\mapsto A_i+\partial_iJ$; the vault's note observes that the invariance theorem establishes an unchanged stationarity equation, which is weaker than invariance of the action. [[feng-2011-potential-flux-decomposition|Feng and Wang 2011]] have $A_i\to A_i+\partial_i\phi$ for the connection $A_i=-D^{-1}_{ij}\tilde F_j$ of a diffusion and leave the physical meaning of the transformation open. In [[barp-2021-measure-preserving-diffusions|Barp et al. 2021]] the bi-vector potential of a stationary probability current is defined up to $A\mapsto A+\mathrm{curl}_P(V)$ for a 3-vector field $V$, which the authors compare to electromagnetic gauge freedom.
+
+> [!note] Editorial: contrast with frame changes on this page
+> The first two transformations rescale a probability weight by one positive scalar per state, the third is an abelian shift whose meaning Feng and Wang leave open, and the fourth shifts a potential for a current, so none is a frame change $g_i\in\mathrm{GL}(K)$ acting on a Gaussian belief by $\Sigma\mapsto g\Sigma g^\top$, and the Barp et al. freedom in particular is a different redundancy from a frame change on a bundle of beliefs. The exact relation, derived on November 13, 2026 (`docs/research/2026-11-13-abelian-sector-of-gauge-transport.md`), is that a frame change $g_i$ rescales the density values of the belief at agent $i$ by $|\det g_i|^{-1}$ and shifts its differential entropy by $\log|\det g_i|$, which is Polettini's transformation with a parameter that is constant over the agent's sample space. Every abelian quotient of $\mathrm{GL}(K)$ factors through the determinant, and no change of frame induces the state-dependent rescalings of the single-system constructions.

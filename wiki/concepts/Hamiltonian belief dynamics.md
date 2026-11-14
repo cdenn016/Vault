@@ -12,7 +12,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-11-13
 ---
 
 # Hamiltonian belief dynamics
@@ -83,6 +83,13 @@ A force-free kinetic coast can serve as one candidate component of revision late
 - [[chirco-2022-statistical-bundle-dynamics]], [[pistone-2018-statistical-bundle-lagrangian]], [[leok-zhang-2017-information-geometric-mechanics]] -- probability-space mechanics precedents.
 - [[girolami-calderhead-2011-riemann-hmc]] -- Fisher/Riemannian kinetic geometry.
 - [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- alternative Hamiltonian, second-order, resonance, and feedback mechanisms.
+- [[dacosta-2023-entropy-production-stationary-diffusions]] — underdamped Langevin with the Hamiltonian vector field as irreversible drift; infinite unflipped entropy production.
+- [[barp-2021-measure-preserving-diffusions]] — underdamped Langevin on a tangent bundle with an Ornstein-Uhlenbeck fiber process (Theorem 9.1).
+- [[barp-2022-geometric-methods-sampling]] — conformal Hamiltonian systems and gradient flow as the high-friction limit, argued informally.
+- [[friston-2012-free-energy-value-attractors]] — state-space example of Newtonian motion and friction from the Ao decomposition.
+- [[kim-2021-bayesian-mechanics-perceptual-inference]] — least-action recognition dynamics; momentum as precision-weighted prediction error; saddle-or-center spectrum.
+- [[kim-2024-bayesian-mechanics-synaptic-learning]] — synaptic extension of the least-action formulation with a traceless linear flow.
+- [[heins-2022-particular-flows-attracting-sets]] — numerical example sorting solenoidal couplings by their effect on the attracting set (cited as analogy).
 
 ## See also
 
@@ -93,3 +100,10 @@ A force-free kinetic coast can serve as one candidate component of revision late
 - [[Fisher information metric]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[SocialPhysics]]
+
+## Langevin, conformal and least-action precedents in the Bayesian mechanics literature, November 13, 2026
+
+The Bayesian mechanics literature supplies reference forms for a Hamiltonian sector. [[dacosta-2023-entropy-production-stationary-diffusions|Da Costa and Pavliotis 2023]] show that for underdamped Langevin dynamics the time-irreversible drift is the Hamiltonian vector field, $b_{\mathrm{irr}}=Q\nabla\log\rho$ with $Q$ proportional to the canonical symplectic matrix, while the noise acts on the momenta only; the entropy production is proved infinite under the unflipped definition and is zero under the momentum-flipped one. [[barp-2021-measure-preserving-diffusions|Barp et al. 2021]] (Theorem 9.1) construct such dynamics on a tangent bundle, with an Ornstein-Uhlenbeck fiber process preserving a metric-dependent Gaussian. [[barp-2022-geometric-methods-sampling|Barp et al. 2022]] state the conformal Hamiltonian system $\dot q^i=g^{ij}p_j$, $\dot p_i=-\partial_iV-\gamma p_i$ and argue informally that gradient flow is its high-friction limit. A state-space precursor in [[friston-2012-free-energy-value-attractors|Friston and Ao 2012]] obtains Newtonian motion from the canonical antisymmetric $Q$ and a friction term from diffusion on the velocity. [[kim-2021-bayesian-mechanics-perceptual-inference|Kim 2021]] takes the Laplace-encoded free energy as a Lagrangian, making the conjugate momentum a precision-weighted [[Prediction error|prediction error]]; its linear flow has a traceless relaxation matrix, hence only saddles or centers, with bounded orbits found numerically only in a narrow window that needs negative noise covariance and an added tuning parameter. [[kim-2024-bayesian-mechanics-synaptic-learning|Kim 2024]] extends the action to synaptic weights, again with zero trace.
+
+> [!note] Editorial: bearing on the kinetic postulate
+> None of these papers places a kinetic metric on a statistical manifold; reading $g$ or the fiber Gaussian as the $M$ of this page is an analogy and not a theorem. Kim's spectrum shows that a conservative flow derived from a free-energy action does not relax, in line with the requirement here that damping be declared separately. By analogy only, the one numerical example of [[heins-2022-particular-flows-attracting-sets|Heins 2022]] suggests that solenoidal coupling between blanket and internal states keeps the attracting set on the conditional modes, while coupling between external and blanket states rotates it.

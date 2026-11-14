@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-11-13
 ---
 
 # Lattice gauge theory
@@ -195,6 +195,10 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 - [[arnold-1989-classical-mechanics]] — symplectic/Hamiltonian geometric-mechanics framework behind the Hamiltonian lattice formulation and belief dynamics.
 - [[lee-2012-smooth-manifolds]] — smooth-manifold and fiber-bundle foundations: a lattice gauge field as a discrete principal-bundle connection.
 - [[dennis-2026-dynamic-links]] — latent link generators on a depth-by-token lattice, Frobenius-defect curvature prior with Wilson limit on $O(K)$, kinetic term from time-like loops, induced action and hopping expansion of undirected Gaussian matter.
+- [[polettini-2012-nonequilibrium-thermodynamics-gauge]] — abelian $(\mathbb{R}^+,\times)$ gauge structure on a state-transition graph; Wilson loops as cycle affinities; spanning-tree gauge fixing.
+- [[feng-2011-potential-flux-decomposition]] — continuous-state abelian connection with Wilson line $e^{-\Delta s_m}$.
+- [[sakthivadivel-2022-entropy-maximising-parallel-transport]] — exact, flat connection $dJ$ of constrained maximum entropy.
+- [[barp-2021-measure-preserving-diffusions]] — gauge freedom of the probability-current potential, distinct from a link field.
 
 ## See also
 
@@ -209,3 +213,10 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 - [[GL(K) gauge-equivariant attention]] — the program's neural instantiation of gauge-invariant link inner products
 - [[nagai-2025-cask]] — gauge-covariant Transformer (CASK) on lattice links
 - [[kanwar-2020-equivariant-flow]] · [[boyda-2021-su-n-flows]] — gauge-equivariant flows on $U(1)$ / $SU(N)$ links
+
+## An abelian lattice gauge structure on a state-transition graph, November 13, 2026
+
+[[polettini-2012-nonequilibrium-thermodynamics-gauge|Polettini 2012]] has the kinematics of this page's Definition in abelian form, on the state-transition graph of a continuous-time Markov jump process. Each vertex, a microstate, carries an internal space $\Psi_i\cong\mathbb{R}$, and each edge carries the variable $A_{ij}=\log(w_{ij}/w_{ji})$ built from the forward and backward rates. The gauge group $(\mathbb{R}^+,\times)$ acts vertex by vertex through $\rho_i\to e^{-\varphi_i}\rho_i$, and the edge variable shifts by $\varphi_j-\varphi_i$. Wilson loops compose multiplicatively, their logarithms are the cycle affinities, and all of them equal one exactly under detailed balance, so the flat connections are the detailed-balance systems and form a single gauge class. A spanning tree fixes the gauge, and its $|E|-|V|+1$ fundamental cycles give a basis from which the connection is reconstructed up to gauge. The rates are time independent, so the links are given data; the vault's note records no action or dynamics for them, and the author remarks that the group is simple enough that the geometrization is unnecessary for practical purposes. The continuous-state counterpart is the connection $A_i=-D^{-1}_{ij}\tilde F_j$ of [[feng-2011-potential-flux-decomposition|Feng and Wang 2011]], with Wilson line $e^{-\Delta s_m}$ transforming as $U\to e^{\phi(x)}Ue^{-\phi(y)}$ and curvature that vanishes when the steady-state flux vanishes. The exact connection $dJ$ of [[sakthivadivel-2022-entropy-maximising-parallel-transport|Sakthivadivel 2022]] is a flat case. [[barp-2021-measure-preserving-diffusions|Barp et al. 2021]] use gauge language for the freedom in a potential of the stationary probability current.
+
+> [!note] Editorial: contrast with the links on this page
+> Polettini's vertices are microstates of one system and his links are positive scalars whose loop products commute, whereas the links on this page are $\mathrm{GL}(K)$ matrices between agents or tokens with conjugation-covariant loops; the shared skeleton of vertex frames, edge transport, spanning-tree gauge fixing and $|E|-|V|+1$ independent loops is a structural analogy with no shared theorem. A derivation of November 13, 2026 (`docs/research/2026-11-13-abelian-sector-of-gauge-transport.md`) identifies the one exact overlap: the scalars $-\log|\det\Omega_{ij}|$ form an abelian lattice gauge field on the agent graph with Polettini's group and transformation laws, exact for pure-gauge links and with no rates or currents attached. The potential freedom in Barp et al. is a different redundancy from a frame change on a bundle of beliefs and supplies no link field.
