@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-14
 ---
 
 # Approximate meta-agent theorem
@@ -73,6 +73,13 @@ Two propositions fix what cannot be improved. For anisotropic noise the error is
 
 Exact closure of a coarse variable of a linear system is invariance of the kernel of the coarse map, the linear-Gaussian case of lumpability ([[kemeny-snell-1960-finite-markov-chains]]) and of aggregation of nearly decomposable systems ([[simon-1961-aggregation-variables-dynamic-systems]]). Its approximate forms are ordered measures of memory, of which the one-step closure defect is the largest. The projection identities behind the memory terms are those of [[zwanzig-1961-memory-effects]] and [[mori-1965-transport-collective-motion]], and the dynamical-independence and informational-closure notions of [[barnett-2023-dynamical-independence-discovering]] and [[rosas-2024-software-natural-world]] coincide with exact closure in the stationary linear-Gaussian case without input.
 
+## Exact closure and sufficient coarse records from symmetry, November 14, 2026
+
+[[rosas-2026-symmetry-hierarchical-emergence]] bears on two points of this page from the exact side (version read: the arXiv preprint arXiv:2512.00984v1). On closure, it shows for discrete-state Markov chains that equivariance of the transition kernel under a finite group makes the orbit variable informationally closed in the sense of [[bertschinger-2006-information-closure-systems]] and [[rosas-2024-software-natural-world]], with one closed level per subgroup, and it names lumpability as the necessary condition. This adds a structural sufficient condition to the notions listed under "Relation to closure notions"; the paper says nothing about approximate closure or about defects. On summarized records, its Theorem 2 and Corollary 3 give a case in which a coarse record supports an exact filter: when the latent dynamics, the measurement channel and the initial law are equivariant, the orbit variables $(Z_t,V_t)$ of state and measurement form a hidden Markov model, and the belief $p(z_t\mid v_{0:t})$ is updated from the coarse record alone with no model defect. Its Corollary 4 states when nothing is lost relative to the fine record: if $I(Z_t;Y_{0:t})-I(Z_t;V_{0:t})=0$, then $p(z_t\mid v_{0:t})$ equals the marginal over orbits of the fine belief $p(x_t\mid y_{0:t})$. The paper states that this condition fails in its Ehrenfest example, where the coarse belief is exact for the coarse record and still less informative than the marginalized fine belief.
+
+> [!note] Editorial: the condition of Corollary 4 and the information term of this page
+> Because $V_{0:t}$ is a function of $Y_{0:t}$, the chain rule gives $I(Z_t;Y_{0:t})-I(Z_t;V_{0:t})=I(Z_t;Y_{0:t}\mid V_{0:t})=\mathbb E[\mathrm{KL}(p(z_t\mid Y_{0:t})\Vert p(z_t\mid V_{0:t}))]$. The quantity in Corollary 4 is therefore the conditional mutual information between the retained variable and the finer record given the coarse record, which is the kind of term that the subsection on a misread record shows every belief computed from the coarse record must pay. The identity is exact and elementary. The paper's Eq. (30) gives the expected log-ratio form, but it does not write the condition as a conditional mutual information. The correspondence of settings is interpretive: the paper has discrete states, no acts, exactly declared models and a filtering posterior, whereas the statements here are linear-Gaussian, include acts and declared models with defects, and take a predictive law as reference. Within those limits the Ehrenfest example is a discrete analogue of the situation behind the insufficiency term $\mathfrak i_{\mathsf T}$, in which every model is exact and the coarse record is still not sufficient. The paper gives no bound on the term when its condition fails.
+
 ## What is not established
 
 The second set of results settles, under its hypotheses, items that the first version of this page listed as open. Approximate blanket conditions are combined with the theorem, for the canonical partition, per-channel noise, a stable joint process and members that run the consensus filter, with the members' channels as the record. Collectives of literal members have an exact value and bounds for the error of their belief, for scalar members with exact code models and channel noise specific to the receiver. The Markov error of an average under a non-reversible update is bounded with the exterior held fixed, under a power bound and a gap condition. Sensors that sense a part of the coarse exterior are covered when the declared drift is detectable through the information matrix.
@@ -95,6 +102,7 @@ The results belong to the multi-agent line of the program ([[Gauge-Theoretic Mul
 - [[simon-1961-aggregation-variables-dynamic-systems]]
 - [[barnett-2023-dynamical-independence-discovering]]
 - [[rosas-2024-software-natural-world]]
+- [[rosas-2026-symmetry-hierarchical-emergence]] (symmetry-derived closed levels and abstract beliefs; read from the arXiv preprint)
 
 ## See also
 

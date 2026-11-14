@@ -12,7 +12,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-14
 ---
 
 # Collective agents literature map
@@ -151,6 +151,7 @@ When is a coarse description of a stochastic system itself Markov, and what is l
 - [[chandrasekaran-2012-latent-variable-graphical]] (Chandrasekaran et al. 2012): The paper studies jointly Gaussian observed and latent variables when only the observed variables' statistics are available.
 - [[barnett-2023-dynamical-independence-discovering]] (Barnett and Seth 2023): The paper defines emergence of a coarse-grained macroscopic variable as dynamical independence: the macro process follows dynamical laws of its own, quantified by a transformation-invariant information-theoretic measure of dynamical dependence.
 - [[shalizi-2025-what-macrostate-subjective]] (Shalizi and Moore 2025): The paper argues that thermodynamic macrostates are both subjective and objective: they form the unique maximal partition of phase space that is consistent with the chosen observations and obeys a Markov process, and they coincide with the causal states of...
+- [[rosas-2026-symmetry-hierarchical-emergence]] (Rosas 2026): For discrete-state Markov processes, equivariance of the transition kernel under a finite group makes the orbit variable informationally closed, with one closed level per subgroup, and an equivariant hidden Markov model carries exact Bayesian filters on those levels; read from the arXiv preprint.
 
 ## Potential games and stochastic approximation
 
