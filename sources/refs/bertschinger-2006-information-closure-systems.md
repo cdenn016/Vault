@@ -26,7 +26,7 @@ The manuscript cites the chapter for the definition of informational closure, wh
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[barnett-2023-dynamical-independence-discovering]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[barnett-2023-dynamical-independence-discovering]].
 
 ## BibTeX
 

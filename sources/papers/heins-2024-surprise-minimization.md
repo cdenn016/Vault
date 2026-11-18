@@ -59,7 +59,7 @@ This is the reference that licenses reading the Gauge-Theoretic Multi-Agent VFE 
 
 ## Cross-links
 
-- Concepts: Multi-agent variational free energy, Meta-agents and hierarchical emergence, [[Variational free energy]]
+- Concepts: [[Variational free energy]]
 - Related sources: [[friston-2024-federated-inference]], [[waade-2025-as-one-and-many]], [[albarracin-2022-epistemic-communities]], [[couzin-2009-collective-cognition]], [[galam-2008-sociophysics]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

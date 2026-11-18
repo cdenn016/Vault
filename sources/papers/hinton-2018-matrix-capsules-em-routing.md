@@ -36,7 +36,7 @@ Section 3 frames routing as fitting a mixture of Gaussians to votes $V_{ij}$. Th
 This is the closest published precedent for the meta-agent reading of a Gaussian template layer. Parents are Gaussians fit by an EM M-step to their children's weighted contributions (bottom-up), and children are assigned by Bayesian responsibility (top-down); both directions run inside the forward pass. In Meta-agents and hierarchical emergence the parent is the forward-KL barycenter of its constituents, and the EM M-step of a Gaussian component with retained dispersion is that barycenter. The capsule activation test is a description-length criterion, parallel to the meta-agent licensing criterion.
 
 ## Cross-links
-- Concepts: Meta-agents and hierarchical emergence
+- Concepts:
 - Methods: [[Template routing]]
 - Related sources: [[locatello-2020-slot-attention]], [[bovy-2011-extreme-deconvolution]]
 

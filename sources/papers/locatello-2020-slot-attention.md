@@ -41,7 +41,7 @@ Slots are initialized randomly from a learned Gaussian and refined for $T$ itera
 The normalization axis is the point of contact with the prototype layer of [[VFE Transformer Program|vfe3]]: there each token's weights are normalized over templates (a token chooses a template), while slot attention normalizes over slots for each input (inputs are partitioned among slots), the E-step of clustering inputs into slots. Slot attention is the in-context, iterated version of "parents fit to the current population", which the prototype bank lacks because it is learned only across the corpus. It supplies a learned, non-probabilistic precedent for an in-context meta-agent update (Meta-agents and hierarchical emergence).
 
 ## Cross-links
-- Concepts: Meta-agents and hierarchical emergence
+- Concepts:
 - Methods: [[Template routing]]
 - Related sources: [[hinton-2018-matrix-capsules-em-routing]], [[sukhbaatar-2019-persistent-memory]]
 

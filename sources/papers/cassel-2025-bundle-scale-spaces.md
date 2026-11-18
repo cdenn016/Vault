@@ -71,7 +71,7 @@ This is the paper that supplies the **gauge half** of the vault's own constructi
 
 ## Cross-links
 
-- Concepts: [[Fibre Bundle|associated bundle]], [[Gauge equivariance and geometric deep learning|gauge equivariance]], [[Gauge transformation]], [[Harmonic map]], [[Graph synchronization and connection Laplacians|graph connection Laplacian]], [[Graph synchronization and connection Laplacians]], [[Graph Laplacian]], [[Parallel transport]], Agents as fibre-bundle sections
+- Concepts: [[Fibre Bundle|associated bundle]], [[Gauge equivariance and geometric deep learning|gauge equivariance]], [[Gauge transformation]], [[Harmonic map]], [[Graph synchronization and connection Laplacians|graph connection Laplacian]], [[Graph synchronization and connection Laplacians]], [[Graph Laplacian]], [[Parallel transport]]
 - Themes / methods: [[Gauge equivariance and geometric deep learning]], [[Gauge equivariant CNN]]
 - Related sources: [[cassel-2025-yang-mills-data]], [[cassel-2024-sigma-flows]], [[gonzalez-alvarado-2025-patch-assignment]], [[cohen-2019-gauge-cnn]], [[weiler-2021-coordinate-independent-cnns]], [[singer-2012-vector-diffusion-maps]], [[participatory-it-from-bit]]
 

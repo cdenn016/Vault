@@ -47,7 +47,7 @@ This paper is a near-twin of the manuscript [[participatory-it-from-bit]]'s stru
 
 ## Cross-links
 
-- Concepts: [[Mathematical consciousness science]], [[Explanatory gap]], [[Participatory realism (it from bit)]], Agents as fibre-bundle sections, [[Holonomy]]
+- Concepts: [[Mathematical consciousness science]], [[Explanatory gap]], [[Participatory realism (it from bit)]], [[Holonomy]]
 - Related sources: [[tononi-2016-iit]], [[kleiner-tull-2021-mathematical-structure-iit]], [[nagel-1974-what-is-it-like]], [[levine-1983-explanatory-gap]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

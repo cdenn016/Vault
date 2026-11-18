@@ -25,7 +25,7 @@ This is the popular-canonical naming of algorithmically induced informational is
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Sociophysics]], [[Opinion dynamics]], Multi-agent variational free energy
+- Related: [[Sociophysics]], [[Opinion dynamics]]
 - Related sources: [[sunstein-2017-republic]], [[bakshy-2015-ideological-diversity-facebook]], [[guess-2023-feed-algorithms-election]]
 
 ## BibTeX

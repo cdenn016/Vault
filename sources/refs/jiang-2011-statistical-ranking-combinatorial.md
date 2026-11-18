@@ -37,7 +37,7 @@ The manuscript cites it for the combinatorial Hodge decomposition of noisy pairw
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Graph Laplacian]]; [[Cellular sheaves and sheaf Laplacians]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Graph Laplacian]]; [[Cellular sheaves and sheaf Laplacians]].
 
 ## BibTeX
 

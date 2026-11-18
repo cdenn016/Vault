@@ -103,7 +103,7 @@ The paper restricts the presentation to finite groups and discrete random variab
 
 ## Cross-links
 
-Concepts: Meta-agents and hierarchical emergence; [[Coarse Graining]]; [[Group equivariance]]; [[Renormalization group flow]]; Approximate meta-agent theorem; [[State space models]]; [[Bayesian Inference]]; [[Sufficient statistics]]; [[Data processing inequality]]; [[Mutual information]]; [[Attractor networks]]; [[Gauge transformation]]; [[GL(K) gauge group]].
+Concepts: [[Coarse Graining]]; [[Group equivariance]]; [[Renormalization group flow]]; Approximate meta-agent theorem; [[State space models]]; [[Bayesian Inference]]; [[Sufficient statistics]]; [[Data processing inequality]]; [[Mutual information]]; [[Attractor networks]]; [[Gauge transformation]]; [[GL(K) gauge group]].
 
 Themes: [[Collective agents literature map]]; [[Gauge equivariance and geometric deep learning]].
 

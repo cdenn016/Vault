@@ -36,7 +36,7 @@ The manuscript cites the result in its section on abstract collectives, stating 
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Common knowledge and Bayesian agreement]]; [[Evolutionary game theory and cooperation]].
+[[Collective agents literature map]]; [[Common knowledge and Bayesian agreement]]; [[Evolutionary game theory and cooperation]].
 
 ## BibTeX
 

@@ -42,8 +42,8 @@ Three differences bound the match. The theorem concerns the total-variation dist
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Geometric singular perturbation theory]]
-- Themes: Meta-agents and hierarchical emergence
+- Concepts: [[Geometric singular perturbation theory]]
+- Themes:
 - Related sources: [[barrera-2016-abrupt-convergence-small-perturbations]], [[boursier-2023-universal-cutoff-dyson-ornstein-uhlenbeck]], [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
 
 ## BibTeX

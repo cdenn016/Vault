@@ -26,7 +26,7 @@ The manuscript cites the book, with Simon (1961, 1962), for near decomposability
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Coarse Graining]].
 
 ## BibTeX
 

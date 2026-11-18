@@ -26,7 +26,7 @@ A strong empirical decomposition that maps cleanly onto a distinction the progra
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: Multi-agent variational free energy, [[Opinion dynamics]], [[Community detection and modularity]]
+- Related: [[Opinion dynamics]], [[Community detection and modularity]]
 - Related sources: [[cinelli-2021-echo-chamber-effect]], [[guess-2023-feed-algorithms-election]], [[garrett-2009-echo-chambers-selective-exposure]]
 
 ## BibTeX

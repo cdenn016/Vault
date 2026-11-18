@@ -28,7 +28,7 @@ The manuscript cites this paper for the discrete Loomis-Whitney inequality, whic
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov Blanket]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
+[[Collective agents literature map]]; [[Markov Blanket]]; [[Coarse Graining]].
 
 ## BibTeX
 

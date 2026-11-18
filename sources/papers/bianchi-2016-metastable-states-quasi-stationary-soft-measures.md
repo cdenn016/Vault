@@ -36,7 +36,7 @@ The paper establishes metastability in the sense of Lebowitz and Penrose for fin
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence
+- Concepts:
 - Related sources: [[collet-2013-quasi-stationary-distributions]], [[bovier-2015-metastability-potential-theoretic-approach]], [[freidlin-2012-random-perturbations-dynamical-systems]]
 
 ## BibTeX

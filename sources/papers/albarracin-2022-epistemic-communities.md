@@ -56,7 +56,7 @@ This paper is the active-inference microfoundation for the **"heat death" of bel
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], Multi-agent variational free energy, Meta-agents and hierarchical emergence
+- Concepts: [[Collective active inference]]
 - Related sources: [[friston-2024-federated-inference]], [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

@@ -53,7 +53,7 @@ retention versus mutual-information retention ([[Data processing inequality]],
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]], [[Data processing inequality]]
+- Concepts: [[Coarse Graining]], [[Data processing inequality]]
 - Related sources: `2026-08-18-rescaling-audit-capacity-reversal`, `2026-08-18-minfo-information-retention`
 
 ## BibTeX

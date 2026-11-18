@@ -37,7 +37,7 @@ The manuscript uses this paper as a restatement of the 1990 criterion of Lyons f
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Phase transitions in social systems]]; [[Graph Laplacian]]; [[lyons-1990-random-walks-percolation]].
+[[Collective agents literature map]]; [[Phase transitions in social systems]]; [[Graph Laplacian]]; [[lyons-1990-random-walks-percolation]].
 
 ## BibTeX
 

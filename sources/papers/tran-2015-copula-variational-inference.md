@@ -46,7 +46,7 @@ Copula VI is a candidate intermediate recognition family for compatible continuo
 
 ## Cross-links
 
-- Concepts: [[Mean-Field Approximation]], [[Recognition Density]], Multi-agent variational free energy, [[Evidence lower bound (ELBO)]]
+- Concepts: [[Mean-Field Approximation]], [[Recognition Density]], [[Evidence lower bound (ELBO)]]
 - Related sources: [[hoffman-2013-svi]]
 
 ## BibTeX

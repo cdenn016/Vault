@@ -28,7 +28,7 @@ With bounded signals there always exists a threshold of public confidence beyond
 ## Relevance to this research
 This paper sharpens cascade theory into a precise statement of *when* social learning stalls or converges to the wrong consensus, which is the rigorous form of the failure mode the program's self-coupling $\alpha$ (signal strength) is meant to guard against — making it a strong, theoretically deep reference. Smith and Sorensen's bounded-versus-unbounded-signal dichotomy maps onto the relative weight of the self-coupling term $\alpha\,\mathrm{KL}(q_i\|p_i)$ against the neighbor-coupling term in the VFE functional: "bounded signal strength" is the regime where each agent's own evidence (carried by $\alpha$ and the likelihood) can be permanently outvoted by the transported neighbor consensus, so the population can lock onto a wrong attractor, exactly the wrong-herd pathology. Their herd/cascade distinction is also a useful conceptual discipline for the program, which should be careful to distinguish "all beliefs converge" (a herd) from "self-evidence stops mattering" (a cascade). The correspondence is structural and benchmark-level, not an identity: their model is one-shot Bayesian and discrete-action, the program's is continuous variational flow.
 
-See [[Information cascades and herding]], Multi-agent variational free energy, Belief inertia, [[Opinion dynamics]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Opinion dynamics]].
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

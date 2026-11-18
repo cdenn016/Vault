@@ -39,7 +39,7 @@ Several conceptual bridges are relevant to the gauge-theoretic Multi-agent varia
 
 - **Information as a system-intrinsic geometric object.** IIT measures distinctions in cause–effect space using divergences between probability distributions, which connects to the project's use of the [[Fisher information metric]] and Meta-entropy to characterize belief structure intrinsically. The contrast between $\Phi$-based intrinsic information and the extrinsic, prediction-error-driven information of the [[Free-energy principle active inference]] framework is a recurring point of comparison (cf. [[seth-2021-being-you]]).
 
-- **Self-referential cause–effect power.** IIT's requirement that a substrate exert cause–effect power *upon itself* parallels the self-modeling, self-transporting structure of Agents as fibre-bundle sections and Hamiltonian belief dynamics, where belief states evolve under dynamics they themselves parameterize.
+- **Self-referential cause–effect power.** IIT's requirement that a substrate exert cause–effect power *upon itself* parallels the self-modeling, self-transporting structure of Agents as fibre-bundle sections, where belief states evolve under dynamics they themselves parameterize.
 
 > [!note] Editorial: IIT is cited as a contrasting and complementary theory of intrinsic information, not as a component the project adopts wholesale. The project's commitments to [[Variational free energy]] and active inference treat consciousness/agency operationally, whereas IIT makes a stronger metaphysical identification; the manuscripts use this tension deliberately.
 

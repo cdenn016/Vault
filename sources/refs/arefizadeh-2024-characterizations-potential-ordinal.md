@@ -39,7 +39,7 @@ The manuscript cites this preprint as the place where it read the four-cycle cri
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; Multi-agent variational free energy; [[Evolutionary game theory and cooperation]]; [[Replicator dynamics]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Evolutionary game theory and cooperation]]; [[Replicator dynamics]].
 
 ## BibTeX
 

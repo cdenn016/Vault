@@ -40,7 +40,7 @@ The collective-agents manuscript cites this paper in its open-problems discussio
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]].
+[[Collective agents literature map]]; [[Collective active inference]].
 
 ## BibTeX
 

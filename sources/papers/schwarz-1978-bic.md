@@ -51,7 +51,7 @@ BIC is directly connected to the variational free energy (VFE) framework at the 
 
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[MDL and BIC model selection|Model Selection]], [[Laplace Approximation]], [[Fisher information metric|Fisher Information]], [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]], [[MDL and BIC model selection]]
-- Themes: Meta-agents and hierarchical emergence
+- Themes:
 - Related sources: [[akaike-1974-aic]], [[rissanen-1978-mdl]]
 - Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[participatory-it-from-bit]]
 

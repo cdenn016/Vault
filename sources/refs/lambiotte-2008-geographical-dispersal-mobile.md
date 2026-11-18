@@ -40,7 +40,7 @@ The manuscript cites this paper for the statement that link probability between 
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Hidden metric space]]; [[Network structure — small-world and scale-free]]; [[liben-nowell-2005-geographic-routing-social]].
+[[Collective agents literature map]]; [[Hidden metric space]]; [[Network structure — small-world and scale-free]]; [[liben-nowell-2005-geographic-routing-social]].
 
 ## BibTeX
 

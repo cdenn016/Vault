@@ -32,7 +32,7 @@ The manuscript cites Theorem 3.7 of this book for Riesz's rearrangement inequali
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
+[[Collective agents literature map]]; [[Coarse Graining]].
 
 ## BibTeX
 

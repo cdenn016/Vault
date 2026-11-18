@@ -27,7 +27,7 @@ The manuscript cites the book, together with Radner's earlier team paper, for th
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Bounded Rationality]]; [[Decentralized Bayesian inference]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Bounded Rationality]]; [[Decentralized Bayesian inference]].
 
 ## BibTeX
 

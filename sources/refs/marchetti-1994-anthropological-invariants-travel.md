@@ -41,7 +41,7 @@ The manuscript cites the paper for a daily travel budget of about one hour, a ty
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[mokhtarian-2004-ttb-not-ttb]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[mokhtarian-2004-ttb-not-ttb]].
 
 ## BibTeX
 

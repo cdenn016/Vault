@@ -43,7 +43,7 @@ This 1974 essay (distinct from the project's separately cited Nagel 1986, *The V
 
 ## Cross-links
 
-- Concepts: [[Participatory realism (it from bit)]], [[Mathematical consciousness science]], [[Explanatory gap]], Agents as fibre-bundle sections, [[Gauge transformation]]
+- Concepts: [[Participatory realism (it from bit)]], [[Mathematical consciousness science]], [[Explanatory gap]], [[Gauge transformation]]
 - Related sources: [[levine-1983-explanatory-gap]], [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]], [[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

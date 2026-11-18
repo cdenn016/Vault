@@ -47,7 +47,7 @@ This is an algorithmic bridge from the exact finite Multi-agent variational free
 
 ## Cross-links
 
-- Concepts: [[Belief Propagation]], [[Mean-Field Approximation]], [[Variational free energy]], Multi-agent variational free energy
+- Concepts: [[Belief Propagation]], [[Mean-Field Approximation]], [[Variational free energy]]
 - Themes: [[Inference machinery — variational EM and filtering]]
 - Related sources: [[winn-2005-variational-message-passing]], [[yedidia-freeman-weiss-2005-region-free-energy]]
 

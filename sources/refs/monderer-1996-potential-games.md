@@ -33,7 +33,7 @@ The manuscript cites the article for the four-cycle criterion for exact potentia
 
 ## Cross-links
 
-[[Collective agents literature map]]; Multi-agent variational free energy; [[Evolutionary game theory and cooperation]]; [[Collective active inference]].
+[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Collective active inference]].
 
 ## BibTeX
 

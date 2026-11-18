@@ -77,7 +77,7 @@ This paper is directly relevant to the VFE transformer program in two ways. Firs
 
 ## Cross-links
 - Concepts: [[Attention Mechanism]], [[Variational Free Energy]], [[Softmax]], [[Associative Memory]], [[Energy-Based Models]], [[Precision weighting]], [[Information geometry and natural gradient]]
-- Themes: Meta-agents and hierarchical emergence, [[Renormalization group flow]]
+- Themes: [[Renormalization group flow]]
 - Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[parr-2022-active-inference|friston2022active]], [[krotov-2016-dense-associative-memory|krotov2016dense]]
 - Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 

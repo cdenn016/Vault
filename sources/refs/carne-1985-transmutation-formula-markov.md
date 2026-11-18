@@ -26,7 +26,7 @@ The manuscript cites this paper, together with Varopoulos (1985), for the Carne-
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Graph Laplacian]]; [[Spectral graph theory]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Graph Laplacian]]; [[Spectral graph theory]].
 
 ## BibTeX
 

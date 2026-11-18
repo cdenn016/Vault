@@ -32,7 +32,7 @@ The manuscript cites this paper for the estimate that borders reduce trade betwe
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Sociophysics]]; [[alesina-1997-number-size-nations]].
+[[Collective agents literature map]]; [[Sociophysics]]; [[alesina-1997-number-size-nations]].
 
 ## BibTeX
 

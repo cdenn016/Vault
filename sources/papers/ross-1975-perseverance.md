@@ -31,10 +31,10 @@ updated: 2026-06-21
 The foundational belief-perseverance experiments: after subjects received false feedback about their performance (e.g., on distinguishing real from fake suicide notes) and formed beliefs about their ability, complete debriefing revealing the feedback was bogus failed to erase those beliefs. Self- and social-perceptions persisted well beyond the discrediting of their evidential basis.
 
 ## Relevance to this research
-The empirical origin of belief perseverance, a psychological microfoundation for belief inertia / momentum modeled in the SocialPhysics project: beliefs resist updating even when their evidence is removed, motivating a hysteresis/mass term in opinion dynamics.
+The empirical origin of belief perseverance: beliefs resist updating even when their evidence is removed.
 
 ## Cross-links
-Belief inertia, [[Opinion dynamics]]
+[[Opinion dynamics]]
 
 ## BibTeX
 ```bibtex

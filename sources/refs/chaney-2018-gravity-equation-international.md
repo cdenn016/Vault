@@ -40,7 +40,7 @@ The manuscript cites the paper in its abstract-collectives section, in a passage
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Network structure — small-world and scale-free]].
+[[Collective agents literature map]]; [[Network structure — small-world and scale-free]].
 
 ## BibTeX
 

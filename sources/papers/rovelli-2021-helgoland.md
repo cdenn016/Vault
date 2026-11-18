@@ -46,7 +46,7 @@ Helgoland bridges the project's two foundational pillars: quantum-foundations pa
 
 ## Cross-links
 
-- Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], Agents as fibre-bundle sections, [[Gauge transformation]]
+- Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], [[Gauge transformation]]
 - Related sources: [[rovelli-1996-relational-qm]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[wheeler-1990-it-from-bit]], [[french-ladyman-2003-remodelling]]
 - Manuscript: [[participatory-it-from-bit]]
 

@@ -44,7 +44,7 @@ The asymptotic parameter here is the dimension $n$, not the noise. The transfer 
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence
+- Concepts:
 - Related sources: [[barrera-2020-thermalisation-small-random-perturbations]], [[lachaud-2005-cutoff-hitting-times-ornstein-uhlenbeck]], [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
 
 ## BibTeX

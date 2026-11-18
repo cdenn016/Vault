@@ -41,13 +41,9 @@ The authors describe tangent and cotangent fibers through a Hilbert-bundle struc
 
 The paper gives coherent bundle-level definitions of kinematics and mechanics for probabilities and shows, through worked examples, that the formalism produces accelerated natural-gradient dynamics. Its contribution is structural: it demonstrates that Lagrangian and Hamiltonian probability dynamics can be built consistently on an information-geometric statistical bundle. It does not imply that every divergence or Fisher metric uniquely determines a physical kinetic energy.
 
-## Relevance to this research
-
-This work is a central predecessor for Hamiltonian belief dynamics and Mass as Fisher information. It narrows the defensible novelty claim: mechanics on probability bundles and accelerated natural-gradient equations already exist. The present program's contribution must therefore lie in its specific gauge-transported multi-agent VFE, interaction architecture, and stiffness construction. It also supports the required explicit-postulate framing: the intrinsic [[Fisher information metric]] can motivate a kinetic metric, but choosing the kinetic energy remains an additional modeling decision.
-
 ## Cross-links
 
-The source connects directly to [[Natural gradient]], [[Fisher information metric]], Hamiltonian belief dynamics, Belief inertia, and Mass as Fisher information. It should be read alongside [[pistone-2018-statistical-bundle-lagrangian]] and [[leok-zhang-2017-information-geometric-mechanics]] for the distinction between information-geometric structure and a separately specified mechanical model.
+The source connects directly to [[Natural gradient]] and [[Fisher information metric]]. It should be read alongside [[pistone-2018-statistical-bundle-lagrangian]] and [[leok-zhang-2017-information-geometric-mechanics]] for the distinction between information-geometric structure and a separately specified mechanical model.
 
 ## BibTeX
 

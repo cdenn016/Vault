@@ -30,7 +30,7 @@ updated: 2026-06-21
 Introduces rational inattention: agents have finite Shannon information-processing capacity and optimally choose which signals to attend to, modeling attention allocation as an information-theoretic (mutual-information) constraint on the channel between the world and their beliefs. The framework explains sluggish, smoothed, and idiosyncratic responses to shocks.
 
 ## Relevance to this research
-The founding paper of rational inattention, providing the information-theoretic account of capacity-constrained attention that parallels precision-weighted attention in the VFE framework and underwrites information rigidity in the SocialPhysics project.
+The founding paper of rational inattention, providing the information-theoretic account of capacity-constrained attention that parallels precision-weighted attention in the VFE framework.
 
 ## Cross-links
 [[Rational inattention]], [[Information rigidity]], [[Precision weighting|Precision-weighted attention]]

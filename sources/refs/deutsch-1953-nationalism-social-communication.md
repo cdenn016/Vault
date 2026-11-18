@@ -30,7 +30,7 @@ The Collective Agents manuscript cites the book in three places: for the thesis 
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; Meta-agents and hierarchical emergence; [[Community detection and modularity]].
+[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; [[Community detection and modularity]].
 
 ## BibTeX
 

@@ -26,7 +26,7 @@ The manuscript cites the paper among empirical studies of how boundaries between
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
+[[Collective agents literature map]]; [[Coarse Graining]].
 
 ## BibTeX
 

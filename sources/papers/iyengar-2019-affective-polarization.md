@@ -26,7 +26,7 @@ This disambiguates which polarization the program is actually predicting and the
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Opinion dynamics]], Multi-agent variational free energy, [[Sociophysics]]
+- Related: [[Opinion dynamics]], [[Sociophysics]]
 - Related sources: [[dimaggio-evans-bryson-1996-attitude-polarization]], [[bail-2018-exposure-opposing-views]], [[sunstein-2002-law-of-group-polarization]]
 
 ## BibTeX

@@ -83,7 +83,7 @@ This paper occupies the **gauge and curvature sector** of the vault's own constr
 
 ## Cross-links
 
-- Concepts: [[Fibre Bundle|associated bundle]], [[Gauge equivariance and geometric deep learning|gauge equivariance]], [[Gauge transformation]], [[Gauge Theory]], [[Lattice gauge theory]], [[Holonomy]], [[Parallel transport]], [[Graph synchronization and connection Laplacians|graph connection Laplacian]], [[Graph synchronization and connection Laplacians]], [[Graph Laplacian]], [[Spectral graph theory]], [[Harmonic map]], Agents as fibre-bundle sections
+- Concepts: [[Fibre Bundle|associated bundle]], [[Gauge equivariance and geometric deep learning|gauge equivariance]], [[Gauge transformation]], [[Gauge Theory]], [[Lattice gauge theory]], [[Holonomy]], [[Parallel transport]], [[Graph synchronization and connection Laplacians|graph connection Laplacian]], [[Graph synchronization and connection Laplacians]], [[Graph Laplacian]], [[Spectral graph theory]], [[Harmonic map]]
 - Themes / methods: [[Gauge equivariance and geometric deep learning]], [[Gauge equivariant CNN]]
 - Related sources: [[cassel-2025-bundle-scale-spaces]], [[cassel-2024-sigma-flows]], [[gonzalez-alvarado-2025-patch-assignment]], [[singer-2012-vector-diffusion-maps]], [[gao-2021-synchronization-geometry]], [[bandeira-2013-connection-cheeger]], [[weiler-2021-coordinate-independent-cnns]], [[cohen-2019-gauge-cnn]], [[participatory-it-from-bit]]
 

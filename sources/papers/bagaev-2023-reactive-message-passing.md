@@ -47,7 +47,7 @@ RMP is an architectural comparator for future asynchronous agent or meta-agent u
 
 ## Cross-links
 
-- Concepts: [[Belief Propagation]], [[Mean-Field Approximation]], Multi-agent variational free energy, [[Collective active inference]]
+- Concepts: [[Belief Propagation]], [[Mean-Field Approximation]], [[Collective active inference]]
 - Related sources: [[senoz-2021-local-constraint-vmp]], [[heskes-2006-bethe-kikuchi-convexity]]
 
 ## BibTeX

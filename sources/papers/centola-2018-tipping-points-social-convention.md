@@ -39,7 +39,7 @@ A committed minority of about 25% overturned an established convention; below th
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Phase transitions in social systems]], [[Threshold models and complex contagion]]
+- Concepts: [[Phase transitions in social systems]], [[Threshold models and complex contagion]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[centola-2015-spontaneous-emergence-conventions]], [[young-1993-evolution-conventions]], [[centola-2010-online-experiment]]
 

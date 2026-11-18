@@ -28,7 +28,7 @@ The manuscript attributes to this article the upper bound on the convergence rat
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[badea-2012-rate-convergence-method]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[badea-2012-rate-convergence-method]].
 
 ## BibTeX
 

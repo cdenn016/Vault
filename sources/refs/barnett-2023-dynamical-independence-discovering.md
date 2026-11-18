@@ -40,7 +40,7 @@ The manuscript cites the paper, whose definition it read in the primary text, in
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[bertschinger-2006-information-closure-systems]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[bertschinger-2006-information-closure-systems]].
 
 ## BibTeX
 

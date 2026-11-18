@@ -39,7 +39,7 @@ In the fitness model of a growing network, a new node attaches to node $i$ with 
 
 ## Cross-links
 
-- Concepts: [[Network structure — small-world and scale-free]], [[Phase transitions in social systems]], Meta-agents and hierarchical emergence
+- Concepts: [[Network structure — small-world and scale-free]], [[Phase transitions in social systems]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[barabasi-albert-1999-scale-free]], [[albert-barabasi-2002-statistical-mechanics]], [[castellano-marsili-vespignani-2000-axelrod-transition]]
 

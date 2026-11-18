@@ -36,7 +36,7 @@ The manuscript cites the finding that about one third of friendships in a large 
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Network structure — small-world and scale-free]]; [[Hidden metric space]]; Meta-agents and hierarchical emergence; [[lambiotte-2008-geographical-dispersal-mobile]].
+[[Collective agents literature map]]; [[Network structure — small-world and scale-free]]; [[Hidden metric space]]; [[lambiotte-2008-geographical-dispersal-mobile]].
 
 ## BibTeX
 

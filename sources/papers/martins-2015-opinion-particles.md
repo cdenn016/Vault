@@ -25,7 +25,7 @@ created: 2026-07-12
 
 ## TL;DR
 
-Martins extends a Bayesian-inspired opinion model from discrete to continuous time and shows how opinion trajectories can be described with position-, velocity-, acceleration-, force-, and inertia-like quantities. The construction is a direct opinion-particle and harmonic-oscillator predecessor to later belief-inertia models: its mechanical structure is obtained from an extended inference model, not from gauge transport or a variational-free-energy kinetic postulate.
+Martins extends a Bayesian-inspired opinion model from discrete to continuous time and shows how opinion trajectories can be described with position-, velocity-, acceleration-, force-, and inertia-like quantities. Its mechanical structure is obtained from an extended inference model, not from gauge transport or a variational-free-energy kinetic postulate.
 
 ## Problem & setting
 
@@ -39,13 +39,9 @@ Martins takes the continuous-time limit of Bayesian-inspired opinion updates and
 
 The central result is an explicit mapping from continuous Bayesian opinion updating to Newtonian-style opinion dynamics, including an inertia term and a force–likelihood correspondence. The harmonic-oscillator example demonstrates that the framework can support oscillatory trajectories without appealing to a purely metaphorical use of mechanics. These are analytic modeling results; the paper does not establish that real human opinions obey a universal Newtonian law.
 
-## Relevance to this research
-
-This is the closest direct predecessor for claims that beliefs or opinions can carry inertia and execute harmonic motion. Consequently, novelty in Belief inertia cannot rest on the bare existence of an inertial opinion particle, a second-order opinion equation, or an oscillator analogy. The research contribution must instead be comparative and mechanism-specific: gauge-transported variational free energy, optimized interaction weights, four-part local stiffness, and an explicitly chosen kinetic metric on the belief manifold distinguish Hamiltonian belief dynamics from Martins's Bayesian opinion-particle construction.
-
 ## Cross-links
 
-The paper belongs with [[Opinion dynamics]], [[Sociophysics]], Belief inertia, and Hamiltonian belief dynamics. Its mechanical analogy is also a useful comparator for Mass as Fisher information, because Martins derives inertia within a Bayesian opinion model whereas the present research must state any Fisher-based kinetic metric as a separate modeling postulate.
+The paper belongs with [[Opinion dynamics]] and [[Sociophysics]].
 
 ## BibTeX
 

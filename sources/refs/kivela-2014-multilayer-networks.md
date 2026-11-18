@@ -32,7 +32,7 @@ The manuscript cites the paper for terminology only, and its record marks the us
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Graph Laplacian]]; [[Community detection and modularity]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Graph Laplacian]]; [[Community detection and modularity]].
 
 ## BibTeX
 

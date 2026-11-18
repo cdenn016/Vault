@@ -30,10 +30,10 @@ updated: 2026-06-21
 An experimental study showing citizens evaluate political arguments through a partisan lens: they counter-argue incongruent arguments (disconfirmation bias) and uncritically accept congruent ones (prior-attitude effect), and given free choice seek out attitude-confirming information (confirmation bias). The net effect is attitude polarization, strongest among the most knowledgeable and committed.
 
 ## Relevance to this research
-A core empirical pillar for motivated reasoning and the asymmetric evidence weighting that produces polarization — the directional belief-update bias the SocialPhysics opinion-dynamics models formalize as precision-skewed assimilation and belief inertia.
+A core empirical pillar for motivated reasoning and the asymmetric evidence weighting that produces polarization.
 
 ## Cross-links
-[[Motivated reasoning]], [[Belief perseverance and confirmation bias|Confirmation bias]], Belief inertia
+[[Motivated reasoning]], [[Belief perseverance and confirmation bias|Confirmation bias]]
 
 ## BibTeX
 ```bibtex

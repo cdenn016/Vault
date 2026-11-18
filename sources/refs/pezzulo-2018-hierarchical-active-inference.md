@@ -40,7 +40,7 @@ The manuscript cites the article, known to it from records, as an extension of d
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Active Inference]]; [[Precision weighting]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Active Inference]]; [[Precision weighting]].
 
 ## BibTeX
 

@@ -43,8 +43,8 @@ paper explains this "initial slip" and calculates its magnitude.
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
-- Themes: Meta-agents and hierarchical emergence
+- Concepts: [[Coarse Graining]]
+- Themes:
 - Related sources: [[haake-1983-adiabatic-drag-initial-slip]], [[cox-1995-initial-conditions-models]], [[vankampen-1985-elimination-fast-variables]], [[zwanzig-1961-memory-effects]]
 
 ## BibTeX

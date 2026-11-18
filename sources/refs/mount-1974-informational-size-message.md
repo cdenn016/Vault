@@ -28,7 +28,7 @@ The manuscript cites this paper from its bibliographic record only, as one of tw
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Communication-constrained inference]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Communication-constrained inference]].
 
 ## BibTeX
 

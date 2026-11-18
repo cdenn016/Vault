@@ -33,7 +33,7 @@ Example 1 is the top-in-at-random shuffle, analyzed on p. 333 through the time $
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence
+- Concepts:
 - Related sources: [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]], [[barrera-2020-thermalisation-small-random-perturbations]]
 
 ## BibTeX

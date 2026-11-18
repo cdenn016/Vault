@@ -142,7 +142,7 @@ Use `cluster/<name>` tags so the Obsidian graph and search group by research are
 - `cluster/info-geometry` — Fisher metric, natural gradient, α/Rényi divergences, dual connections
 - `cluster/spd-geometry` — SPD manifold, affine-invariant metric, Riemannian optimization
 - `cluster/attention` — attention mechanisms, precision-weighting, positional encodings
-- `cluster/multi-agent` — the multi-agent model (MultiAgentELBO): multi-agent VFE, meta-agents, hierarchical emergence, ouroboros, RG flow, belief inertia, Hamiltonian dynamics
+- `cluster/multi-agent` — the multi-agent model (MultiAgentELBO): multi-agent VFE, meta-agents, hierarchical emergence, ouroboros, RG flow, Hamiltonian dynamics
 - `cluster/participatory` — participatory realism / "it from bit", quantum foundations (QBism, relational QM), holography, IIT / consciousness. **Subdivided** — add the finer tag *alongside* the parent (which still rolls up; existing `[[theme]]` links keep resolving):
   - `cluster/participatory/quantum-foundations` — *physics origin*: QM foundations & interpretation (QBism, relational QM, Wigner's-friend / observer-dependent-facts no-go theorems), holography & emergent spacetime / quantum gravity, physics-from-information (entropic dynamics, Fisher/Jaynes)
   - `cluster/participatory/philosophy-of-mind` — *philosophy origin*: philosophy of mind (the hard problem, panpsychism), philosophy of science & metaphysics (structural realism, the relativized a priori), it-from-bit metaphysics
@@ -163,15 +163,13 @@ project (`.obsidian/graph.json` defines the color groups):
 
 - `project/transformer` — belongs to the [[VFE Transformer Program]] (the `vfe3` language model in `VFE_3.0`)
 - `project/multi-agent` — belongs to the Gauge-Theoretic Multi-Agent VFE Model (MultiAgentELBO)
-- `project/social-physics` — belongs to the SocialPhysics project (opinion dynamics, belief momentum, sociophysics; founded on [[belief-inertia]])
+- `project/social-physics` — opinion dynamics and sociophysics literature
 - **multiple tags** = shared core theory used by more than one project (colored green in the graph)
 
 Rule of thumb when ingesting: a note is `project/social-physics` if it carries a
 `cluster/social-physics` tag (opinion dynamics, sociophysics, collective inference); it is
 `project/multi-agent` if it carries `cluster/multi-agent` or `cluster/participatory`; a note used by
-more than one project carries **all** the applicable project tags (e.g. the shared belief-dynamics
-concepts Belief inertia, Mass as Fisher information, Hamiltonian belief dynamics are both
-`project/multi-agent` and `project/social-physics`); otherwise it is `project/transformer`. Keep the
+more than one project carries **all** the applicable project tags; otherwise it is `project/transformer`. Keep the
 three project hub pages tagged with their own project only.
 
 ### Discipline tags (`field/*` facet)

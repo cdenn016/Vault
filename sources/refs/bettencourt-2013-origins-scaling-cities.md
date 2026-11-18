@@ -41,7 +41,7 @@ The collective-agents manuscript cites this paper for the model's condition that
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Communication-constrained inference]]; Meta-agents and hierarchical emergence; [[Statistical physics of social systems and collective behavior]]; [[bettencourt-2007-growth-innovation-scaling]].
+[[Collective agents literature map]]; [[Communication-constrained inference]]; [[Statistical physics of social systems and collective behavior]]; [[bettencourt-2007-growth-innovation-scaling]].
 
 ## BibTeX
 

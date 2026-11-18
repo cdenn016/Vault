@@ -35,7 +35,7 @@ The project's meta-agent formation detects coherent agent clusters to coarse-gra
 
 ## Cross-links
 
-- Concept: [[Community detection and modularity]], Meta-agents and hierarchical emergence.
+- Concept: [[Community detection and modularity]].
 - Sources: [[newman-girvan-2004-community-structure]], [[fiedler-1973-algebraic-connectivity]].
 - Manuscript: [[participatory-it-from-bit]].
 

@@ -71,9 +71,9 @@ This manuscript is the attention-mechanism cornerstone of the gauge-theoretic va
 - [[Precision weighting]] and [[Prediction error]] — recovered in the covariance fixed point and predictive-coding connection ([[Variational free energy and predictive coding]], [[Predictive coding network]]).
 - [[SPD-manifold geometry and Riemannian optimization]] — the $\Sigma$ updates and retraction.
 - [[Attention mechanisms — theory and positional structure]] — the core theme this paper anchors; RoPE-as-gauge-frame and multi-head-as-block-algebra results.
-- Meta-agents and hierarchical emergence, [[Renormalization group flow]], Ouroboros multi-scale dynamics — the coarse-graining/RG conjecture and meta-agent consensus connect to the companion [[participatory-it-from-bit]] manuscript (cited in-text as the source of the cross-scale prior-propagation and Regime-II holonomy program). The "learning as symmetry breaking" reading also touches [[Participatory realism (it from bit)]].
+- [[Renormalization group flow]], Ouroboros multi-scale dynamics — the coarse-graining/RG conjecture and meta-agent consensus connect to the companion [[participatory-it-from-bit]] manuscript (cited in-text as the source of the cross-scale prior-propagation and Regime-II holonomy program). The "learning as symmetry breaking" reading also touches [[Participatory realism (it from bit)]].
 
-Related program manuscripts: [[belief-inertia]], `meta-entropy-manuscript`.
+Related program manuscripts: `meta-entropy-manuscript`.
 
 ## Peer review (2026-06-19)
 

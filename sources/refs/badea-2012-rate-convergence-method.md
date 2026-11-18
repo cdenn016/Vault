@@ -41,7 +41,7 @@ The manuscript cites this paper as its source for the two-subspace rate: the upp
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Renormalization group flow]]; Meta-agents and hierarchical emergence; [[aronszajn-1950-reproducing-kernels]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Renormalization group flow]]; [[aronszajn-1950-reproducing-kernels]].
 
 ## BibTeX
 

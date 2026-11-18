@@ -51,7 +51,7 @@ For Gaussian experts the product is itself Gaussian with precision equal to the 
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], Belief coupling, Multi-agent variational free energy, Meta-agents and hierarchical emergence
+- Concepts: [[Variational free energy]], Belief coupling
 - Related sources: [[friston-2010-free-energy-principle]], [[kingma-2013-auto-encoding-variational-bayes]], [[bordley-1982-multiplicative-pooling]], [[genest-zidek-1986-pooling]]
 - Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 

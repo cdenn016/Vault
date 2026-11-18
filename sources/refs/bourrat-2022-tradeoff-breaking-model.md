@@ -41,7 +41,7 @@ The collective-agents manuscript cites this paper for the point that separation 
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Evolutionary game theory and cooperation]]; [[Cultural group selection]].
+[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Cultural group selection]].
 
 ## BibTeX
 

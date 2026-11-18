@@ -47,7 +47,7 @@ The paper supplies a strategic negative control for [[Collective active inferenc
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Expected Free Energy]], [[Active Inference]], Multi-agent variational free energy, [[Theory of Mind]]
+- Concepts: [[Collective active inference]], [[Expected Free Energy]], [[Active Inference]], [[Theory of Mind]]
 - Related sources: [[millidge-2021-whence-expected-free-energy]]
 
 ## BibTeX

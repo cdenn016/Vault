@@ -42,7 +42,7 @@ The manuscript cites the paper in its related-work discussion of closure, as the
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Markov Blanket]]; Meta-agents and hierarchical emergence; [[rosas-2020-causal-blankets-algorithmic]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Markov Blanket]]; [[rosas-2020-causal-blankets-algorithmic]].
 
 ## BibTeX
 

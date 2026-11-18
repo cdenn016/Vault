@@ -73,7 +73,7 @@ This paper is a direct conceptual precursor to the GL(K) gauge-equivariant VFE t
 - **Hierarchical gauge theory**: The nested, hierarchical application of the gauge theory (system $\subset$ environment, recursively) prefigures the multi-agent active inference model (MAgent_Model), where each agent is a gauge-theoretic inference system embedded in a larger one.
 
 ## Cross-links
-- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Fisher Information Metric]], [[Predictive Coding]], [[Active Inference]], [[Precision weighting|Attention as Precision]], [[Riemannian geometry|Riemannian Manifold]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], Agents as fibre-bundle sections, [[Participatory realism (it from bit)]]
+- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Fisher Information Metric]], [[Predictive Coding]], [[Active Inference]], [[Precision weighting|Attention as Precision]], [[Riemannian geometry|Riemannian Manifold]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Participatory realism (it from bit)]]
 - Related sources: [[friston-2010-free-energy-principle]], [[amari-2000-methods-information-geometry|amari-2000-information-geometry]], [[friston-2023-fep-simpler|friston-2023-active-inference]], [[sengupta2017gauge]] (the technical follow-up, Sengupta & Friston 2017, arXiv:1705.06614, which develops the connection/transport mathematics)
 - Manuscript/Project: [[gl-k-attention|GL(K) Attention Manuscript]], [[VFE Transformer Program]], MAgent Model, [[participatory-it-from-bit]]
 

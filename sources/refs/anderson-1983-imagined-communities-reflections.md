@@ -26,7 +26,7 @@ The manuscript cites the book for an account of print capitalism: print created 
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Cultural evolution and social learning]]; [[alesina-1997-number-size-nations]].
+[[Collective agents literature map]]; [[Cultural evolution and social learning]]; [[alesina-1997-number-size-nations]].
 
 ## BibTeX
 

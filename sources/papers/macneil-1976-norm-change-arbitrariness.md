@@ -37,7 +37,7 @@ Arbitrariness is defined as the difference between the conditions under which a 
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Social influence and conformity]], [[Bounded confidence]]
+- Concepts: [[Social influence and conformity]], [[Bounded confidence]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[jacobs-1961-arbitrary-tradition]], [[sherif-1935-social-factors-perception]], [[sherif-1936-psychology-social-norms]]
 

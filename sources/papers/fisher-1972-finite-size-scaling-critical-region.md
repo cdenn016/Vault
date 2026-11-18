@@ -33,7 +33,7 @@ A scaling theory of critical phenomena in films of finite thickness, with distin
 
 ## Cross-links
 
-- Concepts: [[Phase transitions in social systems]], Meta-agents and hierarchical emergence
+- Concepts: [[Phase transitions in social systems]]
 - Related sources: [[yang-1952-phase-transitions-condensation]], [[vicsek-1995-self-driven-particles]], [[castellano-marsili-vespignani-2000-axelrod-transition]]
 
 ## BibTeX

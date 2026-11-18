@@ -33,10 +33,10 @@ updated: 2026-06-21
 Shows that human learners track environmental volatility and adapt their learning rate accordingly, behaving like Bayesian observers who weight new evidence more heavily when the world is changing fast. Links this volatility-driven adaptive learning rate to activity in anterior cingulate cortex.
 
 ## Relevance to this research
-Empirical and Bayesian foundation for volatility-sensitive, adaptive-learning-rate belief updating — directly relevant to belief-inertia / precision-weighting dynamics where the effective learning rate is set by estimated uncertainty.
+Empirical and Bayesian foundation for volatility-sensitive, adaptive-learning-rate belief updating — directly relevant to precision-weighting dynamics where the effective learning rate is set by estimated uncertainty.
 
 ## Cross-links
-Belief inertia, [[Prediction error]]
+[[Prediction error]]
 
 ## BibTeX
 ```bibtex

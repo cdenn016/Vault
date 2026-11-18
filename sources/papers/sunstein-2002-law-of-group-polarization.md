@@ -22,11 +22,11 @@ A synthesis of the deliberation literature into a single empirical regularity: w
 The law is a statement about the displacement of the group mean under within-cluster deliberation. If $\bar{x}_0$ is the pre-deliberation average of an enclave's positions and $\bar{x}_1$ the post-deliberation average, then $\bar{x}_1$ lies beyond $\bar{x}_0$ in the direction the group already leaned, $|\bar{x}_1| > |\bar{x}_0|$ with $\operatorname{sign}(\bar{x}_1)=\operatorname{sign}(\bar{x}_0)$ — extremization rather than mere consensus at the centroid. The two proposed mechanisms are an informational asymmetry (the available arguments are skewed toward the prevailing view) and a normative pull (conformity to the emerging group position), both reinforcing within a homogeneous cluster.
 
 ## Relevance to this research
-A strong theoretical bridge between echo-chamber structure and the polarization prediction. The law states the mechanism — within-cluster reinforcement producing movement past the prior mean — that the program's homophilic attention coupling should generate endogenously: once $\beta_{ij}$ concentrates on aligned neighbors, the attention-weighted KL coupling pulls members toward a shared, already-extreme centroid, and in the inertial (underdamped) regime belief momentum can carry the cluster mean past that centroid into genuine overshoot, the dynamical signature of extremization that a first-order averaging flow (which can only contract toward, never beyond, the consensus point) cannot produce. This is conceptual machinery the program aims to derive, linking the echo-chamber and inertia threads.
+A strong theoretical bridge between echo-chamber structure and the polarization prediction. The law states the mechanism — within-cluster reinforcement producing movement past the prior mean — that the program's homophilic attention coupling should generate endogenously: once $\beta_{ij}$ concentrates on aligned neighbors, the attention-weighted KL coupling pulls members toward a shared, already-extreme centroid. This is conceptual machinery the program aims to derive for the echo-chamber thread.
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Bounded confidence]], Hamiltonian belief dynamics, Multi-agent variational free energy
+- Related: [[Bounded confidence]]
 - Related sources: [[sunstein-2017-republic]], [[baldassarri-bearman-2007-political-polarization]], [[bail-2018-exposure-opposing-views]]
 
 ## BibTeX

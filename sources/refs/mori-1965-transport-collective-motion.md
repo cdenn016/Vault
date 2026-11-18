@@ -18,11 +18,11 @@ Hazime Mori (1965). *Transport, Collective Motion, and Brownian Motion*. Progres
 
 ## Reviewed result and scope
 
-Mori constructs generalized Langevin equations for selected observables, separating reversible evolution, memory/damping, and a fluctuating term. The relation between fluctuation correlations and damping follows within the specified statistical-mechanical construction. The paper is a precedent for memory and noise appearing together under reduction, not a theorem that every information-geometric gradient flow produces mechanical inertia.
+Mori constructs generalized Langevin equations for selected observables, separating reversible evolution, memory/damping, and a fluctuating term. The relation between fluctuation correlations and damping follows within the specified statistical-mechanical construction. The paper is a precedent for memory and noise appearing together under reduction.
 
 ## Relevance to this research
 
-The PIFB2 appendix proves an exact linear Gaussian memory/noise identity from its own stated OU model and initial preparation. The citation acknowledges the earlier general mechanism. See Belief inertia and Hamiltonian belief dynamics. The refactor context is PIFB2 refactor foundations September 2026.
+The PIFB2 appendix proves an exact linear Gaussian memory/noise identity from its own stated OU model and initial preparation. The citation acknowledges the earlier general mechanism. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

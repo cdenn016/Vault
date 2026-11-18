@@ -41,7 +41,7 @@ The collective-agents manuscript cites this paper for the attribution of the pat
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov chain Monte Carlo]]; Multi-agent variational free energy; [[Collective active inference]].
+[[Collective agents literature map]]; [[Markov chain Monte Carlo]]; [[Collective active inference]].
 
 ## BibTeX
 

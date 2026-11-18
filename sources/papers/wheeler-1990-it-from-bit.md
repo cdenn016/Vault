@@ -67,7 +67,7 @@ Wheeler's informational ontology also sets the context for the project's quantum
 
 ## Cross-links
 
-- Concepts: [[Participatory realism (it from bit)]], Agents as fibre-bundle sections, [[Gauge transformation]], [[Fisher information metric]], [[Holonomy]], [[Parallel transport]], Multi-agent variational free energy, Ouroboros multi-scale dynamics, Meta-agents and hierarchical emergence, [[Quantum information geometry]]
+- Concepts: [[Participatory realism (it from bit)]], [[Gauge transformation]], [[Fisher information metric]], [[Holonomy]], [[Parallel transport]], [[Quantum information geometry]]
 - Related sources: [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-2017-participatory-realism]], [[rovelli-1996-relational-qm]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[zurek-2003-einselection|zurek-2003-decoherence]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[page-wootters-1983]]
 - Manuscript/Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 

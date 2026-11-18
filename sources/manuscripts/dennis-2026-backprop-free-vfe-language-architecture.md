@@ -45,4 +45,4 @@ This source advances the previously inconclusive [[dennis-2026-neuron-free-agent
 
 ## Related
 
-[[dennis-2026-neuron-free-agent-theory]], [[dennis-2026-attention-unified]], [[dennis-2026-dynamic-links]], [[multiagentelbo-2026-10-04-lie-algebra-links]], [[Template routing]], [[Variational EM]], Meta-agents and hierarchical emergence, [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model
+[[dennis-2026-neuron-free-agent-theory]], [[dennis-2026-attention-unified]], [[dennis-2026-dynamic-links]], [[multiagentelbo-2026-10-04-lie-algebra-links]], [[Template routing]], [[Variational EM]], [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model

@@ -56,7 +56,7 @@ The terminology overlaps directly with Multi-agent variational free energy and c
 
 ## Cross-links
 
-- Concepts: Multi-agent variational free energy, [[Collective active inference]], [[Expected Free Energy]]
+- Concepts: [[Collective active inference]], [[Expected Free Energy]]
 - Related sources: [[bouchaffra-2026-coalition-free-energy]], [[bouchaffra-2026-attention-synergy]], [[heins-2023-spin-glass-active-inference]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model
 

@@ -52,7 +52,7 @@ SNEP is a useful comparator for any future distributed implementation of Multi-a
 
 ## Cross-links
 
-- Concepts: [[Natural gradient]], [[Belief Propagation]], Multi-agent variational free energy, [[Collective active inference]]
+- Concepts: [[Natural gradient]], [[Belief Propagation]], [[Collective active inference]]
 - Related sources: [[senoz-2021-local-constraint-vmp]]
 
 ## BibTeX

@@ -30,7 +30,7 @@ updated: 2026-06-21
 Wason's classic 2-4-6 rule-discovery task: subjects must infer a hidden numeric rule by proposing test triples. Most participants generate only triples consistent with their current hypothesis (positive testing) rather than triples that could falsify it, and so persist with wrong rules. The study is a foundational demonstration of the human tendency to seek confirming rather than disconfirming evidence.
 
 ## Relevance to this research
-Provides the canonical empirical anchor for confirmation bias and the failure of falsification-seeking — the human deviation from ideal Bayesian/active-inference test selection that the belief-inertia and social-physics opinion-dynamics work models as biased evidence weighting.
+Provides the canonical empirical anchor for confirmation bias and the failure of falsification-seeking — the human deviation from ideal Bayesian/active-inference test selection that the program's opinion-dynamics work models as biased evidence weighting.
 
 ## Cross-links
 [[Belief perseverance and confirmation bias|Confirmation bias]], [[Bayesian Inference|Bayesian reasoning]]

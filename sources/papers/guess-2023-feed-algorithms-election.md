@@ -22,11 +22,10 @@ A large, preregistered field experiment (part of the U.S. 2020 Facebook and Inst
 The experiment cleanly separates the exposure channel from the attitude channel. Let $E$ denote the distribution of content a user is exposed to and $\theta$ their measured attitudes; randomizing the ranking algorithm induced a large $\Delta E$ (composition, source diversity, dwell time all shifted substantially) while the estimated treatment effect on $\theta$ was near zero and statistically insignificant across a battery of polarization and knowledge measures. The causal arrow from feed algorithm to exposure is strong; the arrow from exposure to attitudes, over a campaign-length horizon, is not detectable.
 
 ## Relevance to this research
-A crucial calibration counter-anchor and a direct probe of the inertia thesis. That a large $\Delta E$ moved attitudes negligibly is exactly the belief stickiness the program's inertial (underdamped) dynamics and prior-anchoring (Friedkin-Johnsen-like) self-coupling $\alpha\,\mathrm{KL}(q_i\,\|\,p_i)$ predict: strong attachment to a prior, or large effective inertial mass read off the Fisher/precision tensor, makes the steady state insensitive to bounded changes in the driving signal. It also guards the program against overclaiming algorithmic causation — pairing it with backlash results like Bail et al. forces the model to reproduce both stickiness and overshoot from one functional, a stringent and honest constraint. Strong and recent.
+A calibration counter-anchor. That a large $\Delta E$ moved attitudes negligibly is the belief stickiness that prior-anchoring (Friedkin-Johnsen-like) self-coupling $\alpha\,\mathrm{KL}(q_i\,\|\,p_i)$ predicts: strong attachment to a prior makes the steady state insensitive to bounded changes in the driving signal. It also guards the program against overclaiming algorithmic causation; pairing it with backlash results like Bail et al. forces the model to reproduce both stickiness and backlash from one functional. Strong and recent.
 
 ## Cross-links
-- Concept: Belief inertia
-- Related: Hamiltonian belief dynamics, [[Fisher information metric]], Multi-agent variational free energy
+- Related: [[Fisher information metric]]
 - Related sources: [[bail-2018-exposure-opposing-views]], [[bakshy-2015-ideological-diversity-facebook]], [[cinelli-2021-echo-chamber-effect]]
 
 ## BibTeX

@@ -48,7 +48,7 @@ This is the formal counterpart of the manuscript [[participatory-it-from-bit]]'s
 
 ## Cross-links
 
-- Concepts: [[Mathematical consciousness science]], [[Participatory realism (it from bit)]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics, [[Fisher information metric]]
+- Concepts: [[Mathematical consciousness science]], [[Participatory realism (it from bit)]], [[Fisher information metric]]
 - Related sources: [[tononi-2016-iit]], [[tsuchiya-saigo-2016-category-theory-iit]], [[seth-2021-being-you]], [[wheeler-1990-it-from-bit]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

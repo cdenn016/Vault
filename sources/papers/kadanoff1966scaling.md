@@ -57,7 +57,7 @@ Kadanoff's block-spin picture is the direct conceptual ancestor of the renormali
 Wilson (1971) ([[wilson-1971-rg-critical-phenomena]]) operationalized Kadanoff's heuristic into a precise map on coupling space and added the linearization that yields the relevant/irrelevant taxonomy. This paper is the heuristic seed; Wilson's is the rigorous realization. Both are needed to understand the project's claim that belief aggregation is an RG step: Kadanoff supplies the "what" (block variables, self-similarity, GHF), Wilson supplies the "how" (eigenvalue classification, universality). The PIFB manuscript ([[participatory-it-from-bit]]) and the [[Renormalization group flow]] concept page reference this Kadanoff block-spin language directly when arguing that the few belief couplings which grow under coarse-graining determine emergent macro-dynamics.
 
 ## Cross-links
-- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics, [[Variational free energy]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Variational free energy]]
 - Related sources: [[wilson-1971-rg-critical-phenomena]], [[wilson-kogut-1974-epsilon-expansion]], [[berges-tetradis-wetterich-2002-nonperturbative-rg]], [[cardy-1996-scaling-renormalization]], [[mehta-schwab-2014-variational-rg-deep-learning]]
 - Manuscript/Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 

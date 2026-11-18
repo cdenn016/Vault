@@ -48,7 +48,7 @@ The authors state (Sect. 8.2, p. 10) that the exact conditions on the dynamics u
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Markov Blanket]]; [[Metacognition]]; [[Hierarchical generative model]]; Meta-agents and hierarchical emergence; [[Precision weighting]]; [[Self-Consciousness]].
+Concepts: [[Bayesian mechanics]]; [[Markov Blanket]]; [[Metacognition]]; [[Hierarchical generative model]]; [[Precision weighting]]; [[Self-Consciousness]].
 
 Related sources: [[friston-2023-path-integrals-particular]]; [[friston-2023-fep-simpler]]; [[dacosta-2021-bayesian-mechanics]]; [[parr-2020-markov-blankets-thermodynamics]]; [[friston-2019-particular-physics]]; [[palacios-2020-hierarchical-markov-blankets]]; [[fields-2024-principled-limitations-on-self-representation-for-generic-physical-systems]]; [[sengupta-2016-neuronal-gauge]]; [[friston-2020-sentience-markovian-monism]].
 

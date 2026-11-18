@@ -40,7 +40,7 @@ The Collective Agents manuscript, in its appendix on agency, notes that its angl
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Grassmann Manifold]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Grassmann Manifold]].
 
 ## BibTeX
 

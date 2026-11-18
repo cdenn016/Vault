@@ -39,7 +39,7 @@ and window $w_\epsilon=1/V''(0)+\epsilon^\beta$. Theorem 3.2 is the linearized c
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Geometric singular perturbation theory]]
+- Concepts: [[Geometric singular perturbation theory]]
 - Related sources: [[barrera-2020-thermalisation-small-random-perturbations]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[bovier-2015-metastability-potential-theoretic-approach]], [[bovier-2004-metastability-diffusions]]
 
 ## BibTeX

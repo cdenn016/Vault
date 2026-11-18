@@ -26,7 +26,7 @@ This is the core cross-platform anchor for the program's echo-chamber prediction
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: Multi-agent variational free energy, [[Community detection and modularity]], [[Sociophysics]]
+- Related: [[Community detection and modularity]], [[Sociophysics]]
 - Related sources: [[del-vicario-2016-misinformation-online]], [[bakshy-2015-ideological-diversity-facebook]], [[conover-2011-political-polarization-twitter]]
 
 ## BibTeX

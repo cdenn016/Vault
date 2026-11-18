@@ -28,7 +28,7 @@ The manuscript cites this paper as the origin of Lieb-Robinson bounds. It descri
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; Meta-agents and hierarchical emergence; [[Communication-constrained inference]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Communication-constrained inference]].
 
 ## BibTeX
 

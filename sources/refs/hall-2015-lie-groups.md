@@ -45,7 +45,7 @@ The gauge-theoretic, variational-free-energy program treats agents and their bel
 
 - **Equivariance.** [[Group equivariance]] and the equivariant-network methods cited by the manuscripts — [[Group equivariant CNN (G-CNN)]], [[Steerable CNN]], [[Gauge equivariant CNN]], and [[LieConv]] — are built on representation theory: feature spaces decompose into [[Irreducible representation]]s and couple via [[Clebsch-Gordan coefficients]] (as in [[Tensor Field Network]]s). Hall is the standard reference grounding these representation-theoretic prerequisites.
 
-- **Information geometry of group-structured beliefs.** Where the project links curvature, mass, and inference — e.g. Mass as Fisher information and the [[Fisher information metric]] — the [[Killing form]] provides the canonical invariant metric on a semisimple Lie algebra, connecting the group's intrinsic geometry to the metric structure used in [[Natural gradient]] reasoning.
+- **Information geometry of group-structured beliefs.** Where the project links curvature and inference through the [[Fisher information metric]], the [[Killing form]] provides the canonical invariant metric on a semisimple Lie algebra, connecting the group's intrinsic geometry to the metric structure used in [[Natural gradient]] reasoning.
 
 These uses align with the broader [[Gauge equivariance and geometric deep learning]] theme and the Gauge-Theoretic Multi-Agent VFE Model project. Hall is cited as a foundational mathematical reference rather than a source of specific empirical results.
 

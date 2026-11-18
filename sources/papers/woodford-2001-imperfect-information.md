@@ -27,10 +27,10 @@ updated: 2026-06-21
 Develops a model in which agents have imperfect, idiosyncratic information about the state of the economy and only imperfect common knowledge of others' beliefs, so higher-order expectations adjust slowly. This noisy-information friction generates persistent real effects of monetary policy and sluggish forecast adjustment.
 
 ## Relevance to this research
-A noisy-information / higher-order-belief micro-foundation of information rigidity, complementing sticky information and rational inattention; relevant to the SocialPhysics treatment of inertial, mutually-uncertain belief updating. Originally circulated as NBER WP 8673 (2001); published 2003.
+A noisy-information / higher-order-belief micro-foundation of information rigidity, complementing sticky information and rational inattention. Originally circulated as NBER WP 8673 (2001); published 2003.
 
 ## Cross-links
-[[Information rigidity]], [[Rational inattention]], Belief inertia
+[[Information rigidity]], [[Rational inattention]]
 
 ## BibTeX
 ```bibtex

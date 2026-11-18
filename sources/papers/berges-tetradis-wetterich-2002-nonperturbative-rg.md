@@ -46,7 +46,7 @@ The project repeatedly invokes a *Wilsonian effective action* obtained by integr
 
 ## Cross-links
 
-- Concept: [[Renormalization group flow]], Meta-agents and hierarchical emergence.
+- Concept: [[Renormalization group flow]].
 - Sources: [[cardy-1996-scaling-renormalization]], [[wilson-1975-renormalization-group]], [[beny-osborne-2015-info-geometric-rg]].
 - Manuscript: [[participatory-it-from-bit]].
 

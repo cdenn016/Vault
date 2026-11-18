@@ -52,7 +52,7 @@ This is the strongest exact comparator for Multi-agent variational free energy. 
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], Multi-agent variational free energy, [[Bayesian mechanics]]
+- Concepts: [[Collective active inference]], [[Bayesian mechanics]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model
 

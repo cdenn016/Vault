@@ -26,7 +26,7 @@ The collective-agents manuscript uses single-linkage clustering to form collecti
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[Community detection and modularity]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Community detection and modularity]].
 
 ## BibTeX
 

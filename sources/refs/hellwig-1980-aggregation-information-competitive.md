@@ -28,7 +28,7 @@ The manuscript cites the paper for attribution only, crediting it with noisy, pa
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[grossman-1976-efficiency-competitive-stock]]; [[grossman-1980-impossibility-informationally-efficient]]; [[hayek-1945-use-knowledge-society]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[grossman-1976-efficiency-competitive-stock]]; [[grossman-1980-impossibility-informationally-efficient]]; [[hayek-1945-use-knowledge-society]].
 
 ## BibTeX
 
