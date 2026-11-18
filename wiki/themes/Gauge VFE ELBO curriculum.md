@@ -86,7 +86,7 @@ obligation without constructing the objects to which the cited theorems apply.
 
 The curriculum supplies domain background; it does not certify a new derivation merely because the
 relevant books have been cited. Research-level constructions in this program use
-[[Rigorous theory search]] to freeze the target and hypotheses, maintain mechanism-diverse proof
+Rigorous theory search to freeze the target and hypotheses, maintain mechanism-diverse proof
 routes and an acyclic claim graph, distinguish exact effective theory from truncation, and require
 adversarial reconstruction plus search-prior erasure before release. The method's archived design,
 conditional mathematical reconstruction, and still-provisional behavioral baseline were recorded in

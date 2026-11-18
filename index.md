@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-11-01
+updated: 2026-11-18
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-11-01
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **1** projects · **27** manuscripts · **16** themes · **13** maps of content · **278** concepts · **16** methods · **885** papers · **159** references · **2** runs · **7** web/methodology
+> **1** projects · **27** manuscripts · **16** themes · **13** maps of content · **278** concepts · **16** methods · **885** papers · **159** references · **2** runs
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -52,6 +52,11 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[gl-k-attention|Attention as Gauge-Theoretic Variational Inference]]
 - [[belief-inertia|The Inertia of Belief]]
 
+## 🗒 Manuscript working files
+- [[2026-10-21-observer-free-gauge-agent-foundation]] · [[2026-10-21-shared-predictions-from-gauge-model-agreement]] · [[verified-ledger]]
+- MAgent Theory 2.0: [README](manuscripts/MAgent_Theory_2.0/README.md) · [[AUTHORING]] · [[future_TODO]]
+- PIFB2: [README](manuscripts/pifb2/README.md)
+
 ## 🧩 Themes — cross-paper synthesis
 - [[Collective agents literature map]] — reading map of the references cited by the collective-agents manuscript, grouped by the question each group answers
 - [[Chris Fields and physics as communication]] — communication, reference frames, memory, agent organization, quantum geometry, and their distinct assumptions
@@ -74,10 +79,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Disciplines MOC]] — the `field/*` axis at a glance (hub)
 - [[Physics MOC]] · [[Mathematics MOC]] · [[CS-ML MOC]] · [[Statistics MOC]] · [[Neuroscience MOC]]
 - [[Psychology MOC]] · [[Sociology MOC]] · [[Economics MOC]] · [[Biology MOC]] · [[Philosophy MOC]]
-
-## 🗂 Dashboards
-- [[Sources Dashboard]] — live Bases table over all sources (sort/filter by field × cluster × project × year)
-- [[Wiki Status Board]] — synthesis-page maturity (stub → draft → stable)
 
 ## 💡 Concepts
 
@@ -397,7 +398,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[LieConv]]
 - [[Nudged two-phase EM]]
 - [[Predictive coding network]]
-- [[Rigorous theory search]]
 - [[Steerable CNN]]
 - [[Tensor Field Network]]
 - [[Variational EM]]
@@ -1742,21 +1742,12 @@ The complete reading map is [[Chris Fields and physics as communication]]. The c
 - [[knuth-art-of-computer-programming|The Art of Computer Programming]]
 - [[beazley-jones-2013-python-cookbook|Python Cookbook (3rd ed.)]]
 
-## 🌐 Sources — web & methodology
-- [[exa-2026-agent-create-run]] — official Agent API effort and budget contract
-- [[karpathy-llm-wiki-pattern|Karpathy — The LLM Wiki Pattern]]
-- [[pytorch-documentation|PyTorch Official Documentation]]
-- [[pep-695-type-parameter-syntax|PEP 695 - Type Parameter Syntax]]
-- [[pep-484-type-hints|PEP 484 - Type Hints]]
-- [[pep-257-docstring-conventions|PEP 257 - Docstring Conventions]]
-- [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
-
 ## 🧪 Sources — experiment runs
 
 - [[vfe3-2026-10-25-local-learner-test|VFE_3.0 backprop-free local-learner test, October 21 to 25, 2026]] — stepwise EM through one filter reaches 0.925 / 0.906 of backpropagation's gain at d = 32 / 64 and shares its optimum; the gap is speed; exp-chart transitions cost 0.039 / 0.018 bits per byte
 - [[vfe3-2026-10-26-paper-arms|VFE_3.0 paper arms at K = 128, one epoch, October 25 to 26, 2026]] — frame decision rule stands (+0.361 / +0.207 / +0.154 nats); matched-total transformer better by 0.160; tuned read table gap 0.119; mean-distance routing equal to Gaussian-KL
 
-## MultiAgentELBO research ingestion — September 11, 2026
+## Research ingestion — September 11, 2026
 
 - [[abramsky-2011-the-sheaf-theoretic-structure-of-non-locality-and-contextuality]]
 - [[avramidi-1997-covariant-techniques-for-computation-of-the-heat-kernel]]
