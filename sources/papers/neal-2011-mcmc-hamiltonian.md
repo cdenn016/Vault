@@ -31,10 +31,10 @@ updated: 2026-06-21
 The canonical tutorial on Hamiltonian Monte Carlo: introduces momentum augmentation, leapfrog integration, energy conservation, and tuning of step size and trajectory length, with practical guidance for high-dimensional Bayesian inference. The reference text from which most modern HMC/NUTS implementations derive.
 
 ## Relevance to this research
-Grounds the Hamiltonian-dynamics view of sampling that parallels the program's Hamiltonian belief-dynamics formulation of inference and provides the gradient-driven exploration baseline for variational comparisons.
+Grounds the Hamiltonian-dynamics view of sampling and provides the gradient-driven exploration baseline for variational comparisons.
 
 ## Cross-links
-[[Hamiltonian Monte Carlo]], Hamiltonian belief dynamics
+[[Hamiltonian Monte Carlo]]
 
 ## BibTeX
 ```bibtex

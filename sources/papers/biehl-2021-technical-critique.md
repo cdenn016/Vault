@@ -53,7 +53,7 @@ Biehl et al. complete the trio of technical objections — alongside [[bruineber
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], [[Participatory realism (it from bit)]], Agents as fibre-bundle sections, Multi-agent variational free energy, [[Markov blanket interpretation debate]], [[Bayesian mechanics]]
+- Concepts: [[Variational free energy]], [[Participatory realism (it from bit)]], [[Markov blanket interpretation debate]], [[Bayesian mechanics]]
 - Related sources: [[bruineberg-2022-emperors-markov-blankets]], [[aguilera-2022-particular-physics]], [[friston-2019-particular-physics]], [[dacosta-2021-bayesian-mechanics]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]]
 

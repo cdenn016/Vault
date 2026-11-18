@@ -26,7 +26,7 @@ The manuscript reads the article as arguing that knowledge of particular circums
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[grossman-1976-efficiency-competitive-stock]]; [[hellwig-1980-aggregation-information-competitive]]; [[grossman-1980-impossibility-informationally-efficient]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[grossman-1976-efficiency-competitive-stock]]; [[hellwig-1980-aggregation-information-competitive]]; [[grossman-1980-impossibility-informationally-efficient]].
 
 ## BibTeX
 

@@ -41,7 +41,7 @@ The manuscript cites this paper twice. In its scale analysis it notes that its t
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Bundle scale space]]; [[Quantum information]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Bundle scale space]]; [[Quantum information]].
 
 ## BibTeX
 

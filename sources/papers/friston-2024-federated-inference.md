@@ -62,7 +62,7 @@ This is the cleanest free-energy-principle statement of exactly the coupling ter
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], Multi-agent variational free energy, [[Variational free energy]]
+- Concepts: [[Collective active inference]], [[Variational free energy]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[albarracin-2022-epistemic-communities]], [[friston-2010-free-energy-principle]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

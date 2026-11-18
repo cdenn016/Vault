@@ -43,8 +43,8 @@ neural networks (Section 5).
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
-- Themes: Meta-agents and hierarchical emergence
+- Concepts: [[Coarse Graining]]
+- Themes:
 - Related sources: [[krakauer-2020-information-theory-individuality]], [[rosas-2024-software-natural-world]], [[hoel-2013-causal-emergence]]
 
 ## BibTeX

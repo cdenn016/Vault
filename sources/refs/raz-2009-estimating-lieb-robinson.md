@@ -42,7 +42,7 @@ The collective-agents manuscript cites this paper, together with the original Li
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[Statistical physics of social systems and collective behavior]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Statistical physics of social systems and collective behavior]].
 
 ## BibTeX
 

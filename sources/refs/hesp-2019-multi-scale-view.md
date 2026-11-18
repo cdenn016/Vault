@@ -41,7 +41,7 @@ The manuscript lists this chapter among works on inferential closure of coarse-g
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Free-energy principle active inference]]; [[Markov Blanket]]; [[Niche Construction]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Free-energy principle active inference]]; [[Markov Blanket]]; [[Niche Construction]].
 
 ## BibTeX
 

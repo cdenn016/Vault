@@ -26,7 +26,7 @@ The manuscript cites the paper for the separation theorem of production under pr
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Collective active inference]].
 
 ## BibTeX
 

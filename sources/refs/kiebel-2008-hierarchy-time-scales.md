@@ -40,7 +40,7 @@ The manuscript cites the paper twice. In the hierarchy section it notes that the
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Generalised coordinates of motion]]; Meta-agents and hierarchical emergence; [[Variational free energy and predictive coding]].
+[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Generalised coordinates of motion]]; [[Variational free energy and predictive coding]].
 
 ## BibTeX
 

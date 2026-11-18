@@ -30,7 +30,7 @@ created: 2026-07-12
 
 ## TL;DR
 
-Sampson, Restrepo, and Porter introduce a hypergraph opinion model in which individual agents and three-agent groups both possess opinions. Interactions between dyadic and group-level states produce self-sustained oscillations and excitable, fad-like swings in some parameter regimes. These oscillations arise without the kinetic-inertia mechanism proposed in the present manuscript and therefore demand mechanism-specific comparisons.
+Sampson, Restrepo, and Porter introduce a hypergraph opinion model in which individual agents and three-agent groups both possess opinions. Interactions between dyadic and group-level states produce self-sustained oscillations and excitable, fad-like swings in some parameter regimes.
 
 ## Problem & setting
 
@@ -44,13 +44,9 @@ The authors formulate coupled microscopic dynamics for individual and group opin
 
 The model exhibits a regime with self-sustained oscillations of the population's mean opinion and an excitable regime in which finite-size fluctuations trigger large but transient opinion swings resembling social fads. The mean-field description agrees well with direct numerical simulations. Oscillations occur only when dyadic and polyadic degrees are not completely correlated, identifying a structural condition for the phenomenon.
 
-## Relevance to this research
-
-This source blocks any inference from “oscillatory opinions” directly to Belief inertia or Hamiltonian belief dynamics. Group-opinion feedback provides an alternative mechanism that does not use a Fisher-based kinetic metric. Future tests should therefore manipulate or estimate the proposed mechanism: compare frequency and damping changes predicted by the kinetic metric and local VFE stiffness against changes caused by dyadic–polyadic degree correlations or group-level feedback.
-
 ## Cross-links
 
-The paper links to [[Opinion dynamics]], [[Sociophysics]], Belief inertia, Hamiltonian belief dynamics, and [[Statistical physics of social systems and collective behavior]]. It is a complementary oscillation comparator to [[baumann-sokolov-tyloo-2020-second-order-consensus]], which produces resonance through periodically modulated coupling rather than group-opinion feedback.
+The paper links to [[Opinion dynamics]], [[Sociophysics]], and [[Statistical physics of social systems and collective behavior]]. It is a complementary oscillation comparator to [[baumann-sokolov-tyloo-2020-second-order-consensus]], which produces resonance through periodically modulated coupling rather than group-opinion feedback.
 
 ## BibTeX
 

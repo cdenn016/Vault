@@ -32,7 +32,7 @@ The manuscript cites this paper in its survey of economics, for hierarchies as a
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Communication-constrained inference]]; [[Bounded Rationality]]; related note: galbraith-1974-organization-design-information.
+[[Collective agents literature map]]; [[Communication-constrained inference]]; [[Bounded Rationality]]; related note: galbraith-1974-organization-design-information.
 
 ## BibTeX
 

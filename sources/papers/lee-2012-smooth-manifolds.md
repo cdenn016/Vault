@@ -34,7 +34,7 @@ The program models agents as sections of a fiber bundle whose structure group is
 
 ## Cross-links
 
-- Agents as fibre-bundle sections · [[Gauge transformation]] · [[Parallel transport]] · [[Holonomy]] · [[hall-2015-lie-groups]] · [[kobayashi-nomizu-1963-foundations]] · [[participatory-it-from-bit]]
+- [[Gauge transformation]] · [[Parallel transport]] · [[Holonomy]] · [[hall-2015-lie-groups]] · [[kobayashi-nomizu-1963-foundations]] · [[participatory-it-from-bit]]
 
 ```bibtex
 @book{lee2012smooth,

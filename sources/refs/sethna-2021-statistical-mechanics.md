@@ -43,7 +43,7 @@ The [author's course site](https://sethna.lassp.cornell.edu/StatMech/) provides 
 
 ## Cross-links
 
-- Concepts: Meta-entropy · [[Renormalization group flow]] · Multi-agent variational free energy
+- Concepts: Meta-entropy · [[Renormalization group flow]]
 - Themes: [[Statistical physics of social systems and collective behavior]] · [[Variational free energy and predictive coding]]
 - Related sources: [[cardy-1996-scaling-renormalization]] · [[mackay-2003-information-theory-inference-learning]]
 

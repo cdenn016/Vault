@@ -41,7 +41,7 @@ The manuscript cites the review as its source for Bettencourt's model, which it 
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; Meta-agents and hierarchical emergence; [[Network structure — small-world and scale-free]].
+[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; [[Network structure — small-world and scale-free]].
 
 ## BibTeX
 

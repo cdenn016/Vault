@@ -37,7 +37,7 @@ The collective-agents manuscript attributes to this paper the Gibbs form of the 
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; Multi-agent variational free energy; [[candogan-2013-dynamics-near-potential]].
+[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; [[candogan-2013-dynamics-near-potential]].
 
 ## BibTeX
 

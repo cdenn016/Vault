@@ -40,7 +40,7 @@ The manuscript cites the paper as an empirical case of scale-free correlations, 
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective motion and flocking]]; [[Critical Phenomena]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Collective motion and flocking]]; [[Critical Phenomena]].
 
 ## BibTeX
 

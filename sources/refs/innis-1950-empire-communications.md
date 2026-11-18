@@ -31,7 +31,7 @@ As secondary sources summarize it, the thesis is that durable media emphasize ti
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]].
+[[Collective agents literature map]]; [[Collective active inference]].
 
 ## BibTeX
 

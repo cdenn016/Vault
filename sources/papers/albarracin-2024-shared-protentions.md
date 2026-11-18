@@ -54,7 +54,7 @@ This is a useful interface-level comparator for Agents as fibre-bundle sections 
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], Meta-agents and hierarchical emergence, Agents as fibre-bundle sections
+- Concepts: [[Collective active inference]]
 - Related sources: [[friston-2024-federated-inference]], [[maisto-2024-interactive-inference]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model
 

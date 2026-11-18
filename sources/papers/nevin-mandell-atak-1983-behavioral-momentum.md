@@ -25,7 +25,7 @@ created: 2026-07-12
 
 ## TL;DR
 
-Nevin, Mandell, and Atak operationalize “behavioral momentum” as resistance of learned behavior to disruption. In pigeon experiments, response persistence varies with reinforcement conditions, and ratios of inferred behavioral mass can be estimated across schedules. This is empirical evidence for a behavioral-momentum construct, not evidence that opinions follow Hamiltonian equations or possess a Fisher-information mass.
+Nevin, Mandell, and Atak operationalize “behavioral momentum” as resistance of learned behavior to disruption. In pigeon experiments, response persistence varies with reinforcement conditions, and ratios of inferred behavioral mass can be estimated across schedules. This is empirical evidence for a behavioral-momentum construct.
 
 ## Problem & setting
 
@@ -37,15 +37,15 @@ The authors separate a response's rate-like “velocity” from its disruption-r
 
 ## Key results
 
-For each disruption, results across schedule performances converged onto a common relation that allowed ratios of behavioral mass to be estimated. The response-independent-food data suggested that the mass ratio is a power function of the reinforcement-rate ratio and that behavioral mass can be treated on a ratio scale. These results concern experimentally measured response persistence in conditioned behavior; they do not establish inertial opinion trajectories.
+For each disruption, results across schedule performances converged onto a common relation that allowed ratios of behavioral mass to be estimated. The response-independent-food data suggested that the mass ratio is a power function of the reinforcement-rate ratio and that behavioral mass can be treated on a ratio scale. These results concern experimentally measured response persistence in conditioned behavior.
 
 ## Relevance to this research
 
-The paper provides an empirical and terminological comparator for Belief inertia. It justifies taking resistance-to-change phenomena seriously and motivates falsifiable measures of persistence, but it cannot validate Hamiltonian belief dynamics, Mass as Fisher information, or a second-order opinion equation. Any manuscript connection must be framed as an analogy and source of experimental design ideas, not as direct evidence for opinion-level mechanics.
+The paper justifies taking resistance-to-change phenomena seriously and motivates falsifiable measures of persistence.
 
 ## Cross-links
 
-This source is most relevant to Belief inertia, [[Opinion dynamics]], and [[Sociophysics]]. Its careful operationalization of persistence can inform future perturbation tests, while Hamiltonian belief dynamics and Mass as Fisher information remain distinct mathematical hypotheses requiring their own mechanism-specific evidence.
+This source is most relevant to [[Opinion dynamics]] and [[Sociophysics]]. Its careful operationalization of persistence can inform future perturbation tests.
 
 ## BibTeX
 

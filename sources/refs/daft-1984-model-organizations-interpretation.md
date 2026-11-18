@@ -40,7 +40,7 @@ The Collective Agents manuscript cites the paper in its related-work section for
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[cremer-2007-language-firm]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[cremer-2007-language-firm]].
 
 ## BibTeX
 

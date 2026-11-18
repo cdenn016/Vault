@@ -48,7 +48,7 @@ This paper is the backbone of [[Structural realism]] as the project deploys it, 
 
 ## Cross-links
 
-- Concepts: [[Structural realism]], [[Participatory realism (it from bit)]], Agents as fibre-bundle sections, [[Gauge transformation]]
+- Concepts: [[Structural realism]], [[Participatory realism (it from bit)]], [[Gauge transformation]]
 - Related sources: [[worrall-1989-structural-realism]], [[ladyman-ross-2007-every-thing-must-go]], [[esfeld-lam-2008-moderate-osr]], [[cassirer-1910-substance-function]], [[wheeler-1990-it-from-bit]]
 - Manuscript: [[participatory-it-from-bit]]
 

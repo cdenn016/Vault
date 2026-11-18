@@ -40,7 +40,7 @@ The Collective Agents manuscript cites the paper twice, as evidence that the dis
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Active inference communication and collective boundaries]].
 
 ## BibTeX
 

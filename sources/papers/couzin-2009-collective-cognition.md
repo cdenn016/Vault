@@ -49,7 +49,7 @@ This is the **biological grounding** for the project's claim that coherent colle
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Collective active inference]], Multi-agent variational free energy
+- Concepts: [[Collective active inference]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[galam-2008-sociophysics]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

@@ -28,7 +28,7 @@ The manuscript cites the book, with other works, for the rigorous treatment of e
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Geometric singular perturbation theory]]; [[Coarse Graining]]; [[Renormalization group flow]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Geometric singular perturbation theory]]; [[Coarse Graining]]; [[Renormalization group flow]].
 
 ## BibTeX
 

@@ -29,8 +29,7 @@ created: 2026-07-12
 
 ## TL;DR
 
-Baumann, Sokolov, and Tyloo show that small periodic modulations of coupling can prevent consensus in established second-order multi-agent network dynamics. Spectral decomposition reveals a parametric-resonance band at intermediate driving frequencies, with the resonances set by the Laplacian spectrum of the underlying network. Second-order consensus and network resonance are therefore established comparators, not new consequences unique to belief inertia.
-
+Baumann, Sokolov, and Tyloo show that small periodic modulations of coupling can prevent consensus in established second-order multi-agent network dynamics. Spectral decomposition reveals a parametric-resonance band at intermediate driving frequencies, with the resonances set by the Laplacian spectrum of the underlying network.
 ## Problem & setting
 
 Second-order consensus models describe agents with both state and rate variables and ordinarily relax toward collective agreement under suitable coupling. The paper asks whether consensus remains robust when the network coupling varies periodically in time. The focus is a multi-agent network with a static backbone whose coupling strength receives a small temporal modulation.
@@ -43,13 +42,9 @@ The authors decompose the dynamics into eigenmodes of the static network Laplaci
 
 Very slow and very fast coupling modulation preserve the expected approach to consensus, but intermediate frequencies can excite network modes and inhibit agreement. The theory predicts resonance frequencies from Laplacian eigenvalues and quantifies the resulting instability. The work thereby ties second-order collective dynamics, time-dependent coupling, and network resonance together in a tractable analytic framework.
 
-## Relevance to this research
-
-This paper is a mandatory baseline for oscillation and resonance claims in Belief inertia. A manuscript cannot treat second-order consensus or resonant loss of agreement as uniquely diagnostic of a Fisher-based kinetic mechanism. Instead, Hamiltonian belief dynamics needs mechanism-specific predictions that distinguish changes in the belief-space kinetic metric or local VFE stiffness from ordinary parametric excitation through time-dependent coupling.
-
 ## Cross-links
 
-The paper belongs with [[Opinion dynamics]], Belief inertia, Hamiltonian belief dynamics, and [[Statistical physics of social systems and collective behavior]]. Its spectral mechanism complements [[olfati-saber-2007-consensus]] and provides a network-resonance comparator for future falsification designs.
+The paper belongs with [[Opinion dynamics]] and [[Statistical physics of social systems and collective behavior]]. Its spectral mechanism complements [[olfati-saber-2007-consensus]].
 
 ## BibTeX
 

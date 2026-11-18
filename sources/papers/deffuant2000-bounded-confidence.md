@@ -67,8 +67,8 @@ The DW model is a canonical example of belief-coupling dynamics that has direct 
 > [!note] Editorial (from manuscript-citation note): The exact critical-threshold value and cluster-count formulas are summarized from the standard reading of this well-known model; treat the $1/d$ (≈$1/2\epsilon$) cluster scaling as the qualitative claim made in the paper rather than a precise theorem.
 
 ## Cross-links
-- Concepts: [[Opinion Dynamics]] [[Bounded Confidence]] [[Social influence and conformity|Social Influence]] Belief Coupling [[Attention Mechanism]] [[Precision weighting]] Belief inertia Meta-agents and hierarchical emergence [[Renormalization group flow]] [[Fisher information metric]] Multi-agent variational free energy
-- Related sources: [[hegselmann-2002-opinion|hegselmann2002-opinion-dynamics]] [[lorenz-2007-bounded-confidence-survey|lorenz2007-continuous-opinion-dynamics]] [[degroot-1974-consensus]] [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]] [[galam-2008-sociophysics]] [[belief-inertia]]
+- Concepts: [[Opinion Dynamics]] [[Bounded Confidence]] [[Social influence and conformity|Social Influence]] Belief Coupling [[Attention Mechanism]] [[Precision weighting]] Meta-agents and hierarchical emergence [[Renormalization group flow]] [[Fisher information metric]] Multi-agent variational free energy
+- Related sources: [[hegselmann-2002-opinion|hegselmann2002-opinion-dynamics]] [[lorenz-2007-bounded-confidence-survey|lorenz2007-continuous-opinion-dynamics]] [[degroot-1974-consensus]] [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]] [[galam-2008-sociophysics]]
 - Manuscript/Project: [[VFE Transformer Program]] MAgent Model Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX

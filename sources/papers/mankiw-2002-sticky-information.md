@@ -28,10 +28,10 @@ updated: 2026-06-21
 Proposes a sticky-information model in which information about macroeconomic conditions diffuses slowly through the population: each period only a fraction of agents update their information set and re-optimize, while the rest act on outdated information. The model reproduces realistic inflation and forecast dynamics and accounts for information rigidity better than sticky-price models.
 
 ## Relevance to this research
-A canonical micro-foundation of information rigidity — sluggish belief updating across a population — which is the economic analogue of the belief-inertia concept central to the SocialPhysics project.
+A canonical micro-foundation of information rigidity, that is, sluggish belief updating across a population.
 
 ## Cross-links
-[[Information rigidity]], Belief inertia
+[[Information rigidity]]
 
 ## BibTeX
 ```bibtex

@@ -52,7 +52,7 @@ Where [[bruineberg-2022-emperors-markov-blankets]] presses the conceptual instru
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], [[Participatory realism (it from bit)]], Multi-agent variational free energy, Hamiltonian belief dynamics
+- Concepts: [[Variational free energy]], [[Participatory realism (it from bit)]]
 - Related sources: [[bruineberg-2022-emperors-markov-blankets]], [[biehl-2021-technical-critique]], [[friston-2019-particular-physics]], [[dacosta-2021-bayesian-mechanics]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[Markov blanket interpretation debate]], [[Bayesian mechanics]]
 

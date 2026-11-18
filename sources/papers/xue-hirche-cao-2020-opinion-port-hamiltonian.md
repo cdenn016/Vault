@@ -44,11 +44,11 @@ The port-Hamiltonian representation supports long-run analysis of opinion evolut
 
 ## Relevance to this research
 
-This source prevents novelty claims based merely on introducing Hamiltonian language into [[Opinion dynamics]]. A defensible contribution for Hamiltonian belief dynamics must identify the mechanism absent here: gauge-transported VFE coupling, optimized attention, the four-part local stiffness, and the explicit kinetic metric on probabilistic beliefs. Xue, Hirche, and Cao also provide a useful systems-and-control comparator for analyzing dissipation and external social forcing without conflating passivity with Fisher-Rao mass.
+This source prevents novelty claims based merely on introducing Hamiltonian language into [[Opinion dynamics]]. Xue, Hirche, and Cao also provide a useful systems-and-control comparator for analyzing dissipation and external social forcing.
 
 ## Cross-links
 
-The paper connects [[Opinion dynamics]], [[Sociophysics]], Hamiltonian belief dynamics, Belief inertia, and [[Echo chambers and polarization]]. Its multi-agent port-Hamiltonian perspective is also relevant to [[Statistical physics of social systems and collective behavior]] and to comparisons between network control, media forcing, and variational belief coupling.
+The paper connects [[Opinion dynamics]], [[Sociophysics]], and [[Echo chambers and polarization]]. Its multi-agent port-Hamiltonian perspective is also relevant to [[Statistical physics of social systems and collective behavior]] and to comparisons between network control, media forcing, and variational belief coupling.
 
 ## BibTeX
 

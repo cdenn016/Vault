@@ -22,7 +22,7 @@ The paper derives a non-Markov kinetic equation after projecting microscopic dyn
 
 ## Relevance to this research
 
-Precedent for eliminating hidden coordinates in the PIFB2 refactor. The appendix independently derives its forced finite-dimensional memory equation, initial-state term, and approximation bound; those formulas are not attributed to this paper. See Belief inertia and Mass as Fisher information. The refactor context is PIFB2 refactor foundations September 2026.
+Precedent for eliminating hidden coordinates in the PIFB2 refactor. The appendix independently derives its forced finite-dimensional memory equation, initial-state term, and approximation bound; those formulas are not attributed to this paper. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

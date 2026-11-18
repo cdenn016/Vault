@@ -51,7 +51,7 @@ It complements [[mehta-schwab-2014-variational-rg-deep-learning]]: where Mehtaâ€
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Fisher information metric]], Meta-agents and hierarchical emergence, [[Natural gradient]]
+- Concepts: [[Renormalization group flow]], [[Fisher information metric]], [[Natural gradient]]
 - Related sources: [[mehta-schwab-2014-variational-rg-deep-learning]], [[wilson-1975-renormalization-group]], [[cardy-1996-scaling-renormalization]], [[berges-tetradis-wetterich-2002-nonperturbative-rg]]
 - Manuscript/Project: [[participatory-it-from-bit]]
 

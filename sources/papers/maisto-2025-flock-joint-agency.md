@@ -51,7 +51,7 @@ The paper joins Meta-agents and hierarchical emergence to [[Partial information 
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], Meta-agents and hierarchical emergence, [[Partial information decomposition]]
+- Concepts: [[Collective active inference]], [[Partial information decomposition]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[palacios-2020-hierarchical-markov-blankets]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model
 

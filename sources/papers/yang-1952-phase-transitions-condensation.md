@@ -34,7 +34,7 @@ The paper develops a statistical theory of equations of state and phase transiti
 
 ## Cross-links
 
-- Concepts: [[Phase transitions in social systems]], Meta-agents and hierarchical emergence
+- Concepts: [[Phase transitions in social systems]]
 - Related sources: [[fisher-1972-finite-size-scaling-critical-region]], [[klemm-2003-global-culture-noise-induced-transition]], [[castellano-marsili-vespignani-2000-axelrod-transition]]
 
 ## BibTeX

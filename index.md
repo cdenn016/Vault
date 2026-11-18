@@ -50,7 +50,6 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[multiagentelbo-agent-only-ontology-2026-08-13|MultiAgentELBO Agent-Only Ontology and Informational Physicalization: 2026-08-13 Ingest Record]] — revision-bound synthesis of general law-section agents, endogenous interaction records, timeless inference, typed physicalization, and the open units/constant bridge
 - [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory \"It From Bit\" Program: Mathematical Foundations and Computational Implementation]]
 - [[gl-k-attention|Attention as Gauge-Theoretic Variational Inference]]
-- [[belief-inertia|The Inertia of Belief]]
 
 ## 🗒 Manuscript working files
 - [[2026-10-21-observer-free-gauge-agent-foundation]] · [[2026-10-21-shared-predictions-from-gauge-model-agreement]] · [[verified-ledger]]

@@ -47,7 +47,7 @@ The manuscript [[participatory-it-from-bit]] explicitly names "Cassirer's neo-Ka
 
 ## Cross-links
 
-- Concepts: [[Structural realism]], [[Gauge transformation]], [[Relativized a priori]], [[Participatory realism (it from bit)]], Agents as fibre-bundle sections
+- Concepts: [[Structural realism]], [[Gauge transformation]], [[Relativized a priori]], [[Participatory realism (it from bit)]]
 - Related sources: [[wheeler-1990-it-from-bit]], [[french-ladyman-2003-remodelling]], [[reichenbach-1920-relativity-apriori]], [[friedman-2001-dynamics-of-reason]]
 - Manuscript: [[participatory-it-from-bit]]
 

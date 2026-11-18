@@ -24,7 +24,7 @@ created: 2026-07-12
 
 ## TL;DR
 
-Pistone develops a Lagrangian formulation on the statistical bundle of positive probability densities and centered random variables over a finite sample space. The paper computes velocities and accelerations, derives Euler–Lagrange equations from an action integral, and discusses a Lagrangian with negative entropy as potential energy. It is an explicit finite-state statistical-bundle predecessor to later inertial belief dynamics.
+Pistone develops a Lagrangian formulation on the statistical bundle of positive probability densities and centered random variables over a finite sample space. The paper computes velocities and accelerations, derives Euler–Lagrange equations from an action integral, and discusses a Lagrangian with negative entropy as potential energy. It is an explicit finite-state statistical-bundle predecessor to later Lagrangian and Hamiltonian probability dynamics.
 
 ## Problem & setting
 
@@ -38,13 +38,9 @@ Pistone constructs an affine atlas for the probability manifold, describes the t
 
 The paper supplies explicit kinematic formulas and derives the Euler–Lagrange equation on the finite-state statistical bundle. The entropy-potential example illustrates how familiar information-theoretic functionals can enter a mechanical formulation. Crucially, the construction begins by specifying a Lagrangian; the statistical manifold alone does not force the particular kinetic and potential terms.
 
-## Relevance to this research
-
-Pistone's formulation is a direct predecessor for Hamiltonian belief dynamics and the probability-space interpretation of Belief inertia. It prevents a broad claim that the present work is the first to write Lagrangian motion for probabilities. Its deeper value is conceptual discipline: Mass as Fisher information should be stated as a deliberate kinetic-metric choice layered on the intrinsic [[Fisher information metric]], not as an unavoidable consequence of having a statistical bundle.
-
 ## Cross-links
 
-This source links to [[Fisher information metric]], [[Natural gradient]], Hamiltonian belief dynamics, Belief inertia, and Mass as Fisher information. It is the immediate precursor to [[chirco-2022-statistical-bundle-dynamics]] and a concrete statistical-bundle counterpart to [[leok-zhang-2017-information-geometric-mechanics]].
+This source links to [[Fisher information metric]] and [[Natural gradient]]. It is the immediate precursor to [[chirco-2022-statistical-bundle-dynamics]] and a concrete statistical-bundle counterpart to [[leok-zhang-2017-information-geometric-mechanics]].
 
 ## BibTeX
 

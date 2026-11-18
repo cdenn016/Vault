@@ -57,7 +57,7 @@ The paper gives a process-space interpretation of sparse variational inference f
 
 ## Cross-links
 
-- Concepts: [[Process-space variational inference]], [[Evidence lower bound (ELBO)]], [[Gaussian process]], Multi-agent variational free energy
+- Concepts: [[Process-space variational inference]], [[Evidence lower bound (ELBO)]], [[Gaussian process]]
 
 ## BibTeX
 

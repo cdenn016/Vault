@@ -97,7 +97,7 @@ This paper supplies the criterion the MAgent exact-ELBO white paper's coarse-gra
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Fisher information metric]], [[Coarse Graining]], [[Natural gradient]], [[Exponential family]], [[Information bottleneck]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics, [[Evidence lower bound (ELBO)]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Fisher information metric]], [[Coarse Graining]], [[Natural gradient]], [[Exponential family]], [[Information bottleneck]], [[Evidence lower bound (ELBO)]]
 - Related sources: [[beny-osborne-2015-info-geometric-rg]], [[mehta-schwab-2014-variational-rg-deep-learning]], [[tishby-1999-information-bottleneck]], [[jona-lasinio-2001-renormalization-probability]], [[gabrielli-2025-network-renormalization]], [[villegas-2023-laplacian-renormalization-group]], [[wilson-1971-rg-critical-phenomena]], [[cardy-1996-scaling-renormalization]], [[amari-1998-natural-gradient]]
 - Manuscript/Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model, [[VFE Transformer Program]]
 

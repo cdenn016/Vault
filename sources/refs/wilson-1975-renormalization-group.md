@@ -36,7 +36,7 @@ The project's [[Renormalization group flow]] construction is the direct conceptu
 
 This scale-bridging is what underwrites Meta-agents and hierarchical emergence and the Ouroboros multi-scale dynamics picture in the Multi-agent variational free energy model. Coarse-graining many micro-agents into an effective meta-agent is an RG step in the space of [[Variational free energy]] functionals; universality is the claim that the emergent macro-dynamics depend only on a few relevant features of the underlying agent ensemble — the social-physics aggregation of microscopic interaction rules into collective laws, for which Wilson's RG is the canonical tool.
 
-The information-geometric side of the project sharpens the analogy: because mass is identified with Fisher information and the [[Fisher information metric]] governs distinguishability of beliefs, RG coarse-graining acts on the same geometric data that the [[Natural gradient]] uses, and the flow can be read as a trajectory on the statistical manifold. The notions of Belief inertia and Hamiltonian belief dynamics inherit scale dependence through this lens.
+The information-geometric side of the project sharpens the analogy: because the [[Fisher information metric]] governs distinguishability of beliefs, RG coarse-graining acts on the same geometric data that the [[Natural gradient]] uses, and the flow can be read as a trajectory on the statistical manifold.
 
 > [!note] Editorial: The specific belief-RG flow equations, the choice of coarse-graining map over agents, and any claimed fixed points are contributions of the project manuscripts (see `meta-entropy-manuscript`); Wilson (1975) supplies the underlying physics methodology, not these particular results.
 

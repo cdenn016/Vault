@@ -34,7 +34,7 @@ The canonical text on the geometric (symplectic) formulation of classical mechan
 
 ## Why the project cites it
 
-Where the program models belief dynamics as a *Hamiltonian* flow — momentum/inertia terms on the belief manifold, energy-conserving updates, and the Hamiltonian belief dynamics picture in which beliefs and their conjugate momenta evolve by Hamilton's equations on the $GL(K)$/SPD phase space — Arnold is the geometric-mechanics reference. The Euler–Arnold view of motion on a Lie group as geodesic flow of an invariant metric connects directly to the frame fiber's evolution under the chosen `omega_metric` (cf. [[milnor-1976-left-invariant-metrics]] on which invariant metrics exist), and Noether's symmetry–conservation correspondence is the classical analog of the gauge-invariance the program builds in. Cited as the foundational source for the symplectic/Hamiltonian formalism behind belief-inertia and momentum-augmented dynamics, supporting [[participatory-it-from-bit]].
+Arnold is the program's geometric-mechanics reference. The Euler–Arnold view of motion on a Lie group as geodesic flow of an invariant metric connects directly to the frame fiber's evolution under the chosen `omega_metric` (cf. [[milnor-1976-left-invariant-metrics]] on which invariant metrics exist), and Noether's symmetry–conservation correspondence is the classical analog of the gauge-invariance the program builds in. Cited as the foundational source for the symplectic/Hamiltonian formalism, supporting [[participatory-it-from-bit]].
 
 > [!note] Editorial: Cited for the geometric-mechanics framework, not a specific result; the correspondence to belief dynamics is interpretive (treating the inference flow as a Hamiltonian/geodesic flow on a manifold).
 

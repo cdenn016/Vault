@@ -32,7 +32,7 @@ The manuscript lists this book among works it has not read and asks whether its 
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Markov blanket interpretation debate]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Markov blanket interpretation debate]].
 
 ## BibTeX
 

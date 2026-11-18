@@ -35,7 +35,7 @@ Introduces the Bregman Lagrangian, a single variational family whose Euler-Lagra
 Provides the variational/Lagrangian foundation that the Diakonikolas-Jordan Hamiltonian view of momentum methods builds on, connecting accelerated optimization to the information-geometric Bregman/Hamiltonian structure used in the VFE program's natural-gradient and belief-dynamics analyses.
 
 ## Cross-links
-[[Natural gradient]], [[Information geometry and natural gradient]], Hamiltonian belief dynamics
+[[Natural gradient]], [[Information geometry and natural gradient]]
 
 ## BibTeX
 ```bibtex

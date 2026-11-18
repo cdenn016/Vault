@@ -54,7 +54,7 @@ The paper is a direct comparator for adaptive precision in [[Precision weighting
 
 ## Cross-links
 
-- Concepts: Multi-agent variational free energy, [[Precision weighting]], Meta-agents and hierarchical emergence
+- Concepts: [[Precision weighting]]
 - Related sources: [[bouchaffra-2026-collective-variational-principle]], [[bouchaffra-2026-attention-synergy]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model
 

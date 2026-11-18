@@ -40,7 +40,7 @@ The manuscript lists this paper, with another multiscale paper and an appendix o
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov Blanket]]; [[Markov blanket interpretation debate]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
+[[Collective agents literature map]]; [[Markov Blanket]]; [[Markov blanket interpretation debate]]; [[Coarse Graining]].
 
 ## BibTeX
 

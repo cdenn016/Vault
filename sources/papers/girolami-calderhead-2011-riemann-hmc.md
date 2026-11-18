@@ -42,11 +42,11 @@ Across the reported inference problems, the Riemann-manifold methods adapt autom
 
 ## Relevance to this research
 
-This paper supplies a precise precedent for using the [[Fisher information metric]] as kinetic geometry. It therefore supports the plausibility of Mass as Fisher information but also enforces a notation and claim boundary: the intrinsic Fisher metric, the free-energy loss Hessian, and the separately chosen kinetic metric must remain distinct. For Hamiltonian belief dynamics, adopting Fisher geometry in the kinetic term is a defensible modeling choice, not a theorem that follows from scalar damping or from the curvature of variational free energy.
+This paper supplies a precise precedent for using the [[Fisher information metric]] as kinetic geometry.
 
 ## Cross-links
 
-The primary conceptual links are [[Fisher information metric]], [[Natural gradient]], Mass as Fisher information, Hamiltonian belief dynamics, and Belief inertia. The paper also complements [[neal-2011-mcmc-hamiltonian]], which provides the standard Euclidean HMC baseline against which the position-dependent geometry is understood.
+The primary conceptual links are [[Fisher information metric]] and [[Natural gradient]]. The paper also complements [[neal-2011-mcmc-hamiltonian]], which provides the standard Euclidean HMC baseline against which the position-dependent geometry is understood.
 
 ## BibTeX
 

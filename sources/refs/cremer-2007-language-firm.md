@@ -40,7 +40,7 @@ The Collective Agents manuscript cites this paper twice. In its supplement, tran
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Communication-constrained inference]]; Meta-agents and hierarchical emergence; [[daft-1984-model-organizations-interpretation]].
+[[Collective agents literature map]]; [[Communication-constrained inference]]; [[daft-1984-model-organizations-interpretation]].
 
 ## BibTeX
 

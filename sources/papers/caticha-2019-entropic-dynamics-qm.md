@@ -78,7 +78,7 @@ ED is a direct antecedent of the participatory / epistemic foundations motivatin
 **Symplectic structure and phase-space dynamics.** The natural symplectic structure on $\{\rho, \Phi\}$ and the Hamiltonian-Killing flow derivation of Schrödinger evolution is potentially relevant to understanding the phase structure of the VFE belief update as a geometric flow on a statistical manifold.
 
 ## Cross-links
-- Concepts: [[Information Geometry]], [[Information geometry and natural gradient]], [[Natural gradient]], [[Fisher information metric]], [[Variational Free Energy]], [[Group equivariance|Gauge Equivariance]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Maximum entropy|Maximum Entropy Principle]], Hamiltonian belief dynamics, Belief inertia, Mass as Fisher information, Meta-entropy, Agents as fibre-bundle sections, [[Parallel transport]]
+- Concepts: [[Information Geometry]], [[Information geometry and natural gradient]], [[Natural gradient]], [[Fisher information metric]], [[Variational Free Energy]], [[Group equivariance|Gauge Equivariance]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Maximum entropy|Maximum Entropy Principle]], Meta-entropy, [[Parallel transport]]
 - Related sources: [[jaynes-1957-information-statistical-mechanics|jaynes-1957-information-theory]], [[amari-2000-methods-information-geometry]], [[wheeler-1990-it-from-bit]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]]
 - Manuscript/Project: [[VFE Transformer Program]], [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 

@@ -26,7 +26,7 @@ This supplies the rigorous statistical definitions a belief-distribution model m
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Opinion dynamics]], Multi-agent variational free energy, [[Sociophysics]]
+- Related: [[Opinion dynamics]], [[Sociophysics]]
 - Related sources: [[baldassarri-bearman-2007-political-polarization]], [[iyengar-2019-affective-polarization]], [[sunstein-2002-law-of-group-polarization]]
 
 ## BibTeX

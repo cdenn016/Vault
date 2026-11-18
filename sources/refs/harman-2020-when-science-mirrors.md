@@ -32,7 +32,7 @@ The manuscript cites the article for the history of the Price decomposition, whi
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Replicator dynamics]]; [[Cultural evolution and social learning]]; [[Cultural group selection]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Replicator dynamics]]; [[Cultural evolution and social learning]]; [[Cultural group selection]].
 
 ## BibTeX
 

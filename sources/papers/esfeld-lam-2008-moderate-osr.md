@@ -49,7 +49,7 @@ This is the source that comes closest to a literal statement of the manuscript's
 
 ## Cross-links
 
-- Concepts: [[Structural realism]], Agents as fibre-bundle sections, [[Gauge transformation]], [[Participatory realism (it from bit)]]
+- Concepts: [[Structural realism]], [[Gauge transformation]], [[Participatory realism (it from bit)]]
 - Related sources: [[french-ladyman-2003-remodelling]], [[ladyman-ross-2007-every-thing-must-go]], [[worrall-1989-structural-realism]], [[cassirer-1910-substance-function]], [[wheeler-1990-it-from-bit]]
 - Manuscript: [[participatory-it-from-bit]]
 

@@ -51,7 +51,7 @@ Bordley (1982) is the historical root of the pooling rule the project's meta-age
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, Multi-agent variational free energy
+- Concepts:
 - Related sources: [[hinton-2002-products-of-experts|hinton-2002-poe]], [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

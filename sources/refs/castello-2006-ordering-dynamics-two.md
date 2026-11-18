@@ -40,7 +40,7 @@ The manuscript cites the paper in its discussion of abstract collectives, to rea
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Voter model]]; [[Opinion dynamics]]; [[Network structure — small-world and scale-free]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Voter model]]; [[Opinion dynamics]]; [[Network structure — small-world and scale-free]].
 
 ## BibTeX
 

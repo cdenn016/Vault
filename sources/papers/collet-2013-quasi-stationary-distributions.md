@@ -35,7 +35,7 @@ Quasi-stationary distributions describe long-term behavior conditioned on not be
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence
+- Concepts:
 - Related sources: [[bianchi-2016-metastable-states-quasi-stationary-soft-measures]], [[bovier-2015-metastability-potential-theoretic-approach]], [[centola-2018-tipping-points-social-convention]]
 
 ## BibTeX

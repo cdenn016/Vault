@@ -42,7 +42,7 @@ The collective-agents manuscript cites this paper in two places: for the stateme
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; Multi-agent variational free energy; [[blume-1993-statistical-mechanics-strategic]].
+[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; [[blume-1993-statistical-mechanics-strategic]].
 
 ## BibTeX
 

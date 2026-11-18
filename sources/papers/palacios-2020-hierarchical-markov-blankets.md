@@ -49,7 +49,7 @@ This is the closest existing construction to the proposed multi-agent extension 
 
 ## Cross-links
 
-- Concepts: [[Bayesian mechanics]], [[Collective active inference]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics
+- Concepts: [[Bayesian mechanics]], [[Collective active inference]]
 - Related sources: [[waade-2025-as-one-and-many]], [[maisto-2025-flock-joint-agency]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model
 

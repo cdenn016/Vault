@@ -32,7 +32,7 @@ SGDR is a learning-rate **schedule**, not a new optimizer: it anneals the step s
 
 General deep-learning training context: the cosine-annealing-with-restarts schedule is a standard tool for the gradient-based outer loop, and the ML-engineer debate lens cites it as background for how the VFE transformer's learned-scalar and learned-table toggles (the default-OFF nn.Parameter exceptions) could be scheduled during training. The model's *capacity*, by contrast, comes from inner-loop VFE minimization over the Gaussian belief tuples $(\mu, \Sigma, \phi)$, not from this schedule, so SGDR sits strictly in the optimizer-hyperparameter periphery rather than the theoretical core.
 
-> [!note] Editorial: The "warm restart" idea is unrelated to the program's belief-inertia / warm-start of the per-token variational E-step; the shared word is coincidental. SGDR restarts the *outer* learning rate, whereas belief inertia carries the *inner* posterior across steps.
+> [!note] Editorial: The "warm restart" idea is unrelated to the program's warm-start of the per-token variational E-step; the shared word is coincidental. SGDR restarts the *outer* learning rate, whereas the E-step warm start carries the *inner* posterior across steps.
 
 ## Cross-links
 

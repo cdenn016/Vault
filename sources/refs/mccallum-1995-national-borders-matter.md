@@ -27,7 +27,7 @@ The manuscript cites the article as an example of a boundary between collectives
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Active inference communication and collective boundaries]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Active inference communication and collective boundaries]].
 
 ## BibTeX
 

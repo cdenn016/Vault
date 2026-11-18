@@ -32,7 +32,7 @@ Sellars frames, in canonical form, the very two-images problem that [[participat
 
 ## Cross-links
 
-- Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], Agents as fibre-bundle sections, [[Gauge transformation]]
+- Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], [[Gauge transformation]]
 - Related sources: [[nagel-1986-view-from-nowhere]], [[wheeler-1990-it-from-bit]], [[cassirer-1910-substance-function]]
 - Manuscript: [[participatory-it-from-bit]]
 

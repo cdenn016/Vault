@@ -36,7 +36,7 @@ The manuscript uses the transience criterion for the biased walk to decide a tre
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Phase transitions in social systems]]; [[Network structure — small-world and scale-free]]; [[lyons-1992-random-walk-random]].
+[[Collective agents literature map]]; [[Phase transitions in social systems]]; [[Network structure — small-world and scale-free]]; [[lyons-1992-random-walk-random]].
 
 ## BibTeX
 

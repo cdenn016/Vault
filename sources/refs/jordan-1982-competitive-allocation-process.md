@@ -29,7 +29,7 @@ The manuscript cites it, together with Mount and Reiter's paper on informational
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Decentralized Bayesian inference]].
+[[Collective agents literature map]]; [[Decentralized Bayesian inference]].
 
 ## BibTeX
 

@@ -50,7 +50,7 @@ This is the precedent that legitimizes reading the project's hierarchical machin
 The information-geometric framing is the natural sharpening: where Mehta-Schwab match free energies, the project measures the information lost across a coarse-graining step with the [[Fisher information metric]], aligning with the metric formulation of RG in [[beny-osborne-2015-info-geometric-rg]]. Read together, the two papers position the project's architecture-as-RG-flow claim between an exact discrete-model construction (Mehta-Schwab) and a continuous information-geometric one (Beny-Osborne). See [[wilson-1975-renormalization-group]] for the physics methodology and [[participatory-it-from-bit]] for the manuscript thread.
 
 ## Cross-links
-- Concepts: [[Renormalization group flow]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics, [[Fisher information metric]], [[Variational free energy]]
+- Concepts: [[Renormalization group flow]], [[Fisher information metric]], [[Variational free energy]]
 - Related sources: [[beny-osborne-2015-info-geometric-rg]], [[wilson-1975-renormalization-group]], [[cardy-1996-scaling-renormalization]]
 - Manuscript/Project: [[participatory-it-from-bit]]
 

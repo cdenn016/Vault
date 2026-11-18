@@ -28,7 +28,7 @@ The manuscript cites this paper for the link between aggregation and long memory
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Coarse Graining]].
 
 ## BibTeX
 

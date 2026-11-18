@@ -53,13 +53,13 @@ Working from the stationary density and its Helmholtz decomposition, the authors
 
 ## Relevance to this research
 
-This paper is the precise precedent for the central move in **[[participatory-it-from-bit]]**: that an internal/observer state *parametrizes a density over the external world*, so that what looks like physics is the geometry of inference (the "it from bit" pullback). PIFB takes this internal-states-as-beliefs construction and lifts it into a gauge-covariant, multi-agent setting. Where Da Costa et al. fix a single Markov blanket and a single synchronization map, the project's Multi-agent variational free energy and Ouroboros multi-scale dynamics stack many such blankets across scales, with belief comparison handled by [[Parallel transport]] under a [[Gauge transformation]] rather than a single global frame. The Helmholtz/solenoidal decomposition here is the steady-state analogue of the project's Hamiltonian belief dynamics and Belief inertia, and the Riemannian gradient flow is the same [[Fisher information metric]] / [[Natural gradient]] structure the model uses for belief updates. It is the technical heart underlying the more accessible [[Bayesian mechanics]] page and the foundation the [[Markov blanket interpretation debate]] (Bruineberg, Aguilera, Biehl) contests.
+This paper is the precise precedent for the central move in **[[participatory-it-from-bit]]**: that an internal/observer state *parametrizes a density over the external world*, so that what looks like physics is the geometry of inference (the "it from bit" pullback). PIFB takes this internal-states-as-beliefs construction and lifts it into a gauge-covariant, multi-agent setting. Where Da Costa et al. fix a single Markov blanket and a single synchronization map, the project's Multi-agent variational free energy and Ouroboros multi-scale dynamics stack many such blankets across scales, with belief comparison handled by [[Parallel transport]] under a [[Gauge transformation]] rather than a single global frame. The Riemannian gradient flow here is the same [[Fisher information metric]] / [[Natural gradient]] structure the model uses for belief updates. It is the technical heart underlying the more accessible [[Bayesian mechanics]] page and the foundation the [[Markov blanket interpretation debate]] (Bruineberg, Aguilera, Biehl) contests.
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], [[Fisher information metric]], [[Natural gradient]], Hamiltonian belief dynamics, Belief inertia, [[Participatory realism (it from bit)]]
+- Concepts: [[Variational free energy]], [[Fisher information metric]], [[Natural gradient]], [[Participatory realism (it from bit)]]
 - New pages: [[Bayesian mechanics]], [[Markov blanket interpretation debate]]
-- Methods/themes: [[Free-energy principle active inference]], Multi-agent variational free energy
+- Methods/themes: [[Free-energy principle active inference]]
 - Related sources: [[friston-2019-particular-physics]], [[ramstead-2023-bayesian-mechanics]], [[parr-2020-markov-blankets-thermodynamics]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 

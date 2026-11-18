@@ -58,7 +58,7 @@ relayed. See Meta-agents and hierarchical emergence and
 
 ## Cross-links
 
-- Concepts: [[Data processing inequality]], [[Mutual information]], Meta-agents and hierarchical emergence
+- Concepts: [[Data processing inequality]], [[Mutual information]]
 - Related sources: `2026-08-18-minfo-information-retention`, [[hoel-2013-causal-emergence]]
 
 ## BibTeX

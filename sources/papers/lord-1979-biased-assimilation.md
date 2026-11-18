@@ -33,10 +33,7 @@ updated: 2026-06-21
 Classic social-psychology experiment showing that people exposed to the same mixed evidence on a contested issue (capital punishment) interpret it as supporting their pre-existing view, rating confirming studies as more convincing than disconfirming ones. The result: ambiguous evidence drives attitude polarization rather than convergence ('biased assimilation').
 
 ## Relevance to this research
-Empirical anchor for belief inertia and confirmation-bias dynamics in the SocialPhysics project: biased assimilation is the mechanism by which prior-weighted (high-precision) beliefs resist disconfirming evidence, motivating precision/mass-weighted update rules and polarization in opinion-dynamics models.
-
-## Cross-links
-Belief inertia
+Empirical anchor for confirmation-bias dynamics: biased assimilation is the mechanism by which prior-weighted (high-precision) beliefs resist disconfirming evidence, motivating precision-weighted update rules and polarization in opinion-dynamics models.
 
 ## BibTeX
 ```bibtex

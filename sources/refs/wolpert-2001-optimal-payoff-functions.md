@@ -40,7 +40,7 @@ The manuscript contrasts this work with its own agency result: where Wolpert and
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; Multi-agent variational free energy; [[Evolutionary game theory and cooperation]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Evolutionary game theory and cooperation]].
 
 ## BibTeX
 

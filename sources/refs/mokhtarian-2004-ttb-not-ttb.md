@@ -33,7 +33,7 @@ The manuscript cites the review as the qualification to Marchetti's claim of a f
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[marchetti-1994-anthropological-invariants-travel]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[marchetti-1994-anthropological-invariants-travel]].
 
 ## BibTeX
 

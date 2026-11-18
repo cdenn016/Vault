@@ -41,7 +41,7 @@ $$
 
 acquires a quadratic self-coupling term. The gauge field therefore carries the very charge it mediates and interacts with itself — a qualitative departure from the linear, source-free Maxwell field. The associated curvature of the connection, accumulated around a closed loop, is the physical content later formalized as [[Holonomy]], and the group $SU(2)$ acting on the doublet is the relevant [[Irreducible representation]] structure.
 
-> [!note] Editorial: The 1954 paper introduces a massless gauge field; the question of how such fields acquire mass is left open and was only resolved later. In this project's reframing that gap is filled differently — mass is read off the geometry of belief space rather than from a Higgs sector (see Mass as Fisher information).
+> [!note] Editorial: The 1954 paper introduces a massless gauge field; the question of how such fields acquire mass is left open and was only resolved later.
 
 ## Why the project cites it
 

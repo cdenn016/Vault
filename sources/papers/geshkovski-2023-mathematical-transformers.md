@@ -53,7 +53,7 @@ This is the strongest pure-mathematics neighbor of the PIFB ([[participatory-it-
 
 ## Cross-links
 
-- Concepts: Meta-agents and hierarchical emergence, [[Renormalization group flow]], [[Variational free energy]]
+- Concepts: [[Renormalization group flow]], [[Variational free energy]]
 - Sources: [[dong-2021-rank-collapse]], [[vaswani-2017-attention]], [[degroot-1974-consensus]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]
 - Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 

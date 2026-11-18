@@ -41,7 +41,7 @@ The collective-agents manuscript cites this paper for the reported exponents of 
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; [[Sociophysics]]; Meta-agents and hierarchical emergence; [[bettencourt-2013-origins-scaling-cities]].
+[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; [[Sociophysics]]; [[bettencourt-2013-origins-scaling-cities]].
 
 ## BibTeX
 

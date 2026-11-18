@@ -60,7 +60,7 @@ This paper is the active-inference theory underwriting the project's Meta-agents
 
 ## Cross-links
 
-- Concepts: Ouroboros multi-scale dynamics, Meta-agents and hierarchical emergence, [[Collective active inference]], Multi-agent variational free energy
+- Concepts: [[Collective active inference]]
 - Related sources: [[friston-2024-federated-inference]], [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: Gauge-Theoretic Multi-Agent VFE Model

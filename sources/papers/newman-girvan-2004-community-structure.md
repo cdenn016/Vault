@@ -54,7 +54,7 @@ The connection ties the social-physics aggregation step to the RG picture: choos
 
 ## Cross-links
 
-- Concept: Meta-agents and hierarchical emergence, [[Community detection and modularity]], [[Renormalization group flow]].
+- Concept: [[Community detection and modularity]], [[Renormalization group flow]].
 - Sources: [[fortunato-2010-community-detection]], [[fiedler-1973-algebraic-connectivity]].
 - Manuscript: [[participatory-it-from-bit]].
 

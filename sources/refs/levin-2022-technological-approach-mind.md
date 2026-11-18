@@ -40,7 +40,7 @@ The manuscript cites this paper, with a related paper by Fields and others, as a
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Markov Blanket]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Markov Blanket]].
 
 ## BibTeX
 

@@ -50,7 +50,7 @@ PIFB and the VFE transformer pool covariances across constituents when forming a
 
 ## Cross-links
 
-- Meta-agent SPD pooling and the sandwich-vs-Fréchet gap: Meta-agents and hierarchical emergence
+- Meta-agent SPD pooling and the sandwich-vs-Fréchet gap:
 - SPD geometry foundations: [[bhatia-2007-positive-definite-matrices]], [[pennec-2006-affine-invariant-tensor]], [[arsigny-2006-log-euclidean]]
 - Existence/uniqueness of Riemannian barycenters: [[karcher-1977-center-of-mass]]
 - Cost of exact vs cheap means: [[jeuris-2012-matrix-geometric-mean]]

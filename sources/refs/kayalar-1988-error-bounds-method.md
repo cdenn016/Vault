@@ -28,7 +28,7 @@ The manuscript cites this paper for the equality case of the convergence rate of
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Fixed-point iteration]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[kopecka-2017-strange-products-projections]].
+[[Collective agents literature map]]; [[Fixed-point iteration]]; [[Coarse Graining]]; [[kopecka-2017-strange-products-projections]].
 
 ## BibTeX
 

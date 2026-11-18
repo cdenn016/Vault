@@ -28,7 +28,7 @@ The manuscript cites the paper for the conjugation method, an argument that conj
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov Blanket]]; Meta-agents and hierarchical emergence.
+[[Collective agents literature map]]; [[Markov Blanket]].
 
 ## BibTeX
 

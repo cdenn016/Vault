@@ -35,7 +35,7 @@ Derives a second-order ordinary differential equation as the continuous-time lim
 An originating work for the continuous-time / dynamical-systems view of accelerated optimization that the Diakonikolas-Jordan Hamiltonian momentum framework generalizes, linking optimizer dynamics to the Hamiltonian and information-geometric structures studied in the program.
 
 ## Cross-links
-[[Natural gradient]], Hamiltonian belief dynamics
+[[Natural gradient]]
 
 ## BibTeX
 ```bibtex

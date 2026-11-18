@@ -32,7 +32,7 @@ The manuscript cites this paper for the trade-off between the gains of size and 
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[anderson-1983-imagined-communities-reflections]]; [[anderson-2003-gravity-gravitas-solution]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[anderson-1983-imagined-communities-reflections]]; [[anderson-2003-gravity-gravitas-solution]].
 
 ## BibTeX
 

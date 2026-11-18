@@ -26,7 +26,7 @@ The manuscript states a conjecture that it describes as its own reading of the a
 
 ## Cross-links
 
-[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Rational inattention]]; [[grossman-1976-efficiency-competitive-stock]]; [[hellwig-1980-aggregation-information-competitive]]; [[hayek-1945-use-knowledge-society]].
+[[Collective agents literature map]]; [[Collective active inference]]; [[Rational inattention]]; [[grossman-1976-efficiency-competitive-stock]]; [[hellwig-1980-aggregation-information-competitive]]; [[hayek-1945-use-knowledge-society]].
 
 ## BibTeX
 

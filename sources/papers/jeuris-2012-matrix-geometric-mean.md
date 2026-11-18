@@ -54,7 +54,7 @@ PIFB's coarse-graining averages many constituent covariances into one meta-agent
 - Definition and uniqueness of the SPD geometric mean: [[moakher-2005-geometric-mean]], [[karcher-1977-center-of-mass]]
 - SPD geometry and metrics: [[bhatia-2007-positive-definite-matrices]], [[pennec-2006-affine-invariant-tensor]], [[arsigny-2006-log-euclidean]]
 - Manifold optimization machinery: [[absil-2008-optimization-matrix-manifolds]], [[bonnabel-2013-riemannian-sgd]]
-- Meta-agent pooling cost: Meta-agents and hierarchical emergence
+- Meta-agent pooling cost:
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex
