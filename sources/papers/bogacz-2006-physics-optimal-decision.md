@@ -37,7 +37,7 @@ Unifies a family of two-alternative forced-choice decision models (drift-diffusi
 Establishes the optimality of sequential evidence accumulation and the reward-rate-optimal decision threshold, grounding the program's view of bounded, precision-weighted inference and the speed-accuracy tradeoff in a physics-of-decisions framework.
 
 ## Cross-links
-[[Speed-accuracy tradeoff]], [[Belief inertia]]
+[[Speed-accuracy tradeoff]], Belief inertia
 
 ## BibTeX
 ```bibtex

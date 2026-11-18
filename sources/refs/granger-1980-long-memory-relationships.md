@@ -24,11 +24,11 @@ A 1980 article in the Journal of Econometrics on long-memory relationships and t
 
 ## Relevance to this research
 
-The manuscript cites this paper for the link between aggregation and long memory: an average over many members with differing persistence can show long-range autocorrelation. The reading record states that only the record was read, that the paper is cited for attribution, and that the manuscript knows the route from a later review for autoregressions with a random persistence having a Beta law. The use is in the manuscript's prediction table and its discussion of environments as aggregates; see [[Coarse Graining]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites this paper for the link between aggregation and long memory: an average over many members with differing persistence can show long-range autocorrelation. The reading record states that only the record was read, that the paper is cited for attribution, and that the manuscript knows the route from a later review for autoregressions with a random persistence having a Beta law. The use is in the manuscript's prediction table and its discussion of environments as aggregates; see [[Coarse Graining]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

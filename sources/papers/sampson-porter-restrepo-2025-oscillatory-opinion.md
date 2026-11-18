@@ -46,11 +46,11 @@ The model exhibits a regime with self-sustained oscillations of the population's
 
 ## Relevance to this research
 
-This source blocks any inference from “oscillatory opinions” directly to [[Belief inertia]] or [[Hamiltonian belief dynamics]]. Group-opinion feedback provides an alternative mechanism that does not use a Fisher-based kinetic metric. Future tests should therefore manipulate or estimate the proposed mechanism: compare frequency and damping changes predicted by the kinetic metric and local VFE stiffness against changes caused by dyadic–polyadic degree correlations or group-level feedback.
+This source blocks any inference from “oscillatory opinions” directly to Belief inertia or Hamiltonian belief dynamics. Group-opinion feedback provides an alternative mechanism that does not use a Fisher-based kinetic metric. Future tests should therefore manipulate or estimate the proposed mechanism: compare frequency and damping changes predicted by the kinetic metric and local VFE stiffness against changes caused by dyadic–polyadic degree correlations or group-level feedback.
 
 ## Cross-links
 
-The paper links to [[Opinion dynamics]], [[Sociophysics]], [[Belief inertia]], [[Hamiltonian belief dynamics]], and [[Statistical physics of social systems and collective behavior]]. It is a complementary oscillation comparator to [[baumann-sokolov-tyloo-2020-second-order-consensus]], which produces resonance through periodically modulated coupling rather than group-opinion feedback.
+The paper links to [[Opinion dynamics]], [[Sociophysics]], Belief inertia, Hamiltonian belief dynamics, and [[Statistical physics of social systems and collective behavior]]. It is a complementary oscillation comparator to [[baumann-sokolov-tyloo-2020-second-order-consensus]], which produces resonance through periodically modulated coupling rather than group-opinion feedback.
 
 ## BibTeX
 

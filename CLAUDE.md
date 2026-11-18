@@ -162,15 +162,15 @@ Every content note also carries a **project affiliation** tag so the Obsidian gr
 project (`.obsidian/graph.json` defines the color groups):
 
 - `project/transformer` — belongs to the [[VFE Transformer Program]] (the `vfe3` language model in `VFE_3.0`)
-- `project/multi-agent` — belongs to the [[Gauge-Theoretic Multi-Agent VFE Model]] (MultiAgentELBO)
-- `project/social-physics` — belongs to the [[SocialPhysics]] project (opinion dynamics, belief momentum, sociophysics; founded on [[belief-inertia]])
+- `project/multi-agent` — belongs to the Gauge-Theoretic Multi-Agent VFE Model (MultiAgentELBO)
+- `project/social-physics` — belongs to the SocialPhysics project (opinion dynamics, belief momentum, sociophysics; founded on [[belief-inertia]])
 - **multiple tags** = shared core theory used by more than one project (colored green in the graph)
 
 Rule of thumb when ingesting: a note is `project/social-physics` if it carries a
 `cluster/social-physics` tag (opinion dynamics, sociophysics, collective inference); it is
 `project/multi-agent` if it carries `cluster/multi-agent` or `cluster/participatory`; a note used by
 more than one project carries **all** the applicable project tags (e.g. the shared belief-dynamics
-concepts [[Belief inertia]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]] are both
+concepts Belief inertia, Mass as Fisher information, Hamiltonian belief dynamics are both
 `project/multi-agent` and `project/social-physics`); otherwise it is `project/transformer`. Keep the
 three project hub pages tagged with their own project only.
 

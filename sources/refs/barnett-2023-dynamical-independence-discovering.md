@@ -36,11 +36,11 @@ The abstract reports explicit linear-systems computation, a data-driven route to
 
 ## Relevance to this research
 
-The manuscript cites the paper, whose definition it read in the primary text, in its account of meta-agents and informational closure. The quantity in the manuscript's meta-agent analysis is a conditional transfer entropy whose vanishing is what the paper calls dynamical independence, with the blanket path as the environment. For stationary linear-Gaussian collectives the manuscript reports that the notion coincides with one-step informational closure of Rosas and coauthors. The reading record says informational closure is read here only as restated in a footnote. See [[Meta-agents and hierarchical emergence]], [[Coarse Graining]], [[Markov Blanket]], [[Mutual information]].
+The manuscript cites the paper, whose definition it read in the primary text, in its account of meta-agents and informational closure. The quantity in the manuscript's meta-agent analysis is a conditional transfer entropy whose vanishing is what the paper calls dynamical independence, with the blanket path as the environment. For stationary linear-Gaussian collectives the manuscript reports that the notion coincides with one-step informational closure of Rosas and coauthors. The reading record says informational closure is read here only as restated in a footnote. See Meta-agents and hierarchical emergence, [[Coarse Graining]], [[Markov Blanket]], [[Mutual information]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[bertschinger-2006-information-closure-systems]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[bertschinger-2006-information-closure-systems]].
 
 ## BibTeX
 

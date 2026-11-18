@@ -24,11 +24,11 @@ A 1974 article in the Journal of Economic Theory whose title concerns the inform
 
 ## Relevance to this research
 
-The manuscript cites this paper from its bibliographic record only, as one of two mechanism-design counterparts, alongside Jordan's work on competitive allocation, to its treatment of abstract collectives and the amount of communication they require. Nothing about its content has been read, so no claim about its results is made here. The connection is to the vault's work on [[Communication-constrained inference]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites this paper from its bibliographic record only, as one of two mechanism-design counterparts, alongside Jordan's work on competitive allocation, to its treatment of abstract collectives and the amount of communication they require. Nothing about its content has been read, so no claim about its results is made here. The connection is to the vault's work on [[Communication-constrained inference]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Communication-constrained inference]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Communication-constrained inference]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

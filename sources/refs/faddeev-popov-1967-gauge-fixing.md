@@ -34,7 +34,7 @@ Gauge invariance makes a naive functional integral overcount every gauge orbit a
 
 ## Why the project cites it
 
-The configuration integral in [[participatory-it-from-bit]] must choose between direct integration on a gauge quotient and a redundant-coordinate integral with gauge fixing and its Jacobian. This source supports the second route. It does not justify dividing by an infinite noncompact gauge volume without an explicit slice, determinant, boundary treatment, and integrability proof. Those restrictions are part of [[Meta-entropy]] and the local background-field construction.
+The configuration integral in [[participatory-it-from-bit]] must choose between direct integration on a gauge quotient and a redundant-coordinate integral with gauge fixing and its Jacobian. This source supports the second route. It does not justify dividing by an infinite noncompact gauge volume without an explicit slice, determinant, boundary treatment, and integrability proof. Those restrictions are part of Meta-entropy and the local background-field construction.
 
 ## Full-text status
 

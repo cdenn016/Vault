@@ -24,7 +24,7 @@ The paper's lasting contribution is a taxonomy of conditional copying policies r
 ## Relevance to this research
 This taxonomy is the conceptual specification of the coupling/attention kernel in a multi-agent belief model: it enumerates which neighbors an agent should weight and under what precision/uncertainty conditions. The "copy-when-uncertain" strategy maps directly onto precision-weighted updating — an agent with broad covariance $\Sigma_i$ (low confidence) should place more weight on transported neighbor beliefs — which is exactly the behavior a VFE coupling $\beta_{ij}\,\mathrm{KL}(q_i\,\|\,\Omega_{ij}[q_j])$ produces when the gain is modulated by relative precision. "Copy-the-majority" supplies the conformist nonlinearity and "copy-successful" the payoff/prestige asymmetry that a heterogeneous $\beta_{ij}$ must represent. The relevance is strong and specificational: this is the menu of behaviors the attention weights and precision-weighted gain ought to recover. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Fisher information metric]], [[Social influence and conformity]].
+Concept links: [[Cultural evolution and social learning]], Multi-agent variational free energy, [[Fisher information metric]], [[Social influence and conformity]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

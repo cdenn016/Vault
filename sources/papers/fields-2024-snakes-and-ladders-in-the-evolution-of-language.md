@@ -28,7 +28,7 @@ Fields and Levin use the persistence of tool-making traditions to distinguish in
 
 ## Relevance to this research
 
-The paper is useful context for [[Collective active inference]] because it makes uptake and persistence separate from sending a message or discovering a behavior. In [[Gauge-Theoretic Multi-Agent VFE Model]], durable coordination would need explicit recipient learning and a mechanism retaining the resulting capacities. Its language of shared inference should not be treated as an exact identity between peer-belief KL penalties and the evidence bound of a single normalized joint model.
+The paper is useful context for [[Collective active inference]] because it makes uptake and persistence separate from sending a message or discovering a behavior. In Gauge-Theoretic Multi-Agent VFE Model, durable coordination would need explicit recipient learning and a mechanism retaining the resulting capacities. Its language of shared inference should not be treated as an exact identity between peer-belief KL penalties and the evidence bound of a single normalized joint model.
 
 ## BibTeX
 

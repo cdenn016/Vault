@@ -45,8 +45,8 @@ term, and the partition prior all charge for structure — and this paper is the
 that pricing is exactly what makes hierarchy emerge rather than an obstacle to it. It also
 suggests a lab-testable analog: vary the declared costs and measure whether the partition
 posterior's preferred hierarchies sharpen or dissolve. See
-[[Meta-agents and hierarchical emergence]] and
-[[Meta-agents and hierarchical emergence]].
+Meta-agents and hierarchical emergence and
+Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

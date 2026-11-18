@@ -27,11 +27,11 @@ The manuscript's record states that content was taken from secondary sources quo
 
 ## Relevance to this research
 
-As secondary sources summarize it, the thesis is that durable media emphasize time and favor decentralized organization, light media emphasize space and favor administration over territory, and empires last when the two are balanced. The manuscript maps these time- and space-biased media onto the decay and reading range of records, and states that the mapping is its own. This is a secondary-source attribution only. See [[Meta-agents and hierarchical emergence]] and [[Collective active inference]].
+As secondary sources summarize it, the thesis is that durable media emphasize time and favor decentralized organization, light media emphasize space and favor administration over territory, and empires last when the two are balanced. The manuscript maps these time- and space-biased media onto the decay and reading range of records, and states that the mapping is its own. This is a secondary-source attribution only. See Meta-agents and hierarchical emergence and [[Collective active inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]].
 
 ## BibTeX
 

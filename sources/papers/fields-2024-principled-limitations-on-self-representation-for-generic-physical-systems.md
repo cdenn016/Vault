@@ -28,7 +28,7 @@ The paper studies classical descriptions of a finite physical system's own obser
 
 ## Relevance to this research
 
-This source sharpens the difference between an agent's represented model and an external mathematical specification of its implementation. It is relevant to [[Gauge-Theoretic Multi-Agent VFE Model]] when considering meta-agents and retained interfaces. It does not forbid a supplied normalized model or exact sufficiency within a declared family. Any transfer to the project's parent constructions must specify the observation interface and distinguish complete generic identification from preservation of admitted predictions.
+This source sharpens the difference between an agent's represented model and an external mathematical specification of its implementation. It is relevant to Gauge-Theoretic Multi-Agent VFE Model when considering meta-agents and retained interfaces. It does not forbid a supplied normalized model or exact sufficiency within a declared family. Any transfer to the project's parent constructions must specify the observation interface and distinguish complete generic identification from preservation of admitted predictions.
 
 ## BibTeX
 

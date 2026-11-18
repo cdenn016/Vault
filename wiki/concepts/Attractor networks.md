@@ -9,15 +9,15 @@ tags:
   - project/multi-agent
 status: stub
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-11-18
 ---
 
 # Attractor networks
 
-Attractor networks are recurrent dynamical systems whose activity settles into stable fixed points (or limit cycles / line attractors) that encode memories, decisions, or stable beliefs. Multistability gives rise to hysteresis and basins of attraction, providing a mechanistic substrate for self-reinforcing belief traps and for the inertia of held beliefs. They connect the program's belief-dynamics view to recurrent-network and decision-making models.
+Attractor networks are recurrent dynamical systems whose activity settles into stable fixed points (or limit cycles / line attractors) that encode memories, decisions, or stable beliefs. Multistability gives rise to hysteresis and basins of attraction, providing a mechanistic substrate for self-reinforcing belief traps. They connect belief-dynamics models to recurrent-network and decision-making models.
 
 ## Related
-[[Belief dynamics]], [[Belief inertia]]
+[[Belief dynamics]]
 
 ## Sources
 [[scheffer-2022-belief-traps]]

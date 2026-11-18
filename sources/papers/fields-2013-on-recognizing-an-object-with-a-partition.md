@@ -25,7 +25,7 @@ On an epistemic reading, a finite history of observations cannot exclude all lar
 
 ## Relevance to this research
 
-The argument is relevant to [[Quantum reference frames]] and to operational equivalence in [[Multi-agent variational free energy]]. A declared partition supplies a mathematical domain; it does not by itself certify unique physical reference. This motivates stating which records and distinctions a quotient preserves without claiming to recover an observer-independent decomposition of everything.
+The argument is relevant to [[Quantum reference frames]] and to operational equivalence in Multi-agent variational free energy. A declared partition supplies a mathematical domain; it does not by itself certify unique physical reference. This motivates stating which records and distinctions a quotient preserves without claiming to recover an observer-independent decomposition of everything.
 
 ## Reading and version
 

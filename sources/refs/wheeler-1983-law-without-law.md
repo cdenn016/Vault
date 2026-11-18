@@ -28,7 +28,7 @@ Full text was not archived. The primary record and access limitations are record
 
 This retained chapter supplies participatory philosophical motivation. The publisher container record for Quantum Theory and Measurement is available, but no verified primary-host full chapter was archived in this pass. This note does not substitute for reading the chapter or establish a physical-emergence result.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

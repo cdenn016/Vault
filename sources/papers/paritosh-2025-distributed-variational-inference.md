@@ -49,7 +49,7 @@ This is the closest algorithmic template for measuring a decentralized gap again
 
 - Concepts: [[Decentralized Bayesian inference]], [[Evidence lower bound (ELBO)]], [[Communication-constrained inference]]
 - Related sources: [[hua-li-2016-distributed-variational-bayes]], [[cao-2024-multi-robot-slam-vi]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

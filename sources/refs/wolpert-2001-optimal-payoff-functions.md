@@ -36,11 +36,11 @@ The abstract reports experimental demonstrations that these utilities improve on
 
 ## Relevance to this research
 
-The manuscript contrasts this work with its own agency result: where Wolpert and Tumer design members' payoffs to serve a world utility, the manuscript finds, under its protocol with shared belief, an exact potential game. The manuscript read the abstract. See [[Collective active inference]], [[Multi-agent variational free energy]] and [[Evolutionary game theory and cooperation]].
+The manuscript contrasts this work with its own agency result: where Wolpert and Tumer design members' payoffs to serve a world utility, the manuscript finds, under its protocol with shared belief, an exact potential game. The manuscript read the abstract. See [[Collective active inference]], Multi-agent variational free energy and [[Evolutionary game theory and cooperation]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; [[Multi-agent variational free energy]]; [[Evolutionary game theory and cooperation]].
+[[Collective agents literature map]]; [[Collective active inference]]; Multi-agent variational free energy; [[Evolutionary game theory and cooperation]].
 
 ## BibTeX
 

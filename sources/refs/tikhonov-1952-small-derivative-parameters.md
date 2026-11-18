@@ -21,7 +21,7 @@ The publisher/archive record verifies author, title, year, volume, issue, page r
 
 ## Relevance to this research
 
-This is the historical citation retained in PIFB2's conditional fast–slow discussion. The refactor explicitly distinguishes a supplied rate separation from its derivation, and a local conditional reduction from global convergence. See [[Geometric singular perturbation theory]], [[fenichel-1979-geometric-singular-perturbation]], and [[PIFB2 refactor foundations September 2026]]. A specific application still requires the stated stability and regularity hypotheses; the bibliographic record alone supplies none of them.
+This is the historical citation retained in PIFB2's conditional fast–slow discussion. The refactor explicitly distinguishes a supplied rate separation from its derivation, and a local conditional reduction from global convergence. See [[Geometric singular perturbation theory]], [[fenichel-1979-geometric-singular-perturbation]], and PIFB2 refactor foundations September 2026. A specific application still requires the stated stability and regularity hypotheses; the bibliographic record alone supplies none of them.
 
 ## BibTeX
 

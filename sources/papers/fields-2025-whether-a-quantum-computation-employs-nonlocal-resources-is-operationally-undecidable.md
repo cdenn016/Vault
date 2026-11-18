@@ -28,7 +28,7 @@ Fields and colleagues ask what a finite verifier can establish about the physica
 
 ## Relevance to this research
 
-For [[Gauge-Theoretic Multi-Agent VFE Model]], this is a reason to distinguish an assumed communication architecture from one identifiable through an admitted record interface. It connects to hidden channel structure and to the limits of reconstructing a source from messages. The stronger claims about nonlocal resources should remain attributed to the authors: they supply neither a GL(K) transport law nor a theorem about the project's normalized statistical kernels.
+For Gauge-Theoretic Multi-Agent VFE Model, this is a reason to distinguish an assumed communication architecture from one identifiable through an admitted record interface. It connects to hidden channel structure and to the limits of reconstructing a source from messages. The stronger claims about nonlocal resources should remain attributed to the authors: they supply neither a GL(K) transport law nor a theorem about the project's normalized statistical kernels.
 
 ## BibTeX
 

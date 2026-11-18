@@ -33,11 +33,11 @@ The method uses the graph Helmholtzian, the graph analogue of the vector Laplaci
 
 ## Relevance to this research
 
-The manuscript cites it for the combinatorial Hodge decomposition of noisy pairwise data into gradient and cycle parts, and uses it in its comparison on exchange rates: absence of cyclic arbitrage says log exchange rates form a gradient. The manuscript's record says it re-derived the decomposition it uses. See [[Graph Laplacian]], [[Cellular sheaves and sheaf Laplacians]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites it for the combinatorial Hodge decomposition of noisy pairwise data into gradient and cycle parts, and uses it in its comparison on exchange rates: absence of cyclic arbitrage says log exchange rates form a gradient. The manuscript's record says it re-derived the decomposition it uses. See [[Graph Laplacian]], [[Cellular sheaves and sheaf Laplacians]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Graph Laplacian]]; [[Cellular sheaves and sheaf Laplacians]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Graph Laplacian]]; [[Cellular sheaves and sheaf Laplacians]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

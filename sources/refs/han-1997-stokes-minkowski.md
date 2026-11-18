@@ -22,7 +22,7 @@ Sections II–IV relate classical polarization coherency matrices and Stokes par
 
 ## Relevance to this research
 
-Supports the monograph’s Hermitian two-by-two matrix construction. The refactor separately proves the determinant law and keeps representation choice, soldering, and causal propagation as additional obligations. See [[Emergent spacetime and holography]] and [[Fisher information metric]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+Supports the monograph’s Hermitian two-by-two matrix construction. The refactor separately proves the determinant law and keeps representation choice, soldering, and causal propagation as additional obligations. See [[Emergent spacetime and holography]] and [[Fisher information metric]]. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

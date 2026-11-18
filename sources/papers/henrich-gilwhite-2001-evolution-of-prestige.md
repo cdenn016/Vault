@@ -24,7 +24,7 @@ The paper assembles ethnographic and psychological evidence that prestige and do
 ## Relevance to this research
 Prestige bias is a concrete, asymmetric rule for allocating social-learning attention — heavier coupling toward high-status, high-skill sources — which a heterogeneous attention/coupling kernel $\beta_{ij}$ in the multi-agent VFE model must be able to represent. It grounds the claim that influence weights are not uniform across neighbors: the softmax attention should be able to concentrate on a small set of informative agents the way deference concentrates on prestigious models. The "free conferral in exchange for information" framing also resonates with the precision-weighted account of why an agent down-weights its own prior to absorb a trusted neighbor's belief. Strong, specification-level relevance to the structure of the coupling kernel, though prestige here is an evolutionary-psychological mechanism rather than a derived term of the functional. See [[Social influence and conformity]].
 
-Concept links: [[Social influence and conformity]], [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Opinion dynamics]].
+Concept links: [[Social influence and conformity]], [[Cultural evolution and social learning]], Multi-agent variational free energy, [[Opinion dynamics]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

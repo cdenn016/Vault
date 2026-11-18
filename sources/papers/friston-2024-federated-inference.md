@@ -58,14 +58,14 @@ The authors cast belief-sharing as part of each agent's free-energy minimization
 
 ## Relevance to this research
 
-This is the cleanest free-energy-principle statement of exactly the coupling term the [[Gauge-Theoretic Multi-Agent VFE Model]] is built around. The project's belief-coupling energy $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ in [[Multi-agent variational free energy]] is federated inference written as a single functional: each agent treats its neighbors' (transported) beliefs as priors/evidence and pays a KL price for disagreement, with the attention weights $\beta_{ij}$ governing whom to listen to — the project's analogue of Friston et al.'s "when and to whom to broadcast." What this paper supplies in words, the project supplies in a closed variational form; what the project adds is the missing geometric ingredient, the gauge transport $\Omega_{ij}$ that re-expresses a neighbor's belief in the receiver's frame before integration. Federated inference assumes a literally common world-model and hence a common frame; PIFB (see [[participatory-it-from-bit]]) relaxes that to agents holding beliefs in distinct local frames related by a connection, recovering federated belief-sharing as the flat-connection ($\Omega_{ij}=I$) special case. This reference is therefore the anchor for the [[Collective active inference]] page and the FEP-side justification of the project's coupling, attention, and emergent-communication claims.
+This is the cleanest free-energy-principle statement of exactly the coupling term the Gauge-Theoretic Multi-Agent VFE Model is built around. The project's belief-coupling energy $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ in Multi-agent variational free energy is federated inference written as a single functional: each agent treats its neighbors' (transported) beliefs as priors/evidence and pays a KL price for disagreement, with the attention weights $\beta_{ij}$ governing whom to listen to — the project's analogue of Friston et al.'s "when and to whom to broadcast." What this paper supplies in words, the project supplies in a closed variational form; what the project adds is the missing geometric ingredient, the gauge transport $\Omega_{ij}$ that re-expresses a neighbor's belief in the receiver's frame before integration. Federated inference assumes a literally common world-model and hence a common frame; PIFB (see [[participatory-it-from-bit]]) relaxes that to agents holding beliefs in distinct local frames related by a connection, recovering federated belief-sharing as the flat-connection ($\Omega_{ij}=I$) special case. This reference is therefore the anchor for the [[Collective active inference]] page and the FEP-side justification of the project's coupling, attention, and emergent-communication claims.
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Multi-agent variational free energy]], [[Variational free energy]]
+- Concepts: [[Collective active inference]], Multi-agent variational free energy, [[Variational free energy]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[albarracin-2022-epistemic-communities]], [[friston-2010-free-energy-principle]]
 - Manuscript: [[participatory-it-from-bit]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 ```bibtex

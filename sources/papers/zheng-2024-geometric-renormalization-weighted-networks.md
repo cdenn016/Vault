@@ -76,7 +76,7 @@ The construction assumes a latent metric geometry and externally prescribed cons
 
 - Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Community detection and modularity]], [[Graph synchronization and connection Laplacians]]
 - Related sources: [[garuccio-2023-multiscale-network-renormalization]], [[gabrielli-2025-network-renormalization]], [[villegas-2023-laplacian-renormalization-group]], [[serrano-2008-self-similarity]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

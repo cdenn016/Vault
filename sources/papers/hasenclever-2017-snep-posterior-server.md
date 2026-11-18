@@ -48,11 +48,11 @@ The authors give a convergence result for SNEP under the paper's stochastic-appr
 
 ## Relevance to this research
 
-SNEP is a useful comparator for any future distributed implementation of [[Multi-agent variational free energy]]. It separates local computation, approximation error, communication, and the centralized global target more carefully than an informal consensus analogy. It does not establish that independently replacing correlated full conditionals defines a joint law, and the present MultiAgentELBO code implements neither a posterior server nor a decentralized protocol.
+SNEP is a useful comparator for any future distributed implementation of Multi-agent variational free energy. It separates local computation, approximation error, communication, and the centralized global target more carefully than an informal consensus analogy. It does not establish that independently replacing correlated full conditionals defines a joint law, and the present MultiAgentELBO code implements neither a posterior server nor a decentralized protocol.
 
 ## Cross-links
 
-- Concepts: [[Natural gradient]], [[Belief Propagation]], [[Multi-agent variational free energy]], [[Collective active inference]]
+- Concepts: [[Natural gradient]], [[Belief Propagation]], Multi-agent variational free energy, [[Collective active inference]]
 - Related sources: [[senoz-2021-local-constraint-vmp]]
 
 ## BibTeX

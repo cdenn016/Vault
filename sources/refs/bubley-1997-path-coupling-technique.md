@@ -37,11 +37,11 @@ The abstract states that the method is applied to graph colouring, TWICE-SAT, th
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper for the attribution of the path-coupling argument, which it writes out in its own proof of a contraction bound for a Wasserstein distance on member-change paths. The reading record states that the paper was not read, so the attribution rests on the abstract and the bibliographic record. The link to the vault is mixing of the stochastic dynamics that a collective's members follow, see [[Markov chain Monte Carlo]], [[Multi-agent variational free energy]] and [[Collective active inference]].
+The collective-agents manuscript cites this paper for the attribution of the path-coupling argument, which it writes out in its own proof of a contraction bound for a Wasserstein distance on member-change paths. The reading record states that the paper was not read, so the attribution rests on the abstract and the bibliographic record. The link to the vault is mixing of the stochastic dynamics that a collective's members follow, see [[Markov chain Monte Carlo]], Multi-agent variational free energy and [[Collective active inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov chain Monte Carlo]]; [[Multi-agent variational free energy]]; [[Collective active inference]].
+[[Collective agents literature map]]; [[Markov chain Monte Carlo]]; Multi-agent variational free energy; [[Collective active inference]].
 
 ## BibTeX
 

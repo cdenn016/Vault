@@ -36,11 +36,11 @@ The abstract reports a power-law degree distribution with exponent $-5$ and a li
 
 ## Relevance to this research
 
-The manuscript cites this paper for the statement that link probability between users of a Belgian mobile network falls off as the inverse square of their distance, used to argue that geography still limits connection even when telecommunication adds links whose cost does not depend on distance. The manuscript's record says the abstract was read. The result bears on the cost structure of links among communicating agents in [[Meta-agents and hierarchical emergence]] and on spatial network models such as [[Hidden metric space]] and [[Network structure — small-world and scale-free]].
+The manuscript cites this paper for the statement that link probability between users of a Belgian mobile network falls off as the inverse square of their distance, used to argue that geography still limits connection even when telecommunication adds links whose cost does not depend on distance. The manuscript's record says the abstract was read. The result bears on the cost structure of links among communicating agents in Meta-agents and hierarchical emergence and on spatial network models such as [[Hidden metric space]] and [[Network structure — small-world and scale-free]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Hidden metric space]]; [[Network structure — small-world and scale-free]]; [[liben-nowell-2005-geographic-routing-social]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Hidden metric space]]; [[Network structure — small-world and scale-free]]; [[liben-nowell-2005-geographic-routing-social]].
 
 ## BibTeX
 

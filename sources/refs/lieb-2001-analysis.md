@@ -28,11 +28,11 @@ The evidence gives only the bibliographic data: series, volume 14, second editio
 
 ## Relevance to this research
 
-The manuscript cites Theorem 3.7 of this book for Riesz's rearrangement inequality, used to say that in the continuum with a symmetric decreasing correlation, balls maximize the total pairwise correlation inside a region of fixed size. The theorem number rests on two restatements seen in search excerpts of papers citing it, not on the book itself, and the manuscript says the corresponding lattice statement is not proved. The abstract field in the packet describes a paper on the Davey-Stewartson II equation and does not belong to this book, so it was ignored. The result is used for the shape of an optimal collective, see [[Meta-agents and hierarchical emergence]] and [[Coarse Graining]].
+The manuscript cites Theorem 3.7 of this book for Riesz's rearrangement inequality, used to say that in the continuum with a symmetric decreasing correlation, balls maximize the total pairwise correlation inside a region of fixed size. The theorem number rests on two restatements seen in search excerpts of papers citing it, not on the book itself, and the manuscript says the corresponding lattice statement is not proved. The abstract field in the packet describes a paper on the Davey-Stewartson II equation and does not belong to this book, so it was ignored. The result is used for the shape of an optimal collective, see Meta-agents and hierarchical emergence and [[Coarse Graining]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
 
 ## BibTeX
 

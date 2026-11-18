@@ -45,7 +45,7 @@ The paper provides a foundational philosophical grounding for the free energy pr
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[Active Inference]], [[Free-energy principle active inference|Free Energy Principle]], [[Markov Blanket]], [[Predictive processing and controlled hallucination|Predictive Processing]]
 - Related sources: [[friston-2013-life-as-we-know-it]], [[ramstead-2018-answering-schrodinger|ramstead-2017-answering-schrodinger]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

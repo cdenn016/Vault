@@ -45,7 +45,7 @@ The same stance feeds the [[Structural realism]] commitment of the multi-agent m
 
 - Concept: [[Structural realism]]
 - Theme: [[Structural realism and philosophy of science]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 - Companion volume: [[popper-1959-logic-scientific-discovery]]
 - Related: [[kuhn-1962-structure]] · [[laudan-1984-science-and-values]] · [[worrall-1989-structural-realism]] · [[nickerson-1998-confirmation-bias]]
 

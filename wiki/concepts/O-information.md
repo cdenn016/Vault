@@ -9,7 +9,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # O-information
@@ -32,7 +32,7 @@ where \(X_{-i}\) omits variable \(i\). Positive \(\Omega\) indicates redundancy 
 
 ## Why it matters here
 
-Because no target variable is selected, O-information can summarize ensemble-wide dependence among agents or scales. This makes it attractive for testing a meta-agent or collective representation. It is algebraically compact—the number of entropy terms grows linearly with \(n\)—but that does not remove the statistical difficulty of estimating high-dimensional joint and leave-one-out entropies.
+Because no target variable is selected, O-information can summarize ensemble-wide dependence among agents or scales. It is algebraically compact—the number of entropy terms grows linearly with \(n\)—but that does not remove the statistical difficulty of estimating high-dimensional joint and leave-one-out entropies.
 
 ## Interpretation boundaries
 
@@ -41,10 +41,6 @@ O-information is one signed total. Redundant and synergistic structures can canc
 ## Estimation and diagnostics
 
 Any empirical use should name the entropy estimator, representation and binning or density model, sample-splitting procedure, bias correction, and uncertainty interval. Permutation or factorized-null controls should measure estimator bias. Scaling with agent count must hold sample size and state dimension under control, because an apparent trend can be produced by deteriorating entropy estimation.
-
-## In this work
-
-Candidate variables include agent belief summaries, transported common-frame states, or coarse-grained meta-agent features. The choice changes the measured distribution and must be declared. Report total correlation and dual total correlation alongside their difference, include bootstrap or repeated-seed uncertainty, and compare against pairwise and PID diagnostics rather than treating \(\Omega\) as a complete account.
 
 ## Sources
 
@@ -56,5 +52,3 @@ Candidate variables include agent belief summaries, transported common-frame sta
 
 - [[Partial information decomposition]]
 - [[Mutual information]]
-- [[Meta-agents and hierarchical emergence]]
-- [[Meta-entropy]]

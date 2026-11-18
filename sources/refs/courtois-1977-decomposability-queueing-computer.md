@@ -22,11 +22,11 @@ A 1977 monograph in the ACM Monograph Series, published by Academic Press, on de
 
 ## Relevance to this research
 
-The manuscript cites the book, with Simon (1961, 1962), for near decomposability, the picture behind its nesting of spectral contrast at weak grounding through a hierarchy of timescales. It says it knows the book from a catalog record only, and Simon's work from an abstract and a secondary account. The idea connects to [[Coarse Graining]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the book, with Simon (1961, 1962), for near decomposability, the picture behind its nesting of spectral contrast at weak grounding through a hierarchy of timescales. It says it knows the book from a catalog record only, and Simon's work from an abstract and a secondary account. The idea connects to [[Coarse Graining]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

@@ -28,7 +28,7 @@ Fields, Bischof, and Levin review evidence that neural and non-neural signaling 
 
 ## Relevance to this research
 
-This provides biological context for [[Collective active inference]] and [[Meta-agents and hierarchical emergence]]: a communication channel can coordinate component behavior toward a collective morphology without every component representing that morphology in the same way. For [[Gauge-Theoretic Multi-Agent VFE Model]], it motivates distinguishing communication range, specificity, and timing from the inference rule carried over the channel. Neural analogy alone does not fix the underlying joint law or prove collective agency.
+This provides biological context for [[Collective active inference]] and Meta-agents and hierarchical emergence: a communication channel can coordinate component behavior toward a collective morphology without every component representing that morphology in the same way. For Gauge-Theoretic Multi-Agent VFE Model, it motivates distinguishing communication range, specificity, and timing from the inference rule carried over the channel. Neural analogy alone does not fix the underlying joint law or prove collective agency.
 
 ## BibTeX
 

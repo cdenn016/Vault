@@ -28,7 +28,7 @@ Fields treats system identification as a search performed through finite-resolut
 
 ## Relevance to this research
 
-This source helps formulate the resource and resolution limits of declared interfaces in [[Gauge-Theoretic Multi-Agent VFE Model]]. A finite observation history may identify a carrier only up to an equivalence class, and stronger identification can change the experiment. It therefore complements exact recovery statements scoped to admitted observations. Its thermodynamic and quantum claims do not supply a derivation of the project's statistical Fisher geometry, nor establish that its classical message exchanges inherit Bell or Leggett–Garg violations.
+This source helps formulate the resource and resolution limits of declared interfaces in Gauge-Theoretic Multi-Agent VFE Model. A finite observation history may identify a carrier only up to an equivalence class, and stronger identification can change the experiment. It therefore complements exact recovery statements scoped to admitted observations. Its thermodynamic and quantum claims do not supply a derivation of the project's statistical Fisher geometry, nor establish that its classical message exchanges inherit Bell or Leggett–Garg violations.
 
 ## BibTeX
 

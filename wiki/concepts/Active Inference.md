@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # Active Inference
@@ -63,10 +63,7 @@ A neighboring tradition also treats action selection as inference, without expec
 
 ## Role in this research program
 
-Active inference is the theoretical backbone of the [[Collective active inference|multi-agent MAgent model]],
-where many free-energy-minimizing agents — each carrying Gaussian beliefs $(\mu,\Sigma)$ — couple
-into a collective whose meta-agents themselves do active inference, grounding the model's
-self-organization and belief dynamics. For the **vfe3 transformer**, the project imports active
+For the **vfe3 transformer**, the project imports active
 inference's *perceptual* half (precision-weighted belief-updating as attention) and, as of 2026-06-28, has a
 concrete *pre-registered design spec* for its action half: a default-off, no-grad
 [[Expected Free Energy]] policy scorer over candidate token continuations.
@@ -81,14 +78,12 @@ $-\mathbb{E}_q[\log p(o\mid x)]$ is a gated stub with no live caller), so belief
 in the canonical free-energy sense — a [[Variational EM|structural EM]] in which the E-step and the M-step descend
 distinct objectives. This is the [[gl-k-attention|GL(K) manuscript]]'s own design (its Algorithm 1 states "the
 observation enters only the M-step loss, so the E-step is target-blind"), and it deviates from the canonical
-[[participatory-it-from-bit|PIFB]] functional, which places the observation term in the fast belief subsystem that
-beliefs descend. Because the belief covariance carries no
+free-energy functional, which places the observation term in the objective that beliefs descend. Because the belief covariance carries no
 data precision, it is a learned prior rather than a live epistemic quantity.
 
 > [!note] Editorial: The map from active inference's policy selection onto a sequence model is loose;
-> the transformer borrows the belief-updating/precision-as-attention reading, while EFE-style planning
-> is native to the multi-agent setting. The "Bayesian mechanics" of [[dacosta-2021-bayesian-mechanics]]
-> gives the continuous-time, stationary-process foundation underneath both.
+> the transformer borrows the belief-updating/precision-as-attention reading. The "Bayesian mechanics" of
+> [[dacosta-2021-bayesian-mechanics]] gives the continuous-time, stationary-process foundation underneath it.
 
 ## See also
 
@@ -97,5 +92,5 @@ data precision, it is a learned prior rather than a live epistemic quantity.
 - [[Variational free energy]] — the quantity minimized in perception.
 - [[Generative model]] — the $P(o,s,\pi)$ object the agent inverts.
 - [[Predictive coding network]] — the perception-only special case.
-- [[Collective active inference]] — the multi-agent / MAgent realization.
-- [[Consciousness and Active Inference]] — the participatory / consciousness reading.
+- [[Collective active inference]] — coupled active-inference agents.
+- [[Consciousness and Active Inference]] — the consciousness reading.

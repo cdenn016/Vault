@@ -22,11 +22,11 @@ An economics paper on the production decisions of a competitive firm that can tr
 
 ## Relevance to this research
 
-The manuscript cites the paper for the separation theorem of production under price uncertainty: for a competitive firm with a futures market, production depends only on the futures price and input costs, and the subjective distribution of the future spot price affects only the futures position. The reading record says this statement comes from the abstract on the RePEc record and that the article text was not opened. The manuscript uses the theorem to say that a firm reading the futures price of its own lag loses nothing, a known result recovered in its environment model. Related pages are [[Collective active inference]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper for the separation theorem of production under price uncertainty: for a competitive firm with a futures market, production depends only on the futures price and input costs, and the subjective distribution of the future spot price affects only the futures position. The reading record says this statement comes from the abstract on the RePEc record and that the article text was not opened. The manuscript uses the theorem to say that a firm reading the futures price of its own lag loses nothing, a known result recovered in its environment model. Related pages are [[Collective active inference]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Collective active inference]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

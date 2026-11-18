@@ -50,14 +50,14 @@ The consensus protocol is the Laplacian flow $\dot x_i = \sum_{j\in N_i} a_{ij}(
 
 ## Relevance to this research
 
-This paper supplies the **spectral-gap machinery** the project uses to analyze how fast its coupled belief dynamics reach (or fail to reach) consensus. The project's belief-coupling term $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ in [[Multi-agent variational free energy]] linearizes, near agreement and in a flat frame, to exactly a Laplacian flow on the attention-weighted graph with adjacency $\beta_{ij}$; the Fiedler value $\lambda_2$ of that graph Laplacian then controls the rate at which beliefs converge, and its vanishing diagnoses the fragmentation into disconnected belief clusters that PIFB (see [[participatory-it-from-bit]]) reads as the breakdown of consensus. The gauge transport $\Omega_{ij}$ is what the project adds beyond the scalar Olfati-Saber picture: consensus is reached not in a fixed coordinate but up to the holonomy of the connection, so "agreement" is frame-relative. Treating attention matrices as token graphs and reading off their spectral gap (the methodology lane of this domain) is the direct application of this reference to the project's diagnostics.
+This paper supplies the **spectral-gap machinery** the project uses to analyze how fast its coupled belief dynamics reach (or fail to reach) consensus. The project's belief-coupling term $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ in Multi-agent variational free energy linearizes, near agreement and in a flat frame, to exactly a Laplacian flow on the attention-weighted graph with adjacency $\beta_{ij}$; the Fiedler value $\lambda_2$ of that graph Laplacian then controls the rate at which beliefs converge, and its vanishing diagnoses the fragmentation into disconnected belief clusters that PIFB (see [[participatory-it-from-bit]]) reads as the breakdown of consensus. The gauge transport $\Omega_{ij}$ is what the project adds beyond the scalar Olfati-Saber picture: consensus is reached not in a fixed coordinate but up to the holonomy of the connection, so "agreement" is frame-relative. Treating attention matrices as token graphs and reading off their spectral gap (the methodology lane of this domain) is the direct application of this reference to the project's diagnostics.
 
 ## Cross-links
 
-- Concepts: [[Multi-agent variational free energy]], [[Community detection and modularity]], [[Meta-agents and hierarchical emergence]]
+- Concepts: Multi-agent variational free energy, [[Community detection and modularity]], Meta-agents and hierarchical emergence
 - Related sources: [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]
 - Manuscript: [[participatory-it-from-bit]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ```bibtex
 @article{olfatisaber2007consensus,

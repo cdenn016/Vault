@@ -52,8 +52,8 @@ elimination of Haake and Lewenstein.
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
+- Themes: Meta-agents and hierarchical emergence
 - Related sources: [[vankampen-1985-elimination-fast-variables]], [[haake-1983-adiabatic-drag-initial-slip]], [[geigenmuller-1983-elimination-fast-variables]], [[zwanzig-1961-memory-effects]]
 
 ## BibTeX

@@ -41,11 +41,11 @@ The paper shows that the divergence function agrees with the exact discrete Lagr
 
 ## Relevance to this research
 
-This source strengthens the formal foundation for relating [[Fisher information metric]] geometry to [[Hamiltonian belief dynamics]], while restricting what may be claimed. A divergence can induce metric and connection data and can approximate a discrete action under specific conditions; it does not automatically choose the kinetic postulate used by [[Belief inertia]]. The manuscript should therefore distinguish the intrinsic information geometry, the loss curvature, and the separately adopted kinetic metric rather than collapsing them into one object.
+This source strengthens the formal foundation for relating [[Fisher information metric]] geometry to Hamiltonian belief dynamics, while restricting what may be claimed. A divergence can induce metric and connection data and can approximate a discrete action under specific conditions; it does not automatically choose the kinetic postulate used by Belief inertia. The manuscript should therefore distinguish the intrinsic information geometry, the loss curvature, and the separately adopted kinetic metric rather than collapsing them into one object.
 
 ## Cross-links
 
-The central links are [[Fisher information metric]], [[Natural gradient]], [[Hamiltonian belief dynamics]], [[Mass as Fisher information]], and [[Belief inertia]]. The closest companion sources are [[pistone-2018-statistical-bundle-lagrangian]] and [[chirco-2022-statistical-bundle-dynamics]], which construct explicit Lagrangian or Hamiltonian dynamics on statistical bundles.
+The central links are [[Fisher information metric]], [[Natural gradient]], Hamiltonian belief dynamics, Mass as Fisher information, and Belief inertia. The closest companion sources are [[pistone-2018-statistical-bundle-lagrangian]] and [[chirco-2022-statistical-bundle-dynamics]], which construct explicit Lagrangian or Hamiltonian dynamics on statistical bundles.
 
 ## BibTeX
 

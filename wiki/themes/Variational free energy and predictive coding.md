@@ -8,7 +8,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Variational free energy and predictive coding
@@ -73,35 +73,7 @@ challenges derivational routes, not every model that uses an expected-free-energ
 [[ruiz-serra-2025-factorised-active-inference]] reports strategic-game examples in which ensemble
 EFE is not necessarily minimized at aggregate level, and
 [[fukuoka-2026-variational-bayes-naming-game]] supplies a decentralized symbol-emergence comparator.
-Both belong in [[Collective active inference]], but neither licenses an active-policy interpretation
-of the current MultiAgentELBO code. A policy layer would need its own generative model, preference
-semantics, individual-versus-joint objective, and negative controls.
-
-## The Dirichlet term without the free energy (2026-08-12)
-
-One term of the program's free energy has an external literature of its own. The covariant Dirichlet
-/ minimal-coupling vertex — transport a belief across an edge by the connection, then score the
-mismatch — is, stripped of everything else, a **[[Harmonic map|harmonic energy]]** for a field of
-distributions. The Heidelberg group of Schnörr and collaborators studies exactly that term as a
-standalone gradient flow: [[cassel-2024-sigma-flows]] takes the harmonic energy of a field valued in
-the Fisher–Rao simplex and flows down it, and [[cassel-2025-bundle-scale-spaces]] does the bundle
-version, where the equilibria are harmonic sections rather than constants.
-
-The instructive part is what they do *without*. There is no likelihood term, so no accuracy /
-complexity decomposition and no evidence bound; the objective is a smoothing energy plus, in the
-sigma flow, an entropic potential added purely to force a decision at the simplex boundary
-([[cassel-2024-sigma-flows]]). There is no population of agents and no local/global split. This is a
-useful control on the program's own claims: it shows that the geometric regularizer can be given a
-complete, self-contained variational life *without* being a free energy, so the free-energy reading
-of that term has to be earned by the likelihood and entropy structure around it, not by the covariant
-derivative alone. The converse import is real too — the fixed-point and existence questions those
-papers raise for the standalone term ([[cassel-2024-sigma-flows]] leaves existence and global
-convergence open) are questions this program also owes for the same term in context.
-
-> [!note] Editorial: The identification of the program's minimal-coupling vertex with a discrete
-> harmonic energy, and the "control on the free-energy reading" argument, are the vault's own; the
-> sources make no claim about variational free energy. See
-> [[Non-flat connection and the photon analogy]] for the implementation-side account of that term.
+Both belong in [[Collective active inference]].
 
 ## Collective and distributed free-energy boundary (2026-08-20)
 
@@ -120,7 +92,7 @@ Thirty-six further sources on Bayesian mechanics were read on November 13, 2026,
 - [[ashman-2022-partitioned-variational-inference]] — explicit site-factor decomposition of a global variational approximation.
 - [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] — unreviewed terminology-adjacent preprints.
 
-- [[cassel-2024-sigma-flows]] — the harmonic-energy gradient flow on a field of Fisher–Rao distributions: the program's Dirichlet term studied as a complete objective in its own right, with no likelihood and no evidence bound.
+- [[cassel-2024-sigma-flows]] — the harmonic-energy gradient flow on a field of Fisher–Rao distributions, a complete objective with no likelihood and no evidence bound.
 - [[cassel-2025-bundle-scale-spaces]] — the bundle-valued counterpart, whose equilibria are harmonic sections.
 
 - [[neal-1998-variational-em]] — EM as coordinate ascent on one negative-free-energy functional; incremental or partial E-steps retain that license only in the shared-functional setting.

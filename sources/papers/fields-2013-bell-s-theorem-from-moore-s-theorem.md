@@ -28,7 +28,7 @@ Fields compares restrictions on finite observations of classical black boxes wit
 
 ## Relevance to this research
 
-This is useful for [[Gauge-Theoretic Multi-Agent VFE Model]] when distinguishing a protocol's assumed causal structure from structure inferred through messages. The project's conditional statistical results can remain exact after a model is supplied, even though finite data do not uniquely identify that model among all possibilities. The paper gives an operational warning against unexplained source identity, not a substitute for an explicit normalized joint law or a proof that classical inter-agent communication has Bell nonlocality.
+This is useful for Gauge-Theoretic Multi-Agent VFE Model when distinguishing a protocol's assumed causal structure from structure inferred through messages. The project's conditional statistical results can remain exact after a model is supplied, even though finite data do not uniquely identify that model among all possibilities. The paper gives an operational warning against unexplained source identity, not a substitute for an explicit normalized joint law or a proof that classical inter-agent communication has Bell nonlocality.
 
 ## BibTeX
 

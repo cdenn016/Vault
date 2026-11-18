@@ -27,7 +27,7 @@ Full text was not archived. The primary record and access limitations are record
 
 This retained book citation provides context for normalized directed graphical models and conditional independence. Only the publisher bibliographic record is available in this ingestion; no new full-text theorem verification is claimed, including the manuscript's section locator.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

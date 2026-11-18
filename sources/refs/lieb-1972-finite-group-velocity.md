@@ -24,11 +24,11 @@ A 1972 paper in Communications in Mathematical Physics on the finite group veloc
 
 ## Relevance to this research
 
-The manuscript cites this paper as the origin of Lieb-Robinson bounds. It describes its own discrete-time light cone for finite-range coupled agents as the finite-range counterpart of the finite group velocity proved here, and it recalls that the paper treats finite-range quantum spin dynamics, with classical analogs on lattices cited separately. The manuscript's reading record only verifies the bibliographic entry, so the content of the theorem is stated in the manuscript from the citation and was not checked in the primary text. The link to the vault is the question of how fast influence or correlation can spread among communicating agents, see [[Collective active inference]], [[Meta-agents and hierarchical emergence]] and [[Communication-constrained inference]].
+The manuscript cites this paper as the origin of Lieb-Robinson bounds. It describes its own discrete-time light cone for finite-range coupled agents as the finite-range counterpart of the finite group velocity proved here, and it recalls that the paper treats finite-range quantum spin dynamics, with classical analogs on lattices cited separately. The manuscript's reading record only verifies the bibliographic entry, so the content of the theorem is stated in the manuscript from the citation and was not checked in the primary text. The link to the vault is the question of how fast influence or correlation can spread among communicating agents, see [[Collective active inference]], Meta-agents and hierarchical emergence and [[Communication-constrained inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; [[Meta-agents and hierarchical emergence]]; [[Communication-constrained inference]].
+[[Collective agents literature map]]; [[Collective active inference]]; Meta-agents and hierarchical emergence; [[Communication-constrained inference]].
 
 ## BibTeX
 

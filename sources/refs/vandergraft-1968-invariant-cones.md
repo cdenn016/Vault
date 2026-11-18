@@ -26,7 +26,7 @@ Vandergraft, James S. (1968). *Spectral Properties of Matrices which have Invari
 
 The paper extends Perron-Frobenius theory to matrices preserving cones. PIFB2 uses a finite-dimensional cone-preserving spectral result for its declared covariance map; it must retain the cone and positivity assumptions. The locally archived NASA primary source is the author's October 1967 University of Maryland Technical Report 67-54, not the typeset 1968 SIAM article.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

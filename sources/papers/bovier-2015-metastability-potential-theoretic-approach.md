@@ -34,7 +34,7 @@ The blurb describes metastability as a sequence of visits of the path to metasta
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence
 - Related sources: [[bovier-2004-metastability-diffusions]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[bianchi-2016-metastable-states-quasi-stationary-soft-measures]], [[collet-2013-quasi-stationary-distributions]], [[barrera-2016-abrupt-convergence-small-perturbations]]
 
 ## BibTeX

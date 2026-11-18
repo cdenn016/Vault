@@ -140,7 +140,7 @@ Deleting the parity and its cross-agent dependence therefore prevents an exact u
 
 ## Relevance to this research and remaining scope
 
-For [[Cue-result generative memory]] and the [[Gauge-Theoretic Multi-Agent VFE Model]], the construction supplies a normalized case in which a received prediction changes a later transmitted prediction while correlated local recognition is preserved. It makes the dependence needed by [[Decentralized Bayesian inference]] explicit. A local moment projection can be introduced only after specifying the joint experiment; local means and covariances do not reconstruct the peer-evidence conditional consumed by the receiver.
+For [[Cue-result generative memory]] and the Gauge-Theoretic Multi-Agent VFE Model, the construction supplies a normalized case in which a received prediction changes a later transmitted prediction while correlated local recognition is preserved. It makes the dependence needed by [[Decentralized Bayesian inference]] explicit. A local moment projection can be introduced only after specifying the joint experiment; local means and covariances do not reconstruct the peer-evidence conditional consumed by the receiver.
 
 The scope is communication about a fixed preparation under one supplied common model. New private measurements, learned banks or policies, differing agent models, unreliable transcript sharing, minimal retained state, efficient multi-component approximation, and endogenous formation remain separate obligations. No equivalence to reciprocal law dynamics, implementation claim for the [[VFE Transformer Program]], or performance claim follows. The next approximation problem is to control errors in the joint private-record law by their effects on future message and assimilation laws.
 

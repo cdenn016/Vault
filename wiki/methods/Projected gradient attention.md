@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-10-02
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # Projected gradient attention
@@ -44,7 +44,7 @@ The update is either `euler` (the PR #30 step) or `closed_form` (default): the e
 
 Since PR #38 the self-coupling $\alpha$ may be state dependent, $\alpha^\star=c_0/(b_0+\mathrm{KL}(q\Vert p))$, recomputed at each iteration. The profiled energy is $c_0\log(b_0+D)+G$; its gradient is the frozen-$\alpha$ force by the envelope theorem, and the closed-form step at frozen $\alpha$ is a majorize-minimize step because the logarithm lies below its tangent, so the profiled energy does not increase at $\rho=1$. A per-coordinate form is exact on the diagonal family but tied to the local basis; its full-family closed form is derived and checked at $K=4$ but not implemented.
 
-> [!note] Editorial: The profiled rule is the same $\alpha^\star=c_0/(b_0+D)$ anchor that appears in the multi-agent model; on the transformer route it is a receiver-level choice whose effect on training is untested; a matched multi-seed comparison with the predictive route is the deciding experiment.
+> [!note] Editorial: The profiled rule is the $\alpha^\star=c_0/(b_0+D)$ anchor; on the transformer route it is a receiver-level choice whose effect on training is untested; a matched multi-seed comparison with the predictive route is the deciding experiment.
 
 ## Fusion residual and the exponential link, October 2026
 

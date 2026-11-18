@@ -28,7 +28,7 @@ Fields develops an account of compartmentalization from the symmetries of an int
 
 ## Relevance to this research
 
-This is relevant prior work for [[Meta-agents and hierarchical emergence]] and [[Markov Blanket]], particularly the idea that interface differentiation and internal organization develop together. It does not by itself construct a normalized classical parent law or prove exact closure after agents are grouped. Applying the mechanism to [[Gauge-Theoretic Multi-Agent VFE Model]] requires an explicit account of the symmetry, its breaking, and the dynamics that create each new interface.
+This is relevant prior work for Meta-agents and hierarchical emergence and [[Markov Blanket]], particularly the idea that interface differentiation and internal organization develop together. It does not by itself construct a normalized classical parent law or prove exact closure after agents are grouped. Applying the mechanism to Gauge-Theoretic Multi-Agent VFE Model requires an explicit account of the symmetry, its breaking, and the dynamics that create each new interface.
 
 ## BibTeX
 

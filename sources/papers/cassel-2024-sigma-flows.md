@@ -81,7 +81,7 @@ This is the closest published relative of the **Dirichlet / harmonic-map sector*
 
 ## Cross-links
 
-- Concepts: [[Harmonic map]], [[Sigma flow]], [[Assignment flow]], [[Fisher information metric]], [[Statistical manifold]], [[Information Geometry]], [[Natural gradient]], [[Fibre Bundle|associated bundle]], [[Agents as fibre-bundle sections]]
+- Concepts: [[Harmonic map]], [[Sigma flow]], [[Assignment flow]], [[Fisher information metric]], [[Statistical manifold]], [[Information Geometry]], [[Natural gradient]], [[Fibre Bundle|associated bundle]], Agents as fibre-bundle sections
 - Themes / methods: [[Information geometry and natural gradient]], [[Gauge equivariance and geometric deep learning]]
 - Related sources: [[cassel-2025-bundle-scale-spaces]], [[cassel-2025-yang-mills-data]], [[gonzalez-alvarado-2025-patch-assignment]], [[amari-2000-methods-information-geometry]], [[vaswani-2017-attention]], [[participatory-it-from-bit]], [[gl-k-attention]]
 

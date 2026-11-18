@@ -22,11 +22,11 @@ A workshop-proceedings chapter on information and closure in systems theory, as 
 
 ## Relevance to this research
 
-The manuscript cites the chapter for the definition of informational closure, which it knows only through restatements: a footnote in the paper of Barnett and Seth and a later article. Barnett and Seth identify the condition for dynamical independence, the vanishing of a conditional transfer entropy from the micro past to the macro future, with this informational closure. The chapter supports the manuscript's discussion of order parameters for meta-agents, with [[Meta-agents and hierarchical emergence]], [[Coarse Graining]], [[Markov Blanket]] and [[Mutual information]].
+The manuscript cites the chapter for the definition of informational closure, which it knows only through restatements: a footnote in the paper of Barnett and Seth and a later article. Barnett and Seth identify the condition for dynamical independence, the vanishing of a conditional transfer entropy from the micro past to the macro future, with this informational closure. The chapter supports the manuscript's discussion of order parameters for meta-agents, with Meta-agents and hierarchical emergence, [[Coarse Graining]], [[Markov Blanket]] and [[Mutual information]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[barnett-2023-dynamical-independence-discovering]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]]; [[Markov Blanket]]; [[Mutual information]]; [[barnett-2023-dynamical-independence-discovering]].
 
 ## BibTeX
 

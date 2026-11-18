@@ -24,11 +24,11 @@ A 1973 paper in Communications in Mathematical Physics on the asymptotic behavio
 
 ## Relevance to this research
 
-The manuscript cites the paper for the conjugation method, an argument that conjugates an operator by an exponential weight to obtain decay estimates. The manuscript proves the version it needs in full in its appendix and does not rely on the original for the result. The reading record says only the bibliographic record was consulted. The estimate supports the decay of influence away from a collective's shell in the definition of collectives; see [[Markov Blanket]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper for the conjugation method, an argument that conjugates an operator by an exponential weight to obtain decay estimates. The manuscript proves the version it needs in full in its appendix and does not rely on the original for the result. The reading record says only the bibliographic record was consulted. The estimate supports the decay of influence away from a collective's shell in the definition of collectives; see [[Markov Blanket]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov Blanket]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Markov Blanket]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

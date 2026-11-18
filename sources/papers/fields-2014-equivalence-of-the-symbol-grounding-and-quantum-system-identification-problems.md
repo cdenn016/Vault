@@ -28,7 +28,7 @@ Fields connects the symbol-grounding problem to identifying the physical degrees
 
 ## Relevance to this research
 
-This is a direct source for the semantics of communication in [[Gauge-Theoretic Multi-Agent VFE Model]]. A shared code and the physical or statistical dictionary interpreting it are different supplied objects. The paper motivates making those objects explicit, while the project's conditional recovery theorems state what follows once a preparation law and correspondence are declared. It does not refute exact recovery within such a family, and its equivalence-class discussion does not itself construct the GL(K) symmetry or specify which distinctions the project's retained interface preserves.
+This is a direct source for the semantics of communication in Gauge-Theoretic Multi-Agent VFE Model. A shared code and the physical or statistical dictionary interpreting it are different supplied objects. The paper motivates making those objects explicit, while the project's conditional recovery theorems state what follows once a preparation law and correspondence are declared. It does not refute exact recovery within such a family, and its equivalence-class discussion does not itself construct the GL(K) symmetry or specify which distinctions the project's retained interface preserves.
 
 ## BibTeX
 

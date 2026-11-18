@@ -38,10 +38,10 @@ A set of $K$ exchangeable slots is refined over a few iterations of dot-product 
 Slots are initialized randomly from a learned Gaussian and refined for $T$ iterations (Algorithm 1). Normalizing over slots, "introduces competition between the slots for explaining parts of the input" (Section 2.1). The paper relates the routing to soft k-means clustering and to mixtures of experts (Section 4). Trained without supervision it discovers objects, and it generalizes to unseen compositions and more objects.
 
 ## Relevance to this research
-The normalization axis is the point of contact with the prototype layer of [[VFE Transformer Program|vfe3]]: there each token's weights are normalized over templates (a token chooses a template), while slot attention normalizes over slots for each input (inputs are partitioned among slots), the E-step of clustering inputs into slots. Slot attention is the in-context, iterated version of "parents fit to the current population", which the prototype bank lacks because it is learned only across the corpus. It supplies a learned, non-probabilistic precedent for an in-context meta-agent update ([[Meta-agents and hierarchical emergence]]).
+The normalization axis is the point of contact with the prototype layer of [[VFE Transformer Program|vfe3]]: there each token's weights are normalized over templates (a token chooses a template), while slot attention normalizes over slots for each input (inputs are partitioned among slots), the E-step of clustering inputs into slots. Slot attention is the in-context, iterated version of "parents fit to the current population", which the prototype bank lacks because it is learned only across the corpus. It supplies a learned, non-probabilistic precedent for an in-context meta-agent update (Meta-agents and hierarchical emergence).
 
 ## Cross-links
-- Concepts: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence
 - Methods: [[Template routing]]
 - Related sources: [[hinton-2018-matrix-capsules-em-routing]], [[sukhbaatar-2019-persistent-memory]]
 

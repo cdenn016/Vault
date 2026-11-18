@@ -28,7 +28,7 @@ The paper develops topological quantum neural networks whose states are supporte
 
 ## Relevance to this research
 
-For [[Gauge-Theoretic Multi-Agent VFE Model]], this is adjacent literature on compositional quantum information and geometry. It may help compare learned structural organization with supplied graph topology, but neural-network states and TQFT amplitudes are not the project's agent probability laws. The semiclassical claim does not establish an equivalence to GL(K) transport, Fisher descent, or normalized inter-agent communication. Its empirical and explanatory status should remain provisional when cited alongside more explicit recovery theorems.
+For Gauge-Theoretic Multi-Agent VFE Model, this is adjacent literature on compositional quantum information and geometry. It may help compare learned structural organization with supplied graph topology, but neural-network states and TQFT amplitudes are not the project's agent probability laws. The semiclassical claim does not establish an equivalence to GL(K) transport, Fisher descent, or normalized inter-agent communication. Its empirical and explanatory status should remain provisional when cited alongside more explicit recovery theorems.
 
 ## BibTeX
 

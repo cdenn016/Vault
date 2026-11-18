@@ -12,7 +12,7 @@ updated: 2026-06-21
 
 # Self-Consciousness
 
-Self-consciousness is the reflexive awareness of oneself as a subject. Millière et al. (2018) treat it as a multidimensional construct spanning narrative (de se thought, autobiographical memory), agentive, and multisensory/bodily aspects, so that 'ego dissolution' under psychedelics or meditation can take several distinct forms rather than being unitary. In the active-inference reading, the narrative self is a hierarchical self-prior (linked to the default mode network), and weakening top-down priors permits larger posterior excursions experienced as boundary dissolution — connecting self-modeling to free-energy minimization and the PIFB treatment of consciousness.
+Self-consciousness is the reflexive awareness of oneself as a subject. Millière et al. (2018) treat it as a multidimensional construct spanning narrative (de se thought, autobiographical memory), agentive, and multisensory/bodily aspects, so that 'ego dissolution' under psychedelics or meditation can take several distinct forms rather than being unitary. In the active-inference reading, the narrative self is a hierarchical self-prior (linked to the default mode network), and weakening top-down priors permits larger posterior excursions experienced as boundary dissolution — connecting self-modeling to free-energy minimization.
 
 ## Related
 [[Consciousness and the hard problem]], [[Free-energy principle active inference]], [[Participatory realism and quantum foundations]]

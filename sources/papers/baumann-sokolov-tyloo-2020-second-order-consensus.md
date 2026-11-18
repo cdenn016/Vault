@@ -45,11 +45,11 @@ Very slow and very fast coupling modulation preserve the expected approach to co
 
 ## Relevance to this research
 
-This paper is a mandatory baseline for oscillation and resonance claims in [[Belief inertia]]. A manuscript cannot treat second-order consensus or resonant loss of agreement as uniquely diagnostic of a Fisher-based kinetic mechanism. Instead, [[Hamiltonian belief dynamics]] needs mechanism-specific predictions that distinguish changes in the belief-space kinetic metric or local VFE stiffness from ordinary parametric excitation through time-dependent coupling.
+This paper is a mandatory baseline for oscillation and resonance claims in Belief inertia. A manuscript cannot treat second-order consensus or resonant loss of agreement as uniquely diagnostic of a Fisher-based kinetic mechanism. Instead, Hamiltonian belief dynamics needs mechanism-specific predictions that distinguish changes in the belief-space kinetic metric or local VFE stiffness from ordinary parametric excitation through time-dependent coupling.
 
 ## Cross-links
 
-The paper belongs with [[Opinion dynamics]], [[Belief inertia]], [[Hamiltonian belief dynamics]], and [[Statistical physics of social systems and collective behavior]]. Its spectral mechanism complements [[olfati-saber-2007-consensus]] and provides a network-resonance comparator for future falsification designs.
+The paper belongs with [[Opinion dynamics]], Belief inertia, Hamiltonian belief dynamics, and [[Statistical physics of social systems and collective behavior]]. Its spectral mechanism complements [[olfati-saber-2007-consensus]] and provides a network-resonance comparator for future falsification designs.
 
 ## BibTeX
 

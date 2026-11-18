@@ -11,10 +11,9 @@ tags:
   - cluster/info-geometry
   - cluster/spd-geometry
   - project/transformer
-  - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-23
+updated: 2026-11-18
 ---
 
 # Gaussian Beliefs
@@ -31,18 +30,16 @@ encoded by the **belief tuple** $(\mu, \Sigma)$: a mean vector and a symmetric
 positive-definite (SPD) covariance. It is the workhorse representation of the
 gauge-theoretic VFE program. In the [[GL(K) gauge-equivariant attention]] model every
 token is exactly such a Gaussian "agent" $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ living on a
-statistical fiber bundle ([[gl-k-attention|GL(K) attention manuscript]],
-[[Agents as fibre-bundle sections]]); in the multi-agent (MAgent) model each agent's belief
-is the same tuple, and its inverse covariance $\Lambda = \Sigma^{-1}$ — the **precision** —
-is read as inertial [[Mass as Fisher information|mass]] ([[belief-inertia]]).
+statistical fiber bundle ([[gl-k-attention|GL(K) attention manuscript]]). Its inverse
+covariance $\Lambda = \Sigma^{-1}$ is the **precision**.
 
 The Gaussian is singled out for three structural reasons that this page develops:
 it is an [[Exponential family]] member (so variational updates close in a finite parameter
 set and stay conjugate); its covariance lives on the SPD cone, a Riemannian
 [[Symmetric spaces and the SPD cone|symmetric space]] $GL(K)/O(K)$ on which the gauge group
 acts by **congruence**; and the Kullback–Leibler divergence between two Gaussians has a
-**closed form**, which makes the entropy-regularized KL-consensus coupling of attention and
-the MAgent model tractable in closed form rather than by sampling.
+**closed form**, which makes the entropy-regularized KL-consensus coupling of attention
+tractable in closed form rather than by sampling.
 
 ## The belief as an exponential-family member
 
@@ -61,9 +58,8 @@ $T(c) = (c,\; c c^\top)$ ([[wainwright-2008-graphical-models-variational]],
   ([[Conjugate-Exponential Family]], [[wainwright-2008-graphical-models-variational]]). This
   is exactly why the covariance fixed point of gauge attention is a sum of precisions —
   $\Sigma_i^{-1} = \tfrac12\big[\Sigma_{p,i}^{-1} + \sum_j \beta_{ij}
-  (\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}\big]$ — and why the MAgent
-  [[Mass as Fisher information|mass tensor]] is a sum of precision contributions
-  ([[gl-k-attention|GL(K) attention manuscript]], [[belief-inertia]]).
+  (\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}\big]$
+  ([[gl-k-attention|GL(K) attention manuscript]]).
 - **Moment (expectation / dual) parameters** $\mathbb{E}_q[T] = (\mu,\; \Sigma + \mu\mu^\top)$
   — the mean and the (uncentered) second moment, equivalently $(\mu, \Sigma)$. The
   **log-partition function** $A(\eta)$ is convex; its gradient maps natural to moment
@@ -136,9 +132,7 @@ $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j) \in GL^+(K)$, built from per-token fram
 $\phi$ in the Lie algebra of $GL^+(K)$; transporting neighbor $j$'s belief into $i$'s frame
 sends $\Sigma_j \mapsto \Omega_{ij}\Sigma_j\Omega_{ij}^\top$
 ([[gl-k-attention|GL(K) attention manuscript]], [[GL(K) gauge group]],
-[[Gauge transformation]], [[Parallel transport]]). The same congruence appears in the MAgent
-mass tensor, where the incoming-social precision is the transported neighbor precision
-$(\Omega_{ik}\Sigma_k\Omega_{ik}^\top)^{-1}$ ([[Mass as Fisher information]], [[belief-inertia]]).
+[[Gauge transformation]], [[Parallel transport]]).
 
 > [!note] Editorial: The earlier stub for this page sourced the congruence-transport claims to
 > variational-autoencoder / information-bottleneck papers. That is a mis-sourcing: the
@@ -169,8 +163,7 @@ log-determinant term scores the relative volume/uncertainty of the two beliefs. 
 form is what makes the program's couplings analytic: the gauge-attention weight is
 $\beta_{ij} = \operatorname{softmax}_j(-D_{\mathrm{KL}}[q_i \| \Omega_{ij} q_j]/\tau)$, derived
 (not posited) as the source-selection posterior of a mixture generative model
-([[gl-k-attention|GL(K) attention manuscript]], [[GL(K) gauge-equivariant attention]],
-[[Belief coupling]]).
+([[gl-k-attention|GL(K) attention manuscript]], [[GL(K) gauge-equivariant attention]]).
 
 The KL divergence is **gauge-invariant** under the congruence action, and this is a theorem of
 the program, not an assumption: for any $\Omega \in GL(K)$,
@@ -190,17 +183,12 @@ by the Gaussian log-partition function).
 
 ## Relevance to this research
 
-Gaussian beliefs are a **core program concept**, the shared substrate of both flagship projects:
-
-- **VFE transformer / gauge attention.** Each token is a Gaussian agent; attention is KL
-  consensus between transported Gaussians; and the covariance fixed point is a precision sum.
-  In the shared-frame Regime-I specialization, the isotropic limit is identity-bilinear plus a key-norm bias; a general
-  $W_QW_K^\top$ is structural, not transport. Full-Gaussian congruence remains exact, while the
-  live diagonal family is exact only under monomial transport and otherwise uses projection.
-- **Multi-agent / MAgent model.** Each agent carries $(\mu,\Sigma)$; precision $\Sigma^{-1}$
-  is inertial [[Mass as Fisher information|mass]], which gives the model [[Belief inertia]] and
-  a [[Hamiltonian belief dynamics|Hamiltonian]] second-order belief dynamics
-  ([[belief-inertia]]).
+Gaussian beliefs are a **core program concept** of the VFE transformer and gauge attention.
+Each token is a Gaussian agent; attention is KL consensus between transported Gaussians; and
+the covariance fixed point is a precision sum. In the shared-frame Regime-I specialization, the
+isotropic limit is identity-bilinear plus a key-norm bias; a general $W_QW_K^\top$ is
+structural, not transport. Full-Gaussian congruence remains exact, while the live diagonal
+family is exact only under monomial transport and otherwise uses projection.
 
 The three facets above are not independent conveniences but three faces of one fact: the
 Gaussian family is the dually flat exponential family whose covariance manifold is the SPD
@@ -220,8 +208,7 @@ Learned Gaussian word representations scored by KL divergence ([[vilnis-2015-gau
 - [[Fisher information metric]] · [[Natural gradient]] · [[Information geometry and natural gradient]]
 - [[Symmetric spaces and the SPD cone]] · [[SPD-manifold geometry and Riemannian optimization]]
 - [[GL(K) gauge group]] · [[Gauge transformation]] · [[Parallel transport]]
-- [[GL(K) gauge-equivariant attention]] · [[Belief coupling]] · [[Precision weighting]]
-- [[Mass as Fisher information]] · [[Belief inertia]] · [[Hamiltonian belief dynamics]]
+- [[GL(K) gauge-equivariant attention]] · [[Precision weighting]]
 - [[Variational free energy]] · [[Bregman divergence]] · [[Reparameterization trick]]
 
 ## Sources

@@ -48,7 +48,7 @@ The author states that the tests compare an estimated posterior with simulated g
 
 ## Cross-links
 
-Concepts: [[Collective active inference]]; [[Collective motion and flocking]]; [[Federated inference]]; [[Bayesian mechanics]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]]; [[Expected Free Energy]]; [[Conservative information fusion]].
+Concepts: [[Collective active inference]]; [[Collective motion and flocking]]; [[Federated inference]]; [[Bayesian mechanics]]; Meta-agents and hierarchical emergence; [[Coarse Graining]]; [[Expected Free Energy]]; [[Conservative information fusion]].
 
 Related sources: [[heins-2023-spin-glass-active-inference]]; [[heins-2024-surprise-minimization]]; [[waade-2025-as-one-and-many]]; [[maisto-2025-flock-joint-agency]]; [[friston-2024-federated-inference]]; [[couzin-2002-collective-memory]]; [[couzin-2009-collective-cognition]]; [[ramstead-2023-bayesian-mechanics]]; [[virgo-2021-interpreting-dynamical-systems-bayesian]]; [[baltieri-2020-predictions-eye-beholder]]; [[pearson-2026-flux-defined-markov-blanket]].
 

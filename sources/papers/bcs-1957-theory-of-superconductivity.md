@@ -38,7 +38,7 @@ into singlet and triplet sectors, and triplet pairing is the unconventional case
 
 This is the primary source behind the Cooper-pairing analogy the program already uses in two
 places. First, meta-agent formation: condensation requires matching quantum numbers before
-pairing, the reading recorded on [[Meta-agents and hierarchical emergence]] (species gate
+pairing, the reading recorded on Meta-agents and hierarchical emergence (species gate
 before coalition membership) and in the physicists' companion's trees-and-loops section.
 Second, and sharper after amendment 6/8/9 of the rescaling laboratory: the sector-carrying
 parent $(p, s)$ is exactly "treat the pair as a bona fide particle carrying its invariant
@@ -53,7 +53,7 @@ retention versus mutual-information retention ([[Data processing inequality]],
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]], [[Data processing inequality]]
+- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]], [[Data processing inequality]]
 - Related sources: `2026-08-18-rescaling-audit-capacity-reversal`, `2026-08-18-minfo-information-retention`
 
 ## BibTeX

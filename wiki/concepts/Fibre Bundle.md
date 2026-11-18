@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-07-10
+updated: 2026-11-18
 ---
 
 # Fibre Bundle
@@ -23,7 +23,7 @@ updated: 2026-07-10
 A **fibre bundle** is a space that, *locally*, looks like a product of two simpler spaces but, *globally*, may be twisted. The data of a (smooth) fibre bundle is a quadruple $(E, B, \pi, F)$ together with a **structure group** $G$:
 
 - **Total space** $E$ — the space being described.
-- **Base space** $B$ — a smooth manifold over which $E$ sits; in this program $B$ is the "context / index manifold" $\mathcal{C}$, explicitly *not* spacetime (see [[Agents as fibre-bundle sections]]).
+- **Base space** $B$ — a smooth manifold over which $E$ sits; in this program $B$ is the "context / index manifold" $\mathcal{C}$, explicitly *not* spacetime.
 - **Projection** $\pi : E \to B$ — a smooth surjection that collapses $E$ down onto $B$.
 - **Fibre** $F$ — the model space attached over each point: $\pi^{-1}(b) \cong F$ for every $b \in B$.
 - **Structure group** $G$ — a Lie group acting (effectively) on $F$, which controls how fibres over nearby points are glued.
@@ -34,7 +34,7 @@ g_{UU} = e,\qquad g_{UV}\,g_{VU} = e,\qquad g_{UV}\,g_{VW} = g_{UW},
 $$
 which is exactly what allows the local pieces $U \times F$ to be patched into a single consistent global space $E$. A bundle is **trivial** when one global trivialization $E \cong B \times F$ exists; the cocycle is precisely the obstruction to global triviality. This bundle-theoretic language is the standard coordinate-free formalism of [[kobayashi-nomizu-1963-foundations]] and the physics-oriented treatments of [[nakahara-2003-geometry-topology-physics]] and [[bleecker-1981-gauge-theory-variational-principles]].
 
-A **section** is a smooth right inverse $s : B \to E$ with $\pi \circ s = \mathrm{id}_B$ — a consistent choice of one point in each fibre. Sections are the natural notion of a "field": this is the precise sense in which the program treats agents/beliefs as fields, developed in [[Agents as fibre-bundle sections]] (each belief $q_i$ is a section of an associated statistical bundle). The smooth-manifold and section machinery underlying all of this is standard ([[lee-2012-smooth-manifolds]]).
+A **section** is a smooth right inverse $s : B \to E$ with $\pi \circ s = \mathrm{id}_B$ — a consistent choice of one point in each fibre. Sections are the natural notion of a "field": this is the precise sense in which the program treats beliefs as fields (each belief $q_i$ is a section of an associated statistical bundle). The smooth-manifold and section machinery underlying all of this is standard ([[lee-2012-smooth-manifolds]]).
 
 ## Principal vs. associated bundles
 
@@ -48,7 +48,7 @@ $$
 $$
 i.e. moving the frame by $g$ and the fibre value by $\rho(g)$ leaves the physical point unchanged. **Matter fields are sections of associated bundles** carrying a representation of $G$ ([[bleecker-1981-gauge-theory-variational-principles]], [[kobayashi-nomizu-1963-foundations]]). The decomposition of $\rho$ into [[Irreducible representation]]s is the bookkeeping that organizes how distinct field types couple, and the demand that physics be independent of the frame is exactly [[Group equivariance]] under $G$.
 
-> [!note] Editorial: In this program the structure group is $G = \mathrm{GL}(K,\mathbb{R})$ (compact restriction $\mathrm{SO}(3)$ in the proof-of-concept runs), the model fibres are statistical manifolds of Gaussians, and $\rho$ acts on a Gaussian belief by transport of the mean and **congruence** of the covariance, $\rho(g)\cdot\mathcal{N}(\mu,\Sigma) = \mathcal{N}(g\mu,\,g\Sigma g^{\top})$. This is the associated-bundle attachment of probability to gauge developed in [[Agents as fibre-bundle sections]] and the [[Gauge-Theoretic Multi-Agent VFE Model]]; it is a project-specific choice, not part of the textbook definition.
+> [!note] Editorial: In this program the structure group is $G = \mathrm{GL}(K,\mathbb{R})$ (compact restriction $\mathrm{SO}(3)$ in the proof-of-concept runs), the model fibres are statistical manifolds of Gaussians, and $\rho$ acts on a Gaussian belief by transport of the mean and **congruence** of the covariance, $\rho(g)\cdot\mathcal{N}(\mu,\Sigma) = \mathcal{N}(g\mu,\,g\Sigma g^{\top})$. This is the program's associated-bundle attachment of probability to gauge; it is a project-specific choice, not part of the textbook definition.
 
 ## Connection → parallel transport → curvature → holonomy
 
@@ -56,7 +56,7 @@ A bare bundle has no way to compare fibres over different base points. A **conne
 
 **Connection.** A connection is an intrinsic splitting of each tangent space $T_pP$ into a **vertical** part (along the fibre) and a **horizontal** part (an Ehresmann horizontal distribution), equivalently a $\mathfrak{g}$-valued **connection one-form** $\omega$, where $\mathfrak{g} = \mathrm{Lie}(G)$ ([[kobayashi-nomizu-1963-foundations]], [[nakahara-2003-geometry-topology-physics]]). In a local trivialization the connection appears as the **gauge potential** $A$, a $\mathfrak{g}$-valued one-form on $B$ — this is precisely the gauge field of physics.
 
-**Parallel transport.** Horizontal lifts of curves in $B$ define [[Parallel transport]]: a path-dependent fibre isomorphism $P_\gamma$ that carries a section's value from one point to another "as constantly as the geometry allows," i.e. with vanishing covariant derivative along the curve ([[kobayashi-nomizu-1963-foundations]]). Transport is how one agent's belief is carried into another's frame to be compared — comparison requires *transport, not subtraction* (see [[Agents as fibre-bundle sections]], [[Multi-agent variational free energy]]).
+**Parallel transport.** Horizontal lifts of curves in $B$ define [[Parallel transport]]: a path-dependent fibre isomorphism $P_\gamma$ that carries a section's value from one point to another "as constantly as the geometry allows," i.e. with vanishing covariant derivative along the curve ([[kobayashi-nomizu-1963-foundations]]). Transport is how one agent's belief is carried into another's frame to be compared — comparison requires *transport, not subtraction*.
 
 **Curvature.** The **curvature two-form**
 $$
@@ -85,17 +85,17 @@ Fibre bundles are the geometric backbone of the entire gauge-theoretic VFE progr
 
 - **Comparison requires transport.** For the realized Regime-I vertex cocycle, $\Omega_{ij}=U_iU_j^{-1}$ telescopes around every loop, so $H=I$ exactly. Path-dependent disagreement belongs to an edge-relaxed or otherwise nonflat connection, not Regime I. Generic bundle holonomy statements above remain unchanged.
 
-- **Statistical fibres and information geometry.** When the associated fibre is a statistical manifold of Gaussians, the connection interacts with the [[Fisher information metric]] (see [[Information geometry and natural gradient]], [[Mass as Fisher information]]); the bundle/connection texts supply the connection-theoretic side that information geometry specializes to probability. The covariance fibres sit on the curved SPD cone, whose transport is genuinely curved (see [[Symmetric spaces and the SPD cone]]).
+- **Statistical fibres and information geometry.** When the associated fibre is a statistical manifold of Gaussians, the connection interacts with the [[Fisher information metric]] (see [[Information geometry and natural gradient]]); the bundle/connection texts supply the connection-theoretic side that information geometry specializes to probability. The covariance fibres sit on the curved SPD cone, whose transport is genuinely curved (see [[Symmetric spaces and the SPD cone]]).
 
 - **Equivariant transformer.** The same principal-bundle connection theory underlies gauge-equivariant deep learning ([[Group equivariance]], [[Irreducible representation]], the theme [[Gauge equivariance and geometric deep learning]]). The [[VFE Transformer Program]]'s per-block GL(K) transport realizes connection-and-representation machinery on belief tuples $(\mu,\Sigma,\phi)$. The optional post-belief head mixer is a separate learned remap, not a connection: under the live untied $\mathrm{GL}(d)^H$ action its off-diagonal head mixing is not equivariant, and the Schur-commutant interpretation applies only when the gauge action is tied across equivalent copies.
 
 - **Variational principle.** Bleecker's framing — physical dynamics as the stationary points of a gauge-invariant action — is the structural analogue of the program's central move, that belief and attention dynamics are stationary points of the variational free energy ([[bleecker-1981-gauge-theory-variational-principles]]). The correspondence is at the level of variational structure, an analogy rather than a literal Yang–Mills reproduction.
 
-> [!note] Editorial: In the present single-tree constructions the reconstructed bundle is canonically *trivializable* — each frame $U_i$ is defined on its whole patch, so the Čech data is a coboundary and nontrivial bundle topology is out of scope (see [[Agents as fibre-bundle sections]]). The bundle language is organizational and load-bearing for the *connection / transport / holonomy* content, not (yet) for nontrivial [[Characteristic Classes]].
+> [!note] Editorial: In the present single-tree constructions the reconstructed bundle is canonically *trivializable* — each frame $U_i$ is defined on its whole patch, so the Čech data is a coboundary and nontrivial bundle topology is out of scope. The bundle language is organizational and load-bearing for the *connection / transport / holonomy* content, not (yet) for nontrivial [[Characteristic Classes]].
 
 ## Related
 
-[[Agents as fibre-bundle sections]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Characteristic Classes]], [[Classifying Space]], [[Group equivariance]], [[Irreducible representation]], [[Non-flat connection and the photon analogy]], [[Fisher information metric]], [[Symmetric spaces and the SPD cone]], [[Killing form]]
+[[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Characteristic Classes]], [[Classifying Space]], [[Group equivariance]], [[Irreducible representation]], [[Non-flat connection and the photon analogy]], [[Fisher information metric]], [[Symmetric spaces and the SPD cone]], [[Killing form]]
 
 ## Sources
 
@@ -104,13 +104,10 @@ Fibre bundles are the geometric backbone of the entire gauge-theoretic VFE progr
 - [[bleecker-1981-gauge-theory-variational-principles]] — bundles and connections via the gauge-invariant variational (Yang–Mills) principle; gauge transformation and curvature transformation laws.
 - [[lee-2012-smooth-manifolds]] — smooth manifolds, sections, local trivializations underlying the construction.
 - [[milnor1976-characteristic-classes-spherical-fibre]] — characteristic classes of (sphere) fibre bundles.
-- [[participatory-it-from-bit]], [[gl-k-attention]] — the program's principal/associated-bundle and agents-as-sections constructions (primary project sources).
+- [[gl-k-attention]] — the program's principal/associated-bundle construction (primary project source).
 
 ## See also
 
-- [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[VFE Transformer Program]]
 - [[Gauge equivariance and geometric deep learning]]
-- [[Multi-agent variational free energy]]
-- [[Meta-agents and hierarchical emergence]]
 - [[Participatory realism and quantum foundations]]

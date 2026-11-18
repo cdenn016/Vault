@@ -22,11 +22,11 @@ An economics paper on how national borders affect price behavior between US and 
 
 ## Relevance to this research
 
-The manuscript cites the paper among empirical studies of how boundaries between groups reduce interaction. It states that crossing the US-Canadian border adds as much relative-price volatility as 2500 miles of distance, a conservative estimate according to the reading record, which was based on the abstract (RePEc and a Federal Reserve working-paper version). The article text was not read. It is used alongside trade studies as evidence that group boundaries act like distance, which bears on [[Meta-agents and hierarchical emergence]] and [[Coarse Graining]].
+The manuscript cites the paper among empirical studies of how boundaries between groups reduce interaction. It states that crossing the US-Canadian border adds as much relative-price volatility as 2500 miles of distance, a conservative estimate according to the reading record, which was based on the abstract (RePEc and a Federal Reserve working-paper version). The article text was not read. It is used alongside trade studies as evidence that group boundaries act like distance, which bears on Meta-agents and hierarchical emergence and [[Coarse Graining]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
 
 ## BibTeX
 

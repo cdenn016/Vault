@@ -22,11 +22,11 @@ A paper on hierarchical clustering that treats dendrograms as ultrametrics and s
 
 ## Relevance to this research
 
-The collective-agents manuscript uses single-linkage clustering to form collectives and cites this paper for the fact that the dendrogram of single linkage is an ultrametric. That fact makes the nesting of collectives at successive thresholds automatic. The reference supports the coarse-graining step in which agents are grouped by a contrast threshold and the groups nest as the threshold rises, see [[Coarse Graining]] and [[Meta-agents and hierarchical emergence]]. The manuscript's reading record covers only the abstract, so no statement here goes beyond it. A related grouping notion is in [[Community detection and modularity]].
+The collective-agents manuscript uses single-linkage clustering to form collectives and cites this paper for the fact that the dendrogram of single linkage is an ultrametric. That fact makes the nesting of collectives at successive thresholds automatic. The reference supports the coarse-graining step in which agents are grouped by a contrast threshold and the groups nest as the threshold rises, see [[Coarse Graining]] and Meta-agents and hierarchical emergence. The manuscript's reading record covers only the abstract, so no statement here goes beyond it. A related grouping notion is in [[Community detection and modularity]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]]; [[Community detection and modularity]].
+[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[Community detection and modularity]].
 
 ## BibTeX
 

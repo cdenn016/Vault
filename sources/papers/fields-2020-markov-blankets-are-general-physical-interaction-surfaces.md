@@ -28,7 +28,7 @@ This commentary proposes a quantum-information interpretation of Markov blankets
 
 ## Relevance to this research
 
-This is an early source for the bridge between [[Multi-agent variational free energy]] and holographic interfaces. It makes the receiving agent's information access central, which matches the project's explicit communication concerns. The project's normalized joint laws require conditional independence to be established for their actual random variables and kernels. A boundary analogy or hidden internal Hamiltonian is not a replacement for that proof, and the commentary gives no general identity between its interaction description and the project's population ELBO.
+This is an early source for the bridge between Multi-agent variational free energy and holographic interfaces. It makes the receiving agent's information access central, which matches the project's explicit communication concerns. The project's normalized joint laws require conditional independence to be established for their actual random variables and kernels. A boundary analogy or hidden internal Hamiltonian is not a replacement for that proof, and the commentary gives no general identity between its interaction description and the project's population ELBO.
 
 ## BibTeX
 

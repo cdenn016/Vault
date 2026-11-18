@@ -71,7 +71,7 @@ This paper sits at the foundation of the **participatory/it-from-bit** strand of
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)|It from Bit]], [[Emergent spacetime and holography|Holographic Principle]], [[Bekenstein Bound]], [[margolus-1998-physical-limits-computation|Margolus-Levitin Theorem]], [[Quantum Computation]], [[Information is Physical]], [[Participatory realism (it from bit)]], [[Emergent spacetime and holography]]
 - Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes-entropy|bekenstein-1973-black-holes]], [[landauer-1961-irreversibility]], [[susskind-2014-complexity-black-hole-horizons]]
-- Manuscript/Project: [[participatory-it-from-bit]], [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

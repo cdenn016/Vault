@@ -36,11 +36,11 @@ According to the abstract, the negative impact of distance on trade has not shru
 
 ## Relevance to this research
 
-The Collective Agents manuscript cites the paper twice, as evidence that the distance effect on trade persists although communication has improved, within its discussion of economies and of borders as contact boundaries. The sample counts the manuscript quotes differ from those in the abstract above and should be checked against the paper. The manuscript's record states that the abstract was read. It connects to [[Active inference communication and collective boundaries]] and [[Meta-agents and hierarchical emergence]].
+The Collective Agents manuscript cites the paper twice, as evidence that the distance effect on trade persists although communication has improved, within its discussion of economies and of borders as contact boundaries. The sample counts the manuscript quotes differ from those in the abstract above and should be checked against the paper. The manuscript's record states that the abstract was read. It connects to [[Active inference communication and collective boundaries]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

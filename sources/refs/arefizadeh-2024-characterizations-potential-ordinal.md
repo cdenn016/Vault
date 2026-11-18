@@ -35,11 +35,11 @@ Within the first pages read, the results are stated as characterizations and suf
 
 ## Relevance to this research
 
-The manuscript cites this preprint as the place where it read the four-cycle criterion for exact potential games, whose original statement is a theorem of Monderer and Shapley that the manuscript did not read in its source. The criterion is used to decide when a game among communicating agents has a potential, which connects to the Gibbs form of stationary laws under logit revision and to [[Collective active inference]] and [[Multi-agent variational free energy]]. The manuscript treats the primary theorem as known only through this restatement. Related pages: [[Evolutionary game theory and cooperation]], [[Replicator dynamics]].
+The manuscript cites this preprint as the place where it read the four-cycle criterion for exact potential games, whose original statement is a theorem of Monderer and Shapley that the manuscript did not read in its source. The criterion is used to decide when a game among communicating agents has a potential, which connects to the Gibbs form of stationary laws under logit revision and to [[Collective active inference]] and Multi-agent variational free energy. The manuscript treats the primary theorem as known only through this restatement. Related pages: [[Evolutionary game theory and cooperation]], [[Replicator dynamics]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective active inference]]; [[Multi-agent variational free energy]]; [[Evolutionary game theory and cooperation]]; [[Replicator dynamics]].
+[[Collective agents literature map]]; [[Collective active inference]]; Multi-agent variational free energy; [[Evolutionary game theory and cooperation]]; [[Replicator dynamics]].
 
 ## BibTeX
 

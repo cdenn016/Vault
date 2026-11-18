@@ -72,9 +72,9 @@ The failure taxonomy is the result with the widest reach. The configuration mode
 
 ## Cross-links
 
-- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Critical Phenomena]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Community detection and modularity]]
+- Concepts: [[Renormalization group flow]], [[Renormalization group flow]], [[Coarse Graining]], [[Critical Phenomena]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics, [[Community detection and modularity]]
 - Related sources: [[gabrielli-2025-network-renormalization]], [[villegas-2023-laplacian-renormalization-group]], [[garciaperez-2018-multiscale]], [[serrano-2008-self-similarity]], [[berman-2023-bayesian-renormalization]]
-- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[participatory-it-from-bit]]
+- Manuscript/Project: Gauge-Theoretic Multi-Agent VFE Model, [[participatory-it-from-bit]]
 
 ## BibTeX
 

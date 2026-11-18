@@ -28,7 +28,7 @@ Fields asks whether observers restricted to separate environmental fragments can
 
 ## Relevance to this research
 
-The distinction is directly useful for [[Participatory realism (it from bit)]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. Agreement and stable predictions within an interface do not automatically establish an objectively unique underlying carrier. The project's formation standard similarly separates a supplied grouping from a dynamically selected, behavior-preserving parent. Fields's argument motivates that separation, but it supplies no general obstruction to model-relative grouping or to exact sufficient statistics within a normalized law.
+The distinction is directly useful for [[Participatory realism (it from bit)]] and Gauge-Theoretic Multi-Agent VFE Model. Agreement and stable predictions within an interface do not automatically establish an objectively unique underlying carrier. The project's formation standard similarly separates a supplied grouping from a dynamically selected, behavior-preserving parent. Fields's argument motivates that separation, but it supplies no general obstruction to model-relative grouping or to exact sufficient statistics within a normalized law.
 
 ## BibTeX
 

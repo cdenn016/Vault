@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Conservative information fusion
@@ -30,9 +30,9 @@ P_{\mathrm{CI}}^{-1}\hat x_{\mathrm{CI}}
 
 The weight is usually chosen to minimize a scalar measure such as determinant or trace of the fused covariance. The guarantee is consistency under unknown correlation, not equality to the optimal fusion result that would be available if the cross-covariance were known.
 
-## Why it matters here
+## Hidden common information
 
-Repeated information exchange creates hidden common information even when agents' original measurements were independent. A future decentralized MultiAgentELBO implementation needs evidence lineage or a conservative fallback; otherwise a product-of-experts update can make precision grow simply by circulating the same evidence. [[julier-uhlmann-1997-covariance-intersection]] supplies a baseline for Gaussian beliefs when cross-correlations cannot be tracked.
+Repeated information exchange creates hidden common information even when agents' original measurements were independent. A decentralized inference scheme therefore needs evidence lineage or a conservative fallback; otherwise a product-of-experts update can make precision grow simply by circulating the same evidence. [[julier-uhlmann-1997-covariance-intersection]] supplies a baseline for Gaussian beliefs when cross-correlations cannot be tracked.
 
 ## Distinctions
 
@@ -42,10 +42,6 @@ Repeated information exchange creates hidden common information even when agents
 - **Covariance union** addresses a different problem, disagreement about which estimate is valid, and should not be conflated with CI.
 
 Unknown correlation is not the same failure as dropped communication, approximation error, model mismatch, or incompatible coordinate frames. Those errors require separate diagnostics.
-
-## In this work
-
-Tests should construct two agents whose local estimates share a tunable fraction of evidence. Compare naive independent fusion, fusion with known cross-covariance, CI, and a lineage-aware Bayesian oracle. Report calibration or coverage as well as nominal covariance volume. Gauge transport should be applied before comparing tensors in a common frame, but transport itself does not reveal whether evidence is duplicated.
 
 ## Sources
 

@@ -24,11 +24,11 @@ A 1950 article in the Transactions of the American Mathematical Society on the t
 
 ## Relevance to this research
 
-The manuscript attributes to this article the upper bound on the convergence rate of alternating projections between two subspaces, in terms of the cosine of the Friedrichs angle. The paper was not read directly: the attribution is taken from the restatement in [[badea-2012-rate-convergence-method]], Section 1B. The manuscript uses the bound for the rate at which relays of fixed codes in a common metric converge to the projection onto their intersection, which ties to [[Coarse Graining]] across scales and to [[Meta-agents and hierarchical emergence]].
+The manuscript attributes to this article the upper bound on the convergence rate of alternating projections between two subspaces, in terms of the cosine of the Friedrichs angle. The paper was not read directly: the attribution is taken from the restatement in [[badea-2012-rate-convergence-method]], Section 1B. The manuscript uses the bound for the rate at which relays of fixed codes in a common metric converge to the projection onto their intersection, which ties to [[Coarse Graining]] across scales and to Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]]; [[badea-2012-rate-convergence-method]].
+[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[badea-2012-rate-convergence-method]].
 
 ## BibTeX
 

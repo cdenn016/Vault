@@ -26,7 +26,7 @@ A strong empirical and network-structure anchor. The near-disconnected two-clust
 
 ## Cross-links
 - Concept: [[Community detection and modularity]]
-- Related: [[Multi-agent variational free energy]], [[Echo chambers and polarization]], [[Sociophysics]]
+- Related: Multi-agent variational free energy, [[Echo chambers and polarization]], [[Sociophysics]]
 - Related sources: [[cinelli-2021-echo-chamber-effect]], [[del-vicario-2016-misinformation-online]], [[baldassarri-bearman-2007-political-polarization]]
 
 ## BibTeX

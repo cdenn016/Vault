@@ -28,7 +28,7 @@ Fields and Levin examine meaning as a relation between a living system's discrim
 
 ## Relevance to this research
 
-This is directly relevant to [[Cue-result generative memory]] and [[Collective active inference]]: the receiver's retained organization determines which distinctions in a cue change its behavior. It also clarifies why coordination does not require identical internal representations. For [[Gauge-Theoretic Multi-Agent VFE Model]], semantic interpretation should be tied to specified conditional responses and records, with any claim about a shared meaning distinguished from an equality of normalized probability laws.
+This is directly relevant to [[Cue-result generative memory]] and [[Collective active inference]]: the receiver's retained organization determines which distinctions in a cue change its behavior. It also clarifies why coordination does not require identical internal representations. For Gauge-Theoretic Multi-Agent VFE Model, semantic interpretation should be tied to specified conditional responses and records, with any claim about a shared meaning distinguished from an equality of normalized probability laws.
 
 ## BibTeX
 

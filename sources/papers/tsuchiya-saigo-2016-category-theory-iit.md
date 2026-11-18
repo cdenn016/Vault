@@ -43,14 +43,14 @@ The contribution is programmatic: a proposal for a category-theoretic bridge bet
 
 ## Relevance to this research
 
-This paper is a near-twin of the manuscript [[participatory-it-from-bit]]'s structuralism, and it sharpens the [[Mathematical consciousness science]] thread. PIFB's relocation of the [[Explanatory gap]] rests on the thesis that phenomenal character is fixed by relational/structural content rather than by an intrinsic substrate property; Tsuchiya, Taguchi, and Saigo give that exact thesis a formal name and engine — the Yoneda lemma. The correspondence is interpretive rather than a borrowed theorem, and the note should say so: the project does not import their categorical machinery, but the *shape* of the claim matches, which is why it sits beside [[tononi-2016-iit]] and [[kleiner-tull-2021-mathematical-structure-iit]] as the structural-theory backdrop PIFB defines itself against. For the gauge-theoretic [[Multi-agent variational free energy]] model the resonance is concrete: the project already treats an agent's content as frame-relative and relationally specified ([[Agents as fibre-bundle sections]], [[Gauge transformation]], [[Holonomy]]), so a Yoneda-style "identity is the totality of relations" maps onto "a belief is fixed by its couplings/transports to other beliefs." This is the same relational ontology the participatory program pursues through [[Participatory realism (it from bit)]].
+This paper is a near-twin of the manuscript [[participatory-it-from-bit]]'s structuralism, and it sharpens the [[Mathematical consciousness science]] thread. PIFB's relocation of the [[Explanatory gap]] rests on the thesis that phenomenal character is fixed by relational/structural content rather than by an intrinsic substrate property; Tsuchiya, Taguchi, and Saigo give that exact thesis a formal name and engine — the Yoneda lemma. The correspondence is interpretive rather than a borrowed theorem, and the note should say so: the project does not import their categorical machinery, but the *shape* of the claim matches, which is why it sits beside [[tononi-2016-iit]] and [[kleiner-tull-2021-mathematical-structure-iit]] as the structural-theory backdrop PIFB defines itself against. For the gauge-theoretic Multi-agent variational free energy model the resonance is concrete: the project already treats an agent's content as frame-relative and relationally specified (Agents as fibre-bundle sections, [[Gauge transformation]], [[Holonomy]]), so a Yoneda-style "identity is the totality of relations" maps onto "a belief is fixed by its couplings/transports to other beliefs." This is the same relational ontology the participatory program pursues through [[Participatory realism (it from bit)]].
 
 ## Cross-links
 
-- Concepts: [[Mathematical consciousness science]], [[Explanatory gap]], [[Participatory realism (it from bit)]], [[Agents as fibre-bundle sections]], [[Holonomy]]
+- Concepts: [[Mathematical consciousness science]], [[Explanatory gap]], [[Participatory realism (it from bit)]], Agents as fibre-bundle sections, [[Holonomy]]
 - Related sources: [[tononi-2016-iit]], [[kleiner-tull-2021-mathematical-structure-iit]], [[nagel-1974-what-is-it-like]], [[levine-1983-explanatory-gap]]
 - Manuscript: [[participatory-it-from-bit]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ```bibtex
 @article{tsuchiya2016categorytheoryiit,

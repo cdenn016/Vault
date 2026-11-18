@@ -24,7 +24,7 @@ The key construct is the **neighborhood** $B(n) \subseteq \{1,\dots,n-1\}$ that 
 ## Relevance to this research
 This is the modern general-network synthesis of Bayesian herding and the rigorous generalization of the founding cascade models, a strong benchmark for the program. It supplies the topology-dependent learning/no-learning dichotomy against which a gauge-coupled belief network should be measured: in the program, the analog of the observation network is the attention graph defined by the weights $\beta_{ij}$, and the question "does the population converge to the truth or lock onto a wrong consensus?" is exactly Acemoglu et al.'s asymptotic-learning question transposed to continuous Gaussian beliefs. Their expanding-observations condition and bounded-signal failure mode are the cleanest existing statements of *which network structures permit correct collective inference*, giving the program a concrete target: show that the gauge-coupled dynamics inherit the same topology-driven phase boundary. The mapping is a benchmark/analogy rather than a contained result — their setting is one-shot Bayesian game play, the program's is iterative variational gradient flow.
 
-See [[Information cascades and herding]], [[Multi-agent variational free energy]], [[Community detection and modularity]], [[Collective active inference]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Community detection and modularity]], [[Collective active inference]].
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

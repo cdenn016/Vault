@@ -24,7 +24,7 @@ The review's contribution is integrative: it ties social-learning-strategy theor
 ## Relevance to this research
 This is the authoritative review tying social-learning-strategy theory to decision-theoretic, uncertainty-driven accounts of when to copy — the same logic that, in the VFE setting, makes attention weights a function of relative belief precision and disagreement. The empirical regularity that uncertainty and high asocial-learning cost increase reliance on social information is direct support for treating social learning as Bayesian / precision-weighted belief updating, which is exactly the behavior the coupling term $\beta_{ij}\,\mathrm{KL}(q_i\,\|\,\Omega_{ij}[q_j])$ produces when the gain scales with the agent's own posterior uncertainty $\Sigma_i$. Strong, synthesis-level support for the program's premise that the attention kernel should be precision- and disagreement-modulated rather than fixed. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Fisher information metric]], [[Collective active inference]].
+Concept links: [[Cultural evolution and social learning]], Multi-agent variational free energy, [[Fisher information metric]], [[Collective active inference]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

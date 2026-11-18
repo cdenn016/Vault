@@ -33,10 +33,10 @@ Each capsule has a presence probability and a $4\times4$ pose matrix. A lower ca
 Section 3 frames routing as fitting a mixture of Gaussians to votes $V_{ij}$. The M-step sets each parent's mean and variance to the assignment-weighted moments of its votes; the parent's activation is a logistic function, scaled by an inverse temperature $\lambda$ that increases with a fixed schedule, of the description-length saving between explaining the votes and paying a fixed cost (costs $\beta_u,\beta_a$). The E-step reassigns each child to the parents in proportion to activation times Gaussian density. The transformation matrices are trained by backpropagation through the unrolled EM iterations. The paper reports a 45% reduction in test errors on smallNORB relative to the previous state of the art and better resistance to white-box adversarial attacks than a CNN baseline.
 
 ## Relevance to this research
-This is the closest published precedent for the meta-agent reading of a Gaussian template layer. Parents are Gaussians fit by an EM M-step to their children's weighted contributions (bottom-up), and children are assigned by Bayesian responsibility (top-down); both directions run inside the forward pass. In [[Meta-agents and hierarchical emergence]] the parent is the forward-KL barycenter of its constituents, and the EM M-step of a Gaussian component with retained dispersion is that barycenter. The capsule activation test is a description-length criterion, parallel to the meta-agent licensing criterion.
+This is the closest published precedent for the meta-agent reading of a Gaussian template layer. Parents are Gaussians fit by an EM M-step to their children's weighted contributions (bottom-up), and children are assigned by Bayesian responsibility (top-down); both directions run inside the forward pass. In Meta-agents and hierarchical emergence the parent is the forward-KL barycenter of its constituents, and the EM M-step of a Gaussian component with retained dispersion is that barycenter. The capsule activation test is a description-length criterion, parallel to the meta-agent licensing criterion.
 
 ## Cross-links
-- Concepts: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence
 - Methods: [[Template routing]]
 - Related sources: [[locatello-2020-slot-attention]], [[bovy-2011-extreme-deconvolution]]
 

@@ -22,7 +22,7 @@ Mori constructs generalized Langevin equations for selected observables, separat
 
 ## Relevance to this research
 
-The PIFB2 appendix proves an exact linear Gaussian memory/noise identity from its own stated OU model and initial preparation. The citation acknowledges the earlier general mechanism. See [[Belief inertia]] and [[Hamiltonian belief dynamics]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+The PIFB2 appendix proves an exact linear Gaussian memory/noise identity from its own stated OU model and initial preparation. The citation acknowledges the earlier general mechanism. See Belief inertia and Hamiltonian belief dynamics. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

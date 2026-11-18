@@ -39,7 +39,7 @@ In Section 3 each agent's message consists of a signature $k_i\in\mathbb R^{d_k}
 
 ## Relevance to this research
 
-The September 2026 v2 revision of the GL(K) attention manuscript cites TarMAC as the precedent for reading attention between tokens as communication between agents: senders broadcast keyed messages and receivers route them by soft attention. The manuscript develops the same reading for Gaussian token states, with separate comparison maps for routing and content maps for the transmitted message. See [[GL(K) gauge-equivariant attention]] and [[Multi-agent variational free energy]].
+The September 2026 v2 revision of the GL(K) attention manuscript cites TarMAC as the precedent for reading attention between tokens as communication between agents: senders broadcast keyed messages and receivers route them by soft attention. The manuscript develops the same reading for Gaussian token states, with separate comparison maps for routing and content maps for the transmitted message. See [[GL(K) gauge-equivariant attention]] and Multi-agent variational free energy.
 
 ## Local full text
 

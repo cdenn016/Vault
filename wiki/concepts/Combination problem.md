@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Combination problem
@@ -33,39 +33,14 @@ gives the canonical recent statement, argues the subject-summing difficulty is d
 constitutive *micro*-psychism, and prefers the **cosmopsychist inversion**: take the cosmos as the
 one fundamental subject and derive individual subjects from it.
 
-## Why it matters here
+## Relation to integrated information
 
-The combination problem **is** the principal cross-scale open question for the manuscript
-[[participatory-it-from-bit]]. Because PIFB self-classifies as **panprotopsychist** (via
-[[chalmers-2013-panpsychism]]) and chooses the *constitutive* rather than emergent variant — Strawson's
-anti-brute-emergence argument ([[strawson-2006-realistic-monism]]) being the standing objection to
-emergentism — it inherits exactly this obligation: to explain how protophenomenal structure at one
-scale composes into experiential structure at a higher scale. The project's distinctive resource is
-its multi-scale machinery. [[Meta-agents and hierarchical emergence]] and the [[Ouroboros multi-scale dynamics]] specify a *gauge-covariant coarse-graining*: constituent beliefs are transported into a
-common meta-frame ([[Gauge transformation]], [[Parallel transport]]) and pooled to form a
-higher-scale agent. This is a mathematically explicit candidate answer to the **structure**
-combination problem — how lower-scale relational structure yields higher-scale relational structure.
-Goff's cosmopsychist inversion is suggestive for the **ouroboros**, where the apex scale folds back
-over all scales below, so the whole conditions its parts rather than only the reverse.
-
-> [!note] Editorial: Whether gauge-covariant pooling that addresses *structure* combination also
-> delivers *subject* combination — a genuinely new unified subject, not merely a coarse statistic of
-> constituent beliefs — is exactly the residual difficulty the program must concede. This mirrors
-> Chalmers's distinction between structure and subject combination and is flagged as unresolved.
-
-## Relation to this research
-
-In the gauge-theoretic [[Multi-agent variational free energy]] model, the combination problem becomes
-a precise, testable question rather than a verbal puzzle: under what conditions is a coarse-grained
-collective an *irreducible* higher-level unit rather than a sum of independent parts? The project
-grounds this in [[Variational free energy]] and [[Fisher information metric]] geometry — a
-parallel to (but distinct from) the irreducibility-based emergence of [[tononi-2016-iit]] and its
-formalization in [[kleiner-tull-2021-mathematical-structure-iit]], where a system is a genuine whole
-only when its integrated information is irreducible to its partitions. The combination problem is
-thus the metaphysical statement of the same coarse-graining trade-off the program studies
-quantitatively through [[Meta-entropy]] and [[Renormalization group flow]]. It is the
-chief unresolved item of the [[Consciousness and the hard problem]] theme and the cross-scale
-counterpart of the [[Explanatory gap]].
+A formal analog of the question "when is a whole more than a sum of its parts?" is the
+irreducibility-based emergence of [[tononi-2016-iit]] and its formalization in
+[[kleiner-tull-2021-mathematical-structure-iit]], where a system is a genuine whole only when its
+integrated information is irreducible to its partitions. The combination problem is the chief
+unresolved item of the [[Consciousness and the hard problem]] theme and the cross-scale counterpart
+of the [[Explanatory gap]].
 
 ## Sources
 
@@ -83,6 +58,4 @@ counterpart of the [[Explanatory gap]].
 - [[Explanatory gap]]
 - [[Consciousness and the hard problem]]
 - [[Russellian monism]] · [[Structural realism]]
-- [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]]
-- [[Multi-agent variational free energy]] · [[Renormalization group flow]]
-- [[participatory-it-from-bit]]
+- [[Renormalization group flow]]

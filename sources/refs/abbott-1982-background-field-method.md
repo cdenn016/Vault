@@ -33,7 +33,7 @@ The review derives the background-field generating functional, gauge-fixing and 
 
 ## Why the project cites it
 
-The beyond-mean-field configuration theory in [[participatory-it-from-bit]] expands a gauge-invariant structural energy around a background configuration. Abbott supplies the standard justification for preserving background covariance while treating local fluctuations. The citation does not prove that the project’s finite-dimensional configuration integral exists or that different local charts glue into a global effective action; those remain explicit obligations in [[Meta-entropy]] and the proposed exact-RG program.
+The beyond-mean-field configuration theory in [[participatory-it-from-bit]] expands a gauge-invariant structural energy around a background configuration. Abbott supplies the standard justification for preserving background covariance while treating local fluctuations. The citation does not prove that the project’s finite-dimensional configuration integral exists or that different local charts glue into a global effective action; those remain explicit obligations in Meta-entropy and the proposed exact-RG program.
 
 ## Local full text
 

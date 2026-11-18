@@ -49,7 +49,7 @@ This paper belongs to the social-physics / opinion-dynamics literature that the 
 ## Cross-links
 - Concepts: [[Motivated Reasoning]], [[Bayesian Inference|Belief Updating]], [[Opinion Dynamics]], [[Social influence and conformity|Social Influence]]
 - Related sources: [[lord-1979-biased-assimilation]], [[taber-2006-motivated-skepticism]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

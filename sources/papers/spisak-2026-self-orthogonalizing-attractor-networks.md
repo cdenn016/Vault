@@ -48,7 +48,7 @@ Stated limits (pp. 21 to 22): quadratic memory in $N$; mixing times under asymme
 
 ## Cross-links
 
-Concepts: [[Attractor networks]]; [[Associative Memory]]; [[Bayesian mechanics]]; [[Markov Blanket]]; [[Nonequilibrium steady state]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[Energy-Based Models]].
+Concepts: [[Attractor networks]]; [[Associative Memory]]; [[Bayesian mechanics]]; [[Markov Blanket]]; [[Nonequilibrium steady state]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Energy-Based Models]].
 
 Related sources: [[friston-2023-fep-simpler]]; [[friston-2023-path-integrals-particular]]; [[palacios-2020-hierarchical-markov-blankets]]; [[ramstead-2023-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[hinton-2002-products-of-experts]]; [[hinton-sejnowski-1986-boltzmann]]; [[heins-2023-spin-glass-active-inference]]; [[friston-2012-free-energy-value-attractors]]; [[isomura-2023-bayesian-mechanics-self-organising]].
 

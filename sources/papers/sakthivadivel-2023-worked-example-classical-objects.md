@@ -48,7 +48,7 @@ The author concedes that the derivation of the Euler-Lagrange equation starts fr
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Maximum entropy]]; [[Hamiltonian belief dynamics]]; [[Belief inertia]]; [[Mass as Fisher information]]; [[Markov Blanket]]; [[Laplace approximation]]; [[Process-space variational inference]].
+Concepts: [[Bayesian mechanics]]; [[Maximum entropy]]; Hamiltonian belief dynamics; Belief inertia; Mass as Fisher information; [[Markov Blanket]]; [[Laplace approximation]]; [[Process-space variational inference]].
 
 Related sources: [[sakthivadivel2022-bayesian-mechanics-geometry]]; [[ramstead-2023-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[friston-2023-fep-simpler]]; [[parr-2020-markov-blankets-thermodynamics]]; [[dacosta-2021-bayesian-mechanics]]; [[friston-2023-path-integrals-particular]]; [[friston-2021-stochastic-chaos-markov]]; [[sakthivadivel-2022-entropy-maximising-parallel-transport]]; [[sakthivadivel-2022-regarding-flows-fep]]; [[sakthivadivel-2022-weak-markov-blankets]].
 

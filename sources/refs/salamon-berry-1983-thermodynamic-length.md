@@ -27,7 +27,7 @@ Salamon, Peter, Berry, R. Stephen (1983). *Thermodynamic length and dissipated a
 
 The article studies dissipated availability for finite-time endoreversible processes using a metric on equilibrium thermodynamic states. It is a thermodynamic-length precedent under specified physical assumptions. PIFB2 uses an analogy with information clocks; the paper does not turn an arbitrary Fisher arc length into physical proper time.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

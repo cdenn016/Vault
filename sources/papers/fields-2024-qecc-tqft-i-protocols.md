@@ -28,7 +28,7 @@ Part I represents measurement and preparation using quantum reference frames and
 
 ## Relevance to this research
 
-This is a priority source for communication as a physical protocol in [[Gauge-Theoretic Multi-Agent VFE Model]] and for [[Quantum reference frames]]. Encoding, decoding, shared basis information, and noise classes must all be declared before preservation is meaningful. The project's exact statistical recovery kernels provide a useful comparison, but quantum error correction and classical conditional reconstruction have distinct domains and hypotheses. The paper supplies no equality between a TQFT functor and a GL(K) statistical transport.
+This is a priority source for communication as a physical protocol in Gauge-Theoretic Multi-Agent VFE Model and for [[Quantum reference frames]]. Encoding, decoding, shared basis information, and noise classes must all be declared before preservation is meaningful. The project's exact statistical recovery kernels provide a useful comparison, but quantum error correction and classical conditional reconstruction have distinct domains and hypotheses. The paper supplies no equality between a TQFT functor and a GL(K) statistical transport.
 
 ## BibTeX
 

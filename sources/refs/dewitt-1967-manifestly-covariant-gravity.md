@@ -26,7 +26,7 @@ DeWitt, Bryce S. (1967). *Quantum theory of gravity. II. The manifestly covarian
 
 This is a historical source for covariant field quantization and background constructions. Its physical field-theory setting is distinct from the finite agent statistical model; citing its construction does not make the latter a theory of gravity.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

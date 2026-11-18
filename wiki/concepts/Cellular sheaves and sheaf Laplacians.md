@@ -18,18 +18,10 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-10-07
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Cellular sheaves and sheaf Laplacians
-
-## Conditional soft-sector mass and localization, October 7, 2026
-
-An arbitrary-N flat GL field with bounded per-edge singular values carries localized sections on any bounded-degree graph, including an expander family. The positive-mode variant explicitly adds self loops. N512/N2048 saved-data checks validate the construction but do not establish a uniform random ensemble or independently adjudicate the proof. This partially answers O1 in a controlled regime; strong non-isometry/pathwise conditions, intrinsic selection, the O3 metric declaration and graph-family S1 remain open.
-
-## Graded retention and its limits, October 7, 2026
-
-The graded recovery curve does not settle the Cheeger substantial-block question, original collective-flow approximation, intrinsic rank selection or predictive information. The conditional O1 result above now addresses a controlled regime, with strong non-isometry/pathwise conditions open; the plaquette model is held, so graph-family loop selection remains open.
 
 This page synthesizes a full reading (October 7, 2026) of the two Hansen–Ghrist papers already archived in the vault: the spectral-theory paper [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] and the opinion-dynamics paper [[hansen-ghrist-2021-discourse-sheaves]] (the archived text is arXiv v1, 2005.12798). Both source notes predate the reading and record only identity and scope; the content below is drawn from the PDFs themselves, with section and theorem numbers from those versions. Material that goes beyond the two papers is marked editorial.
 
@@ -75,7 +67,7 @@ For invertible links on a connected graph, a global section satisfies $x_i=\Omeg
 
 The conservation law of Theorem 9.3 is a Noether identity. The vertex group $\mathrm{GL}(\mathcal F(v))$ acts by $x_v\mapsto gx_v$ and $\mathcal F_{v\trianglelefteq e}\mapsto\mathcal F_{v\trianglelefteq e}g^{-1}$ and leaves $\delta x$ unchanged. Under gradient flow with rates $\alpha$ for opinions and $\beta$ for maps, the moment map $\beta^{-1}\sum_{e\ni v}\mathcal F_{v\trianglelefteq e}^{\top}\mathcal F_{v\trianglelefteq e}-\alpha^{-1}x_vx_v^{\top}$ is conserved, which is the balancedness invariant of deep linear networks ([[du-2018-balanced-layers]]) and an instance of the symmetry-induced conservation laws of [[kunin-2021-neural-mechanics]]. In the gauge-VFE setting the same argument says that joint flow of beliefs and links under a gauge-invariant energy conserves a moment map whose form depends on the metric of the flow, so the Euclidean invariant above is not conserved under natural-gradient updates.
 
-Kron reduction is the sheaf form of integrating out an agent. For scaled-orthogonal bundles, eliminating vertex $v$ composes transports, giving a pairwise link $\Omega_{wv}\Omega_{vw'}$ on each pair of its neighbors (the star–mesh transform with transport), because a weighted variance of transported messages with isotropic weights decomposes into pairwise squared differences. With rank-deficient restrictions or anisotropic precisions the eliminated vertex leaves a constraint on its whole star that need not be pairwise, which is the Hansen–Ghrist obstruction. This bears on [[Coarse Graining]] and [[Meta-agents and hierarchical emergence]], where integrating out constituents of a parent can generate couplings among more than two agents.
+Kron reduction is the sheaf form of integrating out an agent. For scaled-orthogonal bundles, eliminating vertex $v$ composes transports, giving a pairwise link $\Omega_{wv}\Omega_{vw'}$ on each pair of its neighbors (the star–mesh transform with transport), because a weighted variance of transported messages with isotropic weights decomposes into pairwise squared differences. With rank-deficient restrictions or anisotropic precisions the eliminated vertex leaves a constraint on its whole star that need not be pairwise, which is the Hansen–Ghrist obstruction. This bears on [[Coarse Graining]], where integrating out constituents can generate couplings among more than two agents.
 
 ## Hodge Laplacians, plaquettes and holonomy
 
@@ -121,5 +113,4 @@ Both papers work with vector stalks, Euclidean inner products, fixed linear rest
 - [[Opinion dynamics]]
 - [[Bounded confidence]]
 - [[Coarse Graining]]
-- [[Meta-agents and hierarchical emergence]]
 - [[GL(K) gauge-equivariant attention]]

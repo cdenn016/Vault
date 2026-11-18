@@ -40,11 +40,11 @@ The paper supplies explicit kinematic formulas and derives the Euler–Lagrange 
 
 ## Relevance to this research
 
-Pistone's formulation is a direct predecessor for [[Hamiltonian belief dynamics]] and the probability-space interpretation of [[Belief inertia]]. It prevents a broad claim that the present work is the first to write Lagrangian motion for probabilities. Its deeper value is conceptual discipline: [[Mass as Fisher information]] should be stated as a deliberate kinetic-metric choice layered on the intrinsic [[Fisher information metric]], not as an unavoidable consequence of having a statistical bundle.
+Pistone's formulation is a direct predecessor for Hamiltonian belief dynamics and the probability-space interpretation of Belief inertia. It prevents a broad claim that the present work is the first to write Lagrangian motion for probabilities. Its deeper value is conceptual discipline: Mass as Fisher information should be stated as a deliberate kinetic-metric choice layered on the intrinsic [[Fisher information metric]], not as an unavoidable consequence of having a statistical bundle.
 
 ## Cross-links
 
-This source links to [[Fisher information metric]], [[Natural gradient]], [[Hamiltonian belief dynamics]], [[Belief inertia]], and [[Mass as Fisher information]]. It is the immediate precursor to [[chirco-2022-statistical-bundle-dynamics]] and a concrete statistical-bundle counterpart to [[leok-zhang-2017-information-geometric-mechanics]].
+This source links to [[Fisher information metric]], [[Natural gradient]], Hamiltonian belief dynamics, Belief inertia, and Mass as Fisher information. It is the immediate precursor to [[chirco-2022-statistical-bundle-dynamics]] and a concrete statistical-bundle counterpart to [[leok-zhang-2017-information-geometric-mechanics]].
 
 ## BibTeX
 

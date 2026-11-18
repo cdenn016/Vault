@@ -50,13 +50,13 @@ The paper supplies a formal type language for nested multi-agent models and show
 
 ## Relevance to this research
 
-This is a useful interface-level comparator for [[Agents as fibre-bundle sections]] and [[Collective active inference]]. Its compositional typing sharpens the distinction between a compatible family of local models and a single normalized joint law. A gauge-aware extension would additionally need transport maps and coherence conditions between local frames; those are not supplied by the polynomial interface alone.
+This is a useful interface-level comparator for Agents as fibre-bundle sections and [[Collective active inference]]. Its compositional typing sharpens the distinction between a compatible family of local models and a single normalized joint law. A gauge-aware extension would additionally need transport maps and coherence conditions between local frames; those are not supplied by the polynomial interface alone.
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Meta-agents and hierarchical emergence]], [[Agents as fibre-bundle sections]]
+- Concepts: [[Collective active inference]], Meta-agents and hierarchical emergence, Agents as fibre-bundle sections
 - Related sources: [[friston-2024-federated-inference]], [[maisto-2024-interactive-inference]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

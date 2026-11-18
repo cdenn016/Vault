@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Belief Propagation
@@ -30,10 +30,8 @@ junction-tree exactness therefore must not be transferred to a generic loopy reg
 
 For the gauge-VFE program, region messages are a candidate inference mechanism for correlated local
 blocks of the state posterior. They are distinct from attention weights computed from pairwise
-belief discrepancies and from the configuration-level Gibbs law in [[Meta-entropy]]. The extension in
-[[participatory-it-from-bit]] preserves those distinctions: a sparse normalized correlated posterior
-retains conventional ELBO semantics, while a region approximation trades global normalization for
-local tractability.
+belief discrepancies. A sparse normalized correlated posterior retains conventional ELBO semantics,
+while a region approximation trades global normalization for local tractability.
 
 [[senoz-2021-local-constraint-vmp]] provides a unifying constrained-Bethe account in which choices
 of factorization and local form recover BP, structured or mean-field VMP, EM, Laplace, and EP-like

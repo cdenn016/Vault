@@ -46,7 +46,7 @@ The continued influence effect and belief polarization are directly relevant to 
 ## Cross-links
 - Concepts: [[Bayesian Inference|Belief Updating]], [[Opinion Dynamics]], [[Misinformation and its persistence|Misinformation]], [[Echo chambers and polarization|Echo Chambers]], [[nyhan-2010-backfire|Backfire Effect]]
 - Related sources: [[deffuant2000-bounded-confidence|deffuant-2000-mixing]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]
-- Manuscript/Project: [[VFE Transformer Program]], [[SocialPhysics|Social Physics]]
+- Manuscript/Project: [[VFE Transformer Program]], Social Physics
 
 ## BibTeX
 ```bibtex

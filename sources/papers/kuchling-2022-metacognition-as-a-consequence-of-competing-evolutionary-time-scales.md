@@ -28,7 +28,7 @@ Kuchling, Fields, and Levin define a metaprocessor as a regulator equipped with 
 
 ## Relevance to this research
 
-This is useful prior work for [[Meta-agents and hierarchical emergence]] because it specifies a retained state and a regulatory relation for a higher-level process. It motivates distinguishing fast inference, slower adaptation, and changes to the adaptation rule. In [[Gauge-Theoretic Multi-Agent VFE Model]], these roles still need explicit transition laws; a timescale separation alone does not establish exact probabilistic closure or an endogenous parent agent.
+This is useful prior work for Meta-agents and hierarchical emergence because it specifies a retained state and a regulatory relation for a higher-level process. It motivates distinguishing fast inference, slower adaptation, and changes to the adaptation rule. In Gauge-Theoretic Multi-Agent VFE Model, these roles still need explicit transition laws; a timescale separation alone does not establish exact probabilistic closure or an endogenous parent agent.
 
 ## BibTeX
 

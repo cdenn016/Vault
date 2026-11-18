@@ -52,7 +52,7 @@ The method is a positive control for evidence-lineage-aware communication. The s
 
 - Concepts: [[Decentralized Bayesian inference]], [[Collective active inference]], [[Amortized inference]]
 - Related sources: [[taniguchi-2024-collective-predictive-coding]], [[fukuoka-2026-variational-bayes-naming-game]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

@@ -28,7 +28,7 @@ This reply clarifies Fields and Levin's view that objects and processes are comp
 
 ## Relevance to this research
 
-This is relevant to [[Participatory realism and quantum foundations]] and [[Meta-agents and hierarchical emergence]], especially the distinction between specifying an agent boundary and explaining its persistence. The project's probability laws and retained records can be compared with this relational framing without importing a universal quantum separability claim. The reply is philosophical clarification; it does not itself construct a dynamical agent hierarchy.
+This is relevant to [[Participatory realism and quantum foundations]] and Meta-agents and hierarchical emergence, especially the distinction between specifying an agent boundary and explaining its persistence. The project's probability laws and retained records can be compared with this relational framing without importing a universal quantum separability claim. The reply is philosophical clarification; it does not itself construct a dynamical agent hierarchy.
 
 ## BibTeX
 

@@ -22,7 +22,7 @@ The paper uses potential theory to obtain sharp small-noise capacity and exit-ti
 
 ## Relevance to this research
 
-Background for the persistence chapter. Its one-dimensional reflected double-well mean-exit integral and logarithmic exponent are derived independently; the general source hypotheses are not claimed for an arbitrary agent free energy. See [[Belief inertia]] and [[Geometric singular perturbation theory]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+Background for the persistence chapter. Its one-dimensional reflected double-well mean-exit integral and logarithmic exponent are derived independently; the general source hypotheses are not claimed for an arbitrary agent free energy. See Belief inertia and [[Geometric singular perturbation theory]]. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

@@ -29,7 +29,7 @@ This proposed reconstruction starts with time symmetry, decompositional equivale
 
 ## Relevance to this research
 
-For [[Participatory realism (it from bit)]], the source makes unusually explicit which observational capacities are supplied at the outset. This helps compare reconstruction programs without disguising classical memory and shared semantics as derived results. [[Gauge-Theoretic Multi-Agent VFE Model]] likewise declares records and normalized kernels before proving conditional consequences. The preprint provides conceptual continuity, but no theorem identifying those classical probabilistic objects with quantum states, nor a derivation of the project's gauge group or physical spacetime.
+For [[Participatory realism (it from bit)]], the source makes unusually explicit which observational capacities are supplied at the outset. This helps compare reconstruction programs without disguising classical memory and shared semantics as derived results. Gauge-Theoretic Multi-Agent VFE Model likewise declares records and normalized kernels before proving conditional consequences. The preprint provides conceptual continuity, but no theorem identifying those classical probabilistic objects with quantum states, nor a derivation of the project's gauge group or physical spacetime.
 
 ## BibTeX
 

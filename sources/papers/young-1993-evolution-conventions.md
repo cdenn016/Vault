@@ -41,7 +41,7 @@ Players drawn from a large finite population best-respond to a sample of past pl
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Phase transitions in social systems]], [[Cultural evolution and social learning]]
+- Concepts: Meta-agents and hierarchical emergence, [[Phase transitions in social systems]], [[Cultural evolution and social learning]]
 - Related sources: [[centola-2015-spontaneous-emergence-conventions]], [[centola-2018-tipping-points-social-convention]], [[boyd-1982-cultural-transmission-cooperation]]
 
 ## BibTeX

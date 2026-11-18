@@ -22,7 +22,7 @@ Mermin proposes that the proper subject matter of quantum physics is *correlatio
 
 ## Relevance to this research
 
-"Correlations without correlata" is a compact slogan for the project's relational stance in [[participatory-it-from-bit]]: what is objective is the *relation between agents' beliefs*, not any agent's intrinsic, absolute belief content. In the gauge-theoretic picture this is the statement that physically meaningful quantities are the frame-independent relations recovered by [[Parallel transport]] between [[Agents as fibre-bundle sections]], with the residual non-relational ambiguity (the absence of canonical correlata) reflected in [[Holonomy]] under a [[Gauge transformation]]. Mermin's view sits at the hinge between [[rovelli-1996-relational-qm]] and the QBist program and supplies the participatory cluster with its sharpest one-line thesis ([[Participatory realism (it from bit)]]).
+"Correlations without correlata" is a compact slogan for the project's relational stance in [[participatory-it-from-bit]]: what is objective is the *relation between agents' beliefs*, not any agent's intrinsic, absolute belief content. In the gauge-theoretic picture this is the statement that physically meaningful quantities are the frame-independent relations recovered by [[Parallel transport]] between Agents as fibre-bundle sections, with the residual non-relational ambiguity (the absence of canonical correlata) reflected in [[Holonomy]] under a [[Gauge transformation]]. Mermin's view sits at the hinge between [[rovelli-1996-relational-qm]] and the QBist program and supplies the participatory cluster with its sharpest one-line thesis ([[Participatory realism (it from bit)]]).
 
 ## Cross-links
 

@@ -33,7 +33,7 @@ Reviews how neural circuits compute perceptual decisions by accumulating noisy s
 Provides the neural-mechanistic grounding for sequential-sampling / drift-diffusion accounts of inference, connecting evidence accumulation and decision thresholds to the program's treatment of belief updating and the speed-accuracy tradeoff.
 
 ## Cross-links
-[[Belief inertia]]
+Belief inertia
 
 ## BibTeX
 ```bibtex

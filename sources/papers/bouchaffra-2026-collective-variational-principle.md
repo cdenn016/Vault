@@ -52,13 +52,13 @@ The manuscript claims correspondences between stationary points and approximate 
 
 ## Relevance to this research
 
-The terminology overlaps directly with [[Multi-agent variational free energy]] and could narrow a novelty claim. It is also a potential counterexample to organizing the literature as permanently separate traditions. The project must compare its normalized joint law, variational family, and gauge-transported interactions with the paper's collective functional rather than relying on name-level similarity.
+The terminology overlaps directly with Multi-agent variational free energy and could narrow a novelty claim. It is also a potential counterexample to organizing the literature as permanently separate traditions. The project must compare its normalized joint law, variational family, and gauge-transported interactions with the paper's collective functional rather than relying on name-level similarity.
 
 ## Cross-links
 
-- Concepts: [[Multi-agent variational free energy]], [[Collective active inference]], [[Expected Free Energy]]
+- Concepts: Multi-agent variational free energy, [[Collective active inference]], [[Expected Free Energy]]
 - Related sources: [[bouchaffra-2026-coalition-free-energy]], [[bouchaffra-2026-attention-synergy]], [[heins-2023-spin-glass-active-inference]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

@@ -48,7 +48,7 @@ The paper states few limits beyond restricting the final fluctuation-dissipation
 
 ## Cross-links
 
-Concepts: [[Nonequilibrium steady state]]; [[Stochastic Thermodynamics]]; [[Gauge Theory]]; [[Holonomy]]; [[Non-flat connection and the photon analogy]]; [[Hamiltonian belief dynamics]]; [[Bayesian mechanics]].
+Concepts: [[Nonequilibrium steady state]]; [[Stochastic Thermodynamics]]; [[Gauge Theory]]; [[Holonomy]]; [[Non-flat connection and the photon analogy]]; Hamiltonian belief dynamics; [[Bayesian mechanics]].
 
 Related sources: [[friston-2019-particular-physics]]; [[dacosta-2021-bayesian-mechanics]]; [[parr-2020-markov-blankets-thermodynamics]]; [[aguilera-2022-particular-physics]]; [[baez-muniain-1994-gauge-fields]]; [[polettini-2012-nonequilibrium-thermodynamics-gauge]]; [[sakthivadivel-2022-entropy-maximising-parallel-transport]]; [[dacosta-2023-entropy-production-stationary-diffusions]]; [[barp-2021-measure-preserving-diffusions]]; [[friston-2012-free-energy-value-attractors]].
 

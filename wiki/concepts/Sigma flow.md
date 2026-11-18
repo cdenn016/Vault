@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-11-18
 ---
 
 # Sigma flow
@@ -40,7 +40,7 @@ This is the closest published relative of the program's information-geometric fi
 sharpens by contrast what the program's own construction actually adds. The sigma flow is a genuine
 field of probability distributions over a base manifold, evolving by a geometric PDE, with
 Fisher–Rao geometry in the fiber — the same silhouette as
-[[Agents as fibre-bundle sections|agents as sections of associated bundles with statistical-manifold fibers]].
+agents as sections of associated bundles with statistical-manifold fibers.
 
 But the silhouette is where the agreement stops. The sigma flow has **no principal bundle, no gauge
 group, no connection, and no curvature term**: the "fiber" is one fixed copy of the simplex, the map
@@ -111,4 +111,3 @@ and as an invitation to use geometric design principles for structured predictio
 - [[Fisher information metric]]
 - [[Information geometry and natural gradient]]
 - [[Gauge equivariance and geometric deep learning]]
-- [[Agents as fibre-bundle sections]]

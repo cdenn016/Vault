@@ -48,7 +48,7 @@ The authors state that the exposition is conceptual and defer technical conditio
 
 ## Cross-links
 
-Concepts: [[Hamiltonian belief dynamics]]; [[Symplectic geometry]]; [[Hamiltonian Monte Carlo]]; [[Natural gradient]]; [[Expected Free Energy]]; [[Active Inference]]; [[Bayesian mechanics]]; [[Baker-Campbell-Hausdorff formula]].
+Concepts: Hamiltonian belief dynamics; [[Symplectic geometry]]; [[Hamiltonian Monte Carlo]]; [[Natural gradient]]; [[Expected Free Energy]]; [[Active Inference]]; [[Bayesian mechanics]]; [[Baker-Campbell-Hausdorff formula]].
 
 Related sources: [[neal-2011-mcmc-hamiltonian]]; [[girolami-calderhead-2011-riemann-hmc]]; [[wibisono-2016-variational-accelerated]]; [[amari-1998-natural-gradient]]; [[dacosta-2020-discrete-state-synthesis]]; [[friston-2023-fep-simpler]]; [[barp-2021-measure-preserving-diffusions]]; [[dacosta-2023-entropy-production-stationary-diffusions]].
 

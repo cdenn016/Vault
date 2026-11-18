@@ -28,7 +28,7 @@ Prentner and Fields study networks of elementary binary agents as a minimal mode
 
 ## Relevance to this research
 
-This is a useful predecessor for [[Meta-agents and hierarchical emergence]]: it separates a collective attractor from a newly constituted agent. Its proposed subnetwork interactions resemble the project's formation questions, but the paper leaves the required body, interface, and objective construction unresolved. The third-party simulation is evidence for the stated toy model; it does not verify a gauge-VFE dynamics or establish that a parent probability law closes under aggregation.
+This is a useful predecessor for Meta-agents and hierarchical emergence: it separates a collective attractor from a newly constituted agent. Its proposed subnetwork interactions resemble the project's formation questions, but the paper leaves the required body, interface, and objective construction unresolved. The third-party simulation is evidence for the stated toy model; it does not verify a gauge-VFE dynamics or establish that a parent probability law closes under aggregation.
 
 ## BibTeX
 

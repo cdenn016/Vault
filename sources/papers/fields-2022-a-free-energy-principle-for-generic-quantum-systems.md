@@ -28,7 +28,7 @@ The authors reformulate active inference using finite quantum systems, holograph
 
 ## Relevance to this research
 
-This is a priority comparison for [[Multi-agent variational free energy]] and [[Quantum reference frames]]. It shares the focus on prediction across an interface, while the project's normalized joints and explicit recognition families permit different, classical statements. The authors' schematic split of prediction error should not replace an exact KL decomposition without a specified law. Claims about biological use of coherence are proposed consequences and research directions, not established mechanisms for the project's agents.
+This is a priority comparison for Multi-agent variational free energy and [[Quantum reference frames]]. It shares the focus on prediction across an interface, while the project's normalized joints and explicit recognition families permit different, classical statements. The authors' schematic split of prediction error should not replace an exact KL decomposition without a specified law. Claims about biological use of coherence are proposed consequences and research directions, not established mechanisms for the project's agents.
 
 ## BibTeX
 

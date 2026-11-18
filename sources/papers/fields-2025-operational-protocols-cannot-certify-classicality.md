@@ -29,7 +29,7 @@ This preprint asks whether an operational protocol can certify the absence of en
 
 ## Relevance to this research
 
-For [[Quantum reference frames]] and [[Gauge-Theoretic Multi-Agent VFE Model]], this sharpens the need to declare what a classical record channel assumes. The live project explicitly supplies normalized preparation and transcript laws, so it makes conditional mathematical claims rather than certification of all its own physical premises. The preprint does not invalidate conditional independence within such laws, nor establish that every useful classical interface must be derived from the authors' holographic-screen formalism.
+For [[Quantum reference frames]] and Gauge-Theoretic Multi-Agent VFE Model, this sharpens the need to declare what a classical record channel assumes. The live project explicitly supplies normalized preparation and transcript laws, so it makes conditional mathematical claims rather than certification of all its own physical premises. The preprint does not invalidate conditional independence within such laws, nor establish that every useful classical interface must be derived from the authors' holographic-screen formalism.
 
 ## BibTeX
 

@@ -32,11 +32,11 @@ In a large social network, one third of friendships are reported to be independe
 
 ## Relevance to this research
 
-The manuscript cites the finding that about one third of friendships in a large online network are independent of geography, next to a result on distance decay of mobile-phone links, to show that geography limits connection even where telecommunication links are cheap. The manuscript's record says the abstract was read, and this note rests on it. It bears on spatial structure in networks of communicating agents, see [[Network structure — small-world and scale-free]], [[Hidden metric space]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the finding that about one third of friendships in a large online network are independent of geography, next to a result on distance decay of mobile-phone links, to show that geography limits connection even where telecommunication links are cheap. The manuscript's record says the abstract was read, and this note rests on it. It bears on spatial structure in networks of communicating agents, see [[Network structure — small-world and scale-free]], [[Hidden metric space]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Network structure — small-world and scale-free]]; [[Hidden metric space]]; [[Meta-agents and hierarchical emergence]]; [[lambiotte-2008-geographical-dispersal-mobile]].
+[[Collective agents literature map]]; [[Network structure — small-world and scale-free]]; [[Hidden metric space]]; Meta-agents and hierarchical emergence; [[lambiotte-2008-geographical-dispersal-mobile]].
 
 ## BibTeX
 

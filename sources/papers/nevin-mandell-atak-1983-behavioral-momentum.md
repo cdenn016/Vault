@@ -41,11 +41,11 @@ For each disruption, results across schedule performances converged onto a commo
 
 ## Relevance to this research
 
-The paper provides an empirical and terminological comparator for [[Belief inertia]]. It justifies taking resistance-to-change phenomena seriously and motivates falsifiable measures of persistence, but it cannot validate [[Hamiltonian belief dynamics]], [[Mass as Fisher information]], or a second-order opinion equation. Any manuscript connection must be framed as an analogy and source of experimental design ideas, not as direct evidence for opinion-level mechanics.
+The paper provides an empirical and terminological comparator for Belief inertia. It justifies taking resistance-to-change phenomena seriously and motivates falsifiable measures of persistence, but it cannot validate Hamiltonian belief dynamics, Mass as Fisher information, or a second-order opinion equation. Any manuscript connection must be framed as an analogy and source of experimental design ideas, not as direct evidence for opinion-level mechanics.
 
 ## Cross-links
 
-This source is most relevant to [[Belief inertia]], [[Opinion dynamics]], and [[Sociophysics]]. Its careful operationalization of persistence can inform future perturbation tests, while [[Hamiltonian belief dynamics]] and [[Mass as Fisher information]] remain distinct mathematical hypotheses requiring their own mechanism-specific evidence.
+This source is most relevant to Belief inertia, [[Opinion dynamics]], and [[Sociophysics]]. Its careful operationalization of persistence can inform future perturbation tests, while Hamiltonian belief dynamics and Mass as Fisher information remain distinct mathematical hypotheses requiring their own mechanism-specific evidence.
 
 ## BibTeX
 

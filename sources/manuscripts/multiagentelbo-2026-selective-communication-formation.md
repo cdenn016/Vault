@@ -69,7 +69,7 @@ The assessment proposes adding communicated and private coordinates to the norma
 
 ## Relevance to this research
 
-The connection joins [[GL(K) gauge-equivariant attention]] to the [[Gauge-Theoretic Multi-Agent VFE Model]] and [[Meta-agents and hierarchical emergence]] without requiring complete children to become identical. It locates the additional probabilistic and dynamical obligations on [[Meta-agents and hierarchical emergence]] and the [[Markov blanket interpretation debate]]. [[dennis-2026-glk-matrix-links-2026-09-20]] remains the source for the existing matrix-link manuscript construction.
+The connection joins [[GL(K) gauge-equivariant attention]] to the Gauge-Theoretic Multi-Agent VFE Model and Meta-agents and hierarchical emergence without requiring complete children to become identical. It locates the additional probabilistic and dynamical obligations on Meta-agents and hierarchical emergence and the [[Markov blanket interpretation debate]]. [[dennis-2026-glk-matrix-links-2026-09-20]] remains the source for the existing matrix-link manuscript construction.
 
 ## BibTeX
 

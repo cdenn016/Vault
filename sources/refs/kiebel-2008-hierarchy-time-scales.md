@@ -36,11 +36,11 @@ The abstract presents the model as a proof of concept and the framework as yield
 
 ## Relevance to this research
 
-The manuscript cites the paper twice. In the hierarchy section it notes that the paper imposes a separation of timescales between levels, whereas in the manuscript the separation follows from read and write weights. In related work it reports, from targeted extraction of the full text, that a slow level acts as a control parameter of a fast one and that the paper says the separation is not a property of coupled neuronal systems as such. See [[Hierarchical generative model]], [[Generalised coordinates of motion]], [[Meta-agents and hierarchical emergence]] and [[Variational free energy and predictive coding]].
+The manuscript cites the paper twice. In the hierarchy section it notes that the paper imposes a separation of timescales between levels, whereas in the manuscript the separation follows from read and write weights. In related work it reports, from targeted extraction of the full text, that a slow level acts as a control parameter of a fast one and that the paper says the separation is not a property of coupled neuronal systems as such. See [[Hierarchical generative model]], [[Generalised coordinates of motion]], Meta-agents and hierarchical emergence and [[Variational free energy and predictive coding]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Generalised coordinates of motion]]; [[Meta-agents and hierarchical emergence]]; [[Variational free energy and predictive coding]].
+[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Generalised coordinates of motion]]; Meta-agents and hierarchical emergence; [[Variational free energy and predictive coding]].
 
 ## BibTeX
 

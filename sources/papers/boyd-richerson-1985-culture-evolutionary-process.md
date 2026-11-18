@@ -27,7 +27,7 @@ with conformity strength $D>0$, which has unstable interior and stable fixity at
 ## Relevance to this research
 The conformist / prestige / content-bias typology is exactly the menu of update rules a population-level VFE model of belief must be able to reproduce, and conformist bias in particular is the frequency-dependent nonlinearity that separates real social influence from the linear DeGroot averaging recovered in the overdamped limit of the belief-inertia functional. In the SocialPhysics program the pairwise gauge-transported coupling $\beta_{ij}\,\mathrm{KL}(q_i\,\|\,\Omega_{ij}[q_j])$ is the individual-level mechanism whose population aggregate should, under different attention/coupling kernels, generate these biases — uniform coupling giving averaging, status-weighted $\beta_{ij}$ giving prestige bias, and a majority-amplifying weighting giving the conformist sigmoid. The relevance is foundational rather than literal: this is the canonical specification of what the dynamics must reproduce, not machinery the equations import. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], [[Multi-agent variational free energy]], [[Echo chambers and polarization]].
+Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], Multi-agent variational free energy, [[Echo chambers and polarization]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

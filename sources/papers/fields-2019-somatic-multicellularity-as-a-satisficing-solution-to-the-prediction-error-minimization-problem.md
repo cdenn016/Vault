@@ -28,7 +28,7 @@ Fields and Levin model one route to multicellularity in which proliferating cell
 
 ## Relevance to this research
 
-This is relevant to [[Markov Blanket]], [[Collective active inference]], and the formation problem in [[Meta-agents and hierarchical emergence]]. It offers a specific candidate mechanism by which one population changes another's environmental uncertainty. An analogous construction in [[Gauge-Theoretic Multi-Agent VFE Model]] should explicitly model protection, resource costs, and reproduction, and separately test whether the resulting aggregate supports the normalized conditional laws claimed for a parent agent.
+This is relevant to [[Markov Blanket]], [[Collective active inference]], and the formation problem in Meta-agents and hierarchical emergence. It offers a specific candidate mechanism by which one population changes another's environmental uncertainty. An analogous construction in Gauge-Theoretic Multi-Agent VFE Model should explicitly model protection, resource costs, and reproduction, and separately test whether the resulting aggregate supports the normalized conditional laws claimed for a parent agent.
 
 ## BibTeX
 

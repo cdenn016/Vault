@@ -10,17 +10,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-11-01
+updated: 2026-11-18
 ---
 
 # Consciousness and the hard problem
 
 This essay synthesizes the `cluster/participatory` sources that bear on consciousness into one
-picture, and shows how the gauge-theoretic [[Multi-agent variational free energy]] program — and
-its manuscript [[participatory-it-from-bit]] (PIFB) — positions itself among them. The throughline
-is a single problem and a single strategy: the *explanatory gap* between physical structure and
-felt experience, and PIFB's claim to **relocate** that gap into frame-relative informational
-geometry rather than to close it.
+picture. The throughline is a single problem: the *explanatory gap* between physical structure and
+felt experience, and the families of theory that try to close, dissolve, or relocate it.
 
 ## The problem: subjectivity, the gap, and the hard problem
 
@@ -40,8 +37,7 @@ of consciousness (discrimination, integration, reportability, attentional contro
 and tractable, but the hard problem — *why is there experience at all?* — survives any complete
 functional account, because one can always coherently ask why the functions are not performed "in
 the dark." These three sources jointly define the threshold every candidate theory below is measured
-against, and the threshold PIFB must concede it relocates rather than dissolves. See the focused
-pages [[Explanatory gap]] and (for the cross-scale variant) [[Combination problem]].
+against. See the focused pages [[Explanatory gap]] and (for the cross-scale variant) [[Combination problem]].
 
 ## The participatory and predictive lineage: the perceiver constructs its world
 
@@ -58,15 +54,12 @@ Hohwy presses the *internalist* corollary hardest: separated from the world by a
 sensory effects. Hoffman's **interface theory of perception** ([[hoffman-2019-case-against-reality]])
 supplies an evolutionary rationale: natural selection tunes perception to fitness payoffs, not
 veridicality, so percepts are a species-specific *user interface* (desktop icons) hiding the
-noumenal structure. The program formalizes exactly this lineage — [[Prediction error]] and
-[[Precision weighting]] become explicit terms in the [[Variational free energy]] functional, and
-the "secluded model" / "interface" becomes the project's claim that an agent's accessible reality
-*is* its frame-relative model, the pullback move of [[Participatory realism (it from bit)]].
+noumenal structure. In the formal free-energy treatment, [[Prediction error]] and
+[[Precision weighting]] become explicit terms in the [[Variational free energy]] functional; the
+participatory reading of this lineage is collected at [[Participatory realism (it from bit)]].
 Bateson's cybernetic definition of information as "a difference that makes a difference"
 ([[bateson-1972-steps-ecology-mind]]) gives the relational, observer-involving notion of the *bit*
-that grounds the it-from-bit ontology, and in the multi-agent model becomes the
-$\mathrm{KL}(q_i \,\|\, \Omega_{ij} q_j)$ coupling: a *difference* between an agent's belief and a
-transported neighbour's that *makes a difference* to the free energy.
+that grounds it-from-bit ontologies.
 
 ## The metaphysical lineage: Russellian monism and panprotopsychism
 
@@ -81,18 +74,14 @@ that admits experience is real is driven to panpsychism. Chalmers ([[chalmers-20
 organizes the options as **Russellian monism**: physics gives dispositional/structural roles,
 (proto)consciousness gives the categorical occupants. He distinguishes **panpsychism** (the
 fundamental entities are conscious) from the weaker **panprotopsychism** (they bear *protophenomenal*
-properties — the right basis for experience without themselves being experiential). PIFB
-**self-classifies as panprotopsychist in exactly this sense**: it never claims gauge frames or
-beliefs are conscious, only that frame-relative informational structure is the protophenomenal basis
-from which experiential character is constituted — physics (gauge transport, [[Variational free energy]], the [[Fisher information metric]]) fills the dispositional roles, the protophenomenal fills
-the categorical slots. Because PIFB chooses *constitutive* (not emergent) panprotopsychism — Strawson's
-argument being the standing objection to emergentism — it inherits the **combination problem**
+properties — the right basis for experience without themselves being experiential). Any
+*constitutive* (not emergent) panprotopsychism, adopted because Strawson's argument stands against
+emergentism, inherits the **combination problem**
 ([[chalmers-2016-combination-problem]], [[goff-2017-consciousness-fundamental-reality]]): how do
 constituent protophenomenal structures compose into a unified higher-scale subject? Goff's
-*cosmopsychist inversion* (the whole as fundamental, parts derived) is suggestive for the project's
-[[Ouroboros multi-scale dynamics]], where the apex scale folds back over all scales below.
+*cosmopsychist inversion* takes the whole as fundamental and the parts as derived.
 
-## The formal and empirical theories: where the program sits
+## The formal and empirical theories
 
 Among positive theories, **Integrated Information Theory** is the most mathematically developed.
 [[tononi-2016-iit]] identifies the quantity and quality of experience with integrated information
@@ -103,61 +92,34 @@ in which the **Yoneda lemma** ("an object is fixed by its totality of relations"
 structuralism. These constitute the [[Mathematical consciousness science]] backdrop. The
 **global-workspace** theory (Dehaene, [[dehaene-2014-consciousness-brain]]; Mashour et al.,
 [[mashour-2020-global-workspace]]) locates conscious access in non-linear "ignition" that broadcasts
-a representation for global availability — structurally echoed by coherent collective belief
-propagation across coupled agents in [[Meta-agents and hierarchical emergence]]. The
+a representation for global availability. The
 **free-energy/active-inference** route of Solms and Friston ([[solms-friston-2018-how-consciousness-arises]])
-makes a near-*identity* claim — feeling *is* what it is like to be a free-energy-minimizing,
-homeostatically self-evidencing system — and is the theory PIFB shares the most machinery with yet
-deliberately differs from: PIFB declines the identity claim, holding instead that minimizing $F$
-supplies the structural role while experiential character is the protophenomenal occupant, so the
-gap is relocated, not identified away. Information-theoretic markers complete the empirical picture:
+makes a near-*identity* claim: feeling *is* what it is like to be a free-energy-minimizing,
+homeostatically self-evidencing system. Information-theoretic markers complete the empirical picture:
 Carhart-Harris et al.'s entropic brain ([[carhart-harris-2014-entropic-brain]]) ties conscious-state
 richness to neural entropy, and Luppi et al. ([[luppi-2019-consciousness-integration-diversity]])
-identify a consciousness-specific balance of integration and functional diversity — both resonating
-with the project's [[Meta-entropy]] and the integration/segregation trade-off of its coarse-graining.
-Lahav and Neemeh's *relativistic* theory ([[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]]) is the
-highest-priority bridge: they assert consciousness is observer-frame-dependent (present in a system's
-own cognitive frame, absent in others) but leave the *transformation law* between frames
-unspecified — and PIFB supplies it, identifying the cognitive frame with a local gauge frame
-$\phi_i$ and the change of frame with the transport $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$ acting on
-belief content ([[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]]). The
-quantum-collapse route of Hameroff and Penrose's Orch-OR ([[hameroff-penrose-1996-orch-or]]) is
-listed as a foil — a representative of the quantum-coherence family the project does *not* take.
-
-## The program's strategy, in one sentence
-
-Across all four families the program's stance is consistent: it does not claim to *close* the hard
-problem but to **relocate** it. Adopting Russellian structuralism (physics gives structure),
-predictive/participatory epistemology (the agent accesses only its constructed, frame-relative
-model), and panprotopsychism (the protophenomenal fills the categorical roles), PIFB moves the
-[[Explanatory gap]] from a brute substrate-to-quale step onto a question about *frame-relative
-registered content*, and offers its gauge-covariant coarse-graining ([[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]]) as a candidate answer to the *structure*
-combination problem — while honestly conceding the *subject* combination problem and the residual
-gap remain open.
+identify a consciousness-specific balance of integration and functional diversity.
+Lahav and Neemeh's *relativistic* theory ([[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]])
+asserts that consciousness is observer-frame-dependent (present in a system's own cognitive frame,
+absent in others) but leaves the *transformation law* between frames unspecified. The
+quantum-collapse route of Hameroff and Penrose's Orch-OR ([[hameroff-penrose-1996-orch-or]])
+represents the quantum-coherence family.
 
 ## Open questions / gaps
 
-- **Relocation vs. closure.** Does relocating the gap into frame-relative geometry constitute genuine
-  explanatory progress, or only a restatement in new vocabulary? Levine's epistemic/metaphysical
-  distinction ([[levine-1983-explanatory-gap]]) demands the project never overclaim here.
-- **Subject vs. structure combination.** The gauge-covariant pooling of [[Meta-agents and hierarchical emergence]] is a plausible answer to the *structure* combination problem; whether it
-  yields a genuinely new unified *subject* (not just a coarse statistic) is unresolved
+- **Identity vs. occupation.** Within the shared FEP machinery, Solms–Friston's near-identity claim
+  ([[solms-friston-2018-how-consciousness-arises]]) competes with Russellian views on which
+  free-energy minimization supplies only the structural role and an intrinsic occupant supplies
+  experiential character.
+- **Subject vs. structure combination.** Whether any pooling of constituent structure yields a
+  genuinely new unified *subject* (not just a coarse statistic) is unresolved
   ([[chalmers-2016-combination-problem]], [[goff-2017-consciousness-fundamental-reality]]).
-- **Identity vs. relocation.** The cleanest rival within the shared FEP machinery is
-  Solms–Friston's near-identity claim ([[solms-friston-2018-how-consciousness-arises]]). The program
-  owes a sharper argument for why protophenomenal *occupation* of structural roles is preferable to
-  identifying feeling with free-energy minimization.
 - **Russell's deeper warning.** Russellian structuralism is double-edged: specifying *all* the
-  structure (the gauge skeleton) still does not, by itself, fix the intrinsic quality
-  ([[russell-1927-analysis-of-matter]]). The program's structuralism cannot claim to close the gap
-  by structure alone — which is precisely why it needs the protophenomenal posit.
-- **Bridging to neuroscience.** Whether the geometric markers ([[Meta-entropy]], [[Fisher information metric]]) align with empirical integration/diversity ([[luppi-2019-consciousness-integration-diversity]])
-  and entropy ([[carhart-harris-2014-entropic-brain]]) signatures is an open, testable correspondence.
-
-> [!note] Editorial: Several correspondences here — Lahav–Neemeh's frames as gauge frames, the
-> Yoneda reading as PIFB's structuralism, global broadcast as belief propagation — are *interpretive*
-> alignments the project asserts, not theorems it imports or proves. They are constructive
-> completions and analogies; the manuscript should present them as such.
+  structure still does not, by itself, fix the intrinsic quality
+  ([[russell-1927-analysis-of-matter]]).
+- **Bridging to neuroscience.** How formal measures relate to empirical integration/diversity
+  ([[luppi-2019-consciousness-integration-diversity]]) and entropy
+  ([[carhart-harris-2014-entropic-brain]]) signatures is an open, testable correspondence.
 
 ## Sources synthesized
 
@@ -177,7 +139,7 @@ gap remain open.
 - [[dehaene-2014-consciousness-brain]], [[mashour-2020-global-workspace]] — global neuronal workspace.
 - [[solms-friston-2018-how-consciousness-arises]] — FEP route to consciousness.
 - [[carhart-harris-2014-entropic-brain]], [[luppi-2019-consciousness-integration-diversity]] — entropy / integration–diversity markers.
-- [[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]] — relativistic theory; the transformation law PIFB supplies.
+- [[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]] — relativistic theory; frame-dependent consciousness.
 - [[hameroff-penrose-1996-orch-or]] — quantum-collapse foil.
 - [[seth-2021-being-you]] — controlled-hallucination science of consciousness (companion).
 
@@ -186,9 +148,7 @@ gap remain open.
 - [[Explanatory gap]] · [[Combination problem]] · [[Mathematical consciousness science]]
 - [[Participatory realism (it from bit)]] · [[Structural realism]]
 - [[Variational free energy]] · [[Free-energy principle active inference]]
-- [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]]
-- [[Gauge transformation]] · [[Holonomy]] · [[Agents as fibre-bundle sections]]
-- [[participatory-it-from-bit]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
+- [[Gauge transformation]] · [[Holonomy]]
 
 ## Fields's operational explanatory target
 

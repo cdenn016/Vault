@@ -28,7 +28,7 @@ This early critique focuses on the inference from equal apparatus readings to re
 
 ## Relevance to this research
 
-For [[Gauge-Theoretic Multi-Agent VFE Model]], this is a concise precursor to the distinction between record agreement and common-cause identification. It motivates declaring the preparation law, carrier labels, and permitted probes before claiming shared information. The project's exact reconstruction conditions operate within those declarations and do not require uniqueness over all physically possible realizations. The paper also helps keep communication redundancy separate from genuine compression and from the interaction-dependent selection needed for a formation result.
+For Gauge-Theoretic Multi-Agent VFE Model, this is a concise precursor to the distinction between record agreement and common-cause identification. It motivates declaring the preparation law, carrier labels, and permitted probes before claiming shared information. The project's exact reconstruction conditions operate within those declarations and do not require uniqueness over all physically possible realizations. The paper also helps keep communication redundancy separate from genuine compression and from the interaction-dependent selection needed for a formation result.
 
 ## BibTeX
 

@@ -25,11 +25,11 @@ A 1982 article in the Journal of Economic Theory whose title concerns the inform
 
 ## Relevance to this research
 
-The manuscript cites it, together with Mount and Reiter's paper on informational size, as a mechanism-design counterpart to its treatment of abstract collectives, and states that both are cited from their bibliographic records. The article was not read. See [[Meta-agents and hierarchical emergence]] and [[Decentralized Bayesian inference]].
+The manuscript cites it, together with Mount and Reiter's paper on informational size, as a mechanism-design counterpart to its treatment of abstract collectives, and states that both are cited from their bibliographic records. The article was not read. See Meta-agents and hierarchical emergence and [[Decentralized Bayesian inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Decentralized Bayesian inference]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Decentralized Bayesian inference]].
 
 ## BibTeX
 

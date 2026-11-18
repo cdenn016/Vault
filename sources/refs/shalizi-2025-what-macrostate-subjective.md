@@ -38,11 +38,11 @@ Macrostates obtained this way are, by the authors' claim, provably optimal stati
 
 ## Relevance to this research
 
-The manuscript cites the paper in its related-work discussion of closure, as the statement that causal states, which are maximally predictive and minimal, are macrostates. It uses the paper to position its own closure results, noting that the cited framework has no environment, blanket or bound for approximate closure. The manuscript's reading record says only the arXiv abstract was read; the first pages read here support the statement of the main claim. See [[Coarse Graining]], [[Markov Blanket]], [[Renormalization group flow]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper in its related-work discussion of closure, as the statement that causal states, which are maximally predictive and minimal, are macrostates. It uses the paper to position its own closure results, noting that the cited framework has no environment, blanket or bound for approximate closure. The manuscript's reading record says only the arXiv abstract was read; the first pages read here support the statement of the main claim. See [[Coarse Graining]], [[Markov Blanket]], [[Renormalization group flow]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Markov Blanket]]; [[Meta-agents and hierarchical emergence]]; [[rosas-2020-causal-blankets-algorithmic]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Markov Blanket]]; Meta-agents and hierarchical emergence; [[rosas-2020-causal-blankets-algorithmic]].
 
 ## BibTeX
 

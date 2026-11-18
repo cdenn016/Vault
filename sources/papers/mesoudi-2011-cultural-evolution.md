@@ -23,7 +23,7 @@ The book systematizes the field around the Darwinian triad applied to culture: v
 ## Relevance to this research
 This is the clearest single-volume map of the cultural-evolution field and its methods, and a natural anchor textbook for the "social learning is belief updating" premise underlying the VFE coupling. The experimental transmission-chain paradigm it foregrounds is precisely an operationalization of belief updating from others — serial reconstruction under cognitive and social biases — which is the empirical phenomenon the pairwise coupling $\beta_{ij}\,\mathrm{KL}(q_i\,\|\,\Omega_{ij}[q_j])$ models at the individual level and which transmission-chain data could be used to test. The relevance is orienting and methodological rather than machinery-supplying: it locates the program within an existing Darwinian-cultural research tradition and points to the experiments that bear on it. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], [[Multi-agent variational free energy]], [[Sociophysics]].
+Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], Multi-agent variational free energy, [[Sociophysics]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

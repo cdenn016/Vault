@@ -41,13 +41,13 @@ The second edition adds a dedicated treatment of the structure and representatio
 
 The gauge-theoretic, variational-free-energy program treats agents and their beliefs in terms of Lie-group symmetry, so Hall supplies the foundational vocabulary and theorems on which several constructions rest.
 
-- **Gauge structure.** A [[Gauge transformation]] is a (local) Lie-group action on belief frames, and [[Agents as fibre-bundle sections]] move belief states between fibres whose structure group is a Lie group. Hall's exp/log correspondence and [[Baker-Campbell-Hausdorff formula]] are the concrete tools for composing such transformations and for relating infinitesimal generators (Lie algebra) to finite group elements used in [[Parallel transport]] and [[Holonomy]].
+- **Gauge structure.** A [[Gauge transformation]] is a (local) Lie-group action on belief frames, and Agents as fibre-bundle sections move belief states between fibres whose structure group is a Lie group. Hall's exp/log correspondence and [[Baker-Campbell-Hausdorff formula]] are the concrete tools for composing such transformations and for relating infinitesimal generators (Lie algebra) to finite group elements used in [[Parallel transport]] and [[Holonomy]].
 
 - **Equivariance.** [[Group equivariance]] and the equivariant-network methods cited by the manuscripts — [[Group equivariant CNN (G-CNN)]], [[Steerable CNN]], [[Gauge equivariant CNN]], and [[LieConv]] — are built on representation theory: feature spaces decompose into [[Irreducible representation]]s and couple via [[Clebsch-Gordan coefficients]] (as in [[Tensor Field Network]]s). Hall is the standard reference grounding these representation-theoretic prerequisites.
 
-- **Information geometry of group-structured beliefs.** Where the project links curvature, mass, and inference — e.g. [[Mass as Fisher information]] and the [[Fisher information metric]] — the [[Killing form]] provides the canonical invariant metric on a semisimple Lie algebra, connecting the group's intrinsic geometry to the metric structure used in [[Natural gradient]] reasoning.
+- **Information geometry of group-structured beliefs.** Where the project links curvature, mass, and inference — e.g. Mass as Fisher information and the [[Fisher information metric]] — the [[Killing form]] provides the canonical invariant metric on a semisimple Lie algebra, connecting the group's intrinsic geometry to the metric structure used in [[Natural gradient]] reasoning.
 
-These uses align with the broader [[Gauge equivariance and geometric deep learning]] theme and the [[Gauge-Theoretic Multi-Agent VFE Model]] project. Hall is cited as a foundational mathematical reference rather than a source of specific empirical results.
+These uses align with the broader [[Gauge equivariance and geometric deep learning]] theme and the Gauge-Theoretic Multi-Agent VFE Model project. Hall is cited as a foundational mathematical reference rather than a source of specific empirical results.
 
 > [!note] Editorial: This note summarizes the textbook's scope from its published description and standard contents; it does not attribute any project-specific result to Hall.
 

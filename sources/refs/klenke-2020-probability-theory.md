@@ -33,7 +33,7 @@ The book makes precise the objects often left implicit in machine-learning deriv
 
 ## Relevance to this research
 
-The state-level and configuration-level constructions require measurable families such as $X \mapsto Q_X$, normalized joint measures, and finite or consistently extended-real KL terms. Klenke is therefore the rigorous prerequisite for the configuration Gibbs and hierarchical-ELBO layers described in [[Evidence lower bound (ELBO)]], [[Meta-entropy]], and [[Multi-agent variational free energy]]. Readers already fluent in graduate probability may use it as a reference rather than reading it linearly.
+The state-level and configuration-level constructions require measurable families such as $X \mapsto Q_X$, normalized joint measures, and finite or consistently extended-real KL terms. Klenke is therefore the rigorous prerequisite for the configuration Gibbs and hierarchical-ELBO layers described in [[Evidence lower bound (ELBO)]], Meta-entropy, and Multi-agent variational free energy. Readers already fluent in graduate probability may use it as a reference rather than reading it linearly.
 
 ## Access
 
@@ -41,7 +41,7 @@ The [Springer record](https://link.springer.com/book/10.1007/978-3-030-56402-5) 
 
 ## Cross-links
 
-- Concepts: [[Evidence lower bound (ELBO)]] · [[Meta-entropy]] · [[Generative model]]
+- Concepts: [[Evidence lower bound (ELBO)]] · Meta-entropy · [[Generative model]]
 - Themes: [[Inference machinery — variational EM and filtering]]
 - Related sources: [[murphy-2022-probabilistic-machine-learning-introduction]] · [[wainwright-2008-graphical-models-variational]]
 

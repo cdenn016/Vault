@@ -54,7 +54,7 @@ For any rank of $\mathcal L_{ij}$ and $Q_i\succ0$, the channel $k_i\mid k_j\sim\
 
 ## Relevance to this research
 
-This extends the vocabulary of [[GL(K) gauge-equivariant attention]] and [[Lattice gauge theory]] without conflating communication maps with invertible parallel transport. It connects the [[VFE Transformer Program]] to the general interaction language of the [[Gauge-Theoretic Multi-Agent VFE Model]], while preserving implementation and theory boundaries. [[Holonomy]] and [[Gauge equivariance and geometric deep learning]] provide the corresponding synthesis pages.
+This extends the vocabulary of [[GL(K) gauge-equivariant attention]] and [[Lattice gauge theory]] without conflating communication maps with invertible parallel transport. It connects the [[VFE Transformer Program]] to the general interaction language of the Gauge-Theoretic Multi-Agent VFE Model, while preserving implementation and theory boundaries. [[Holonomy]] and [[Gauge equivariance and geometric deep learning]] provide the corresponding synthesis pages.
 
 ## Revision hashes
 

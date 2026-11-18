@@ -28,7 +28,7 @@ Fields and Levin propose competent navigation in a problem space as a way to com
 
 ## Relevance to this research
 
-This helps formulate observable tasks for [[Collective active inference]] and [[Gauge-Theoretic Multi-Agent VFE Model]] without assuming that agent identity follows directly from physical size. A useful comparison should specify the accessible states, actions, preferences, and success criteria. For [[VFE Transformer Program]], representational navigation is an interpretation to test against actual predictive behavior, not a substitute for the model's normalized probability law.
+This helps formulate observable tasks for [[Collective active inference]] and Gauge-Theoretic Multi-Agent VFE Model without assuming that agent identity follows directly from physical size. A useful comparison should specify the accessible states, actions, preferences, and success criteria. For [[VFE Transformer Program]], representational navigation is an interpretation to test against actual predictive behavior, not a substitute for the model's normalized probability law.
 
 ## BibTeX
 

@@ -41,11 +41,11 @@ The central result is an explicit mapping from continuous Bayesian opinion updat
 
 ## Relevance to this research
 
-This is the closest direct predecessor for claims that beliefs or opinions can carry inertia and execute harmonic motion. Consequently, novelty in [[Belief inertia]] cannot rest on the bare existence of an inertial opinion particle, a second-order opinion equation, or an oscillator analogy. The research contribution must instead be comparative and mechanism-specific: gauge-transported variational free energy, optimized interaction weights, four-part local stiffness, and an explicitly chosen kinetic metric on the belief manifold distinguish [[Hamiltonian belief dynamics]] from Martins's Bayesian opinion-particle construction.
+This is the closest direct predecessor for claims that beliefs or opinions can carry inertia and execute harmonic motion. Consequently, novelty in Belief inertia cannot rest on the bare existence of an inertial opinion particle, a second-order opinion equation, or an oscillator analogy. The research contribution must instead be comparative and mechanism-specific: gauge-transported variational free energy, optimized interaction weights, four-part local stiffness, and an explicitly chosen kinetic metric on the belief manifold distinguish Hamiltonian belief dynamics from Martins's Bayesian opinion-particle construction.
 
 ## Cross-links
 
-The paper belongs with [[Opinion dynamics]], [[Sociophysics]], [[Belief inertia]], and [[Hamiltonian belief dynamics]]. Its mechanical analogy is also a useful comparator for [[Mass as Fisher information]], because Martins derives inertia within a Bayesian opinion model whereas the present research must state any Fisher-based kinetic metric as a separate modeling postulate.
+The paper belongs with [[Opinion dynamics]], [[Sociophysics]], Belief inertia, and Hamiltonian belief dynamics. Its mechanical analogy is also a useful comparator for Mass as Fisher information, because Martins derives inertia within a Bayesian opinion model whereas the present research must state any Fisher-based kinetic metric as a separate modeling postulate.
 
 ## BibTeX
 

@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Partial information decomposition
@@ -33,19 +33,11 @@ The decomposition is not determined by Shannon identities alone. A redundancy or
 
 ## Nonuniqueness and high-order obstructions
 
-Multiple later definitions satisfy different desirable properties and disagree on examples; there is no estimator-independent object called simply "the PID." [[lyu-2026-pid-inconsistencies]] gives closed-form results for a two-source axiomatic setting, revisits a three-source overcounting counterexample, and proves an incompatibility for the lattice-based consistency requirements it studies when the number of sources exceeds three. This is a serious warning against naively scaling a two-source lattice construction to many agents. It is not a proof that every nonlattice or operational measure of redundancy and synergy is impossible.
+Multiple later definitions satisfy different desirable properties and disagree on examples; there is no estimator-independent object called simply "the PID." [[lyu-2026-pid-inconsistencies]] gives closed-form results for a two-source axiomatic setting, revisits a three-source overcounting counterexample, and proves an incompatibility for the lattice-based consistency requirements it studies when the number of sources exceeds three. This is a serious warning against naively scaling a two-source lattice construction to many sources. It is not a proof that every nonlattice or operational measure of redundancy and synergy is impossible.
 
 ## Relation to other interaction measures
 
 [[O-information]] is symmetric and target-free; PID is source-target structured and atom-level. Hoeffding or ANOVA interaction terms decompose a function or variance relative to a measure, not mutual information into redundant and synergistic source contributions. Interaction information is a signed inclusion-exclusion quantity. These tools can be compared empirically but should not be renamed as one another.
-
-## Why it matters here
-
-PID could ask whether individual agents contribute unique evidence about a meta-agent target or whether the target is recoverable only jointly. The question is meaningful only after specifying the target, source representation, redundancy definition, estimator, and sampling distribution. In a gauge model, source variables should be transported to a declared common frame when the statistic is not representation-invariant; transport does not resolve the choice of PID axioms.
-
-## In this work
-
-Start with two-source synthetic distributions having known redundant, unique, and XOR-like synergistic structure. Validate the estimator there before using learned agent states. For more than two sources, report the precise construction and its consistency limitations, and prefer preregistered low-order slices or clearly labeled aggregate measures over an unexplained high-order lattice. Include finite-sample intervals and null-model controls.
 
 ## Sources
 
@@ -57,5 +49,4 @@ Start with two-source synthetic distributions having known redundant, unique, an
 
 - [[O-information]]
 - [[Mutual information]]
-- [[Meta-agents and hierarchical emergence]]
 - [[Information geometry]]

@@ -28,7 +28,7 @@ Fields and Levin use planarian regeneration to question whether an intact organi
 
 ## Relevance to this research
 
-The paper is useful context for [[Meta-agents and hierarchical emergence]] because collective integrity can coexist with persistent lower-level interests and lineages. It encourages separately identifying reproductive units, operational boundaries, and coordinated behavior. In [[Gauge-Theoretic Multi-Agent VFE Model]], choosing an aggregate variable does not settle which level is autonomous; a proposed parent must retain the relevant interactions and records rather than infer individuality from a visually coherent boundary.
+The paper is useful context for Meta-agents and hierarchical emergence because collective integrity can coexist with persistent lower-level interests and lineages. It encourages separately identifying reproductive units, operational boundaries, and coordinated behavior. In Gauge-Theoretic Multi-Agent VFE Model, choosing an aggregate variable does not settle which level is autonomous; a proposed parent must retain the relevant interactions and records rather than infer individuality from a visually coherent boundary.
 
 ## BibTeX
 

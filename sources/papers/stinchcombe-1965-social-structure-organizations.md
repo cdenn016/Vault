@@ -35,7 +35,7 @@ Stinchcombe (p. 169) gives three reasons why the structure an organization acqui
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence
 - Related sources: [[marquis-2013-imprinting-multilevel-theory]]
 
 ## BibTeX

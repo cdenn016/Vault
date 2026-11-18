@@ -8,7 +8,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-11-18
 ---
 
 # Conformist transmission
@@ -27,12 +27,6 @@ where $D$ is the strength of the conformist bias ([[henrich-boyd-1998-conformist
 
 Henrich and Boyd ([[henrich-boyd-1998-conformist-transmission]]) place this bias on an adaptive footing: natural selection on social-learning psychology favors a conformist tendency across a broad range of conditions, particularly when the environment varies in space and individual (asocial) learning is costly or error-prone, because copying the local majority is a cheap and reliable way to acquire locally adaptive behavior. The bias is adaptive at the individual level, but it has a striking population-level consequence. Within a group, conformity is a homogenizing force that drives every group toward one consensus or the other. Between groups, it counteracts the mixing effect of migration: because each group is pulled toward fixation on whichever variant happens to be locally common, conformist transmission *maintains stable cultural differences between groups* even in the face of inter-group migration that would otherwise erode them. This persistent inter-group variance is the raw material on which cultural group selection can act — a precondition Henrich and Boyd emphasize ([[henrich-boyd-1998-conformist-transmission]], [[richerson-boyd-2005-not-by-genes-alone]]). Empirically the picture is more nuanced than the clean model: experimental audits find robust support for state-dependent reliance on social information but only *partial* support for strict frequency-dependent conformity, so the cubic rule is best read as the idealized formal mechanism rather than a universally confirmed behavioral law ([[laland-2004-social-learning-strategies]]).
 
-## Relevance to this research
-
-Conformist transmission is a nonlinear cultural-evolution benchmark against the gauge-VFE model's restricted linear consensus result. The current theorem gives fixed symmetric DeGroot under the primary unweighted Fisher flow; matching a nonuniform reversible transient requires $G_\rho$ or agent-specific rates, while the restricted reversible anchored stationary equilibrium is metric-independent. It does not derive a cubic adoption rule, majority amplification, bistability, tipping, or separated consensus attractors. Those effects require an explicit frequency-dependent or discrete adoption mechanism, so conformist transmission specifies a target for an extension rather than an overdamped limit already recovered by [[belief-inertia]].
-
-The relevance is therefore *specificational* rather than a literal import: the cubic rule is not a term the functional currently derives, but a target behavior the coupling kernel ought to recover under the right (majority-amplifying) weighting, just as uniform coupling gives averaging and status-weighted $\beta_{ij}$ gives prestige bias ([[boyd-richerson-1985-culture-evolutionary-process]], [[laland-2004-social-learning-strategies]]). It connects naturally to [[Belief inertia]]: where the cubic rule produces bistability through a per-generation frequency nonlinearity, the belief-inertia program produces metastability and resistance to averaging through strong prior self-coupling $\alpha\,\mathrm{KL}(q_i \,\|\, p_i)$ and, in its underdamped extension, through inertial mass — distinct mechanisms that share the goal of explaining how stable, separated belief clusters survive the homogenizing pull of social coupling. The deeper anthropological motivation — that conformity sustains the between-group variance needed for cultural group selection — is framing-level support for [[Meta-agents and hierarchical emergence]] and [[Collective active inference]], where coupled belief-updating yields stable group-level structure no single agent holds.
-
 ## Sources
 
 - [[henrich-boyd-1998-conformist-transmission]] — formal model showing selection favors conformist bias; the cubic adoption rule $p' = p + D\,p(1-p)(2p-1)$, its bistability, and the maintenance of stable between-group differences for cultural group selection.
@@ -45,6 +39,5 @@ The relevance is therefore *specificational* rather than a literal import: the c
 
 - [[Cultural evolution and social learning]] — the parent concept; the full bias taxonomy and transmission-channel models.
 - [[Social influence and conformity]] — the social-psychology evidence base (Asch, Sherif) for majority pressure on beliefs.
-- [[Multi-agent variational free energy]] · [[belief-inertia]] · [[SocialPhysics]] — the functional and program whose coupling kernel must reproduce the conformist nonlinearity.
 - [[Echo chambers and polarization]] · [[Discrete spin and majority-rule models of opinion]] — the bistable, majority-amplifying regime in opinion space.
 - [[Opinion dynamics]] · [[Statistical physics of social systems and collective behavior]] — the linear (DeGroot) baseline conformity is defined against, and the surrounding map.

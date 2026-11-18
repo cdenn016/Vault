@@ -32,11 +32,11 @@ The main proposition is that allocations feasible with money are feasible with m
 
 ## Relevance to this research
 
-The manuscript cites the result in its section on abstract collectives, stating that its own treatment of persistent records is consistent with the result and does not derive it. The record shows the abstract was read through a secondary index and the full text was not. See [[Meta-agents and hierarchical emergence]], [[Common knowledge and Bayesian agreement]] and [[Evolutionary game theory and cooperation]].
+The manuscript cites the result in its section on abstract collectives, stating that its own treatment of persistent records is consistent with the result and does not derive it. The record shows the abstract was read through a secondary index and the full text was not. See Meta-agents and hierarchical emergence, [[Common knowledge and Bayesian agreement]] and [[Evolutionary game theory and cooperation]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Common knowledge and Bayesian agreement]]; [[Evolutionary game theory and cooperation]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Common knowledge and Bayesian agreement]]; [[Evolutionary game theory and cooperation]].
 
 ## BibTeX
 

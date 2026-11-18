@@ -33,11 +33,11 @@ The abstract states that stationary distributions are partially characterized, a
 
 ## Relevance to this research
 
-The collective-agents manuscript attributes to this paper the Gibbs form of the stationary law of asynchronous logit revision in potential games, which it uses in its treatment of agency and coherence. The reading record says the paper was known from the record and from secondary accounts of the Gibbs-law statement, so the attribution rests on those accounts and not on a reading of the article. The link to the vault is the use of Gibbs laws as the stationary behavior of interacting decision makers, see [[Evolutionary game theory and cooperation]], [[Bounded Rationality]] and [[Multi-agent variational free energy]].
+The collective-agents manuscript attributes to this paper the Gibbs form of the stationary law of asynchronous logit revision in potential games, which it uses in its treatment of agency and coherence. The reading record says the paper was known from the record and from secondary accounts of the Gibbs-law statement, so the attribution rests on those accounts and not on a reading of the article. The link to the vault is the use of Gibbs laws as the stationary behavior of interacting decision makers, see [[Evolutionary game theory and cooperation]], [[Bounded Rationality]] and Multi-agent variational free energy.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; [[Multi-agent variational free energy]]; [[candogan-2013-dynamics-near-potential]].
+[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; Multi-agent variational free energy; [[candogan-2013-dynamics-near-potential]].
 
 ## BibTeX
 

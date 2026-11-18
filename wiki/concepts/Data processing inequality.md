@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Data processing inequality
@@ -30,7 +30,7 @@ bits/s consumed against ~10 bits/s emitted — higher levels are information com
 generate, not amplifiers that relay.
 
 ## Related
-[[Quantum information geometry]], [[Fisher information metric]], [[Mutual information]], [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
+[[Quantum information geometry]], [[Fisher information metric]], [[Mutual information]], [[Coarse Graining]]
 
 ## Sources
 [[tishby2015-deep-learning-ib]], [[cover-thomas-2006-elements-information-theory]], [[hoel-2013-causal-emergence]], [[zheng-meister-2025-unbearable-slowness]]

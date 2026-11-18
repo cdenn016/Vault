@@ -75,7 +75,7 @@ PIFB ([[participatory-it-from-bit]]) reads the attention weight $\beta_{ij}$ as 
 
 - Concepts: [[Mechanistic interpretability of attention]], [[Attention mechanisms — theory and positional structure]]
 - Sources: [[voita-2019-attention-heads|voita-2019-multihead]], [[clark-2019-bert-attention]], [[vaswani-2017-attention]]
-- Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 
 ```bibtex
 @article{olsson2022incontext,

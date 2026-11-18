@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Mutual information
@@ -118,8 +118,6 @@ self-coupling coefficient $\alpha$ is not Tishby's relevance multiplier
 $\beta$, and the pairwise attention rule is not thereby an IB optimum. The
 connection is a formal comparison, not an equality of functionals.
 
-**Meta-agent coarse-graining.** Grouping units by the similarity of their predictive distributions $p(y\mid x)$ — distributional clustering that preserves mutual information with the relevance variable while compressing the input — is the information-theoretic route by which [[Meta-agents and hierarchical emergence|meta-agents]] form, and the DPI bounds how much relevant information any coarse-graining can retain (see [[Renormalization group flow]] and [[Multi-agent variational free energy]]).
-
 **From information to geometry.** The KL expansion supports the
 [[Fisher information metric]] used for Gaussian belief updates. It does not
 turn the separate plain-AdamW frame M-step or decode optimizer into a natural
@@ -133,7 +131,7 @@ joint statistical manifold.
 - [[tishby-1999-information-bottleneck]] — the information-bottleneck objective $I(X;T)-\beta I(T;Y)$; KL-distortion softmax assignment; the information plane.
 - [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]] — closed-form Gaussian information bottleneck; spectral, phase-transition optimum.
 - [[shwartz-ziv-2017-opening-black-box]] — information-plane (fitting-then-compression) dynamics of deep networks.
-- [[slonim-2000-agglomerative-ib]] — agglomerative IB; relevance-preserving coarse-graining, cousin of meta-agent formation.
+- [[slonim-2000-agglomerative-ib]] — agglomerative IB; relevance-preserving coarse-graining.
 
 ## See also
 
@@ -146,5 +144,4 @@ joint statistical manifold.
 - [[Maximum entropy]]
 - [[Information geometry and natural gradient]]
 - [[GL(K) gauge-equivariant attention]]
-- [[Meta-agents and hierarchical emergence]]
 - [[Physics from Fisher information]]

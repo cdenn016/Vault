@@ -28,7 +28,7 @@ Fields and colleagues argue that finite systems with morphological degrees of fr
 
 ## Relevance to this research
 
-This is prior theory for efficient communication across scales in [[Meta-agents and hierarchical emergence]] and for the physical cost of inference in [[VFE Transformer Program]]. It motivates asking which messages a hierarchy preserves and where parameters are physically stored. It does not establish that every coarse-graining inherits the same normalized law, preserves Fisher geometry, or produces exact autonomous parent dynamics in [[Gauge-Theoretic Multi-Agent VFE Model]].
+This is prior theory for efficient communication across scales in Meta-agents and hierarchical emergence and for the physical cost of inference in [[VFE Transformer Program]]. It motivates asking which messages a hierarchy preserves and where parameters are physically stored. It does not establish that every coarse-graining inherits the same normalized law, preserves Fisher geometry, or produces exact autonomous parent dynamics in Gauge-Theoretic Multi-Agent VFE Model.
 
 ## BibTeX
 

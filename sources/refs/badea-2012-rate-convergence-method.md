@@ -37,11 +37,11 @@ Dichotomy theorems are proved: under stated conditions, either convergence is qu
 
 ## Relevance to this research
 
-The manuscript cites this paper as its source for the two-subspace rate: the upper bound is credited to [[aronszajn-1950-reproducing-kernels]] and the equality to Kayalar and Weinert, both as stated in Section 1B here. It also places the paper beside von Neumann and Halperin for noiseless relays of fixed codes in a common metric, which are alternating projections onto the intersection. The use is in the scale analysis of shared content under [[Coarse Graining]] and [[Renormalization group flow]], and in [[Meta-agents and hierarchical emergence]].
+The manuscript cites this paper as its source for the two-subspace rate: the upper bound is credited to [[aronszajn-1950-reproducing-kernels]] and the equality to Kayalar and Weinert, both as stated in Section 1B here. It also places the paper beside von Neumann and Halperin for noiseless relays of fixed codes in a common metric, which are alternating projections onto the intersection. The use is in the scale analysis of shared content under [[Coarse Graining]] and [[Renormalization group flow]], and in Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Renormalization group flow]]; [[Meta-agents and hierarchical emergence]]; [[aronszajn-1950-reproducing-kernels]].
+[[Collective agents literature map]]; [[Coarse Graining]]; [[Renormalization group flow]]; Meta-agents and hierarchical emergence; [[aronszajn-1950-reproducing-kernels]].
 
 ## BibTeX
 

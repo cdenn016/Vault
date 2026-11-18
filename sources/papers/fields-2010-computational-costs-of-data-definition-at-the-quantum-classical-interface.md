@@ -29,7 +29,7 @@ Fields studies the classical work needed to assign meaning to quantum inputs, co
 
 ## Relevance to this research
 
-The project can use this as a warning that transmitting a compact code does not make encoding, decoding, or dictionary acquisition free. [[Gauge-Theoretic Multi-Agent VFE Model]] explicitly separates communicated marginals from receiver-supplied conditional structure. A computational comparison should likewise specify storage, query access, precision, and preprocessing. The paper's particular asymptotic cost claims cannot be transferred to the project's channels without that access model, and no performance experiment is reported here.
+The project can use this as a warning that transmitting a compact code does not make encoding, decoding, or dictionary acquisition free. Gauge-Theoretic Multi-Agent VFE Model explicitly separates communicated marginals from receiver-supplied conditional structure. A computational comparison should likewise specify storage, query access, precision, and preprocessing. The paper's particular asymptotic cost claims cannot be transferred to the project's channels without that access model, and no performance experiment is reported here.
 
 ## BibTeX
 

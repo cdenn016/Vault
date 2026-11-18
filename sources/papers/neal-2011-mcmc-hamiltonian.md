@@ -34,7 +34,7 @@ The canonical tutorial on Hamiltonian Monte Carlo: introduces momentum augmentat
 Grounds the Hamiltonian-dynamics view of sampling that parallels the program's Hamiltonian belief-dynamics formulation of inference and provides the gradient-driven exploration baseline for variational comparisons.
 
 ## Cross-links
-[[Hamiltonian Monte Carlo]], [[Hamiltonian belief dynamics]]
+[[Hamiltonian Monte Carlo]], Hamiltonian belief dynamics
 
 ## BibTeX
 ```bibtex

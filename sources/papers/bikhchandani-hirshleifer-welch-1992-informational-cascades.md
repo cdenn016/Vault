@@ -28,7 +28,7 @@ at which point the agent's own signal cannot tip her posterior and she imitates 
 ## Relevance to this research
 This is the discrete, Bayesian-sequential cousin of the program's continuous VFE belief coupling, and core canon for the herding/tipping neighborhood. An agent suppressing its own evidence in favor of transported neighbor beliefs is exactly the cascade pathology: in the functional, this is the regime where softmax attention weight $\beta_{ij}$ concentrates on neighbors and the self-coupling $\alpha\,\mathrm{KL}(q_i\|p_i)$ is too weak to retain the private signal, so $q_i \to \Omega_{ij}[q_j]$ and the agent's own likelihood term stops shaping the posterior. The program should be able to recover cascades as a limiting regime of softmax-weighted $\mathrm{KL}(q_i\|\Omega_{ij}[q_j])$ coupling, and the *fragility* BHW emphasize maps naturally onto the shallow, easily perturbed basins of the belief-coupling dynamics. The correspondence is structural rather than a proven identity: BHW's information aggregation is discrete and one-shot, the program's is continuous and iterative.
 
-See [[Information cascades and herding]], [[Multi-agent variational free energy]], [[Echo chambers and polarization]], [[Belief inertia]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Echo chambers and polarization]], Belief inertia.
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

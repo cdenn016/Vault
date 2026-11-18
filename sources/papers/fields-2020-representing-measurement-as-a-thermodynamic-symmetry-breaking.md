@@ -28,7 +28,7 @@ This account includes the operations needed to identify an apparatus within the 
 
 ## Relevance to this research
 
-For [[Gauge-Theoretic Multi-Agent VFE Model]], the valuable distinction is between the record payload, the criteria identifying its source, and the resources needed to maintain both. Persistent transcript and identification data can be part of a retained interface even when current beliefs agree. The groupoid language offers a comparison to directed dictionaries, but the paper's context switches and the project's gauge changes have different definitions. Their equality would require explicit state and operator maps.
+For Gauge-Theoretic Multi-Agent VFE Model, the valuable distinction is between the record payload, the criteria identifying its source, and the resources needed to maintain both. Persistent transcript and identification data can be part of a retained interface even when current beliefs agree. The groupoid language offers a comparison to directed dictionaries, but the paper's context switches and the project's gauge changes have different definitions. Their equality would require explicit state and operator maps.
 
 ## BibTeX
 

@@ -29,7 +29,7 @@ Fields imposes symmetry between system and observer in the von Neumann measureme
 
 ## Relevance to this research
 
-For [[Participatory realism (it from bit)]], this is an explicit early version of the physical-carrier versus interpreted-content distinction. In [[Gauge-Theoretic Multi-Agent VFE Model]], an evaluator and observation kernel already state part of that interpretation. Exact parent inheritance additionally requires those kernels and future dynamics to descend through the retained state. The paper motivates asking for such maps but does not supply the project's probabilistic sufficiency theorem, connection, or formation mechanism.
+For [[Participatory realism (it from bit)]], this is an explicit early version of the physical-carrier versus interpreted-content distinction. In Gauge-Theoretic Multi-Agent VFE Model, an evaluator and observation kernel already state part of that interpretation. Exact parent inheritance additionally requires those kernels and future dynamics to descend through the retained state. The paper motivates asking for such maps but does not supply the project's probabilistic sufficiency theorem, connection, or formation mechanism.
 
 ## BibTeX
 

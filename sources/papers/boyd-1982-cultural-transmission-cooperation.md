@@ -38,7 +38,7 @@ Eq. (2), $q' = q + A\,q(1-q)(2q-1)$ (p. 330), is the frequency-dependent transmi
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Cultural evolution and social learning]]
+- Concepts: Meta-agents and hierarchical emergence, [[Cultural evolution and social learning]]
 - Related sources: [[boyd-richerson-1985-culture-evolutionary-process]], [[henrich-boyd-1998-conformist-transmission]], [[young-1993-evolution-conventions]], [[marquis-2013-imprinting-multilevel-theory]]
 
 ## BibTeX

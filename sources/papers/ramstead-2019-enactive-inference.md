@@ -65,7 +65,7 @@ This paper is directly relevant to the multi-agent active inference program unde
 ## Cross-links
 - Concepts: [[Free-energy principle active inference|Free Energy Principle]], [[Active Inference]], [[Markov Blanket]], [[Variational Free Energy]], [[Recognition Density]]
 - Related sources: [[friston-2010-free-energy-principle|friston-2010-free-energy]], [[ramstead-2018-answering-schrodinger]], [[kirchhoff-2018-markov-blankets-of-life]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

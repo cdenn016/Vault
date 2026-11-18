@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Graphon limits of agent networks
@@ -40,4 +40,3 @@ Classical graphons are naturally dense-graph limits. Sparse networks require res
 - [[Mean-field games and continuum limits]]
 - [[Propagation of chaos]]
 - [[Graph Laplacian]]
-- [[Multi-agent variational free energy]]

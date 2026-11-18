@@ -5,7 +5,7 @@ aliases: [field/biology, Biology sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Biology MOC
@@ -16,7 +16,7 @@ updated: 2026-11-13
 Biology (**41** sources) covers evolutionary dynamics and evolutionary game theory (replicator
 dynamics, cooperation on graphs), cultural evolution and social learning, and collective animal
 behaviour / flocking. These supply the selection-and-transmission and self-organization mechanisms
-behind the [[Statistical physics of social systems and collective behavior|social-physics]] program.
+behind the [[Statistical physics of social systems and collective behavior|social-physics]] cluster.
 
 ```base
 filters:

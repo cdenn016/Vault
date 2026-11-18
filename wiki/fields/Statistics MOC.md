@@ -5,7 +5,7 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Statistics MOC
@@ -23,21 +23,9 @@ updated: 2026-11-13
 
 [[cappe-2009-online-em]], [[albert-1993-probit-data-augmentation]], [[rauch-1965-rts-smoother]], [[meng-1994-em-convergence-rates]], [[liu-1998-px-em]], [[salakhutdinov-2003-overrelaxed-bound-optimization]], [[varadhan-2008-squarem]] and [[barber-2006-expectation-correction]] support the backprop-free local-learner test [[vfe3-2026-10-25-local-learner-test]] and its switching follow-up; see [[Variational EM]].
 
-## October 2 completed square-root parent-budget study
-
-Three tiny tests and an independent recomputation of 36 summaries support a reporting-only fix for self-term standard errors near 1e-216. Raw zero-variance summaries remain archived beside corrected values. These are finite-grid sufficient-budget measurements, not retained-path KL values or small controlled error bounds. The original dense failure remains unresolved. The next recorded task is sharper conditional retained-law error accounting; O1/O4, endogenous feedback and recursive formation remain open. The earlier checkpoint below is historical: its pending saved-tape validation has now completed.
-
-## Frozen parent budget: terminal numerical failure, October 2, 2026
-
-Seven tiny checks passed, but no full-result checker or budget-accounting reconstruction ran, and the study was not retried. No GPU was used. The partial arrays remain diagnostic evidence rather than accepted parent-error estimates. Local consistency does not establish a global limit or remove finite-grid dependence on invisible self-proposals. Numerical diagnosis, endogenous feedback and intrinsic recursive formation remain open; O1 and O4 are not closed.
-
-## Source-adapted Gaussian continuation, October 2, 2026
-
-The posthoc saved-score functional estimates retained path KL plus a nonnegative information gap, not a confidence upper bound. Separately, a frozen continuous-time full-Gaussian parent satisfies the regular-filter conditions and has a survival-aware actual-law error budget. Neither candidate admission nor the finite scheduled replay proves the required small asymptotic error, endogenous structural feedback or recursive formation. The earlier requested break ended when the user resumed the autonomous goal.
-
 ## Cut routing and tempered Gaussian posteriors, October 2, 2026
 
-[[dennis-2026-projected-gradient]] reads routing by a comparison divergence alone as exact inference in a cut model (modular Bayesian inference) and shows that a channel-likelihood receiver has the exact tempered Gaussian posterior as minimizer, counting the receiver entropy once. [[dennis-2026-phi-natgrad]] derives a Fisher natural gradient for frame parameters from the reference-prior family. [[dennis-2026-neuron-free-agent-theory]] uses Gamma-precision (Student-t) records and a KL-budget constraint in one constrained ELBO.
+[[dennis-2026-projected-gradient]] reads routing by a comparison divergence alone as exact inference in a cut model (modular Bayesian inference) and shows that a channel-likelihood receiver has the exact tempered Gaussian posterior as minimizer, counting the receiver entropy once. [[dennis-2026-phi-natgrad]] derives a Fisher natural gradient for frame parameters from the reference-prior family.
 
 ## Deconvolution, Tweedie, and sequential-posterior references, October 24, 2026
 
@@ -80,7 +68,7 @@ views:
 Compose with the topic facet via tag search — e.g. `tag:#field/statistics tag:#cluster/info-geometry`
 or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for all fields.
 
-## MultiAgentELBO research ingestion, September 11, 2026
+## Research ingestion, September 11, 2026
 
 - [[ay-2015-parametrized-measure-models]]
 - [[bauschke-2003-duality-for-bregman-projections-onto-translated-cones-and-affine]]
@@ -119,10 +107,6 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 [[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) states the channel-likelihood receiver of the projected-gradient route in the main GL(K) manuscript. With routing weights as likelihood powers, the frozen receiver energy is minimized by the Gaussian power posterior $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\lambda_\alpha\Lambda^{-1}$; it reduces to the predictive head sum in a flat-prior limit, gives a precision-weighted fusion residual at finite prior precision, and its Fisher flow is solved exactly in natural parameters. The profiled coupling $c_0/(b_0+D)$ gives a majorize–minimize step; in the implemented configuration the layer prior equals the incoming state, so the step is a Kalman update.
 
 [[dennis-2026-minimal-agent-model]] (2026-10-05) derives an attention round as exact Bayesian conditioning: the source posterior is an expected-likelihood weight, the receiving map is the Gaussian gain, and the residual is precision weighted; divergence-based Gibbs routing is the first label step of a structured mean-field approximation. It is implemented in VFE_3.0 as a selectable readout (`VFE_3.0/docs/2026-10-06.md`), with no controlled evaluation. [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) keeps the exact source-posterior and predictive-mean status of routing and content and moves the channel-likelihood receiver to its supplement.
-
-[[dennis-2026-collective-agents-approximate-meta-agent]] (2026-11-11) bounds the excess relative entropy of a stationary Kalman filter run on a declared Markov model of a coarse variable that is not closed: an exact quadratic equation for the difference of the predictive covariances and a contraction of the declared filter in its own metric give a bound with no smallness condition, which is assembled into an approximate meta-agent theorem; a companion result bounds the memory of the average of fixed-gain literal receivers. Synthesis in [[Approximate meta-agent theorem]].
-
-[[dennis-2026-collective-agents-approximate-blanket-conditions]] (2026-11-11) is the companion of [[dennis-2026-collective-agents-approximate-meta-agent]]. It bounds the excess relative entropy of a stationary Kalman filter that reads a summary of a finer record through a declared observation model that may be wrong, with an exact information term for the insufficiency of the summary; assembles the approximate meta-agent theorem without exact blanket conditions, with the members' channels as the record; gives the exact excess relative entropy of the belief carried by the average of fixed-gain literal receivers; and bounds the distance between the autocorrelation of one coordinate of a linear recursion and a geometric sequence without reversibility. Theory only. Synthesis in [[Approximate meta-agent theorem]].
 
 ## Communication policies and collective boundaries, November 7, 2026
 

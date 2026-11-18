@@ -22,7 +22,7 @@ Section 8, equation (17), and Appendix A.1 formulate parameter learning through 
 
 ## Relevance to this research
 
-Shows that fast state inference and parameter learning can already be described within probabilistic updating. It does not prove the spontaneous appearance of a smooth slow-model subbundle. See [[Generative model]], [[Variational free energy]], and [[Meta-agents and hierarchical emergence]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+Shows that fast state inference and parameter learning can already be described within probabilistic updating. It does not prove the spontaneous appearance of a smooth slow-model subbundle. See [[Generative model]], [[Variational free energy]], and Meta-agents and hierarchical emergence. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

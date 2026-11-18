@@ -36,11 +36,11 @@ According to the abstract, the theory reconciles two documented organizational t
 
 ## Relevance to this research
 
-The Collective Agents manuscript cites this paper twice. In its supplement, translation inside firms is described as modeled in a way related to the manuscript's reading of bilinguals and translators as boundary agents between domains with different conventions. In the related-work section, the paper appears among treatments of organizations as costly channels with a code. The work was known only from its abstract. It connects to [[Communication-constrained inference]] and to [[Meta-agents and hierarchical emergence]].
+The Collective Agents manuscript cites this paper twice. In its supplement, translation inside firms is described as modeled in a way related to the manuscript's reading of bilinguals and translators as boundary agents between domains with different conventions. In the related-work section, the paper appears among treatments of organizations as costly channels with a code. The work was known only from its abstract. It connects to [[Communication-constrained inference]] and to Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Communication-constrained inference]]; [[Meta-agents and hierarchical emergence]]; [[daft-1984-model-organizations-interpretation]].
+[[Collective agents literature map]]; [[Communication-constrained inference]]; Meta-agents and hierarchical emergence; [[daft-1984-model-organizations-interpretation]].
 
 ## BibTeX
 

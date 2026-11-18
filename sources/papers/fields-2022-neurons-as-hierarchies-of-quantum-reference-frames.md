@@ -29,7 +29,7 @@ Fields, Glazebrook, and Levin model neuronal organization as hierarchies of quan
 
 ## Relevance to this research
 
-The two memory roles connect directly with [[Cue-result generative memory]]: retained structure can encode how to respond, while a record stores a particular outcome. The hierarchy also informs [[Quantum reference frames]] and [[Meta-agents and hierarchical emergence]]. Its neural and quantum commitments should remain distinct from a classical probabilistic implementation, which needs its own update equations and evidence for any claimed biological correspondence.
+The two memory roles connect directly with [[Cue-result generative memory]]: retained structure can encode how to respond, while a record stores a particular outcome. The hierarchy also informs [[Quantum reference frames]] and Meta-agents and hierarchical emergence. Its neural and quantum commitments should remain distinct from a classical probabilistic implementation, which needs its own update equations and evidence for any claimed biological correspondence.
 
 ## BibTeX
 

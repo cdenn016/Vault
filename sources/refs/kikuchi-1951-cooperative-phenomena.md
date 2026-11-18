@@ -26,7 +26,7 @@ Kikuchi, Ryoichi (1951). *A theory of cooperative phenomena*. Phys. Rev.. [Prima
 
 The source develops an approximation for cooperative order-disorder phenomena using cluster descriptions. It supplies historical context for cluster-variation approximations in the manuscript. Accuracy of a chosen region approximation still needs its own conditions; an enlarged region set is not automatically an exact result.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

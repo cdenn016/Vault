@@ -38,7 +38,7 @@ The sessions give a coarse relaxation record for individually started groups. Fo
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Social influence and conformity]], [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, [[Social influence and conformity]], Meta-agents and hierarchical emergence
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[sherif-1936-psychology-social-norms]], [[jacobs-1961-arbitrary-tradition]], [[macneil-1976-norm-change-arbitrariness]]
 

@@ -52,7 +52,7 @@ This paper is directly relevant to the social-physics and opinion-dynamics compo
 ## Cross-links
 - Concepts: [[Belief perseverance and confirmation bias|Belief Perseverance]], [[Belief perseverance and confirmation bias|Causal Explanation]], [[Social influence and conformity|Social Influence]], [[Opinion Dynamics]]
 - Related sources: [[ross-1975-perseverance|ross1975-perseverance]], [[lord-1979-biased-assimilation|lord1979-biased-assimilation]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

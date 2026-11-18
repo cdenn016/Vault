@@ -28,11 +28,11 @@ The article covers the history of the topic, a unifying framework and terminolog
 
 ## Relevance to this research
 
-The manuscript cites the paper for terminology only, and its record marks the use as bibliographic. In the section on abstract collectives it says that a population in which layers share their nodes and differ in their edges is a multiplex network in this paper's terminology. In the minimal-model section it uses the term to say the earlier model had one modality and so no multiplex structure. See [[Graph Laplacian]], [[Community detection and modularity]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper for terminology only, and its record marks the use as bibliographic. In the section on abstract collectives it says that a population in which layers share their nodes and differ in their edges is a multiplex network in this paper's terminology. In the minimal-model section it uses the term to say the earlier model had one modality and so no multiplex structure. See [[Graph Laplacian]], [[Community detection and modularity]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Graph Laplacian]]; [[Community detection and modularity]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Graph Laplacian]]; [[Community detection and modularity]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

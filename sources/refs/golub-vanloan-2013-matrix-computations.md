@@ -44,7 +44,7 @@ Every covariance operation in the program reduces to one of these primitives. Th
 
 - Concept: [[Symmetric spaces and the SPD cone]]
 - Theme: [[SPD-manifold geometry and Riemannian optimization]]
-- Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Projects: [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model
 - Related sources: [[higham-2008-functions-of-matrices]], [[horn-johnson-2013-matrix-analysis]], [[pennec-2006-intrinsic-statistics]]
 
 ## BibTeX

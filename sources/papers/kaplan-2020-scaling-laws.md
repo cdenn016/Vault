@@ -61,7 +61,7 @@ PIFB ([[participatory-it-from-bit]]) advances an **inverse-$K$ scaling** claim: 
 
 - Concepts: [[Neural scaling laws]], [[Information bottleneck]], [[Variational free energy]]
 - Sources: [[hoffmann-2022-chinchilla]], [[vaswani-2017-attention]]
-- Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 
 ```bibtex
 @article{kaplan2020scaling,

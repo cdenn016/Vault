@@ -5,7 +5,7 @@ aliases: ["Schelling segregation", "Tipping points", "Tipping models", "Critical
 tags: [cluster/social-physics, project/social-physics]
 status: stable
 created: 2026-06-19
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Schelling segregation and tipping points
@@ -15,14 +15,6 @@ updated: 2026-10-20
 **Schelling segregation** is the archetypal agent-based demonstration that discriminatory-looking macrostructure does not require discriminatory micro-preferences. In Schelling's dynamic model ([[schelling-1971-dynamic-models-segregation]]) agents of two types occupy cells on a line or a grid; each agent is content as long as some modest fraction of its immediate neighbors share its type, applying a threshold rule — stay if the share of like neighbors $f \ge \tau$, otherwise relocate to the nearest acceptable spot. The striking result, shown by hand-simulation, is that even when the individual tolerance is permissive (e.g. $\tau = 1/3$, so every agent would happily accept minority status) the relocation dynamics drive the whole population to near-total spatial segregation. The macro outcome is one no individual preferred or intended: it emerges purely from the aggregation of mild local preferences, because every move that satisfies a discontented agent tends to make a previously content neighbor of the opposite type discontent, propagating a cascade. Embedded in this is a **tipping point** — a critical local mixture beyond which a neighborhood rapidly and irreversibly flips to homogeneity.
 
 The broader family of **tipping models** generalizes this discontinuity. Schelling's book-length treatment ([[schelling-1978-micromotives-macrobehavior]]) develops *critical-mass* and *threshold* models in which collective behavior switches discontinuously once enough individuals act, generating multiple equilibria, S-shaped adoption curves, bandwagon and abandonment dynamics, and self-fulfilling expectations; the unifying thesis is that *macrobehavior is an emergent property of interacting micromotives, not their sum*. The economic counterpart is **path dependence and lock-in** ([[arthur-1989-increasing-returns-lock-in]]): when the benefit of a choice grows with the number of prior adopters (learning effects, network externalities, coordination), the adoption process becomes a reinforced stochastic dynamic with multiple absorbing attractors, and small early *historical accidents* can lock the system irreversibly onto one option — a non-ergodic, potentially inefficient, inflexible outcome of the QWERTY type.
-
-## Why it matters here
-
-For the SocialPhysics program ([[SocialPhysics]], founded on the manuscript [[belief-inertia]]) these works are the conceptual charter and the target-setting canon for collective tipping, rather than mechanism the variational-free-energy functional borrows directly. Schelling's *Micromotives and Macrobehavior* is the authoritative statement of the very micro-to-macro problem the program addresses: how per-agent Gaussian VFE minimization composes into emergent population-scale phenomena. Under the current restricted result, the attractive neighbor-coupling term $\sum_j \beta_{ij}\,\mathrm{KL}(q_i \,\|\, \Omega_{ij}[q_j])$ of [[Multi-agent variational free energy]] supports consensus. Polarization, fragmentation, and tipping remain target benchmarks that require added support breaks, repulsion, anchoring, reinforcement, nonflat transport, or another proved mechanism.
-
-The connection is conceptual and analogical, not a shared equation or derived limit. Schelling's agents move in *physical space* under a *discrete threshold rule*; the program's agents move *beliefs* on an information-geometric [[Statistical manifold]] under smooth gradient flow with gauge-transported coupling. The current theorem gives fixed symmetric DeGroot under the primary unweighted Fisher flow, a nonuniform reversible transient only with $G_\rho$ or agent-specific rates, and a restricted reversible anchored stationary equilibrium independent of the positive flow metric. It does not derive a threshold, segregation, tipping, or bifurcation theorem. Schelling's transitions are therefore benchmark phenomena for a future nonlinear or discrete-state extension.
-
-Arthur's lock-in is the **persistence-of-state** side of tipping and a useful discriminator for future models. Increasing returns, multiple absorbing attractors, and non-ergodic technology choice are not consequences of passive attractive VFE coupling. In the stated finite-temperature symmetric reciprocal two-cluster reduction, separated clusters are metastable and continue to contract. A conditional kinetic metric can generate momentum or overshoot, but hysteresis and history-dependent lock-in require a separately demonstrated multistable landscape, slow state, or discrete reinforcement mechanism. The multi-scale language of [[Renormalization group flow]], [[Meta-entropy]], and [[Meta-agents and hierarchical emergence|meta-agents]] suggests places to formulate that extension; it does not establish the tipping result.
 
 ## Details
 
@@ -34,9 +26,9 @@ Arthur's increasing-returns model ([[arthur-1989-increasing-returns-lock-in]]) g
 $$
 \text{increasing returns} \;\Rightarrow\; \text{non-ergodic, multiple stable equilibria, history-selected lock-in}.
 $$
-Arthur characterizes the four properties that distinguish increasing-returns allocation — *non-predictability* (the limit cannot be forecast from fundamentals), *potential inefficiency* (an inferior option can win), *inflexibility* (lock-in resists later correction), and *non-ergodicity* (early small events are never averaged away). The positive-feedback loop turns transient fluctuations into permanent structure. The current vertex transport $\Omega_{ij}=U_iU_j^{-1}$ is pure gauge with trivial loop holonomy, so it does not supply holonomy-frustrated competing minima or path-dependent lock-in. Those outcomes would require an edge-local or otherwise nonflat connection, anchors, signed influence, discrete reinforcement, or another separately proved multistable mechanism.
+Arthur characterizes the four properties that distinguish increasing-returns allocation — *non-predictability* (the limit cannot be forecast from fundamentals), *potential inefficiency* (an inferior option can win), *inflexibility* (lock-in resists later correction), and *non-ergodicity* (early small events are never averaged away). The positive-feedback loop turns transient fluctuations into permanent structure.
 
-These tipping and lock-in phenomena sit within the broader theme of [[Statistical physics of social systems and collective behavior]], where critical mass, phase transitions, and metastability are the shared vocabulary connecting Schelling's threshold sorting, Arthur's path-dependent lock-in, and the belief-coupling dynamics of the gauge-theoretic VFE program.
+These tipping and lock-in phenomena sit within the broader theme of [[Statistical physics of social systems and collective behavior]], where critical mass, phase transitions, and metastability are the shared vocabulary connecting Schelling's threshold sorting and Arthur's path-dependent lock-in.
 
 ## Sources
 
@@ -46,9 +38,5 @@ These tipping and lock-in phenomena sit within the broader theme of [[Statistica
 
 ## See also
 
-- [[SocialPhysics]] · [[belief-inertia]] — the founding project and manuscript.
-- [[Multi-agent variational free energy]] — the functional that would require an added threshold or multistable mechanism to model tipping.
-- [[Opinion dynamics]] — the restricted averaging correspondence; Schelling tipping remains a separate benchmark.
-- [[Echo chambers and polarization]] · [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — the fragmented, clustered, and coarse-grained regimes.
-- [[Belief inertia]] · [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — conditional kinetic machinery that does not by itself derive hysteresis or lock-in.
-- [[Sociophysics]] · [[Bounded confidence]] · [[Renormalization group flow]] · [[Meta-entropy]] · [[Collective active inference]] · [[Holonomy]].
+- [[Echo chambers and polarization]] · [[Community detection and modularity]] — the fragmented and clustered regimes.
+- [[Opinion dynamics]] · [[Sociophysics]] · [[Bounded confidence]] · [[Renormalization group flow]] · [[Collective active inference]] · [[Holonomy]].

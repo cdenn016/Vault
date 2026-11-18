@@ -29,7 +29,7 @@ This early paper treats a system/apparatus/environment decomposition as informat
 
 ## Relevance to this research
 
-This source connects [[Participatory realism (it from bit)]] to physically maintained descriptions and records. For [[Gauge-Theoretic Multi-Agent VFE Model]], it motivates separating the underlying carrier from the represented system and the operational function assigned to it. A retained parent must preserve that function through its admitted kernels and dynamics, not merely receive a new name. The paper does not supply such a statistical inheritance proof or show how new agent boundaries are selected by interaction.
+This source connects [[Participatory realism (it from bit)]] to physically maintained descriptions and records. For Gauge-Theoretic Multi-Agent VFE Model, it motivates separating the underlying carrier from the represented system and the operational function assigned to it. A retained parent must preserve that function through its admitted kernels and dynamics, not merely receive a new name. The paper does not supply such a statistical inheritance proof or show how new agent boundaries are selected by interaction.
 
 ## BibTeX
 

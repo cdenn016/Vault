@@ -44,7 +44,7 @@ If MultiAgentELBO adds loopy region-graph inference, Heskes motivates monotone s
 
 ## Cross-links
 
-- Concepts: [[Belief Propagation]], [[Variational free energy]], [[Multi-agent variational free energy]]
+- Concepts: [[Belief Propagation]], [[Variational free energy]], Multi-agent variational free energy
 - Related sources: [[yedidia-freeman-weiss-2005-region-free-energy]], [[senoz-2021-local-constraint-vmp]], [[bagaev-2023-reactive-message-passing]]
 
 ## BibTeX

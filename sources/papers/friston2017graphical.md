@@ -51,7 +51,7 @@ This paper is directly relevant to the VFE transformer program on multiple level
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[Active Inference]], [[Belief Propagation]], [[Predictive Coding]], [[Expected Free Energy]]
 - Related sources: [[friston-2016-active-inference-learning|friston2016active]], [[friston-2023-fep-simpler|friston2022free]], [[parr-2022-active-inference|parr2022active]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

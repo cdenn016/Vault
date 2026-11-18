@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Markov Blanket
@@ -126,59 +126,18 @@ The inferential reading of the blanket is contested, and the wiki records the de
 - **Quantitative.** [[aguilera-2022-particular-physics]] solve linear Ornstein–Uhlenbeck non-equilibrium
   systems in closed form and show that the clean blanket-and-belief structure holds only when the
   *solenoidal* (irreversible, non-equilibrium) part of the coupling is small. The inference reading is
-  therefore *not generic*: dense or strongly irreversible coupling breaks the tidy partition. This is a
-  direct warning for [[Multi-agent variational free energy]], where heavy inter-agent coupling generates
-  exactly the irreversible flow the critique flags.
+  therefore *not generic*: dense or strongly irreversible coupling breaks the tidy partition.
 - **Technical.** [[biehl-2021-technical-critique]] argue that the foundational derivations equivocate
   between *inequivalent* definitions of "Markov blanket" (an instantaneous conditional-independence
   condition versus a sparsity condition on the flow, which need not coincide), and that the headline
   claim — "internal states parametrize beliefs about external states" — does not follow as stated from
   the assumptions actually used.
 
-> [!note] Editorial: For this research program the critiques are inherited rather than refuted.
-> [[participatory-it-from-bit]] presumes blanketed boundaries across which internal states encode
-> beliefs and which nest into [[Meta-agents and hierarchical emergence|meta-agents]]; it does not
-> *derive* that such blankets exist, are consistent across scales, or pick out real individuals. The
-> participatory wager is that the conceptual critique can be turned into a partial answer — if reality
-> is observer-relative ("it from bit"), a Pearl-style *perspectival* blanket is a feature, not a bug,
-> and the [[Gauge transformation]] freedom over belief frames (no privileged frame for comparing
-> beliefs) is its formal expression. That move does not touch the *quantitative* worry: the program
-> still owes a check that the synchronization map stays non-degenerate in the strongly-coupled,
-> irreversible regime the multi-agent model lives in. See [[Markov blanket interpretation debate]] for
-> the full treatment.
-
-## Relevance to this research
-
-The Markov blanket is the bridge between physics and inference that the whole gauge-theoretic VFE
-program stands on. Three uses recur:
-
-1. **Agents as blanketed subsystems.** Each node in the multi-agent model is a Markov-blanketed system
-   whose internal states carry a belief manifold; the blanket is its coupling interface, while
-   inter-agent coupling alone establishes neither a higher-order blanket nor a fixed-joint ELBO.
-   The transported peer-KL energy in [[Multi-agent variational free energy]] needs its own statistical interpretation. The
-   blanketed-section picture is sharpened in [[Agents as fibre-bundle sections]].
-2. **The hierarchy.** The nested-blanket ("blankets of blankets") construction of
-   [[kirchhoff-2018-markov-blankets-of-life]] is the canonical precedent for the project's recursive
-   meta-agent tower: scale-$(s{+}1)$ agents are coarse-grainings of clusters of scale-$s$ agents, and a
-   parent's beliefs become its constituents' priors. This underwrites [[Meta-agents and hierarchical emergence]],
-   [[Ouroboros multi-scale dynamics]], and the [[Renormalization group flow]].
-3. **The geometry.** [[parr-2020-markov-blankets-thermodynamics]] supply the exact precedent for the
-   *pullback* move: internal states parametrize a density over the external world, the metric on that
-   parameter space is the [[Fisher information metric]], and belief updating is [[Natural gradient]]
-   descent — the statistical-manifold structure on which the project's gauge-covariant transport,
-   [[Hamiltonian belief dynamics]], [[Belief inertia]], and [[Mass as Fisher information]] are all built.
-
-In short, the blanket gives the program its *agent boundary* (where one inference system ends and the
-next begins), its *coupling interface* (how agents and scales talk), and — through the conditional-
-independence condition — its license to read internal states as beliefs at all. The critiques fix the
-exact debts that license still owes.
-
 ## Related
 
 [[Markov blanket interpretation debate]], [[Free-energy principle active inference]],
 [[Bayesian mechanics]], [[Variational free energy]], [[Fisher information metric]],
-[[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]],
-[[Agents as fibre-bundle sections]], [[Participatory realism (it from bit)]]
+[[Participatory realism (it from bit)]]
 
 ## Sources
 
@@ -209,15 +168,9 @@ The distinction matters when comparing a boundary, an observation protocol, and 
 
 [[Collective agents literature map]] groups the references ingested on November 10, 2026. Its section on active inference, expected free energy and Markov blankets holds the exchange on whether sparse coupling yields a blanket, in [[friston-2021-stochastic-chaos-markov]], [[aguilera-2023-knitting-markov-blanket]], [[heins-2022-sparse-coupling-markov]] and [[friston-2022-very-particular-comment]], and the sources on the decay of conditional mutual information, [[kuwahara-2020-clustering-conditional-mutual]] and [[sang-2025-stability-mixed-state]].
 
-## An approximate meta-agent when coarse blanket conditions fail, November 11, 2026
-
-In the linear-Gaussian model of the collective-agents manuscript, the pair of coarse sensory state and coarse act of a collective is an exact coarse path blanket only under conditions on what the members' sensors read and on how the exterior reads the members. [[dennis-2026-collective-agents-approximate-blanket-conditions]] treats the case in which those conditions fail in any of five ways: sensors that read exterior coordinates outside the coarse exterior, a coarse sensory state formed with weights other than those of the information-form statistic, sensors with memory, sensors that read members' acts or internal states, and an exterior that reads the members one by one. The coarse pair then need not screen off, in the weak or in the strong sense, and the theorem asserts no bound on its leak. What it keeps is a filtering statement under weaker hypotheses, the canonical partition, in which no internal and no active variable reads the exterior and the exterior reads no internal variable, per-channel noise, a stable joint process, members that run a consensus filter and a Gaussian start: the members' sensory channels, net of what they read inside the collective, are a sufficient record for the exterior, whose law given the paths of all collective variables is Gaussian with a covariance that no member's computation or act changes. This is a statement about one conditional law. It is not the fine path blanket, which can fail under the same violations.
-
-With the members' channels as the record, the belief of the collective is measured against the law of the coarse exterior given those channels, and the error terms of the approximate meta-agent for the path law and the belief are of second order in the violations. The law given a coarse record is a second reference. For a coarse record that contains the coarse blanket path and determines the mean of the belief, the two excesses differ by a conditional mutual information that is at most the leak of the coarse blanket on the window, stays bounded as the window grows, and vanishes when the coarse blanket is exact. A bound on the leak itself through the defects of the declared models is open. The synthesis is [[Approximate meta-agent theorem]].
-
 ## The blanket argument in federated inference, November 13, 2026
 
-[[friston-2024-federated-inference]] uses the Markov blanket to decide how beliefs can be shared, and [[Federated inference]] gives the account. The paper first writes belief sharing as direct message passing in which each agent adds the other agents' log posteriors to its own messages. It then argues that this form removes the individual agent: an agent is defined by its blanket, two individuated agents cannot be parent and child in the graph, and they therefore cannot pass messages to each other directly. Conditional independence is kept only if agents communicate through a blanket that they hold in common, their observations, which requires a likelihood mapping from beliefs to outcomes that others can observe. With an identity or permutation likelihood the observed broadcast reproduces the direct update. The argument is verbal and cites the blanket literature; no conditional-independence statement is proved for the simulated agents, and no group-level blanket or group-level agent is constructed. The distinction drawn on this page is unchanged: coupling among agents, here through a common auditory channel, establishes neither a higher-order blanket nor a single collective objective beyond the joint free energy that the paper sketches in its Eq. 7.
+[[friston-2024-federated-inference]] uses the Markov blanket to decide how beliefs can be shared, and [[Federated inference]] gives the account. The paper first writes belief sharing as direct message passing in which each agent adds the other agents' log posteriors to its own messages. It then argues that this form removes the individual agent: an agent is defined by its blanket, two individuated agents cannot be parent and child in the graph, and they therefore cannot pass messages to each other directly. Conditional independence is kept only if agents communicate through a blanket that they hold in common, their observations, which requires a likelihood mapping from beliefs to outcomes that others can observe. With an identity or permutation likelihood the observed broadcast reproduces the direct update. The argument is verbal and cites the blanket literature; no conditional-independence statement is proved for the simulated agents, and no group-level blanket or group-level agent is constructed. Coupling among agents, here through a common auditory channel, establishes neither a higher-order blanket nor a single collective objective beyond the joint free energy that the paper sketches in its Eq. 7.
 
 ## Time scope, solenoidal coupling and graded blankets, November 13, 2026
 

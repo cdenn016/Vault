@@ -51,7 +51,7 @@ This source is relevant to the transformer and multi-agent programs but should r
 
 - Concepts: [[Attention mechanisms — theory and positional structure]], [[O-information]], [[Partial information decomposition]]
 - Related sources: [[bouchaffra-2026-collective-variational-principle]], [[bouchaffra-2026-coalition-free-energy]]
-- Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Projects: [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

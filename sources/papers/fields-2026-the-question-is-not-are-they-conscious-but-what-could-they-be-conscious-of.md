@@ -28,7 +28,7 @@ Fields and Glazebrook redirect debate about artificial consciousness toward the 
 
 ## Relevance to this research
 
-This clarifies the operational meaning of an agent in [[Gauge-Theoretic Multi-Agent VFE Model]]: specify its accessible inputs, retained state, and possible responses before assigning higher-level interpretation. It also helps separate [[Consciousness and the hard problem]] from mathematical claims about inference. Calling an interaction a computation does not supply a normalized generative law, nor does a successful inference model establish consciousness.
+This clarifies the operational meaning of an agent in Gauge-Theoretic Multi-Agent VFE Model: specify its accessible inputs, retained state, and possible responses before assigning higher-level interpretation. It also helps separate [[Consciousness and the hard problem]] from mathematical claims about inference. Calling an interaction a computation does not supply a normalized generative law, nor does a successful inference model establish consciousness.
 
 ## BibTeX
 

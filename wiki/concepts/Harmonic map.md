@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-11-18
 ---
 
 # Harmonic map
@@ -42,21 +42,6 @@ Everything here is a statement about *two* metrics. Changing $h$ changes what "s
 on the domain; changing $g$ changes what "far apart" means in the target. This double dependence is
 what makes the harmonic-energy template so reusable — and it is precisely the handle that
 [[Sigma flow|sigma flows]] turn into a learnable component.
-
-## Why it matters here
-
-The harmonic energy is the mathematical object sitting underneath the **covariant Dirichlet term**
-of the program's free energy. In the [[Gauge-Theoretic Multi-Agent VFE Model]] the minimal-coupling
-vertex that transports a belief across a base-lattice edge by the connection and scores the mismatch
-is exactly a discrete covariant Dirichlet / Gaussian-Markov-random-field energy — see
-[[Non-flat connection and the photon analogy]], where the frozen-connection attention-free variant
-is identified as the closed-ELBO form. Reading that term as "a harmonic energy for a bundle-valued
-field" connects the program to a large classical PDE literature and, more immediately, to the
-Heidelberg group's program, which studies essentially that term *on its own*.
-
-> [!note] Editorial: The identification "the program's covariant Dirichlet term is a discrete
-> harmonic energy" is the vault's own reading. The Heidelberg sources establish the harmonic-energy
-> apparatus; they do not discuss the program's free energy, and no source asserts the equivalence.
 
 ## Details
 

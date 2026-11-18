@@ -49,7 +49,7 @@ The geometric renormalization framework is directly relevant to the multi-agent 
 ## Cross-links
 - Concepts: [[Hidden Metric Space]], [[Renormalization group flow|Renormalization Group]], [[Network structure — small-world and scale-free|Scale-Free Networks]], [[Hyperbolic Geometry]], [[Community detection and modularity|Community Structure]]
 - Related sources: [[boguna-2010-sustaining|boguna2010sustaining]], [[serrano-2008-self-similarity|serrano2008self]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

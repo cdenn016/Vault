@@ -44,7 +44,7 @@ Popper is the canonical source for the principle that *a scientific claim must f
 
 - Concept: [[Structural realism]]
 - Theme: [[Structural realism and philosophy of science]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 - Related sources: [[kuhn-1962-structure]], [[worrall-1989-structural-realism]], [[friedman-2001-dynamics-of-reason]], [[longino-2002-fate-of-knowledge]]
 
 ## BibTeX

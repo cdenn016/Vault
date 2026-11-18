@@ -45,13 +45,13 @@ The specified systems form cell- and organ-like boundaries and exhibit a candida
 
 ## Relevance to this research
 
-This is the closest existing construction to the proposed multi-agent extension of [[Bayesian mechanics]]. It supplies a positive control for [[Meta-agents and hierarchical emergence]] and a warning: a group-level blanket must be demonstrated, not inferred from low divergence or coordinated motion. The project's partition selector and quotient map remain additional obligations.
+This is the closest existing construction to the proposed multi-agent extension of [[Bayesian mechanics]]. It supplies a positive control for Meta-agents and hierarchical emergence and a warning: a group-level blanket must be demonstrated, not inferred from low divergence or coordinated motion. The project's partition selector and quotient map remain additional obligations.
 
 ## Cross-links
 
-- Concepts: [[Bayesian mechanics]], [[Collective active inference]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]]
+- Concepts: [[Bayesian mechanics]], [[Collective active inference]], Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics
 - Related sources: [[waade-2025-as-one-and-many]], [[maisto-2025-flock-joint-agency]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

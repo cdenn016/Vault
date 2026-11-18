@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Expected Free Energy
@@ -183,8 +183,7 @@ weights elsewhere in this program (see *Relevance* below).
 
 ## Relevance to this research
 
-Expected free energy is a prospective action-selection comparator for this research program. It is
-not part of the exact finite MultiAgentELBO implementation.
+Expected free energy is a prospective action-selection comparator for this research program.
 
 The softmax-over-negative-EFE policy rule $\pi = \sigma(-\gamma G)$ motivates an analogy with the
 temperature-scaled attention weights in [[GL(K) gauge-equivariant attention]]. That analogy does
@@ -194,18 +193,12 @@ generative model, preferences, actions, and policy-conditioned predictions are s
 Policy precision $\gamma$ is an inverse temperature on the policy score and can be compared with
 the program's [[Precision weighting]]. For a declared smooth policy or belief family, the
 [[Fisher information metric]] supplies one intrinsic geometry and [[Natural gradient]] supplies one
-possible optimizer; the definition of EFE alone does not force that optimizer. The single-agent
-EFE of [[friston-2017-active-inference-process-theory]] would be one reduction baseline for a
-separately specified multi-agent policy extension. The existing
-[[Multi-agent variational free energy]] is an inference objective over finite laws, not automatically
-an EFE, and [[Collective active inference]] covers several distinct generative and communication
-constructions. See
+possible optimizer; the definition of EFE alone does not force that optimizer. See
 [[Variational free energy and predictive coding]] and
 [[Inference machinery — variational EM and filtering]] for where this template plugs into the
-[[VFE Transformer Program]] and the [[Gauge-Theoretic Multi-Agent VFE Model]].
+[[VFE Transformer Program]].
 
-As of 2026-06-28 the EFE functional is operationalized for the *transformer* as well, not only the multi-agent
-setting: a 2026-06-28 design spec pre-registers a default-off, no-grad EFE policy
+As of 2026-06-28 the EFE functional is operationalized for the transformer: a 2026-06-28 design spec pre-registers a default-off, no-grad EFE policy
 scorer that reranks candidate token continuations by $G(\pi)=\mathrm{KL}[q(o\mid\pi)\|p(o\mid C)]+\mathbb{E}_{q(s\mid\pi)}H[p(o\mid s)]$
 with $Q(\pi)=\mathrm{softmax}(\log E-\gamma G)$, using an explicit *peaked task preference* for $p(o\mid C)$ so the
 risk term is a genuine goal rather than negative log-likelihood. The design records a sharp caveat that the
@@ -222,20 +215,14 @@ the E-step covariance gradient — the canonical-vs-reduced choice the manuscrip
 
 > [!note] Editorial: The risk/ambiguity and epistemic/pragmatic decompositions, the
 > softmax-over-$-G$ policy rule, and the explore–exploit and epistemic-foraging results are
-> established by the cited sources. The mappings to GL(K) attention weights, meta-entropy, the
-> Fisher/natural-gradient reading, and the multi-agent generalization are *this program's* synthesis,
-> not claims of the cited papers.
-
-> [!important] Current code scope
-> MultiAgentELBO currently contains no active-policy variable, EFE evaluator, preference model, or
-> policy selector. EFE, FEEF, and strategic multi-agent active inference are literature comparators
-> for a separately specified future layer, not descriptions of current code behavior.
+> established by the cited sources. The mappings to GL(K) attention weights and the
+> Fisher/natural-gradient reading are *this program's* synthesis, not claims of the cited papers.
 
 ## Related
 
 [[Variational free energy]] · [[Active inference]] · [[Free-energy principle active inference]] ·
 [[Precision weighting]] · [[Softmax]] · [[Fisher information metric]] · [[Natural gradient]] ·
-[[Belief Propagation]] · [[Multi-agent variational free energy]] · [[Collective active inference]] ·
+[[Belief Propagation]] · [[Collective active inference]] ·
 [[GL(K) gauge-equivariant attention]] · [[Bayesian mechanics]]
 
 ## Sources

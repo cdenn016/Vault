@@ -50,7 +50,7 @@ The paper is a strong test case for discrete quotient structure in [[Decentraliz
 
 - Concepts: [[Decentralized Bayesian inference]], [[Quotient Bayesian learning]], [[Approximate Bayesian inference]]
 - Related sources: [[campbell-how-2014-decentralized-bayes]], [[ashman-2022-partitioned-variational-inference]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

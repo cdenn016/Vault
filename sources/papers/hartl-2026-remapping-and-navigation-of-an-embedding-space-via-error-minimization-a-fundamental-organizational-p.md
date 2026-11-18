@@ -28,7 +28,7 @@ Hartl and colleagues propose a common description of cognition in terms of remap
 
 ## Relevance to this research
 
-This offers a vocabulary for comparing representation changes with inference dynamics in [[VFE Transformer Program]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. A useful comparison must specify which relations an encoding preserves and which predictions its update improves. The review does not establish that an arbitrary remapping preserves a normalized joint law, Fisher geometry, or an agent's complete operational behavior. Its biological analogies should remain distinct from those mathematical obligations.
+This offers a vocabulary for comparing representation changes with inference dynamics in [[VFE Transformer Program]] and Gauge-Theoretic Multi-Agent VFE Model. A useful comparison must specify which relations an encoding preserves and which predictions its update improves. The review does not establish that an arbitrary remapping preserves a normalized joint law, Fisher geometry, or an agent's complete operational behavior. Its biological analogies should remain distinct from those mathematical obligations.
 
 ## BibTeX
 

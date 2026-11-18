@@ -28,7 +28,7 @@ Dobson and Fields construct an agent-dependent account of episodic time from eve
 
 ## Relevance to this research
 
-This is a direct conceptual neighbor of [[Cue-result generative memory]]: a cue can organize a present construction rather than retrieve a complete historical state. It also distinguishes event order, reconstructed narrative, and external clock labels. Connecting the proposal to [[Gauge-Theoretic Multi-Agent VFE Model]] would require an explicit probability law for construction and a demonstrated relation to information-geometric time; neither follows from the shared use of memory or categories.
+This is a direct conceptual neighbor of [[Cue-result generative memory]]: a cue can organize a present construction rather than retrieve a complete historical state. It also distinguishes event order, reconstructed narrative, and external clock labels. Connecting the proposal to Gauge-Theoretic Multi-Agent VFE Model would require an explicit probability law for construction and a demonstrated relation to information-geometric time; neither follows from the shared use of memory or categories.
 
 ## BibTeX
 

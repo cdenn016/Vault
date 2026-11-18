@@ -37,11 +37,11 @@ The chapter claims that free-energy minimization is equivalent to maximizing Bay
 
 ## Relevance to this research
 
-The manuscript lists this chapter among works on inferential closure of coarse-grained collectives that it has not read in primary text, as a pointer for further reading. Its verification record covers only the bibliographic data; the editors were checked against the volume record. The connection is to multiscale free-energy accounts of nested systems, see [[Free-energy principle active inference]], [[Markov Blanket]], [[Niche Construction]] and [[Meta-agents and hierarchical emergence]].
+The manuscript lists this chapter among works on inferential closure of coarse-grained collectives that it has not read in primary text, as a pointer for further reading. Its verification record covers only the bibliographic data; the editors were checked against the volume record. The connection is to multiscale free-energy accounts of nested systems, see [[Free-energy principle active inference]], [[Markov Blanket]], [[Niche Construction]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Free-energy principle active inference]]; [[Markov Blanket]]; [[Niche Construction]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Free-energy principle active inference]]; [[Markov Blanket]]; [[Niche Construction]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

@@ -39,10 +39,10 @@ Open obligations are a complete scalable recognition family; accepted nonconjuga
 
 ## Relevance to this research
 
-This source advances the previously inconclusive [[dennis-2026-neuron-free-agent-theory]] by making causal observations and observation-to-link credit explicit. It does not close that earlier full-replacement question. It provides a common normalized direction for [[dennis-2026-dynamic-links|dynamic links]], [[Template routing]], [[Variational EM]], [[Meta-agents and hierarchical emergence]], and the two project programs.
+This source advances the previously inconclusive [[dennis-2026-neuron-free-agent-theory]] by making causal observations and observation-to-link credit explicit. It does not close that earlier full-replacement question. It provides a common normalized direction for [[dennis-2026-dynamic-links|dynamic links]], [[Template routing]], [[Variational EM]], Meta-agents and hierarchical emergence, and the two project programs.
 
 > [!note] Editorial: Treating a non-neural statistical model as an instance of a deeper bundle geometry is an interpretation. The source supplies compatible constructions, not a uniqueness theorem or an equivalence between all neural architectures and this model family.
 
 ## Related
 
-[[dennis-2026-neuron-free-agent-theory]], [[dennis-2026-attention-unified]], [[dennis-2026-dynamic-links]], [[multiagentelbo-2026-10-04-lie-algebra-links]], [[Template routing]], [[Variational EM]], [[Meta-agents and hierarchical emergence]], [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+[[dennis-2026-neuron-free-agent-theory]], [[dennis-2026-attention-unified]], [[dennis-2026-dynamic-links]], [[multiagentelbo-2026-10-04-lie-algebra-links]], [[Template routing]], [[Variational EM]], Meta-agents and hierarchical emergence, [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model

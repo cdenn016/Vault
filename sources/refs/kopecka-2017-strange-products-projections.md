@@ -33,7 +33,7 @@ The paper simplifies an earlier construction for three subspaces and strengthens
 
 ## Relevance to this research
 
-The manuscript cites the paper in its scale section to state that in infinite dimension norm convergence can fail for three subspaces, alongside Badea et al. (2012) on when cyclic convergence is geometric. The record notes the reading was of the abstract. See [[Coarse Graining]], [[Fixed-point iteration]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper in its scale section to state that in infinite dimension norm convergence can fail for three subspaces, alongside Badea et al. (2012) on when cyclic convergence is geometric. The record notes the reading was of the abstract. See [[Coarse Graining]], [[Fixed-point iteration]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 

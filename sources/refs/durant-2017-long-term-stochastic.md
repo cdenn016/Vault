@@ -36,11 +36,11 @@ According to the abstract, the treatment yields a constant ratio of two-headed t
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper in its open-problems discussion as an example in which transient bioelectric perturbations change persistent regenerative outcomes, and states that this observation alone does not single out an inferential model. The source was known only from its abstract and bibliographic record. It bears on how a collective of cells could hold a stored target configuration, which connects to [[Meta-agents and hierarchical emergence]] and [[Collective active inference]].
+The collective-agents manuscript cites this paper in its open-problems discussion as an example in which transient bioelectric perturbations change persistent regenerative outcomes, and states that this observation alone does not single out an inferential model. The source was known only from its abstract and bibliographic record. It bears on how a collective of cells could hold a stored target configuration, which connects to Meta-agents and hierarchical emergence and [[Collective active inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]].
 
 ## BibTeX
 

@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Mean-Field Approximation
@@ -168,9 +168,8 @@ an evidence lower bound.
 State-posterior correlation and configuration-level fluctuation theory answer different questions.
 The former improves $Q(z\mid x)$ inside a fixed generative model. The latter places a probability law
 over slow belief and gauge configurations, then studies connected structural fluctuations and their
-coarse-grained effective action. The [[Meta-entropy]] Gibbs lift and the proposed 2PI completion in
-[[participatory-it-from-bit]] occupy this second tier. They are warranted when configuration
-thermodynamics, phase structure, or scale dependence is part of the scientific target; they are not
+coarse-grained effective action. That second tier is warranted when configuration
+thermodynamics, phase structure, or scale dependence is part of the scientific target; it is not
 required merely to relax a product posterior.
 
 ## Relevance to this research
@@ -230,14 +229,6 @@ mean field*:
   guarantee calibrated posterior variance or repair correlations removed by a
   product family. [[Alpha-divergence|Amari alpha-divergence]] is distinct.
 
-For the **multi-agent** reading, one may explicitly choose a product posterior
-over agent latents and separately define aggregate interactions. That modeling
-choice links the transformer analogy to [[Opinion dynamics]] and
-[[Mean-field games and continuum limits]], but aggregate coupling alone does not
-derive the product factorization.
-
-The exact-ELBO manuscript distinguishes agent-block factors, state/model channel-block factors, and a finer site-factorized comparison family. Agent-block and channel-block factors can retain dependence across all finite design points inside a factor. The moving-peer obstruction applies only to the fine family $Q=\bigotimes_{\ell,b}q_{\ell,b}$ and uses a separate site-local path for each design point. It does not cover the coarser cross-design families or restricted families lacking the required tangents. Its continuum corollary is conditional on the exact centered tangent, a common admissible rectangle, domination, and positive integrated variance; it does not construct a section-space probability law.
-
 ## Constraint manipulation is an approximation choice
 
 [[senoz-2021-local-constraint-vmp]] makes posterior form and factorization constraints explicit in a
@@ -257,7 +248,7 @@ The regression link $W_{ab}=\Sigma_{ab}\Sigma_{bb}^{-1}$ between tokens requires
 
 [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Variational EM]] ·
 [[Exponential family]] · [[Alpha-divergence]] · [[Natural gradient]] ·
-[[Multi-agent variational free energy]] · [[GL(K) gauge-equivariant attention]] ·
+[[GL(K) gauge-equivariant attention]] ·
 [[Mean-field games and continuum limits]] · [[Opinion dynamics]] · [[Sociophysics]] ·
 [[Statistical physics of social systems and collective behavior]]
 

@@ -24,11 +24,11 @@ A two-page 1949 note in the Bulletin of the American Mathematical Society on an 
 
 ## Relevance to this research
 
-The manuscript cites this paper for the discrete Loomis-Whitney inequality, which bounds the number of lattice sites in a set by the product of the sizes of its coordinate projections. It uses the inequality to show that the boundary cut of a collective of $n$ sites on a $D$-dimensional lattice grows at least like $n^{(D-1)/D}$. The manuscript's record says the citation is from memory, with the discrete form confirmed in secondary sources, so the primary text was not read. The connection to the vault is the boundary or blanket size of a collective, see [[Markov Blanket]], [[Meta-agents and hierarchical emergence]] and [[Coarse Graining]].
+The manuscript cites this paper for the discrete Loomis-Whitney inequality, which bounds the number of lattice sites in a set by the product of the sizes of its coordinate projections. It uses the inequality to show that the boundary cut of a collective of $n$ sites on a $D$-dimensional lattice grows at least like $n^{(D-1)/D}$. The manuscript's record says the citation is from memory, with the discrete form confirmed in secondary sources, so the primary text was not read. The connection to the vault is the boundary or blanket size of a collective, see [[Markov Blanket]], Meta-agents and hierarchical emergence and [[Coarse Graining]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov Blanket]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]].
+[[Collective agents literature map]]; [[Markov Blanket]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
 
 ## BibTeX
 

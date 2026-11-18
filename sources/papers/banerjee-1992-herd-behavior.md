@@ -28,7 +28,7 @@ and the agent rationally copies. A central feature of his model is the *tie-brea
 ## Relevance to this research
 This is one of the two 1992 founding papers of rational-herding theory and the canonical demonstration that copying neighbors can be individually rational yet collectively wrong, the precise tension the VFE coupling term encodes. In the belief-inertia functional, the self-coupling term $\alpha\,\mathrm{KL}(q_i\|p_i)$ binds an agent to its own evidence-shaped prior, while the neighbor-coupling term $\sum_j \beta_{ij}\,\mathrm{KL}(q_i\|\Omega_{ij}[q_j])$ pulls it toward transported neighbor beliefs; Banerjee's herd is what happens in the limit where the latter overwhelms the former and private signal weight collapses to zero. The connection is honest but qualitative: Banerjee's mechanism is discrete, sequential, and game-theoretic, whereas the program's dynamics are continuous gradient flow on a Gaussian belief manifold — the program should be able to *recover* herding as a regime, not claim it as an existing identity.
 
-See [[Information cascades and herding]], [[Multi-agent variational free energy]], [[Opinion dynamics]], [[Belief inertia]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Opinion dynamics]], Belief inertia.
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

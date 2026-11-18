@@ -23,11 +23,11 @@ A 1972 monograph from the Cowles Foundation, published by Yale University Press,
 
 ## Relevance to this research
 
-The manuscript cites the book, together with Radner's earlier team paper, for the economics of organizations as information processors, including the linear-quadratic-Gaussian case of team theory, and says it is cited for attribution. Its content was not read, and nothing is claimed about it here. Related pages are [[Bounded Rationality]], [[Decentralized Bayesian inference]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the book, together with Radner's earlier team paper, for the economics of organizations as information processors, including the linear-quadratic-Gaussian case of team theory, and says it is cited for attribution. Its content was not read, and nothing is claimed about it here. Related pages are [[Bounded Rationality]], [[Decentralized Bayesian inference]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Bounded Rationality]]; [[Decentralized Bayesian inference]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Bounded Rationality]]; [[Decentralized Bayesian inference]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

@@ -28,7 +28,7 @@ The authors distinguish thermodynamic free energy needed to operate an embodied 
 
 ## Relevance to this research
 
-This source is directly useful for keeping resource accounting explicit in [[Gauge-Theoretic Multi-Agent VFE Model]]. It gives a vocabulary for coupling inference to power and memory budgets without identifying VFE with joules. The project's communication law would still need specified energy-transfer variables, units, and dynamics before this becomes a physical implementation. Its compartmentalization discussion motivates a question about resource allocation, not a proof of endogenous parent formation under the project's criteria.
+This source is directly useful for keeping resource accounting explicit in Gauge-Theoretic Multi-Agent VFE Model. It gives a vocabulary for coupling inference to power and memory budgets without identifying VFE with joules. The project's communication law would still need specified energy-transfer variables, units, and dynamics before this becomes a physical implementation. Its compartmentalization discussion motivates a question about resource allocation, not a proof of endogenous parent formation under the project's criteria.
 
 ## BibTeX
 

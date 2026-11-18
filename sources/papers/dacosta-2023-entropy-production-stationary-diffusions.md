@@ -48,7 +48,7 @@ The authors stress that all theorems concern Definition 2.6, with no involution 
 
 ## Cross-links
 
-Concepts: [[Nonequilibrium steady state]]; [[Stochastic Thermodynamics]]; [[Bayesian mechanics]]; [[Hamiltonian belief dynamics]]; [[Hamiltonian Monte Carlo]]; [[Markov chain Monte Carlo]]; [[Entropy]].
+Concepts: [[Nonequilibrium steady state]]; [[Stochastic Thermodynamics]]; [[Bayesian mechanics]]; Hamiltonian belief dynamics; [[Hamiltonian Monte Carlo]]; [[Markov chain Monte Carlo]]; [[Entropy]].
 
 Related sources: [[dacosta-2021-bayesian-mechanics]]; [[ramstead-2023-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[parr-2020-markov-blankets-thermodynamics]]; [[nelson-1967-brownian-motion]]; [[neal-2011-mcmc-hamiltonian]]; [[friston-2021-stochastic-chaos-markov]]; [[barp-2021-measure-preserving-diffusions]]; [[barp-2022-geometric-methods-sampling]]; [[feng-2011-potential-flux-decomposition]].
 

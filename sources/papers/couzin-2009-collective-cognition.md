@@ -45,14 +45,14 @@ A small informed minority can reliably guide a naïve group toward a target with
 
 ## Relevance to this research
 
-This is the **biological grounding** for the project's claim that coherent collective belief is an emergent property of locally coupled agents rather than an imposed aggregate. Couzin's "collective cognition from local rules" is the empirical phenomenon the [[Gauge-Theoretic Multi-Agent VFE Model]] formalizes: the project's [[Meta-agents and hierarchical emergence]] makes the group itself an inferential agent (cf. [[waade-2025-as-one-and-many]]), and its [[Multi-agent variational free energy]] coupling is the mechanistic, free-energy-derived version of the simple local interactions Couzin invokes. It pairs naturally with [[heins-2024-surprise-minimization]], which puts Couzin's collective-motion phenomenology on a free-energy footing, and provides the naturalistic motivation for PIFB's treatment of populations of belief-carrying agents (see [[participatory-it-from-bit]]).
+This is the **biological grounding** for the project's claim that coherent collective belief is an emergent property of locally coupled agents rather than an imposed aggregate. Couzin's "collective cognition from local rules" is the empirical phenomenon the Gauge-Theoretic Multi-Agent VFE Model formalizes: the project's Meta-agents and hierarchical emergence makes the group itself an inferential agent (cf. [[waade-2025-as-one-and-many]]), and its Multi-agent variational free energy coupling is the mechanistic, free-energy-derived version of the simple local interactions Couzin invokes. It pairs naturally with [[heins-2024-surprise-minimization]], which puts Couzin's collective-motion phenomenology on a free-energy footing, and provides the naturalistic motivation for PIFB's treatment of populations of belief-carrying agents (see [[participatory-it-from-bit]]).
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Collective active inference]], [[Multi-agent variational free energy]]
+- Concepts: Meta-agents and hierarchical emergence, [[Collective active inference]], Multi-agent variational free energy
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[galam-2008-sociophysics]]
 - Manuscript: [[participatory-it-from-bit]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ```bibtex
 @article{couzin2009collective,

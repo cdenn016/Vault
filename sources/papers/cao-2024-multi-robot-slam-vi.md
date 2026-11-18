@@ -48,7 +48,7 @@ This paper provides a concrete robotics benchmark for [[Decentralized Bayesian i
 
 - Concepts: [[Decentralized Bayesian inference]], [[Communication-constrained inference]], [[Gauge transformation]]
 - Related sources: [[paritosh-2025-distributed-variational-inference]], [[campbell-how-2014-decentralized-bayes]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

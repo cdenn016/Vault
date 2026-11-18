@@ -57,7 +57,7 @@ This is the cleanest external warrant for the PIFB ([[participatory-it-from-bit]
 
 - Concepts: [[Iterative amortized inference]], [[Variational free energy]], [[Natural gradient]]
 - Sources: [[marino-2018-iterative-amortized-inference]], [[amari-1998-natural-gradient]], [[vaswani-2017-attention]]
-- Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 
 ```bibtex
 @inproceedings{vonoswald2023transformers,

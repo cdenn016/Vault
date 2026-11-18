@@ -33,7 +33,7 @@ The table of contents includes Chapter 4, "Gaussian Perturbations of Dynamical S
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Geometric singular perturbation theory]]
+- Concepts: Meta-agents and hierarchical emergence, [[Geometric singular perturbation theory]]
 - Related sources: [[barrera-2016-abrupt-convergence-small-perturbations]], [[barrera-2020-thermalisation-small-random-perturbations]], [[bovier-2015-metastability-potential-theoretic-approach]], [[bovier-2004-metastability-diffusions]], [[young-1993-evolution-conventions]]
 
 ## BibTeX

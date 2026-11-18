@@ -11,10 +11,9 @@ tags:
   - cluster/spd-geometry
   - cluster/multi-agent
   - project/transformer
-  - project/multi-agent
 status: stable
 created: 2026-07-19
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Gauge VFE ELBO curriculum
@@ -60,7 +59,7 @@ Ranks 1–13 form the defensible state-level ELBO, gauge, SPD, and optimization 
 > [!warning] Scope boundary
 > [[Evidence lower bound (ELBO)|An ELBO]], [[Active Inference|active inference]], a configuration Gibbs distribution, a 1PI/2PI effective action, and an [[Renormalization group flow|RG flow]] are related constructions but are not interchangeable. The final four books should not be presented as prerequisites for the basic gauge-covariant Gaussian ELBO.
 
-## Bridge modules for MultiAgentELBO
+## Bridge modules
 
 The 2026-08-10 literature ingest adds five modules after the ranked core rather than replacing it:
 
@@ -80,9 +79,8 @@ The 2026-08-10 literature ingest adds five modules after the ranked core rather 
    [[battistelli-chisci-2014-kl-density-consensus]], [[duchi-2014-distributed-estimation]],
    [[jadbabaie-2012-non-bayesian-social-learning]], and [[aumann-1976-agreeing-disagree]].
 
-These modules supply hypotheses, comparators, and failure modes. They do not close the project's
-continuum, regular-quotient, experiment-recovery, intrinsic-partition, DLR, or Oseledets obligations
-without constructing the objects to which the cited theorems apply.
+These modules supply hypotheses, comparators, and failure modes. Citing them does not close an
+obligation without constructing the objects to which the cited theorems apply.
 
 ## Proof and construction discipline
 

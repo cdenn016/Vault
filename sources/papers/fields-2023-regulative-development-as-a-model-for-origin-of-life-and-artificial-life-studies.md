@@ -28,7 +28,7 @@ Fields and Levin interpret regulative development as an interaction between a sy
 
 ## Relevance to this research
 
-This develops an existing formation intuition relevant to [[Meta-agents and hierarchical emergence]]: components acquire organization through their mutual environments, rather than from an isolated internal objective alone. For [[Gauge-Theoretic Multi-Agent VFE Model]], an exact version would need the interacting laws, resource constraints, and formation dynamics specified. Treating the environment as an agent does not automatically provide a normalized common objective or a causal replacement for all retained lower-level context.
+This develops an existing formation intuition relevant to Meta-agents and hierarchical emergence: components acquire organization through their mutual environments, rather than from an isolated internal objective alone. For Gauge-Theoretic Multi-Agent VFE Model, an exact version would need the interacting laws, resource constraints, and formation dynamics specified. Treating the environment as an agent does not automatically provide a normalized common objective or a causal replacement for all retained lower-level context.
 
 ## BibTeX
 

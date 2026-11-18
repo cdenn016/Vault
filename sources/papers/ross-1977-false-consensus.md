@@ -32,7 +32,7 @@ Introduces the false consensus effect: people overestimate the extent to which o
 A foundational egocentric social-perception bias relevant to opinion-dynamics and belief-inertia models, where an agent's overweighting of self-consistent evidence and assumed social agreement shapes consensus formation and resistance to updating.
 
 ## Cross-links
-[[Belief inertia]]
+Belief inertia
 
 ## BibTeX
 ```bibtex

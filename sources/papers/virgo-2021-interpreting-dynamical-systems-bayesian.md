@@ -48,7 +48,7 @@ The authors restrict to discrete time, exact Bayesian updating and perception wi
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Markov blanket interpretation debate]]; [[Bayesian Inference]]; [[Conjugate-Exponential Family]]; [[State space models]]; [[Recognition Density]]; [[Agents as fibre-bundle sections]]; [[Coarse Graining]].
+Concepts: [[Bayesian mechanics]]; [[Markov blanket interpretation debate]]; [[Bayesian Inference]]; [[Conjugate-Exponential Family]]; [[State space models]]; [[Recognition Density]]; Agents as fibre-bundle sections; [[Coarse Graining]].
 
 Related sources: [[biehl-2023-interpreting-systems-pomdps]]; [[baltieri-2025-bayesian-internal-model-principle]]; [[smithe-2023-compositional-bayesian-brain]]; [[friston-2021-interesting-observations-fep]]; [[dacosta-2021-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[parr-2020-markov-blankets-thermodynamics]]; [[biehl-2021-technical-critique]]; [[aguilera-2022-particular-physics]]; [[rosas-2020-causal-blankets-algorithmic]]; [[fritz-2019-a-synthetic-approach-to-markov-kernels-conditional-independence-and-th]]; [[cho-2017-disintegration-and-bayesian-inversion-via-string-diagrams]].
 

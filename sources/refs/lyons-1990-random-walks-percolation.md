@@ -32,11 +32,11 @@ The abstract reports that the branching number gives the points of phase transit
 
 ## Relevance to this research
 
-The manuscript uses the transience criterion for the biased walk to decide a tree-broadcasting condition for Gaussian signals with edge correlation, where the branching number decides the general case away from the critical value. The reading record says the primary text was not read and the statement was taken from a review and from [[lyons-1992-random-walk-random]]; the manuscript flags it as one to read before citing with theorem numbers. It relates to information transmission through hierarchies in [[Meta-agents and hierarchical emergence]], [[Phase transitions in social systems]] and [[Network structure — small-world and scale-free]].
+The manuscript uses the transience criterion for the biased walk to decide a tree-broadcasting condition for Gaussian signals with edge correlation, where the branching number decides the general case away from the critical value. The reading record says the primary text was not read and the statement was taken from a review and from [[lyons-1992-random-walk-random]]; the manuscript flags it as one to read before citing with theorem numbers. It relates to information transmission through hierarchies in Meta-agents and hierarchical emergence, [[Phase transitions in social systems]] and [[Network structure — small-world and scale-free]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Phase transitions in social systems]]; [[Network structure — small-world and scale-free]]; [[lyons-1992-random-walk-random]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Phase transitions in social systems]]; [[Network structure — small-world and scale-free]]; [[lyons-1992-random-walk-random]].
 
 ## BibTeX
 

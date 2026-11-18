@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-19
-updated: 2026-07-10
+updated: 2026-11-18
 ---
 
 # Neural scaling laws
@@ -54,20 +54,18 @@ scaling precedent, not a theorem for this no-neural-network architecture. RAdam
 ([[liu-2020-variance-adaptive-radam|Liu et al. 2020]]) analyzes adaptive
 second-moment preconditioners; it does not diagnose the audited frame M-step,
 which uses plain AdamW. Gaussian belief updates use Fisher geometry and require
-their own stability analysis. PIFB leaves $b=-1$ unadjudicated: a nested
+their own stability analysis. The value $b=-1$ remains unadjudicated: a nested
 $F$-test rejects it, while the reported bootstrap interval contains $-1$.
 The width fits are therefore descriptive summaries, not derived or transferable exponents.
 
 ## Sources
 
-- [[kaplan-2020-scaling-laws]] — founding empirical power-law scaling of LM loss in parameters, data, and compute; the genre PIFB's inverse-$K$ result joins.
-- [[hoffmann-2022-chinchilla]] — Chinchilla's corrected two-resource law $L = E + AN^{-\alpha} + BD^{-\beta}$ with irreducible floor $E$ and compute-optimal $D \propto N$; PIFB's named comparison anchor and the source of the unit-consistency caveat.
+- [[kaplan-2020-scaling-laws]] — founding empirical power-law scaling of LM loss in parameters, data, and compute.
+- [[hoffmann-2022-chinchilla]] — Chinchilla's corrected two-resource law $L = E + AN^{-\alpha} + BD^{-\beta}$ with irreducible floor $E$ and compute-optimal $D \propto N$; the comparison anchor and the source of the unit-consistency caveat.
 - [[yang-2022-tensor-programs-v-mup]] — muP: how initialization scale and learning rate must scale with width to keep activations and gradients $O(1)$, so small-width hyperparameters transfer to large; bears on width-stability of $\phi$/$\sigma$ init and $\kappa$ across the $K$-sweep.
 - [[liu-2020-variance-adaptive-radam]] — RAdam's analysis of adaptive second-moment preconditioners is relevant to the audited plain-AdamW frame group, but it does not establish a Fisher or gauge-natural frame update.
-- [[participatory-it-from-bit]] — the manuscript whose inverse-$K$ perplexity-with-floor scaling sweep this concept contextualizes.
 
 ## See also
 
 - [[Attention mechanisms — theory and positional structure]]
 - [[VFE Transformer Program]]
-- [[participatory-it-from-bit]]

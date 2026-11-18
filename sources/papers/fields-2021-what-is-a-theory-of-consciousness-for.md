@@ -28,7 +28,7 @@ In a commentary on Goff's Galileo's Error, Fields asks what a theory of consciou
 
 ## Relevance to this research
 
-For [[Consciousness and the hard problem]], this source helps distinguish a mathematical theory of communication from a claim about phenomenal consciousness. For [[Meta-agents and hierarchical emergence]], semantic hierarchy and physical organization must be related by an explicit construction; the virtual-machine analogy does not establish it. The useful methodological question is which observable differences the proposed theory predicts, independently of its preferred ontology.
+For [[Consciousness and the hard problem]], this source helps distinguish a mathematical theory of communication from a claim about phenomenal consciousness. For Meta-agents and hierarchical emergence, semantic hierarchy and physical organization must be related by an explicit construction; the virtual-machine analogy does not establish it. The useful methodological question is which observable differences the proposed theory predicts, independently of its preferred ontology.
 
 ## BibTeX
 

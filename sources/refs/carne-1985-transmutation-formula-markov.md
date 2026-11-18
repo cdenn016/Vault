@@ -22,11 +22,11 @@ According to the zbMATH review that the manuscript's authors read, the paper pro
 
 ## Relevance to this research
 
-The manuscript cites this paper, together with Varopoulos (1985), for the Carne-Varopoulos estimate on transition probabilities of a reversible chain. It uses that estimate in its diffusive-regime result on how correlations decay with distance in a weighted graph. The manuscript says it knows Carne's argument only from the review, and that it proves the form of the estimate it needs in full, so the exact constant of the original bound was not checked against Carne's text. The setting connects to [[Graph Laplacian]], [[Spectral graph theory]] and the scale discussion in [[Meta-agents and hierarchical emergence]].
+The manuscript cites this paper, together with Varopoulos (1985), for the Carne-Varopoulos estimate on transition probabilities of a reversible chain. It uses that estimate in its diffusive-regime result on how correlations decay with distance in a weighted graph. The manuscript says it knows Carne's argument only from the review, and that it proves the form of the estimate it needs in full, so the exact constant of the original bound was not checked against Carne's text. The setting connects to [[Graph Laplacian]], [[Spectral graph theory]] and the scale discussion in Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Graph Laplacian]]; [[Spectral graph theory]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Graph Laplacian]]; [[Spectral graph theory]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

@@ -50,9 +50,9 @@ The paper supplies a mechanistic comparator for the reciprocal observation and a
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Multi-agent variational free energy]], [[Expected Free Energy]]
+- Concepts: [[Collective active inference]], Multi-agent variational free energy, [[Expected Free Energy]]
 - Related sources: [[friston-2024-federated-inference]], [[albarracin-2024-shared-protentions]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

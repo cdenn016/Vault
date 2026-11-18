@@ -29,7 +29,7 @@ The paper analyzes the task of observing multiple apparatus over time and later 
 
 ## Relevance to this research
 
-This is a direct precursor for persistent records and observer readiness in [[Gauge-Theoretic Multi-Agent VFE Model]]. It helps explain why current beliefs alone may fail to preserve source identity, record queries, or future responses. The project's exact retained-history construction can make those requirements mathematical within a declared normalized law. The source does not itself supply such a law, prove parent formation, or establish that every finite agent must implement a universal computer.
+This is a direct precursor for persistent records and observer readiness in Gauge-Theoretic Multi-Agent VFE Model. It helps explain why current beliefs alone may fail to preserve source identity, record queries, or future responses. The project's exact retained-history construction can make those requirements mathematical within a declared normalized law. The source does not itself supply such a law, prove parent formation, or establish that every finite agent must implement a universal computer.
 
 ## BibTeX
 

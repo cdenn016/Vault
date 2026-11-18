@@ -58,15 +58,15 @@ The equivalence between causal linear transformers and RNNs with constant-size s
 
 ## Relevance to this research
 
-The [[VFE Transformer Program]] reads attention not as an opaque similarity table but as a mechanism for belief aggregation across tokens. Linear attention supplies the structural template that makes such a reading tractable: by factorizing similarity through a feature map, it turns the all-pairs interaction into the maintenance of a sufficient running state, aligning directly with the project's treatment of [[Belief inertia|belief inertia]] and the recurrent, state-carrying view of sequential inference.
+The [[VFE Transformer Program]] reads attention not as an opaque similarity table but as a mechanism for belief aggregation across tokens. Linear attention supplies the structural template that makes such a reading tractable: by factorizing similarity through a feature map, it turns the all-pairs interaction into the maintenance of a sufficient running state, aligning directly with the project's treatment of belief inertia and the recurrent, state-carrying view of sequential inference.
 
-The exposed transformer-RNN equivalence connects to the manuscripts' filtering perspective on [[Inference machinery — variational EM and filtering|sequential inference]]: causal attention as a recurrence with additive state updates makes contact with [[Hamiltonian belief dynamics|belief dynamics]] over a sequence. For the [[gl-k-attention]] line of work, the kernel feature map $\phi$ is the natural surface on which to inject geometric or [[Group equivariance|equivariant]] structure into the similarity — because $\text{sim}(q, k) = \phi(q)^\top \phi(k)$ is an inner product in feature space, it is the obvious entry point for the [[Fisher information metric|information-geometric]] and [[Gauge transformation|gauge-covariant]] inner products the project develops, rather than the unstructured softmax.
+The exposed transformer-RNN equivalence connects to the manuscripts' filtering perspective on [[Inference machinery — variational EM and filtering|sequential inference]]: causal attention as a recurrence with additive state updates makes contact with belief dynamics over a sequence. For the [[gl-k-attention]] line of work, the kernel feature map $\phi$ is the natural surface on which to inject geometric or [[Group equivariance|equivariant]] structure into the similarity — because $\text{sim}(q, k) = \phi(q)^\top \phi(k)$ is an inner product in feature space, it is the obvious entry point for the [[Fisher information metric|information-geometric]] and [[Gauge transformation|gauge-covariant]] inner products the project develops, rather than the unstructured softmax.
 
 > [!note] Editorial: The connections to [[Variational free energy|VFE]], belief-state filtering, and gauge-structured similarity are positioning by this wiki for the project's program; the cited paper itself is a machine-learning efficiency and architecture result and makes no claims about active inference or information geometry.
 
 ## Cross-links
 
-- Concepts: [[Linear attention]], [[Kernel feature map]], [[Belief inertia]], [[Group equivariance]], [[Fisher information metric]], [[Gauge transformation]], [[Variational free energy]]
+- Concepts: [[Linear attention]], [[Kernel feature map]], Belief inertia, [[Group equivariance]], [[Fisher information metric]], [[Gauge transformation]], [[Variational free energy]]
 - Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention]]
 
 ## BibTeX
