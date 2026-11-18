@@ -33,11 +33,11 @@ The main theorem generalizes and unifies earlier separate work of the two author
 
 ## Relevance to this research
 
-The manuscript uses this paper as a restatement of the 1990 criterion of Lyons for the biased walk on a tree: transient or recurrent according to whether the bias is below or above the branching number. It is cited for the proof that a Gaussian broadcasting condition on trees is decided by the branching number. The reading record says the arXiv rendering was read for that restatement and the definition of the branching number. See [[Meta-agents and hierarchical emergence]], [[Phase transitions in social systems]] and [[Graph Laplacian]].
+The manuscript uses this paper as a restatement of the 1990 criterion of Lyons for the biased walk on a tree: transient or recurrent according to whether the bias is below or above the branching number. It is cited for the proof that a Gaussian broadcasting condition on trees is decided by the branching number. The reading record says the arXiv rendering was read for that restatement and the definition of the branching number. See Meta-agents and hierarchical emergence, [[Phase transitions in social systems]] and [[Graph Laplacian]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Phase transitions in social systems]]; [[Graph Laplacian]]; [[lyons-1990-random-walks-percolation]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Phase transitions in social systems]]; [[Graph Laplacian]]; [[lyons-1990-random-walks-percolation]].
 
 ## BibTeX
 

@@ -24,7 +24,7 @@ The model is a repeated Bayesian decision problem with **local observation**: ag
 ## Relevance to this research
 This paper casts herding explicitly as **learning over a network graph**, the same object as the multi-agent VFE coupling graph, making it a strong bridge for the program. Bala and Goyal's neighbourhood structure is the direct analog of the attention/coupling topology defined by $\beta_{ij}$, and their conformism result — connected societies converge to agreement — is exactly the consensus attractor of the neighbor-coupling term $\sum_j\beta_{ij}\,\mathrm{KL}(q_i\|\Omega_{ij}[q_j])$ when coupling dominates. Their finding that *local independence* protects correct learning parallels how attention topology in the program drives the choice between healthy consensus and pathological fragmentation or wrong lock-in: dense, redundant coupling collapses diversity, while structured, weakly-overlapping coupling preserves the evidentiary spread needed for the population to track the truth. The relevance is genuine and structural, though their belief update is discrete Bayesian over actions/payoffs while the program's is continuous variational updating of Gaussian $(\mu,\Sigma,\phi)$ tuples.
 
-See [[Information cascades and herding]], [[Multi-agent variational free energy]], [[Community detection and modularity]], [[Opinion dynamics]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Community detection and modularity]], [[Opinion dynamics]].
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

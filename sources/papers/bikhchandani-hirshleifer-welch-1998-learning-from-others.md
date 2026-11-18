@@ -24,7 +24,7 @@ The review crystallizes a taxonomy of mechanisms that all produce look-alike con
 ## Relevance to this research
 This is the authoritative entry-point review for the whole cascade literature and a strong review-tier reference for situating the program's belief-coupling claims against the canonical taxonomy of conformity mechanisms. Its distinction between *informational* conformity and *payoff-externality* conformity is directly useful for the program: the VFE coupling term $\sum_j\beta_{ij}\,\mathrm{KL}(q_i\|\Omega_{ij}[q_j])$ is fundamentally an *informational* alignment force (an agent moves its belief toward what neighbors' beliefs imply), so the program's recoverable herding belongs squarely in the informational-cascade category rather than the payoff-externality one — a distinction worth stating explicitly when positioning the work. The review's emphasis on fragility also gives the program a falsifiable target: any cascade regime it claims to recover should display the same easily-reversed, low-information-base character. Its value is as a synthesizing map and taxonomy rather than a specific mechanism the functional uses.
 
-See [[Information cascades and herding]], [[Multi-agent variational free energy]], [[Opinion dynamics]], [[Echo chambers and polarization]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Opinion dynamics]], [[Echo chambers and polarization]].
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

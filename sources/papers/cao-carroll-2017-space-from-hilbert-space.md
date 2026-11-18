@@ -44,10 +44,10 @@ A well-defined emergent space with stable dimensionality and an approximate metr
 
 ## Relevance to this research
 
-This paper is the purest "geometry from informational relations, no background" precedent for the research program, and it speaks directly to the participatory it-from-bit (PIFB) framework's scale-0 partition gap: the question of how the bottom rung of the [[Ouroboros multi-scale dynamics]] tower acquires a base manifold at all, rather than inheriting one. Cao, Carroll, and Michalakis answer the analogous question — they build the manifold from mutual-information edges between Hilbert-space factors, exactly as PIFB would build a base from the relational structure among belief fibres, with the [[Fisher information metric]] (rather than entanglement mutual information) supplying the edge weights. The mutual-information graph is the entanglement-side mirror of the VFE program's belief-coupling graph, tying it to [[Emergent spacetime and holography]] and the [[Participatory realism (it from bit)]] thread.
+This paper is the purest "geometry from informational relations, no background" precedent for the research program, and it speaks directly to the participatory it-from-bit (PIFB) framework's scale-0 partition gap: the question of how the bottom rung of the Ouroboros multi-scale dynamics tower acquires a base manifold at all, rather than inheriting one. Cao, Carroll, and Michalakis answer the analogous question — they build the manifold from mutual-information edges between Hilbert-space factors, exactly as PIFB would build a base from the relational structure among belief fibres, with the [[Fisher information metric]] (rather than entanglement mutual information) supplying the edge weights. The mutual-information graph is the entanglement-side mirror of the VFE program's belief-coupling graph, tying it to [[Emergent spacetime and holography]] and the [[Participatory realism (it from bit)]] thread.
 
 ## Cross-links
-- Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]], [[Ouroboros multi-scale dynamics]]
+- Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]], Ouroboros multi-scale dynamics
 - Themes: [[Emergent spacetime and holography]]
 - Related sources: [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-2016-entanglement-equilibrium]], [[wheeler-1990-it-from-bit]]
 - Manuscript/Project: [[participatory-it-from-bit]]

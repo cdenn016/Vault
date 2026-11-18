@@ -28,7 +28,7 @@ Fields and Levin organize biological persistence around the complementarity of o
 
 ## Relevance to this research
 
-This is a central comparison source for [[Meta-agents and hierarchical emergence]] and [[Participatory realism and quantum foundations]]. It closely matches questions about retained records, agent identity, and communication across scales. A reader-dependent memory interpretation is compatible with explicit cue/result kernels, but does not determine those kernels. The cognitive light cone is a functional description of reach; identifying it with a Fisher information clock or emergent spacetime requires additional mathematics.
+This is a central comparison source for Meta-agents and hierarchical emergence and [[Participatory realism and quantum foundations]]. It closely matches questions about retained records, agent identity, and communication across scales. A reader-dependent memory interpretation is compatible with explicit cue/result kernels, but does not determine those kernels. The cognitive light cone is a functional description of reach; identifying it with a Fisher information clock or emergent spacetime requires additional mathematics.
 
 ## BibTeX
 

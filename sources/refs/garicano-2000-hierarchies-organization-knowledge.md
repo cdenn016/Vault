@@ -28,11 +28,11 @@ In the model described by the abstract, production workers learn the most common
 
 ## Relevance to this research
 
-The manuscript cites this paper in its survey of economics, for hierarchies as allocations of knowledge. The reading record shows only a check of the bibliographic details, so the note rests on the abstract. The relation to the vault is the question of how communication costs shape layered structure, see [[Meta-agents and hierarchical emergence]], [[Communication-constrained inference]] and [[Bounded Rationality]].
+The manuscript cites this paper in its survey of economics, for hierarchies as allocations of knowledge. The reading record shows only a check of the bibliographic details, so the note rests on the abstract. The relation to the vault is the question of how communication costs shape layered structure, see Meta-agents and hierarchical emergence, [[Communication-constrained inference]] and [[Bounded Rationality]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Communication-constrained inference]]; [[Bounded Rationality]]; related note: galbraith-1974-organization-design-information.
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Communication-constrained inference]]; [[Bounded Rationality]]; related note: galbraith-1974-organization-design-information.
 
 ## BibTeX
 

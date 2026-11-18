@@ -28,7 +28,7 @@ Fields examines the physical interpretation needed for an observation to become 
 
 ## Relevance to this research
 
-This is an early, direct source for physics as communication and for the role of persistent records in [[Gauge-Theoretic Multi-Agent VFE Model]]. The distinction between a record carrier, its interpreted content, and a common measurement convention is useful. The project's normalized transcript kernels already make interpretation conditional on a supplied protocol. They neither require the paper's universal entanglement identification nor establish a quantum mechanism for the project's classical message passing and Fisher dynamics.
+This is an early, direct source for physics as communication and for the role of persistent records in Gauge-Theoretic Multi-Agent VFE Model. The distinction between a record carrier, its interpreted content, and a common measurement convention is useful. The project's normalized transcript kernels already make interpretation conditional on a supplied protocol. They neither require the paper's universal entanglement identification nor establish a quantum mechanism for the project's classical message passing and Fisher dynamics.
 
 ## BibTeX
 

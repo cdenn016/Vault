@@ -44,7 +44,7 @@ This paper is cited in the PIFB manuscript ("A Gauge-Theoretic Framework Toward 
 ## Cross-links
 - Concepts: [[Gauge transformation]], [[Participatory realism (it from bit)]], [[Structural realism]], [[Quantum reference frames]]
 - Related sources: [[yang-mills-1954]], [[nakahara-2003-geometry-topology-physics]], [[rovelli-1996-relational-qm]], [[healey-2017-quantum-revolution]], [[fuchs-2017-participatory-realism]]
-- Manuscript/Project: [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory "It From Bit" Program]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Manuscript/Project: [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory "It From Bit" Program]], Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 ```bibtex

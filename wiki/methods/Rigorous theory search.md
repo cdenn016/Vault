@@ -11,10 +11,9 @@ tags:
   - cluster/info-geometry
   - cluster/multi-agent
   - project/transformer
-  - project/multi-agent
 status: draft
 created: 2026-08-03
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Rigorous theory search
@@ -66,18 +65,10 @@ proof, or hypothesis-checked theorem can close a mathematical claim.
 
 ## Domain gates used by this program
 
-For [[Agents as fibre-bundle sections|agent sections]], the method requires the covariant vertical
-first jet before a fiberwise Fisher tensor is pulled back. The result is called a semimetric unless
-nondegeneracy is proved; passive gauge invariance and dependence on the selected connection are kept
-separate. A fixed-fiber belief history is vertical, while horizontal transport over a base curve
-requires a connection. Fisher arclength is agent-relative information duration, not physical time
-without an operational bridge.
-
 For [[Evidence lower bound (ELBO)|ELBO]] and local/global VFE claims, the method requires normalized
 generative and recognition laws, support and finiteness conditions, regular conditional laws, and
 all dependence corrections. A local coordinate objective may reproduce the corresponding global
-variation without summing to the global objective. An observation likelihood may be represented by
-an interaction kernel without proving an agent-only ontology.
+variation without summing to the global objective.
 
 For [[Renormalization group flow|renormalization]], the method first asks for an exact
 pushforward, marginalization, conditional expectation, or variational contraction. A projected
@@ -103,16 +94,9 @@ lack durable per-assertion records, so paired evaluation remains required.
 
 ## Relation to this work
 
-This is the default orchestration method for new research-level construction requests spanning the
-[[VFE Transformer Program]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. It is especially useful
-for the program's recurring load-bearing interfaces:
-
-- local versus collective [[Multi-agent variational free energy]]
-- belief/model fibers versus perceived base geometry
-- observation kernels versus agent/environment interaction interpretations
-- fine agents versus meta-agents and cross-scale sections
-- exact effective functionals versus projected RG or attention ansatzes
-- mathematical duration versus claims about emergent physical time.
+This is the default orchestration method for new research-level construction requests in the
+[[VFE Transformer Program]]. It is especially useful at the recurring load-bearing interface between
+exact effective functionals and projected RG or attention ansatzes.
 
 The method complements, rather than replaces, the domain foundation in [[Gauge VFE ELBO curriculum]],
 the gauge-VFE RG theorem record, formal or symbolic checks,
@@ -125,6 +109,5 @@ primary-source review, and manuscript peer review.
 ## See also
 
 [[Gauge VFE ELBO curriculum]] · [[Evidence lower bound (ELBO)]] ·
-[[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Fisher information metric]] ·
-[[Multi-agent variational free energy]] · [[Renormalization group flow]] ·
-[[VFE Transformer Program]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
+[[Fisher information metric]] · [[Renormalization group flow]] ·
+[[VFE Transformer Program]]

@@ -23,11 +23,11 @@ A 1995 article in the American Economic Review on regional trade patterns betwee
 
 ## Relevance to this research
 
-The manuscript cites the article as an example of a boundary between collectives showing up in measured interaction rates, namely trade between Canadian provinces compared with trade across the border. The manuscript did not read the article and relies on secondary reports for its quantitative statement, so none of that is repeated here. The connection is to [[Meta-agents and hierarchical emergence]], [[Collective active inference]] and [[Active inference communication and collective boundaries]].
+The manuscript cites the article as an example of a boundary between collectives showing up in measured interaction rates, namely trade between Canadian provinces compared with trade across the border. The manuscript did not read the article and relies on secondary reports for its quantitative statement, so none of that is repeated here. The connection is to Meta-agents and hierarchical emergence, [[Collective active inference]] and [[Active inference communication and collective boundaries]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[Active inference communication and collective boundaries]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Active inference communication and collective boundaries]].
 
 ## BibTeX
 

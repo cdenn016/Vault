@@ -54,12 +54,12 @@ measured retention 2–7%), while the regenerated coarse theory can still be the
 description of level dynamics — the two claims are compatible because they use different
 distributions. A candidate future measurement: EI of the coarse regenerated step against the
 fine step, which would make the causal-emergence claim internal and testable rather than an
-analogy. Connects to [[Meta-agents and hierarchical emergence]] and the Tononi lineage already
+analogy. Connects to Meta-agents and hierarchical emergence and the Tononi lineage already
 in the vault ([[tononi-2004-integrated-information]]).
 
 ## Cross-links
 
-- Concepts: [[Data processing inequality]], [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
+- Concepts: [[Data processing inequality]], Meta-agents and hierarchical emergence, [[Coarse Graining]]
 - Related sources: [[tononi-2004-integrated-information]], [[zheng-meister-2025-unbearable-slowness]], `2026-08-18-minfo-information-retention`
 
 ## BibTeX

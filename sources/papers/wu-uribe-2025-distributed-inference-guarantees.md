@@ -48,7 +48,7 @@ This source supplies asymptotic benchmarks for [[Decentralized Bayesian inferenc
 
 - Concepts: [[Decentralized Bayesian inference]], [[Non-Bayesian social learning]], [[Communication-constrained inference]]
 - Related sources: [[lalitha-2018-distributed-hypothesis-testing]], [[jadbabaie-2012-non-bayesian-social-learning]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

@@ -48,7 +48,7 @@ The authors restrict to discrete deterministic systems and expect, without proof
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Markov blanket interpretation debate]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]]; [[Bayesian Inference]]; [[Generative model]]; [[State space models]]; [[Conjugate-Exponential Family]].
+Concepts: [[Bayesian mechanics]]; [[Markov blanket interpretation debate]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[Bayesian Inference]]; [[Generative model]]; [[State space models]]; [[Conjugate-Exponential Family]].
 
 Related sources: [[virgo-2021-interpreting-dynamical-systems-bayesian]]; [[biehl-2023-interpreting-systems-pomdps]]; [[baltieri-2020-predictions-eye-beholder]]; [[smithe-2023-compositional-bayesian-brain]]; [[fritz-2019-a-synthetic-approach-to-markov-kernels-conditional-independence-and-th]]; [[cho-2017-disintegration-and-bayesian-inversion-via-string-diagrams]]; [[dacosta-2021-bayesian-mechanics]]; [[ramstead-2023-bayesian-mechanics]].
 

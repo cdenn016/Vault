@@ -48,11 +48,11 @@ The blanket condition is fragile: conditional independence across the blanket an
 
 ## Relevance to this research
 
-Where [[bruineberg-2022-emperors-markov-blankets]] presses the conceptual instrumental-versus-ontological worry, Aguilera et al. supply the quantitative one: even granting the formalism, the blanket-and-belief structure that [[participatory-it-from-bit]] relies on exists only under restrictive coupling conditions. The PIFB manuscript therefore cannot assume the synchronization map for free; it must either operate in the regime where the blanket condition holds or motivate its belief fibers independently of a steady-state derivation. This is directly relevant to the project's [[Multi-agent variational free energy]] model, where many coupled agents generate exactly the dense, irreversible coupling Aguilera et al. flag as problematic. The note qualifies the constructive [[Bayesian mechanics]] lineage and anchors the [[Markov blanket interpretation debate]] cluster.
+Where [[bruineberg-2022-emperors-markov-blankets]] presses the conceptual instrumental-versus-ontological worry, Aguilera et al. supply the quantitative one: even granting the formalism, the blanket-and-belief structure that [[participatory-it-from-bit]] relies on exists only under restrictive coupling conditions. The PIFB manuscript therefore cannot assume the synchronization map for free; it must either operate in the regime where the blanket condition holds or motivate its belief fibers independently of a steady-state derivation. This is directly relevant to the project's Multi-agent variational free energy model, where many coupled agents generate exactly the dense, irreversible coupling Aguilera et al. flag as problematic. The note qualifies the constructive [[Bayesian mechanics]] lineage and anchors the [[Markov blanket interpretation debate]] cluster.
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], [[Participatory realism (it from bit)]], [[Multi-agent variational free energy]], [[Hamiltonian belief dynamics]]
+- Concepts: [[Variational free energy]], [[Participatory realism (it from bit)]], Multi-agent variational free energy, Hamiltonian belief dynamics
 - Related sources: [[bruineberg-2022-emperors-markov-blankets]], [[biehl-2021-technical-critique]], [[friston-2019-particular-physics]], [[dacosta-2021-bayesian-mechanics]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[Markov blanket interpretation debate]], [[Bayesian mechanics]]
 

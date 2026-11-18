@@ -37,11 +37,11 @@ According to the abstract, quantities tied to wealth creation and innovation hav
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper for the reported exponents of urban quantities in population, used as an empirical example of scaling in an abstract collective. The manuscript's reading record shows the abstract was read and the bibliographic record was checked, so this note rests on the abstract. It connects to the vault's work on how aggregate quantities scale with the number of members, see [[Statistical physics of social systems and collective behavior]], [[Sociophysics]] and [[Meta-agents and hierarchical emergence]].
+The collective-agents manuscript cites this paper for the reported exponents of urban quantities in population, used as an empirical example of scaling in an abstract collective. The manuscript's reading record shows the abstract was read and the bibliographic record was checked, so this note rests on the abstract. It connects to the vault's work on how aggregate quantities scale with the number of members, see [[Statistical physics of social systems and collective behavior]], [[Sociophysics]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; [[Sociophysics]]; [[Meta-agents and hierarchical emergence]]; [[bettencourt-2013-origins-scaling-cities]].
+[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; [[Sociophysics]]; Meta-agents and hierarchical emergence; [[bettencourt-2013-origins-scaling-cities]].
 
 ## BibTeX
 

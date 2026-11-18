@@ -25,8 +25,8 @@ The experiment cleanly separates the exposure channel from the attitude channel.
 A crucial calibration counter-anchor and a direct probe of the inertia thesis. That a large $\Delta E$ moved attitudes negligibly is exactly the belief stickiness the program's inertial (underdamped) dynamics and prior-anchoring (Friedkin-Johnsen-like) self-coupling $\alpha\,\mathrm{KL}(q_i\,\|\,p_i)$ predict: strong attachment to a prior, or large effective inertial mass read off the Fisher/precision tensor, makes the steady state insensitive to bounded changes in the driving signal. It also guards the program against overclaiming algorithmic causation — pairing it with backlash results like Bail et al. forces the model to reproduce both stickiness and overshoot from one functional, a stringent and honest constraint. Strong and recent.
 
 ## Cross-links
-- Concept: [[Belief inertia]]
-- Related: [[Hamiltonian belief dynamics]], [[Fisher information metric]], [[Multi-agent variational free energy]]
+- Concept: Belief inertia
+- Related: Hamiltonian belief dynamics, [[Fisher information metric]], Multi-agent variational free energy
 - Related sources: [[bail-2018-exposure-opposing-views]], [[bakshy-2015-ideological-diversity-facebook]], [[cinelli-2021-echo-chamber-effect]]
 
 ## BibTeX

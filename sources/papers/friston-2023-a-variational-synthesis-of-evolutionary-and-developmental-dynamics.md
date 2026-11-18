@@ -28,7 +28,7 @@ Friston and colleagues formulate a relationship between fast phenotypic dynamics
 
 ## Relevance to this research
 
-This provides a concrete comparison for multiscale inference in [[Meta-agents and hierarchical emergence]] and [[Gauge-Theoretic Multi-Agent VFE Model]]. The useful question is which variables are marginalized, what trajectory law is normalized, and how slow parameters constrain fast dynamics. A resemblance between evolutionary selection and free-energy descent does not establish exact closure of an arbitrary coarse-graining or a shared objective for independently specified peer interactions.
+This provides a concrete comparison for multiscale inference in Meta-agents and hierarchical emergence and Gauge-Theoretic Multi-Agent VFE Model. The useful question is which variables are marginalized, what trajectory law is normalized, and how slow parameters constrain fast dynamics. A resemblance between evolutionary selection and free-energy descent does not establish exact closure of an arbitrary coarse-graining or a shared objective for independently specified peer interactions.
 
 ## BibTeX
 

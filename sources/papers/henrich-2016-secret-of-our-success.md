@@ -23,7 +23,7 @@ The book marshals ethnographic, archaeological, and experimental evidence for se
 ## Relevance to this research
 The "collective brain" is precisely a multi-agent system whose population-level intelligence emerges from coupled belief updating, which is the substrate the SocialPhysics program formalizes. It motivates, at the framing level, why coupling beliefs across agents (the inter-agent term of the VFE functional) produces capabilities no single agent holds — the meta-agent / hierarchical-emergence claim of the program rendered as an empirical, anthropological thesis. The dependence of cumulative culture on network size, connectivity, and transmission fidelity is suggestive for how the coupling-graph topology and the precision/attention kernel should govern collective performance. The relevance is strong but framing-level: the book provides motivation and the menu of transmission biases, not machinery the equations import. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Collective active inference]].
+Concept links: [[Cultural evolution and social learning]], Multi-agent variational free energy, [[Collective active inference]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

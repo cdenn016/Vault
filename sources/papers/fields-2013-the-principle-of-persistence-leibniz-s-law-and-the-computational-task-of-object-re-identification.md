@@ -26,7 +26,7 @@ Across longer gaps in observation, unchanged features are neither necessary nor 
 
 ## Relevance to this research
 
-This supplies an implementation-oriented warning for [[Multi-agent variational free energy]]: declaring persistence or attaching the same identifier to successive records does not explain an observer's continuity inference. It supports separating an assumed state ontology from a mechanism that learns or maintains identity. It does not establish that statistical agents need human visual processing, nor derive the program's information-clock construction.
+This supplies an implementation-oriented warning for Multi-agent variational free energy: declaring persistence or attaching the same identifier to successive records does not explain an observer's continuity inference. It supports separating an assumed state ontology from a mechanism that learns or maintains identity. It does not establish that statistical agents need human visual processing, nor derive the program's information-clock construction.
 
 ## Reading and version
 

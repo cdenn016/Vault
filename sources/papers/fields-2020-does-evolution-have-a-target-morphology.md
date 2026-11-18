@@ -28,7 +28,7 @@ Fields and Levin ask whether major evolutionary transitions can be understood as
 
 ## Relevance to this research
 
-This is prior conceptual work on the formation of larger units relevant to [[Meta-agents and hierarchical emergence]]. It provides candidate biological questions for [[Collective active inference]], including when protective organization changes the environment experienced by components. Applying the analogy to [[Gauge-Theoretic Multi-Agent VFE Model]] requires explicit dynamics and a defined target; the term morphology alone does not establish exact coarse-graining, normalization, or inheritance of a collective operational law.
+This is prior conceptual work on the formation of larger units relevant to Meta-agents and hierarchical emergence. It provides candidate biological questions for [[Collective active inference]], including when protective organization changes the environment experienced by components. Applying the analogy to Gauge-Theoretic Multi-Agent VFE Model requires explicit dynamics and a defined target; the term morphology alone does not establish exact coarse-graining, normalization, or inheritance of a collective operational law.
 
 ## BibTeX
 

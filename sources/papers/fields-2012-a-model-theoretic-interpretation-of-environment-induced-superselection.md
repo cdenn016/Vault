@@ -28,7 +28,7 @@ This paper proposes a model-theoretic interpretation of environmental superselec
 
 ## Relevance to this research
 
-The virtual-machine distinction is relevant to [[Participatory realism (it from bit)]] and the difference between a physical carrier and a retained operational description. In [[Gauge-Theoretic Multi-Agent VFE Model]], an exact parent representation must preserve the declared response kernel and dynamics; merely interpreting states as a machine is insufficient. This paper supplies a conceptual precedent for interface-relative systems, but no exact coarse-graining theorem, normalized population ELBO, or proof of endogenous recursive formation.
+The virtual-machine distinction is relevant to [[Participatory realism (it from bit)]] and the difference between a physical carrier and a retained operational description. In Gauge-Theoretic Multi-Agent VFE Model, an exact parent representation must preserve the declared response kernel and dynamics; merely interpreting states as a machine is insufficient. This paper supplies a conceptual precedent for interface-relative systems, but no exact coarse-graining theorem, normalized population ELBO, or proof of endogenous recursive formation.
 
 ## BibTeX
 

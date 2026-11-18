@@ -40,8 +40,8 @@ The evolutionary-biology form of staged hierarchy assembly, complementing
 meta-agent built from stabilized sub-agents, with the loss of independent replication as the
 biological analog of the program's parent formation absorbing constituents' degrees of freedom.
 The staged-versus-direct free-energy question the laboratory can now pose
-([[Meta-agents and hierarchical emergence]]) is the model's version of why transitions
-happen stepwise. See [[Meta-agents and hierarchical emergence]].
+(Meta-agents and hierarchical emergence) is the model's version of why transitions
+happen stepwise. See Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

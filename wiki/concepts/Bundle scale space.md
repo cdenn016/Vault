@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-11-18
 ---
 
 # Bundle scale space
@@ -33,21 +33,18 @@ featureless one.
 
 ## Why it matters here
 
-This is the **local-gauge half** of the Heidelberg program, and it is the closest published match to
-the geometric skeleton of the [[Gauge-Theoretic Multi-Agent VFE Model]]. The architectures are
+This is the **local-gauge half** of the Heidelberg program. The architectures are
 equivariant with respect to *local* actions of a general symmetry group $G$ — $G$ may act on the
 feature $\varphi_v$ at each node $v$ by an **individual** $g_v\in G$ — and local symmetry is
 preserved *by construction*, because features are sections of an associated bundle rather than
-elements of a fixed vector space ([[cassel-2025-bundle-scale-spaces]]). That is the same design
-argument the program makes for [[Agents as fibre-bundle sections|agents as sections]], reached
-independently and one step earlier.
+elements of a fixed vector space ([[cassel-2025-bundle-scale-spaces]]).
 
-Two things this construction supplies that the program can import rather than re-derive: a worked
+Two things this construction supplies: a worked
 **discretization recipe** that keeps local symmetry intact (vector diffusion maps plus lattice gauge
 theory), and a clean statement of what a gauge-covariant diffusion's equilibrium *is* (harmonic
 sections, not constants). Two things it does not supply: the fibers are **vector spaces**, not
 [[Statistical manifold|statistical manifolds]], and the objective is a scale-space/diffusion
-semigroup, not a [[Variational free energy|variational free energy]] over a population of agents.
+semigroup, not a [[Variational free energy|variational free energy]].
 
 > [!note] Editorial: The pairing "bundle scale spaces supply the bundle-and-local-gauge half;
 > [[Sigma flow|sigma flows]] supply the statistical-manifold-fiber half; neither combines them" is
@@ -103,7 +100,6 @@ the bridge a program working in the continuum but computing on a finite graph mo
 - [[Harmonic map]]
 - [[Sigma flow]]
 - [[Graph synchronization and connection Laplacians]]
-- [[Agents as fibre-bundle sections]]
 - [[Fibre Bundle]]
 - [[Gauge transformation]]
 - [[Lattice gauge theory]]

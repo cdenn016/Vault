@@ -24,11 +24,11 @@ A 1980 article in the Journal of Economic Theory that the manuscript cites as th
 
 ## Relevance to this research
 
-The manuscript cites the paper for attribution only, crediting it with noisy, partially revealing equilibria alongside the fully revealing price of [[grossman-1976-efficiency-competitive-stock]]. The reading record verified the bibliographic data against Crossref and states that the content was not read. The citation sits in the manuscript's treatment of abstract collectives, where its own aggregation result is derived. See [[Meta-agents and hierarchical emergence]], [[Collective active inference]] and [[Common knowledge and Bayesian agreement]].
+The manuscript cites the paper for attribution only, crediting it with noisy, partially revealing equilibria alongside the fully revealing price of [[grossman-1976-efficiency-competitive-stock]]. The reading record verified the bibliographic data against Crossref and states that the content was not read. The citation sits in the manuscript's treatment of abstract collectives, where its own aggregation result is derived. See Meta-agents and hierarchical emergence, [[Collective active inference]] and [[Common knowledge and Bayesian agreement]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[grossman-1976-efficiency-competitive-stock]]; [[grossman-1980-impossibility-informationally-efficient]]; [[hayek-1945-use-knowledge-society]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[grossman-1976-efficiency-competitive-stock]]; [[grossman-1980-impossibility-informationally-efficient]]; [[hayek-1945-use-knowledge-society]].
 
 ## BibTeX
 

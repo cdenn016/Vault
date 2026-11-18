@@ -48,7 +48,7 @@ The theory assumes a smooth, globally supported target and smooth vector fields 
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Hamiltonian belief dynamics]]; [[Hamiltonian Monte Carlo]]; [[Markov chain Monte Carlo]]; [[Symplectic geometry]]; [[Riemannian geometry]]; [[Gauge transformation]].
+Concepts: [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; Hamiltonian belief dynamics; [[Hamiltonian Monte Carlo]]; [[Markov chain Monte Carlo]]; [[Symplectic geometry]]; [[Riemannian geometry]]; [[Gauge transformation]].
 
 Related sources: [[dacosta-2021-bayesian-mechanics]]; [[ramstead-2023-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[girolami-calderhead-2011-riemann-hmc]]; [[neal-2011-mcmc-hamiltonian]]; [[sakthivadivel2022-bayesian-mechanics-geometry]]; [[dacosta-2023-entropy-production-stationary-diffusions]]; [[barp-2022-geometric-methods-sampling]]; [[feng-2011-potential-flux-decomposition]]; [[polettini-2012-nonequilibrium-thermodynamics-gauge]].
 

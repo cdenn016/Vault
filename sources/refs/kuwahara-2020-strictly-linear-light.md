@@ -28,7 +28,7 @@ The abstract states a Lieb-Robinson bound for operators separated by distance $R
 
 ## Relevance to this research
 
-The manuscript cites the paper in its scale section. It compares the threshold of its linear message-passing cone with the free-particle light cone of long-range quantum systems and says the many-body thresholds of that hierarchy have no analog in its setting, because linear message passing propagates a single tangent vector. The record covers the abstract only. See [[Critical Phenomena]], [[Graph Laplacian]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper in its scale section. It compares the threshold of its linear message-passing cone with the free-particle light cone of long-range quantum systems and says the many-body thresholds of that hierarchy have no analog in its setting, because linear message passing propagates a single tangent vector. The record covers the abstract only. See [[Critical Phenomena]], [[Graph Laplacian]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 

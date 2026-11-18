@@ -26,11 +26,11 @@ The evidence available here shows only the title, the publisher record and a cha
 
 ## Relevance to this research
 
-The Collective Agents manuscript cites the book in three places: for the thesis that a people is defined by the complementarity of its members' communication, as a precedent for communication-based tests of collective membership, and, for part of a scale result, as a formal counterpart of the thesis that nations are defined by the reach of social communication, which the manuscript labels an interpretation. It connects to [[Active inference communication and collective boundaries]], [[Meta-agents and hierarchical emergence]] and [[Community detection and modularity]].
+The Collective Agents manuscript cites the book in three places: for the thesis that a people is defined by the complementarity of its members' communication, as a precedent for communication-based tests of collective membership, and, for part of a scale result, as a formal counterpart of the thesis that nations are defined by the reach of social communication, which the manuscript labels an interpretation. It connects to [[Active inference communication and collective boundaries]], Meta-agents and hierarchical emergence and [[Community detection and modularity]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; [[Meta-agents and hierarchical emergence]]; [[Community detection and modularity]].
+[[Collective agents literature map]]; [[Active inference communication and collective boundaries]]; Meta-agents and hierarchical emergence; [[Community detection and modularity]].
 
 ## BibTeX
 

@@ -48,7 +48,7 @@ The author restricts the analysis to linear diffusions in one three-dimensional 
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Markov blanket interpretation debate]]; [[Markov Blanket]]; [[Nonequilibrium steady state]]; [[Hamiltonian belief dynamics]]; [[Gaussian Beliefs]]; [[Variational free energy]].
+Concepts: [[Bayesian mechanics]]; [[Markov blanket interpretation debate]]; [[Markov Blanket]]; [[Nonequilibrium steady state]]; Hamiltonian belief dynamics; [[Gaussian Beliefs]]; [[Variational free energy]].
 
 Related sources: [[aguilera-2022-particular-physics]]; [[heins-2022-sparse-coupling-markov]]; [[dacosta-2021-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[parr-2020-markov-blankets-thermodynamics]]; [[friston-2021-stochastic-chaos-markov]]; [[friston-2023-fep-simpler]]; [[biehl-2021-technical-critique]]; [[friston-2021-interesting-observations-fep]]; [[barp-2022-geometric-methods-sampling]]; [[ramstead-2022-notation-minima-comment]]; [[sakthivadivel-2022-regarding-flows-fep]].
 

@@ -32,7 +32,7 @@ Coding theory makes a model's quality operational: a model that compresses the d
 
 ## Why the project cites it
 
-The project's [[Variational free energy]] decomposes as accuracy (expected log-likelihood) minus complexity (a KL from posterior to prior), which is exactly the description-length tradeoff Rissanen formalizes: the KL-complexity term is the bits spent encoding the belief relative to the prior, and the likelihood term is the bits spent encoding the data given the belief. Reading VFE as a code length makes the project's free-energy minimization an MDL principle, and it supplies the second of the two meta-agent retention criteria — keep a coarse-graining only if it shortens the total description of the agent population ([[Meta-agents and hierarchical emergence]]). It anchors the new [[MDL and BIC model selection]] page alongside [[schwarz-1978-bic]]. Manuscript thread: [[participatory-it-from-bit]].
+The project's [[Variational free energy]] decomposes as accuracy (expected log-likelihood) minus complexity (a KL from posterior to prior), which is exactly the description-length tradeoff Rissanen formalizes: the KL-complexity term is the bits spent encoding the belief relative to the prior, and the likelihood term is the bits spent encoding the data given the belief. Reading VFE as a code length makes the project's free-energy minimization an MDL principle, and it supplies the second of the two meta-agent retention criteria — keep a coarse-graining only if it shortens the total description of the agent population (Meta-agents and hierarchical emergence). It anchors the new [[MDL and BIC model selection]] page alongside [[schwarz-1978-bic]]. Manuscript thread: [[participatory-it-from-bit]].
 
 ## BibTeX
 

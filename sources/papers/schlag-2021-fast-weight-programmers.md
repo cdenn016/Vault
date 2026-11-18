@@ -31,10 +31,10 @@ Linearized self-attention is formally a fast weight programmer: a slow network w
 The fast weight recursion is $W^{(i)}=\sigma(W^{(i-1)}+a^{(i)}\otimes b^{(i)})$ with output $y^{(i)}=W^{(i)}x^{(i)}$ (Eqs. 1–3). With a kernel feature map in place of softmax, causal linear attention accumulates $\sum_j v_j\phi(k_j)^\top$ in exactly this way. The delta-rule write subtracts the currently retrieved value before adding the new one (in the manner of Widrow and Hoff). Experiments cover synthetic retrieval, machine translation and language modeling, together with a new kernel feature map.
 
 ## Relevance to this research
-An in-context meta-agent over a Gaussian template bank, restricted to the causal prefix, keeps additive per-template sufficient statistics such as $\sum_{i<t}w_{ia}$, $\sum_{i<t}w_{ia}m_{ia}$ and second moments. That state is a fast weight memory written by responsibilities. The capacity argument and the delta-rule correction are the matching cautions for such a memory, and conjugate Bayesian updating ([[broderick-2013-streaming-variational-bayes]]) is the probabilistic version of the write rule ([[Associative Memory]], [[Meta-agents and hierarchical emergence]]).
+An in-context meta-agent over a Gaussian template bank, restricted to the causal prefix, keeps additive per-template sufficient statistics such as $\sum_{i<t}w_{ia}$, $\sum_{i<t}w_{ia}m_{ia}$ and second moments. That state is a fast weight memory written by responsibilities. The capacity argument and the delta-rule correction are the matching cautions for such a memory, and conjugate Bayesian updating ([[broderick-2013-streaming-variational-bayes]]) is the probabilistic version of the write rule ([[Associative Memory]], Meta-agents and hierarchical emergence).
 
 ## Cross-links
-- Concepts: [[Associative Memory]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Associative Memory]], Meta-agents and hierarchical emergence
 - Related sources: [[broderick-2013-streaming-variational-bayes]], [[ramsauer2021hopfield]], [[sukhbaatar-2019-persistent-memory]]
 
 ## BibTeX

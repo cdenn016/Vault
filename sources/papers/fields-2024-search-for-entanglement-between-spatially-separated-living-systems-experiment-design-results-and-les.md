@@ -28,7 +28,7 @@ This study attempted to identify observables suitable for a CHSH entanglement te
 
 ## Relevance to this research
 
-For [[Gauge-Theoretic Multi-Agent VFE Model]], the relevance is methodological: correlations, directed statistical dependencies, and quantum entanglement are different evidential claims. A proposed physical interpretation of communication requires observables and a discriminating protocol. This paper is a negative experimental result for the intended entanglement search, not empirical support for physics-from-inference, nonlocal agency, or the project's gauge geometry. It belongs beside the theoretical papers as a limit on what this research line has experimentally established.
+For Gauge-Theoretic Multi-Agent VFE Model, the relevance is methodological: correlations, directed statistical dependencies, and quantum entanglement are different evidential claims. A proposed physical interpretation of communication requires observables and a discriminating protocol. This paper is a negative experimental result for the intended entanglement search, not empirical support for physics-from-inference, nonlocal agency, or the project's gauge geometry. It belongs beside the theoretical papers as a limit on what this research line has experimentally established.
 
 ## BibTeX
 

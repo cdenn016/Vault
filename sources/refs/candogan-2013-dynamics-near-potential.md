@@ -38,11 +38,11 @@ The abstract states that better and best response sequences converge to an appro
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper in two places: for the statement that near-potential games have logit laws near a Gibbs law, and for a per-profile bound from the arXiv version that the manuscript adapts, with a halved argument of the hyperbolic tangent and a total-variation form. The reading record lists the definitions, proposition, theorem, lemma and corollaries read in the arXiv version, with journal numbering unchecked. The link to the vault is the Gibbs-form stationary behavior of interacting decision makers and its robustness to departures from a potential, see [[Evolutionary game theory and cooperation]], [[Bounded Rationality]] and [[Multi-agent variational free energy]].
+The collective-agents manuscript cites this paper in two places: for the statement that near-potential games have logit laws near a Gibbs law, and for a per-profile bound from the arXiv version that the manuscript adapts, with a halved argument of the hyperbolic tangent and a total-variation form. The reading record lists the definitions, proposition, theorem, lemma and corollaries read in the arXiv version, with journal numbering unchecked. The link to the vault is the Gibbs-form stationary behavior of interacting decision makers and its robustness to departures from a potential, see [[Evolutionary game theory and cooperation]], [[Bounded Rationality]] and Multi-agent variational free energy.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; [[Multi-agent variational free energy]]; [[blume-1993-statistical-mechanics-strategic]].
+[[Collective agents literature map]]; [[Evolutionary game theory and cooperation]]; [[Bounded Rationality]]; Multi-agent variational free energy; [[blume-1993-statistical-mechanics-strategic]].
 
 ## BibTeX
 

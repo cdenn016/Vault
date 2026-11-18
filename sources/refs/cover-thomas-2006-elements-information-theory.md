@@ -59,7 +59,7 @@ This reference supplies the information-theoretic vocabulary in which the projec
 ## Cross-links
 
 Concepts and theme: [[Fisher information metric]], [[Information bottleneck]], [[Renyi divergence]], [[Information geometry and natural gradient]].
-Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]].
+Projects: [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model.
 Related sources: [[amari-2016-information-geometry-applications]], [[cencov-1982-statistical-decision-rules]], [[tishby-1999-information-bottleneck]], [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]].
 
 ## BibTeX

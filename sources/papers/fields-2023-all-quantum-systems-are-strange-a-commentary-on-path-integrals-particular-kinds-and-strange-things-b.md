@@ -28,7 +28,7 @@ This short commentary compares the causal-state taxonomy of a classical free-ene
 
 ## Relevance to this research
 
-For [[Multi-agent variational free energy]], the paper highlights a modeling choice: is an interface a set of actual state variables in a normalized joint, or an ancillary description of interaction? These alternatives cannot be silently interchanged. The project's explicit records, evaluators, and transcript kernels give one concrete answer. No mathematical identity between those classical objects and the commentary's quantum screen is established, and the authors themselves leave the emergence of classical blanket states as a question.
+For Multi-agent variational free energy, the paper highlights a modeling choice: is an interface a set of actual state variables in a normalized joint, or an ancillary description of interaction? These alternatives cannot be silently interchanged. The project's explicit records, evaluators, and transcript kernels give one concrete answer. No mathematical identity between those classical objects and the commentary's quantum screen is established, and the authors themselves leave the emergence of classical blanket states as a question.
 
 ## BibTeX
 

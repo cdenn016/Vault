@@ -56,7 +56,7 @@ The essay does not derive formal theorems or report numerical results; its contr
 
 ## Relevance to this research
 
-This is the foundational source for the [[Participatory realism (it from bit)]] concept that is the philosophical spine of the [[Gauge-Theoretic Multi-Agent VFE Model]] and the manuscript [[participatory-it-from-bit]]. The mapping is explicit in the manuscript's own Table (Wheeler 1990 vs. this framework):
+This is the foundational source for the [[Participatory realism (it from bit)]] concept that is the philosophical spine of the Gauge-Theoretic Multi-Agent VFE Model and the manuscript [[participatory-it-from-bit]]. The mapping is explicit in the manuscript's own Table (Wheeler 1990 vs. this framework):
 
 - "It from bit" $\to$ the **pullback metric** construction: a metric on the noumenal base $\mathcal{C}$ is *induced* as the pullback of the Fisher–Rao metric along an agent's belief section $\sigma_i^{(q)}$, so geometry emerges from registered information rather than being presupposed.
 - "Participatory universe" $\to$ the cross-scale **Ouroboros loop**: meta-agent statistics propagate back as priors to constituent agents, closing a self-excited participatory circuit through the variational dynamics.
@@ -67,9 +67,9 @@ Wheeler's informational ontology also sets the context for the project's quantum
 
 ## Cross-links
 
-- Concepts: [[Participatory realism (it from bit)]], [[Agents as fibre-bundle sections]], [[Gauge transformation]], [[Fisher information metric]], [[Holonomy]], [[Parallel transport]], [[Multi-agent variational free energy]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]], [[Quantum information geometry]]
+- Concepts: [[Participatory realism (it from bit)]], Agents as fibre-bundle sections, [[Gauge transformation]], [[Fisher information metric]], [[Holonomy]], [[Parallel transport]], Multi-agent variational free energy, Ouroboros multi-scale dynamics, Meta-agents and hierarchical emergence, [[Quantum information geometry]]
 - Related sources: [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-2017-participatory-realism]], [[rovelli-1996-relational-qm]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[zurek-2003-einselection|zurek-2003-decoherence]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[page-wootters-1983]]
-- Manuscript/Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Manuscript/Project: [[participatory-it-from-bit]], Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

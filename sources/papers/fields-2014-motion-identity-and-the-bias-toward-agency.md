@@ -26,7 +26,7 @@ The paper reviews developmental, behavioral, and neurocognitive literature and p
 
 ## Relevance to this research
 
-This provides cognitive context for [[Multi-agent variational free energy]] when an observer attributes identity, goals, or agency to another process. It distinguishes the observer's causal representation from the target's actual mechanism. It does not establish that every inferred agent minimizes free energy, or that agency attribution identifies a physical subsystem or a stable parent agent.
+This provides cognitive context for Multi-agent variational free energy when an observer attributes identity, goals, or agency to another process. It distinguishes the observer's causal representation from the target's actual mechanism. It does not establish that every inferred agent minimizes free energy, or that agency attribution identifies a physical subsystem or a stable parent agent.
 
 ## Reading and version
 

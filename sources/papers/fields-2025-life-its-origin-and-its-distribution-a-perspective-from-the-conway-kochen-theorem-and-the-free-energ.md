@@ -28,7 +28,7 @@ Fields and Levin recast the origin-of-life problem as partly a problem of recogn
 
 ## Relevance to this research
 
-The operational emphasis is useful for [[Collective active inference]] and for defining what counts as an agent in [[Gauge-Theoretic Multi-Agent VFE Model]]. Recognition depends on an observer's available distinctions and response repertoire. A normalized interacting-agent model can express such dependence without assuming that every persistent system is alive or conscious. The quantum theorem, the Bayesian modeling interpretation, and the proposed biological vocabulary should remain separately identified.
+The operational emphasis is useful for [[Collective active inference]] and for defining what counts as an agent in Gauge-Theoretic Multi-Agent VFE Model. Recognition depends on an observer's available distinctions and response repertoire. A normalized interacting-agent model can express such dependence without assuming that every persistent system is alive or conscious. The quantum theorem, the Bayesian modeling interpretation, and the proposed biological vocabulary should remain separately identified.
 
 ## BibTeX
 

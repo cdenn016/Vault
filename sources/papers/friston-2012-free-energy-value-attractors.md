@@ -53,7 +53,7 @@ The authors state that the first term of Eq. 16 is curl-free only for isotropic 
 
 ## Cross-links
 
-Concepts: [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Markov Blanket]]; [[Active Inference]]; [[Variational free energy]]; [[Hamiltonian belief dynamics]]; [[Belief inertia]]; [[Generalised coordinates of motion]].
+Concepts: [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Markov Blanket]]; [[Active Inference]]; [[Variational free energy]]; Hamiltonian belief dynamics; Belief inertia; [[Generalised coordinates of motion]].
 
 Related sources: [[friston-2009-reinforcement-active-inference]]; [[friston-2010-free-energy-principle]]; [[friston-2008-dem]]; [[friston-2013-life-as-we-know-it]]; [[friston-2019-particular-physics]]; [[haken-1983-synergetics-introduction]]; [[kappen-2012-optimal-control-inference]]; [[friston-2012-fep-biological-systems]]; [[feng-2011-potential-flux-decomposition]]; [[dacosta-2023-entropy-production-stationary-diffusions]].
 

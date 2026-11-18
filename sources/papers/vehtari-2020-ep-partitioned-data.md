@@ -55,7 +55,7 @@ The site-factor view is the right comparison for evidence provenance in [[Decent
 
 - Concepts: [[Decentralized Bayesian inference]], [[Approximate Bayesian inference]], [[Communication-constrained inference]]
 - Related sources: [[hasenclever-2017-snep-posterior-server]], [[ashman-2022-partitioned-variational-inference]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

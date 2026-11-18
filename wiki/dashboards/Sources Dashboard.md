@@ -5,7 +5,7 @@ aliases: [Sources, Source dashboard, Corpus dashboard]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-18
 ---
 
 # Sources Dashboard
@@ -53,22 +53,6 @@ views:
     filters:
       and:
         - 'file.hasTag("project/transformer")'
-    order:
-      - title
-    properties: [file.name, title, year]
-  - type: table
-    name: "Multi-agent (MAgent)"
-    filters:
-      and:
-        - 'file.hasTag("project/multi-agent")'
-    order:
-      - title
-    properties: [file.name, title, year]
-  - type: table
-    name: "SocialPhysics"
-    filters:
-      and:
-        - 'file.hasTag("project/social-physics")'
     order:
       - title
     properties: [file.name, title, year]

@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Physics MOC
@@ -13,8 +13,6 @@ updated: 2026-11-13
 ## Dynamic link fields, October 3, 2026
 
 [[dennis-2026-dynamic-links]] treats attention link generators as latent lattice gauge variables on a depth-by-token lattice. It uses a Frobenius-defect curvature prior that reduces to Wilson's action on $O(K)$, with the kinetic term supplied by time-like loops. Its linearized link equation is a screened, massive Euclidean Maxwell equation, and the inertia of the maximum a posteriori path over depth has Euclidean sign. Integrating out undirected Gaussian matter induces $\tfrac12\log\det J$, whose hopping expansion begins with Wilson's triangle action. Agent-drafted, float64 checks at small size, nothing trained.
-
-[[multiagentelbo-2026-10-04-lie-algebra-links]] makes the multi-agent links latent lattice gauge variables with a loop-action prior. Undirected matter induces the Wilson triangle term, time-like loop defects across learning episodes supply a mass, and the linearized operator has screened, massive Euclidean Proca structure. Cross-model checked; nothing trained.
 
 [[lebowitz-1968-analytic-clustering-thermodynamic-functions]] (1968) proves joint analyticity of the Ising-ferromagnet pressure in temperature and field away from the Lee-Yang zeros.
 
@@ -28,8 +26,8 @@ updated: 2026-11-13
 > **Bases** core plugin from the `field/*` tags and updates itself as sources are added.
 
 Physics is the largest discipline in the corpus (**264** sources). Its notes occupy three regions of
-the program: the statistical-physics / sociophysics of collective behavior (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
-[[Participatory realism and quantum foundations|participatory]] program, and the gauge-theory /
+the corpus: the statistical-physics / sociophysics of collective behavior (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
+[[Participatory realism and quantum foundations|participatory]] cluster, and the gauge-theory /
 [[Information geometry and natural gradient|information-geometry]] core shared with the transformer.
 
 ```base
@@ -52,7 +50,7 @@ Compose with the topic facet via tag search — e.g. `tag:#field/physics tag:#cl
 (gauge theory of physics origin) or `tag:#field/physics tag:#cluster/participatory/quantum-foundations`.
 See the [[Disciplines MOC]] hub for all fields.
 
-## MultiAgentELBO research ingestion, September 11, 2026
+## Research ingestion, September 11, 2026
 
 - [[abramsky-2011-the-sheaf-theoretic-structure-of-non-locality-and-contextuality]]
 - [[avramidi-1997-covariant-techniques-for-computation-of-the-heat-kernel]]
@@ -86,7 +84,7 @@ See the [[Disciplines MOC]] hub for all fields.
 
 ## Spin-foam coarse-graining sources, September 30, 2026
 
-[[Coarse Graining]] connects the boundary/refinement, tensor-interface, and GFT sources below to the pointwise multi-agent program. The Bases view also lists these physics-tagged sources automatically.
+[[Coarse Graining]] connects the boundary/refinement, tensor-interface, and GFT sources below. The Bases view also lists these physics-tagged sources automatically.
 
 - [[asante-2022-spin-foams-refinement-renormalization]]
 - [[bahr-2014-background-independent-renormalization]]

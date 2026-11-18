@@ -53,7 +53,7 @@ The authors state that they treat a specific case with symmetric rate constants,
 
 ## Cross-links
 
-Concepts: [[Stochastic Thermodynamics]]; [[Nonequilibrium steady state]]; [[Meta-agents and hierarchical emergence]]; [[Information bottleneck]]; [[Bayesian mechanics]].
+Concepts: [[Stochastic Thermodynamics]]; [[Nonequilibrium steady state]]; Meta-agents and hierarchical emergence; [[Information bottleneck]]; [[Bayesian mechanics]].
 
 Related sources: [[still-2014-information-bottleneck-approach]]; [[tishby-1999-information-bottleneck]]; [[parr-2020-markov-blankets-thermodynamics]]; [[kolchinsky-2018-semantic-information-autonomous]]; [[palacios-2020-hierarchical-markov-blankets]]; [[dacosta-2023-entropy-production-stationary-diffusions]]; [[polettini-2012-nonequilibrium-thermodynamics-gauge]].
 

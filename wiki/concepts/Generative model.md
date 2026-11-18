@@ -9,7 +9,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-21
-updated: 2026-07-12
+updated: 2026-11-18
 ---
 
 # Generative model
@@ -41,30 +41,9 @@ The entropy is factor-separable, and the energy expectation is affine in each fa
 others fixed. This multilinear structure is a testable signature of a fixed state-level
 mean-field model [[wainwright-2008-graphical-models-variational]].
 
-## Population-consensus no-go boundary
+## Energy-based generative models
 
-The [[Multi-agent variational free energy]] contains terms
-$D_{\mathrm{KL}}(q_i\Vert T_{ij}q_j)$. Their denominators are transported variational beliefs,
-not fixed model factors. A mixed-third-variation test proves that an active nondegenerate consensus
-edge cannot equal the mean-field KL against one fixed joint on an open product family: the
-fixed-model variation $D^3_{q_iq_jq_j}$ vanishes, while the consensus-edge variation can be chosen
-as a strictly positive variance.
-
-This is a scoped no-go result. It excludes the ordinary fixed joint on the original state variables
-under the stated open-family and nondegeneracy assumptions. It does not exclude frozen source
-templates, zero coupling, compatible auxiliary variables, restricted families, or a model whose
-latent variable is itself a belief configuration.
-
-## Valid enlarged constructions
-
-PIFB2 has three valid probabilistic readings. At zero within-scale coupling, its cross-scale
-Gaussian hierarchy is a proper [[Hierarchical generative model]] with an SPD stacked precision and
-a unique mean-field optimum. On a finite positive state space, a continuous geometric-pooling map
-has a Brouwer fixed point; after selecting it, the source distributions become fixed and define
-proper auxiliary row models. Those row models need an additional compatibility or factorization
-condition before they become one shared-state joint.
-
-At the higher configuration level, any measurable population energy $\mathcal F(X)$ defines
+Any measurable energy $\mathcal F(X)$ on a configuration space defines
 
 $$
 \frac{dP_{\mathcal F}}{d\rho_0}(X)
@@ -72,18 +51,15 @@ $$
 $$
 
 whenever $\rho_0$ is proper and $0<Z_{\mathcal F}<\infty$. This is an exact energy-based
-generative model over belief configurations and gives a meta-level VFE after adding configuration
-entropy. It does not convert the original population energy into the excluded state-level ELBO.
-Loss-tempered versions have the coherent generalized-Bayes interpretation of
+generative model over configurations. Loss-tempered versions have the coherent generalized-Bayes interpretation of
 [[bissiri-2016-general-bayesian-updating]].
 
 ## Related
 
 [[Variational free energy]], [[Predictive coding]], [[Amortized inference]],
-[[Hierarchical generative model]], [[Meta-entropy]]
+[[Hierarchical generative model]]
 
 ## Sources
 
-- [[participatory-it-from-bit]]
 - [[wainwright-2008-graphical-models-variational]]
 - [[bissiri-2016-general-bayesian-updating]]

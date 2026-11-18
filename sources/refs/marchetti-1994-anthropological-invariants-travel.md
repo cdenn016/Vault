@@ -37,11 +37,11 @@ The extract reports Zahavi's empirical conclusion that mean daily exposure time 
 
 ## Relevance to this research
 
-The manuscript cites the paper for a daily travel budget of about one hour, a typical pedestrian-city size and the linear expansion of cities with faster transport, as empirical anchors for a bound on the diameter of the sets reachable in one round of communication. The manuscript's reading record says only the abstract was read; this note adds the first pages of the author's reprint. The link is to [[Meta-agents and hierarchical emergence]] and [[Collective active inference]]. The companion review is [[mokhtarian-2004-ttb-not-ttb]].
+The manuscript cites the paper for a daily travel budget of about one hour, a typical pedestrian-city size and the linear expansion of cities with faster transport, as empirical anchors for a bound on the diameter of the sets reachable in one round of communication. The manuscript's reading record says only the abstract was read; this note adds the first pages of the author's reprint. The link is to Meta-agents and hierarchical emergence and [[Collective active inference]]. The companion review is [[mokhtarian-2004-ttb-not-ttb]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[mokhtarian-2004-ttb-not-ttb]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[mokhtarian-2004-ttb-not-ttb]].
 
 ## BibTeX
 

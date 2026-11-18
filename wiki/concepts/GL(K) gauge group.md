@@ -11,10 +11,9 @@ tags:
   - cluster/gauge-theory
   - cluster/spd-geometry
   - project/transformer
-  - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # GL(K) gauge group
@@ -72,7 +71,7 @@ D_{\mathrm{KL}}\!\left(\Omega_*P\,\|\,\Omega_*Q\right)=D_{\mathrm{KL}}\!\left(P\
 $$
 because the $(\det\Omega)^2$ Jacobian factors cancel identically; the result extends to all $f$-divergences, so a transport map need only satisfy $\det\Omega\neq0$ for the full $\mathrm{GL}(K)$ to act as a gauge symmetry of the inference ([[gl-k-attention|GL(K) attention manuscript]]). This is the formal guarantee that attention scores — built from KL divergences between transported beliefs — are invariant to local frame choice, the property that earns the name "gauge."
 
-**Vertex-frame transport has trivially vanishing holonomy.** The program's standard transport between tokens $i$ and $j$ factorizes through the gauge frames as $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$, which satisfies the cocycle identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an algebraic identity. The resulting gauge-transformer connection is therefore **flat**: its reconstructed [[Holonomy]] around any loop vanishes. A standard transformer has no transport variable or intrinsic holonomy; flatness applies only to the imposed identity-transport comparison point. A relaxed extension $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the gauge model to nontrivial holonomy, reserved for the companion work ([[gl-k-attention|GL(K) attention manuscript]], [[Parallel transport]], [[Holonomy]]).
+**Vertex-frame transport has trivially vanishing holonomy.** The program's standard transport between tokens $i$ and $j$ factorizes through the gauge frames as $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$, which satisfies the cocycle identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an algebraic identity. The resulting gauge-transformer connection is therefore **flat**: its reconstructed [[Holonomy]] around any loop vanishes. A standard transformer has no transport variable or intrinsic holonomy; flatness applies only to the imposed identity-transport comparison point. A relaxed extension $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the gauge model to nontrivial holonomy ([[gl-k-attention|GL(K) attention manuscript]], [[Parallel transport]], [[Holonomy]]).
 
 **No bi-invariant metric on the frame group.** Unlike the covariance side, where the cone inherits a canonical invariant metric from the quotient, the *frame* group $\mathrm{GL}^+(K)$ is noncompact and non-abelian and so — by Milnor's theorem — admits **no bi-invariant metric** ([[milnor-1976-left-invariant-metrics]]). The clean symmetric-space structure on the covariance side has no automatic counterpart on the frame side, which is why the choice of inner product on $\mathfrak{gl}(K)$ (e.g. the Killing-form preconditioner) is a genuine modeling decision rather than a foregone conclusion.
 
@@ -80,7 +79,7 @@ because the $(\det\Omega)^2$ Jacobian factors cancel identically; the result ext
 
 The July 11 code-concordance review separates scalar invariance from optimizer equivariance. A Gaussian-KL functional built from relative links can remain invariant under the common-right action $U_i\mapsto U_i g$ while the reached Frobenius update fails to preserve that orbit for generic nonorthogonal $g\in\mathrm{GL}^+(K)$. The implemented body covector transforms as $g^\top B g^{-\top}$, whereas the right retraction requires $g^{-1}Bg$. Full-$\mathrm{GL}^+$ trajectory equivalence therefore needs a different metric and update, an explicit gauge fixing, or a restriction to a right-isometric subgroup. This limitation does not weaken common-pushforward invariance of Gaussian KL.
 
-The same review found that products of legal exponential increments need not remain in the real-log domain used by hierarchical frame pooling. The well-conditioned matrix $\operatorname{diag}(-1,-2,1,1,1,1,1)\in\mathrm{GL}^+(7)$ is reachable as a product of bounded exponentials but has no real logarithm. An admissible group element can therefore reach the unconditional `matrix_log_principal` call and fail during meta-agent formation. The operative hierarchy needs a log-safe invariant domain, a restricted group closed under its chart and update, or a log-free group-level barycenter.
+The same review found that products of legal exponential increments need not remain in the real-log domain used by hierarchical frame pooling. The well-conditioned matrix $\operatorname{diag}(-1,-2,1,1,1,1,1)\in\mathrm{GL}^+(7)$ is reachable as a product of bounded exponentials but has no real logarithm. An admissible group element can therefore reach the unconditional `matrix_log_principal` call and fail during hierarchical frame pooling. The operative hierarchy needs a log-safe invariant domain, a restricted group closed under its chart and update, or a log-free group-level barycenter.
 
 ## Relevance to this research
 
@@ -118,4 +117,3 @@ The quotient $\mathrm{GL}(K)/O(K)\cong\mathrm{SPD}(K)$ supports the affine-invar
 - [[Fisher information metric]]
 - [[Natural gradient]]
 - [[VFE Transformer Program]]
-- [[Gauge-Theoretic Multi-Agent VFE Model]]

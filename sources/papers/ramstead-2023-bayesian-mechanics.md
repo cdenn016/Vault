@@ -56,13 +56,13 @@ The paper organizes Bayesian mechanics around three pillars: the *partition* (Ma
 
 ## Relevance to this research
 
-This is the paper whose central phrase — "a physics of and by beliefs" — **[[participatory-it-from-bit]]** most directly instantiates and extends. PIFB takes the Bayesian-mechanics schema (internal states parametrize beliefs about the external world; dynamics are inference) and adds the two ingredients this review does not: a *gauge structure* on the belief fibers ([[Gauge transformation]], [[Parallel transport]], frame-covariant comparison of beliefs across observers) and a *multi-agent / multi-scale* stack ([[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]]). The Fisher-geometric flow at the heart of the schema is the project's [[Natural gradient]] belief update; the steady-state solenoidal structure is its [[Hamiltonian belief dynamics]] / [[Belief inertia]]. This review is the best single entry point to the [[Bayesian mechanics]] hub page and frames the foundational debate PIFB must engage.
+This is the paper whose central phrase — "a physics of and by beliefs" — **[[participatory-it-from-bit]]** most directly instantiates and extends. PIFB takes the Bayesian-mechanics schema (internal states parametrize beliefs about the external world; dynamics are inference) and adds the two ingredients this review does not: a *gauge structure* on the belief fibers ([[Gauge transformation]], [[Parallel transport]], frame-covariant comparison of beliefs across observers) and a *multi-agent / multi-scale* stack (Multi-agent variational free energy, Meta-agents and hierarchical emergence, Ouroboros multi-scale dynamics). The Fisher-geometric flow at the heart of the schema is the project's [[Natural gradient]] belief update; the steady-state solenoidal structure is its Hamiltonian belief dynamics / Belief inertia. This review is the best single entry point to the [[Bayesian mechanics]] hub page and frames the foundational debate PIFB must engage.
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], [[Fisher information metric]], [[Natural gradient]], [[Participatory realism (it from bit)]], [[Hamiltonian belief dynamics]]
+- Concepts: [[Variational free energy]], [[Fisher information metric]], [[Natural gradient]], [[Participatory realism (it from bit)]], Hamiltonian belief dynamics
 - New pages: [[Bayesian mechanics]], [[Markov blanket interpretation debate]]
-- Methods/themes: [[Free-energy principle active inference]], [[Multi-agent variational free energy]], [[Information geometry and natural gradient]]
+- Methods/themes: [[Free-energy principle active inference]], Multi-agent variational free energy, [[Information geometry and natural gradient]]
 - Related sources: [[dacosta-2021-bayesian-mechanics]], [[friston-2019-particular-physics]], [[parr-2020-markov-blankets-thermodynamics]], [[sakthivadivel2022-bayesian-mechanics-geometry|sakthivadivel-2022-geometry-bayesian-mechanics]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 

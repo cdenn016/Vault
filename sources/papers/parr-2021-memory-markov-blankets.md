@@ -47,7 +47,7 @@ The authors state that the simulations are proofs of principle and not exhaustiv
 
 ## Cross-links
 
-Concepts: [[Markov Blanket]]; [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Mutual information]]; [[Information Geometry]]; [[Laplace approximation]]; [[Markov blanket interpretation debate]]; [[Hamiltonian belief dynamics]].
+Concepts: [[Markov Blanket]]; [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Mutual information]]; [[Information Geometry]]; [[Laplace approximation]]; [[Markov blanket interpretation debate]]; Hamiltonian belief dynamics.
 
 Related sources: [[parr-2020-markov-blankets-thermodynamics]]; [[dacosta-2021-bayesian-mechanics]]; [[friston-2019-particular-physics]]; [[friston-2021-stochastic-chaos-markov]]; [[friston-2021-parcels-particles-markov]]; [[crooks-2007-thermodynamic-length]]; [[virgo-2022-sensorimotor-history-markov-blankets]]; [[barp-2021-measure-preserving-diffusions]]; [[dacosta-2021-neural-dynamics-active-inference]].
 

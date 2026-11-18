@@ -28,7 +28,7 @@ Milgrom, Paul, Segal, Ilya (2002). *Envelope Theorems for Arbitrary Choice Sets*
 
 The paper treats envelope derivatives over arbitrary choice sets and gives differentiability and absolute-continuity conditions. PIFB2 applies a smooth finite interior envelope identity to optimized routing weights. Explicit temperature and source-prior dependencies remain differentiable terms; this citation does not permit silently dropping them.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

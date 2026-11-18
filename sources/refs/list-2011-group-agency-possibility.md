@@ -28,11 +28,11 @@ The publisher description says the authors argue, from work in social choice, ec
 
 ## Relevance to this research
 
-The manuscript lists this book among works it has not read and asks whether its conditions for group agency match the manuscript's own agency property for a collective. It is cited as an open question on positioning, with no claim attributed to its text. The subtitle was confirmed against the publisher page and is absent from the Crossref output. The topic is the agent status of a composite, see [[Meta-agents and hierarchical emergence]], [[Collective active inference]] and [[Markov blanket interpretation debate]].
+The manuscript lists this book among works it has not read and asks whether its conditions for group agency match the manuscript's own agency property for a collective. It is cited as an open question on positioning, with no claim attributed to its text. The subtitle was confirmed against the publisher page and is absent from the Crossref output. The topic is the agent status of a composite, see Meta-agents and hierarchical emergence, [[Collective active inference]] and [[Markov blanket interpretation debate]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[Markov blanket interpretation debate]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Markov blanket interpretation debate]].
 
 ## BibTeX
 

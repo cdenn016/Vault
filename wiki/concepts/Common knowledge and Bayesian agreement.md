@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Common knowledge and Bayesian agreement
@@ -33,14 +33,6 @@ Remove the common prior or common-knowledge condition and persistent disagreemen
 ## What agreement does not imply
 
 Posterior equality does not imply that the agreed probability is calibrated, that the underlying model contains the truth, or that all agents possess the same information. It does not specify a distributed computation, message complexity, or robustness to strategic reporting. Nor does it justify multiplying posteriors that contain overlapping evidence.
-
-## Why it matters here
-
-MultiAgentELBO's shared generative model may resemble a common-prior assumption, but the present theory does not automatically construct epistemic partitions or common knowledge of posterior reports. A gauge transformation aligns representations under a modeled symmetry; it does not create higher-order mutual knowledge. Consequently, gauge agreement, parameter consensus, common knowledge, and truth learning need separate definitions and tests.
-
-## In this work
-
-Use Aumann as an assumption audit, not a convergence citation. A genuine epistemic extension should define states, priors, information sigma-algebras, announcements, and the common-knowledge operator. If studying a finite dialogue, verify separately whether the protocol reaches equal posteriors and under what observability conditions.
 
 ## Sources
 

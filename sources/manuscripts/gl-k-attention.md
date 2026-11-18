@@ -63,15 +63,15 @@ The supplement (`GL(K)_supplementary.tex`) collects derivations and additional v
 
 ## Relevance to the program
 
-This manuscript is the attention-mechanism cornerstone of the gauge-theoretic variational-free-energy program, sitting in both the [[VFE Transformer Program]] and the [[Gauge-Theoretic Multi-Agent VFE Model]] projects. It operationalizes the [[Variational free energy]] principle ([[Free-energy principle active inference]]) as the generator of attention, and supplies the formal backbone for several program concepts:
+This manuscript is the attention-mechanism cornerstone of the gauge-theoretic variational-free-energy program, sitting in both the [[VFE Transformer Program]] and the Gauge-Theoretic Multi-Agent VFE Model projects. It operationalizes the [[Variational free energy]] principle ([[Free-energy principle active inference]]) as the generator of attention, and supplies the formal backbone for several program concepts:
 
-- [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], and [[Agents as fibre-bundle sections]] — the bundle scaffold from which attention is derived.
+- [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], and Agents as fibre-bundle sections — the bundle scaffold from which attention is derived.
 - [[Group equivariance]] / [[Gauge equivariant CNN]] / [[Group equivariant CNN (G-CNN)]] — the geometric-deep-learning lineage the paper positions against ([[Gauge equivariance and geometric deep learning]]).
 - [[Fisher information metric]] and [[Natural gradient]] — the information-geometric training dynamics ([[Information geometry and natural gradient]]).
 - [[Precision weighting]] and [[Prediction error]] — recovered in the covariance fixed point and predictive-coding connection ([[Variational free energy and predictive coding]], [[Predictive coding network]]).
 - [[SPD-manifold geometry and Riemannian optimization]] — the $\Sigma$ updates and retraction.
 - [[Attention mechanisms — theory and positional structure]] — the core theme this paper anchors; RoPE-as-gauge-frame and multi-head-as-block-algebra results.
-- [[Meta-agents and hierarchical emergence]], [[Renormalization group flow]], [[Ouroboros multi-scale dynamics]] — the coarse-graining/RG conjecture and meta-agent consensus connect to the companion [[participatory-it-from-bit]] manuscript (cited in-text as the source of the cross-scale prior-propagation and Regime-II holonomy program). The "learning as symmetry breaking" reading also touches [[Participatory realism (it from bit)]].
+- Meta-agents and hierarchical emergence, [[Renormalization group flow]], Ouroboros multi-scale dynamics — the coarse-graining/RG conjecture and meta-agent consensus connect to the companion [[participatory-it-from-bit]] manuscript (cited in-text as the source of the cross-scale prior-propagation and Regime-II holonomy program). The "learning as symmetry breaking" reading also touches [[Participatory realism (it from bit)]].
 
 Related program manuscripts: [[belief-inertia]], `meta-entropy-manuscript`.
 

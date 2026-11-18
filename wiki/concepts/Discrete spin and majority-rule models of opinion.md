@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-11-18
 ---
 
 # Discrete spin and majority-rule models of opinion
@@ -19,10 +19,6 @@ updated: 2026-07-13
 ## Definition
 
 **Discrete spin and majority-rule models of opinion** are the wing of sociophysics that represents an agent's opinion as a discrete variable — usually a binary Ising spin $S_i = \pm 1$ standing for two competing positions — and lets the population evolve by a local interaction rule borrowed from magnetism: align with your neighbours. The family is distinguished from averaging models of [[Opinion dynamics]] (DeGroot, Friedkin–Johnsen) by the fact that opinions never take intermediate values; each update is a hard switch between states, and the collective question is whether the lattice or graph orders into a single magnetized (consensus) phase or stays disordered (diverse). Three update rules organize the family. The **majority-vote rule** polls a neighbourhood and sets the central agent to the majority state, optionally with noise — a probability of perversely adopting the minority — that plays the role of temperature ([[deoliveira-1992-majority-vote-model]]). The **outward-persuasion rule** of the Sznajd model inverts the information flow: rather than a site copying its surroundings, a locally agreeing *pair* of agents imposes its shared opinion on the neighbours outside it, formalizing "united we stand, divided we fall" ([[sznajd-weron-sznajd-2000-closed-community]]). The **iterated-grouping rule** of the Galam models repeatedly partitions the population into small groups, replaces each group by its local-majority verdict, and feeds the verdicts into the next round, so that the dynamics is a coarse-graining map on the support fraction rather than a site update ([[galam-1986-majority-rule-hierarchical]], [[galam-2002-minority-opinion-spreading]]). The historical root of the entire wing is the original strike model, which wrote a group "dissatisfaction function" as an Ising Hamiltonian and minimized it ([[galam-gefen-shapir-1982-sociophysics-strike]]).
-
-## Why it matters here
-
-For the SocialPhysics program founded on [[belief-inertia]], discrete spin and majority-rule models are genealogical benchmarks, not shared machinery or fixed points already subsumed by the VFE flow. Their hard binary updates, majority amplification, order-disorder transition, minority spreading, and Galam coarse-graining are not derived from gauge-transported Gaussian KL coupling. The current first-order result is limited to fixed symmetric DeGroot under the primary unweighted Fisher flow, a nonuniform reversible transient under $G_\rho$ or agent-specific rates, and a restricted reversible anchored stationary equilibrium independent of the positive flow metric. Attention temperature is not thereby identified with spin temperature, and a biased attention prior does not prove minority takeover. These models instead provide explicit transition and topology benchmarks for future discrete-state, majority-sensitive, and coarse-grained extensions. Cross-links: [[Sociophysics]], [[Multi-agent variational free energy]], [[Opinion dynamics]], [[Echo chambers and polarization]], and [[Collective active inference]].
 
 ## Details
 
@@ -49,3 +45,7 @@ Read together, the family spans the discrete corner of the [[Statistical physics
 - [[galam-1986-majority-rule-hierarchical]] — hierarchical local-majority aggregation; the iterated majority-vote map $P_r$, its unstable threshold, and "democratic totalitarianism" as real-space RG.
 - [[galam-2002-minority-opinion-spreading]] — minority opinion spreading via tie-breaking bias in iterated random grouping; the threshold pushed below one-half so a minority can conquer.
 - [[galam-gefen-shapir-1982-sociophysics-strike]] — founding sociophysics paper; the strike as an Ising free-energy minimization with a collective/individual phase transition.
+
+## See also
+
+[[Sociophysics]] · [[Opinion dynamics]] · [[Echo chambers and polarization]] · [[Collective active inference]]

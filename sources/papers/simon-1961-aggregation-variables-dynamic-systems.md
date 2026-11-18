@@ -44,8 +44,8 @@ and justifies neglecting weak inter-block links in a restricted equilibrium anal
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
+- Themes: Meta-agents and hierarchical emergence
 - Related sources: [[simon-1962-architecture-complexity]], [[geigenmuller-1983-elimination-fast-variables]], [[vankampen-1985-elimination-fast-variables]]
 
 ## BibTeX

@@ -30,11 +30,11 @@ The standard modern graduate text on smooth manifold theory: charts and atlases,
 
 ## Relevance to this research
 
-The program models agents as sections of a fiber bundle whose structure group is a Lie group, so Lee supplies the precise definitions — smooth manifold, fiber bundle, section, the Lie-group exponential and logarithm — behind [[Agents as fibre-bundle sections]] and the [[Gauge transformation]] action on fibers. The bundle-and-connection material is the abstract scaffold under [[Parallel transport]] and [[Holonomy]], and the Lie-group chapter grounds the matrix exp/log used to build transports $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$. Cited as a foundational text, not for a specific result. Supports [[participatory-it-from-bit]].
+The program models agents as sections of a fiber bundle whose structure group is a Lie group, so Lee supplies the precise definitions — smooth manifold, fiber bundle, section, the Lie-group exponential and logarithm — behind Agents as fibre-bundle sections and the [[Gauge transformation]] action on fibers. The bundle-and-connection material is the abstract scaffold under [[Parallel transport]] and [[Holonomy]], and the Lie-group chapter grounds the matrix exp/log used to build transports $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$. Cited as a foundational text, not for a specific result. Supports [[participatory-it-from-bit]].
 
 ## Cross-links
 
-- [[Agents as fibre-bundle sections]] · [[Gauge transformation]] · [[Parallel transport]] · [[Holonomy]] · [[hall-2015-lie-groups]] · [[kobayashi-nomizu-1963-foundations]] · [[participatory-it-from-bit]]
+- Agents as fibre-bundle sections · [[Gauge transformation]] · [[Parallel transport]] · [[Holonomy]] · [[hall-2015-lie-groups]] · [[kobayashi-nomizu-1963-foundations]] · [[participatory-it-from-bit]]
 
 ```bibtex
 @book{lee2012smooth,

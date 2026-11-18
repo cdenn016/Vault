@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-11-18
 ---
 
 # Social Impact Theory
@@ -33,12 +33,6 @@ so the marginal effect of the $N$th additional person is smaller than that of th
 
 The theory is deliberately two-sided, and the second side is the **division of impact**. Run the same multiplicative law in reverse: when many *targets* jointly receive impact from a single source, the impact is divided among them, so the load borne by each falls as the number of co-targets rises. This division principle is what grounds **diffusion of responsibility** (the bystander effect — each onlooker feels less compelled to act as the crowd grows) and **social loafing** (individual effort slackening in larger groups) ([[latane1981psychology|latane-1981-social-impact]]). Strength, immediacy, and number thus govern both how impact accumulates on a lone target and how it dilutes across a shared one — a single law with a dual.
 
-## Relevance to this research
-
-The theorem-first revision of the belief-inertia manuscript (2026-07-12) treats this relationship as **interpretive only**. The gauge-VFE relational force contains source precision, transported discrepancy, and attention weights, so strength and immediacy have loose geometric analogs. But each attention row is normalized: adding sources redistributes a fixed attention budget unless an independent raw exposure strength is changed. It therefore does not derive Latané's increasing-number law, the sublinear $N^t$ law, or the multiplicative strength--immediacy--number form.
-
-Recovering the number law would require an unnormalized exposure-intensity term or another explicit dependence of the total social strength $\lambda_s$ on source count. The division-of-impact phenomena likewise require target-level behavioral variables absent from the current belief-state model. The local loss Hessian is stiffness, not latency: at fixed Fisher geometry and learning rate, larger positive stiffness reduces matched-force displacement and speeds linear relaxation. Any slower response, coasting, overshoot, or resonance requires a separately specified mobility, damping law, kinetic metric, or slow state. Social Impact Theory is therefore a comparison and empirical benchmark, not a force law or underdamped limit already recovered by [[Multi-agent variational free energy]].
-
 ## Sources
 
 - [[latane1981psychology|latane-1981-social-impact]] — Latané's foundational statement of Social Impact Theory: impact as a multiplicative function $I = f(S, I_m, N)$ of source strength, immediacy, and number; the sublinear power law $I \propto N^{t}$ with $t<1$; and the dual division-of-impact principle grounding diffusion of responsibility and social loafing.
@@ -49,7 +43,4 @@ Recovering the number law would require an unnormalized exposure-intensity term 
 
 - [[Social influence and conformity]] — the broader conformity literature (Sherif, Asch, Deutsch–Gerard, French) of which this is the quantitative law.
 - [[Opinion dynamics]] · [[Sociophysics]] · [[Statistical physics of social systems and collective behavior]] — the dynamical/lattice descendants of the impact law.
-- [[Multi-agent variational free energy]] — the functional whose normalized coupling permits only an interpretive comparison unless raw exposure intensity is added.
-- [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] — the separately conditional kinetic extension and its scope limits.
-- [[Fisher information metric]] · [[Agents as fibre-bundle sections]] · [[Gauge transformation]] — the relational geometry generalizing the scalar impact field.
 - [[Echo chambers and polarization]] · [[Bounded confidence]] — the bounded, distance-weighted-impact regime.

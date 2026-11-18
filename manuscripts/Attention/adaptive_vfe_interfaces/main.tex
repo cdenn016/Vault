@@ -1,0 +1,527 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,microtype,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\N}{\mathcal N}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\calH}{\mathcal H}
+\newcommand{\calD}{\mathcal D}
+\newcommand{\calF}{\mathcal F}
+\newcommand{\SQ}{S_{Q}}
+\newcommand{\SK}{S_{K}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\title{Grounded Generative Models for Adaptive Query and Key Interfaces}
+\author{Robert C. Dennis}
+\date{Working note, October 26, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+A query specifies what an agent expects relevant communication to reveal, while a key specifies what its internal state predicts in a shared observable format. We construct individually normalized generative models in which both interfaces are inferred from grounded records rather than supplied as fixed shared matrices. Each agent minimizes only its own variational free energy. A latent relevance label associates incoming packets with the agent's current state, and acknowledged, independently grounded replies update its sending interface. The exact query posterior is a finite Gaussian mixture, the key posterior is Gaussian, and both effective maps are posterior-predictive coefficients. A strict finite-data condition keeps every conditional mean, the exact posterior means, and all stationary posterior density modes full row rank on a nonempty open class of noisy histories. Zero remains in the parameter space and in the support of zero-mean proper priors. The result does not guarantee noncollapse for every noisy history or derive a shared language, an information-seeking policy, or compatibility of all agents' subjective models from free energy alone.
+\end{abstract}
+
+\section{What is to be derived}
+
+In a conventional attention head the maps \(\SQ\) and \(\SK\) are shared parameters, while their input-dependent outputs determine the current routing pattern \citep{Vaswani2017}. The present construction makes a different modeling split. Each agent has its own uncertain communication-model parameters. Its accessible observations and interaction history determine a posterior over those parameters; the effective query and key maps are coefficients of the posterior-predictive distributions.
+
+The result is a conditional existence construction. It supplies a normalized observation model and derives its inference rules. The observation alphabet, the ability to establish that two records concern the same referent, the noise models, and the initial priors are constitutive data. They are not consequences of an optimization principle. Once supplied, the interface updates and the source probabilities follow from the same variational free energy. No additional prediction-error, reconstruction, information-gain, or audience-utility objective is used.
+
+We distinguish three assertions. A proper posterior has a nonzero matrix draw almost surely under mild regularity, but that fact is already true of an unrestricted Gaussian prior and says little about useful inference. A posterior mean can vanish by cancellation of nonzero components. A posterior density can also have a zero mode. The noncollapse theorem below addresses the effective means and the density modes, not merely individual draws. It retains a strict data condition, because a Gaussian-noise model cannot exclude all misleading finite histories.
+
+\section{Agents, records, and causality}
+
+Fix a finite population with at least two agents. Let the feature dimension be \(K\), and the message dimension be \(d\), where \(1\le d<K\). Agent \(i\)'s parameters are
+\[
+S_{Q,i},S_{K,i}\in\R^{d\times K}.
+\]
+They are distinct role parameters. Its feature \(x_{i,t}\in\R^K\) is available to the agent at the beginning of a round. It can contain private sensory features, locally computed belief summaries, an observed goal register, and summaries of previous exchanges. It is not another agent's hidden state.
+
+The conditional construction treats these features as observed designs. A predictable design is a measurable function of fully recorded past data, or is sampled from a specified kernel whose conditional law has no direct dependence on the unknown interface matrices. Present private observations are included with their own likelihoods, or explicitly treated as conditioned-on exogenous inputs. The exact formulas proved below concern these observed designs; integrating out uncertain latent designs generally removes the finite-mixture conjugacy. For an adaptive experiment the displayed likelihood is the response likelihood in its chronological joint, not in general the law obtained by conditioning only on an entire future design sequence.
+
+The accessible history \(\calH_i^{t-1}\) contains only completed observations and exchanges. Latent matrices are stationary during the finite inference window. Their posterior estimates adapt as records accumulate. This is adaptation of an inferred model, not a theorem about a nonstationary latent coefficient process.
+
+\subsection{A private state model}
+
+An agent can also infer a private represented state. A concrete block is
+\begin{equation}
+Z_i\sim\N(m_i^0,C_i^0),\qquad
+O_i\mid Z_i\sim\N(L_iZ_i,R_i),\qquad C_i^0,R_i\succ0.
+\label{eq:private-state}
+\end{equation}
+Its own posterior is \(\N(m_i,C_i)\), where
+\begin{align}
+C_i&=\left((C_i^0)^{-1}+L_i^\top R_i^{-1}L_i\right)^{-1},\nonumber\\
+m_i&=C_i\left((C_i^0)^{-1}m_i^0+L_i^\top R_i^{-1}o_i\right).
+\label{eq:private-posterior}
+\end{align}
+The observed design can be a recorded function of \((m_i,C_i,o_i,\calH_i^-)\). This function and any goal register are specified before the current packets or replies arrive. Appending \eqref{eq:private-state} to the communication model gives the normalized joint \(p_i(z_i,o_i)P_i(S_{Q,i},S_{K,i},J_i,D_i\mid x_i(o_i,\calH_i^-))\). Conditional on the private observation, the state posterior and communication posterior factor in this witness. For product recognition, their negative ELBOs add as blocks of one VFE, and the exact posterior belongs to this product family. For correlated recognition, the exact decomposition additionally contains the mutual information between the private-state and communication blocks under the recognition law. This conditional independence is a modeling choice. We do not replace an unobserved \(Z_i\) inside a communication likelihood by its mean and claim the same exact model.
+
+\subsection{Grounding and the two roles}
+
+A grounded query record is a pair \((x,y)\in\R^K\times\R^d\). The vector \(y\) is an independently measured observable of the referent represented by the accessible feature \(x\). A private sensor and a later observation of the same event are possible sources. Agent \(i\)'s model is
+\begin{equation}
+y\mid x,S_{Q,i}\sim\N(S_{Q,i} x,\tau^2I_d),\qquad \tau>0.
+\label{eq:ground-q}
+\end{equation}
+Thus \(S_{Q,i} x\) predicts an observable format in which a relevant packet can be compared.
+
+A grounded key record is an acknowledged reply to an earlier emission. The sender retains its own feature \(u\) at that emission. An attending listener returns an independent measurement \(f\) concerning the same referent. The sender models
+\begin{equation}
+f\mid u,S_{K,i},A=1\sim\N(S_{K,i} u,\nu^2I_d),\qquad \nu>0.
+\label{eq:ground-k}
+\end{equation}
+The payload is a fresh observation or correction, not the sender's code copied back to it. Co-reference and the public record format are assumptions of the experiment. The effective matrices mapping private features to those records are unknown.
+
+A physical record enters an agent's likelihood once. A later fresh reply is a new record. Reusing a calibration value as though it were an independent reply would give a different model.
+
+\subsection{Incoming packets and relevance}
+
+At listening round \(t\), agent \(i\) receives packets
+\[
+m_{ij,t}\in\R^d,\qquad j\in\mathcal N_{i,t},
+\]
+from a finite nonempty set of available sources. Sender identities are observed. The latent variable \(J_{i,t}\) denotes which packet is associated with the receiver's current referent; it does not hide the physical sender identity.
+
+Before those packets arrive, specify positive normalized probabilities \(\pi_{ij,t}\), positive variances \(\sigma_{i,t}^2\), and normalized positive background densities \(g_{ij,t}\). Gaussian backgrounds suffice. Availability and positional information can enter \(\mathcal N_{i,t}\) and \(\pi_i\). The parameters of the backgrounds are fixed from earlier records, not fitted to the same packet and then treated as independent data.
+
+The source noise is common over candidates within a round. That restriction is used for the common-precision posterior theorem; normalization itself does not require it.
+
+\subsection{Observable attention and returned feedback}
+
+For a potential return event \(e=(k,t)\), let \(A_e\in\{0,1\}\) be the observed attendance acknowledgment and let \(F_e\) have values in the disjoint union \(\{\bot\}\sqcup\R^d\). The symbol \(\bot\) means that no payload was returned. The design \(u_e\) is the sender's retained feature at the earlier emission. A strictly positive probability \(a_e\in(0,1)\) is predicted from already accessible records.
+
+The payload likelihood depends on \(S_{K,i}\) only when \(A_e=1\). An acknowledgment with no content and with parameter-independent attendance probability changes the record of who listened, but does not identify a new encoding direction. This is an observation constraint, not an omitted social reward.
+
+\section{A normalized generative model for one agent}
+
+We suppress \(i\) in the algebra. The rows of the two matrices have independent proper priors
+\begin{equation}
+(\SQ)_{a,:}\sim\N(0,\Lambda_Q^{-1}),\qquad
+(\SK)_{a,:}\sim\N(0,\Lambda_K^{-1}),\qquad
+\Lambda_Q,\Lambda_K\succ0.
+\label{eq:priors}
+\end{equation}
+The query and key priors are independent in this witness. Every real matrix, including zero, is in their support. No nonzero shared matrix is inserted through the prior mean.
+
+Write \(p_Q^0,p_K^0\) for the resulting densities, and let \(L_Q(D_Q\mid\SQ)\) be the product of the grounded query factors in \eqref{eq:ground-q}. Initial key grounding can be supplied by an earlier finite block of actual attended returns; it is not a separate objective.
+
+\subsection{The entire candidate set must be modeled}
+
+For one listening round define
+\begin{equation}
+\begin{split}
+&P_t(J_t=j,m_{t,\mathrm{all}}\mid \SQ,x_t)\\
+&\quad =
+\pi_{tj}
+\N(m_{tj};\SQ x_t,\sigma_t^2I_d)
+\prod_{k\ne j}g_{tk}(m_{tk}).
+\end{split}
+\label{eq:packet-joint}
+\end{equation}
+One packet is modeled as relevant to the current state and the others as background packets. Conditional on a label, those observations are independent. The full model therefore contains every packet that the receiver actually observes.
+
+For a potential return event define
+\begin{align}
+P_e(A_e=0,F_e=\bot\mid\SK,u_e)&=1-a_e,\nonumber\\
+P_e(A_e=1,F_e\in df\mid\SK,u_e)
+&=a_e\N(f;\SK u_e,\nu_e^2I_d)df.
+\label{eq:feedback-joint}
+\end{align}
+Use counting measure on the attendance bit and the disjoint-union measure consisting of a unit atom at \(\bot\) and Lebesgue measure on \(\R^d\).
+
+\begin{proposition}[Local normalization]
+For fixed observed designs and a finite window, the product
+\begin{equation}
+\begin{split}
+P(\SQ,\SK,J,D)
+={}&p_Q^0(\SQ)p_K^0(\SK)L_Q(D_Q\mid\SQ)\\
+&\times\prod_tP_t(J_t,m_{t,\mathrm{all}}\mid\SQ,x_t)
+\prod_eP_e(A_e,F_e\mid\SK,u_e)
+\end{split}
+\label{eq:local-model}
+\end{equation}
+is a normalized joint distribution over parameters, labels, and records. All record noises are strictly positive.
+\end{proposition}
+\begin{proof}
+For each fixed \(j\), integrating the Gaussian in its own packet variable and every background in its own variable gives one. Summing over \(j\) in \eqref{eq:packet-joint} gives \(\sum_j\pi_{tj}=1\). Summing and integrating \eqref{eq:feedback-joint} gives \(1-a_e+a_e=1\). The grounding factors and the proper priors also integrate to one. Tonelli's theorem permits the iterated integration because all factors are nonnegative. For predictable designs, the same argument applies in chronological order, including their specified policy kernels if they are random.
+\end{proof}
+
+For Gaussian backgrounds, every finite observed record has positive finite evidence. Indeed all fixed-variance observation densities are positive and bounded, the label set is finite, and the priors are proper.
+
+\subsection{One own-agent free energy}
+
+For any absolutely continuous recognition density \(q(\SQ,\SK,J)\) with finite displayed terms, define
+\begin{equation}
+\calF_i[q;D]
+=
+\E_q\left[\log q(\SQ,\SK,J)-\log P(\SQ,\SK,J,D)\right].
+\label{eq:vfe}
+\end{equation}
+The sign convention is negative evidence lower bound. Substitution of Bayes' rule gives
+\begin{equation}
+\boxed{
+\calF_i[q;D]
+=
+\KL\bigl(q\Vert P(\SQ,\SK,J\mid D)\bigr)-\log P(D).
+}
+\label{eq:vfe-identity}
+\end{equation}
+Its unique minimizing law, up to null sets, is the posterior. This is the ordinary variational identity \citep{NealHinton1998}.
+
+For example, the selected-packet contribution to this same free energy is
+\[
+\E_q\left[
+\frac{\norm{m_{tJ_t}-\SQ x_t}^2}{2\sigma_t^2}
++\frac d2\log(2\pi\sigma_t^2)
+\right].
+\]
+The returned-payload contribution has the analogous form with the observed factor \(A_e\). These quadratics are negative log likelihoods. They have not been added as a second loss. The prior, recognition entropy, background likelihoods, and label and attendance probabilities remain in \eqref{eq:vfe}. A parameter-dependent noise model would require its complete normalization and parameter dependence.
+
+\section{Exact inference of query, key, and attention}
+
+\subsection{The grounded query posterior}
+
+After the private query grounding block, set
+\begin{equation}
+\begin{split}
+H_{Q,0}&=\Lambda_Q+\sum_\ell\tau_\ell^{-2}x_\ell x_\ell^\top,\\
+N_{Q,0}&=\sum_\ell\tau_\ell^{-2}y_\ell x_\ell^\top,\qquad
+M_{Q,0}=N_{Q,0}H_{Q,0}^{-1}.
+\end{split}
+\label{eq:q-ground-stats}
+\end{equation}
+Completing the square gives independent posterior rows with means \(M_{Q,0,a,:}\) and covariance \(H_{Q,0}^{-1}\).
+
+For a complete finite relevance-label history \(s=(j_1,\ldots,j_T)\), define
+\begin{align}
+G_Q&=\sum_t\sigma_t^{-2}x_tx_t^\top,\qquad H_Q=H_{Q,0}+G_Q,\nonumber\\
+B_s&=\sum_t\sigma_t^{-2}m_{t,j_t}x_t^\top,\nonumber\\
+N_s&=N_{Q,0}+B_s,\qquad M_s=N_sH_Q^{-1}.
+\label{eq:q-label-stats}
+\end{align}
+The precision \(H_Q\) is independent of \(s\), since every round contributes the same design and noise precision for each possible label.
+
+\begin{proposition}[Exact interface posteriors]
+The query posterior conditional on \(s\) has independent rows
+\begin{equation}
+(\SQ)_{a,:}\mid s,D\sim\N(M_{s,a,:},H_Q^{-1}).
+\label{eq:q-component}
+\end{equation}
+The exact marginal is a finite mixture of these distributions with positive normalized weights \(\omega_s\). The key posterior has independent rows
+\begin{equation}
+(\SK)_{a,:}\mid D\sim\N(M_{K,a,:},H_K^{-1}),
+\label{eq:k-posterior}
+\end{equation}
+where
+\begin{align}
+H_K&=\Lambda_K+\sum_eA_e\nu_e^{-2}u_eu_e^\top,\nonumber\\
+N_K&=\sum_eA_e\nu_e^{-2}f_eu_e^\top,\qquad
+M_K=N_KH_K^{-1}.
+\label{eq:k-stats}
+\end{align}
+The initial grounded return block is included in these sums.
+\end{proposition}
+\begin{proof}
+For one row of either interface, the log prior and the relevant log likelihoods collect into
+\[
+-\frac12\theta^\top H\theta+n^\top\theta+\mathrm{constant}
+=
+-\frac12(\theta-H^{-1}n)^\top H(\theta-H^{-1}n)
++\mathrm{constant}.
+\]
+Each precision is positive definite because it is a positive-definite prior precision plus positive-semidefinite Gram matrices. This proves the conditional Gaussian laws. Summation over the finite query label histories gives the marginal query mixture. The feedback factors contain no query parameter, and the packet factors contain no key parameter, so their posterior blocks factor for the stated local model. Attendance is observed; its parameter-independent probability does not alter the conditional key normal equations.
+\end{proof}
+
+For reproducibility, the mixture weights can be written without an unspecified evidence integral. Up to a common normalizer,
+\begin{equation}
+\begin{split}
+\omega_s\ \propto\ &
+\prod_t\frac{\pi_{t,j_t}}{g_{t,j_t}(m_{t,j_t})}\\
+&\times\exp\left[
+-\frac12\sum_t\sigma_t^{-2}\norm{m_{t,j_t}}^2
++\frac12\tr(N_sH_Q^{-1}N_s^\top)
+\right].
+\end{split}
+\label{eq:mixture-weights}
+\end{equation}
+The common factors include \(\lvert H_{Q,0}\rvert^{d/2}/\lvert H_Q\rvert^{d/2}\), the Gaussian noise normalizers, and the integrated grounding factor. They cancel between label histories, whereas the selected background densities generally do not.
+
+\subsection{The effective maps and their uncertainty}
+
+The effective maps are the posterior-predictive mean coefficients
+\begin{equation}
+\boxed{
+\overline{\SQ}_i=\sum_s\omega_sM_s,\qquad
+\overline{\SK}_i=M_K.
+}
+\label{eq:effective-maps}
+\end{equation}
+They are not fixed shared parameters, and they need not coincide. At a new available state \(x\), the predictive relevant-packet density is
+\begin{equation}
+p_i^-(m\mid x)
+=
+\sum_s\omega_s
+\N\left(m;M_sx,\bigl(\sigma^2+x^\top H_Q^{-1}x\bigr)I_d\right),
+\label{eq:query-predictive}
+\end{equation}
+where the superscript indicates that only earlier records are used. A broadcast can use the normalized posterior-predictive key channel
+\begin{equation}
+m_i\mid\calH_i^-,x_i
+\sim
+\N\left(m_i;\overline{\SK}_ix_i,
+\bigl(\sigma_{\mathrm{emit}}^2+x_i^\top H_K^{-1}x_i\bigr)I_d\right),
+\label{eq:emit}
+\end{equation}
+with positive emission variance. The mean coefficients summarize these distributions; uncertainty about the maps is not silently discarded.
+
+Current state enters both through the evaluated features and, after grounded observations or returns, through the new sufficient statistics. History enters through the whole posterior. A state change need not change the coefficient matrix before new evidence arrives; it changes the query or key output even when that matrix is unchanged.
+
+\subsection{Attention is an association posterior}
+
+Integrating \eqref{eq:packet-joint} against the pre-round query posterior gives
+\begin{equation}
+\boxed{
+\beta_{ij,t}
+=
+\frac{\pi_{ij,t}p_i^-(m_{ij,t}\mid x_{i,t})/g_{ij,t}(m_{ij,t})}
+{\sum_k\pi_{ik,t}p_i^-(m_{ik,t}\mid x_{i,t})/g_{ik,t}(m_{ik,t})}.
+}
+\label{eq:attention}
+\end{equation}
+The likelihood ratio compares a relevant-packet explanation with a background-packet explanation. This row is an ordinary posterior at unit temperature. It is generally different from applying a softmax to a Gaussian KL between two marginal beliefs. Recovering such a router would require additional assumptions.
+
+An optional restricted recognition family \(q(\SQ)\prod_tq(J_t)\) gives Gaussian coordinate updates with
+\[
+N_Q=N_{Q,0}+\sum_{t,j}\beta_{tj}\sigma_t^{-2}m_{tj}x_t^\top
+\]
+and expected-log likelihood ratios for its label updates. The variational coordinate identity follows by isolating one factor's entropy in \eqref{eq:vfe} \citep{Blei2017}. Its source row is not generally the integrated predictive row \eqref{eq:attention}. Neither a Gaussian coordinate mean nor a posterior density mode is a point-mass variational law against the continuous prior.
+
+Exact filtering retains a finite mixture whose number of components can grow with the relevance-label history. Finite-dimensional sufficient statistics exist conditional on a label history; no fixed-size exact mixture closure is claimed.
+
+\section{Why zero is disfavored by evidence}
+
+A continuous prior that assigns zero probability to an exact zero matrix does not solve the collapse question. Every small neighborhood of zero still has positive prior probability, and an inferred mean can be exactly zero. We therefore prove a statement about the actual effective maps and posterior density modes.
+
+\begin{theorem}[A finite-data noncollapse certificate]
+Consider either role after an initial grounding block, with positive-definite precision \(H_0\), numerator \(N_0\), and mean \(M_0=N_0H_0^{-1}\). Assume \(M_0\) has full row rank. Let every relevant finite-label component add \(G_s\succeq0\) and \(B_s\), with
+\[
+\norm{G_s}_2\le B_H,\qquad \norm{B_s}_2\le B_N.
+\]
+Set
+\begin{equation}
+\epsilon=
+\frac{B_N+\norm{M_0}_2B_H}{\lambda_{\min}(H_0)}.
+\label{eq:radius}
+\end{equation}
+If \(\epsilon<\sigma_d(M_0)\), then every conditional posterior mean and the exact posterior mean satisfy
+\begin{equation}
+\sigma_d(\overline S)\ge\sigma_d(M_0)-\epsilon>0.
+\label{eq:rank-bound}
+\end{equation}
+Every stationary point of the posterior density, including every global density mode, has the same lower bound. The Gaussian variational coordinate means have it when their statistics are convex combinations of the same component statistics.
+\label{thm:noncollapse}
+\end{theorem}
+\begin{proof}
+Writing \(H_s=H_0+G_s\), the component mean obeys the exact identity
+\begin{equation}
+M_s-M_0=(B_s-M_0G_s)(H_0+G_s)^{-1}.
+\label{eq:perturbation}
+\end{equation}
+Since \(G_s\succeq0\), the norm of \(M_s-M_0\) is at most \(\epsilon\). The posterior mean is a convex average of the component means and therefore occupies the same spectral-norm ball. For any \(d\times K\) matrices \(A,B\),
+\[
+\sigma_d(A)
+=
+\inf_{\norm{v}=1}\norm{A^\top v}
+\ge
+\sigma_d(B)-\norm{A-B}_2.
+\]
+This proves \eqref{eq:rank-bound}.
+
+For a stationary point \(S\) of a finite Gaussian mixture, let \(r_s(S)\) be the normalized component responsibilities at that matrix. The score equation is
+\[
+0=\sum_sr_s(S)\left(N_0+B_s-S(H_0+G_s)\right).
+\]
+Thus
+\[
+S=
+\left(N_0+\sum_sr_sB_s\right)
+\left(H_0+\sum_sr_sG_s\right)^{-1}.
+\]
+The same perturbation identity and bounds apply to these convex combinations. A global mode exists because a finite positive-definite Gaussian mixture is continuous and tends to zero at infinity, and every such mode is stationary in the unrestricted matrix space. The coordinate-mean assertion uses the same square completion with fractional label responsibilities.
+\end{proof}
+
+In the packet model one may take the directly observable bounds
+\begin{equation}
+B_H=\sum_t\sigma_t^{-2}\norm{x_t}^2,\qquad
+B_N=\sum_t\sigma_t^{-2}\max_j\norm{m_{tj}}\norm{x_t}.
+\label{eq:packet-bounds}
+\end{equation}
+The common source precision makes the component covariances equal, but the theorem also permits different positive-semidefinite Gram additions. For the key role the analogous sums run only over the actual additional attended returns. An absent reply contributes neither a Gram term nor a cross-record term.
+
+\subsection{An explicit open noisy class}
+
+The data condition is not empty. For any \(1\le d<K\), define a reference response
+\[
+S_*=[I_d\quad0],\qquad
+X_g=2I_K,\qquad
+Y_g=2S_*+\frac1{40}e_1e_K^\top,
+\]
+with unit observation variances and zero-mean prior precision \(I_K\). The first basis vector is in \(\R^d\), and the last is in \(\R^K\). The reference \(S_*\) specifies observed data for an existence witness; the inference algorithm is not given it as a prior mean or a fixed map.
+
+The grounding statistics are
+\[
+H_0=5I_K,\qquad
+N_0=4S_*+\frac1{20}e_1e_K^\top.
+\]
+Use the full-rank center \(S_0=\frac45S_*\). Allow one additional design \(x=e_K\) and a selected packet or returned payload of norm at most \(1/10\). The grounding perturbation relative to \(S_0H_0\) has norm \(1/20\), while the additional cross statistic and Gram matrix have bounds \(1/10\) and \(1\). Applying the proof of Theorem~\ref{thm:noncollapse} with this fixed center gives
+\begin{equation}
+r=
+\frac{1/20+1/10+(4/5)\cdot1}{5}
+=
+\frac{19}{100},
+\qquad
+\boxed{\sigma_d(\overline S)\ge\frac{61}{100}.}
+\label{eq:explicit-margin}
+\end{equation}
+The same preparation can be used separately for both roles and for every agent in a finite population. Candidates may be chosen strictly inside the displayed payload bound, or the bound may be increased slightly; the margin remains strict.
+
+The class remains admissible under sufficiently small perturbations of every continuous design and observed record. Positive definiteness, singular values, and the finite component bounds vary continuously. Fixing a discrete attendance pattern gives an open stratum in the product of Euclidean and discrete topologies. Unit Gaussian observation noise has positive density on each such finite open neighborhood. If designs are generated from positive-density kernels, the same holds for their neighborhoods; if a calibration protocol fixes the designs, openness is relative to the remaining observation coordinates. This proves a nonempty open class with positive noise, rather than a zero-noise or hard-rank construction.
+
+The strict margin is evidence-based. With zero-mean priors and zero observed response vectors, the corresponding single-component posterior mean is zero even if the designs span \(\R^K\). Gaussian noise also gives positive probability to neighborhoods of arbitrarily weak signals. Accordingly \eqref{eq:explicit-margin} is not asserted for every history.
+
+\section{A two-coordinate reciprocal example}
+
+Take \(K=2,d=1\), unit variances, prior precision \(I_2\), and grounding designs \(2e_1,2e_2\) with observed scalar records \(2,1/40\). The initial effective map in either role is
+\[
+M_0=\left(\frac45,\frac1{100}\right).
+\]
+
+For the query role, take current state feature \(x=e_2\), two packets \(m_+=1/10,m_-=-1/10\), equal source priors, and equal standard-normal background densities. The predictive relevant-packet variance is \(1+1/5=6/5\), and
+\[
+\beta_+=\frac{1}{1+\exp(-1/600)}.
+\]
+The conditional query means are
+\[
+M_+=\left(\frac45,\frac1{40}\right),
+\qquad
+M_-=\left(\frac45,-\frac1{120}\right),
+\]
+so the exact effective query is
+\[
+\overline{\SQ}
+=
+\left(\frac45,-\frac1{120}+\frac{\beta_+}{30}\right).
+\]
+This is a finite-mixture inference result, with posterior uncertainty retained.
+
+For the key role, compare the history with no return to the history with an acknowledged independent return \(u=e_2,f=1/10\). Equation~\eqref{eq:k-stats} gives
+\[
+\overline{\SK}_{A=0}
+=
+\left(\frac45,\frac1{100}\right),
+\qquad
+\overline{\SK}_{A=1}
+=
+\left(\frac45,\frac1{40}\right).
+\]
+Receiving the content-bearing reply changes the direction of the effective key. No audience reward has been optimized. The sender has updated its own model of what its private features predict in the public record format. Both maps retain the certified positive rank margin. This finite example demonstrates dependence on records, not a general theorem that each individual noisy reply improves prediction.
+
+\section{A causal population protocol and the meaning of reciprocity}
+
+A finite operational round can proceed in a fixed order. Every agent first forms features and predictive distributions from its already accessible history. It emits a packet through \eqref{eq:emit}. Each listener receives available addressed packets, computes \eqref{eq:attention} in its own model, and samples an attended source from that row. An attendance acknowledgment is made accessible. An attending listener may then return a fresh co-reference observation through a normalized reply kernel. The original sender assimilates that return before the next round. Fresh private grounding observations can be inserted at declared times.
+
+\begin{proposition}[Chronological normalization]
+Given proper initial agent histories, measurable posterior-predictive kernels, finite positive source rows, and normalized grounding, delivery, and reply kernels, every finite execution of this protocol has a normalized chronological joint law.
+\end{proposition}
+\begin{proof}
+Conditioned on the already generated history, each next event has a normalized kernel. Multiplying in causal order and integrating the last event first removes one factor at a time. Finite iterated integration leaves the normalized initial law. The exact finite-mixture posterior formulas are measurable functions of finite records, since they use positive finite sums, matrix inversion on the positive-definite cone, and Gaussian densities.
+\end{proof}
+
+The packet-association law \eqref{eq:packet-joint} is the receiver's subjective model. It hypothesizes one relevant packet and independent backgrounds. Actual packets in the operational protocol are emitted from senders' predictive channels. The two normalized objects need not have matching conditionals. No theorem that all subjective models are conditionals of one shared population model is used or proved.
+
+Reciprocity here means accessible feedback in both directions. Agent \(i\)'s key update includes likelihoods of observations returned by agents that attended to \(i\). It does not include derivatives of their free energies. Individually minimizing own free energies does not, without further compatibility, imply descent of their sum or a common population Lyapunov function.
+
+The posterior relevance row and the later attention action are also distinct objects. Using that row as the distribution of the next attended source is the declared inference policy. It requires no second optimized loss, but its choice as an action policy is part of the protocol. The construction proves neither optimal future questioning nor an automatic epistemic drive from current-record VFE. Such policy claims need an action model and additional hypotheses \citep{Millidge2021}.
+
+\subsection{An explicit grounding and return kernel}
+
+One operational realization introduces unobserved operating responses \(T_{Q,i}^{\circ},T_{K,i}^{\circ}\in\R^{d\times K}\), drawn once from proper zero-mean full-support Gaussian laws. They are allowed to differ between agents and roles. They characterize the unknown relation between private features and the tagged observable referents; the inference algorithm is not given their values. A private grounded record is generated as
+\[
+Y_i^Q=T_{Q,i}^{\circ}x_i+\epsilon_i^Q,
+\qquad \epsilon_i^Q\sim\N(0,\tau_i^2I_d).
+\]
+For an emission tagged by \(e\), retain the source's accessible \(u_e\). After attendance is chosen and before the listener sees the fresh referent value, generate
+\begin{align}
+R_e\mid T_{K,i}^{\circ},u_e&\sim\N(T_{K,i}^{\circ}u_e,\rho_e^2I_d),\nonumber\\
+F_e\mid R_e,A_e=1&\sim\N(R_e,\zeta_e^2I_d),\qquad
+\rho_e^2+\zeta_e^2=\nu_e^2,\qquad \rho_e,\zeta_e>0.
+\label{eq:operational-return}
+\end{align}
+All fresh noises are independent conditional on the operating responses and recorded designs. The listener measures \(R_e\); it need not read the sender's private feature \(u_e\) or its matrix. Gaussian convolution gives \eqref{eq:ground-k}. This is a sensor measurement of the tagged referent, not the emitted packet echoed back. Attendance precedes access to this fresh value, so selecting an attendee does not silently truncate its conditional noise distribution. These kernels, the initial parameter draws, and the emission and attention kernels explicitly instantiate the chronological normalization proposition. The subjective packet-background hypothesis is still not identified with the resulting population conditional law.
+
+The simultaneous finite preparation can use three agents. During a scheduled co-reference calibration phase, each agent makes the \(K\) grounded designs of the preceding section and receives independent tagged returns through a directed cycle of attended probes. Probe packets are conditioned-on communication actions; the fresh return measurements are the calibration records. Ordinary candidate association starts after this block. A final ordinary round can use the other two agents as candidates, bounded packet values, and another directed cycle of attended sources. Every such cycle has positive probability under strictly positive rows. Gaussian emissions, grounding noises, and return noises have positive density on the finite open record neighborhoods used in the rank proof. Thus the simultaneous preparation respects a feasible communication graph rather than prescribing mutually incompatible attendance bits.
+
+\section{Failure cases and interpretation}
+
+Agreement-only observations are insufficient. If independent \(z_i,z_j\sim\N(0,1)\) produce
+\[
+c=az_i-bz_j+\varepsilon,\qquad
+\varepsilon\sim\N(0,\sigma^2),
+\]
+then
+\[
+p(c=0\mid a,b)
+=
+\left[2\pi(a^2+b^2+\sigma^2)\right]^{-1/2}.
+\]
+Its evidence is maximized by \(a=b=0\). The present grounding and returned observation factors defeat collapse on the stated informative data class; simply promoting an ungrounded comparison matrix to a latent parameter would not do so.
+
+The noncollapse theorem is not a samplewise lower bound. Every neighborhood of zero has positive posterior probability under these full-support Gaussian mixtures. Nor does full row rank identify a complete hidden dictionary: a lossy channel can leave undisclosed directions unresolved. The directly grounded object here is a \(d\times K\) conditional-mean interface in an agreed observable format.
+
+The construction uses Gaussian laws for explicit calculation. Normalized observation kernels, causal composition, and the VFE identity extend to general standard Borel models with the required disintegrations and finite terms. Conjugate matrix posteriors, finite label mixtures of that form, and the particular spectral-norm certificate are results for the specified linear-Gaussian realization. They are not asserted for arbitrary nonlinear or latent-design models.
+
+No nonzero shared matrix, nonzero prior mean, rank-excluding support, or second objective is needed for this finite-history result. What is supplied is a grounded observation protocol with sufficiently informative records. The inferred maps describe how each agent's private state relates to that protocol; the existence of referents, a common message format, and a useful communication opportunity is not derived from VFE alone.
+
+\begin{thebibliography}{9}
+\bibitem{Vaswani2017}
+A. Vaswani et al.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, 2017.
+\newblock \url{https://arxiv.org/abs/1706.03762}.
+
+\bibitem{NealHinton1998}
+R. M. Neal and G. E. Hinton.
+\newblock A view of the EM algorithm that justifies incremental, sparse, and other variants.
+\newblock In M. I. Jordan, editor, \emph{Learning in Graphical Models}, pages 355--368.
+Kluwer Academic Publishers, 1998.
+\newblock \url{https://glizen.com/radfordneal/em.abstract.html}.
+
+\bibitem{Blei2017}
+D. M. Blei, A. Kucukelbir, and J. D. McAuliffe.
+\newblock Variational inference: A review for statisticians.
+\newblock \emph{Journal of the American Statistical Association}, 112(518):859--877, 2017.
+\newblock \url{https://doi.org/10.1080/01621459.2017.1285773}.
+
+\bibitem{Millidge2021}
+B. Millidge, A. Tschantz, and C. L. Buckley.
+\newblock Whence the expected free energy?
+\newblock \emph{Neural Computation}, 33(2):447--482, 2021.
+\newblock \url{https://doi.org/10.1162/neco_a_01354}.
+\end{thebibliography}
+\end{document}

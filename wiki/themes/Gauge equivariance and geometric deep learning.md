@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-27
+updated: 2026-11-18
 ---
 
 # Gauge equivariance and geometric deep learning
@@ -72,8 +72,6 @@ There is one further step past Cohen and Weiler that this theme long left implic
 
 ## How it lands in this work
 
-The MAgent exact-ELBO construction now types continuum bundle fields and finite realizations separately. Sampling a supplied section on a finite design is not the same operation as marginalizing a correlated finite recognition law, although an explicit compatibility hypothesis can identify their outputs at the design points. Finite site variables alone are not a lattice gauge theory: a genuine lattice construction also declares an interaction complex, group-valued links on oriented edges, and two-cells or plaquettes. No continuum reconstruction or continuum-limit theorem follows merely from the finite ELBO.
-
 The architecture uses block-$\mathrm{GL}(K)$ frames to transport Gaussian beliefs. The full-Gaussian divergence is exactly invariant under common invertible pushforwards, but the live diagonal family is closed only under monomial congruences and otherwise requires projection. Regime-I vertex transport has exact trivial holonomy.
 
 For an identity-initialized post-belief head remap under the live untied product action $\mathrm{GL}(10)^H$, an off-diagonal $H\times H$ remap does not commute with independent per-head gauges and is therefore not gauge-equivariant. It becomes a Schur-commutant intertwiner only under a gauge tied across equivalent head copies. In the one-layer linear-decode path the map is absorbable into the output projection as a function-class statement, but no matched mixer-off control isolates its optimization effect.
@@ -81,10 +79,6 @@ For an identity-initialized post-belief head remap under the live untied product
 Full-SPD covariance geometry and Gaussian belief natural gradients remain valid. The frame conditioner is separate: the positive Frobenius/Cartan form is not full-$\mathrm{GL}(K)$ adjoint-invariant or Fisher, and its exponential-coordinate pullback is extrinsic and only locally positive definite where $D\exp$ has full rank.
 
 ## Open questions / gaps
-
-The active MAgent frame optimizer does not yet support the manuscript's full common-right $\mathrm{GL}^+(K)$ trajectory claim. Scalar Gaussian-KL invariance under a common pushforward remains valid, but the reached Frobenius body-covector update transforms under a different law from the one required by right-orbit equivariance for generic nonorthogonal gauge changes. The open design choice is whether to restrict the admitted symmetry, state a gauge fixing, or replace the update with a proved right-equivariant rule.
-
-Hierarchical closure creates a second domain problem. Legal bounded products of exponential frame increments can reach well-conditioned elements of $\mathrm{GL}^+(K)$ for which no real logarithm exists, while the current coarse-frame construction requires `matrix_log_principal`. A group-level construction that avoids a global logarithm, or an invariant restriction to a log-safe domain, is required before the formal frame group and executable hierarchy have the same domain.
 
 The main realized-family gap is exact: a single real exponential chart misses part of $\mathrm{GL}^+(K)$. Stored group elements (`omega_direct`) or multiple-chart constructions can cover transformations that the phi chart cannot. This is separate from LieConv's valid theorem under its own surjectivity premise.
 
@@ -94,7 +88,7 @@ Holonomy is closed in strict Regime I: $\Omega_{ij}=U_iU_j^{-1}$ telescopes arou
 
 [[ahn-2017-gauging-variational-inference]] uses factor reparameterizations to improve a
 graphical-model variational approximation. That is a useful algorithmic analogy, but it is not automatically
-the passive principal-bundle gauge of the MultiAgentELBO theory. [[gao-2021-synchronization-geometry]]
+a passive principal-bundle gauge. [[gao-2021-synchronization-geometry]]
 connects synchronization, flat bundles, and holonomy; [[singer-2012-vector-diffusion-maps]] and
 [[bandeira-2013-connection-cheeger]] supply spectral connection-Laplacian diagnostics under their
 orthogonal or compact hypotheses.
@@ -136,8 +130,8 @@ among all gauge-invariant node-feature transformations, a spanning-tree nullspac
 
 **What is importable rather than re-derivable.** Four things. (i) The smooth-to-discrete appendix of
 [[cassel-2025-yang-mills-data]] — graph voltages obtained from parallel transport, discrete
-Laplacians obtained from covariant derivatives — is exactly the bridge this theme's *How it lands in
-this work* section says a finite construction owes before it can call itself a lattice gauge theory.
+Laplacians obtained from covariant derivatives — is the bridge a finite construction owes before it can call itself a lattice gauge theory, which
+also needs a declared interaction complex, group-valued links on oriented edges, and plaquettes.
 (ii) The axiomatic characterization is a uniqueness argument for the gauge-covariant diffusion
 vertex, i.e. a principled answer to "why *this* covariant Dirichlet term". (iii) The
 Yang–Mills-energy-as-synchronizability-certificate result is a ready-made diagnostic for the
@@ -152,9 +146,8 @@ principal bundle, no gauge group, no connection, and no curvature term**; the ma
 not a section, and there is no local frame freedom to transport. The bundle papers have a genuine
 local gauge structure but **vector-space fibers**, not statistical ones, and their gauge field is a
 voltage to be analysed or parametrized rather than a dynamical connection co-optimized inside an
-inference objective. Neither side has a variational free energy: there is no likelihood, no
-accuracy/complexity decomposition, no population of agents with overlapping supports, and no
-local/global free-energy split. Finally, the concrete machinery is developed for $\mathrm{SO}(d)$,
+inference objective. Neither side has a variational free energy: there is no likelihood and no
+accuracy/complexity decomposition. Finally, the concrete machinery is developed for $\mathrm{SO}(d)$,
 a compact group — the caveat already recorded on
 [[Graph synchronization and connection Laplacians]] about noncompact $\mathrm{GL}^{+}$ links applies
 unchanged.

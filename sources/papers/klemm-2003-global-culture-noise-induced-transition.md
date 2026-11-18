@@ -41,7 +41,7 @@ The paper adds cultural drift, random single-trait changes at rate $r$, to Axelr
 
 ## Cross-links
 
-- Concepts: [[Axelrod model of cultural dissemination]], [[Phase transitions in social systems]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Axelrod model of cultural dissemination]], [[Phase transitions in social systems]], Meta-agents and hierarchical emergence
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[castellano-marsili-vespignani-2000-axelrod-transition]], [[axelrod-1997-dissemination-of-culture]], [[castellano-2009-statistical-physics-social-dynamics]], [[yang-1952-phase-transitions-condensation]]
 

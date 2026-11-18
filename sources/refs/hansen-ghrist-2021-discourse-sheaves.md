@@ -30,7 +30,7 @@ Hansen, Jakob, Ghrist, Robert (2021). *Opinion dynamics on discourse sheaves*. S
 
 Discourse sheaves represent selectively expressed opinions, and the paper studies associated Laplacians and diffusion of opinions and communication. PIFB2 uses this as a geometric comparison for selective matrix links; it does not equate vector-valued sheaf diffusion with a normalized VFE of probability laws. The archive is the 2020 arXiv v1 author preprint of the work published in 2021.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

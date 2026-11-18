@@ -37,11 +37,11 @@ The first pages state the aims and the framework for gravity models; the results
 
 ## Relevance to this research
 
-The manuscript cites the review as its source for Bettencourt's model, which it did not read directly, and it reads that model's territorial-unity condition (per-capita output pays the cost of crossing the city) as a one-round reach condition with a money budget in place of a time budget. The reading record states that the section on the Bettencourt model was read in the arXiv version. The connection is to scale-dependent structure of collectives, see [[Statistical physics of social systems and collective behavior]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the review as its source for Bettencourt's model, which it did not read directly, and it reads that model's territorial-unity condition (per-capita output pays the cost of crossing the city) as a one-round reach condition with a money budget in place of a time budget. The reading record states that the section on the Bettencourt model was read in the arXiv version. The connection is to scale-dependent structure of collectives, see [[Statistical physics of social systems and collective behavior]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; [[Meta-agents and hierarchical emergence]]; [[Network structure — small-world and scale-free]].
+[[Collective agents literature map]]; [[Statistical physics of social systems and collective behavior]]; Meta-agents and hierarchical emergence; [[Network structure — small-world and scale-free]].
 
 ## BibTeX
 

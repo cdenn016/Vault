@@ -48,13 +48,13 @@ The resulting collective dynamics are equivalent to sampling from the declared B
 
 ## Relevance to this research
 
-This is the strongest exact comparator for [[Multi-agent variational free energy]]. It shows that a global statistical-mechanical law can emerge from local active inference, while making the load-bearing assumptions inspectable. MultiAgentELBO should reproduce this special case as a positive control before claiming a broader reciprocal construction, and should treat broken symmetry, synchronous updating, and altered local models as negative controls.
+This is the strongest exact comparator for Multi-agent variational free energy. It shows that a global statistical-mechanical law can emerge from local active inference, while making the load-bearing assumptions inspectable. MultiAgentELBO should reproduce this special case as a positive control before claiming a broader reciprocal construction, and should treat broken symmetry, synchronous updating, and altered local models as negative controls.
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Multi-agent variational free energy]], [[Bayesian mechanics]]
+- Concepts: [[Collective active inference]], Multi-agent variational free energy, [[Bayesian mechanics]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

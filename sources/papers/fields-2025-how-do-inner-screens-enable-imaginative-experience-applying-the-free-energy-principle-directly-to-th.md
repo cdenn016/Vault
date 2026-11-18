@@ -28,7 +28,7 @@ Fields and colleagues ask how a system can experience internally generated image
 
 ## Relevance to this research
 
-The architecture informs distinctions among internal computation, externally available records, and receiver access in [[Cue-result generative memory]] and [[Quantum reference frames]]. It also motivates explicit interfaces between components of [[Gauge-Theoretic Multi-Agent VFE Model]]. A classical normalized record kernel can be compared with an inner screen operationally; identifying it with a quantum boundary or a phenomenal experience requires additional assumptions absent from that kernel alone.
+The architecture informs distinctions among internal computation, externally available records, and receiver access in [[Cue-result generative memory]] and [[Quantum reference frames]]. It also motivates explicit interfaces between components of Gauge-Theoretic Multi-Agent VFE Model. A classical normalized record kernel can be compared with an inner screen operationally; identifying it with a quantum boundary or a phenomenal experience requires additional assumptions absent from that kernel alone.
 
 ## BibTeX
 

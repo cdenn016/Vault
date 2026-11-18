@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Propagation of chaos
@@ -31,10 +31,6 @@ Classical results assume exchangeable or suitably typed independent initial cond
 
 Graphon models weaken full exchangeability by conditioning on a continuum type. The appropriate conclusion is then type-indexed asymptotic independence, not necessarily a single identical marginal for every agent.
 
-## In this work
-
-A MultiAgentELBO propagation-of-chaos program would first define stochastic finite-\(N\) dynamics and their interaction normalization, then derive a McKean--Vlasov or graphon-indexed limit and prove well-posedness. It should test fixed-\(k\) marginal discrepancies or coupled trajectory error over time. A deterministic natural-gradient descent, a continuum free-energy analogy, or convergence of empirical means alone is insufficient evidence.
-
 ## Sources
 
 - [[sznitman-1991-propagation-chaos]] — foundational lecture notes on chaos, nonlinear processes, and coupling arguments.
@@ -45,4 +41,3 @@ A MultiAgentELBO propagation-of-chaos program would first define stochastic fini
 
 - [[Graphon limits of agent networks]]
 - [[Mean-field games and continuum limits]]
-- [[Multi-agent variational free energy]]

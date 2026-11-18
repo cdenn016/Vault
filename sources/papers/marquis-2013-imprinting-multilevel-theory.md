@@ -35,7 +35,7 @@ Imprinting is defined as a process whereby, during a brief period of susceptibil
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, Meta-agents and hierarchical emergence
 - Related sources: [[stinchcombe-1965-social-structure-organizations]], [[zwanzig-1961-memory-effects]], [[boyd-1982-cultural-transmission-cooperation]]
 
 ## BibTeX

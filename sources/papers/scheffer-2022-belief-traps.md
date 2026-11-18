@@ -49,7 +49,7 @@ The dynamical-systems vocabulary used here — attractors, basins of attraction,
 ## Cross-links
 - Concepts: [[Belief Dynamics]], [[Attractor Networks]], [[Belief perseverance and confirmation bias|Confirmation Bias]], [[Threshold models and complex contagion|Social Contagion]], [[Opinion Dynamics]], [[Free-energy principle active inference|Free Energy Principle]]
 - Related sources: [[deffuant2000-bounded-confidence|deffuant-2000-mixing-beliefs]], [[hegselmann-2002-opinion|hegselmann-2002-opinion-dynamics]], [[parr-2022-active-inference|friston-2022-active-inference]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

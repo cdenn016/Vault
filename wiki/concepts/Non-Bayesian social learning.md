@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Non-Bayesian social learning
@@ -22,7 +22,7 @@ Non-Bayesian social learning studies networked agents who receive private signal
 
 ## Why it matters here
 
-This literature provides truth-learning and convergence baselines for MultiAgentELBO, but its goal differs from exact distributed posterior reconstruction. [[jadbabaie-2012-non-bayesian-social-learning]] blends a private Bayesian update with a DeGroot-like arithmetic average. [[lalitha-2018-distributed-hypothesis-testing]] uses multiplicative or log-linear belief aggregation and obtains error-exponent results for finite hypotheses. Their dynamics should not be described as interchangeable instances of one ELBO without an explicit derivation.
+This literature provides truth-learning and convergence baselines, but its goal differs from exact distributed posterior reconstruction. [[jadbabaie-2012-non-bayesian-social-learning]] blends a private Bayesian update with a DeGroot-like arithmetic average. [[lalitha-2018-distributed-hypothesis-testing]] uses multiplicative or log-linear belief aggregation and obtains error-exponent results for finite hypotheses. Their dynamics should not be described as interchangeable instances of one ELBO without an explicit derivation.
 
 ## Canonical update families
 
@@ -38,10 +38,6 @@ whereas a log-linear rule averages log beliefs or multiplies powers of neighbor 
 ## What the guarantees mean
 
 Typical results establish almost-sure concentration on a true state or characterize its exponential rate when the truth is distinguishable by the network's aggregate observations and the graph communicates information adequately. This is not the same as recovering the centralized posterior at each finite time. Consensus can occur on a false state under misspecification or insufficient identifiability, while exact posterior agreement can fail even when asymptotic decisions agree.
-
-## In this work
-
-A social-learning benchmark should use a finite state space with controlled private-signal KL divergences, vary graph connectivity, and report belief on the truth, agent disagreement, and centralized-posterior discrepancy separately. Arithmetic, log-linear, and full Bayesian-history baselines should be labeled by their actual information assumptions. A natural-gradient energy decrease does not by itself imply truth learning.
 
 ## Sources
 

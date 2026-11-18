@@ -26,7 +26,7 @@ The resulting BIC-FCH architecture links episodic tokens into an inferred histor
 
 ## Relevance to this research
 
-This is a useful cognitive precedent for explicit records and stateful identity in [[Multi-agent variational free energy]]. It separates an observed event from an inferred connection between events, a distinction relevant to a normalized generative memory. Its proposed linked histories do not themselves provide a probability law, an exact sufficient statistic, or an autonomous parent-agent realization.
+This is a useful cognitive precedent for explicit records and stateful identity in Multi-agent variational free energy. It separates an observed event from an inferred connection between events, a distinction relevant to a normalized generative memory. Its proposed linked histories do not themselves provide a probability law, an exact sufficient statistic, or an autonomous parent-agent realization.
 
 ## Reading and version
 

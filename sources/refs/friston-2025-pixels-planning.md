@@ -29,7 +29,7 @@ Equation 10 on page 8 motivates SVD compression through marginal entropy and an 
 
 ## Relevance and remaining obligation
 
-For [[PIFB2 refactor foundations September 2026]], this source supplies an active-inference precedent for learned hierarchical state/path models. The relevant comparison is between an explicitly supplied grouping and time-blocking architecture and a derivation that selects those operators within a normalized agent theory. The paper does not establish physical spacetime, physical inertia, or a general obstruction to local-section overlap. See [[Meta-agents and hierarchical emergence]], [[Generative model]], and [[Multi-agent variational free energy]].
+For PIFB2 refactor foundations September 2026, this source supplies an active-inference precedent for learned hierarchical state/path models. The relevant comparison is between an explicitly supplied grouping and time-blocking architecture and a derivation that selects those operators within a normalized agent theory. The paper does not establish physical spacetime, physical inertia, or a general obstruction to local-section overlap. See Meta-agents and hierarchical emergence, [[Generative model]], and Multi-agent variational free energy.
 
 ## BibTeX
 

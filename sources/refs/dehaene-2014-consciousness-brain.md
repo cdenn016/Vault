@@ -29,7 +29,7 @@ Dehaene's trade book synthesizes the **global neuronal workspace** theory of con
 
 ## Why the project cites it
 
-The manuscript [[participatory-it-from-bit]] cites Dehaene for the **global-workspace** account of conscious access, one of the major empirical theories PIFB situates itself among. Global broadcast/ignition — information becoming widely available across a network — has a structural echo in the project's multi-agent coupling, where coherent collective beliefs propagate across agents ([[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]]). It pairs with [[mashour-2020-global-workspace]] (the primary-literature statement) and sits in the [[Mathematical consciousness science]] thread alongside integration-based ([[tononi-2016-iit]]) and predictive ([[clark-2016-surfing-uncertainty]]) theories.
+The manuscript [[participatory-it-from-bit]] cites Dehaene for the **global-workspace** account of conscious access, one of the major empirical theories PIFB situates itself among. Global broadcast/ignition — information becoming widely available across a network — has a structural echo in the project's multi-agent coupling, where coherent collective beliefs propagate across agents (Multi-agent variational free energy, Meta-agents and hierarchical emergence). It pairs with [[mashour-2020-global-workspace]] (the primary-literature statement) and sits in the [[Mathematical consciousness science]] thread alongside integration-based ([[tononi-2016-iit]]) and predictive ([[clark-2016-surfing-uncertainty]]) theories.
 
 ## BibTeX
 

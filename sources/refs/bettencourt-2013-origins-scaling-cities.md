@@ -37,11 +37,11 @@ The abstract reports that the predictions were confirmed for thousands of cities
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper for the model's condition that per-capita output pay the cost of crossing the city, which it reads as a one-round reach condition with a money budget in place of a time budget. The manuscript's reading record says the model content was read through a review, a mathematical review by Ribeiro and coauthors (2023), and that the article itself was not read; the abstract and record are the basis here. The link to the vault is the question of how the reach of communication limits the size of a coherent collective, see [[Communication-constrained inference]], [[Meta-agents and hierarchical emergence]] and [[Statistical physics of social systems and collective behavior]].
+The collective-agents manuscript cites this paper for the model's condition that per-capita output pay the cost of crossing the city, which it reads as a one-round reach condition with a money budget in place of a time budget. The manuscript's reading record says the model content was read through a review, a mathematical review by Ribeiro and coauthors (2023), and that the article itself was not read; the abstract and record are the basis here. The link to the vault is the question of how the reach of communication limits the size of a coherent collective, see [[Communication-constrained inference]], Meta-agents and hierarchical emergence and [[Statistical physics of social systems and collective behavior]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Communication-constrained inference]]; [[Meta-agents and hierarchical emergence]]; [[Statistical physics of social systems and collective behavior]]; [[bettencourt-2007-growth-innovation-scaling]].
+[[Collective agents literature map]]; [[Communication-constrained inference]]; Meta-agents and hierarchical emergence; [[Statistical physics of social systems and collective behavior]]; [[bettencourt-2007-growth-innovation-scaling]].
 
 ## BibTeX
 

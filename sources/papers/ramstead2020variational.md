@@ -47,7 +47,7 @@ This paper is directly relevant to the multi-agent extension of the VFE transfor
 ## Cross-links
 - Concepts: [[Free-energy principle active inference|Free Energy Principle]], [[Active Inference]], [[Markov Blanket]], [[Variational Free Energy]], [[Niche Construction]]
 - Related sources: [[friston-2019-particular-physics|friston2019free]], [[ramstead-2018-answering-schrodinger|ramstead2018answering]], [[constant-2018-variational-niche|constant2018variational]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

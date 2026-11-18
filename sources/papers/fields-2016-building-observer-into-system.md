@@ -26,7 +26,7 @@ The paper's no-boundary argument further removes an a priori guarantee that a se
 
 ## Relevance to this research
 
-This directly informs [[Quantum reference frames]] and [[Multi-agent variational free energy]] by separating declared observer boundaries and identification rules from what a transcript can establish. A model may stipulate a normalized preparation and trusted protocol without claiming they were uniquely inferred from communication. The source does not prove that such stipulated models are impossible, or supply the missing dynamics for endogenous parent selection.
+This directly informs [[Quantum reference frames]] and Multi-agent variational free energy by separating declared observer boundaries and identification rules from what a transcript can establish. A model may stipulate a normalized preparation and trusted protocol without claiming they were uniquely inferred from communication. The source does not prove that such stipulated models are impossible, or supply the missing dynamics for endogenous parent selection.
 
 ## Reading and version
 

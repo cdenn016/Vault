@@ -23,7 +23,7 @@ The study operationalizes the Bayesian sequential-decision model in a controlled
 ## Relevance to this research
 This is the empirical anchor showing cascade theory is behaviorally real, and it is honestly *adjacent* to the program — valuable as a data target rather than as machinery the VFE functional uses. It provides the kind of human-behavioral benchmark a sociophysics model of belief coupling should ultimately aim to reproduce: if the program claims to recover herding as a limiting regime of softmax-weighted $\mathrm{KL}(q_i\|\Omega_{ij}[q_j])$ coupling, then the rates of correct versus incorrect cascades observed here (and their dependence on signal precision) are the empirical curves a calibrated belief-coupling model would be measured against. The relevance is grounding and validation, not mechanism: Anderson and Holt do not supply any equation the functional adopts; they supply the experimental phenomenon the functional should, in an appropriate regime, predict.
 
-See [[Information cascades and herding]], [[Multi-agent variational free energy]], [[Opinion dynamics]], [[Sociophysics]].
+See [[Information cascades and herding]], Multi-agent variational free energy, [[Opinion dynamics]], [[Sociophysics]].
 
 ## Cross-links
 - Concept: [[Information cascades and herding]]

@@ -31,7 +31,7 @@ Proposes a sticky-information model in which information about macroeconomic con
 A canonical micro-foundation of information rigidity — sluggish belief updating across a population — which is the economic analogue of the belief-inertia concept central to the SocialPhysics project.
 
 ## Cross-links
-[[Information rigidity]], [[Belief inertia]]
+[[Information rigidity]], Belief inertia
 
 ## BibTeX
 ```bibtex

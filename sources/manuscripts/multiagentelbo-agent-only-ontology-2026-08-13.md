@@ -144,6 +144,6 @@ ontology or established consequences.
 
 ## Related
 
-[[Gauge-Theoretic Multi-Agent VFE Model]] - [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] -
+Gauge-Theoretic Multi-Agent VFE Model - Agents as fiber-bundle sections -
 [[Participatory realism (it from bit)]] - [[Physics from Fisher information]] -
 [[Information is Physical]] - [[Emergent spacetime and holography]]

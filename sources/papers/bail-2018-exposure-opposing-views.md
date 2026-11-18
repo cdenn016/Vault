@@ -26,7 +26,7 @@ This is a strong, direct empirical test of the inertia thesis. A first-order DeG
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Belief inertia]], [[Hamiltonian belief dynamics]], [[Opinion dynamics]]
+- Related: Belief inertia, Hamiltonian belief dynamics, [[Opinion dynamics]]
 - Related sources: [[guess-2023-feed-algorithms-election]], [[bakshy-2015-ideological-diversity-facebook]], [[sunstein-2002-law-of-group-polarization]]
 
 ## BibTeX

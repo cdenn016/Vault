@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # Information geometry and natural gradient
@@ -52,24 +52,10 @@ conventional AIRM. Broader links to statistical mechanics,
 physics from Fisher information, and quantum monotone metrics remain comparison
 themes rather than optimizer identities.
 
-**Covariant informational pullback and inference duration.** A statistical fiber metric does not pull
-back along a bundle section by treating $Ts$ as purely vertical. A selected connection defines
-$D^\omega s=\operatorname{ver}^\omega\circ Ts$, and the perceived base tensor is
-$h_s^\omega=(D^\omega s)^*g^F$. Under the stated hypotheses it is passive-gauge invariant but
-connection-relative and generally degenerate. In configuration space, the Fisher metric also measures
-the length of a VFE-selected orbit. Fisher arclength is a reparameterization-invariant, agent-relative
-information duration; it is not a primitive or physical time variable. The full-law Fisher metric,
-not an unproved sum of marginal metrics, is the exact geometry when belief/model dependence matters.
-
-**DQM, Fisher loss, and cross-scale anomalies.** Differentiability in quadratic mean supplies the
+**DQM and Fisher loss under coarsening.** Differentiability in quadratic mean supplies the
 $L^2$ score tangent needed for local Fisher geometry. Under one normalized,
 parameter-independent Markov channel, the coarse score is conditional expectation and the lost
-Fisher information is the positive-semidefinite conditional score covariance. Pulling this result to
-agent-perceived base geometry is subtler: the exact covariant-jet chain rule contains a horizontal
-anomaly, so clean base positivity requires that anomaly to vanish. Configuration-space natural-flow
-comparisons likewise require a declared smooth configuration manifold, recognition lift, objective,
-metric or mobility, and coarse map; equality of objective names alone does not imply
-semiconjugacy.
+Fisher information is the positive-semidefinite conditional score covariance.
 
 ## How it lands in this work
 
@@ -114,7 +100,7 @@ a common recovery kernel for a whole statistical experiment.
 construction for declared marginal families, while [[williamson-2024-information-risk-bridge]]
 connects information-processing equalities with operational decision risk. They supply comparator
 theorems and falsifiable targets; neither automatically regularizes the passive-frame `GL(K)`
-quotient or closes experiment-level recovery for MultiAgentELBO.
+quotient.
 
 ## Fisher–Rao as a *target* geometry: fields of distributions (2026-08-12)
 

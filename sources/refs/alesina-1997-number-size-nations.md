@@ -28,11 +28,11 @@ The abstract lists three implications of the model: democratization leads to sec
 
 ## Relevance to this research
 
-The manuscript cites this paper for the trade-off between the gains of size and the costs of heterogeneity in determining how many polities exist, and compares it with its own criterion, in which a polity's fixed cost is set against a heterogeneity weight times the correlation volume of preferences. It serves as a reference point for treating nations as abstract collectives. See [[Meta-agents and hierarchical emergence]] and [[Collective active inference]].
+The manuscript cites this paper for the trade-off between the gains of size and the costs of heterogeneity in determining how many polities exist, and compares it with its own criterion, in which a polity's fixed cost is set against a heterogeneity weight times the correlation volume of preferences. It serves as a reference point for treating nations as abstract collectives. See Meta-agents and hierarchical emergence and [[Collective active inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[anderson-1983-imagined-communities-reflections]]; [[anderson-2003-gravity-gravitas-solution]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[anderson-1983-imagined-communities-reflections]]; [[anderson-2003-gravity-gravitas-solution]].
 
 ## BibTeX
 

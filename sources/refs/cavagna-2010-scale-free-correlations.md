@@ -36,11 +36,11 @@ The spatial range of the correlation is not constant but grows with flock size. 
 
 ## Relevance to this research
 
-The manuscript cites the paper as an empirical case of scale-free correlations, which it places at or beyond the boundary of its linear, massive theory where the correlation length is comparable to system size. It describes the mechanism behind such correlations, a broken continuous symmetry, as outside that model, and reads the flocks as the massless regime where its size bound is vacuous. See [[Collective motion and flocking]], [[Critical Phenomena]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper as an empirical case of scale-free correlations, which it places at or beyond the boundary of its linear, massive theory where the correlation length is comparable to system size. It describes the mechanism behind such correlations, a broken continuous symmetry, as outside that model, and reads the flocks as the massless regime where its size bound is vacuous. See [[Collective motion and flocking]], [[Critical Phenomena]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Collective motion and flocking]]; [[Critical Phenomena]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Collective motion and flocking]]; [[Critical Phenomena]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

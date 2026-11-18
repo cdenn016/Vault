@@ -36,11 +36,11 @@ Sharp bounds on trigonometric functions of the angles are obtained from the gap 
 
 ## Relevance to this research
 
-The Collective Agents manuscript, in its appendix on agency, notes that its angle bound is a scalar case of the sine theorem of this paper and proves its own bounds directly. The manuscript's reading record states that an earlier version cited the paper from memory and that the abstract was checked in the Crossref record. It connects to [[Grassmann Manifold]] through the subspace angles and to [[Meta-agents and hierarchical emergence]] through the closure tests.
+The Collective Agents manuscript, in its appendix on agency, notes that its angle bound is a scalar case of the sine theorem of this paper and proves its own bounds directly. The manuscript's reading record states that an earlier version cited the paper from memory and that the abstract was checked in the Crossref record. It connects to [[Grassmann Manifold]] through the subspace angles and to Meta-agents and hierarchical emergence through the closure tests.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Grassmann Manifold]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Grassmann Manifold]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

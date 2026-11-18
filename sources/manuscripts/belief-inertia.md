@@ -19,13 +19,13 @@ updated: 2026-06-18
 
 > [!info] Manuscript
 > Source file: `belief_inertia.tex` (Manuscripts-Theory).
-> Status: **in preparation**. Single-author manuscript by Robert C. Dennis. Companion to the [[VFE Transformer Program]] and the [[Gauge-Theoretic Multi-Agent VFE Model]].
+> Status: **in preparation**. Single-author manuscript by Robert C. Dennis. Companion to the [[VFE Transformer Program]] and the Gauge-Theoretic Multi-Agent VFE Model.
 
 ## Abstract
 
 The manuscript presents a unified information-geometric framework from which several foundational sociological models emerge as limiting cases: DeGroot social learning, Friedkin–Johnsen opinion dynamics, bounded-confidence models, echo-chamber formation, and Social Impact Theory all arise from variational free energy minimization on statistical manifolds under appropriate parameter regimes. Consensus and polarization are presented not as separate phenomena but as manifestations of a single information-geometric principle under different boundary conditions, with bounded-confidence dynamics recovered as a soft finite-temperature analog rather than an exact hard-threshold limit.
 
-The framework's deeper claim explains why phenomenological mass/spring models of belief dynamics have been empirically successful. The [[Fisher information metric]], which by the Čencov–Chentsov theorem is the unique Riemannian metric (up to positive scaling) on statistical manifolds invariant under sufficient statistics, naturally supplies a stiffness tensor — the curvature of the free-energy landscape — so that confident beliefs resist change while uncertain beliefs update readily. Reading this same precision tensor as an *inertial mass* (rather than only a stiffness) is explicitly flagged as a **Hamiltonian ansatz**, not a consequence of information geometry alone, since the curvature of a potential does not by itself fix a kinetic term. Under this ansatz, precision plays the role of epistemic inertia ([[Mass as Fisher information]]); the dynamics reduce to standard Bayesian free-energy descent in the overdamped limit while predicting oscillation, overshooting, and resonance in the underdamped regime. Confirmation bias and belief perseverance are reframed as geometric consequences of [[Belief inertia]] rather than irrationality.
+The framework's deeper claim explains why phenomenological mass/spring models of belief dynamics have been empirically successful. The [[Fisher information metric]], which by the Čencov–Chentsov theorem is the unique Riemannian metric (up to positive scaling) on statistical manifolds invariant under sufficient statistics, naturally supplies a stiffness tensor — the curvature of the free-energy landscape — so that confident beliefs resist change while uncertain beliefs update readily. Reading this same precision tensor as an *inertial mass* (rather than only a stiffness) is explicitly flagged as a **Hamiltonian ansatz**, not a consequence of information geometry alone, since the curvature of a potential does not by itself fix a kinetic term. Under this ansatz, precision plays the role of epistemic inertia (Mass as Fisher information); the dynamics reduce to standard Bayesian free-energy descent in the overdamped limit while predicting oscillation, overshooting, and resonance in the underdamped regime. Confirmation bias and belief perseverance are reframed as geometric consequences of Belief inertia rather than irrationality.
 
 ## Core contributions
 
@@ -33,7 +33,7 @@ The introduction states three primary contributions:
 
 1. **Second-order belief dynamics with a mass tensor.** The Hessian of the multi-agent variational free energy supplies a natural inertial mass
    $$ M_i = \bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}, $$
-   combining prior precision, observation precision, and incoming/outgoing social precision. Multi-agent coupling takes the form $D_{\mathrm{KL}}(q_i \| \Omega_{ij}\cdot q_j)$, penalizing disagreement after gauge transport $\Omega_{ij}=e^{\phi_i}e^{-\phi_j}$ into a common reference frame ([[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]]).
+   combining prior precision, observation precision, and incoming/outgoing social precision. Multi-agent coupling takes the form $D_{\mathrm{KL}}(q_i \| \Omega_{ij}\cdot q_j)$, penalizing disagreement after gauge transport $\Omega_{ij}=e^{\phi_i}e^{-\phi_j}$ into a common reference frame (Multi-agent variational free energy, Agents as fibre-bundle sections).
 2. **Classical sociological models as limiting cases.** DeGroot, Friedkin–Johnsen, bounded confidence, echo chambers, and Social Impact Theory are all derived from the overdamped limit of the same VFE functional. These derivations depend only on gradient flow, *not* on the inertial ansatz.
 3. **Unification of psychological phenomena.** Attitude oscillation in persuasion, perceptual aftereffects/adaptation overshoot, momentum in economic expectations, confirmation bias, and belief perseverance are recast as consequences of epistemic inertia in different parameter regimes, yielding testable predictions (precision-scaled relaxation times, resonance frequencies, stopping distances) absent from first-order dissipative treatments.
 
@@ -41,7 +41,7 @@ The introduction states three primary contributions:
 
 - **Mass-as-Fisher-information derivation.** The free-energy Hessian decomposes into four precision contributions — prior, observation, incoming social, outgoing social — each derived term by term. The author carefully distinguishes this "Hessian mass" from the intrinsic Fisher–Rao metric (the two coincide only at $q=p$). The **outgoing social term** $\sum_j \beta_{ji}\Lambda_{q_i}$ is the novel "recoil" mass: influencing others costs epistemic flexibility.
 - **State-dependent self-coupling.** Promoting the self-coupling weight to a per-agent variational precision $\alpha_i^*(c) = c_0/(b_0 + D_{\mathrm{KL}}(q_i\|p_i))$ (MAP under a Gamma prior) rescales the prior block of the mass; it predicts *weaker* prior anchoring where belief has drifted furthest (self-reinforcing drift). A regime-of-validity analysis gives the negative rank-one correction and the bound $D_{\mathrm{KL}}=b_0$ beyond which the inertial reading fails.
-- **Hamiltonian / damped-oscillator dynamics.** Equation of motion $M_i\ddot{\mu}_i + \gamma_i\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F}=0$, with $\gamma$ identified as the inverse VI learning rate. Three regimes (over/critically/under-damped) via the discriminant $\gamma^2-4KM$ ([[Hamiltonian belief dynamics]]).
+- **Hamiltonian / damped-oscillator dynamics.** Equation of motion $M_i\ddot{\mu}_i + \gamma_i\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F}=0$, with $\gamma$ identified as the inverse VI learning rate. Three regimes (over/critically/under-damped) via the discriminant $\gamma^2-4KM$ (Hamiltonian belief dynamics).
 - **Quantitative predictions.** Overshoot $d_{\text{overshoot}} = |\dot{\mu}|\sqrt{M/K}$ (square-root law); natural frequency $\omega=\sqrt{K/M-\gamma^2/4M^2}$; displacement-resonance peak $\omega_{\text{res}}=\sqrt{K/M-\gamma^2/2M^2}$; envelope decay $\tau_{\mathrm{env}}=2M/\gamma$; coasting relaxation $\tau_{\mathrm{relax}}=M/\gamma$.
 - **Fisher arc-length "clock."** $d\ell=\sqrt{d\mu^\top\Sigma^{-1}d\mu}$ as an information-theoretic time, with high-precision agents accumulating arc-length faster (analogy to proper time, explicitly *not* a claim of Lorentzian structure).
 - **Multi-agent momentum transfer.** Coupled equations of motion, a momentum current $J_{k\to i}$ with continuity equation, and conservation only under reciprocal symmetric coupling (broken by row-normalized softmax attention, priors, and damping).
@@ -53,17 +53,17 @@ The introduction states three primary contributions:
 
 ## Relevance to the program
 
-This manuscript is the dynamical / multi-agent pillar of the gauge-theoretic VFE program. It builds directly on the same [[Multi-agent variational free energy]] functional and gauge structure used in the [[Gauge-Theoretic Multi-Agent VFE Model]], and it reuses the $\mathrm{GL}(d)$/[[Gauge transformation]] transport, softmax attention as VFE minimizer, and [[Agents as fibre-bundle sections]] picture from the companion attention work [[gl-k-attention]]. Specific concept links:
+This manuscript is the dynamical / multi-agent pillar of the gauge-theoretic VFE program. It builds directly on the same Multi-agent variational free energy functional and gauge structure used in the Gauge-Theoretic Multi-Agent VFE Model, and it reuses the $\mathrm{GL}(d)$/[[Gauge transformation]] transport, softmax attention as VFE minimizer, and Agents as fibre-bundle sections picture from the companion attention work [[gl-k-attention]]. Specific concept links:
 
-- [[Belief inertia]] — the central object: precision-as-inertia.
-- [[Mass as Fisher information]] — the four-term Hessian mass derivation.
-- [[Hamiltonian belief dynamics]] — the second-order equation of motion and oscillator regimes.
+- Belief inertia — the central object: precision-as-inertia.
+- Mass as Fisher information — the four-term Hessian mass derivation.
+- Hamiltonian belief dynamics — the second-order equation of motion and oscillator regimes.
 - [[Fisher information metric]] / [[Precision weighting]] / [[Variational free energy]] — the geometric and inferential substrate.
 - [[Holonomy]] / [[Parallel transport]] / [[Gauge transformation]] — the social-frame transport and the pure-gauge/edge-local distinction.
-- [[Renormalization group flow]] / [[Meta-agents and hierarchical emergence]] — flagged in "Hierarchical Extensions" as forthcoming coarse-graining into informational meta-agents (links to `meta-entropy-manuscript`).
+- [[Renormalization group flow]] / Meta-agents and hierarchical emergence — flagged in "Hierarchical Extensions" as forthcoming coarse-graining into informational meta-agents (links to `meta-entropy-manuscript`).
 - [[Participatory realism (it from bit)]] / [[participatory-it-from-bit]] — the state-dependent self-coupling weight is imported from that companion framework.
 - Methods: [[Free-energy principle active inference]], [[Predictive coding network]] (the overdamped limit recovers their first-order dynamics); [[Gauge equivariant CNN]] cited as motivation for retaining gauge structure.
-- Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]].
+- Projects: [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model.
 
 ## References cited
 

@@ -37,7 +37,7 @@ Confederates ("plants") implanted an arbitrary autokinetic norm of 15–16 in., 
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Social influence and conformity]], [[Cultural evolution and social learning]]
+- Concepts: Meta-agents and hierarchical emergence, [[Social influence and conformity]], [[Cultural evolution and social learning]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[macneil-1976-norm-change-arbitrariness]], [[sherif-1935-social-factors-perception]], [[sherif-1936-psychology-social-norms]]
 

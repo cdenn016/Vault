@@ -53,11 +53,11 @@ The paper gives a process-space interpretation of sparse variational inference f
 
 ## Relevance to this research
 
-[[Process-space variational inference]] records the direct consequence for the gauge-VFE program. A compatible family of finite agent designs is necessary but does not alone define a continuum recognition law or preserve an augmented ELBO. The current finite [[Multi-agent variational free energy]] remains an oracle on declared finite laws; any continuum extension must separately establish the process law, projective compatibility, dominance/finite KL, and the conditional equivalence of auxiliary variables.
+[[Process-space variational inference]] records the direct consequence for the gauge-VFE program. A compatible family of finite agent designs is necessary but does not alone define a continuum recognition law or preserve an augmented ELBO. The current finite Multi-agent variational free energy remains an oracle on declared finite laws; any continuum extension must separately establish the process law, projective compatibility, dominance/finite KL, and the conditional equivalence of auxiliary variables.
 
 ## Cross-links
 
-- Concepts: [[Process-space variational inference]], [[Evidence lower bound (ELBO)]], [[Gaussian process]], [[Multi-agent variational free energy]]
+- Concepts: [[Process-space variational inference]], [[Evidence lower bound (ELBO)]], [[Gaussian process]], Multi-agent variational free energy
 
 ## BibTeX
 

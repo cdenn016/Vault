@@ -28,7 +28,7 @@ Fields challenges the premise that introspection and perception provide independ
 
 ## Relevance to this research
 
-For [[Consciousness and Active Inference]], the paper cautions against granting an agent privileged access to its own implementation merely because its records refer to itself. For [[Gauge-Theoretic Multi-Agent VFE Model]], it reinforces the need to specify receiver-accessible observations separately at each level. It does not prove that subjective reports, component states, and whole-agent states share one posterior or one variational objective.
+For [[Consciousness and Active Inference]], the paper cautions against granting an agent privileged access to its own implementation merely because its records refer to itself. For Gauge-Theoretic Multi-Agent VFE Model, it reinforces the need to specify receiver-accessible observations separately at each level. It does not prove that subjective reports, component states, and whole-agent states share one posterior or one variational objective.
 
 ## BibTeX
 

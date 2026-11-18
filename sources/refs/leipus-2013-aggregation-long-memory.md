@@ -31,11 +31,11 @@ For $0<\beta<1$ the introduction gives the covariance of the stationary solution
 
 ## Relevance to this research
 
-The manuscript cites this review, together with Granger's 1980 paper, for the known route by which averaging uncoupled members with differing persistence yields long memory in the aggregate. Its reading record says the first two sections were read and that Granger's paper, known only through this review, was not opened. The result is a known form that the manuscript recovers for the aggregate of uncoupled members. It connects to [[Coarse Graining]] and to [[Meta-agents and hierarchical emergence]], where a collective variable averages members with different time scales.
+The manuscript cites this review, together with Granger's 1980 paper, for the known route by which averaging uncoupled members with differing persistence yields long memory in the aggregate. Its reading record says the first two sections were read and that Granger's paper, known only through this review, was not opened. The result is a known form that the manuscript recovers for the aggregate of uncoupled members. It connects to [[Coarse Graining]] and to Meta-agents and hierarchical emergence, where a collective variable averages members with different time scales.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

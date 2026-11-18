@@ -23,7 +23,7 @@ The unifying claim is that **macrobehavior is an emergent property of interactin
 ## Relevance to this research
 This is the authoritative conceptual statement of the **micro-to-macro problem that the entire program addresses**: how per-agent Gaussian VFE minimization composes into emergent population-scale phenomena. Schelling's thesis — that the collective is not a magnified individual and that thresholds, feedback, and interaction structure generate qualitatively new macro phases — is precisely the claim the program makes for belief dynamics, where the neighbor-coupling term turns individually-rational belief updating into population-level consensus, polarization, or tipping. His critical-mass and S-curve analyses prefigure the phase transitions the belief-coupling dynamics should exhibit as coupling strength varies. The relevance is strong but framing-level: *Micromotives and Macrobehavior* supplies the conceptual charter and vocabulary (emergence, tipping, critical mass) rather than any mechanism the VFE functional directly instantiates, and it is honest to cite it as the program's intellectual lineage rather than as a borrowed model.
 
-See [[Schelling segregation and tipping points]], [[Sociophysics]], [[Opinion dynamics]], [[Multi-agent variational free energy]].
+See [[Schelling segregation and tipping points]], [[Sociophysics]], [[Opinion dynamics]], Multi-agent variational free energy.
 
 ## Cross-links
 - Concept: [[Schelling segregation and tipping points]]

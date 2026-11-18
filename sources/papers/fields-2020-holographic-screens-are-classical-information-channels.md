@@ -28,7 +28,7 @@ Fields and Marcianò restrict attention to a finite bipartite quantum system who
 
 ## Relevance to this research
 
-This is a compact entry point to [[Emergent spacetime and holography]] as finite information access. It offers the project's agent channels a conceptual comparison, but an ancillary qubit encoding is not automatically a normalized classical observation kernel, and an assigned screen area is not a derived Fisher metric. Any use in [[Gauge-Theoretic Multi-Agent VFE Model]] should preserve the distinction between a representation of exchanged information and a construction of physical geometry and dynamics.
+This is a compact entry point to [[Emergent spacetime and holography]] as finite information access. It offers the project's agent channels a conceptual comparison, but an ancillary qubit encoding is not automatically a normalized classical observation kernel, and an assigned screen area is not a derived Fisher metric. Any use in Gauge-Theoretic Multi-Agent VFE Model should preserve the distinction between a representation of exchanged information and a construction of physical geometry and dynamics.
 
 ## BibTeX
 

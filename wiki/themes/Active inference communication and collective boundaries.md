@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-11-07
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Active inference communication and collective boundaries
@@ -62,15 +62,7 @@ The preprint [[beck-2025-dynamic-markov-blanket-detection]] infers changing inte
 
 [[biehl-2021-technical-critique]] shows that particular FEP arguments use inequivalent blanket conditions and require additional assumptions. Drift sparsity and instantaneous conditional independence must be distinguished. This restricts the inference from interaction structure to statistical screening-off; it does not prohibit constructing agents with explicitly specified EFE objectives. See [[Markov blanket interpretation debate]].
 
-> [!note] Editorial: A collective-boundary claim must identify the variables, partition, probability law, and time scope of the claimed independence. A community in a similarity graph, an interaction boundary, a steady-state blanket, and a path blanket are different objects. Neither a coordinate-frame convention nor low message rank supplies those missing statistical conditions. The geometric communication framework and the formation claim must be connected by an explicit model and evidence.
-
-## Error terms when a collective is only approximately closed
-
-The sources above ask when a set of agents has a boundary and a model of its own. A separate question is what such a collective loses when the coarse variables it models do not close. In a linear-Gaussian model of communicating agents, [[dennis-2026-collective-agents-approximate-meta-agent]] bounds the expected relative entropy from the exact predictive law to the belief of a collective that filters a non-closed coarse exterior with a Markov model, with no smallness condition, and assembles the bound with an exact coarse blanket and an exactly closed coarse internal state into an approximate form of the meta-agent theorem; for members that fuse literally it bounds the memory of their average. The blanket conditions are kept exact in these statements, so they complement the detection and critique literature of the preceding section and do not answer it. See [[Approximate meta-agent theorem]].
-
-## Error terms when the coarse blanket conditions fail, November 11, 2026
-
-The section on error terms above records statements in which the blanket conditions of the collective are exact. [[dennis-2026-collective-agents-approximate-blanket-conditions]] adds a theorem for the same linear-Gaussian model without them. It allows sensors that read hidden exterior coordinates, a coarse sensory state formed with other weights, sensors with memory or reafference, and an exterior that reads the members one by one, and it requires only the canonical partition, in which no internal and no active variable reads the exterior and the exterior reads no internal variable, per-channel noise, a stable joint process and members that run a consensus filter. In the terms of the editorial note of the preceding section, the theorem names its variables, law and time scope: the law that is computed exactly is that of the exterior given the paths of the members' sensory channels, and the belief of the collective is measured against it. The theorem does not establish that the coarse sensory state and the coarse act screen off, and it gives no bound on their leak through the defects of the declared models; it relates the leak on a window to the difference between measuring the belief against the members' channels and against a coarse record. It therefore still does not answer the detection and critique literature, and it adds to it one case in which an agent-like description with stated error terms survives the failure of the coarse blanket. See [[Approximate meta-agent theorem]] and [[Markov Blanket]].
+> [!note] Editorial: A collective-boundary claim must identify the variables, partition, probability law, and time scope of the claimed independence. A community in a similarity graph, an interaction boundary, a steady-state blanket, and a path blanket are different objects. Neither a coordinate-frame convention nor low message rank supplies those missing statistical conditions.
 
 ## Federated inference and belief sharing, November 13, 2026
 
@@ -82,4 +74,4 @@ Start with [[albarracin-2022-epistemic-communities]] for expression and selectiv
 
 ## Related
 
-[[Collective active inference]] · [[Expected Free Energy]] · [[Communication-constrained inference]] · [[GL(K) gauge-equivariant attention]] · [[Markov Blanket]] · [[Meta-agents and hierarchical emergence]] · [[Decentralized Bayesian inference]] · [[Partial information decomposition]] · [[Collective agents literature map]]
+[[Collective active inference]] · [[Expected Free Energy]] · [[Communication-constrained inference]] · [[GL(K) gauge-equivariant attention]] · [[Markov Blanket]] · [[Decentralized Bayesian inference]] · [[Partial information decomposition]] · [[Collective agents literature map]]

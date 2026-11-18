@@ -58,7 +58,7 @@ The VB EM algorithm is the direct intellectual ancestor of the VFE minimisation 
 - Concepts: [[Variational Free Energy]], [[kullback-1951-kl-divergence|KL Divergence]], [[Conjugate-Exponential Family|Conjugate Exponential Family]], [[Variational EM|Expectation Maximisation]], [[Evidence lower bound (ELBO)]], [[Amortized inference]], [[Fisher information metric]]
 - Theme: [[Variational free energy and predictive coding]]
 - Related sources: [[winn-2005-variational-message-passing|winn-2005-vbem]], [[jordan-1999-introduction-variational]], [[dempster-1977-em-algorithm|dempster-1977-em]], [[neal-1998-variational-em]], [[blei-2017-variational-inference]], [[kingma-2013-auto-encoding-variational-bayes]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], Gauge-Theoretic Multi-Agent VFE Model
 
 > [!note] Editorial: Beal's monotonicity and closed-form VBEM updates are established for KL-based mean-field bounds in conjugate-exponential families. The VFE transformer departs on two axes — it can replace KL with a Rényi / $\alpha$-divergence in the belief step, and it uses structured Gaussian beliefs with gauge transport rather than a generic conjugate posterior — so it realizes the *spirit* of VBEM (coordinate ascent on a free-energy bound with distributions over both states and parameters) as a principled generalization, not a literal instance of the 2003 algorithm.
 

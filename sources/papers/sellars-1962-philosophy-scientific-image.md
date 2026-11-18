@@ -28,11 +28,11 @@ Sellars distinguishes the *manifest image* (the framework of persons, intentions
 
 ## Relevance to this research
 
-Sellars frames, in canonical form, the very two-images problem that [[participatory-it-from-bit]] proposes to address *geometrically*: the gap between the agent-level, participatory description (manifest: agents, beliefs, frames) and the formal scientific description (gauge structure, sections, connections). The manuscript's wager is that the fibre-bundle / gauge picture supplies the "stereoscopic fusion" — agents modeled as [[Agents as fibre-bundle sections]] are simultaneously manifest participants and scientific-image structure, related by [[Gauge transformation]]. Sellars's manifest-vs-scientific tension is thus the philosophy-of-science problem statement that the program's [[Participatory realism (it from bit)]] and [[Structural realism]] commitments are meant to dissolve, alongside [[nagel-1986-view-from-nowhere|Nagel 1986]]'s subjective/objective standpoint problem.
+Sellars frames, in canonical form, the very two-images problem that [[participatory-it-from-bit]] proposes to address *geometrically*: the gap between the agent-level, participatory description (manifest: agents, beliefs, frames) and the formal scientific description (gauge structure, sections, connections). The manuscript's wager is that the fibre-bundle / gauge picture supplies the "stereoscopic fusion" — agents modeled as Agents as fibre-bundle sections are simultaneously manifest participants and scientific-image structure, related by [[Gauge transformation]]. Sellars's manifest-vs-scientific tension is thus the philosophy-of-science problem statement that the program's [[Participatory realism (it from bit)]] and [[Structural realism]] commitments are meant to dissolve, alongside [[nagel-1986-view-from-nowhere|Nagel 1986]]'s subjective/objective standpoint problem.
 
 ## Cross-links
 
-- Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], [[Agents as fibre-bundle sections]], [[Gauge transformation]]
+- Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], Agents as fibre-bundle sections, [[Gauge transformation]]
 - Related sources: [[nagel-1986-view-from-nowhere]], [[wheeler-1990-it-from-bit]], [[cassirer-1910-substance-function]]
 - Manuscript: [[participatory-it-from-bit]]
 

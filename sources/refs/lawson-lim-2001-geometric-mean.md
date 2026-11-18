@@ -27,7 +27,7 @@ Full text was not archived. The primary record and access limitations are record
 
 The retained article concerns equivalent characterizations of the geometric mean of positive-definite matrices. The publisher record verifies its title and publication metadata, but PDF access returned 403. No new proof or pinpoint validation is claimed from metadata alone.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

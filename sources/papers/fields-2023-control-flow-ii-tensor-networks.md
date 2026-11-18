@@ -28,7 +28,7 @@ Part II represents active-inference control flow through networks of tensors. A 
 
 ## Relevance to this research
 
-This supplies representational tools for [[Collective active inference]] and [[Quantum reference frames]], especially when control switches among incompatible tasks. For [[VFE Transformer Program]], it motivates distinguishing a tensor description of a transition from a dynamical account of why that transition occurs. Representability alone does not demonstrate a normalized generative interpretation, exact periodicity, or an autonomous higher-level agent in [[Meta-agents and hierarchical emergence]].
+This supplies representational tools for [[Collective active inference]] and [[Quantum reference frames]], especially when control switches among incompatible tasks. For [[VFE Transformer Program]], it motivates distinguishing a tensor description of a transition from a dynamical account of why that transition occurs. Representability alone does not demonstrate a normalized generative interpretation, exact periodicity, or an autonomous higher-level agent in Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

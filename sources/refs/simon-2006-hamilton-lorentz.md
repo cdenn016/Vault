@@ -22,7 +22,7 @@ Section III, equations (3.4)–(3.7), describes Hermitian congruence and the SL(
 
 ## Relevance to this research
 
-Primary precedent for the monograph’s explicit covering-map proof. It supports algebraic Lorentz structure, not a VFE selection principle. See [[Emergent spacetime and holography]] and [[Agents as fibre-bundle sections]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+Primary precedent for the monograph’s explicit covering-map proof. It supports algebraic Lorentz structure, not a VFE selection principle. See [[Emergent spacetime and holography]] and Agents as fibre-bundle sections. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

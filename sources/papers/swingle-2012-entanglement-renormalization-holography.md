@@ -57,7 +57,7 @@ The MERA/holography correspondence is directly relevant to the VFE transformer p
 - Concepts: [[Emergent spacetime and holography|Entanglement Renormalization]]
 - Concepts: [[Emergent spacetime and holography|Holography]]
 - Concepts: [[Emergent spacetime and holography|Anti-de Sitter Space]]
-- Concepts: [[Renormalization group flow]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]], [[Emergent spacetime and holography]]
+- Concepts: [[Renormalization group flow]], Ouroboros multi-scale dynamics, Meta-agents and hierarchical emergence, [[Emergent spacetime and holography]]
 - Related sources: [[ryu-takayanagi-2006-holographic-entanglement-entropy|ryu-takayanagi-2006-holographic-derivation]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[vidal-2007-entanglement-renormalization]]
 - Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 

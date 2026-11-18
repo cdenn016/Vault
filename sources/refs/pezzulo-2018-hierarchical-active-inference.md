@@ -36,11 +36,11 @@ The proposal is that integrating the two hierarchies underwrites action and poli
 
 ## Relevance to this research
 
-The manuscript cites the article, known to it from records, as an extension of deep temporal active-inference architectures to planning and control, and reads such hierarchies as not double counting. It sits with the vault's material on hierarchical models and meta-agents; see [[Hierarchical generative model]], [[Active Inference]], [[Precision weighting]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the article, known to it from records, as an extension of deep temporal active-inference architectures to planning and control, and reads such hierarchies as not double counting. It sits with the vault's material on hierarchical models and meta-agents; see [[Hierarchical generative model]], [[Active Inference]], [[Precision weighting]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Active Inference]]; [[Precision weighting]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Hierarchical generative model]]; [[Active Inference]]; [[Precision weighting]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

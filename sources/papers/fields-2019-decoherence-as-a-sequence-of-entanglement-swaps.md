@@ -28,7 +28,7 @@ Fields models the information used to identify a system as a finite set of stabl
 
 ## Relevance to this research
 
-For [[Quantum reference frames]], this develops the reference/pointer distinction used by later Fields papers. In [[Gauge-Theoretic Multi-Agent VFE Model]], it motivates tracking persistent source-identification records alongside state beliefs. The project's coarse-graining can discard distinctions only relative to specified future queries, a useful comparison to the paper's observationally indistinguishable carriers. Quantum entanglement swaps remain different from Bayesian belief updates or GL(K) frame transport, and the illustrative decay formula cannot be imported without its measurement schedule and interaction assumptions.
+For [[Quantum reference frames]], this develops the reference/pointer distinction used by later Fields papers. In Gauge-Theoretic Multi-Agent VFE Model, it motivates tracking persistent source-identification records alongside state beliefs. The project's coarse-graining can discard distinctions only relative to specified future queries, a useful comparison to the paper's observationally indistinguishable carriers. Quantum entanglement swaps remain different from Bayesian belief updates or GL(K) frame transport, and the illustrative decay formula cannot be imported without its measurement schedule and interaction assumptions.
 
 ## BibTeX
 

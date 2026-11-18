@@ -12,25 +12,25 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-11-10
-updated: 2026-11-14
+updated: 2026-11-18
 ---
 
 # Collective agents literature map
 
-This page is the reading map for the 256 references that the manuscript on communication, coherence and collective agents cites and that the vault did not yet hold. They were ingested on November 10, 2026; 109 have a local PDF and the others are recorded from their abstracts, from the reading records kept with the manuscript bibliography, or from their bibliographic records alone. Each source note states its reading basis. The map groups the references by the question they answer. It describes what each group of sources covers and what the manuscript takes from it, and it does not restate the results of the manuscript.
+This page is a reading map for 256 references on communication, coherence and collective agents. They were ingested on November 10, 2026; 109 have a local PDF and the others are recorded from their abstracts, from bibliography reading records, or from their bibliographic records alone. Each source note states its reading basis. The map groups the references by the question they answer and describes what each group of sources covers.
 
-The manuscript also cites sources that were already in the vault, among them the notes gathered in [[Active inference communication and collective boundaries]] and the concept pages [[Markov Blanket]], [[Collective active inference]], [[Meta-agents and hierarchical emergence]], [[Coarse Graining]], [[Renormalization group flow]], [[Opinion dynamics]] and [[Rational inattention]]. Those are not repeated here.
+Related sources that were already in the vault are gathered in [[Active inference communication and collective boundaries]] and in the concept pages [[Markov Blanket]], [[Collective active inference]], [[Coarse Graining]], [[Renormalization group flow]], [[Opinion dynamics]] and [[Rational inattention]]. Those are not repeated here.
 
 > [!note] Editorial: scope of the notes
-> The source notes were written from the first pages of the local PDFs, from abstracts and from the reading records of the manuscript bibliography. They are not page-by-page readings, and a note built on an abstract or a record says so. Claims in the wiki that need more than a note supports should return to the source.
+> The source notes were written from the first pages of the local PDFs, from abstracts and from bibliography reading records. They are not page-by-page readings, and a note built on an abstract or a record says so. Claims in the wiki that need more than a note supports should return to the source.
 
 ## Communication as action, signs and shared worlds
 
-These sources treat an utterance, a sign or a trace left in the environment as an act with consequences for other agents. They cover speech acts, the grounding of symbols, stigmergy, strategic signaling, shared intentionality and the cultural scaffolding of expectations, together with active-inference models of belief sharing and cumulative culture. The manuscript draws on them for its treatment of messages, performative acts and records as actions that pass through the external states.
+These sources treat an utterance, a sign or a trace left in the environment as an act with consequences for other agents. They cover speech acts, the grounding of symbols, stigmergy, strategic signaling, shared intentionality and the cultural scaffolding of expectations, together with active-inference models of belief sharing and cumulative culture.
 
 - [[lindley-1956-measure-information-provided]] (Lindley 1956): The paper introduces a measure of the information an experiment provides, derived from Shannon's work and defined relative to a prior distribution over the parameter space, and applies it to compare experiments and to design them.
 - [[grasse-1959-reconstruction-nid-coordinations]] (Grassé 1959): A 1959 article in Insectes Sociaux on nest reconstruction and coordination among individuals in two termite taxa, whose title announces a theory of stigmergy as an interpretation of the behavior of building termites.
-- [[austin-1962-how-do-things]] (Austin 1962): A book first published in 1962 by Clarendon Press, Oxford; the manuscript's record is a library catalog entry and the text itself was not read.
+- [[austin-1962-how-do-things]] (Austin 1962): A book first published in 1962 by Clarendon Press, Oxford; the record is a library catalog entry and the text itself was not read.
 - [[jeffrey-1965-logic-decision]] (Jeffrey 1965): A 1965 book by Richard C. Jeffrey published by McGraw-Hill, with a second edition from University of Chicago Press in 1983.
 - [[crawford-1982-strategic-information-transmission]] (Crawford and Sobel 1982): The paper models strategic communication between a better-informed sender, who sends a possibly noisy signal, and a receiver, who then acts in a way that determines the welfare of both.
 - [[harnad-1990-symbol-grounding-problem]] (Harnad 1990): A 1990 paper in Physica D on the symbol grounding problem, a problem of how symbols acquire meaning.
@@ -49,7 +49,7 @@ These sources treat an utterance, a sign or a trace left in the environment as a
 
 ## Active inference, expected free energy and Markov blankets
 
-This group holds the active-inference sources that the manuscript uses or argues with: expected free energy and its variants, deep and hierarchical generative models, the particular partition and the debate on whether sparse coupling yields a blanket, multiscale and morphogenetic applications, and renormalizing generative models. It also holds the sources on conditional independence and on the decay of conditional mutual information that the definition of an approximate blanket relies on.
+This group holds active-inference sources: expected free energy and its variants, deep and hierarchical generative models, the particular partition and the debate on whether sparse coupling yields a blanket, multiscale and morphogenetic applications, and renormalizing generative models. It also holds the sources on conditional independence and on the decay of conditional mutual information, which bear on the definition of an approximate blanket.
 
 - [[pearl-1988-probabilistic-reasoning-intelligent]] (Pearl 1988): A 1988 book from Morgan Kaufmann on probabilistic reasoning in intelligent systems and networks of plausible inference, as its title establishes.
 - [[kiebel-2008-hierarchy-time-scales]] (Kiebel et al. 2008): The paper proposes that cortical anatomy recapitulates a temporal hierarchy in the dynamics of environmental states, with fast sensory processing at the lowest level and slow contextual changes at the highest, and supports this with a perceptual-inference...
@@ -81,7 +81,7 @@ This group holds the active-inference sources that the manuscript uses or argues
 
 ## Double counting, fusion and naive social learning
 
-Estimation theory and economics reached the same problem from two sides: information that travels along several paths is counted more than once unless the receiver models the paths. The sources cover track-to-track correlation and decentralized data fusion, Gaussian belief propagation, consensus filters, persuasion bias, correlation neglect, naive herding and learning, echo chambers, and the value of public information. The manuscript places this ladder, from literal reading to exact fusion, inside each receiver's generative model.
+Estimation theory and economics reached the same problem from two sides: information that travels along several paths is counted more than once unless the receiver models the paths. The sources cover track-to-track correlation and decentralized data fusion, Gaussian belief propagation, consensus filters, persuasion bias, correlation neglect, naive herding and learning, echo chambers, and the value of public information.
 
 - [[kalman-1960-approach-linear-filtering]] (Kalman 1960): The paper re-examines linear filtering and prediction using the Bode-Shannon representation of random processes and the state-transition method for dynamic systems.
 - [[bar-shalom-1981-track-track-correlation]] (Bar-Shalom 1981): A two-page note on testing whether two tracks represent the same target, which presents a test that accounts for correlation between the two tracks' state estimates.
@@ -107,7 +107,7 @@ Estimation theory and economics reached the same problem from two sides: informa
 
 ## Spectral partitions, eigenvalue bounds and analytic tools
 
-The definition of a collective by contrast compares an internal relaxation rate with an outward one, so the manuscript needs spectral clustering and its guarantees, bounds on eigenvalues and on the rotation of invariant subspaces under perturbation, and the decay of the entries of inverses of banded or localized matrices. A few general analytic references that the proofs cite are filed here as well.
+Comparing an internal relaxation rate with an outward one calls for spectral clustering and its guarantees, bounds on eigenvalues and on the rotation of invariant subspaces under perturbation, and the decay of the entries of inverses of banded or localized matrices. A few general analytic references are filed here as well.
 
 - [[sheppard-1899-application-error-cases]] (Sheppard 1899): A memoir applying the theory of error to statistical data whose frequency curves are approximately normal, including the joint frequencies of correlated attributes.
 - [[temple-1928-rayleigh-principle-applied]] (Temple 1928): Temple examines and extends Rayleigh's method of approximating the frequency of the gravest vibration mode of a continuous system from a trial function, and devises an upper bound on the error of the approximation.
@@ -122,7 +122,7 @@ The definition of a collective by contrast compares an internal relaxation rate 
 - [[lieb-2001-analysis]] (Lieb and Loss 2001): A graduate textbook in analysis in the American Mathematical Society series Graduate Studies in Mathematics, second edition.
 - [[kannan-2004-clusterings-good-bad]] (Kannan et al. 2004): The paper develops a bicriteria measure of clustering quality and analyzes a popular spectral clustering algorithm, with worst-case guarantees for one variant.
 - [[newman-2006-modularity-community-structure]] (Newman 2006): The paper reformulates the modularity quality function for network divisions in terms of the eigenvectors of a modularity matrix, which yields a spectral algorithm for community detection.
-- [[carlsson-2010-characterization-stability-convergence]] (Carlsson and Mémoli 2010): A paper on hierarchical clustering that treats dendrograms as ultrametrics and states an existence and uniqueness theorem, according to the abstract as read when the manuscript was written.
+- [[carlsson-2010-characterization-stability-convergence]] (Carlsson and Mémoli 2010): A paper on hierarchical clustering that treats dendrograms as ultrametrics and states an existence and uniqueness theorem, according to the abstract.
 - [[olver-2010-nist-handbook-mathematical]] (Olver et al. 2010): A reference handbook of mathematical functions, edited by Olver, Lozier, Boisvert and Clark, published by Cambridge University Press in 2010 with an online version.
 - [[jiang-2011-statistical-ranking-combinatorial]] (Jiang et al. 2011): The paper introduces HodgeRank, a method for ranking incomplete and imbalanced data, which represents pairwise comparisons as edge flows on a graph and splits them orthogonally using combinatorial Hodge theory.
 - [[kivela-2014-multilayer-networks]] (Kivelä et al. 2014): A review of multilayer networks that gives a general framework and a dictionary relating terms such as multiplex networks, interdependent networks and networks of networks, and surveys diagnostics, models and dynamical processes on such networks.
@@ -155,7 +155,7 @@ When is a coarse description of a stochastic system itself Markov, and what is l
 
 ## Potential games and stochastic approximation
 
-The formation results rest on dynamics in which agents revise choices by noisy better replies. The sources give the theory of potential and near-potential games, logit-response and statistical-mechanics treatments of strategic interaction, the stochastic-approximation theorems that connect a recursion with noise to its mean-field map, and the design of payoff functions for members of a collective.
+These sources concern dynamics in which agents revise choices by noisy better replies. They give the theory of potential and near-potential games, logit-response and statistical-mechanics treatments of strategic interaction, the stochastic-approximation theorems that connect a recursion with noise to its mean-field map, and the design of payoff functions for members of a collective.
 
 - [[blume-1993-statistical-mechanics-strategic]] (Blume 1993): A study of strategic interaction among players on a lattice, each interacting directly with finitely many neighbors, under stochastic strategy revision processes.
 - [[monderer-1996-potential-games]] (Monderer and Shapley 1996): A 1996 article in Games and Economic Behavior on potential games, listed in zbMATH and Crossref.
@@ -201,7 +201,7 @@ Whether a population with quenched disorder or long-range coupling can order, an
 
 How fast information about a source is lost along a chain or a tree of noisy channels is measured by contraction coefficients of divergences. The sources cover strong data-processing inequalities and their comparison, maximal correlation and hypercontractivity, logarithmic Sobolev inequalities, and the reconstruction problem for broadcasting on trees and on random directed acyclic graphs.
 
-- [[gross-1975-logarithmic-sobolev-inequalities]] (Gross 1975): A 1975 paper in the American Journal of Mathematics that the manuscript cites for the Gaussian logarithmic Sobolev inequality.
+- [[gross-1975-logarithmic-sobolev-inequalities]] (Gross 1975): A 1975 paper in the American Journal of Mathematics cited for the Gaussian logarithmic Sobolev inequality.
 - [[ahlswede-1976-spreading-sets-product]] (Ahlswede and Gács 1976): The paper studies, for i.i.d. pairs of finite-range random variables with positive joint distribution, how large a set $\mathscr{B}$ must be when the conditional probability of landing in it, given that the first coordinate lies in $\mathscr{A}$, exceeds a...
 - [[evans-1999-signal-propagation-noisy]] (Evans and Schulman 1999): The paper bounds how fast the information carried by a signal decays as it crosses a noisy channel, and uses the bound to prove depth lower bounds for reliable computation in von Neumann's noisy circuit model.
 - [[evans-2000-broadcasting-trees-ising]] (Evans et al. 2000): The paper studies reconstruction of a root bit sent down a noisy tree, and establishes a sharp threshold for general infinite trees in terms of the percolation critical probability.
@@ -216,7 +216,7 @@ How fast information about a source is lost along a chain or a tree of noisy cha
 
 ## Correlation lengths, light cones and decay of correlations
 
-The scale results bound how far and how fast influence spreads. The sources are the Lieb and Robinson bound with its classical and long-range versions, the passage from a spectral gap to exponential clustering, Ornstein and Zernike asymptotics and Green function asymptotics of random walks, uniqueness of Gibbs measures under weak dependence, sharpness of the percolation transition, random walks on trees, and the measured scale-free correlations of starling flocks.
+These sources bound how far and how fast influence spreads. They are the Lieb and Robinson bound with its classical and long-range versions, the passage from a spectral gap to exponential clustering, Ornstein and Zernike asymptotics and Green function asymptotics of random walks, uniqueness of Gibbs measures under weak dependence, sharpness of the percolation transition, random walks on trees, and the measured scale-free correlations of starling flocks.
 
 - [[ornstein-1914-accidental-deviations-density]] (Ornstein and Zernike 1914): A 1914 paper in the Amsterdam Academy Proceedings whose title concerns accidental density deviations and opalescence at the critical point of a single substance.
 - [[ney-1966-martin-boundary-random]] (Ney and Spitzer 1966): The paper gives a concrete realization of the Martin boundary for random walks on the integer lattice, through the asymptotic behavior of the relativized Green function.
@@ -224,7 +224,7 @@ The scale results bound how far and how fast influence spreads. The sources are 
 - [[dobrushin-1970-prescribing-system-random]] (Dobrushin 1970): A 1970 paper on specifying a system of random variables through conditional distributions, as its title and venue establish.
 - [[lieb-1972-finite-group-velocity]] (Lieb and Robinson 1972): A 1972 paper in Communications in Mathematical Physics on the finite group velocity of quantum spin systems, as its title states.
 - [[marchioro-1978-velocity-perturbation-infinite]] (Marchioro et al. 1978): A 1978 article in the Journal of Statistical Physics on the velocity of a perturbation in infinite lattice systems.
-- [[carne-1985-transmutation-formula-markov]] (Carne 1985): According to the zbMATH review that the manuscript's authors read, the paper proves a Markov-chain analogue of Hadamard's transmutation formula and uses it to give a short proof of the transition-probability inequality of Varopoulos (1985).
+- [[carne-1985-transmutation-formula-markov]] (Carne 1985): According to the zbMATH review, the paper proves a Markov-chain analogue of Hadamard's transmutation formula and uses it to give a short proof of the transition-probability inequality of Varopoulos (1985).
 - [[varopoulos-1985-long-range-estimates]] (Varopoulos 1985): A 1985 paper on long-range estimates for Markov chains.
 - [[lyons-1990-random-walks-percolation]] (Lyons 1990): The paper defines an average number of branches per vertex, the branching number, for an arbitrary infinite locally finite tree, and shows it governs random walk and percolation on the tree, where it marks phase transitions.
 - [[lyons-1992-random-walk-random]] (Lyons and Pemantle 1992): The paper shows that, for certain random environments on an arbitrary infinite locally finite tree, transience or recurrence of a random walk is decided by the branching number of the tree.
@@ -251,7 +251,7 @@ Relayed messages are transformed by a product of maps, and repeated fusion is a 
 - [[von-neumann-1950-functional-operators-volume]] (Neumann 1950): A volume of the Annals of Mathematics Studies series, number 22, on the geometry of orthogonal spaces, as its title and series establish.
 - [[furstenberg-1960-products-random-matrices]] (Furstenberg and Kesten 1960): A 1960 article in The Annals of Mathematical Statistics on products of random matrices, as its title and venue establish.
 - [[prager-1960-convergence-principle-hilbert]] (Práger 1960): A 1960 article in the Czechoslovak Mathematical Journal, written in Russian, on a convergence principle in Hilbert space, as the title and the records (Crossref, zbMATH Zbl 0090.08902, Czech Digital Mathematics Library) establish.
-- [[halperin-1962-product-projection-operators]] (Halperin 1962): A 1962 note on products of projection operators, cited in the manuscript for Halperin's theorem on cyclic products of projections.
+- [[halperin-1962-product-projection-operators]] (Halperin 1962): A 1962 note on products of projection operators, cited for Halperin's theorem on cyclic products of projections.
 - [[amemiya-1965-convergence-random-products]] (Amemiya and Ando 1965): A 1965 paper in Acta Scientiarum Mathematicarum (Szeged) on convergence of random products of contractions in Hilbert space, as its title states.
 - [[kesten-1966-additional-limit-theorems]] (Kesten and Stigum 1966): A 1966 article in The Annals of Mathematical Statistics on limit theorems for indecomposable multidimensional Galton-Watson processes.
 - [[oseledets-1968-multiplicative-ergodic-theorem]] (Oseledets 1968): A 1968 article in the Transactions of the Moscow Mathematical Society, per its title on Lyapunov characteristic numbers for dynamical systems and a multiplicative ergodic theorem.
@@ -299,16 +299,16 @@ An agent with limited channels must choose what to sense. The sources give physi
 
 Economics and organization theory have long described firms, teams and markets as systems that aggregate dispersed information under communication limits. This group holds team theory, decentralized information processing, hierarchies of knowledge, organizational codes and interpretation, the informational efficiency of prices and its limits, the informational size of message spaces, memory as a substitute for money, and the philosophical account of group agency.
 
-- [[hayek-1945-use-knowledge-society]] (Hayek 1945): A 1945 article in the American Economic Review that the manuscript cites for the claim that prices communicate dispersed knowledge.
+- [[hayek-1945-use-knowledge-society]] (Hayek 1945): A 1945 article in the American Economic Review cited for the claim that prices communicate dispersed knowledge.
 - [[radner-1962-team-decision-problems]] (Radner 1962): A 1962 article in The Annals of Mathematical Statistics on team decision problems, as the title and venue establish.
 - [[marschak-1972-economic-teams]] (Marschak and Radner 1972): A 1972 monograph from the Cowles Foundation, published by Yale University Press, whose title establishes team theory as its subject.
-- [[arrow-1974-limits-organization]] (Arrow 1974): A book published by Norton in 1974 in the Fels Lectures on Public Policy Analysis series; the library record the manuscript consulted lists 86 pages.
+- [[arrow-1974-limits-organization]] (Arrow 1974): A book published by Norton in 1974 in the Fels Lectures on Public Policy Analysis series; the library record lists 86 pages.
 - [[galbraith-1974-organization-design-information]] (Galbraith 1974): The paper explains why task uncertainty is related to organizational form, using Herbert Simon's theory of cognitive limits as the guide.
 - [[mount-1974-informational-size-message]] (Mount and Reiter 1974): A 1974 article in the Journal of Economic Theory whose title concerns the informational size of message spaces.
-- [[grossman-1976-efficiency-competitive-stock]] (Grossman 1976): A 1976 article in The Journal of Finance that the manuscript cites as the source of the fully revealing equilibrium in rational-expectations aggregation.
+- [[grossman-1976-efficiency-competitive-stock]] (Grossman 1976): A 1976 article in The Journal of Finance cited as the source of the fully revealing equilibrium in rational-expectations aggregation.
 - [[feder-1980-futures-markets-firm]] (Feder et al. 1980): An economics paper on the production decisions of a competitive firm that can trade in a futures market under price uncertainty.
-- [[grossman-1980-impossibility-informationally-efficient]] (Grossman and Stiglitz 1980): A 1980 article in the American Economic Review on the impossibility of informationally efficient markets, known to the manuscript's author only through secondary summaries.
-- [[hellwig-1980-aggregation-information-competitive]] (Hellwig 1980): A 1980 article in the Journal of Economic Theory that the manuscript cites as the source of noisy, partially revealing rational-expectations equilibria.
+- [[grossman-1980-impossibility-informationally-efficient]] (Grossman and Stiglitz 1980): A 1980 article in the American Economic Review on the impossibility of informationally efficient markets, known in the vault only through secondary summaries.
+- [[hellwig-1980-aggregation-information-competitive]] (Hellwig 1980): A 1980 article in the Journal of Economic Theory cited as the source of noisy, partially revealing rational-expectations equilibria.
 - [[jordan-1982-competitive-allocation-process]] (Jordan 1982): A 1982 article in the Journal of Economic Theory whose title concerns the informational efficiency of the competitive allocation process.
 - [[daft-1984-model-organizations-interpretation]] (Daft and Weick 1984): A comparative model of organizations as interpretation systems with four interpretation modes (enacting, discovering, undirected viewing, conditioned viewing).
 - [[march-1991-exploration-exploitation-organizational]] (March 1991): A paper on the relation between exploring new possibilities and exploiting old certainties in organizational learning, modeled in two situations: mutual learning between members and an organizational code, and learning under competition for primacy.
@@ -321,9 +321,9 @@ Economics and organization theory have long described firms, teams and markets a
 
 ## Distance, borders and scaling in social systems
 
-The predictions of the manuscript are compared with empirical regularities of human collectives: the gravity law of trade and the border effect, the persistence of the distance effect, the size of nations, urban scaling, the geography of communication and friendship, travel-time budgets, and the decay of dialect similarity with distance, with the historical accounts of nations as communities of communication.
+This group collects empirical regularities of human collectives: the gravity law of trade and the border effect, the persistence of the distance effect, the size of nations, urban scaling, the geography of communication and friendship, travel-time budgets, and the decay of dialect similarity with distance, with the historical accounts of nations as communities of communication.
 
-- [[innis-1950-empire-communications]] (Innis 1950): A 1950 book published by Clarendon Press, Oxford, on empire and communications, known to the manuscript only through secondary sources.
+- [[innis-1950-empire-communications]] (Innis 1950): A 1950 book published by Clarendon Press, Oxford, on empire and communications, known in the vault only through secondary sources.
 - [[deutsch-1953-nationalism-social-communication]] (Deutsch 1953): A book on the foundations of nationality, whose title ties nationalism to social communication.
 - [[savage-1960-statistical-model-gross]] (Savage and Deutsch 1960): The paper proposes a null model for matrices of transaction flows among actors, in which the baseline expectation assumes complete indifference among actors and departures from it are the objects of interest.
 - [[seguy-1971-relation-entre-distance]] (Séguy 1971): A 1971 article in Revue de Linguistique Romane whose title concerns the relation between spatial distance and lexical distance.
@@ -347,7 +347,7 @@ The predictions of the manuscript are compared with empirical regularities of hu
 
 ## Thermodynamics of information
 
-The energetic statements of the manuscript use stochastic thermodynamics: dissipation as a relative entropy between forward and reversed paths and its estimation from data, information flow in bipartite and causal networks, the minimal cost of measurement and erasure, and semantic information defined through viability.
+These sources cover stochastic thermodynamics: dissipation as a relative entropy between forward and reversed paths and its estimation from data, information flow in bipartite and causal networks, the minimal cost of measurement and erasure, and semantic information defined through viability.
 
 - [[gomez-marin-2007-bounding-dissipation-stochastic]] (Gomez-Marin et al. 2007): The paper extends an exact expression for the average dissipated work in driven systems from Hamiltonian dynamics to stochastic dynamics, writes it as a relative entropy between forward and backward path probabilities, and derives lower bounds on...
 - [[kawai-2007-dissipation-phase-space]] (Kawai et al. 2007): For a Hamiltonian system driven between two canonical equilibrium states, the average dissipated work equals $kT$ times the relative entropy between the phase-space densities of the forward and time-reversed protocols, taken at the same intermediate time.
@@ -368,4 +368,4 @@ Selection among collectives is treated with the Price equation and with models o
 
 ## Related
 
-[[Active inference communication and collective boundaries]] · [[Collective active inference]] · [[Meta-agents and hierarchical emergence]] · [[Markov Blanket]] · [[Coarse Graining]] · [[Communication-constrained inference]] · [[Graph synchronization and connection Laplacians]] · [[Statistical physics of social systems and collective behavior]]
+[[Active inference communication and collective boundaries]] · [[Collective active inference]] · [[Markov Blanket]] · [[Coarse Graining]] · [[Communication-constrained inference]] · [[Graph synchronization and connection Laplacians]] · [[Statistical physics of social systems and collective behavior]]

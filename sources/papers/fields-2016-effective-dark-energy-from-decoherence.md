@@ -28,7 +28,7 @@ Fields proposes that the thermodynamic cost of redundantly encoding stellar posi
 
 ## Relevance to this research
 
-The paper is relevant to [[Emergent spacetime and holography]] as a speculative example of physicalizing information costs. It should be cited as a proposal, not evidence that information processing explains dark energy. For [[Gauge-Theoretic Multi-Agent VFE Model]], it emphasizes why an information quantity needs a specified physical implementation, units, and dynamics before being interpreted as energy or mass. Its numerical agreement cannot establish a gravitational interpretation of the project's dimensionless variational objective.
+The paper is relevant to [[Emergent spacetime and holography]] as a speculative example of physicalizing information costs. It should be cited as a proposal, not evidence that information processing explains dark energy. For Gauge-Theoretic Multi-Agent VFE Model, it emphasizes why an information quantity needs a specified physical implementation, units, and dynamics before being interpreted as energy or mass. Its numerical agreement cannot establish a gravitational interpretation of the project's dimensionless variational objective.
 
 ## BibTeX
 

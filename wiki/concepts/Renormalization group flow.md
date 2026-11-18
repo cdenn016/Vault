@@ -15,7 +15,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-11-14
+updated: 2026-11-18
 ---
 
 # Renormalization group flow
@@ -76,14 +76,6 @@ maps can fail even to produce well-defined renormalized theories; the probabilis
 the exceptional character of Markov-chain lumpability
 ([[kemeny-snell-1960-finite-markov-chains]]).
 
-## Decimation of a Gaussian lattice medium, November 11, 2026
-
-Decimation composes exactly, and the couplings it generates stay in a finite-range family only in special cases. For the nearest-neighbor Gaussian precision on $\mathbb Z$ with leak $\varepsilon^\Pi$ and coupling $a^\Pi$, decimation by a block factor $b$ returns a nearest-neighbor precision whose mass is $b$ times the fine one, and the ratio of leak to coupling flows by a Chebyshev recursion from the unstable massless point, with eigenvalue $b^2$, to the attracting decoupled point. On $\mathbb Z^D$ with $D\ge2$ the nearest-neighbor class is left after one step. [[dennis-2026-collective-agents-renormalization-results]] proves how the generated couplings decay for the nearest-neighbor precision and every block factor. Every coupling of the decimated precision between distinct retained sites is nonpositive, and from coarse distance two on it is bounded by a multiple of $e^{-\mu_1\Vert x'\Vert_\infty}$, where $\cosh\mu_1$ is the smallest zero of an explicit rational function built from the transverse modes of a block. The rate $\mu_1$ is exact for the sums of the couplings over hyperplanes and, in the sense of the limit of $n^{-1}\ln$, for the couplings along the coordinate axes, and no larger rate bounds all couplings.
-
-The rate lies strictly between $bm_1$, the rate per coarse step at which the hyperplane sums of the covariance of the retained sites decay, and the corresponding quantity $bm_\ast$ of the first transverse mode. As the leak tends to zero, $bm_1$ tends to zero while $\mu_1$ keeps a positive limit. The coarse precision therefore stays short-ranged at the massless point while the coarse correlations become long-ranged: the couplings are governed by the zeros of the aliased covariance symbol and the correlations by its poles. For block factor two on $\mathbb Z^2$ the rate has the closed form $\cosh\mu_1=\frac12[(\varepsilon^\Pi/a^\Pi+4)^2-6]$, and the couplings on the two axes carry a proved factor $n^{-1/2}$ of Ornstein-Zernike type, the form of correction established for two-point functions of finite-range Ising models above the critical temperature ([[campanino-2003-ornstein-zernike-finite]]).
-
-The correction to the exponential for other block factors and dimensions is a numerical observation in the manuscript and is not proved; the rate along directions other than the axes and the rate for kernels beyond nearest neighbors are not determined. The statement above that pure decimation composes trivially stands, with the qualification that in two and more dimensions the composed map lands in a family of couplings of infinite range, whose decay is now proved in this one class.
-
 ## Orbit coarse-graining compared with renormalization, November 14, 2026
 
 [[rosas-2026-symmetry-hierarchical-emergence]] states how its use of symmetry differs from the one on this page (version read: the arXiv preprint arXiv:2512.00984v1). By the paper's account, renormalization explains emergence near criticality through scale invariance and, more generally, through effective field theories that filter irrelevant degrees of freedom, and symmetry there determines which operators are compatible and constrains the emergent laws. In the paper a symmetry of the dynamics fixes the coarse-graining map itself, as the map to orbits, and the conclusion is exact informational closure of the orbit variable in finite systems. The paper has no rescaling step, no flow on a space of couplings, and no fixed points or universality classes. Its nearest analogue of blocking is in the Ehrenfest diffusion of $n$ particles: subgroups of the permutation group that permute particles only within blocks of $M$ give block counts $z^k_t\in\{0,\ldots,M\}$ as closed variables, larger subgroups give coarser closed variables down to the total count, and the paper likens this to the merging of microscopic degrees of freedom into effective units. By its Corollary 2 the level of a larger subgroup is informationally closed with respect to the level of a smaller one, so coarse-graining steps along a chain of subgroups compose exactly, and by its Corollary 3 each level carries an exact Bayesian filter for an observer whose measurements share the symmetry. This bears on the section "Composability is the exception, not the rule": the paper states in a footnote that equivariance is sufficient for closure and that Markov lumpability is necessary, so equivariance of the transition kernel is one structural source of the lumpability that the section, citing [[kemeny-snell-1960-finite-markov-chains]], calls exceptional. The paper does not cite that reference. The paper cites [[kadanoff1966scaling]] for the renormalization background and names [[berman-2023-bayesian-renormalization]], [[koch-janusz-2018-mutual-information-neural]] and [[lenggenhager-2020-optimal-renormalization-group]] as approaches with which its results might be combined; no such combination is carried out.
@@ -100,7 +92,7 @@ The correction to the exponential for other block factors and dimensions is a nu
 - [[garuccio-2023-multiscale-network-renormalization]] — uniqueness of the aggregation-invariant model; additivity as the renormalizability criterion; scale-free versus scale-invariant.
 - [[villegas-2023-laplacian-renormalization-group]] — diffusion time as an intrinsic RG scale; entropic susceptibility as a scale detector.
 - [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; inference as the inverse of exact RG flow.
-- [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]], [[bordley-1982-multiplicative-pooling]] — opinion-pooling taxonomy fixing the aggregator used at the RG blocking step.
+- [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]], [[bordley-1982-multiplicative-pooling]] — opinion-pooling taxonomy (linear and logarithmic aggregators).
 - [[griffiths-1979-rg-transformations]], [[van-enter-1993-rg-pathologies]] — rigorous limits of real-space RG: renormalized interactions need not exist; non-Gibbsian images.
 - [[berker-1979-hierarchical-lattice-rg]], [[kadanoff-1976-migdal-recursion]] — hierarchical lattices, the self-similar substrates on which real-space RG composes exactly.
 - [[kemeny-snell-1960-finite-markov-chains]] — lumpability as the exceptional condition for a coarse-grained Markov chain to stay Markov.
@@ -109,8 +101,5 @@ The correction to the exponential for other block factors and dimensions is a nu
 
 ## See also
 
-- [[Meta-agents and hierarchical emergence]]
-- [[Ouroboros multi-scale dynamics]]
 - [[Geometric singular perturbation theory]]
-- [[Belief inertia]]
-- [[participatory-it-from-bit]] · [[Gauge-Theoretic Multi-Agent VFE Model]] · [[VFE Transformer Program]]
+- [[VFE Transformer Program]]

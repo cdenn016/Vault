@@ -56,13 +56,13 @@ The construction rests on three ingredients: (i) a non-equilibrium steady-state 
 
 ## Relevance to this research
 
-This is the conceptual progenitor of the observer-as-inference stance that **[[participatory-it-from-bit]]** builds on. PIFB's "it from bit" reading — that the apparent physics of a system is the geometry of an embedded observer's beliefs about the rest — is precisely the FEP-as-physics thesis, lifted into a gauge-covariant, multi-agent register. The project inherits the Markov-blanket notion of a statistical individual (seeding [[Multi-agent variational free energy]] and nested [[Meta-agents and hierarchical emergence]]) and the solenoidal/Helmholtz flow that underwrites its [[Hamiltonian belief dynamics]] and [[Belief inertia]]. It also inherits the live foundational tension this text provoked: the [[Markov blanket interpretation debate]] (Bruineberg et al., Aguilera et al., Biehl et al.) is, in large part, a critique of the assumptions made here, which PIFB must answer rather than assume. See the broader [[Free-energy principle active inference]] method page and [[Bayesian mechanics]].
+This is the conceptual progenitor of the observer-as-inference stance that **[[participatory-it-from-bit]]** builds on. PIFB's "it from bit" reading — that the apparent physics of a system is the geometry of an embedded observer's beliefs about the rest — is precisely the FEP-as-physics thesis, lifted into a gauge-covariant, multi-agent register. The project inherits the Markov-blanket notion of a statistical individual (seeding Multi-agent variational free energy and nested Meta-agents and hierarchical emergence) and the solenoidal/Helmholtz flow that underwrites its Hamiltonian belief dynamics and Belief inertia. It also inherits the live foundational tension this text provoked: the [[Markov blanket interpretation debate]] (Bruineberg et al., Aguilera et al., Biehl et al.) is, in large part, a critique of the assumptions made here, which PIFB must answer rather than assume. See the broader [[Free-energy principle active inference]] method page and [[Bayesian mechanics]].
 
 ## Cross-links
 
-- Concepts: [[Variational free energy]], [[Hamiltonian belief dynamics]], [[Belief inertia]], [[Participatory realism (it from bit)]], [[Fisher information metric]]
+- Concepts: [[Variational free energy]], Hamiltonian belief dynamics, Belief inertia, [[Participatory realism (it from bit)]], [[Fisher information metric]]
 - New pages: [[Bayesian mechanics]], [[Markov blanket interpretation debate]]
-- Methods/themes: [[Free-energy principle active inference]], [[Multi-agent variational free energy]]
+- Methods/themes: [[Free-energy principle active inference]], Multi-agent variational free energy
 - Related sources: [[dacosta-2021-bayesian-mechanics]], [[ramstead-2023-bayesian-mechanics]], [[parr-2020-markov-blankets-thermodynamics]], [[friston-2010-free-energy-principle]]
 - Manuscript: [[participatory-it-from-bit]]
 

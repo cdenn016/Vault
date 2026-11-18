@@ -28,7 +28,7 @@ Fields and Levin compare measured cellular energy budgets with an estimated cost
 
 ## Relevance to this research
 
-This paper supplies an explicit resource argument used in later work on [[Quantum reference frames]] and biological compartmentalization. It is relevant when separating physically recorded information from an analyst's fine-grained model. A classical implementation in [[Gauge-Theoretic Multi-Agent VFE Model]] is not contradicted solely by this estimate: its state variables, effective resolution, thermodynamic interpretation, and relation to microscopic degrees of freedom must first be specified.
+This paper supplies an explicit resource argument used in later work on [[Quantum reference frames]] and biological compartmentalization. It is relevant when separating physically recorded information from an analyst's fine-grained model. A classical implementation in Gauge-Theoretic Multi-Agent VFE Model is not contradicted solely by this estimate: its state variables, effective resolution, thermodynamic interpretation, and relation to microscopic degrees of freedom must first be specified.
 
 ## BibTeX
 

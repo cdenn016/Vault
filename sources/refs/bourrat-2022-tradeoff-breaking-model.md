@@ -37,11 +37,11 @@ The abstract states that fitness of particles and collectives cannot decouple wh
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper for the point that separation of collective and particle fitness requires care about timescale and population accounting, and compares its own evolutionary treatment of transitions with the tradeoff-breaking account in a main-text remark and an extended comparison. The reading record says the paper was opened and used for that comparison. It bears on when a collective counts as an agent in its own right, see [[Meta-agents and hierarchical emergence]], [[Evolutionary game theory and cooperation]] and [[Cultural group selection]].
+The collective-agents manuscript cites this paper for the point that separation of collective and particle fitness requires care about timescale and population accounting, and compares its own evolutionary treatment of transitions with the tradeoff-breaking account in a main-text remark and an extended comparison. The reading record says the paper was opened and used for that comparison. It bears on when a collective counts as an agent in its own right, see Meta-agents and hierarchical emergence, [[Evolutionary game theory and cooperation]] and [[Cultural group selection]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Evolutionary game theory and cooperation]]; [[Cultural group selection]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Evolutionary game theory and cooperation]]; [[Cultural group selection]].
 
 ## BibTeX
 

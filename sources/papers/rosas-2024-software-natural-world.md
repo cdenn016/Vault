@@ -56,8 +56,8 @@ transients receive no explicit treatment.
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
+- Themes: Meta-agents and hierarchical emergence
 - Related sources: [[hoel-2013-causal-emergence]], [[rosas-2019-o-information]], [[krakauer-2020-information-theory-individuality]], [[flack-2017-coarse-graining-downward-causation]]
 
 ## BibTeX

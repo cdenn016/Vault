@@ -49,9 +49,9 @@ CPC supplies a concrete shared-latent alternative to direct pairwise belief matc
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Decentralized Bayesian inference]], [[Multi-agent variational free energy]]
+- Concepts: [[Collective active inference]], [[Decentralized Bayesian inference]], Multi-agent variational free energy
 - Related sources: [[hoang-2024-mh-naming-game]], [[fukuoka-2026-variational-bayes-naming-game]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

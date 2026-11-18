@@ -48,7 +48,7 @@ Stated limits: white noise only, although brain signals are colored (p. 9); a si
 
 ## Cross-links
 
-Concepts: [[Hamiltonian belief dynamics]]; [[Belief inertia]]; [[Mass as Fisher information]]; [[Bayesian mechanics]]; [[Laplace approximation]]; [[Predictive Coding]]; [[Prediction error]]; [[Process-space variational inference]].
+Concepts: Hamiltonian belief dynamics; Belief inertia; Mass as Fisher information; [[Bayesian mechanics]]; [[Laplace approximation]]; [[Predictive Coding]]; [[Prediction error]]; [[Process-space variational inference]].
 
 Related sources: [[buckley-2017-fep-mathematical-review]]; [[friston-2023-fep-simpler]]; [[aguilera-2022-particular-physics]]; [[friston-2008-dem]]; [[rao-1999-predictive-coding]]; [[dacosta-2020-discrete-state-synthesis]]; [[kim-2021-bayesian-mechanics-perceptual-inference]]; [[isomura-2023-bayesian-mechanics-self-organising]].
 

@@ -44,8 +44,8 @@ persistence strategies, and quantitative lifetime statistics for overlapping com
 Direct empirical support for the staged-aggregation picture: real social meta-agents are built
 by accretion, not de novo, which is the kinetic phenomenon the laboratory can now probe from
 inside via free-energy comparison of staged versus direct blocking paths
-([[Meta-agents and hierarchical emergence]]). The size-dependent persistence result is
-also a target observable for [[Meta-agents and hierarchical emergence]]: the mark-carrying
+(Meta-agents and hierarchical emergence). The size-dependent persistence result is
+also a target observable for Meta-agents and hierarchical emergence: the mark-carrying
 parent's retention price and the partition posterior give the model's own account of when a
 block persists.
 

@@ -22,7 +22,7 @@ Theorem 2 represents local quantum filtering operations by Lorentz transformatio
 
 ## Relevance to this research
 
-A related use of the representation, cited with a quantum-versus-classical scope boundary in PIFB2. Normalization and selective channels are kept distinct from an unnormalized Lorentz action. See [[Emergent spacetime and holography]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+A related use of the representation, cited with a quantum-versus-classical scope boundary in PIFB2. Normalization and selective channels are kept distinct from an unnormalized Lorentz action. See [[Emergent spacetime and holography]]. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

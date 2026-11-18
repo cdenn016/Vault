@@ -9,7 +9,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-11-18
 ---
 
 # Predictive Coding
@@ -34,7 +34,7 @@ Keep three things separate. (1) **The theory** — this page: prediction-error m
 
 ## Relevance to this program
 
-Predictive coding is the conceptual engine of the **vfe3 transformer**: each token carries a Gaussian belief $(\mu,\Sigma)$ trained by free-energy minimization, and **precision gates attention** — confident tokens exert more influence, the Rao–Ballard "precision weights prediction error" mechanism reread as an attention prior (see [[Precision weighting]]). Because precision is inverse variance, it ties directly to the [[Fisher information metric]] and motivates [[Natural gradient]] updates over belief parameters. In the **MAgent** model, hierarchical prediction-error suppression scales to nested agents minimizing each other's surprise. The transformer keeps this *prediction-error-and-precision* core while replacing the flat-Gaussian substrate with SPD-manifold and gauge machinery — see [[Predictive coding network]] for that departure.
+Predictive coding is the conceptual engine of the **vfe3 transformer**: each token carries a Gaussian belief $(\mu,\Sigma)$ trained by free-energy minimization, and **precision gates attention** — confident tokens exert more influence, the Rao–Ballard "precision weights prediction error" mechanism reread as an attention prior (see [[Precision weighting]]). Because precision is inverse variance, it ties directly to the [[Fisher information metric]] and motivates [[Natural gradient]] updates over belief parameters. The transformer keeps this *prediction-error-and-precision* core while replacing the flat-Gaussian substrate with SPD-manifold and gauge machinery — see [[Predictive coding network]] for that departure.
 
 ## See also
 

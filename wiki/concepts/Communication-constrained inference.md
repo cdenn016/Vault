@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-11-07
+updated: 2026-11-18
 ---
 
 # Communication-constrained inference
@@ -21,7 +21,7 @@ Communication-constrained inference treats messages as a limited statistical res
 
 ## Why it matters here
 
-A multi-agent model is not decentralized merely because its objective decomposes into agent-indexed terms. If each update reads every other agent's full-precision state, the implementation is effectively centralized or all-to-all. [[duchi-2014-distributed-estimation]] proves that restricted communication can change minimax estimation rates, so communication cannot be treated as a harmless implementation detail. MultiAgentELBO can use its exact finite model as an oracle against which quantized or graph-local protocols are measured.
+A multi-agent model is not decentralized merely because its objective decomposes into agent-indexed terms. If each update reads every other agent's full-precision state, the implementation is effectively centralized or all-to-all. [[duchi-2014-distributed-estimation]] proves that restricted communication can change minimax estimation rates, so communication cannot be treated as a harmless implementation detail.
 
 ## Distinct constraints
 
@@ -44,10 +44,6 @@ These constraints should not be collapsed into a single scalar "communication no
 [[lin-2021-autoencoder-communication]] grounds outgoing messages by reconstructing the sender's observations; its auxiliary decoder is distinct from a recipient's learned use of those messages. [[hansen-ghrist-2021-discourse-sheaves]] instead represents partial expression through maps between private and edge-specific spaces. The broader comparison is in [[Active inference communication and collective boundaries]].
 
 > [!note] Editorial: The rank of a continuous expression map is not a bit budget. A numerical capacity requires a specified alphabet or precision and, where relevant, a noise law and coding assumptions. Lower-dimensional messages can constrain which aspects of a state are directly expressed without quantifying their transmission rate or establishing agreement about their meaning.
-
-## In this work
-
-A communication-aware benchmark should declare the payload (samples, gradients, natural parameters, moments, or log beliefs), bits per agent per step, number of rounds, graph, and failure model. It should plot posterior or decision error against communication, with an unlimited-communication oracle and a no-communication baseline. Consensus error, estimation error, and numerical compression error should be logged separately. Continuous-time free-energy dissipation alone yields no communication-rate guarantee.
 
 ## Sources
 

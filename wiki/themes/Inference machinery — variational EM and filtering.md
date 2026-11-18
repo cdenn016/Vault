@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # Inference machinery — variational EM and filtering
@@ -119,7 +119,7 @@ fixed-point, CAVI, and evidence-bound claims can accompany each executable updat
 **Credit assignment by inference: the backprop-free track.** The 2026-07-11 plan
 ([[Nudged two-phase EM]])
 turns the structural-EM caveats above into a constructive prescription: restore the observation
-term to the belief update (the [[participatory-it-from-bit|PIFB]]-canonical placement) in a pair
+term to the belief update (the canonical placement) in a pair
 of symmetric target-nudged continuations of the free E-step, and estimate the through-$q^*$
 credit that fixed-$q^*$ M-steps drop by the [[scellier-bengio-2017-equilibrium-propagation|equilibrium-propagation]]
 contrast of analytic envelope statistics. At a target-blind fixed
@@ -204,8 +204,8 @@ under parallel transport and holonomy (the cross-cluster theme
 
 ## Exact-oracle-to-algorithm bridge (2026-08-10)
 
-The MultiAgentELBO finite evaluator is an oracle, not yet an inference engine. The missing bridge is
-now typed by source. [[matthews-2016-stochastic-process-kl]] governs process-level variational
+An exact finite evaluator is an oracle, not an inference engine. The bridge from one to the other
+is typed by source. [[matthews-2016-stochastic-process-kl]] governs process-level variational
 extensions; [[ay-2025-natural-gradient-elbo]] governs when constrained ELBO and target-KL natural
 gradients agree; and [[senoz-2021-local-constraint-vmp]] plus
 [[heskes-2006-bethe-kikuchi-convexity]] govern constrained-Bethe message passing and loopy
@@ -216,7 +216,7 @@ The implementation comparators are [[tran-2015-copula-variational-inference]] fo
 continuous dependence, [[wilkinson-2023-bayes-newton]] for positive-semidefinite covariance-safe
 second-order updates, [[hasenclever-2017-snep-posterior-server]] for asynchronous distributed EP,
 and [[bagaev-2023-reactive-message-passing]] for reactive scheduling. None changes the exact global
-recognition-law semantics of the current oracle by citation; each would be a separately declared
+recognition-law semantics of an exact oracle by citation; each would be a separately declared
 approximate layer with normalization, stationarity, residual, and oracle-error tests.
 
 ## Distributed and federated variational inference (2026-08-20)

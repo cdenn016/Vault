@@ -32,7 +32,7 @@ The introduction closes (p. 1660) with a formal definition of an $(a_n,b_n)$ cut
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
+- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
 - Related sources: [[aldous-1986-shuffling-cards-stopping-times]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]], [[barrera-2020-thermalisation-small-random-perturbations]], [[boursier-2023-universal-cutoff-dyson-ornstein-uhlenbeck]]
 
 ## BibTeX

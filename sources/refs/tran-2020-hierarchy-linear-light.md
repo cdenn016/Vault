@@ -37,11 +37,11 @@ The paper establishes three linear light cones with sharp thresholds. In one dim
 
 ## Relevance to this research
 
-The manuscript cites this paper twice. In its scale analysis it notes that its threshold coincides with the free-particle light cone for interactions decaying faster than $r^{-(D+1)}$, because linear message passing propagates a single tangent vector, while the many-body thresholds of the hierarchy have no analog. In its related-work section it lists the hierarchy among bounds on how far correlations spread. See [[Bundle scale space]], [[Quantum information]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites this paper twice. In its scale analysis it notes that its threshold coincides with the free-particle light cone for interactions decaying faster than $r^{-(D+1)}$, because linear message passing propagates a single tangent vector, while the many-body thresholds of the hierarchy have no analog. In its related-work section it lists the hierarchy among bounds on how far correlations spread. See [[Bundle scale space]], [[Quantum information]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Bundle scale space]]; [[Quantum information]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Bundle scale space]]; [[Quantum information]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

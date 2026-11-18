@@ -28,7 +28,7 @@ Part I assembles Chu-space and Channel-Theory tools for representing semantic in
 
 ## Relevance to this research
 
-This is background for [[Quantum reference frames]] and [[Meta-agents and hierarchical emergence]], especially when comparing local descriptions that share only selected distinctions. It offers explicit compatibility conditions instead of assuming every receiver uses the same semantics. The satisfaction relation and categorical arrows do not specify probabilities, Fisher geometry, or dynamics on their own. To connect the construction to the project, those structures and their preservation under the maps must be separately defined.
+This is background for [[Quantum reference frames]] and Meta-agents and hierarchical emergence, especially when comparing local descriptions that share only selected distinctions. It offers explicit compatibility conditions instead of assuming every receiver uses the same semantics. The satisfaction relation and categorical arrows do not specify probabilities, Fisher geometry, or dynamics on their own. To connect the construction to the project, those structures and their preservation under the maps must be separately defined.
 
 ## BibTeX
 

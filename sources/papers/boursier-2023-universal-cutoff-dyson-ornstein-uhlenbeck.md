@@ -40,11 +40,11 @@ Remark 3.2 splits the cutoff into a bias time $c^A=\log(n|z_0|)$ and a variance 
 
 ## Relevance to this research
 
-The asymptotic parameter here is the dimension $n$, not the noise. The transfer to the model's small-temperature setting is by the explicit Gaussian formula and by the cited fixed-dimension result, not by the $n\to\infty$ theorems. Those theorems matter in their own right for the program's target of networks with hundreds of agents: they show that the number of coordinates alone produces a logarithmic cutoff, through the variance time $\frac14\log n$ and the $n$ inside $\log(n|z_0|)$. This reading is interpretive. See [[Meta-agents and hierarchical emergence]].
+The asymptotic parameter here is the dimension $n$, not the noise. The transfer to the model's small-temperature setting is by the explicit Gaussian formula and by the cited fixed-dimension result, not by the $n\to\infty$ theorems. Those theorems matter in their own right for the program's target of networks with hundreds of agents: they show that the number of coordinates alone produces a logarithmic cutoff, through the variance time $\frac14\log n$ and the $n$ inside $\log(n|z_0|)$. This reading is interpretive. See Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence
 - Related sources: [[barrera-2020-thermalisation-small-random-perturbations]], [[lachaud-2005-cutoff-hitting-times-ornstein-uhlenbeck]], [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
 
 ## BibTeX

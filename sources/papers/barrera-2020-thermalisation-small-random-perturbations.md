@@ -38,12 +38,12 @@ and the window (eq. 2.6) is $w=1/\lambda+o(1)$. Theorem 2.2 states that for each
 
 ## Relevance to this research
 
-Three differences bound the match. The theorem concerns the total-variation distance of the full, unconditioned law from a deterministic start, under global conditions (H) and (G) that have not been established for the four-cycle. The model's quantity is the discarded conditional relative entropy of a law conditioned on a seed event and held. The threshold locations agree because, for Gaussians with a common covariance, both distances are monotone in the Mahalanobis length of the mean shift, and that is an elementary linear computation which the theorem does not supply. The $O(1)$ profile inside the window does not transfer. See [[Meta-agents and hierarchical emergence]].
+Three differences bound the match. The theorem concerns the total-variation distance of the full, unconditioned law from a deterministic start, under global conditions (H) and (G) that have not been established for the four-cycle. The model's quantity is the discarded conditional relative entropy of a law conditioned on a seed event and held. The threshold locations agree because, for Gaussians with a common covariance, both distances are monotone in the Mahalanobis length of the mean shift, and that is an elementary linear computation which the theorem does not supply. The $O(1)$ profile inside the window does not transfer. See Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Geometric singular perturbation theory]]
-- Themes: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, [[Geometric singular perturbation theory]]
+- Themes: Meta-agents and hierarchical emergence
 - Related sources: [[barrera-2016-abrupt-convergence-small-perturbations]], [[boursier-2023-universal-cutoff-dyson-ornstein-uhlenbeck]], [[diaconis-1996-cutoff-phenomenon-markov-chains]], [[freidlin-2012-random-perturbations-dynamical-systems]], [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
 
 ## BibTeX

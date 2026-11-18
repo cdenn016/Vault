@@ -10,17 +10,13 @@ updated: 2026-11-01
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **27** manuscripts · **15** themes · **13** maps of content · **286** concepts · **16** methods · **885** papers · **159** references · **2** runs · **7** web/methodology
+> **1** projects · **27** manuscripts · **16** themes · **13** maps of content · **278** concepts · **16** methods · **885** papers · **159** references · **2** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
-- [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation (MAgent)
-- [[SocialPhysics]] — opinion dynamics & belief momentum as multi-agent VFE (founded on [[belief-inertia]])
 - [[CLAUDE|LLM-Wiki Schema]] — how the wiki is maintained · [[log|Operations Log]] — operation history
 
 ## 📐 Projects
-- [[Gauge-Theoretic Multi-Agent VFE Model]]
-- [[SocialPhysics]]
 - [[VFE Transformer Program]]
 
 ## 📝 Manuscripts (in preparation)
@@ -67,11 +63,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[Inference machinery — variational EM and filtering]]
 - [[Information geometry and natural gradient]]
 - [[Participatory realism and quantum foundations]]
-- [[PIFB2 refactor foundations September 2026]]
 - [[SPD-manifold geometry and Riemannian optimization]]
-- [[Meta-agents and hierarchical emergence]]
-- [[Approximate meta-agent theorem]] (error terms for a collective whose coarse variables are not closed; linear-Gaussian model)
-- [[Effective rank along relays]] (rank of content shared across hops; proved limit and monotonicity cases, a counterexample without a common direction, and the open conjecture; linear-Gaussian model)
 - [[Statistical physics of social systems and collective behavior]]
 - [[Structural realism and philosophy of science]]
 - [[Transformer interpretability and scaling]]
@@ -117,15 +109,11 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Alpha-divergence]]
 - [[Amortized inference]]
 - [[Bayesian mechanics]]
-- [[Belief inertia]]
 - [[Collective active inference]]
 - [[Evidence lower bound (ELBO)]]
 - [[Federated inference]]
 - [[Information bottleneck]]
 - [[Markov blanket interpretation debate]]
-- [[Meta-agents and hierarchical emergence]]
-- [[Multi-agent variational free energy]]
-- [[Ouroboros multi-scale dynamics]]
 - [[Precision weighting]]
 - [[Prediction error]]
 - [[Predictive Coding]]
@@ -133,7 +121,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational free energy]]
 
 ### Gauge theory, Lie groups & geometric deep learning
-- [[Agents as fibre-bundle sections]]
 - [[Baker-Campbell-Hausdorff formula]]
 - [[Clebsch-Gordan coefficients]]
 - [[Dressing field method]]
@@ -149,10 +136,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ### Information geometry, divergences & natural gradient
 - [[Fisher information metric]]
-- [[Hamiltonian belief dynamics]]
 - [[Information Geometry]]
-- [[Mass as Fisher information]]
-- [[Meta-entropy]]
 - [[Natural gradient]]
 - [[Participatory realism (it from bit)]]
 - [[Physics from Fisher information]]
@@ -173,7 +157,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Community detection and modularity]]
 - [[Geometric singular perturbation theory]]
 - [[Renormalization group flow]]
-- [[Meta-agents and hierarchical emergence]] (formation as a crossover in rescaled time; what a collective discards and keeps; founding memory)
 - [[rosas-2026-symmetry-hierarchical-emergence|Symmetry as a common origin of hierarchical emergence and abstraction]] (equivariant Markov kernels, orbit variables as informationally closed levels, abstract beliefs; arXiv preprint read)
 
 ### Participatory realism, quantum foundations, holography & consciousness
@@ -234,7 +217,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Bayesian Probability]]
 - [[Bekenstein bound]]
 - [[Belief Compression]]
-- [[Belief coupling]]
 - [[Belief dynamics]]
 - [[Belief Propagation]]
 - [[Bell inequalities]]

@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stub
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-11-18
 ---
 
 # Hierarchical generative model
@@ -23,7 +23,7 @@ A generative model with multiple layers of latent variables, where each level ge
 On the deep-generative side, inference and learning typically proceed by a *layered variational posterior* — an inference network mirroring the generative hierarchy — as in ladder / hierarchical VAEs, where bottom-up data evidence is combined with top-down priors at each level ([[sonderby-2016-ladder-vae]]). This is the deep-generative analogue of the program's hierarchical belief structure and a natural setting for stacked precision-weighted updates.
 
 ## Related
-[[Predictive coding network]], [[Variational free energy]], [[Multi-agent variational free energy]], [[Variational autoencoder (VAE)]]
+[[Predictive coding network]], [[Variational free energy]], [[Variational autoencoder (VAE)]]
 
 ## Sources
 [[clark-2013-predictive-brains]], [[friston-2010-free-energy-principle]], [[sonderby-2016-ladder-vae]]

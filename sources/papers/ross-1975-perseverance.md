@@ -34,7 +34,7 @@ The foundational belief-perseverance experiments: after subjects received false 
 The empirical origin of belief perseverance, a psychological microfoundation for belief inertia / momentum modeled in the SocialPhysics project: beliefs resist updating even when their evidence is removed, motivating a hysteresis/mass term in opinion dynamics.
 
 ## Cross-links
-[[Belief inertia]], [[Opinion dynamics]]
+Belief inertia, [[Opinion dynamics]]
 
 ## BibTeX
 ```bibtex

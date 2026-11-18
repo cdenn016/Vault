@@ -50,7 +50,7 @@ This source fixes an important scope boundary for [[Communication-constrained in
 
 - Concepts: [[Decentralized Bayesian inference]], [[Communication-constrained inference]], [[Approximate Bayesian inference]]
 - Related sources: [[ashman-2022-partitioned-variational-inference]], [[mildner-2025-fedgvi]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

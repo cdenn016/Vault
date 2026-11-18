@@ -28,7 +28,7 @@ This article preserves a multi-author conversation about defining life, includin
 
 ## Relevance to this research
 
-For [[Meta-agents and hierarchical emergence]], this is a record of the identity and boundary questions that a formal construction must answer. It supports tracking the chosen scale, environment, and persistence criterion explicitly. Fields's statements that particular physics principles follow from decomposition should be read as positions in a discussion, with technical justification sought in the cited research articles. The dialogue does not establish an endogenous parent-formation law.
+For Meta-agents and hierarchical emergence, this is a record of the identity and boundary questions that a formal construction must answer. It supports tracking the chosen scale, environment, and persistence criterion explicitly. Fields's statements that particular physics principles follow from decomposition should be read as positions in a discussion, with technical justification sought in the cited research articles. The dialogue does not establish an endogenous parent-formation law.
 
 ## BibTeX
 

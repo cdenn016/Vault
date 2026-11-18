@@ -28,7 +28,7 @@ Part II applies Chu spaces and Channel Theory to object identification and the r
 
 ## Relevance to this research
 
-This is closely relevant to [[Meta-agents and hierarchical emergence]] and [[Quantum reference frames]] because it treats identities and part-whole structure as inferred classifications. It provides mathematical language for consistent translations among representations. A categorical colimit is not automatically a normalized statistical parent law, and inferred visual geometry is not automatically physical spacetime. Those identifications require additional models rather than a change of terminology.
+This is closely relevant to Meta-agents and hierarchical emergence and [[Quantum reference frames]] because it treats identities and part-whole structure as inferred classifications. It provides mathematical language for consistent translations among representations. A categorical colimit is not automatically a normalized statistical parent law, and inferred visual geometry is not automatically physical spacetime. Those identifications require additional models rather than a change of terminology.
 
 ## BibTeX
 

@@ -29,7 +29,7 @@ Fields treats uncertainty about the provenance of an observation as uncertainty 
 
 ## Relevance to this research
 
-This source connects [[Quantum reference frames]] to the cost of maintaining the identities and conventions behind communication. It is useful for distinguishing a mathematical factorization from the physical work required to stabilize a laboratory reference. For [[Gauge-Theoretic Multi-Agent VFE Model]], that distinction applies to dictionaries, records, and persistent interfaces. Its observer-relative memory ordering is also different from a Lorentzian time coordinate or the project's Fisher information clock, so no equivalence of clocks should be inferred.
+This source connects [[Quantum reference frames]] to the cost of maintaining the identities and conventions behind communication. It is useful for distinguishing a mathematical factorization from the physical work required to stabilize a laboratory reference. For Gauge-Theoretic Multi-Agent VFE Model, that distinction applies to dictionaries, records, and persistent interfaces. Its observer-relative memory ordering is also different from a Lorentzian time coordinate or the project's Fisher information clock, so no equivalence of clocks should be inferred.
 
 ## BibTeX
 

@@ -43,7 +43,7 @@ The Dunning-Kruger phenomenon is directly relevant to multi-agent active inferen
 ## Cross-links
 - Concepts: [[Metacognition]], [[Self-Assessment Bias]], [[Active Inference]], [[Bayesian Inference|Belief Updating]]
 - Related sources: [[festinger-1954-social-comparison-processes|festinger1954social-comparison]], [[ross-1977-false-consensus|ross1977false-consensus]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

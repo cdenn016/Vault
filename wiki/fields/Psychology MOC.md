@@ -5,7 +5,7 @@ aliases: [field/psychology, Psychology sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-07
+updated: 2026-11-18
 ---
 
 # Psychology MOC
@@ -13,8 +13,8 @@ updated: 2026-11-07
 > Map of Content for the **`field/psychology`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Psychology (**39** sources) is almost entirely the social- and cognitive-psychology foundation of the
-[[Statistical physics of social systems and collective behavior|social-physics]] program — conformity
+Psychology (**39** sources) is almost entirely the social- and cognitive-psychology foundation of
+[[Statistical physics of social systems and collective behavior|social physics]] — conformity
 and social influence (Asch, Festinger, Sherif, Cialdini), social power, attitude change, and cognitive
 bias — the empirical micro-behaviour the formal opinion-dynamics models abstract.
 

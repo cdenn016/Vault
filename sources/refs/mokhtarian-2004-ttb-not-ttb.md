@@ -29,11 +29,11 @@ As the manuscript reports it, the review covers more than two dozen studies and 
 
 ## Relevance to this research
 
-The manuscript cites the review as the qualification to Marchetti's claim of a fixed daily travel budget of about one hour: the budget holds only in aggregate. The manuscript uses the budget as a bound on the diameter of the sets reachable in one round of communication. The connection is to [[Meta-agents and hierarchical emergence]] and [[Collective active inference]]. See also [[marchetti-1994-anthropological-invariants-travel]].
+The manuscript cites the review as the qualification to Marchetti's claim of a fixed daily travel budget of about one hour: the budget holds only in aggregate. The manuscript uses the budget as a bound on the diameter of the sets reachable in one round of communication. The connection is to Meta-agents and hierarchical emergence and [[Collective active inference]]. See also [[marchetti-1994-anthropological-invariants-travel]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[marchetti-1994-anthropological-invariants-travel]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[marchetti-1994-anthropological-invariants-travel]].
 
 ## BibTeX
 

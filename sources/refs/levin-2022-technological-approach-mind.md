@@ -36,11 +36,11 @@ This is a perspective article, so the contribution is a framework and a set of h
 
 ## Relevance to this research
 
-The manuscript cites this paper, with a related paper by Fields and others, as an account of cellular collectives that act in morphospace and other problem spaces and treat a collective as an agent with its own external states. The manuscript's point is that such accounts do not give conditions under which the collective's states have the properties of an agent. The reading record says the paper was read through targeted extraction of the abstract, the figure on the cognitive light cone and the passages on compound agents and problem spaces. It connects to [[Meta-agents and hierarchical emergence]], [[Collective active inference]] and [[Markov Blanket]].
+The manuscript cites this paper, with a related paper by Fields and others, as an account of cellular collectives that act in morphospace and other problem spaces and treat a collective as an agent with its own external states. The manuscript's point is that such accounts do not give conditions under which the collective's states have the properties of an agent. The reading record says the paper was read through targeted extraction of the abstract, the figure on the cognitive light cone and the passages on compound agents and problem spaces. It connects to Meta-agents and hierarchical emergence, [[Collective active inference]] and [[Markov Blanket]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[Markov Blanket]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Markov Blanket]].
 
 ## BibTeX
 

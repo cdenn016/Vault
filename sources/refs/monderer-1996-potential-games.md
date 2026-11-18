@@ -29,11 +29,11 @@ The manuscript's record attributes to Theorem 2.8 of the article a characterizat
 
 ## Relevance to this research
 
-The manuscript cites the article for the four-cycle criterion for exact potential games and for the notion of an exact potential. It uses these to show that, under its protocol with a shared belief, the game among members has an exact potential, and it proves the criterion in the form it needs so that the argument does not depend on the primary text. The manuscript also contrasts this with designing members' payoffs to serve a world utility. The primary text was not read. The connection is to [[Multi-agent variational free energy]], [[Evolutionary game theory and cooperation]] and [[Collective active inference]].
+The manuscript cites the article for the four-cycle criterion for exact potential games and for the notion of an exact potential. It uses these to show that, under its protocol with a shared belief, the game among members has an exact potential, and it proves the criterion in the form it needs so that the argument does not depend on the primary text. The manuscript also contrasts this with designing members' payoffs to serve a world utility. The primary text was not read. The connection is to Multi-agent variational free energy, [[Evolutionary game theory and cooperation]] and [[Collective active inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Multi-agent variational free energy]]; [[Evolutionary game theory and cooperation]]; [[Collective active inference]].
+[[Collective agents literature map]]; Multi-agent variational free energy; [[Evolutionary game theory and cooperation]]; [[Collective active inference]].
 
 ## BibTeX
 

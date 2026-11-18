@@ -26,7 +26,7 @@ This provides a microfoundation for the *shape* of the attention weights in the 
 
 ## Cross-links
 - Concept: [[Belief perseverance and confirmation bias]]
-- Related: [[Echo chambers and polarization]], [[Multi-agent variational free energy]], [[Opinion dynamics]]
+- Related: [[Echo chambers and polarization]], Multi-agent variational free energy, [[Opinion dynamics]]
 - Related sources: [[del-vicario-2016-misinformation-online]], [[bakshy-2015-ideological-diversity-facebook]], [[bail-2018-exposure-opposing-views]]
 
 ## BibTeX

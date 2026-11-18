@@ -28,7 +28,7 @@ The paper asks whether a mereological partition into enduring objects can be rep
 
 ## Relevance to this research
 
-This source belongs in the history of observer-relative subsystem identification, but it does not supply an obstruction to the project's supplied agent fibers or normalized joint spaces. [[Gauge-Theoretic Multi-Agent VFE Model]] must distinguish a decomposition of a state space, factorization of a particular law or state, and dynamical independence. Conflating those three would reproduce the problem in the argument. Exact inheritance and formation remain separate questions about specified laws, interfaces, and dynamics.
+This source belongs in the history of observer-relative subsystem identification, but it does not supply an obstruction to the project's supplied agent fibers or normalized joint spaces. Gauge-Theoretic Multi-Agent VFE Model must distinguish a decomposition of a state space, factorization of a particular law or state, and dynamical independence. Conflating those three would reproduce the problem in the argument. Exact inheritance and formation remain separate questions about specified laws, interfaces, and dynamics.
 
 ## BibTeX
 

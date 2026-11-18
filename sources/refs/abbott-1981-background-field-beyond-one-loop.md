@@ -26,7 +26,7 @@ Abbott, L. F. (1981). *The background field method beyond one loop*. Nucl. Phys.
 
 Background-field expansion and its gauge covariance are the relevant precedent. The article gives the multiloop construction, Feynman rules, and renormalization discussion. It does not establish convergence or chart independence of an arbitrary agent configuration integral.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

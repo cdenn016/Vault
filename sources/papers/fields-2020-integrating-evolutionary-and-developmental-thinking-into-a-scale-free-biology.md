@@ -28,7 +28,7 @@ Fields and Levin propose viewing the history of terrestrial life as the developm
 
 ## Relevance to this research
 
-The paper helps frame [[Meta-agents and hierarchical emergence]] without presupposing a uniquely privileged biological level. It also supports explicit attention to persistent material organization in [[Cue-result generative memory]]. For [[Gauge-Theoretic Multi-Agent VFE Model]], scale-relative description and exact scale inheritance are different claims: the latter requires a defined coarse-graining map and proof that the relevant distributions, dynamics, and observables survive that map.
+The paper helps frame Meta-agents and hierarchical emergence without presupposing a uniquely privileged biological level. It also supports explicit attention to persistent material organization in [[Cue-result generative memory]]. For Gauge-Theoretic Multi-Agent VFE Model, scale-relative description and exact scale inheritance are different claims: the latter requires a defined coarse-graining map and proof that the relevant distributions, dynamics, and observables survive that map.
 
 ## BibTeX
 

@@ -9,19 +9,16 @@ aliases:
 tags: [cluster/participatory, project/multi-agent]
 status: stable
 created: 2026-06-18
-updated: 2026-11-01
+updated: 2026-11-18
 ---
 
 # Participatory realism and quantum foundations
 
 This theme weaves together the quantum-foundations sources of the `cluster/participatory`
-research cluster into a single picture and shows why that picture is the conceptual
-backbone of the gauge-theoretic VFE program — in particular the
-[[Gauge-Theoretic Multi-Agent VFE Model]] and its manuscript
-[[participatory-it-from-bit]]. The unifying thesis is that an agent's perspective is
+research cluster into a single picture. The unifying thesis is that an agent's perspective is
 ineliminable from physics: the quantum formalism is not a God's-eye description of
 agent-independent facts but an account of how a *participant* engages, predicts, and
-revises. The interesting work, both in foundations and in the model, is then to explain
+revises. The interesting work is then to explain
 how *shared* reality is reconstructed among many such participants without smuggling back
 in the view from nowhere.
 
@@ -43,22 +40,15 @@ The position is *realist* (there is a world) but denies *spectator-objectivity* 
 the world is a ledger of agent-independent facts awaiting discovery); reality is in part
 *made* in the agent's participation. Fuchs traces the lineage to Wheeler's "law without
 law" and "it from bit" ([[wheeler-1990-it-from-bit]], [[Participatory realism (it from bit)]]),
-presenting QBism as their disciplined modern descendant. The program adopts this banner
-directly, and its distinctive contribution is to make participatory realism
-*constructive and multi-agent*: where Fuchs emphasizes the single agent's participation,
-the program supplies the machinery by which many participating agents reach partial
-agreement.
+presenting QBism as their disciplined modern descendant.
 
-That machinery has a clear technical anchor on the QBist side. The Born rule, in
+The stance has a clear technical anchor on the QBist side. The Born rule, in
 [[fuchs-schack-2013-bayesian-coherence]], is not a law about objective propensities but a
 **normative coherence condition** a single agent imposes on its own personal Bayesian
 credences — recast, via a symmetric informationally complete measurement (SIC-POVM), as a
 fixed, dimension-dependent deformation of the classical law of total probability.
 Quantum mechanics becomes a single constraint among an agent's subjective probabilities,
-with no objective state anywhere in sight. This is precisely the stance the program takes
-toward belief updates: an agent's variational posterior is revised to minimize
-[[Variational free energy]] as a normative, agent-internal consistency condition, not as
-estimation of an external truth. Probabilities live *with* the agent; the formalism only
+with no objective state anywhere in sight. Probabilities live *with* the agent; the formalism only
 constrains how they hang together. [[QBism]] develops this concept page; the present
 theme situates it in the wider family.
 
@@ -66,11 +56,7 @@ N. David Mermin's "correlations without correlata" ([[mermin-1998-correlations]]
 the family its sharpest one-line thesis. Quantum theory, on his Ithaca reading, is about
 *correlation and only correlation*: the relations between subsystems are physical and
 definite even when the absolute, correlate properties of the subsystems are not. This
-sits at the hinge between Rovelli's relational program and the emerging QBist line, and it
-states in compact form the program's relational commitment — what is objective is the
-*relation between agents' beliefs*, recovered by [[Parallel transport]] between
-[[Agents as fibre-bundle sections]], not any agent's intrinsic belief content, with the
-absence of canonical correlata reflected in nonzero [[Holonomy]].
+sits at the hinge between Rovelli's relational program and the emerging QBist line.
 
 ## Relational quantum mechanics and the construction of agreement
 
@@ -78,11 +64,7 @@ Carlo Rovelli's relational quantum mechanics (RQM) is the family's most thorough
 anti-substantialism. *Helgoland* ([[rovelli-2021-helgoland]]) develops RQM into an
 explicit relations-first metaphysics: a system's properties are defined only relative to
 another system, there is no observer-free state, and "objects" are derivative nodes where
-relations meet. This is the foundational-physics analogue of the program's insistence
-that an agent's belief is meaningful only in relation to other agents, expressed through
-the connection that transports between frames under a [[Gauge transformation]]; it links
-the participatory cluster to [[Structural realism]] and supplies the metaphysical reading
-under which the program's gauge structure is ontology, not mere formalism.
+relations meet. It links the participatory cluster to [[Structural realism]].
 
 RQM faces an obvious tension: if information is physical yet the facts one observer holds
 are in principle inaccessible to any other, how do observers ever agree? Adlam and Rovelli
@@ -91,11 +73,7 @@ links** postulate: whenever an observer has obtained a definite value, that info
 stored in physical variables and is therefore accessible by measurement to other
 observers, who will find consistent values. Agreement is thus a *physical achievement*,
 not an a priori posit, and is reached without any frame-independent ledger of absolute
-facts. This is the closest existing-physics analogue of the program's inter-agent transport
-map $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$: the program *constructs* the access that
-RQM posits, as transport along a connection between [[Agents as fibre-bundle sections]],
-with the failure of perfect agreement quantified by [[Holonomy]] and the consensus drive
-supplied by the coupling term of [[Multi-agent variational free energy]].
+facts.
 
 ## The no-go theorems: why objectivity must be built, not assumed
 
@@ -112,96 +90,56 @@ rules out the joint existence of observer-independent facts under locality and f
 The natural escape is again to deny observer-independence: a friend's outcome is a fact
 *relative to the friend*. Together these results are the operational, falsifiable statement
 that **there is no pre-given ledger of observer-independent facts**, so any account of
-objectivity must be built from inter-agent relations. In the program's reading, the failure
-of assumption C and the violation of Brukner's inequality are the foundational-physics
-shadow of generically nonzero holonomy between agent frames; the
+objectivity must be built from inter-agent relations. The
 [[Observer-dependent facts and Wigner's friend]] concept page develops this strand in
-detail. The program's answer — objectivity as *transported consensus* among coupled
-agents — is designed to be compatible with exactly these no-go results.
+detail.
 
-Richard Healey's pragmatism ([[healey-2017-quantum-revolution]]) marks the precise middle
-ground the program steers toward. Healey reads the quantum state neither as an ontic
+Richard Healey's pragmatism ([[healey-2017-quantum-revolution]]) marks a middle
+ground. Healey reads the quantum state neither as an ontic
 feature of the world nor as one agent's private whim, but as furnishing *authoritative,
 objectively correct prescriptions* for how any suitably situated agent ought to apportion
 credence. This is objectivity-without-ontic-states: binding for everyone in a given
-situation, yet not a wavefunction-of-the-world. The program's consensus-as-objectivity is
-structurally this pragmatist middle ground — the belief an agent would hold after its
-variational dynamics equilibrate against the shared coupling field, intersubjectively
-binding in the sense that beliefs agree up to [[Parallel transport]], with residual
-disagreement measured by [[Holonomy]].
+situation, yet not a wavefunction-of-the-world.
 
 ## Quantum reference frames: covariance as shareability
 
-The most literal physics precedent for the program's structural claim — that **gauge
-covariance is the formal expression of shareability between agents** — is the quantum
+The most literal physics treatment of **gauge covariance as the formal expression of
+shareability between agents** is the quantum
 reference frame (QRF) program, developed on its own [[Quantum reference frames]] concept
 page and grounded in [[giacomini-2019-qrf-covariance]], [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]],
 and [[vanrietvelde-2020-qrf-perspective-neutral|vanrietvelde-2020-change-of-perspective]]. Promoting the reference frame to a quantum
 system makes superposition and entanglement *frame-relative*; the speakable/unspeakable
 split distinguishes shareable from frame-local content; and recasting frame change as
-gauge-fixing makes "frame choice = choice of gauge" exact. Each agent's local gauge frame
-$\phi_i$ is then a genuine reference frame in this sense, and comparing perspectives is a
-state-aware gauge transformation rather than a relabeling. This strand is where the
-participatory cluster connects most directly to the program's gauge-theoretic core and to
+gauge-fixing makes "frame choice = choice of gauge" exact. This strand is where the
+participatory cluster connects most directly to gauge-frame constructions such as
 the block-$GL(K)$ structure of the [[VFE Transformer Program]].
 
-## Information-first foundations and the program's chosen lane
+## Information-first foundations
 
-Several sources frame physics as information-first, and the program positions itself
-carefully among them. Lucien Hardy's reconstruction ([[hardy-2001-five-axioms]]) derives
+Several sources frame physics as information-first. Lucien Hardy's reconstruction ([[hardy-2001-five-axioms]]) derives
 finite-dimensional quantum theory from five operational axioms about probabilities, with
 only a continuity-of-reversible-transformations axiom distinguishing it from classical
-probability. This is the methodological template for the program's "it from bit, then
+probability. This is the methodological template for an "it from bit, then
 emergent structure" arc: begin with bare informational primitives and *derive* the rich
-geometry ([[Fisher information metric]], [[Quantum information geometry]],
-[[Gauge transformation]]) rather than postulate it. Robert Spekkens' toy theory
+structure rather than postulate it. Robert Spekkens' toy theory
 ([[spekkens-2007-toy-theory]]) shows how far a single epistemic restriction reproduces
 "quantum" phenomena, demarcating which features of agent agreement/disagreement are mere
-incomplete knowledge and which demand the stronger relational/transport machinery — a clean
-model of the program's *pre-consensus* regime.
+incomplete knowledge and which demand stronger relational machinery.
 
-The remaining information-first sources sharpen the program's position by contrast and by
-extension. Deutsch and Marletto's constructor theory of information
-([[deutsch-2015-constructor-information|deutsch-marletto-2015-constructor-information]]) is the explicit **contrast class**:
-both programs are information-first, but constructor theory grounds information in
+Deutsch and Marletto's constructor theory of information
+([[deutsch-2015-constructor-information|deutsch-marletto-2015-constructor-information]]) is the
+**contrast class** within information-first physics: constructor theory grounds information in
 *objective, agent-independent* possibility/impossibility facts about physical
-transformations, whereas the program grounds objectivity in *consensus among coupled
-agents*. Citing it lets the manuscript stake out its participatory commitment — it accepts
-the priority of information from [[wheeler-1990-it-from-bit]] but sides with relational and
-QBist accounts against locating information in observer-independent physical possibility.
+transformations, whereas relational and QBist accounts decline to locate information in
+observer-independent physical possibility.
 Seth Lloyd's computational-capacity bounds ([[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]]) supply
 the *computational* face of "it from bit": physical processes as literal computations on a
-finite stock of bits, the natural partner of the program's stance that emergent structure
-is produced by *running* an inference computation (iterative VFE minimization) rather than
-read off a static substrate; this connects to the [[Emergent spacetime and holography]]
+finite stock of bits; this connects to the [[Emergent spacetime and holography]]
 theme. Finally, Connes and Rovelli's thermal time hypothesis
 ([[connes-rovelli-1994-thermal-time]]) completes the cluster's *observer-relative time*
 strand: in a generally covariant theory there is no preferred external time, and the flow
 of time emerges as the Tomita–Takesaki modular flow of the observer's statistical state.
-Time is therefore state-dependent and observer-relative — the temporal analogue of the
-program's stance that dynamical structure is an inference notion driven by an agent's
-informational state rather than presupposed.
-
-## Open questions / gaps
-
-- **From analogy to derivation.** The correspondences here — QRF change $\leftrightarrow$
-  inter-agent belief transport, failure of FR's assumption C $\leftrightarrow$ nonzero
-  holonomy, cross-perspective links $\leftrightarrow$ $\Omega_{ij}$ — are structural
-  analogies the program asserts, not theorems. Hardy's reconstruction standard suggests
-  the discipline the program should hold itself to: show its geometry *follows* from
-  reasonable axioms about agent inference, not merely that it is convenient.
-- **Compact vs. non-compact groups.** The QRF and quantum-foundations literature works
-  with unitary or compact symmetry groups, whereas the program's classical scale uses the
-  non-compact $GL(K,\mathbb{R})$. Whether the participatory correspondence survives this
-  change, or only holds at a genuinely quantum scale-0 level, is unresolved.
-- **What grounds consensus dynamics?** The no-go results say objectivity must be built;
-  Adlam–Rovelli and Healey say agreement is physically/normatively achievable. The program
-  models this with belief coupling, but the precise conditions under which transported
-  consensus converges (and the meaning of the forbidden *total* consensus, the informational
-  heat death) need sharper statement.
-- **Does the toy-theory boundary map cleanly?** Spekkens isolates exactly which quantum
-  features are not epistemic (nonlocality, contextuality). Whether the program's
-  ignorance-plus-coherence regime respects the same boundary, or blurs it, is open.
+Time is therefore state-dependent and observer-relative.
 
 ## Sources synthesized
 
@@ -217,7 +155,7 @@ informational state rather than presupposed.
 - [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]] — operational QRF theory; speakable/unspeakable; superselection.
 - [[vanrietvelde-2020-qrf-perspective-neutral|vanrietvelde-2020-change-of-perspective]] — perspective-neutral / gauge-fixing formulation of frame change.
 - [[hardy-2001-five-axioms]] — informational reconstruction of quantum theory.
-- [[spekkens-2007-toy-theory]] — epistemic-restriction toy model; the pre-consensus regime.
+- [[spekkens-2007-toy-theory]] — epistemic-restriction toy model.
 - [[deutsch-2015-constructor-information|deutsch-marletto-2015-constructor-information]] — constructor theory; the agent-independent contrast class.
 - [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]] — computational-universe bounds; the computational face of "it from bit".
 - [[zenil-2013-computable-universe]] — anthology of the digital-physics / "nature as computation" lineage (Zuse, Wolfram, 't Hooft, Lloyd; Penrose foreword); the computational wing of "it from bit," cited as both kin and observer-independent contrast class.
@@ -225,21 +163,8 @@ informational state rather than presupposed.
 - [[bell-2004-speakable-unspeakable]] — Bell's collected foundational papers; the theorem against local observer-independent values that the sharpened Wigner's-friend no-go results extend.
 - [[connes-rovelli-1994-thermal-time]] — thermal time hypothesis; observer-relative emergent time.
 
-## Historical consistency and predictive stability: October 2026
-
-> [!note] Editorial: Scoped continuation of the participatory program
-> The research agenda [[multiagentelbo-2026-10-04-stable-physics-questions]] and manuscript [[Stable_Physics_Research_Questions]] investigate mechanisms within the current classical agent framework. They do not establish that consciousness creates physical laws or that quantum theory follows from agreement.
-
-Wheeler's history analogy motivates a shared object constrained by accumulated records. The question is how those constraints become reusable predictions. The agenda connects this question to existing exact retained laws and the conditional-information cost of forgetting. It distinguishes a stable record from a fixed interpretation of that record; learning may revise the latter.
-
-The generator-history prior provides an especially precise obligation: consistency within one finite-horizon joint and consistency across independently extended horizons are different properties. Compatible boundary conditions or a declared causal model are possible routes, with different assumptions. A conditional positive-eigenfunction transition formula is included as a candidate, without claiming its required existence or boundary matching.
-
-Public equivalence is defined relative to accessible record histories and protocols. Different cognitive communities may share predictions, have different access, or disagree on an established comparison. Gauge transformations form a specified family of representation changes; operational equivalence can be broader because interfaces may hide distinctions. Earlier interpretive identifications of the framework with particular quantum-foundational positions do not constitute derivations of those positions.
-
-The remaining progression is endogenous record persistence, a predictive parent that survives an inherited second interaction episode, and a controlled large-network/large-depth limit. [[Participatory realism (it from bit)]] carries the corresponding concept update. [[shalizi-1999-computational-mechanics-pattern-and-prediction-structure-and-simplicit]] and [[wilson-1971-rg-critical-phenomena]] are precedents for prediction and scaling within their own assumptions; they do not settle those obligations here.
-
 ## Chris Fields's communication program
 
 Fields's operational program makes the system boundary and the observer's identification procedures part of the scientific description. The closest connection to participatory realism is that records become usable through a reference frame, an interpretation, and a protocol for comparison. The Chu-space papers describe semantic compatibility, while the quantum interaction papers model finite information exchange between systems under explicit physical assumptions. [[fields-2019-chu-spaces-i-category-theory]], [[fields-2019-chu-spaces-ii-object-identification]], [[fields-2021-minimal-physicalism-as-a-scale-free-substrate-for-cognition-and-consciousness]], [[fields-2019-sharing-nonfungible-information-requires-shared-nonfungible-information]]
 
-This literature contains both constructive models and strong interpretive or no-go claims. The source notes for [[fields-2016-decompositional-equivalence-a-fundamental-symmetry-underlying-quantum-theory]] and [[fields-2014-consistent-quantum-mechanics-admits-no-mereotopology]] identify specific gaps in displayed arguments; their universal conclusions should not be inherited as established premises. The newer [[fields-2025-operational-protocols-cannot-certify-classicality]] concerns unrestricted operational certification and must be distinguished from model-relative inference using declared preparation and measurement assumptions. [[Chris Fields and physics as communication]] organizes the full collection and its overlap with the present program.
+This literature contains both constructive models and strong interpretive or no-go claims. The source notes for [[fields-2016-decompositional-equivalence-a-fundamental-symmetry-underlying-quantum-theory]] and [[fields-2014-consistent-quantum-mechanics-admits-no-mereotopology]] identify specific gaps in displayed arguments; their universal conclusions should not be inherited as established premises. The newer [[fields-2025-operational-protocols-cannot-certify-classicality]] concerns unrestricted operational certification and must be distinguished from model-relative inference using declared preparation and measurement assumptions. [[Chris Fields and physics as communication]] organizes the full collection.

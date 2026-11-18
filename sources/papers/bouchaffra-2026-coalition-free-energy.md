@@ -50,13 +50,13 @@ The authors report a nonmonotonic precision--influence relation and performance 
 
 ## Relevance to this research
 
-The paper is a direct comparator for adaptive precision in [[Precision weighting]] and coalition-level [[Meta-agents and hierarchical emergence]]. Its credit assignment should not be conflated with the project's attention weights or exact ELBO without matching probabilistic inventories and normalization.
+The paper is a direct comparator for adaptive precision in [[Precision weighting]] and coalition-level Meta-agents and hierarchical emergence. Its credit assignment should not be conflated with the project's attention weights or exact ELBO without matching probabilistic inventories and normalization.
 
 ## Cross-links
 
-- Concepts: [[Multi-agent variational free energy]], [[Precision weighting]], [[Meta-agents and hierarchical emergence]]
+- Concepts: Multi-agent variational free energy, [[Precision weighting]], Meta-agents and hierarchical emergence
 - Related sources: [[bouchaffra-2026-collective-variational-principle]], [[bouchaffra-2026-attention-synergy]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

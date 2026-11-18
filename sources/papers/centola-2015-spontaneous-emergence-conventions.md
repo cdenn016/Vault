@@ -38,7 +38,7 @@ In a web-based naming game with no institutions, spatial networks evolve by loca
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Phase transitions in social systems]], [[Threshold models and complex contagion]]
+- Concepts: Meta-agents and hierarchical emergence, [[Phase transitions in social systems]], [[Threshold models and complex contagion]]
 - Themes: [[Statistical physics of social systems and collective behavior]]
 - Related sources: [[centola-2018-tipping-points-social-convention]], [[young-1993-evolution-conventions]], [[centola-2010-online-experiment]]
 

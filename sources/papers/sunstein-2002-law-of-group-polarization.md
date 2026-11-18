@@ -26,7 +26,7 @@ A strong theoretical bridge between echo-chamber structure and the polarization 
 
 ## Cross-links
 - Concept: [[Echo chambers and polarization]]
-- Related: [[Bounded confidence]], [[Hamiltonian belief dynamics]], [[Multi-agent variational free energy]]
+- Related: [[Bounded confidence]], Hamiltonian belief dynamics, Multi-agent variational free energy
 - Related sources: [[sunstein-2017-republic]], [[baldassarri-bearman-2007-political-polarization]], [[bail-2018-exposure-opposing-views]]
 
 ## BibTeX

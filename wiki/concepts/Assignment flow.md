@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-11-18
 ---
 
 # Assignment flow
@@ -64,9 +64,7 @@ Third, **there is a variational-mechanics reading.** The solution of the flow is
 a Lagrangian action functional whose integrand pairs the Fisher–Rao kinetic term
 $\lVert\dot P\rVert_g^2$ against a variance term in the fitness
 ([[gonzalez-alvarado-2025-patch-assignment]], following Savarino–Albers–Schnörr's geometric mechanics
-of assignment flows). This is a genuinely close structural cousin of
-[[Hamiltonian belief dynamics]] — a kinetic-plus-potential action on a statistical manifold — and is
-worth reading before re-deriving that machinery.
+of assignment flows).
 
 What is *absent*, and marks the boundary with the program's own construction: there is no principal
 bundle, no gauge group, no local frame, no connection, and no curvature. The interaction matrix
@@ -122,6 +120,5 @@ group's information-geometric and gauge-theoretic halves are being stitched toge
 - [[Fisher information metric]]
 - [[Natural gradient]]
 - [[Replicator dynamics]]
-- [[Hamiltonian belief dynamics]]
 - [[Graph Laplacian]]
 - [[Information geometry and natural gradient]]

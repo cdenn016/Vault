@@ -28,7 +28,7 @@ Tolchinsky and colleagues propose temporal depth as a common organizing variable
 
 ## Relevance to this research
 
-This is contextual material for memory, anticipation, and persistence in [[Meta-agents and hierarchical emergence]]. It motivates distinguishing an agent's planning horizon from its update rate or an information-geometric clock. The paper supplies no derivation identifying temporal depth with accumulated KL divergence, Fisher distance, or a collective clock slowdown. Its clinical interpretation should not be imported as an established mechanism into the mathematical model.
+This is contextual material for memory, anticipation, and persistence in Meta-agents and hierarchical emergence. It motivates distinguishing an agent's planning horizon from its update rate or an information-geometric clock. The paper supplies no derivation identifying temporal depth with accumulated KL divergence, Fisher distance, or a collective clock slowdown. Its clinical interpretation should not be imported as an established mechanism into the mathematical model.
 
 ## BibTeX
 

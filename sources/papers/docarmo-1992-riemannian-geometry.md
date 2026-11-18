@@ -30,7 +30,7 @@ A standard, accessible graduate textbook on Riemannian geometry: metrics, the Le
 
 ## Relevance to this research
 
-This is the background reference for the differential-geometric vocabulary the program uses on the belief and covariance manifolds — the exponential map behind every retraction, geodesics and [[Parallel transport]], and curvature that governs how transport composes into [[Holonomy]]. Concretely, do Carmo's Jacobi-field and curvature-comparison material gives the **convexity radius** within which the Riemannian (Karcher) barycenter is unique — the local condition that makes the meta-agent BCH/Fréchet pooling in [[Meta-agents and hierarchical emergence]] well defined, complementing the existence theory of [[karcher-1977-center-of-mass]]. It is cited as the foundational text rather than for any project-specific result. Supports [[SPD-manifold geometry and Riemannian optimization]] and [[participatory-it-from-bit]].
+This is the background reference for the differential-geometric vocabulary the program uses on the belief and covariance manifolds — the exponential map behind every retraction, geodesics and [[Parallel transport]], and curvature that governs how transport composes into [[Holonomy]]. Concretely, do Carmo's Jacobi-field and curvature-comparison material gives the **convexity radius** within which the Riemannian (Karcher) barycenter is unique — the local condition that makes the meta-agent BCH/Fréchet pooling in Meta-agents and hierarchical emergence well defined, complementing the existence theory of [[karcher-1977-center-of-mass]]. It is cited as the foundational text rather than for any project-specific result. Supports [[SPD-manifold geometry and Riemannian optimization]] and [[participatory-it-from-bit]].
 
 ## Cross-links
 

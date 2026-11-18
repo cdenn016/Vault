@@ -52,7 +52,7 @@ d-VMP is a clean control separating distribution of computation from distributio
 
 - Concepts: [[Decentralized Bayesian inference]], [[Variational EM]], [[Natural gradient]]
 - Related sources: [[winn-2005-variational-message-passing]], [[hua-li-2016-distributed-variational-bayes]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

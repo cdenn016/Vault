@@ -61,7 +61,7 @@ This review is the pedagogical entry point — explicitly the role the ingest ma
 - Concept: [[Alpha-divergence]] — the divergence family arising from the dual $\alpha$-connections.
 - Theme: [[Information geometry and natural gradient]].
 - Related sources: [[amari-2000-methods-information-geometry]], [[amari-2016-information-geometry-applications]], [[ay-2017-information-geometry]], [[amari-1998-natural-gradient]].
-- Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]].
+- Projects: [[VFE Transformer Program]], Gauge-Theoretic Multi-Agent VFE Model.
 
 ## BibTeX
 

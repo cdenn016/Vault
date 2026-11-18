@@ -53,7 +53,7 @@ PVI is the most direct external template for a decentralized layer around the Mu
 
 - Concepts: [[Decentralized Bayesian inference]], [[Communication-constrained inference]], [[Evidence lower bound (ELBO)]]
 - Related sources: [[vehtari-2020-ep-partitioned-data]], [[heikkila-2023-dp-partitioned-vi]], [[mildner-2025-fedgvi]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

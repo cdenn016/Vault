@@ -36,7 +36,7 @@ Classic social-psychology experiment showing that people exposed to the same mix
 Empirical anchor for belief inertia and confirmation-bias dynamics in the SocialPhysics project: biased assimilation is the mechanism by which prior-weighted (high-precision) beliefs resist disconfirming evidence, motivating precision/mass-weighted update rules and polarization in opinion-dynamics models.
 
 ## Cross-links
-[[Belief inertia]]
+Belief inertia
 
 ## BibTeX
 ```bibtex

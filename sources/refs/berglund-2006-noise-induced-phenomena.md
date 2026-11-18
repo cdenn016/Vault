@@ -24,11 +24,11 @@ A book in Springer's Probability and Its Applications series on noise-induced ph
 
 ## Relevance to this research
 
-The manuscript cites the book, with other works, for the rigorous treatment of eliminating fast variables in the limit of infinite timescale separation, as opposed to the corrections in the timescale ratio found in older physics literature. The manuscript says these works are known from records and abstracts, not from the text. It belongs to the related work on closure and coarse-graining, with [[Geometric singular perturbation theory]], [[Coarse Graining]], [[Renormalization group flow]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the book, with other works, for the rigorous treatment of eliminating fast variables in the limit of infinite timescale separation, as opposed to the corrections in the timescale ratio found in older physics literature. The manuscript says these works are known from records and abstracts, not from the text. It belongs to the related work on closure and coarse-graining, with [[Geometric singular perturbation theory]], [[Coarse Graining]], [[Renormalization group flow]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Geometric singular perturbation theory]]; [[Coarse Graining]]; [[Renormalization group flow]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Geometric singular perturbation theory]]; [[Coarse Graining]]; [[Renormalization group flow]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

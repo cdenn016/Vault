@@ -26,7 +26,7 @@ The paper distinguishes an intrinsic perspective, restricted to current experien
 
 ## Relevance to this research
 
-This is a concrete precedent for normalized-kernel agents and explicit memory in [[Multi-agent variational free energy]]. It also exposes a shared obligation: specify the retained state and the update mechanism when forming a parent. Its supplied circuit composition does not establish endogenous hierarchical formation, and the paper's FEP interpretation is not an identity between the research program's distinct global, per-agent, and reciprocal objectives.
+This is a concrete precedent for normalized-kernel agents and explicit memory in Multi-agent variational free energy. It also exposes a shared obligation: specify the retained state and the update mechanism when forming a parent. Its supplied circuit composition does not establish endogenous hierarchical formation, and the paper's FEP interpretation is not an identity between the research program's distinct global, per-agent, and reciprocal objectives.
 
 ## Reading and version
 

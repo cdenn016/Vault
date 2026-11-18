@@ -28,7 +28,7 @@ Fields and Glazebrook use Chu spaces and Channel Theory to describe observations
 
 ## Relevance to this research
 
-This is relevant to [[Quantum reference frames]] and to receiver-dependent meaning in [[Cue-result generative memory]]. It encourages recording which measurement context a message presupposes and whether local models can be joined consistently. For [[Gauge-Theoretic Multi-Agent VFE Model]], the existence of a normalized joint law must be demonstrated for the chosen variables; it cannot be inferred from a diagrammatic similarity to a hierarchical classifier or from agreement among selected marginals.
+This is relevant to [[Quantum reference frames]] and to receiver-dependent meaning in [[Cue-result generative memory]]. It encourages recording which measurement context a message presupposes and whether local models can be joined consistently. For Gauge-Theoretic Multi-Agent VFE Model, the existence of a normalized joint law must be demonstrated for the chosen variables; it cannot be inferred from a diagrammatic similarity to a hierarchical classifier or from agreement among selected marginals.
 
 ## BibTeX
 

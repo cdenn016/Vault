@@ -45,13 +45,13 @@ The authors provide theoretical robustness results and empirical gains on synthe
 
 ## Relevance to this research
 
-FedGVI gives a disciplined route for testing alternatives to the KL sector in [[Multi-agent variational free energy]]. Any use of alpha or robust divergences should state whether the project is approximating the original Bayes posterior or defining a generalized posterior. Gauge invariance and statistical robustness are independent requirements.
+FedGVI gives a disciplined route for testing alternatives to the KL sector in Multi-agent variational free energy. Any use of alpha or robust divergences should state whether the project is approximating the original Bayes posterior or defining a generalized posterior. Gauge invariance and statistical robustness are independent requirements.
 
 ## Cross-links
 
 - Concepts: [[Decentralized Bayesian inference]], [[Alpha-divergence]], [[Approximate Bayesian inference]]
 - Related sources: [[ashman-2022-partitioned-variational-inference]], [[heikkila-2023-dp-partitioned-vi]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

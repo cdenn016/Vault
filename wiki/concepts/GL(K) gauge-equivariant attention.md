@@ -11,10 +11,9 @@ tags:
   - cluster/attention
   - cluster/info-geometry
   - project/transformer
-  - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-11-07
+updated: 2026-11-18
 ---
 
 # GL(K) gauge-equivariant attention
@@ -67,9 +66,7 @@ A tied variant with $S_K=T$ and a Bayesian receiver, in which the receiving map 
 
 ## Latent link generators, October 3, 2026
 
-[[dennis-2026-dynamic-links]] (agent-drafted derivation note, float64 checks at $K\le4$, nothing trained) promotes the exponential link generators $X_{ij}$ to latent variables, inferred per context together with the token states and routing labels, with a normalized prior made of an anchor $\|X-\bar X\|^2/2\sigma^2$ and a Frobenius-defect curvature energy on the loops of a depth-by-token lattice. The transport term of its free energy is exactly $\mathrm{KL}(q(\zeta')\|\mathcal N(\bar m,\bar Q))+\tfrac12\operatorname{tr}(\bar Q^{-1}V)$, with $V$ the moment-matched predictive covariance already implemented. The link field equation is driven by a delta-rule current, a precision-weighted prediction error times the source state. Without the anchor the per-context optimum is a rank-one transport outside the exponential chart, so the anchor is necessary. Stationary generators can still exist at critical points of the exponential map, and the chart infimum is approached at the rank-one transport only when $\xi_j^\top C_j^{-1}\xi'\ge0$; otherwise it lies strictly above it (corrected October 4, [[multiagentelbo-2026-10-04-lie-algebra-links]]). The implemented `content_link_chart="exponential"` is the zero-temperature limit with $\bar X=OT$, so dynamic links are fluctuations around the current model; they are not implemented.
-
-[[multiagentelbo-2026-10-04-lie-algebra-links]] carries the same exponential chart into the multi-agent theory. Each edge there has a latent generator $\mathring\omega_e$ with link $U_i\exp(\mathring\omega_e)U_j^{-1}$, a Gaussian base prior with an anchor, and a loop-defect curvature action. The transformer's static chart is the zero-width limit of that model. The theory proves the per-context results in general form: a delta-rule current in the link field equation, a degenerate link problem without the prior, first-order natural-gradient inference whose Euler step is the Bayesian learning rule, and an induced Wilson-type action only for jointly normalized undirected matter. None of it is implemented in `vfe3`.
+[[dennis-2026-dynamic-links]] (agent-drafted derivation note, float64 checks at $K\le4$, nothing trained) promotes the exponential link generators $X_{ij}$ to latent variables, inferred per context together with the token states and routing labels, with a normalized prior made of an anchor $\|X-\bar X\|^2/2\sigma^2$ and a Frobenius-defect curvature energy on the loops of a depth-by-token lattice. The transport term of its free energy is exactly $\mathrm{KL}(q(\zeta')\|\mathcal N(\bar m,\bar Q))+\tfrac12\operatorname{tr}(\bar Q^{-1}V)$, with $V$ the moment-matched predictive covariance already implemented. The link field equation is driven by a delta-rule current, a precision-weighted prediction error times the source state. Without the anchor the per-context optimum is a rank-one transport outside the exponential chart, so the anchor is necessary. Stationary generators can still exist at critical points of the exponential map, and the chart infimum is approached at the rank-one transport only when $\xi_j^\top C_j^{-1}\xi'\ge0$; otherwise it lies strictly above it (corrected October 4). The implemented `content_link_chart="exponential"` is the zero-temperature limit with $\bar X=OT$, so dynamic links are fluctuations around the current model; they are not implemented.
 
 ## Unified companion and primary group-valued direction, October 3, 2026
 
@@ -112,12 +109,6 @@ A remark in Section 5.2 of the revision contrasts this with noisy-query routing.
 
 The comparison cospan $E_i\to H^{\mathrm{cmp}}\leftarrow E_j$ is a pair of restriction maps into an edge stalk, so cellular sheaves ([[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]], [[bodnar-2022-neural-sheaf-diffusion]]) are a closer counterpart than [[Lattice gauge theory]]. The comparison maps carry a cogredient $\mathrm{GL}(r_h)$ redundancy, under which gradient flow conserves $S_QS_Q^\top+S_KS_K^\top$ ([[kunin-2021-neural-mechanics]]); the content maps have the balance invariant $T_hT_h^\top-O_h^\top O_h$ ([[du-2018-balanced-layers]]). The revision reports that AdamW without weight decay drifted along this orbit in the reported run, so raw conditioning diagnostics depend on the basis, and that AdamW's decoupled weight decay ([[loshchilov-hutter-2019-adamw]]) on the stored log-variances drove the variances from 15 to about 1.045. [[das-2019-tarmac]] is cited as the precedent for reading tokens as communicating agents. The experiment's components are cited to [[merity2017-pointer-sentinel]] (WikiText-103), [[hendrycks2016gaussian]] (GELU), [[ba-2016-layer-normalization]] (LayerNorm), and AdamW, and the locator for the Rényi-divergence invariance is [[vanerven-2014-renyi-kl]] (Theorem 9, data processing for every order; Theorem 28, additivity).
 
-## Selective interfaces and collective formation, September 20, 2026
-
-[[multiagentelbo-2026-selective-communication-formation]] applies the existing communication construction to the multi-agent formation question. Comparison maps $S_Q,S_K$ determine routing observables, while $T$ and $O$ select transmitted content and receiving directions. A small comparison KL permits private disagreement; distinct role maps do not even compare a common measurement. Independent invertible interaction links remain separate from local processing through $\mathcal L_e=F_i\rho(\Theta_e)$.
-
-The proposed collective coordinates comprise a shared interface together with the private states or conditional laws required by the parent. Complete-law formation bounds, a Markov blanket and autonomous reduced dynamics do not follow from low-rank communication alone. This is a source-based connection and a proposed extension, with no new formation theorem or population-VFE descent claim for the predictive residual. See [[Meta-agents and hierarchical emergence]] and [[Markov blanket interpretation debate]].
-
 ## Predictive communication and matrix links, September 20, 2026
 
 [[dennis-2026-glk-matrix-links-2026-09-20]] records the current full-Gaussian construction. At fixed layer, independent comparison maps act on $\xi_i=U_i^{-1}\mu_i$ and $C_i=U_i^{-1}\Sigma_iU_i^{-\top}$. Their projected Gaussian KL determines routing; separate content maps give
@@ -144,7 +135,7 @@ the geometry the program uses to move, average, and compare beliefs
 ([[SPD-manifold geometry and Riemannian optimization]]).
 
 Over the token base sits a principal $G$-bundle whose fibers are statistical manifolds; the agents
-are sections of it ([[Agents as fibre-bundle sections]]). Each token additionally carries a **gauge
+are sections of it. Each token additionally carries a **gauge
 frame** $U_i\in\mathrm{GL}(K)$ — a local, invertible change of basis for the $K$-dimensional
 feature space. In the manuscript's real exponential chart the frames are generated from
 $\phi_i\in\mathfrak{gl}(K)$ as $U_i=\exp(\phi_i)$. This chart reaches only
@@ -216,7 +207,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   multi-agent VFE on a principal bundle with statistical-manifold fibers; the softmax is the KKT
   solution for the source-selection posterior and the KL is exact ([[gl-k-attention]]
   [[Variational free energy]]). What that derivation costs, stated exactly, is settled in
-  the MAgent exact-ELBO attention-row derivation (2026-07-27) and summarized in the next section.
+  an exact-ELBO attention-row derivation (2026-07-27) summarized in the next section.
 
 - **The shared-frame Regime-I reduction is narrower than standard attention.** The vertex cocycle
   makes loop transport flat but does not force pairwise identity. If one transport is constant on
@@ -248,7 +239,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   variable or intrinsic holonomy; only the imposed identity-transport comparison point is flat.
   An edge-relaxed extension
   $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the bundle to non-trivial
-  holonomy (Regime II), reserved for the companion participatory program ([[participatory-it-from-bit]]).
+  holonomy (Regime II).
   No nonzero Regime-I holonomy exponent exists.
 
 - **Forward-KL uniqueness is conditional.** For a fixed admissible witness, the density-ratio range
@@ -273,7 +264,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   differentiates through both paths; the inner hyper-prior and gamma terms are not scored again.
   The learned route includes the model tables, $r$, token and learned positional frames, output
   projection and bias, and the active mixer. This does not establish a slower model timescale or
-  the full multiscale PIFB hierarchy.
+  a multiscale hierarchy.
 
 - **Coarse-grained mean dispersion is covariance broadening, not necessarily anisotropy.** The
   law-of-total-covariance contribution $\operatorname{Var}_A(\mu)$ is positive semidefinite and may
@@ -293,12 +284,12 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
 
 ### Derived from the exact ELBO: what it costs (2026-07-27)
 
-The MAgent exact-ELBO white paper (2026-07-19 continuum-finite remediation record) originally graded the entropy-regularized attention row an *engineered scalar*, because its own
+An exact-ELBO white paper (2026-07-19) originally graded the entropy-regularized attention row an *engineered scalar*, because its own
 exact row model needs frozen normalized templates and unit temperature, and because a row-local
 construction does not define a normalized population joint on shared state variables. Chapter 9 named
 a way out — a fixed normalized model carrying a **declared source label** can have an exact ELBO once
 compatibility and global normalization are proved — without carrying it out.
-The MAgent exact-ELBO attention-row derivation (2026-07-27) carries it out, and the result is that
+An exact-ELBO attention-row derivation (2026-07-27) carries it out, and the result is that
 the rule is derivable **under four stated hypotheses**, three of which the theory does not itself
 select.
 
@@ -322,7 +313,7 @@ endpoints.
 
 ### The tie is a postulate, and it is the temperature (2026-07-27)
 
-The MAgent exact-ELBO link-covariance-tie record (2026-07-27) grades the tie and merges two
+A link-covariance-tie record (2026-07-27) grades the tie and merges two
 hypotheses that were being tracked separately. The first result supersedes the earlier reading that the
 KL form is simply "the specialization" of the untied family.
 
@@ -394,9 +385,9 @@ and has infinite mass. A topologically ordered source mask — a causal mask bei
 restores $Z=1$ identically. Excluding only the self edge does not, since two-cycles survive.
 
 > [!important] The mask is a normalization requirement, not an architectural convenience.
-> This is comfortable for the causal language model and uncomfortable for the multi-agent setting,
-> where the source relation is bidirectional by design. The bidirectional route is available — adding
-> the self-prior anchor (PIFB2's $T_1$) restores positive definiteness — but yields a
+> This is comfortable for the causal language model and uncomfortable wherever the source relation is
+> bidirectional. The bidirectional route is available (adding a self-prior anchor restores positive
+> definiteness) but yields a
 > [[Lattice gauge theory|Markov random field]] whose partition function depends on the label
 > configuration, so $-\log Z(J)$ enters the label objective and does not separate across receivers
 > (measured spread 1.76 nats at $N=3$). There the softmax row is exact only under a further declared
@@ -405,7 +396,7 @@ restores $Z=1$ identically. Excluding only the self edge does not, since two-cyc
 A fourth consequence ties the self term to the row: a distinguished label slot with
 $p(y_i\mid j_i=\varnothing)=p_i(y_i)$ contributes $D_{\mathrm{KL}}(q_i\Vert p_i)+H(q_i)$, so the
 self-coupling and the peer couplings are competing slots of **one** simplex and folding the self term
-inside costs exactly one belief entropy. See [[Multi-agent variational free energy]].
+inside costs exactly one belief entropy.
 
 ## KL vs Bures: which distortion measures belief distance?
 
@@ -457,9 +448,7 @@ transport $\Omega_{ij}$, [[Holonomy]], [[Gauge transformation]]); the **informat
 (KL distortion, [[Fisher information metric]], [[Natural gradient]],
 [[Information geometry and natural gradient]]); and the **belief geometry** (SPD covariances on
 $\mathrm{GL}(K)/O(K)$, [[Symmetric spaces and the SPD cone]]). It anchors the
-[[VFE Transformer Program]] and feeds the [[Gauge-Theoretic Multi-Agent VFE Model]], where the same
-transported-belief machinery drives meta-agent coarse-graining and the
-[[Renormalization group flow]] / [[Meta-agents and hierarchical emergence]] thread.
+[[VFE Transformer Program]].
 The construction derives its own KL-softmax attention rule rather than positing it. Its strict
 shared-frame, isotropic limit yields an identity-bilinear score plus a key-norm bias; a general
 transformer compatibility $W_QW_K^\top$ and value map remain structural additions. It is therefore
@@ -473,7 +462,7 @@ transformer attention is an exact special case.
 [[Attention mechanisms — theory and positional structure]] · [[Multi-head attention]] ·
 [[Variational free energy]] · [[Free-energy principle active inference]] · [[Precision weighting]] ·
 [[Fisher information metric]] · [[Natural gradient]] · [[Holonomy]] · [[Parallel transport]] ·
-[[Gauge transformation]] · [[Agents as fibre-bundle sections]] · [[Group equivariance]] ·
+[[Gauge transformation]] · [[Group equivariance]] ·
 [[Gauge equivariant CNN]] · [[Gauge equivariance and geometric deep learning]] ·
 [[Quantum information geometry]] · [[Statistical manifold]] · [[Dressing field method]]
 
@@ -493,6 +482,6 @@ October 5, 2026 rework: [[dennis-2026-glk-attention-v2-rework-2026-10-05]] · [[
 [[bhatia-2007-positive-definite-matrices]] · [[amari-2016-information-geometry-applications]] ·
 [[cencov-1982-statistical-decision-rules]] · [[petz-1996-monotone-metrics]] ·
 [[parr-2022-active-inference]] · [[sengupta2017gauge|sengupta-friston-2017-bayesian-gauge-theory]] ·
-[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]]
+[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]]
 
 v2 revision positioning (2026-09-23): [[francois-2019-artificial-gauge-symmetries]] · [[fournel-2014-gauge-invariant-composite-fields]] · [[norton-1993-general-covariance]] · [[weiler-2021-coordinate-independent-cnns]] · [[movellan-2020-probabilistic-transformers]] · [[gabbur-2021-probabilistic-attention]] · [[nguyen-2022-probabilistic-attention-keys]] · [[kim-2021-lipschitz-self-attention]] · [[niculae-2017-regularized-attention]] · [[litman-2025-entropic-optimal-transport-attention]] · [[litman-2026-attention-priors]] · [[bianchessi-2026-bayesian-attention-mechanism]] · [[vilnis-2015-gaussian-embeddings]] · [[levine-2018-control-as-inference]] · [[toussaint-storkey-2006-probabilistic-inference-mdp]] · [[kappen-2012-optimal-control-inference]] · [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] · [[bodnar-2022-neural-sheaf-diffusion]] · [[kunin-2021-neural-mechanics]] · [[du-2018-balanced-layers]] · [[loshchilov-hutter-2019-adamw]] · [[das-2019-tarmac]] · [[dai2019transformerxl]] · [[vanerven-2014-renyi-kl]] · [[merity2017-pointer-sentinel]] · [[hendrycks2016gaussian]] · [[ba-2016-layer-normalization]] · [[jebara-2004-probability-product-kernels]]

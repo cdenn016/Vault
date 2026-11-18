@@ -28,7 +28,7 @@ Generic physical interaction is represented as a game in which each system seeks
 
 ## Relevance to this research
 
-The paper provides a comparison for interacting agents whose predictions and policies are only partially observable. It supports keeping shared protocols and generative assumptions explicit in [[Multi-agent variational free energy]]. Its payoff interpretation does not establish that independently minimized local free energies descend one normalized global ELBO. The project's distinction among global, receiver-owned, and reciprocal objectives remains necessary, as does a separate proof of any claimed synchronization or equilibrium-selection dynamics.
+The paper provides a comparison for interacting agents whose predictions and policies are only partially observable. It supports keeping shared protocols and generative assumptions explicit in Multi-agent variational free energy. Its payoff interpretation does not establish that independently minimized local free energies descend one normalized global ELBO. The project's distinction among global, receiver-owned, and reciprocal objectives remains necessary, as does a separate proof of any claimed synchronization or equilibrium-selection dynamics.
 
 ## BibTeX
 

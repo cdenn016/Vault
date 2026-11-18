@@ -23,7 +23,7 @@ Without equations, the book lays out the conceptual model behind the formalism: 
 ## Relevance to this research
 This is the narrative companion to the 1985 formalism; it lays out the verbal model of population-level belief dynamics — why conformism, prestige bias, and content bias are adaptive — that the VFE functional aims to subsume. It is useful conceptual scaffolding rather than machinery the equations directly use: the book supplies the menu of biases and the rationale for them, while the gauge-theoretic functional is where those biases would have to be recovered as limiting behaviors of the coupling kernel $\beta_{ij}$ and the precision-weighted update. As context for the overdamped-recovery claim and the polarization phenomenology, its value is framing and motivation. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], [[Multi-agent variational free energy]], [[Echo chambers and polarization]].
+Concept links: [[Cultural evolution and social learning]], [[Opinion dynamics]], Multi-agent variational free energy, [[Echo chambers and polarization]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

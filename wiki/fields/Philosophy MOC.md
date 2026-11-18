@@ -5,7 +5,7 @@ aliases: [field/philosophy, Philosophy sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Philosophy MOC
@@ -13,10 +13,9 @@ updated: 2026-11-13
 > Map of Content for the **`field/philosophy`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Philosophy (**62** sources) is the conceptual spine of the [[Participatory realism and quantum foundations|participatory]]
-program and the [[Structural realism and philosophy of science]] theme: philosophy of mind (the hard
-problem, panpsychism), philosophy of science and structural realism, epistemology, and the it-from-bit
-metaphysics that motivates the participatory reading of the gauge-theoretic framework.
+Philosophy (**62** sources) supports the [[Participatory realism and quantum foundations]] and
+[[Structural realism and philosophy of science]] themes: philosophy of mind (the hard problem,
+panpsychism), philosophy of science and structural realism, epistemology, and it-from-bit metaphysics.
 
 ```base
 filters:

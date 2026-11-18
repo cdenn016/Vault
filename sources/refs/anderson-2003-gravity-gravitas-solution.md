@@ -28,11 +28,11 @@ The abstract reports that national borders reduce trade between industrialized c
 
 ## Relevance to this research
 
-The manuscript cites this paper for the estimate that borders reduce trade between industrialized countries by 20 to 50 percent, as evidence that boundaries between collectives carry a measurable cost to interaction. The same passage cites McCallum and Engel as known through secondary reports. It enters the discussion of nations and borders as abstract collectives. See [[Meta-agents and hierarchical emergence]] and [[Sociophysics]].
+The manuscript cites this paper for the estimate that borders reduce trade between industrialized countries by 20 to 50 percent, as evidence that boundaries between collectives carry a measurable cost to interaction. The same passage cites McCallum and Engel as known through secondary reports. It enters the discussion of nations and borders as abstract collectives. See Meta-agents and hierarchical emergence and [[Sociophysics]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Sociophysics]]; [[alesina-1997-number-size-nations]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Sociophysics]]; [[alesina-1997-number-size-nations]].
 
 ## BibTeX
 

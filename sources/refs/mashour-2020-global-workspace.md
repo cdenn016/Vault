@@ -32,7 +32,7 @@ This review states the contemporary **global neuronal workspace** (GNW) hypothes
 
 ## Why the project cites it
 
-The manuscript [[participatory-it-from-bit]] cites this as the **authoritative statement of the global-workspace theory**, one of the major neuroscientific theories of consciousness PIFB positions itself among. GNW's ignition-and-broadcast mechanism — local content becoming globally available — parallels the project's account of coherent collective belief propagation across coupled agents ([[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]]). It pairs with [[dehaene-2014-consciousness-brain]] and sits in the [[Mathematical consciousness science]] landscape alongside [[tononi-2016-iit]] and the predictive-processing sources.
+The manuscript [[participatory-it-from-bit]] cites this as the **authoritative statement of the global-workspace theory**, one of the major neuroscientific theories of consciousness PIFB positions itself among. GNW's ignition-and-broadcast mechanism — local content becoming globally available — parallels the project's account of coherent collective belief propagation across coupled agents (Multi-agent variational free energy, Meta-agents and hierarchical emergence). It pairs with [[dehaene-2014-consciousness-brain]] and sits in the [[Mathematical consciousness science]] landscape alongside [[tononi-2016-iit]] and the predictive-processing sources.
 
 ## BibTeX
 

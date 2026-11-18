@@ -36,11 +36,11 @@ The modes are hypothesized to be associated with organizational differences in e
 
 ## Relevance to this research
 
-The Collective Agents manuscript cites the paper in its related-work section for the view that organizations scan their environment as interpretation systems, next to economic treatments of the firm as an information processor. It connects to [[Meta-agents and hierarchical emergence]] and [[Collective active inference]].
+The Collective Agents manuscript cites the paper in its related-work section for the view that organizations scan their environment as interpretation systems, next to economic treatments of the firm as an information processor. It connects to Meta-agents and hierarchical emergence and [[Collective active inference]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[cremer-2007-language-firm]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[cremer-2007-language-firm]].
 
 ## BibTeX
 

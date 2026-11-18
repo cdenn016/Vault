@@ -47,7 +47,7 @@ This is a direct algorithmic baseline for [[Decentralized Bayesian inference]] a
 
 - Concepts: [[Decentralized Bayesian inference]], [[Natural gradient]], [[Variational free energy]]
 - Related sources: [[masegosa-2016-distributed-vmp]], [[paritosh-2025-distributed-variational-inference]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

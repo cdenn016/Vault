@@ -26,7 +26,7 @@ This is the closest sociological precursor to the program's multi-agent dynamica
 
 ## Cross-links
 - Concept: [[Opinion dynamics]]
-- Related: [[Multi-agent variational free energy]], [[Echo chambers and polarization]], [[Sociophysics]]
+- Related: Multi-agent variational free energy, [[Echo chambers and polarization]], [[Sociophysics]]
 - Related sources: [[dimaggio-evans-bryson-1996-attitude-polarization]], [[sunstein-2002-law-of-group-polarization]], [[conover-2011-political-polarization-twitter]]
 
 ## BibTeX

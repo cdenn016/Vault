@@ -34,7 +34,7 @@ Introduces CommNet, a neural model in which multiple cooperating agents learn a 
 An early differentiable multi-agent communication architecture relevant to the MAgent multi-agent VFE model: its mean-pooled message passing among agents prefigures the coupled belief-exchange dynamics that the gauge-theoretic multi-agent framework formalizes through shared latent state.
 
 ## Cross-links
-[[Gauge-Theoretic Multi-Agent VFE Model]]
+Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 ```bibtex

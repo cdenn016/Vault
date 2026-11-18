@@ -36,11 +36,11 @@ According to the abstract, agents in the mixed state occupy the interfaces. They
 
 ## Relevance to this research
 
-The manuscript cites the paper in its discussion of abstract collectives, to read language borders as contact boundaries made visible as consistency boundaries. Bilingual agents sit at the interfaces of monolingual domains, which the manuscript treats as boundary agents. The reading record says the content was taken at the abstract level from an earlier literature companion, and this note rests on the first pages of the PDF. The model belongs to the family in [[Voter model]] and [[Opinion dynamics]], with network effects as in [[Network structure — small-world and scale-free]]; the boundary-agent reading connects to [[Meta-agents and hierarchical emergence]].
+The manuscript cites the paper in its discussion of abstract collectives, to read language borders as contact boundaries made visible as consistency boundaries. Bilingual agents sit at the interfaces of monolingual domains, which the manuscript treats as boundary agents. The reading record says the content was taken at the abstract level from an earlier literature companion, and this note rests on the first pages of the PDF. The model belongs to the family in [[Voter model]] and [[Opinion dynamics]], with network effects as in [[Network structure — small-world and scale-free]]; the boundary-agent reading connects to Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Voter model]]; [[Opinion dynamics]]; [[Network structure — small-world and scale-free]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Voter model]]; [[Opinion dynamics]]; [[Network structure — small-world and scale-free]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

@@ -22,11 +22,11 @@ A 1983 book published by Verso on the origin and spread of nationalism, as its t
 
 ## Relevance to this research
 
-The manuscript cites the book for an account of print capitalism: print created mass reading publics in fewer languages than were spoken and made the nation imaginable. The reading record says the content is known from secondary summaries only, so the manuscript's statement is not checked against the book here. It is used in the discussion of nations as abstract collectives. See [[Meta-agents and hierarchical emergence]] and [[Cultural evolution and social learning]].
+The manuscript cites the book for an account of print capitalism: print created mass reading publics in fewer languages than were spoken and made the nation imaginable. The reading record says the content is known from secondary summaries only, so the manuscript's statement is not checked against the book here. It is used in the discussion of nations as abstract collectives. See Meta-agents and hierarchical emergence and [[Cultural evolution and social learning]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Cultural evolution and social learning]]; [[alesina-1997-number-size-nations]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Cultural evolution and social learning]]; [[alesina-1997-number-size-nations]].
 
 ## BibTeX
 

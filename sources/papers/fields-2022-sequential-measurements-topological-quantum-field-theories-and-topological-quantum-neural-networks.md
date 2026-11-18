@@ -28,7 +28,7 @@ The paper represents finite quantum reference frames as cone–cocone diagrams o
 
 ## Relevance to this research
 
-This is the technical precursor to the two communication/QECC papers. It offers [[Gauge-Theoretic Multi-Agent VFE Model]] a comparison between compositional semantic maps and geometric descriptions of communication. The project's channel composition and exact recovery conditions are probabilistic, while this construction uses classifiers, Hilbert spaces, and cobordisms. Relating them requires an explicit functor and preservation conditions; similarities in diagrams are insufficient to identify their dynamics or their meanings of geometry.
+This is the technical precursor to the two communication/QECC papers. It offers Gauge-Theoretic Multi-Agent VFE Model a comparison between compositional semantic maps and geometric descriptions of communication. The project's channel composition and exact recovery conditions are probabilistic, while this construction uses classifiers, Hilbert spaces, and cobordisms. Relating them requires an explicit functor and preservation conditions; similarities in diagrams are insufficient to identify their dynamics or their meanings of geometry.
 
 ## BibTeX
 

@@ -4,55 +4,43 @@ type: concept
 tags: cluster/social-physics, project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-11-18
 aliases:
   - "Echo Chambers"
 ---
 
 # Echo chambers and polarization
 
-An **echo chamber** is an information environment with dense within-group exposure and weak or selective cross-group exposure. **Polarization** is multidimensional: dispersion, bimodality, cross-issue constraint, group separation, and affective polarization need not move together. The gauge-VFE model of the belief-inertia manuscript directly represents belief-state separation and attention structure; it does not by itself model every psychological or affective axis.
+An **echo chamber** is an information environment with dense within-group exposure and weak or selective cross-group exposure. **Polarization** is multidimensional: dispersion, bimodality, cross-issue constraint, group separation, and affective polarization need not move together ([[dimaggio-evans-bryson-1996-attitude-polarization]], [[iyengar-2019-affective-polarization]]).
 
-## Passive attractive attention gives metastability
+## Mechanisms of persistent separation
 
-For positive finite-temperature Gibbs attention and purely attractive coupling, every finite cross-cluster separation retains a positive interaction tail. In the manuscript's unanchored, symmetric reciprocal two-cluster reduction, the separation derivative is strictly negative whenever the cluster gap is nonzero. Widely separated clusters can therefore merge exponentially slowly, but they are **metastable**, not distinct stable fixed points.
+In averaging dynamics with purely attractive coupling, persistent polarization requires additional structure:
 
-The logarithmic separation scale is a tolerance-defined crossover for cross-attention and merger time, not a stability threshold. Exact persistent polarization requires additional structure:
-
-- hard support or severed network edges in the attention prior;
-- persistent anchors with a separately proved separated equilibrium;
+- hard support or severed network edges;
+- persistent anchors with a separated equilibrium;
 - signed or repulsive influence;
 - an active evidence-selection policy that changes the candidate set.
 
-The last mechanism is modeled by [[albarracin-2022-epistemic-communities]], where active confirmation-biased sampling can segregate epistemic communities. It must not be identified with passive, positive, attractive attention over a fixed source set. [[Collective active inference]] records this active-versus-passive distinction.
+The last mechanism is modeled by [[albarracin-2022-epistemic-communities]], where active confirmation-biased sampling can segregate epistemic communities. It must not be identified with passive, positive, attractive weighting over a fixed source set. [[Collective active inference]] records this active-versus-passive distinction.
 
-The current vertex transport $\Omega_{ij}=U_iU_j^{-1}$ has trivial loop holonomy. Nontrivial [[Holonomy]] and spin-glass-like frustration require an edge-local/nonflat extension; they cannot be invoked to stabilize polarization in the flat model.
+## Classical models
 
-## Relation to classical models
-
-Under the primary unweighted product Fisher metric, the first-order gauge-VFE result recovers continuous-time DeGroot only for fixed symmetric coupling. Matching a standard nonuniform reversible transient requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates $\eta_i\propto\rho_i^{-1}$. The restricted anchored Friedkin--Johnsen stationary equilibrium is independent of the positive flow metric; only its standard transient retains that requirement. Arbitrary directed row-stochastic influence is not derived. Gibbs similarity weighting is a finite-temperature **soft analog** of bounded confidence, not an exact Hegselmann--Krause ball average or Deffuant update.
-
-Selective exposure, slow revision, and persistent explanatory beliefs are separate mechanisms:
-
-- similarity-weighted attention represents selective exposure conditional on the chosen kernel;
-- at fixed Fisher geometry and learning rate, local stiffness reduces matched-force displacement but speeds first-order relaxation; latency requires a separate mobility, damping, kinetic, or slow-state mechanism;
-- explanatory perseverance requires an explicit slow explanatory or generative-model state.
-
-None of these alone establishes general confirmation bias or stable polarization. See [[Belief perseverance and confirmation bias]].
+The classical comparison models are DeGroot averaging ([[degroot-1974-consensus]]), the anchored Friedkin--Johnsen model ([[friedkin1990-social-influence-opinions]]), and the bounded-confidence models of Hegselmann--Krause ([[hegselmann-2002-opinion]]) and Deffuant ([[deffuant2000-bounded-confidence]]); see [[Bounded confidence]] and [[Opinion dynamics]]. Selective exposure, slow revision, and persistent explanatory beliefs are separate mechanisms; see [[Belief perseverance and confirmation bias]].
 
 ## Alternative dynamics and empirical discrimination
 
-Cross-group contact can produce attraction, backlash, indifference, or exposure without attitude change depending on the mechanism. A purely attractive first-order scalar model cannot explain every such response. Signed influence, identity-dependent observation models, active sampling, or other feedback variables must be introduced and tested rather than assigned to inertia by default.
+Cross-group contact can produce attraction, backlash, indifference, or exposure without attitude change depending on the mechanism. A purely attractive first-order scalar model cannot explain every such response. Signed influence, identity-dependent observation models, active sampling, or other feedback variables must be introduced and tested.
 
-Oscillatory or recurrent population motion also does not identify belief inertia. [[xue-hirche-cao-2020-opinion-port-hamiltonian]] supplies a controlled port-Hamiltonian opinion-network comparator, [[baumann-sokolov-tyloo-2020-second-order-consensus]] shows resonance under periodic coupling, and [[sampson-porter-restrepo-2025-oscillatory-opinion]] generates oscillations through individual--group feedback without the proposed kinetic metric. [[martins-2015-opinion-particles]] is the closest direct inertial opinion-particle predecessor.
+Oscillatory or recurrent population motion has its own comparators. [[xue-hirche-cao-2020-opinion-port-hamiltonian]] supplies a controlled port-Hamiltonian opinion-network model, [[baumann-sokolov-tyloo-2020-second-order-consensus]] shows resonance under periodic coupling, and [[sampson-porter-restrepo-2025-oscillatory-opinion]] generates oscillations through individual--group feedback. [[martins-2015-opinion-particles]] is the closest direct inertial opinion-particle model.
 
-Diffusion and polarization are also distinct outcomes. The present continuous belief dynamics do not derive adoption categories or an S-curve. A diffusion claim requires an adoption state and population hazard, with [[bass-1969-product-growth]] as a direct formal comparator.
+Diffusion and polarization are also distinct outcomes. A diffusion claim requires an adoption state and population hazard, with [[bass-1969-product-growth]] as a direct formal comparator.
 
 ## Sources
 
 - [[albarracin-2022-epistemic-communities]] -- active confirmation-biased sampling and epistemic-community segregation.
-- [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions]], [[hegselmann-2002-opinion]], [[deffuant2000-bounded-confidence]] -- classical comparison models with restricted correspondence.
-- [[martins-2015-opinion-particles]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- direct dynamical comparators.
+- [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions]], [[hegselmann-2002-opinion]], [[deffuant2000-bounded-confidence]] -- classical opinion-dynamics models.
+- [[martins-2015-opinion-particles]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- second-order and oscillatory opinion dynamics.
 - [[bass-1969-product-growth]] -- population diffusion comparator.
 - [[dimaggio-evans-bryson-1996-attitude-polarization]], [[iyengar-2019-affective-polarization]] -- measurement distinctions for polarization.
 
@@ -60,9 +48,7 @@ Diffusion and polarization are also distinct outcomes. The present continuous be
 
 - [[Opinion dynamics]]
 - [[Sociophysics]]
-- [[SocialPhysics]]
 - [[Bounded confidence]]
 - [[Belief perseverance and confirmation bias]]
-- [[Belief inertia]]
 - [[Collective active inference]]
 - [[Holonomy]]

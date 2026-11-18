@@ -54,7 +54,7 @@ This is a dense unweighted/simple-graph limit theory. It does not automatically 
 
 - [[Coarse Graining]]
 - [[Renormalization group flow]]
-- [[Multi-agent variational free energy]]
+- Multi-agent variational free energy
 
 ## BibTeX
 

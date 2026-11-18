@@ -32,7 +32,7 @@ A sample of $n$ independent Ornstein–Uhlenbeck processes and its average both 
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence
 - Related sources: [[boursier-2023-universal-cutoff-dyson-ornstein-uhlenbeck]], [[barrera-2020-thermalisation-small-random-perturbations]], [[diaconis-1996-cutoff-phenomenon-markov-chains]]
 
 ## BibTeX

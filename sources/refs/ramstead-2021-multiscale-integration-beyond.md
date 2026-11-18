@@ -36,11 +36,11 @@ The argument is that the statistical seclusion of internal from external states,
 
 ## Relevance to this research
 
-The manuscript lists this paper, with another multiscale paper and an appendix of a software-and-mind paper, among works on inferential closure of coarse-grained collectives that it has not read in primary text. It is relevant to the question of which Markov blankets define a collective at which scale; see [[Markov Blanket]], [[Markov blanket interpretation debate]], [[Meta-agents and hierarchical emergence]] and [[Coarse Graining]].
+The manuscript lists this paper, with another multiscale paper and an appendix of a software-and-mind paper, among works on inferential closure of coarse-grained collectives that it has not read in primary text. It is relevant to the question of which Markov blankets define a collective at which scale; see [[Markov Blanket]], [[Markov blanket interpretation debate]], Meta-agents and hierarchical emergence and [[Coarse Graining]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Markov Blanket]]; [[Markov blanket interpretation debate]]; [[Meta-agents and hierarchical emergence]]; [[Coarse Graining]].
+[[Collective agents literature map]]; [[Markov Blanket]]; [[Markov blanket interpretation debate]]; Meta-agents and hierarchical emergence; [[Coarse Graining]].
 
 ## BibTeX
 

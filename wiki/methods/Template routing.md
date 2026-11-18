@@ -11,7 +11,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-10-28
+updated: 2026-11-18
 ---
 
 # Template routing
@@ -26,13 +26,13 @@ updated: 2026-10-28
 
 ## Prototype layer as an agent generative model, October 24, 2026
 
-The `prototype_agents` block (the minimal-agent form of template routing) is an exact instance of the MAgent definition of an agent's generative model at one context: reference law $\pi$ on template labels, evaluator $\mathcal N(\nu_a,\Lambda_a)$, and record kernel $\mathcal N(o;k,C_i)$ observed at the token's incoming mean. This is the identity-projection case of extreme deconvolution ([[bovy-2011-extreme-deconvolution]]); the exact block's mean and covariance are the second-order form of Tweedie's formula ([[efron-2011-tweedie-formula]]), and its moment collapse is one assumed-density-filtering step ([[minka-2001-expectation-propagation]]). The `gaussian_template` gate is the generative gate of [[xu-1995-alternative-mixtures-of-experts]] with constant experts.
+The `prototype_agents` block (the minimal-agent form of template routing) is an exact agent generative model at one context: reference law $\pi$ on template labels, evaluator $\mathcal N(\nu_a,\Lambda_a)$, and record kernel $\mathcal N(o;k,C_i)$ observed at the token's incoming mean. This is the identity-projection case of extreme deconvolution ([[bovy-2011-extreme-deconvolution]]); the exact block's mean and covariance are the second-order form of Tweedie's formula ([[efron-2011-tweedie-formula]]), and its moment collapse is one assumed-density-filtering step ([[minka-2001-expectation-propagation]]). The `gaussian_template` gate is the generative gate of [[xu-1995-alternative-mixtures-of-experts]] with constant experts.
 
-The session analysis (VFE_3.0 `docs/research/2026-10-24-mlp-generative-models/report.md` and its geometry memo) adds conditions. The species condition of the theory also requires equal record kernels, so a shared reference bank alone does not make a layer one species. The free energy equals negative log evidence only at the full correlated posterior, not for the product law the diagnostic evaluates. The incoming record is the layer-normed mean, which pairs with the pre-norm covariance unless the norm's covariance pushforward is enabled.
+The session analysis (VFE_3.0 `docs/research/2026-10-24-mlp-generative-models/report.md` and its geometry memo) adds conditions. The free energy equals negative log evidence only at the full correlated posterior, not for the product law the diagnostic evaluates. The incoming record is the layer-normed mean, which pairs with the pre-norm covariance unless the norm's covariance pushforward is enabled.
 
 Two exact readings of a feed-forward block are distinguished. A normalized, tied, shared-covariance softmax gate is the exact one-of-$M$ mixture posterior mean. A factorial latent-feature model gives an MLP after one inference step from zero: MAP with a proximal activation ([[gregor-2010-lista]]) or mean field with a posterior-mean activation, which is monotone because its derivative is a variance. GELU is non-monotone, so it is neither; its exact reading is the stochastic gate of [[hendrycks2016gaussian]].
 
-> [!note] Editorial: Extensions discussed but not implemented include a persistent label belief across depth (the switching-model structure of [[ghahramani-2000-switching-state-space]]), and templates as meta-agents refit in context from the causal prefix, with precedents in EM routing ([[hinton-2018-matrix-capsules-em-routing]]), slot attention ([[locatello-2020-slot-attention]]), streaming Bayesian updates ([[broderick-2013-streaming-variational-bayes]]) and fast weight memories ([[schlag-2021-fast-weight-programmers]]). The "not implemented" status lines in the Gauge status and Structured posterior sections below predate VFE_3.0's `block_coordinates="reference"` path and the exact `prototype_agents` inference, both of which are now implemented and opt-in.
+> [!note] Editorial: Extensions discussed but not implemented include a persistent label belief across depth (the switching-model structure of [[ghahramani-2000-switching-state-space]]), and templates refit in context from the causal prefix, with precedents in EM routing ([[hinton-2018-matrix-capsules-em-routing]]), slot attention ([[locatello-2020-slot-attention]]), streaming Bayesian updates ([[broderick-2013-streaming-variational-bayes]]) and fast weight memories ([[schlag-2021-fast-weight-programmers]]). The "not implemented" status lines in the Gauge status and Structured posterior sections below predate VFE_3.0's `block_coordinates="reference"` path and the exact `prototype_agents` inference, both of which are now implemented and opt-in.
 
 Template routing replaces the residual block MLP of the [[VFE Transformer Program|vfe3 transformer]] with variational inference over a bank of learned Gaussian templates ("concept agents"). It answers the question the [[dennis-2026-glk-matrix-links-2026-09-20|matrix-links manuscript]] left open, namely what the GELU MLP after each attention step computes and why it is there, by deriving a block of the same shape from a mixture-prior free energy. The derivations and their scope are recorded in [[dennis-2026-template-routing]].
 
@@ -68,7 +68,7 @@ Computed from local $(\mu_i,\Sigma_i)$, the block has the same covariance class 
 
 ## Worked example and social reading
 
-The explainer's worked example follows "a man went to the bank to deposit": the ambiguous "bank" (uncertain belief) routes to a broad generic template under the KL rule, while the resolved "deposit" routes to the financial template with responsibility 0.82. Its social reading treats the bank as a shared repertoire of norms and scripts rather than a meta-agent: KL to a template is the cost of deviating from a norm, $\pi_a$ its prevalence, $\Lambda_a$ its permissiveness; precision-weighted fusion moves an agent the fraction $s/(s+\lambda)$ toward a norm, so uncertain agents conform more ([[deutsch-gerard-1955-normative-informational-influence]], [[sherif-1936-psychology-social-norms]]); an M-step over a population sets a norm at the responsibility-weighted average of its adherents; under the next-token gradient, prevalence instead follows a replicator-type update driven by prediction advantage. Templates are not [[Meta-agents and hierarchical emergence|meta-agents]]: they are built from no particular coalition and do not change within a sequence.
+The explainer's worked example follows "a man went to the bank to deposit": the ambiguous "bank" (uncertain belief) routes to a broad generic template under the KL rule, while the resolved "deposit" routes to the financial template with responsibility 0.82. Its social reading treats the bank as a shared repertoire of norms and scripts: KL to a template is the cost of deviating from a norm, $\pi_a$ its prevalence, $\Lambda_a$ its permissiveness; precision-weighted fusion moves an agent the fraction $s/(s+\lambda)$ toward a norm, so uncertain agents conform more ([[deutsch-gerard-1955-normative-informational-influence]], [[sherif-1936-psychology-social-norms]]); an M-step over a population sets a norm at the responsibility-weighted average of its adherents; under the next-token gradient, prevalence instead follows a replicator-type update driven by prediction advantage.
 
 ## Structured posterior (not implemented)
 
@@ -83,8 +83,6 @@ Reading the attention output as a Gaussian message about the state, the exact po
 ## Open questions
 
 Whether template routing matches the GELU MLP at matched parameters and seeds; whether softmax competition needs more templates than independent gates; whether trained templates are interpretable (inspect top-responsibility tokens); whether routing correlates with $\mathrm{tr}\,\Sigma_i$ as predicted. The last is uncertain in practice because the belief covariance has no data-precision term and acts as a learned prior (see [[Precision weighting]]). Extensions not built: covariant form, regression blocks $B_a$, independent gates, covariance update, joint softmax over peers and templates.
-
-A different objective-based answer to the same MLP question is the conditional neuron-free construction of [[dennis-2026-neuron-free-agent-theory]], where nonlinearity comes from inference over source labels and Gamma-distributed record precisions rather than from a template bank; that report is inconclusive for the full replacement question.
 
 ## Sources
 

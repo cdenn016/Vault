@@ -34,7 +34,7 @@ Other candidate routes concern predictive history states, endogenous persistent 
 
 ## Relevance to this research
 
-The agenda connects [[Participatory realism (it from bit)]], [[Meta-agents and hierarchical emergence]], and [[Gauge-Theoretic Multi-Agent VFE Model]] to the existing memory and dynamic-link constructions. It continues [[multiagentelbo-2026-10-04-lie-algebra-links]] without promoting a field-equation analogy into a physical-force derivation.
+The agenda connects [[Participatory realism (it from bit)]], Meta-agents and hierarchical emergence, and Gauge-Theoretic Multi-Agent VFE Model to the existing memory and dynamic-link constructions. It continues [[multiagentelbo-2026-10-04-lie-algebra-links]] without promoting a field-equation analogy into a physical-force derivation.
 
 Wheeler provides the motivating history analogy through [[wheeler-1990-it-from-bit]]. Predictive-state comparison draws on [[shalizi-1999-computational-mechanics-pattern-and-prediction-structure-and-simplicit]], with its representation-class limits retained. RG scaling is compared with [[wilson-1971-rg-critical-phenomena]]. The [environment-as-witness paper](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.72.042113) supplies a quantum precedent only; it assumes quantum dynamics.
 

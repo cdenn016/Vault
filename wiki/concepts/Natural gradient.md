@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Natural gradient
@@ -128,7 +128,7 @@ Two later notes give the program natural gradients with a stated statistical mod
 
 ## Latent links and the link Fisher (2026-10-03)
 
-When the link generators are latent variables of the free energy ([[dennis-2026-dynamic-links]]), their inference dynamics are a natural-gradient relaxation. For point-mass links the preconditioner is the Fisher information of the transported Gaussian with respect to the generator, $\mathcal I[E,E']=\beta\operatorname{tr}(\bar Q^{-1}L(X,E)S_jL(X,E')^\top)$, with $L$ the Fréchet derivative of the exponential and $S_j$ the source second moment; it is the Gauss–Newton matrix of the transport term and the mean part of the link Fisher pullback above. For Gaussian link posteriors the natural-gradient updates are those of the Bayesian learning rule ([[khan-rue-2023-bayesian-learning-rule]]). These dynamics are first order, with the Fisher information acting as friction; the note obtains inertia only for the maximum a posteriori path over depth, with Euclidean sign (see [[Mass as Fisher information]]).
+When the link generators are latent variables of the free energy ([[dennis-2026-dynamic-links]]), their inference dynamics are a natural-gradient relaxation. For point-mass links the preconditioner is the Fisher information of the transported Gaussian with respect to the generator, $\mathcal I[E,E']=\beta\operatorname{tr}(\bar Q^{-1}L(X,E)S_jL(X,E')^\top)$, with $L$ the Fréchet derivative of the exponential and $S_j$ the source second moment; it is the Gauss–Newton matrix of the transport term and the mean part of the link Fisher pullback above. For Gaussian link posteriors the natural-gradient updates are those of the Bayesian learning rule ([[khan-rue-2023-bayesian-learning-rule]]). These dynamics are first order, with the Fisher information acting as friction; the note obtains inertia only for the maximum a posteriori path over depth, with Euclidean sign.
 
 ## Sources
 

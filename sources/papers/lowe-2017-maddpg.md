@@ -37,7 +37,7 @@ Introduces MADDPG, a multi-agent deep deterministic policy-gradient method using
 A canonical multi-agent reinforcement-learning baseline relevant to the MAgent multi-agent VFE model: it exemplifies the centralized-training / decentralized-execution paradigm and the non-stationarity problem that arises when many learning agents interact, which the gauge-theoretic multi-agent framework reframes through coupled belief dynamics.
 
 ## Cross-links
-[[Gauge-Theoretic Multi-Agent VFE Model]]
+Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 ```bibtex

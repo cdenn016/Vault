@@ -55,14 +55,14 @@ Agents carry partially observed generative models over a local visual field. Per
 
 ## Relevance to this research
 
-This is the reference that licenses reading the [[Gauge-Theoretic Multi-Agent VFE Model]] as a sociophysics model derived from free-energy minimization rather than from hand-set interaction rules — the same move the project makes, generalized. Where Heins et al. couple agents implicitly through overlapping sensory fields, the project couples belief-carrying agents explicitly through the $\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ term of [[Multi-agent variational free energy]], with the gauge transport $\Omega_{ij}$ supplying the piece this paper lacks: a frame-covariant way to compare beliefs held in different local reference frames before measuring their disagreement. PIFB (see [[participatory-it-from-bit]]) extends the surprise-minimization-as-collective-behavior thesis with that connection, so that emergent order is not just free-energy descent but gauge-covariant free-energy descent, and consensus, fragmentation, and the "heat death" of belief diversity become readable as phases of the coupled dynamics — the distributional, gauge-aware analogue of the phase diagram this paper draws. It also grounds the project's claim that meta-scale order ([[Meta-agents and hierarchical emergence]]) is emergent rather than imposed.
+This is the reference that licenses reading the Gauge-Theoretic Multi-Agent VFE Model as a sociophysics model derived from free-energy minimization rather than from hand-set interaction rules — the same move the project makes, generalized. Where Heins et al. couple agents implicitly through overlapping sensory fields, the project couples belief-carrying agents explicitly through the $\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ term of Multi-agent variational free energy, with the gauge transport $\Omega_{ij}$ supplying the piece this paper lacks: a frame-covariant way to compare beliefs held in different local reference frames before measuring their disagreement. PIFB (see [[participatory-it-from-bit]]) extends the surprise-minimization-as-collective-behavior thesis with that connection, so that emergent order is not just free-energy descent but gauge-covariant free-energy descent, and consensus, fragmentation, and the "heat death" of belief diversity become readable as phases of the coupled dynamics — the distributional, gauge-aware analogue of the phase diagram this paper draws. It also grounds the project's claim that meta-scale order (Meta-agents and hierarchical emergence) is emergent rather than imposed.
 
 ## Cross-links
 
-- Concepts: [[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]], [[Variational free energy]]
+- Concepts: Multi-agent variational free energy, Meta-agents and hierarchical emergence, [[Variational free energy]]
 - Related sources: [[friston-2024-federated-inference]], [[waade-2025-as-one-and-many]], [[albarracin-2022-epistemic-communities]], [[couzin-2009-collective-cognition]], [[galam-2008-sociophysics]]
 - Manuscript: [[participatory-it-from-bit]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

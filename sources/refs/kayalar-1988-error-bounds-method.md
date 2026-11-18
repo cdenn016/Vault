@@ -24,11 +24,11 @@ A 1988 article on error bounds for the method of alternating projections, publis
 
 ## Relevance to this research
 
-The manuscript cites this paper for the equality case of the convergence rate of alternating projections onto two subspaces, where the rate is a power of the cosine of the Friedrichs angle, and for the study of such rates in its related-work discussion of noiseless relays. It lists the work among results known only through restatements. The equality statement was read in three restatements, one of them Badea et al. (2012), and not in this paper, so theorem numbers should not be attributed to it. The manuscript proves the rate it uses directly. See [[Coarse Graining]], [[Fixed-point iteration]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites this paper for the equality case of the convergence rate of alternating projections onto two subspaces, where the rate is a power of the cosine of the Friedrichs angle, and for the study of such rates in its related-work discussion of noiseless relays. It lists the work among results known only through restatements. The equality statement was read in three restatements, one of them Badea et al. (2012), and not in this paper, so theorem numbers should not be attributed to it. The manuscript proves the rate it uses directly. See [[Coarse Graining]], [[Fixed-point iteration]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Fixed-point iteration]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]]; [[kopecka-2017-strange-products-projections]].
+[[Collective agents literature map]]; [[Fixed-point iteration]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[kopecka-2017-strange-products-projections]].
 
 ## BibTeX
 

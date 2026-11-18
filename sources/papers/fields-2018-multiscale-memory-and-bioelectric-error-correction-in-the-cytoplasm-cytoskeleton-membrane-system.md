@@ -28,7 +28,7 @@ Fields and Levin review inherited biological organization beyond genomic sequenc
 
 ## Relevance to this research
 
-This connects with [[Cue-result generative memory]] by distinguishing retained constraints from explicit records and with [[Meta-agents and hierarchical emergence]] by treating memory as distributed across interacting scales. For [[Gauge-Theoretic Multi-Agent VFE Model]], it motivates retaining the state that actually supports future responses. A compressed description cannot claim exact inheritance merely because it preserves a target label; the operational dependencies and persistent memory mechanisms must also be represented.
+This connects with [[Cue-result generative memory]] by distinguishing retained constraints from explicit records and with Meta-agents and hierarchical emergence by treating memory as distributed across interacting scales. For Gauge-Theoretic Multi-Agent VFE Model, it motivates retaining the state that actually supports future responses. A compressed description cannot claim exact inheritance merely because it preserves a target label; the operational dependencies and persistent memory mechanisms must also be represented.
 
 ## BibTeX
 

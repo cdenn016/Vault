@@ -24,11 +24,11 @@ A 1976 article in The Journal of Finance that the manuscript cites as the source
 
 ## Relevance to this research
 
-The manuscript cites the paper for attribution only: rational-expectations aggregation by a fully revealing price is credited to it, with noisy, partially revealing equilibria credited to [[hellwig-1980-aggregation-information-competitive]]. The manuscript's reading record verified the bibliographic data against Crossref and states that the content was not read. The citation sits in the discussion of abstract collectives, where the manuscript derives its own aggregation result. See [[Meta-agents and hierarchical emergence]], [[Collective active inference]] and [[Common knowledge and Bayesian agreement]].
+The manuscript cites the paper for attribution only: rational-expectations aggregation by a fully revealing price is credited to it, with noisy, partially revealing equilibria credited to [[hellwig-1980-aggregation-information-competitive]]. The manuscript's reading record verified the bibliographic data against Crossref and states that the content was not read. The citation sits in the discussion of abstract collectives, where the manuscript derives its own aggregation result. See Meta-agents and hierarchical emergence, [[Collective active inference]] and [[Common knowledge and Bayesian agreement]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[hellwig-1980-aggregation-information-competitive]]; [[grossman-1980-impossibility-informationally-efficient]]; [[hayek-1945-use-knowledge-society]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Collective active inference]]; [[Common knowledge and Bayesian agreement]]; [[hellwig-1980-aggregation-information-competitive]]; [[grossman-1980-impossibility-informationally-efficient]]; [[hayek-1945-use-knowledge-society]].
 
 ## BibTeX
 

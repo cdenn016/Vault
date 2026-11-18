@@ -47,13 +47,13 @@ The model produces a candidate flock-level blanket, faster coordinated responses
 
 ## Relevance to this research
 
-The paper joins [[Meta-agents and hierarchical emergence]] to [[Partial information decomposition]]. It provides a direct empirical comparator for claims that a block carries new information. MultiAgentELBO should reproduce blanket detection and synergy estimates under null models, alternative partitions, and estimator choices before using them as evidence of a meta-agent.
+The paper joins Meta-agents and hierarchical emergence to [[Partial information decomposition]]. It provides a direct empirical comparator for claims that a block carries new information. MultiAgentELBO should reproduce blanket detection and synergy estimates under null models, alternative partitions, and estimator choices before using them as evidence of a meta-agent.
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Meta-agents and hierarchical emergence]], [[Partial information decomposition]]
+- Concepts: [[Collective active inference]], Meta-agents and hierarchical emergence, [[Partial information decomposition]]
 - Related sources: [[heins-2024-surprise-minimization]], [[waade-2025-as-one-and-many]], [[palacios-2020-hierarchical-markov-blankets]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 

@@ -53,8 +53,8 @@ describes slow variables as coarse-grained encodings that reduce environmental u
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Themes: [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, [[Coarse Graining]]
+- Themes: Meta-agents and hierarchical emergence
 - Related sources: [[flack-2017-coarse-graining-downward-causation]], [[rosas-2024-software-natural-world]], [[hoel-2013-causal-emergence]]
 
 ## BibTeX

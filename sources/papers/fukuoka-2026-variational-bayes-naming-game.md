@@ -48,7 +48,7 @@ VBNG is a concrete finite benchmark for [[Collective active inference]] and shar
 
 ## Cross-links
 
-- Concepts: [[Collective active inference]], [[Multi-agent variational free energy]], [[Belief Propagation]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Collective active inference]], Multi-agent variational free energy, [[Belief Propagation]], Meta-agents and hierarchical emergence
 - Related sources: [[hasenclever-2017-snep-posterior-server]]
 
 ## BibTeX

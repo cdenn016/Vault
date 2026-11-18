@@ -9,7 +9,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Nonequilibrium steady state
@@ -29,11 +29,6 @@ On a manifold with a smooth positive measure $P$ the statement is coordinate fre
 The decomposition is attached to the free energy principle in [[friston-2012-free-energy-value-attractors|Friston and Ao 2012]], in Ao's form $f=(\Gamma+Q)\nabla V$ with $V=\ln p$; Lemma D.1 there proves stationarity of $p=e^{V}$ for constant antisymmetric $Q$ only, and sign conventions for $Q$ differ across the papers cited here. Writing the flow as $f=(Q-\Gamma)\nabla\Im$ with surprisal $\Im=-\ln p$ and differentiating gives $J=(Q-\Gamma)H$, a relation between the Jacobian of the flow and the Hessian of surprisal, from which [[friston-2021-interesting-observations-fep|Friston, Da Costa and Parr 2021]] argue, by inspection and with no theorem, which solenoidal couplings are compatible with a [[Markov Blanket]]. They concede that sparse flow and steady-state conditional independence do not imply one another.
 
 The lineage claim ([[friston-2013-life-as-we-know-it]], [[dacosta-2021-bayesian-mechanics]], [[friston-2023-fep-simpler]]) is that a blanketed system with a NESS density looks as if its internal states infer external states, with the steady-state density as [[Generative model|generative model]]. Its stated conditions are narrow. The 2021 reply restricts the reading to conditional expectations of internal states given blanket states and says that the principle does not claim that self-organization to steady state minimizes [[Variational free energy|variational free energy]]. The audit of [[millidge-2021-mathematical-walkthrough-fep|Millidge, Seth and Buckley 2021]] adds that the steady state must cover the external states as well, and that the exact reading holds for conditional modes only, given block-diagonal solenoidal coupling, an invertible differentiable synchronization map and a Laplace-encoded density. [[parr-2021-memory-markov-blankets|Parr et al. 2021]] argue that the blanket constrains the steady-state density alone: the density conditioned on an earlier blanket state is away from steady state, and internal and external states can be conditionally dependent given the current blanket until the initial condition is forgotten, which they show numerically in a three-variable Ornstein-Uhlenbeck example.
-
-## In this work
-
-> [!note] Editorial: status for the gauge-theoretic program
-> These sources treat one system on its state space; none has several agents or transport between agents, and where a Fisher metric on beliefs appears ([[millidge-2021-mathematical-walkthrough-fep]], Section 5, and [[dacosta-2021-bayesian-mechanics]]) it belongs to a single particle. Reading the solenoidal sector as the home of [[Hamiltonian belief dynamics]], or the abelian curvature of Feng and Wang and of Polettini as a model for curvature of inter-agent transport, is an analogy and not a theorem. A blanket claim for an agent or a collective in the program is a claim about a stationary joint law, and by the argument of Parr et al. it need not hold during relaxation.
 
 ## Related
 

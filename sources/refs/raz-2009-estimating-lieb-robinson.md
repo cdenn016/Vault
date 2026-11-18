@@ -38,11 +38,11 @@ The bounds are proved for the harmonic system and for a variety of anharmonic pe
 
 ## Relevance to this research
 
-The collective-agents manuscript cites this paper, together with the original Lieb-Robinson result and the 1978 classical analog, as precedent for a finite speed at which influence spreads. The manuscript's own statements are discrete-time counterparts of such bounds, relevant to how fast correlations can be generated across a network of communicating agents. The link to [[Coarse Graining]] and [[Meta-agents and hierarchical emergence]] is through the length scale over which a collective can hold together. The manuscript's reading record lists only a bibliographic check of the paper, and the summary here comes from the first pages.
+The collective-agents manuscript cites this paper, together with the original Lieb-Robinson result and the 1978 classical analog, as precedent for a finite speed at which influence spreads. The manuscript's own statements are discrete-time counterparts of such bounds, relevant to how fast correlations can be generated across a network of communicating agents. The link to [[Coarse Graining]] and Meta-agents and hierarchical emergence is through the length scale over which a collective can hold together. The manuscript's reading record lists only a bibliographic check of the paper, and the summary here comes from the first pages.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]]; [[Statistical physics of social systems and collective behavior]].
+[[Collective agents literature map]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence; [[Statistical physics of social systems and collective behavior]].
 
 ## BibTeX
 

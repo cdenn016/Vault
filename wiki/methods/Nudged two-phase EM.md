@@ -5,7 +5,7 @@ aliases: [Backprop-free VFE learning, EqProp-contrast EM, nudged two-phase EM]
 tags: [cluster/vfe, cluster/info-geometry, cluster/gauge-theory, project/transformer]
 status: draft
 created: 2026-07-11
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # Nudged two-phase EM
@@ -34,7 +34,7 @@ The honest limits: the [[scellier-bengio-2017-equilibrium-propagation|EqProp]] t
 
 ## Relation to this work
 
-This is the program's answer to the [[gl-k-attention]] manuscript's named extension (backprop-free learning via local VFE gradients plus a delta rule on the output projection) and it realizes the [[participatory-it-from-bit|PIFB]]-canonical placement of the observation term inside the belief subsystem: a target-aware E-step gives $\Sigma_q$ its missing evidence-contraction channel. Implementation lands as a `vfe3/fep/` subpackage behind V3's registry seams; milestone gates run measured BPE unigram → KenLM 5-gram → the DFA band (≤100) → 2x matched-K backprop vfe3 (66-155 band), with a pre-registered frame falsifier (contrast-φ vs frozen-random-φ ≥ 10% PPL gap or frame learning is declared dead weight).
+This is the program's answer to the [[gl-k-attention]] manuscript's named extension (backprop-free learning via local VFE gradients plus a delta rule on the output projection) and places the observation term inside the belief subsystem: a target-aware E-step gives $\Sigma_q$ its missing evidence-contraction channel. Implementation lands as a `vfe3/fep/` subpackage behind V3's registry seams; milestone gates run measured BPE unigram → KenLM 5-gram → the DFA band (≤100) → 2x matched-K backprop vfe3 (66-155 band), with a pre-registered frame falsifier (contrast-φ vs frozen-random-φ ≥ 10% PPL gap or frame learning is declared dead weight).
 
 ## Sources
 

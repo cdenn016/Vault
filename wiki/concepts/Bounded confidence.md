@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-10-07
+updated: 2026-11-18
 ---
 
 # Bounded confidence
@@ -30,25 +30,11 @@ x_i \leftarrow x_i + \mu\,(x_j - x_i), \qquad x_j \leftarrow x_j + \mu\,(x_i - x
 $$
 while encounters across the threshold leave both unchanged. HK mixes whole neighborhoods at once and tends to coarsen quickly into a handful of clusters; Deffuant mixes one dyad at a time and traces a slower, more stochastic path to a similar cluster structure. In both, the number of surviving opinion clusters scales roughly inversely with $\varepsilon$: a wide confidence window collapses the population to consensus, a narrow one fixes many camps, and the transition between regimes is sharp rather than gradual.
 
-The authoritative consolidation of this family is the survey by Lorenz ([[lorenz-2007-bounded-confidence-survey]]), which unifies the HK and Deffuant-Weisbuch variants under a single framework and treats both as positive linear (averaging) systems with state-dependent, opinion-gated coupling. Lorenz's organizing empirical law makes the cluster-counting behavior quantitative: large $\varepsilon$ yields one consensus, decreasing $\varepsilon$ produces an increasing number of distinct clusters — roughly $\sim 1/(2\varepsilon)$ for HK on a uniform initial distribution — and very small $\varepsilon$ gives fragmentation into many isolated views. This consolidated phenomenology, the number of surviving clusters as a function of the confidence threshold, is precisely the benchmark any subsuming VFE functional must reproduce.
-
-## Why it matters here
-
-The theorem-first revision of the belief-inertia manuscript (2026-07-12) gives only a **soft, finite-temperature analog** of bounded confidence, not an overdamped recovery of HK or Deffuant. Where those models impose a discontinuous indicator $\mathbf{1}[|x_i-x_j|\le\varepsilon]$, [[Multi-agent variational free energy]] weights source $j$ by
-$$
-\beta_{ij} = \mathrm{softmax}_j\!\Big({-\tfrac{1}{\tau}\,\mathrm{KL}\big(q_i \,\|\, \Omega_{ij}\, q_j\big)}\Big),
-$$
-so coupling decays continuously with post-transport divergence rather than vanishing at a confidence wall. At every positive $\tau$ and positive candidate prior, distant sources retain nonzero weight. This supports graded similarity selectivity, but it does not prove the HK/Deffuant phase structure, stable polarization, or fragmentation.
-
-This soft reading carries bounded-confidence intuition into a geometric setting: selectivity depends on transported KL divergence between distributions rather than only Euclidean opinion difference. Any persistent camps or meta-agent coarse-graining require additional support truncation, anchors, repulsion, or active sampling; they do not follow from the positive soft kernel alone ([[Meta-agents and hierarchical emergence]], [[Echo chambers and polarization]]).
+The authoritative consolidation of this family is the survey by Lorenz ([[lorenz-2007-bounded-confidence-survey]]), which unifies the HK and Deffuant-Weisbuch variants under a single framework and treats both as positive linear (averaging) systems with state-dependent, opinion-gated coupling. Lorenz's organizing empirical law makes the cluster-counting behavior quantitative: large $\varepsilon$ yields one consensus, decreasing $\varepsilon$ produces an increasing number of distinct clusters — roughly $\sim 1/(2\varepsilon)$ for HK on a uniform initial distribution — and very small $\varepsilon$ gives fragmentation into many isolated views.
 
 ## Details
 
-Temperature $\tau$ controls the sharpness of the Gibbs selector. As $\tau\to0$, weight concentrates on minimum-energy candidates. That nearest-source argmin is not an HK ball average and does not supply a fixed confidence radius: multiple sources within a radius are not averaged merely because they lie below a threshold. Exact bounded confidence would require hard support or an explicit thresholded candidate set. The low-temperature limit is therefore a sharper selector, not a theorem that recovers HK or Deffuant.
-
-Synchronous and pairwise schedules can be used as comparison protocols, but choosing such a schedule does not make the underlying update identical to HK or Deffuant. A conditional [[Hamiltonian belief dynamics]] extension may be studied only after a separate kinetic metric and damping law are specified; overshoot is not a consequence of the soft-confidence analogy.
-
-Beyond the agent-based realizations, the same confidence mechanism admits a continuum, statistical-physics reading through the [[Kinetic theory of opinion dynamics]]. Rather than tracking individual agents, one writes a master/rate equation for the opinion density $P(x,t)$ in which only pairs within the confidence range compromise; Ben-Naim, Krapivsky, and Redner ([[ben-naim-2003-bifurcations-compromise]]) solve this kinetic limit and show the long-time state is always a finite set of sharply localized clusters whose count undergoes a regular bifurcation cascade — major clusters interspersed by small "nomadic" minority clusters — as the width of the initial distribution grows. Their cluster counts and bifurcations are quantitative benchmarks for a future hard-support, explicitly thresholded, or continuum extension, not predictions of the current gauge-VFE dynamics. At every positive temperature the present soft kernel has nonzero tails, and in the proved unanchored symmetric reciprocal two-cluster reduction it contracts the cluster separation; therefore no comparable cluster count or bifurcation cascade follows from the current model.
+Beyond the agent-based realizations, the same confidence mechanism admits a continuum, statistical-physics reading through the [[Kinetic theory of opinion dynamics]]. Rather than tracking individual agents, one writes a master/rate equation for the opinion density $P(x,t)$ in which only pairs within the confidence range compromise; Ben-Naim, Krapivsky, and Redner ([[ben-naim-2003-bifurcations-compromise]]) solve this kinetic limit and show the long-time state is always a finite set of sharply localized clusters whose count undergoes a regular bifurcation cascade — major clusters interspersed by small "nomadic" minority clusters — as the width of the initial distribution grows.
 
 ## Sources
 
@@ -63,8 +49,5 @@ Beyond the agent-based realizations, the same confidence mechanism admits a cont
 - [[Cellular sheaves and sheaf Laplacians]] — bounded confidence on discourse sheaves, whose equilibria are global sections of the below-threshold subsheaf.
 - [[Kinetic theory of opinion dynamics]]
 - [[Echo chambers and polarization]]
-- [[SocialPhysics]]
-- [[Multi-agent variational free energy]]
 - [[Fisher information metric]]
-- [[Hamiltonian belief dynamics]]
-- [[Meta-agents and hierarchical emergence]]
+

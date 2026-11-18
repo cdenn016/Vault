@@ -22,7 +22,7 @@ Sections 1–3 develop supervised structure learning through candidate augmentat
 
 ## Relevance to this research
 
-Addresses the historical precedent for model structure learning while retaining its input assumptions. PIFB2 uses it to distinguish learning within a model family from deriving that family. See [[Generative model]] and [[Meta-agents and hierarchical emergence]]. The refactor context is [[PIFB2 refactor foundations September 2026]].
+Addresses the historical precedent for model structure learning while retaining its input assumptions. PIFB2 uses it to distinguish learning within a model family from deriving that family. See [[Generative model]] and Meta-agents and hierarchical emergence. The refactor context is PIFB2 refactor foundations September 2026.
 
 ## BibTeX
 

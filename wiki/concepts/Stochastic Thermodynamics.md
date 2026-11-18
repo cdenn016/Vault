@@ -7,7 +7,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Stochastic Thermodynamics
@@ -33,7 +33,7 @@ For jump processes on a graph, [[polettini-2012-nonequilibrium-thermodynamics-ga
 ## In this work
 
 > [!note] Editorial: bearing on the gauge-theoretic program
-> These results concern physical states of one system, and their relation to belief dynamics on statistical fibers is interpretive. Two cautions carry over. A dissipation claim for inertial [[Hamiltonian belief dynamics]] with noise on the momenta alone would need the momentum-flipped entropy production, since for underdamped Langevin dynamics, the case the paper treats, the unflipped rate is infinite. Proposition 12.6 of Sakthivadivel 2026 implies that adding conservative currents to belief dynamics does not by itself decide whether a [[Markov Blanket]] of an agent or a collective holds. The gauge reading of entropy production is an abelian analogy to the nonabelian transport of the program and not a shared theorem.
+> These results concern physical states of one system, and their relation to belief dynamics on statistical fibers is interpretive. One caution carries over. Proposition 12.6 of Sakthivadivel 2026 implies that adding conservative currents to belief dynamics does not by itself decide whether a [[Markov Blanket]] of an agent or a collective holds. The gauge reading of entropy production is an abelian analogy to the nonabelian transport of the program and not a shared theorem.
 
 ## Related
 

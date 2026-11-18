@@ -47,13 +47,13 @@ The work proceeds axiomatically. It states representation theorems: **eventwise 
 
 ## Relevance to this research
 
-This paper is the cleanest theorem-level adjudication of the **barycenter / pooling choice** at the heart of the [[Gauge-Theoretic Multi-Agent VFE Model]]. The meta-agent coarse-graining step (see [[Meta-agents and hierarchical emergence]]) pools constituent beliefs by a *gauge-covariant linear (sandwich) average* — transport each constituent into the meta frame, then take a coherence-weighted arithmetic mean of $(\mu, \Sigma)$ — explicitly rather than by a product-of-experts. Dietrich & List supply the principled reason this is defensible: linear pooling is the operator forced by eventwise independence and consensus preservation, and it avoids the veto pathology of geometric pooling that would let a single overconfident constituent annihilate the collective belief. Their result also clarifies the cost: the sandwich average is not externally Bayesian, which is exactly why [[participatory-it-from-bit]] keeps the log-linear / tempered-Bayes pooling as a *separate* identification for the multi-generation hyperprior term (the discounted-KL stack), where external Bayesianity and the geometric-discount structure are wanted. The two pooling regimes thus live in different parts of the model, and this reference is the axiomatic map that tells the project which is appropriate where.
+This paper is the cleanest theorem-level adjudication of the **barycenter / pooling choice** at the heart of the Gauge-Theoretic Multi-Agent VFE Model. The meta-agent coarse-graining step (see Meta-agents and hierarchical emergence) pools constituent beliefs by a *gauge-covariant linear (sandwich) average* — transport each constituent into the meta frame, then take a coherence-weighted arithmetic mean of $(\mu, \Sigma)$ — explicitly rather than by a product-of-experts. Dietrich & List supply the principled reason this is defensible: linear pooling is the operator forced by eventwise independence and consensus preservation, and it avoids the veto pathology of geometric pooling that would let a single overconfident constituent annihilate the collective belief. Their result also clarifies the cost: the sandwich average is not externally Bayesian, which is exactly why [[participatory-it-from-bit]] keeps the log-linear / tempered-Bayes pooling as a *separate* identification for the multi-generation hyperprior term (the discounted-KL stack), where external Bayesianity and the geometric-discount structure are wanted. The two pooling regimes thus live in different parts of the model, and this reference is the axiomatic map that tells the project which is appropriate where.
 
 ## Cross-links
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Multi-agent variational free energy]]
+- Concepts: Meta-agents and hierarchical emergence, Multi-agent variational free energy
 - Related sources: [[genest-zidek-1986-pooling]], [[hinton-2002-products-of-experts|hinton-2002-poe]], [[bordley-1982-multiplicative-pooling]], [[bissiri-2016-general-bayesian-updating|bissiri-holmes-walker-2016-general-bayes]]
 - Manuscript: [[participatory-it-from-bit]]
-- Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Project: Gauge-Theoretic Multi-Agent VFE Model
 
 ## BibTeX
 ```bibtex

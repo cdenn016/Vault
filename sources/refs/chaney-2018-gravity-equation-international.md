@@ -36,11 +36,11 @@ Under those assumptions the long-distance elasticity is constant, and when firm 
 
 ## Relevance to this research
 
-The manuscript cites the paper in its abstract-collectives section, in a passage on how the effect of distance on trade has changed over time, as the source of the statement that a constant long-distance elasticity follows from Pareto-distributed firm sizes and a power-law growth of exported distance with size. The connection to the vault is the treatment of economies as collectives whose coupling decays with distance; see [[Meta-agents and hierarchical emergence]] and [[Network structure — small-world and scale-free]].
+The manuscript cites the paper in its abstract-collectives section, in a passage on how the effect of distance on trade has changed over time, as the source of the statement that a constant long-distance elasticity follows from Pareto-distributed firm sizes and a power-law growth of exported distance with size. The connection to the vault is the treatment of economies as collectives whose coupling decays with distance; see Meta-agents and hierarchical emergence and [[Network structure — small-world and scale-free]].
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Meta-agents and hierarchical emergence]]; [[Network structure — small-world and scale-free]].
+[[Collective agents literature map]]; Meta-agents and hierarchical emergence; [[Network structure — small-world and scale-free]].
 
 ## BibTeX
 

@@ -28,7 +28,7 @@ The paper replaces an abstract point of observation with a physically implemente
 
 ## Relevance to this research
 
-This is a foundational precursor for the later Fields communication program. It directly informs the question of what [[Gauge-Theoretic Multi-Agent VFE Model]] must include beyond a probability distribution: source recognition, an evaluator, record memory, and an actual update mechanism. Its virtual-machine semantics are a useful comparison to retained operational descriptions, but the project's normalized laws and exact conditional identities require separate definitions. Neither the paper's assumptions nor its Born-rule interpretation establishes a quantum realization of GL(K) statistical agents.
+This is a foundational precursor for the later Fields communication program. It directly informs the question of what Gauge-Theoretic Multi-Agent VFE Model must include beyond a probability distribution: source recognition, an evaluator, record memory, and an actual update mechanism. Its virtual-machine semantics are a useful comparison to retained operational descriptions, but the project's normalized laws and exact conditional identities require separate definitions. Neither the paper's assumptions nor its Born-rule interpretation establishes a quantum realization of GL(K) statistical agents.
 
 ## BibTeX
 

@@ -26,7 +26,7 @@ Full text was not archived. The primary record and access limitations are record
 
 The retained memoir concerns Hilbert projective metrics and nonlinear iterations. The publisher PDF endpoint returned 403. This note records the bibliographic citation and access boundary, not full-text verification of a particular contraction theorem.
 
-This source is mapped in [[PIFB2 refactor foundations September 2026]], alongside [[Multi-agent variational free energy]] and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
+This source is mapped in PIFB2 refactor foundations September 2026, alongside Multi-agent variational free energy and [[Information geometry and natural gradient]]. Existing manuscript claims retain their own mathematical assumptions and evidence status.
 
 ## BibTeX
 

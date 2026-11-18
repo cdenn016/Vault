@@ -36,7 +36,7 @@ Shows that human learners track environmental volatility and adapt their learnin
 Empirical and Bayesian foundation for volatility-sensitive, adaptive-learning-rate belief updating — directly relevant to belief-inertia / precision-weighting dynamics where the effective learning rate is set by estimated uncertainty.
 
 ## Cross-links
-[[Belief inertia]], [[Prediction error]]
+Belief inertia, [[Prediction error]]
 
 ## BibTeX
 ```bibtex

@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-11-01
+updated: 2026-11-18
 ---
 
 # Emergent spacetime and holography
@@ -29,52 +29,11 @@ A large and increasingly mainstream body of theoretical physics holds that space
 
 The modern synthesis sharpens "emergence" into a concrete dictionary. [[maldacena-1999-adscft|maldacena-1998-ads-cft]]'s AdS/CFT correspondence supplied the first exact instance — a gravitating bulk equivalent to a boundary conformal field theory — and [[ryu-takayanagi-2006-holographic-entanglement-entropy]] then identified the boundary's *entanglement entropy* with the area of a bulk minimal surface, welding geometry to quantum information. [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]] read this constructively: disentangling boundary regions tears the bulk apart, so spacetime connectivity *is* entanglement. [[maldacena-2013-er-epr|maldacena-susskind-2013-er-epr]] pushed the slogan to ER=EPR, equating Einstein-Rosen bridges with EPR pairs, and [[faulkner-2014-gravitation-from-entanglement]] showed that the linearized Einstein equations follow from the first law of entanglement entropy — Jacobson's thermodynamic argument reincarnated in quantum-information language. Running parallel are the entropic-force readings of [[verlinde-2011-entropic-gravity]] and [[padmanabhan-2010-thermodynamical-gravity|padmanabhan-2010-thermodynamic-gravity]], where gravity is an emergent statistical tendency rather than a fundamental interaction, and a discrete, constructive lineage — [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]] and [[vidal-2007-entanglement-renormalization]]'s identification of the MERA tensor network with a discretized holographic geometry, [[cao-carroll-2017-space-from-hilbert-space]]'s program to grow spatial geometry directly from the entanglement structure of an abstract Hilbert-space state, and the computational/complexity readings of [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]] and [[susskind-2014-complexity-black-hole-horizons]]. [[connes-rovelli-1994-thermal-time]] adds a further twist, deriving the very flow of time from the thermal (Tomita-Takesaki) structure of a state. [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]] is the indispensable skeptic, cataloguing what "emergent gravity" must explain — diffeomorphism invariance, the right Newton constant, Lorentz signature — before the slogan earns the name.
 
-This theme is assembled here as the **external benchmark** against which the [[participatory-it-from-bit|participatory "it from bit"]] program of the [[Gauge-Theoretic Multi-Agent VFE Model]] is contrasted. Both camps share one conviction — that geometry is downstream of information — but they differ in machinery, and naming the difference precisely is what keeps the comparison honest rather than rhetorical.
-
 ## Key threads
 
 The first thread is **geometry as thermodynamics of horizons**: Einstein's equations as an equation of state ([[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]]), generalized to a *maximal vacuum entanglement* variational principle in [[jacobson-2016-entanglement-equilibrium]], with the entropic-force restatements of [[verlinde-2011-entropic-gravity]] and [[padmanabhan-2010-thermodynamical-gravity|padmanabhan-2010-thermodynamic-gravity]] and the black-hole entropy foundations of [[bekenstein-1973-black-holes-entropy]] and [[wald-1993-black-hole-entropy-noether]]. The second is **entanglement builds geometry**: the Ryu-Takayanagi area law ([[ryu-takayanagi-2006-holographic-entanglement-entropy]]), its constructive reading ([[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]]), the derivation of dynamics from the entanglement first law ([[faulkner-2014-gravitation-from-entanglement]]), and the ER=EPR identification ([[maldacena-2013-er-epr|maldacena-susskind-2013-er-epr]]), all underwritten by the exact AdS/CFT duality ([[maldacena-1999-adscft|maldacena-1998-ads-cft]]). The third is **discrete and computational holography**: tensor-network geometry via MERA ([[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]], [[vidal-2007-entanglement-renormalization]]), space from Hilbert space ([[cao-carroll-2017-space-from-hilbert-space]]), the holographic bound ([[thooft-1993-dimensional-reduction]], [[bousso-2002-holographic|bousso-2002-holographic-principle]]), and the computational/complexity perspective ([[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]], [[susskind-2014-complexity-black-hole-horizons]], with emergent time in [[connes-rovelli-1994-thermal-time]]). The fourth thread is the **critical audit** ([[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]]) that any emergent-gravity claim must survive.
 
-## How it lands in this work
-
-The participatory program inhabits the same "information to geometry" spirit but runs on different — classical and gauge-theoretic — machinery, and the contrast is sharp enough to be load-bearing. Where the physics tradition builds geometry from *quantum entanglement entropy* on a boundary, the multi-agent model builds it from a *classical-information pullback*: the [[Fisher information metric]] on a statistical fiber, pulled back along an agent's belief section onto a noumenal base manifold, as set out in [[participatory-it-from-bit]] and [[Participatory realism (it from bit)]]. The MERA/holographic coarse-graining of [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]] and [[vidal-2007-entanglement-renormalization]] is the natural foil for the model's own multi-scale coarse-graining — the [[Ouroboros multi-scale dynamics]] tower and its [[Renormalization group flow]] — where meta-agents are coarse-grainings of clusters rather than tensor-network layers, and the "radial/holographic" direction becomes the model's scale index. The thermodynamic-equilibrium reading of [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] and [[jacobson-2016-entanglement-equilibrium]] is the foil for the model's variational-free-energy stationarity: both make geometry a stationary point of an information functional, but the model's functional is a free energy over agent beliefs, not an entanglement entropy over horizons. The honest caveat, in the project's own house style, is that the model's pullback is a *structural analog, not a derivation* of these results: it shares the slogan, reproduces the qualitative architecture (geometry from information, multi-scale holographic compression), and leaves the genuinely hard pieces — Lorentzian signature, the right dynamics, diffeomorphism invariance — exactly where [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]] says the burden lies.
-
-The covariant theorem now makes the comparison more precise. The rigorous classical object is
-$h_s^\omega=(D^\omega s)^*g^F$: a passive-gauge-invariant, connection-relative,
-positive-semidefinite tensor on a fixed contextual base. A belief/model update is a vertical history
-in each fixed fiber, or a curve in section space, rather than motion of the base. VFE descent can
-orient that history and Fisher arclength can assign agent-relative information duration, but this is
-not the modular flow of [[connes-rovelli-1994-thermal-time]], a Lorentzian time coordinate, or a
-global physical clock. Likewise, RG depth labels scale rather than inference duration. These
-distinctions are proved and audited in the gauge-VFE RG pullback-geometry record (2026-08-01).
-
-The 2026-08-13 ontology synthesis broadens the target from "physical geometry is a pullback" to a
-typed physicalization program. The Fisher pullback remains the rigorous prototype for a covariant
-base tensor, but a collective joint-law section is a more principled shared-geometry candidate than
-an unexplained sum of marginal agent tensors. Causal cones, physical time, field equations,
-operators, and constants require constructions of their own type. Even the base topology,
-dimension, and smooth structure remain given rather than derived. "Agent-only" currently means
-agents are the only state-bearing relata; the base, bundle, symmetry, incidence, kernels, and
-variational rule remain relational scaffolding whose stronger reconstruction is open.
-
-The same typing blocks a direct one-bit-to-$\hbar$ claim: information is dimensionless and log-base
-dependent, while $\hbar$ belongs to an action-dimension line. A conversion morphism or independent
-dimensionless consistency condition is required. [[multiagentelbo-agent-only-ontology-2026-08-13]]
-
-## Open questions / gaps
-
-The signature problem is shared on both sides, but the participatory side is now sharper. The entanglement-geometry program lives natively in a Lorentzian bulk, whereas the Fisher *fiber* pullback is positive semi-definite by construction (Sylvester's law), so the signature must be carried by the horizontal frame-twist block $\mathrm{tr}(A_\mu A_\nu)$, which is already indefinite on $\mathfrak{gl}(K_q,\mathbb{R})$. The [[participatory-it-from-bit]] round-2 revision (2026-07-02) exhibits an **all-real, abelian-exact** four-generator construction (one skew temporal generator, three trace-orthogonal symmetric spatial generators, all commuting) giving a rank-four $(-,+,+,+)$ frame-twist metric with $\mathrm{SO}^+(1,3)$ frame group and *no* complexification, superseding the earlier claim that the program must postulate a complex frame to reach $(-,+,+,+)$. What remains genuinely open, and where [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]]'s burden still bites, is that the construction is coordinate-flat (it settles signature *availability*, not curvature) and that no free-energy mechanism is shown to *select* the $1{+}3$ split. Whether the classical-information pullback can recover anything like the Ryu-Takayanagi area law — an entropy-area relation rather than a score-outer-product metric — is open; the model's entropy is configurational [[Meta-entropy|meta-entropy]] over beliefs, not boundary entanglement. It is unclear whether the model's free-energy stationarity can yield field equations in the manner of [[faulkner-2014-gravitation-from-entanglement]], or whether [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]]'s and [[susskind-2014-complexity-black-hole-horizons]]'s complexity bounds have any counterpart in the agent dynamics. These are the points at which the benchmark is most useful: it specifies precisely what a serious "emergent geometry from beliefs" claim would have to deliver before it could stand beside the quantum-holographic results rather than merely echo their slogans.
-
-The remaining physical burden is therefore stronger than finding a positive Fisher pullback. One
-would need a principle selecting a connection, a mechanism selecting a nondegenerate observable
-quotient and Lorentzian extension, and a theorem relating agent-relative information duration to a
-shared physical temporal structure. The separate frame-twist construction establishes signature
-availability under its own hypotheses; it is not a consequence of the covariant vertical Fisher
-tensor.
-
 ## Sources synthesized
-
-- [[multiagentelbo-agent-only-ontology-2026-08-13]] - agent-only ontology, collective physicalization target, and units/constant boundary.
 
 - [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] — Einstein equations as a horizon equation of state (Clausius relation + area entropy).
 - [[jacobson-2016-entanglement-equilibrium]] — gravity from a maximal-vacuum-entanglement equilibrium variational principle.
@@ -102,16 +61,10 @@ tensor.
 - [[Participatory realism (it from bit)]]
 - [[Fisher information metric]]
 - [[Renormalization group flow]]
-- [[Ouroboros multi-scale dynamics]]
 - [[wheeler-1990-it-from-bit]]
-- [[participatory-it-from-bit]]
-
-## Pointwise spin-foam method transfer, September 30, 2026
-
-Labeled two-complexes, specified complex ensembles, and irregular attention laws are distinct, as are quantum amplitudes and positive classical laws. Here a boundary is an exterior-facing graph interface at one base point. No base transport, physical clock, quantum behavior, Lorentz geometry, Einstein dynamics, recursive formation, or thermodynamic limit follows. The conditional results sharpen the method comparison without closing the physicalization questions above.
 
 ## Communication, error correction, and geometric representation
 
-The Fields–Glazebrook–Marcianò–Zappala sequence connects communication protocols, quantum error correction, and TQFT. Part I specifies encoding, decoding, and error structure; Part II adds spin-network and related topological constructions. The geometric interpretation depends on those supplied structures. Addazi and colleagues' gauge/gravity treatment also introduces ambient Lorentzian spacetime before its gravity specialization. These papers therefore provide construction methods to compare, while leaving a separate obligation to derive physical signature, dimension, clocks, and gravitational dynamics from another starting model. [[fields-2024-qecc-tqft-i-protocols]], [[fields-2024-qecc-tqft-ii-spacetimes]], [[addazi-2021-generalized-holographic-principle-gauge-invariance-and-the-emergence-of-gravity-a-la-wilczek]]
+The Fields–Glazebrook–Marcianò–Zappala sequence connects communication protocols, quantum error correction, and TQFT. Part I specifies encoding, decoding, and error structure; Part II adds spin-network and related topological constructions. The geometric interpretation depends on those supplied structures. Addazi and colleagues' gauge/gravity treatment also introduces ambient Lorentzian spacetime before its gravity specialization. These papers therefore provide construction methods to compare, while leaving a separate obligation to derive physical signature, dimension, clocks, and gravitational dynamics. [[fields-2024-qecc-tqft-i-protocols]], [[fields-2024-qecc-tqft-ii-spacetimes]], [[addazi-2021-generalized-holographic-principle-gauge-invariance-and-the-emergence-of-gravity-a-la-wilczek]]
 
-The ER=EPR article studies a finite-screen, monogamous-entanglement limit and gives an operational topological identification; it does not construct a gravitational metric. The 2026 amplituhedra preprint supplies a further quantum-computation/scattering representation with stated restrictions on its uniqueness claim. Neither result identifies a classical Fisher pullback with physical spacetime. [[fields-2025-er-epr-is-an-operational-theorem]], [[fields-2026-amplituhedra-generic-quantum-processes]], [[Chris Fields and physics as communication]]
+The ER=EPR article studies a finite-screen, monogamous-entanglement limit and gives an operational topological identification; it does not construct a gravitational metric. The 2026 amplituhedra preprint supplies a further quantum-computation/scattering representation with stated restrictions on its uniqueness claim. [[fields-2025-er-epr-is-an-operational-theorem]], [[fields-2026-amplituhedra-generic-quantum-processes]], [[Chris Fields and physics as communication]]

@@ -46,7 +46,7 @@ DIAL's architecture introduces differentiable inter-agent communication as a for
 ## Cross-links
 - Concepts: [[Collective active inference|Multi-Agent Active Inference]], [[Variational Free Energy]], [[Belief Propagation]]
 - Related sources: [[lowe-2017-maddpg]], [[sukhbaatar-2016-commnet]]
-- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]], [[VFE Transformer Program]]
+- Manuscript/Project: MAgent Model, [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

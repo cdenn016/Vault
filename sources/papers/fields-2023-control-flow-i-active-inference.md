@@ -28,7 +28,7 @@ Part I identifies control flow as a problem distinct from possessing a repertoir
 
 ## Relevance to this research
 
-The distinction between available computations and their deployment is useful for [[Quantum reference frames]], [[Precision weighting]], and [[Cue-result generative memory]]. A cue may select a process without encoding the process's full result. Applying the formalism to [[Gauge-Theoretic Multi-Agent VFE Model]] requires keeping thermodynamic expenditure, variational free energy, memory state, and information-geometric update length separate unless a model explicitly relates them.
+The distinction between available computations and their deployment is useful for [[Quantum reference frames]], [[Precision weighting]], and [[Cue-result generative memory]]. A cue may select a process without encoding the process's full result. Applying the formalism to Gauge-Theoretic Multi-Agent VFE Model requires keeping thermodynamic expenditure, variational free energy, memory state, and information-geometric update length separate unless a model explicitly relates them.
 
 ## BibTeX
 

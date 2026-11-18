@@ -32,7 +32,7 @@ The book develops covariant differentiation on bundles, connection forms, curvat
 
 ## Relevance to this research
 
-Gauge covariance in the program becomes mathematically meaningful only after the base space, fibers, transition functions, connection, and group action are stated. Tu supplies that language and supports [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Agents as fibre-bundle sections]], and [[Non-flat connection and the photon analogy]]. It is the main corrective against treating every matrix-valued pairwise map as a nontrivial gauge field.
+Gauge covariance in the program becomes mathematically meaningful only after the base space, fibers, transition functions, connection, and group action are stated. Tu supplies that language and supports [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], Agents as fibre-bundle sections, and [[Non-flat connection and the photon analogy]]. It is the main corrective against treating every matrix-valued pairwise map as a nontrivial gauge field.
 
 ## Access
 

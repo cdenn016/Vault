@@ -26,7 +26,7 @@ The proposed hierarchy links perceptual persistence to available trajectory reco
 
 ## Relevance to this research
 
-For [[Multi-agent variational free energy]], this illustrates why identity and memory may require temporally extended state rather than a current label alone. It also distinguishes information needed for tracking from information retained for later recognition. The proposal concerns neural visual mechanisms; it supplies neither a derivation of physical time nor a gauge-compatible rule for forming higher-level agents.
+For Multi-agent variational free energy, this illustrates why identity and memory may require temporally extended state rather than a current label alone. It also distinguishes information needed for tracking from information retained for later recognition. The proposal concerns neural visual mechanisms; it supplies neither a derivation of physical time nor a gauge-compatible rule for forming higher-level agents.
 
 ## Reading and version
 

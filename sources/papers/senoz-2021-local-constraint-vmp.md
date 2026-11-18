@@ -43,11 +43,11 @@ The paper unifies familiar update rules and supplies first-principles derivation
 
 ## Relevance to this research
 
-This is an algorithmic bridge from the exact finite [[Multi-agent variational free energy]] to typed approximation layers. A correct implementation should first use unconstrained sum-product on trees as the exact oracle, then measure approximation error separately for structured VMP, mean-field VMP, EP, or hybrid constraints. The repository's exact correlated $Q$ must not be identified with locally consistent Bethe beliefs without a realizability proof.
+This is an algorithmic bridge from the exact finite Multi-agent variational free energy to typed approximation layers. A correct implementation should first use unconstrained sum-product on trees as the exact oracle, then measure approximation error separately for structured VMP, mean-field VMP, EP, or hybrid constraints. The repository's exact correlated $Q$ must not be identified with locally consistent Bethe beliefs without a realizability proof.
 
 ## Cross-links
 
-- Concepts: [[Belief Propagation]], [[Mean-Field Approximation]], [[Variational free energy]], [[Multi-agent variational free energy]]
+- Concepts: [[Belief Propagation]], [[Mean-Field Approximation]], [[Variational free energy]], Multi-agent variational free energy
 - Themes: [[Inference machinery — variational EM and filtering]]
 - Related sources: [[winn-2005-variational-message-passing]], [[yedidia-freeman-weiss-2005-region-free-energy]]
 

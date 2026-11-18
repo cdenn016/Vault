@@ -26,7 +26,7 @@ Under that proposal, objects are handled as unfamiliar instances, familiar indiv
 
 ## Relevance to this research
 
-For [[Multi-agent variational free energy]], this highlights a modeling obligation when persistent agents, records, or objects are carried between updates: identity is part of the retained state and inference process. It motivates explicit continuity rules rather than assuming that a label supplies them. The proposed human mechanism is not a proof of variational stationarity or autonomous hierarchical formation.
+For Multi-agent variational free energy, this highlights a modeling obligation when persistent agents, records, or objects are carried between updates: identity is part of the retained state and inference process. It motivates explicit continuity rules rather than assuming that a label supplies them. The proposed human mechanism is not a proof of variational stationarity or autonomous hierarchical formation.
 
 ## Reading and version
 

@@ -28,7 +28,7 @@ Fields and Glazebrook examine the architectural assumptions behind meta-learned 
 
 ## Relevance to this research
 
-This sharpens the design question behind [[Meta-agents and hierarchical emergence]]: a higher-level agent needs identifiable inputs, retained state, and an update rule acting on lower-level processes. Labeling a variable a metaparameter does not explain how it is learned. For [[VFE Transformer Program]], the useful distinction is between adapting a prediction and adapting the rule that produces predictions, with each timescale and feedback source stated explicitly.
+This sharpens the design question behind Meta-agents and hierarchical emergence: a higher-level agent needs identifiable inputs, retained state, and an update rule acting on lower-level processes. Labeling a variable a metaparameter does not explain how it is learned. For [[VFE Transformer Program]], the useful distinction is between adapting a prediction and adapting the rule that produces predictions, with each timescale and feedback source stated explicitly.
 
 ## BibTeX
 

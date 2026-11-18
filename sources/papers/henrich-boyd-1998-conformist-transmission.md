@@ -28,7 +28,7 @@ which has stable fixed points at $p=0$ and $p=1$ and an unstable interior equili
 ## Relevance to this research
 Conformist transmission is the nonlinear, majority-amplifying force that produces multistability and persistent group polarization — exactly the behavior the SocialPhysics program studies under the heading of echo chambers and clustering. The cubic adoption rule is the frequency-dependent term that separates genuine social influence from linear consensus (DeGroot / Friedkin–Johnsen) dynamics, and its bistable structure is precisely what a VFE coupling must produce to generate metastable clusters rather than a single global consensus. In the gauge-theoretic functional this maps onto a regime where the attention kernel $\beta_{ij}$ over-weights agreement with the local majority, breaking the contractivity of pure averaging and yielding stable, separated belief basins. Strong, mechanism-level relevance to the polarization claim. See [[Echo chambers and polarization]].
 
-Concept links: [[Echo chambers and polarization]], [[Cultural evolution and social learning]], [[Opinion dynamics]], [[Multi-agent variational free energy]].
+Concept links: [[Echo chambers and polarization]], [[Cultural evolution and social learning]], [[Opinion dynamics]], Multi-agent variational free energy.
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

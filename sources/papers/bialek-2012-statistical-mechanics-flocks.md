@@ -24,10 +24,10 @@ $$ P(\{\mathbf{s}_i\}) = \frac{1}{Z}\exp\!\Big(\frac{1}{2}\sum_{i}J\sum_{j\in n_
 a Heisenberg-like model in which each bird couples to a fixed number $n_c$ of nearest neighbors. Fitting the single coupling $J$ and the interaction range $n_c$ to the data, the model predicts the full correlation function and the four-point statistics with no further tuning. The inferred $n_c \approx 11$–21 is consistent with the topological-interaction picture, and the model reproduces the scale-free correlations observed in real flocks. The work is a clean demonstration that maximum entropy plus local constraints captures emergent collective order.
 
 ## Relevance to this research
-This connects collective motion to the maximum-entropy / configuration-counting view of a population — the same "statistical mechanics of a flock" logic that underlies the program's meta-entropy $S_{\text{meta}} = \log W$ and its thermodynamic-limit bridge to the continuum. The methodological link is strong: maximum entropy subject to measured constraints is exactly the inferential principle behind treating a belief population as a statistical ensemble, and the local-coupling Heisenberg model is the spin-model template for gauge-coupled beliefs. The relevance is at the level of shared inferential machinery (max-ent, configuration counting) rather than the specific spin couplings. See [[Meta-entropy]], [[Collective motion and flocking]], [[Multi-agent variational free energy]].
+This connects collective motion to the maximum-entropy / configuration-counting view of a population — the same "statistical mechanics of a flock" logic that underlies the program's meta-entropy $S_{\text{meta}} = \log W$ and its thermodynamic-limit bridge to the continuum. The methodological link is strong: maximum entropy subject to measured constraints is exactly the inferential principle behind treating a belief population as a statistical ensemble, and the local-coupling Heisenberg model is the spin-model template for gauge-coupled beliefs. The relevance is at the level of shared inferential machinery (max-ent, configuration counting) rather than the specific spin couplings. See Meta-entropy, [[Collective motion and flocking]], Multi-agent variational free energy.
 
 ## Cross-links
-- Concept: [[Meta-entropy]]
+- Concept: Meta-entropy
 - Related sources: [[ballerini-2008-topological-interaction]], [[toner-tu-1995-flocking-hydrodynamics]], [[vicsek-zafeiris-2012-collective-motion]]
 
 ## BibTeX

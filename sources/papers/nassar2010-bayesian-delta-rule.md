@@ -65,7 +65,7 @@ The reduced Bayesian delta-rule is directly structurally analogous to the VFE be
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[Active Inference]], [[Bayesian Inference|Belief Updating]], [[Predictive Coding]]
 - Related sources: [[behrens-2007-learning-value-information|behrens2007-learning-value-information]], [[wilson2010-bayesian-online-hazard]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], MAgent Model
 
 ## BibTeX
 ```bibtex

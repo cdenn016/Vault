@@ -51,11 +51,11 @@ BIC is directly connected to the variational free energy (VFE) framework at the 
 
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[MDL and BIC model selection|Model Selection]], [[Laplace Approximation]], [[Fisher information metric|Fisher Information]], [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]], [[MDL and BIC model selection]]
-- Themes: [[Meta-agents and hierarchical emergence]]
+- Themes: Meta-agents and hierarchical emergence
 - Related sources: [[akaike-1974-aic]], [[rissanen-1978-mdl]]
 - Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[participatory-it-from-bit]]
 
-> [!note] Editorial: For the multi-agent thread, BIC is one of the two retention criteria used when forming [[Meta-agents and hierarchical emergence|meta-agents]] by coarse-graining clusters of agents: a candidate coarse parent (adding $k$ parameters) is kept only if the gain in fit outweighs the $\tfrac{1}{2}k\log n$ complexity penalty, giving the hierarchy-growth rule a principled Bayesian footing. As the asymptotic Bayesian counterpart of MDL ([[rissanen-1978-mdl]]), it anchors the [[MDL and BIC model selection]] page.
+> [!note] Editorial: For the multi-agent thread, BIC is one of the two retention criteria used when forming meta-agents by coarse-graining clusters of agents: a candidate coarse parent (adding $k$ parameters) is kept only if the gain in fit outweighs the $\tfrac{1}{2}k\log n$ complexity penalty, giving the hierarchy-growth rule a principled Bayesian footing. As the asymptotic Bayesian counterpart of MDL ([[rissanen-1978-mdl]]), it anchors the [[MDL and BIC model selection]] page.
 
 ## BibTeX
 ```bibtex

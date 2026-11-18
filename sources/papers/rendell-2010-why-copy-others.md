@@ -24,7 +24,7 @@ The winning entry, *discountmachine*, copied almost exclusively and innovated ra
 ## Relevance to this research
 The tournament directly addresses when and from whom an agent should copy — i.e., how attention and coupling weights ought to be allocated in a population of belief-updaters. The "copy-the-best, discount-the-stale" winning policy is an empirical target for what the softmax attention $\beta_{ij}$ and precision-weighted coupling in the VFE model ought to recover: weight neighbors by the quality (payoff/precision) of their information and down-weight stale or low-value sources. The result that copying succeeds because demonstrators pre-filter toward high-payoff actions is the population-level reason a coupling term that pulls $q_i$ toward transported neighbor beliefs is adaptive rather than merely conformist. Strong, evidence-level relevance to the design of the coupling kernel, though the tournament is payoff-based and discrete whereas the VFE coupling is divergence-based over Gaussian beliefs. See [[Cultural evolution and social learning]].
 
-Concept links: [[Cultural evolution and social learning]], [[Multi-agent variational free energy]], [[Social influence and conformity]], [[Collective active inference]].
+Concept links: [[Cultural evolution and social learning]], Multi-agent variational free energy, [[Social influence and conformity]], [[Collective active inference]].
 
 ## Cross-links
 - Concept: [[Cultural evolution and social learning]]

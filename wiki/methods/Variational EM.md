@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-10-25
+updated: 2026-11-18
 ---
 
 # Variational EM
@@ -141,9 +141,9 @@ decode objective.
   monotone-evidence guarantee.
   The [[gl-k-attention|GL(K) manuscript]] states this in plain text ("the observation
   enters only the M-step loss, so the E-step is target-blind"; "rather than coordinate-
-  ascent steps on a single shared free energy"), a deliberate deviation from the
-  canonical [[participatory-it-from-bit|PIFB]] functional, where the observation term
-  lives in the fast belief subsystem the beliefs descend. As a consequence the
+  ascent steps on a single shared free energy"), a deliberate deviation from a
+  canonical shared functional, where the observation term lives in the fast belief
+  subsystem the beliefs descend. As a consequence the
   belief covariance gets no per-token data precision and acts as a learned prior.
 
 > [!note] Editorial (2026-07-10): “Structural EM” names the alternating schedule,

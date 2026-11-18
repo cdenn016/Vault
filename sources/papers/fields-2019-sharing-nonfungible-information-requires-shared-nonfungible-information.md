@@ -28,7 +28,7 @@ The paper distinguishes sending a finite classical description of a reference fr
 
 ## Relevance to this research
 
-This is a priority source for [[Quantum reference frames]] and communication dictionaries in [[Gauge-Theoretic Multi-Agent VFE Model]]. A transmitted code does not itself establish a common semantics or carrier identity. The project's normalized observation model makes a declared correspondence explicit, while its latent dictionaries describe uncertainty within that specification. The paper motivates keeping this specification visible, but its generic identification obstruction does not invalidate exact recovery within a stated statistical family or provide the project's GL(K) transformation laws.
+This is a priority source for [[Quantum reference frames]] and communication dictionaries in Gauge-Theoretic Multi-Agent VFE Model. A transmitted code does not itself establish a common semantics or carrier identity. The project's normalized observation model makes a declared correspondence explicit, while its latent dictionaries describe uncertainty within that specification. The paper motivates keeping this specification visible, but its generic identification obstruction does not invalidate exact recovery within a stated statistical family or provide the project's GL(K) transformation laws.
 
 ## BibTeX
 

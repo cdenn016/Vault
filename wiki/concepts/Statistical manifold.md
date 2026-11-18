@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Statistical manifold
@@ -46,7 +46,7 @@ The gauge coordinate $\phi$ is not itself a probability distribution parameter,
 and the audited plain-AdamW frame update is not made Fisher-natural by adjoining $\phi$
 to the belief tuple. See [[Symmetric spaces and the SPD cone]].
 
-Several program-level constructions are statements about this manifold. [[Mass as Fisher information]] reads inertia of belief change off the curvature of the statistical metric; [[Belief inertia]] and [[Hamiltonian belief dynamics]] are dynamics on it; [[Physics from Fisher information]] is the claim that physical-like law can be extremized over it. Coarse-graining a population of agents is a map *between* statistical manifolds — the [[Renormalization group flow|RG flow]] that [[beny-osborne-2015-info-geometric-rg]] formalizes as a monotone (distinguishability-contracting) trajectory on the manifold of states, and that [[mehta-schwab-2014-variational-rg-deep-learning]] realizes as an exact deep-learning/RG correspondence. The [[Information bottleneck]] traces an optimal curve through a derived statistical manifold (the information plane), and its Gaussian solution ([[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]]) is a spectral problem in the covariance geometry of exactly this manifold.
+[[Physics from Fisher information]] is the claim that physical-like law can be extremized over this manifold. Coarse-graining is a map *between* statistical manifolds — the [[Renormalization group flow|RG flow]] that [[beny-osborne-2015-info-geometric-rg]] formalizes as a monotone (distinguishability-contracting) trajectory on the manifold of states, and that [[mehta-schwab-2014-variational-rg-deep-learning]] realizes as an exact deep-learning/RG correspondence. The [[Information bottleneck]] traces an optimal curve through a derived statistical manifold (the information plane), and its Gaussian solution ([[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]]) is a spectral problem in the covariance geometry of exactly this manifold.
 
 ## Details
 
@@ -56,23 +56,7 @@ The two great generalizations of the classical statistical manifold both matter 
 > Gaussian statistical manifold, but covariance-only AIRM statements must retain
 > their one-half Fisher normalization and must not be extended to gauge frames.
 
-A recurring theme is that *distance on the statistical manifold has a cost*. [[crooks-2007-thermodynamic-length]] makes this thermodynamically precise — the Fisher–Rao length of a quasi-static path lower-bounds dissipation — which is the energetic shadow of the same metric the project uses for inertia and learning. The statistical manifold is thus the single object through which distinguishability, learning dynamics, coarse-graining, and physical cost are all expressed in one geometric language.
-
-### Law curves and section histories
-
-The statistical-manifold and bundle levels must be kept distinct. At one context $c$, a changing law
-is a curve $\Gamma:J\to(\mathcal E_x)_c$ inside a single statistical fiber and is intrinsically
-vertical. An agent changing across all contexts is a curve $r\mapsto s_r$ in a space of sections;
-evaluation at each fixed $c$ again gives a vertical fiber curve. A total-space curve whose base
-projection moves is a third object, and only its horizontal/vertical decomposition requires a
-connection.
-
-The new construction is deliberately weaker than a derivation of physical time. A VFE metric and
-positive descent ray can select an oriented unparameterized inference orbit, after which Fisher
-arclength gives a reparameterization-invariant agent-relative information duration. The base manifold
-remains fixed and timeless; no global clock, Lorentzian time coordinate, or identification with the
-entropic-dynamics time of [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]] follows without
-additional structure.
+A recurring theme is that *distance on the statistical manifold has a cost*. [[crooks-2007-thermodynamic-length]] makes this thermodynamically precise — the Fisher–Rao length of a quasi-static path lower-bounds dissipation — which is the energetic shadow of the metric used for learning. The statistical manifold is thus the single object through which distinguishability, learning dynamics, coarse-graining, and physical cost are all expressed in one geometric language.
 
 ### The statistical manifold as a *target* manifold
 
@@ -129,4 +113,3 @@ manifold as the fiber or target of a field theory inherits both facts.
 - [[Physics from Fisher information]]
 - [[Symmetric spaces and the SPD cone]]
 - [[Renormalization group flow]]
-- [[participatory-it-from-bit]]

@@ -48,7 +48,7 @@ The author states that Remark 2 describes a particular class of complex systems 
 
 ## Cross-links
 
-Concepts: [[Markov Blanket]]; [[Markov blanket interpretation debate]]; [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Coarse Graining]]; [[Meta-agents and hierarchical emergence]].
+Concepts: [[Markov Blanket]]; [[Markov blanket interpretation debate]]; [[Bayesian mechanics]]; [[Nonequilibrium steady state]]; [[Coarse Graining]]; Meta-agents and hierarchical emergence.
 
 Related sources: [[heins-2022-sparse-coupling-markov]]; [[aguilera-2022-particular-physics]]; [[aguilera-2023-knitting-markov-blanket]]; [[friston-2021-stochastic-chaos-markov]]; [[friston-2022-very-particular-comment]]; [[friston-2019-particular-physics]]; [[sakthivadivel2022-bayesian-mechanics-geometry]]; [[heins-2023-spin-glass-active-inference]]; [[sakthivadivel-2026-markov-interacting-particles]]; [[sakthivadivel-2023-worked-example-classical-objects]]; [[friston-2012-fep-biological-systems]]; [[barp-2021-measure-preserving-diffusions]].
 

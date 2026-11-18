@@ -28,11 +28,11 @@ The abstract poses the question of how an abstract piece of mathematics could re
 
 ## Relevance to this research
 
-The manuscript cites the article for the history of the Price decomposition, which it uses for collectives. The reading record says the open copy was consulted through an automated reading of the page: the article states the equation in a covariance form and in a form with an added expectation term, describes the full equation as a partition of trait change into selection and transmission, and attributes it to Price's 1970 paper. The equations' fraction bars were lost in that reading, so no formula was copied. The link is to the manuscript's section on evolution and selection of collectives; see [[Replicator dynamics]], [[Cultural evolution and social learning]], [[Cultural group selection]] and [[Meta-agents and hierarchical emergence]].
+The manuscript cites the article for the history of the Price decomposition, which it uses for collectives. The reading record says the open copy was consulted through an automated reading of the page: the article states the equation in a covariance form and in a form with an added expectation term, describes the full equation as a partition of trait change into selection and transmission, and attributes it to Price's 1970 paper. The equations' fraction bars were lost in that reading, so no formula was copied. The link is to the manuscript's section on evolution and selection of collectives; see [[Replicator dynamics]], [[Cultural evolution and social learning]], [[Cultural group selection]] and Meta-agents and hierarchical emergence.
 
 ## Cross-links
 
-[[Collective agents literature map]]; [[Replicator dynamics]]; [[Cultural evolution and social learning]]; [[Cultural group selection]]; [[Meta-agents and hierarchical emergence]].
+[[Collective agents literature map]]; [[Replicator dynamics]]; [[Cultural evolution and social learning]]; [[Cultural group selection]]; Meta-agents and hierarchical emergence.
 
 ## BibTeX
 

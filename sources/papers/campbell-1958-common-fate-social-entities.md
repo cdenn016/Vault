@@ -35,7 +35,7 @@ Title and bibliographic metadata only: the paper proposes common fate, similarit
 
 ## Cross-links
 
-- Concepts: [[Meta-agents and hierarchical emergence]], [[Meta-agents and hierarchical emergence]]
+- Concepts: Meta-agents and hierarchical emergence, Meta-agents and hierarchical emergence
 - Related sources: [[krakauer-2020-information-theory-individuality]], [[jacobs-1961-arbitrary-tradition]]
 
 ## BibTeX

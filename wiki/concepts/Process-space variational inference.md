@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-10-20
+updated: 2026-11-18
 ---
 
 # Process-space variational inference
@@ -52,5 +52,4 @@ The process-KL framework does not construct a measure on smooth gauge sections, 
 - [[Variational free energy]]
 - [[Gaussian process]]
 - [[Recognition Density]]
-- [[Multi-agent variational free energy]]
 - [[Statistical manifold]]

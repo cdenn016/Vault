@@ -48,7 +48,7 @@ Stated limits: white noise only, with no treatment of temporal correlations; one
 
 ## Cross-links
 
-Concepts: [[Hamiltonian belief dynamics]]; [[Belief inertia]]; [[Mass as Fisher information]]; [[Bayesian mechanics]]; [[Laplace approximation]]; [[Generalised coordinates of motion]]; [[Prediction error]]; [[Active Inference]].
+Concepts: Hamiltonian belief dynamics; Belief inertia; Mass as Fisher information; [[Bayesian mechanics]]; [[Laplace approximation]]; [[Generalised coordinates of motion]]; [[Prediction error]]; [[Active Inference]].
 
 Related sources: [[buckley-2017-fep-mathematical-review]]; [[friston-2008-dem]]; [[sengupta-2016-neuronal-gauge]]; [[sengupta2017gauge]]; [[friston-2019-particular-physics]]; [[parr-2020-markov-blankets-thermodynamics]]; [[amari-1998-natural-gradient]]; [[bogacz-2017-free-energy-tutorial]]; [[kim-2024-bayesian-mechanics-synaptic-learning]]; [[friston-2012-free-energy-value-attractors]]; [[dacosta-2025-generalized-coordinates-sde]].
 

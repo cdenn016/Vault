@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-11-13
+updated: 2026-11-18
 ---
 
 # Lattice gauge theory
@@ -119,40 +119,17 @@ field on a network of nodes and edges" a fully operational object.
 
 ## Relation to this research
 
-The participatory / multi-agent program ([[participatory-it-from-bit]]) promotes
-the *flat* belief transport $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$ to a genuinely
-**non-flat connection** in "Regime II," where edge twists relax and transport
-around a loop no longer returns to the identity. The object carrying that
-holonomy is precisely Wilson's lattice link variable: the program's
-edge-relaxed transport is a link variable $U_{x,\mu}\in GL^+(K)$ living on the
-edges of the agent network, and the plaquette holonomy is the lattice curvature
-signaling a [[Non-flat connection and the photon analogy|non-flat connection]].
-[[wilson-1974-confinement-quarks]] is therefore the origin reference for the
-gauge object the model's M-step connection update evolves, while
-[[kogut-susskind-1975-hamiltonian-lattice-gauge]] is the template for *how* it is
-evolved — a continuous-time Hamiltonian on link group elements rather than a
-static sampler, mirroring the model's bounded gauge-invariant lattice action and
-its time-stepping of twists. [[creutz-1983-quarks-gluons-lattices]] supplies the
-measurement side: the plaquette / Wilson-loop construction is the natural
-gauge-invariant probe for emergent curvature in the agent network, the discrete
-counterpart of [[Holonomy]] and [[Parallel transport]] on the wiki.
-
-Three threads connect this lattice picture to the rest of the program's geometry.
-The link group is $GL^+(K)$, which is **noncompact and non-abelian**, so by
-[[milnor-1976-left-invariant-metrics]] it carries no bi-invariant metric — the
-same structural fact that makes the choice of metric on the frame fiber a genuine
-modeling decision (`omega_metric`) and that bounds the error of the BCH frame
-barycenter; the Hamiltonian's "electric energy" $\propto E^2$ implicitly selects
-an inner product on the algebra, which is exactly such a left-invariant-metric
-choice. The Hamiltonian formulation itself sits inside the geometric-mechanics
-framework of [[arnold-1989-classical-mechanics]]: Hamilton's equations as a flow
-on a symplectic manifold, with Noether's symmetry–conservation correspondence as
-the classical analog of the Gauss-law gauge constraint, and motion on a Lie group
-as geodesic flow of an invariant metric (the Euler–Arnold picture) — the same
-lens the program uses for momentum-augmented [[Hamiltonian belief dynamics]].
-Finally, the whole construction lives on the smooth-manifold and fiber-bundle
-scaffolding of [[lee-2012-smooth-manifolds]]: a lattice gauge field is a discrete
-connection on a principal bundle over the graph, with link variables as the
+The link group $GL^+(K)$ of the GL(K) construction is **noncompact and non-abelian**, so by
+[[milnor-1976-left-invariant-metrics]] it carries no bi-invariant metric, which makes the
+choice of metric on the frame fiber a genuine modeling decision; the Hamiltonian's "electric
+energy" $\propto E^2$ implicitly selects an inner product on the algebra, which is exactly such
+a left-invariant-metric choice. The Hamiltonian formulation itself sits inside the
+geometric-mechanics framework of [[arnold-1989-classical-mechanics]]: Hamilton's equations as a
+flow on a symplectic manifold, with Noether's symmetry–conservation correspondence as the
+classical analog of the Gauss-law gauge constraint, and motion on a Lie group as geodesic flow
+of an invariant metric (the Euler–Arnold picture). Finally, the whole construction lives on the
+smooth-manifold and fiber-bundle scaffolding of [[lee-2012-smooth-manifolds]]: a lattice gauge
+field is a discrete connection on a principal bundle over the graph, with link variables as the
 discretized transport and plaquettes as the discretized curvature 2-form.
 
 Modern machine-learning work on the lattice supplies the bridge from these
@@ -167,12 +144,6 @@ link variables — first $U(1)$, then non-abelian $SU(N)$ — that sample the
 gauge-invariant lattice measure exactly; they are direct evidence that learnable
 maps over $G$-valued links can respect local gauge symmetry by construction, the
 same demand the model places on its $GL^+(K)$ frame transport.
-
-> [!note] Editorial: The identification "edge-relaxed belief transport = Wilson
-> link variable, plaquette holonomy = curvature diagnostic" is the program's own
-> reading; the lattice-gauge sources establish the objects (links, plaquettes,
-> Wilson loops, the Hamiltonian), and the program maps its agent-network
-> connection onto them.
 
 ## Curvature of causal link fields, October 2, 2026
 
@@ -189,10 +160,10 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 - [[dennis-2026-link-origin]] — group-valued origin of the singular matrix links (exponential link, parabolic compression with Schur complement, head-sum link); agent-drafted, small-dimension numerical checks only.
 - [[dennis-2026-link-curvature]] — triangle holonomy of causal link fields; flat = recurrent, invertible flat = pure gauge; holonomy table of candidate generators; regression links; agent-drafted, float64 checks at K=4.
 - [[wilson-1974-confinement-quarks]] — origin of the lattice formulation: link variables, plaquette action, Wilson loop, area-law confinement (central).
-- [[kogut-susskind-1975-hamiltonian-lattice-gauge]] — the continuous-time Hamiltonian formulation (links + conjugate electric fields, Gauss law) the M-step dynamics mirror (central).
+- [[kogut-susskind-1975-hamiltonian-lattice-gauge]] — the continuous-time Hamiltonian formulation (links + conjugate electric fields, Gauss law) (central).
 - [[creutz-1983-quarks-gluons-lattices]] — the methodology textbook: plaquette/Wilson-loop observables and Monte-Carlo sampling for measuring curvature (central).
 - [[milnor-1976-left-invariant-metrics]] — $GL^+(K)$ admits no bi-invariant metric, so the electric-term inner product / link metric is a choice.
-- [[arnold-1989-classical-mechanics]] — symplectic/Hamiltonian geometric-mechanics framework behind the Hamiltonian lattice formulation and belief dynamics.
+- [[arnold-1989-classical-mechanics]] — symplectic/Hamiltonian geometric-mechanics framework behind the Hamiltonian lattice formulation.
 - [[lee-2012-smooth-manifolds]] — smooth-manifold and fiber-bundle foundations: a lattice gauge field as a discrete principal-bundle connection.
 - [[dennis-2026-dynamic-links]] — latent link generators on a depth-by-token lattice, Frobenius-defect curvature prior with Wilson limit on $O(K)$, kinetic term from time-like loops, induced action and hopping expansion of undirected Gaussian matter.
 - [[polettini-2012-nonequilibrium-thermodynamics-gauge]] — abelian $(\mathbb{R}^+,\times)$ gauge structure on a state-transition graph; Wilson loops as cycle affinities; spanning-tree gauge fixing.
@@ -209,7 +180,6 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 - [[Non-flat connection and the photon analogy]]
 - [[Gauge transformation]]
 - [[Killing form]]
-- [[participatory-it-from-bit]]
 - [[GL(K) gauge-equivariant attention]] — the program's neural instantiation of gauge-invariant link inner products
 - [[nagai-2025-cask]] — gauge-covariant Transformer (CASK) on lattice links
 - [[kanwar-2020-equivariant-flow]] · [[boyda-2021-su-n-flows]] — gauge-equivariant flows on $U(1)$ / $SU(N)$ links
@@ -219,4 +189,4 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 [[polettini-2012-nonequilibrium-thermodynamics-gauge|Polettini 2012]] has the kinematics of this page's Definition in abelian form, on the state-transition graph of a continuous-time Markov jump process. Each vertex, a microstate, carries an internal space $\Psi_i\cong\mathbb{R}$, and each edge carries the variable $A_{ij}=\log(w_{ij}/w_{ji})$ built from the forward and backward rates. The gauge group $(\mathbb{R}^+,\times)$ acts vertex by vertex through $\rho_i\to e^{-\varphi_i}\rho_i$, and the edge variable shifts by $\varphi_j-\varphi_i$. Wilson loops compose multiplicatively, their logarithms are the cycle affinities, and all of them equal one exactly under detailed balance, so the flat connections are the detailed-balance systems and form a single gauge class. A spanning tree fixes the gauge, and its $|E|-|V|+1$ fundamental cycles give a basis from which the connection is reconstructed up to gauge. The rates are time independent, so the links are given data; the vault's note records no action or dynamics for them, and the author remarks that the group is simple enough that the geometrization is unnecessary for practical purposes. The continuous-state counterpart is the connection $A_i=-D^{-1}_{ij}\tilde F_j$ of [[feng-2011-potential-flux-decomposition|Feng and Wang 2011]], with Wilson line $e^{-\Delta s_m}$ transforming as $U\to e^{\phi(x)}Ue^{-\phi(y)}$ and curvature that vanishes when the steady-state flux vanishes. The exact connection $dJ$ of [[sakthivadivel-2022-entropy-maximising-parallel-transport|Sakthivadivel 2022]] is a flat case. [[barp-2021-measure-preserving-diffusions|Barp et al. 2021]] use gauge language for the freedom in a potential of the stationary probability current.
 
 > [!note] Editorial: contrast with the links on this page
-> Polettini's vertices are microstates of one system and his links are positive scalars whose loop products commute, whereas the links on this page are $\mathrm{GL}(K)$ matrices between agents or tokens with conjugation-covariant loops; the shared skeleton of vertex frames, edge transport, spanning-tree gauge fixing and $|E|-|V|+1$ independent loops is a structural analogy with no shared theorem. A derivation of November 13, 2026 (`docs/research/2026-11-13-abelian-sector-of-gauge-transport.md`) identifies the one exact overlap: the scalars $-\log|\det\Omega_{ij}|$ form an abelian lattice gauge field on the agent graph with Polettini's group and transformation laws, exact for pure-gauge links and with no rates or currents attached. The potential freedom in Barp et al. is a different redundancy from a frame change on a bundle of beliefs and supplies no link field.
+> Polettini's vertices are microstates of one system and his links are positive scalars whose loop products commute, whereas the links on this page are $\mathrm{GL}(K)$ matrices between agents or tokens with conjugation-covariant loops; the shared skeleton of vertex frames, edge transport, spanning-tree gauge fixing and $|E|-|V|+1$ independent loops is a structural analogy with no shared theorem. A derivation of November 13, 2026, since removed from the vault, identifies the one exact overlap: the scalars $-\log|\det\Omega_{ij}|$ form an abelian lattice gauge field on the agent graph with Polettini's group and transformation laws, exact for pure-gauge links and with no rates or currents attached. The potential freedom in Barp et al. is a different redundancy from a frame change on a bundle of beliefs and supplies no link field.

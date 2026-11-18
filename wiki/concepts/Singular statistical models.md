@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-11-18
 ---
 
 # Singular statistical models
@@ -23,7 +23,7 @@ A **singular statistical model** is a parameterized family in which the map from
 
 ## Why it matters here
 
-Gauge orbits and latent meta-agent symmetries can generate exactly this distinction between parameter coordinates and identifiable laws. Quotienting the null tangent directions can give a useful local identifiable geometry, but it does not automatically produce a smooth global quotient. Stabilizers may change, orbit dimensions may jump, and the quotient may need a stratified rather than a manifold description.
+Gauge orbits and other latent symmetries can generate exactly this distinction between parameter coordinates and identifiable laws. Quotienting the null tangent directions can give a useful local identifiable geometry, but it does not automatically produce a smooth global quotient. Stabilizers may change, orbit dimensions may jump, and the quotient may need a stratified rather than a manifold description.
 
 ## Details
 
@@ -33,15 +33,11 @@ If $p_{\theta}=p_{\theta'}$ for distinct nearby parameters, movement along the e
 
 ### Learning consequences
 
-[[watanabe-2002-singularities]] studies a concrete hidden-variable setting and shows that regular relations between training and generalization error can fail even when the true parameter is near rather than exactly on a singularity. The paper is evidence that regular asymptotics are unsafe near singular strata; it is not, by itself, a theorem about every gauge quotient or latent-agent architecture.
+[[watanabe-2002-singularities]] studies a concrete hidden-variable setting and shows that regular relations between training and generalization error can fail even when the true parameter is near rather than exactly on a singularity. The paper is evidence that regular asymptotics are unsafe near singular strata; it is not, by itself, a theorem about every gauge quotient or latent-variable architecture. [[ay-2025-natural-gradient-elbo]] adds a related warning: constrained ELBO and target-KL natural gradients agree only under additional geometric compatibility.
 
 ### Geometric obligations
 
 To replace a singular parameterization by a regular quotient manifold, one still needs an appropriate group action and proofs of freeness/properness or a controlled stratification, a well-behaved quotient topology, and descent of the statistical tensors. A local rank calculation does not close those obligations.
-
-## In this work
-
-The finite information-history machinery uses identifiable tangent directions and pseudoinverses as diagnostics. This is compatible with singular-model awareness, but it should not be reported as a proof that the full passive-frame or coarse-history quotient is free, proper, Hausdorff, or globally smooth. [[ay-2025-natural-gradient-elbo]] adds a related warning: constrained ELBO and target-KL natural gradients agree only under additional geometric compatibility.
 
 ## Sources
 
@@ -54,4 +50,3 @@ The finite information-history machinery uses identifiable tangent directions an
 - [[Statistical manifold]]
 - [[Natural gradient]]
 - [[Model Complexity]]
-- [[Meta-agents and hierarchical emergence]]

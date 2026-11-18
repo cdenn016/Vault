@@ -44,11 +44,11 @@ Applied to the eleven durable-goods series, the model gives useful predictions o
 
 ## Relevance to this research
 
-Bass is the required comparator whenever the belief-inertia manuscript discusses adoption, diffusion, or S-shaped population trajectories. A formal population equation must precede a Bass-style claim, and its innovation, imitation, and saturation terms must be distinguished from the individual-level dynamics of [[Belief inertia]]. Gauge-transported VFE or second-order belief motion does not automatically aggregate to the Bass equation.
+Bass is the required comparator whenever the belief-inertia manuscript discusses adoption, diffusion, or S-shaped population trajectories. A formal population equation must precede a Bass-style claim, and its innovation, imitation, and saturation terms must be distinguished from the individual-level dynamics of Belief inertia. Gauge-transported VFE or second-order belief motion does not automatically aggregate to the Bass equation.
 
 ## Cross-links
 
-This source connects to [[Sociophysics]], [[Opinion dynamics]], [[Echo chambers and polarization]], and [[Statistical physics of social systems and collective behavior]]. It supplies a population-diffusion baseline against which any aggregate prediction from [[Hamiltonian belief dynamics]] must be derived rather than inferred from curve shape.
+This source connects to [[Sociophysics]], [[Opinion dynamics]], [[Echo chambers and polarization]], and [[Statistical physics of social systems and collective behavior]]. It supplies a population-diffusion baseline against which any aggregate prediction from Hamiltonian belief dynamics must be derived rather than inferred from curve shape.
 
 ## BibTeX
 
