@@ -13,7 +13,7 @@ created: 2026-10-02
 
 ## Source and scope
 
-The source is the research package `VFE_3.0/docs/derivations/2026-09-20-neuron-free-agent-theory/` (entry points `README.md` and `final-report.md`; the main proof is `evidence/hybrid-construction.md`), produced by an agent-run [[Rigorous theory search]] on the user's question whether the transformer's neuron layers can be replaced by interacting Gaussian agents. The package is not copied into the vault. Its terminal status is **INCONCLUSIVE for the full target**: it proves a conditional construction and records narrower counterexamples. The executed checks are small CPU formula checks, not training evidence; no Lean, GPU or training run occurred, and no code, manuscript or vault edits were made by the run.
+The source is the research package `VFE_3.0/docs/derivations/2026-09-20-neuron-free-agent-theory/` (entry points `README.md` and `final-report.md`; the main proof is `evidence/hybrid-construction.md`), produced by an agent-run Rigorous theory search on the user's question whether the transformer's neuron layers can be replaced by interacting Gaussian agents. The package is not copied into the vault. Its terminal status is **INCONCLUSIVE for the full target**: it proves a conditional construction and records narrower counterexamples. The executed checks are small CPU formula checks, not training evidence; no Lean, GPU or training run occurred, and no code, manuscript or vault edits were made by the run.
 
 ## Strongest result
 
@@ -33,4 +33,4 @@ This is the program's most explicit attempt to answer the open MLP question of t
 
 ## Related
 
-[[Template routing]], [[dennis-2026-template-routing]], [[dennis-2026-projected-gradient]], [[blei-2017-variational-inference]], [[ba-2016-layer-normalization]], [[Rigorous theory search]]
+[[Template routing]], [[dennis-2026-template-routing]], [[dennis-2026-projected-gradient]], [[blei-2017-variational-inference]], [[ba-2016-layer-normalization]], Rigorous theory search

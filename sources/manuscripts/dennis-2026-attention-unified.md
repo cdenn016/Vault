@@ -13,7 +13,7 @@ created: 2026-10-03
 
 ## Citation and scope
 
-Robert C. Dennis (2026). *Group-Valued Links and Inference in Gauge-Covariant Gaussian Attention*. Standalone working companion, October 3, 2026, [LaTeX source](../../manuscripts/Attention/attention_unified.tex). This consolidates the six notes on frame natural gradients, link origin, link curvature, projected-gradient receivers, projected prediction, and template routing. The originals and the four existing GL(K) manuscripts remain unchanged. The source-coverage and implementation record is [the consolidation record](../../docs/attention-unification-2026-10-03.md).
+Robert C. Dennis (2026). *Group-Valued Links and Inference in Gauge-Covariant Gaussian Attention*. Standalone working companion, October 3, 2026, [LaTeX source](../../manuscripts/Attention/attention_unified.tex). This consolidates the six notes on frame natural gradients, link origin, link curvature, projected-gradient receivers, projected prediction, and template routing. The originals and the four existing GL(K) manuscripts remain unchanged.
 
 The author selected **Option A, exponential group-valued links**, as the primary direction for later integration into the GL(K) attention manuscript. This is an authorial research choice, not a result inferred from small-network checks. Compression (Option B) and the implemented head sum (Option C) are supporting comparisons and implementation bridges.
 

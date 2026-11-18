@@ -53,7 +53,7 @@ updated: 2026-11-18
 
 ## Research tooling reference, September 26, 2026
 
-[[exa-2026-agent-create-run]] archives the official Agent API effort and budget fields. Its role is methodological under [[Rigorous theory search]], not evidence for mathematical results.
+exa-2026-agent-create-run archives the official Agent API effort and budget fields. Its role is methodological under Rigorous theory search, not evidence for mathematical results.
 
 > Map of Content for the **`field/cs-ml`** discipline facet (computer science & machine learning).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.

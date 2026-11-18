@@ -56,7 +56,7 @@ It does not close the full replacement question. Small CPU formula checks suppor
 
 ## Unified attention companion, October 3, 2026
 
-The author subsequently retired the six superseded working `.tex` notes. `manuscripts/Attention/attention_unified.tex` is their replacement; earlier originals remain in Git history, and immutable source notes retain their dated provenance. The author moved the gradients and extension companions into `manuscripts/Attention/Misc_Attention_Docs/` and removed the six superseded PDFs. See [retirement mapping](../../docs/attention-note-retirement-2026-10-03.md).
+The author subsequently retired the six superseded working `.tex` notes. `manuscripts/Attention/attention_unified.tex` is their replacement; earlier originals remain in Git history, and immutable source notes retain their dated provenance. The author moved the gradients and extension companions into `manuscripts/Attention/Misc_Attention_Docs/` and removed the six superseded PDFs.
 
 [[dennis-2026-attention-unified]] unifies the six Attention notes and maps their relationship to all four current GL(K) manuscripts. The author's primary future integration choice is Option A exponential group-valued links; compression and the current routed head sum are supporting comparisons. The standalone file was `manuscripts/Attention/attention_unified.tex`, removed from the vault by the author on 2026-10-06 (the source note keeps its record); no GL(K) source was edited. The companion corrects the real-log chart scope, complement-residual assumptions, causal inverse-edge loop distinction, Fisher stabilizer/completion boundary, and frozen-receiver posterior interpretation.
 
@@ -157,7 +157,7 @@ state-level mean-field obstruction.
 
 **SPD covariance geometry.** Full-SPD covariances carry the affine-invariant metric, and the diagonal subset retains its belief-side Fisher geometry. A general $\mathrm{GL}(K)$ congruence does not preserve the live diagonal family except for monomial transports, so the implementation is projected or approximate outside that subgroup.
 
-**Attention.** Attention is `precision_weighted`, so affinities are scaled by belief precision in the spirit of [[Precision weighting]] and the kernel-smoother view of attention ([[tsai-2019-kernel-attention]]), modifying the scaled dot-product baseline of [[vaswani-2017-attention]]. An **attention-entropy** term regularizes the attention distribution, and **causal beta / gamma priors** shape the temporal weighting (the live config uses a `causal_alibi` prior). Positional information is layered through registry-selected mechanisms: the live config injects gauge-structured position via a **learned phi composed by BCH (order 4)** (`pos_phi='learned'`). Two further channels exist but are OFF in the current run — **gauge-RoPE** (`pos_rotation='rope'`, base 100; the `rope_on_value` flag selects whether the rotation drives both the attention score and value aggregation, or only the Q/K score) and **T5 relative-position buckets** (a `t5_relative_bias` attention prior). The closest existing precedent for attention computed directly with SPD geometry is [[wang-2023-riemannian-self-attention-spd]]. See [[Attention mechanisms — theory and positional structure]] for the broader theme. The methodological scaffolding for this whole inference loop is collected under [[Inference machinery — variational EM and filtering]], and the wiki's own conventions follow [[karpathy-llm-wiki-pattern]].
+**Attention.** Attention is `precision_weighted`, so affinities are scaled by belief precision in the spirit of [[Precision weighting]] and the kernel-smoother view of attention ([[tsai-2019-kernel-attention]]), modifying the scaled dot-product baseline of [[vaswani-2017-attention]]. An **attention-entropy** term regularizes the attention distribution, and **causal beta / gamma priors** shape the temporal weighting (the live config uses a `causal_alibi` prior). Positional information is layered through registry-selected mechanisms: the live config injects gauge-structured position via a **learned phi composed by BCH (order 4)** (`pos_phi='learned'`). Two further channels exist but are OFF in the current run — **gauge-RoPE** (`pos_rotation='rope'`, base 100; the `rope_on_value` flag selects whether the rotation drives both the attention score and value aggregation, or only the Q/K score) and **T5 relative-position buckets** (a `t5_relative_bias` attention prior). The closest existing precedent for attention computed directly with SPD geometry is [[wang-2023-riemannian-self-attention-spd]]. See [[Attention mechanisms — theory and positional structure]] for the broader theme. The methodological scaffolding for this whole inference loop is collected under [[Inference machinery — variational EM and filtering]], and the wiki's own conventions follow karpathy-llm-wiki-pattern.
 
 ## Experiments
 
@@ -200,7 +200,7 @@ Next steps, in rough priority order:
 **Themes:** [[Variational free energy and predictive coding]] · [[Gauge equivariance and geometric deep learning]] · [[Information geometry and natural gradient]] · [[SPD-manifold geometry and Riemannian optimization]] · [[Attention mechanisms — theory and positional structure]] · [[Inference machinery — variational EM and filtering]]
 
 **Methods:** [[Nudged two-phase EM]] — the pre-registered backprop-free learning prescription ·
-[[Rigorous theory search]] — the truth-preserving proof and effective-theory search protocol used
+Rigorous theory search — the truth-preserving proof and effective-theory search protocol used
 for research-level derivations
 
 **Key concepts:** [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Prediction error]] · [[Precision weighting]] · [[Gauge transformation]] · [[GL(K) gauge group]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Renyi divergence]] · [[Irreducible representation]] · [[Clebsch-Gordan coefficients]] · [[Expected Free Energy]] · [[Active Inference]]
@@ -227,11 +227,11 @@ Background/implementation references cited by the engineering and ML-engineer re
 - [[hunt-thomas-2019-pragmatic-programmer]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
 - [[knuth-art-of-computer-programming]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
 - [[beazley-jones-2013-python-cookbook]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
-- [[pep-8-style-guide-python-code]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
-- [[pep-257-docstring-conventions]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
-- [[pep-484-type-hints]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
-- [[pep-695-type-parameter-syntax]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
-- [[pytorch-documentation]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- pep-8-style-guide-python-code — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- pep-257-docstring-conventions — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- pep-484-type-hints — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- pep-695-type-parameter-syntax — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- pytorch-documentation — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
 - [[sculley-2015-hidden-technical-debt-ml]] — ML-systems technical-debt taxonomy;
 - [[hooker-2020-hardware-lottery]] — Essay on how hardware shapes which research ideas win;
 - [[touvron-2023-llama]] — Open foundation-model release;
