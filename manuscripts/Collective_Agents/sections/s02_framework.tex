@@ -210,6 +210,86 @@ Messages in modality $c$ depend on $U_j$ only through $T_cU_j$: encodings $U_j$ 
 
 The count agrees with that for $\GL(K)$ dictionaries in \citet{dennis2026communicating}, and pooling modalities identifies more of a sender's frame, as in \citet{dennis2026magent}. Proof in \cref{app:fw}; checked in \cref{chk:fw-frames}. Outside the stabilizer a misidentified code has a cost, which \cref{prop:fw-misidentified-code} in \cref{app:fw} gives in closed form. In particular, for a receiver with prior mean $m_i=0$ and error measured in the prior Mahalanobis norm $\Vert\cdot\Vert_{P_i^{-1}}$, if a misidentified frame rotates a rank-one code at fixed $P_i$-norm by a $P_i$-angle $\vartheta$, listening is worse than silence exactly when $\vartheta>60^\circ$, whatever the channel noise (\cref{prop:fw-misidentified-code}(c)); with a nonzero prior mean or another weight the threshold angle depends on the instance.
 
+\subsection{Communication energy on noisy channels and below full rank}\label{sup:fw-comm-energy}
+
+The communication energy of \cref{def:fw-comm-energy} is defined for noiseless channels. When the channel is the kernel $\mathsf K:\eta\mapsto\Ncal(H_j\eta,R_c)$ and the receiver reads it with the likelihood $y\mid\eta\sim\Ncal(\hat H\eta,\hat R)$ of \cref{sec:fw-reception}, with $\hat H=\hat H_{ij}$ and assigned noise $\hat R\succ0$, the reconstruction is the receiver's posterior $q_i(\cdot\mid y)$ under that likelihood, mixed over the law $q_j\mathsf K=\Ncal(H_jm_j,\mathsf V_j+R_c)$ of the channel's output when its input is drawn from the sender's belief. It has the form of the noisy reconstruction of \cref{prop:fw-prior-completion}(c) and equals it when $\hat H=H_j$ and $\hat R=R_c$. For Gaussian beliefs, with $S$ and $\Kg$ of \eqref{eq:fw-gain} and the law header $\mathsf V_j=H_jP_jH_j^\top$,
+\begin{equation}\label{eq:fw-noisy-reconstruction}
+\hat q_{ij}=\Ncal\bigl(m_i+\Kg(H_jm_j-\hat Hm_i),(I-\Kg\hat H)P_i+\Kg(\mathsf V_j+R_c)\Kg^\top\bigr),
+\end{equation}
+and the communication energy is again $\mathfrak E_{ij}=\KL(q_i\Vert\hat q_{ij})$. A channel with noise that the receiver reads as noiseless is covered by neither definition. The least signal-to-noise ratio of the edge is $\mathrm{snr}^{\min}_{ij}=\lambda_{\min}(P_i\hat H^\top\hat R^{-1}\hat H)$. A message raises the receiver's precision from $\Lambda_i$ to $\Lambda_i+\hat H^\top\hat R^{-1}\hat H\succeq(1+\mathrm{snr}^{\min}_{ij})\Lambda_i$, so $\mathrm{snr}^{\min}_{ij}$ is the least relative gain in precision over directions. For $\hat H$ of full row rank it vanishes exactly when $r_c<K$, and for $r_c=K$ it is the least eigenvalue of $\hat R^{-1/2}\hat HP_i\hat H^\top\hat R^{-1/2}$, whereas $\mathrm{snr}_e$ in \cref{thm:coh-amplification}, where the receiver of an edge is indexed $j$ and reads its sender's code exactly, is, for positive-definite assigned noise, the largest eigenvalue of the corresponding matrix.
+
+The energy of an edge has consensus form with $\Omega\in\GL(K)$ if $\mathfrak E_{ij}=\KL(q_i\Vert\Omega_\#q_j)$ for all Gaussian beliefs $q_i$ and $q_j$.
+
+\begin{proposition}[Consensus form only on noiseless channels of full rank]\label{prop:fw-consensus-form}
+% src: coupling-regimes check of 2026-11-19, result C1
+Fix an edge whose code model $\hat H=\hat H_{ij}$ has full row rank $r_c$.
+\begin{enumerate}
+\item[(a)] On a noiseless channel with $r_c=K$ the energy has consensus form with $\Upsilon_{ij}=\hat H^{-1}H_j$ (\cref{prop:fw-full-rank-energy}) and with no other matrix.
+\item[(b)] On a noiseless channel with $r_c<K$, and on a channel read with assigned noise $\hat R\succ0$, whatever the channel noise $R_c\succeq0$ and the rank $r_c$, the energy has consensus form with no $\Omega\in\GL(K)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Noisy channels of full rank approach the consensus form at rate $1/\mathrm{snr}^{\min}$]\label{prop:fw-noisy-energy}
+% src: coupling-regimes derivation of 2026-11-19, Proposition 12, with the noise bound that its check requires; its transmissibility is snr^min here; equality clause of (b) added 2026-11-20
+Let the receiver read the edge with a code model $\hat H=\hat H_{ij}$ of full row rank $r_c$ and assigned noise $\hat R\succ0$, and consider Gaussian beliefs.
+\begin{enumerate}
+\item[(a)] Let $r_c=K$, so that $\hat H$ and $H_j$ are invertible and $\Upsilon_{ij}=\hat H^{-1}H_j\in\GL(K)$, and let $R_c\preceq\mathsf b\hat R$ for a constant $\mathsf b\ge0$. For every compact set $\mathcal Q$ of belief parameters $(m_i,P_i,m_j,P_j)$ with $P_i,P_j\succ0$ and every compact set $\mathcal Y\subset\GL(K)$ there are constants $\mathrm{snr}_{\mathrm{th}}$ and $\mathsf C$ such that
+\[
+\bigl\lvert\mathfrak E_{ij}-\KL\bigl(q_i\Vert(\Upsilon_{ij})_\#q_j\bigr)\bigr\rvert\le\mathsf C/\mathrm{snr}^{\min}_{ij},
+\]
+whenever $\mathrm{snr}^{\min}_{ij}\ge\mathrm{snr}_{\mathrm{th}}$, $(m_i,P_i,m_j,P_j)\in\mathcal Q$ and $\Upsilon_{ij}\in\mathcal Y$. The order cannot be improved: for $K=1$, $P_i=P_j=p$, $\hat H=H_j$ and $R_c=\hat R$ the difference equals $-(m_i-m_j)^2(2\mathrm{snr}^{\min}_{ij}+1)/(2p(1+\mathrm{snr}^{\min}_{ij})^2)$.
+\item[(b)] If $R_c=\hat R$, then $\mathfrak E_{ij}\le\KL(\hat H_\#q_i\Vert(H_j)_\#q_j)$, the energy of the same edge on a noiseless channel (\cref{lem:fw-reception-identity}(a)), at every noise level and every rank, with equality only when $\hat H_\#q_i=(H_j)_\#q_j$, where both sides vanish. With $\hat H=H_j$ the right side is $\KL(q_i\Vert q_j)$ minus the conditional term of \cref{lem:fw-reception-identity}(c), so when that term is positive no common noise level $R_c=\hat R$ brings the energy up to $\KL(q_i\Vert q_j)$.
+\end{enumerate}
+\end{proposition}
+
+Rank and noise therefore decide whether the communication energy is a consensus energy: exactly on noiseless channels of full rank, up to $O(1/\mathrm{snr}^{\min}_{ij})$ on channels of full rank whose noise is at most a fixed multiple of the assigned noise, and below full rank on no channel. Neither noise condition can be dropped. With $K=1$, $\hat H=H_j=1$, $P_i=P_j=1$, $R_c=1$ and $\hat R=\sigma^2\to0$, the ratio $\mathrm{snr}^{\min}_{ij}=\sigma^{-2}$ grows without bound, but the reconstruction tends to $\Ncal(m_j,2)$, and at $m_i=m_j$ the energy tends to $\tfrac12(\ln2-\tfrac12)\approx0.097$, while $\KL(q_i\Vert q_j)=0$. In (b), if $R_c\ne\hat R$, a Gaussian $q_i$ with $\hat Hm_i=H_jm_j$ and $\hat HP_i\hat H^\top=\mathsf V_j$ has zero energy on a noiseless channel but positive energy on the noisy one, by the proof of \cref{prop:fw-consensus-form}. Proofs in \cref{app:fw}; checked in \cref{chk:fw-comm-energy-noisy}.
+
+\subsection{Communication energy under code learning and local transformations}\label{sup:fw-comm-energy-learning}
+
+On a noiseless channel with Gaussian beliefs, write $\mathfrak E_{ij}(\hat H)$ for the energy of an edge when the receiver reads with a code model $\hat H$ of full row rank $r_c$, a function of $\hat H$ and of the belief parameters $(m_i,P_i,m_j,P_j)$ given by \cref{lem:fw-reception-identity}(b), and $\nabla\mathfrak E_{ij}(\hat H)$ for its derivative with respect to the belief parameters, with the Euclidean norm on means and the Frobenius norm on covariances; on code models $\Vert\cdot\Vert$ is the operator norm.
+
+\begin{proposition}[Convergence of the energy as code models converge]\label{prop:fw-energy-convergence}
+% src: coupling-regimes derivation of 2026-11-19, Theorem 14(b)-(e), Lemma 10(c) and Counterexample 15, with the corrections of its check
+Fix an edge on a noiseless channel and Gaussian beliefs, and let $\hat H^\infty$ have full row rank $r_c$, with least singular value $\sigma_{\min}(\hat H^\infty)$.
+\begin{enumerate}
+\item[(a)] For every compact set $\mathcal Q$ of belief parameters with $P_i,P_j\succ0$ there is a constant $\mathsf C$ such that
+\[
+\bigl\lvert\mathfrak E_{ij}(\hat H)-\mathfrak E_{ij}(\hat H^\infty)\bigr\rvert+\bigl\Vert\nabla\mathfrak E_{ij}(\hat H)-\nabla\mathfrak E_{ij}(\hat H^\infty)\bigr\Vert\le\mathsf C\Vert\hat H-\hat H^\infty\Vert,
+\]
+for all belief parameters in $\mathcal Q$ and all $\hat H$ with $\Vert\hat H-\hat H^\infty\Vert\le\sigma_{\min}(\hat H^\infty)/2$. If learned code models $\hat H_{ij}(t)$ converge to $\hat H^\infty$, the energy and its derivative therefore converge uniformly on $\mathcal Q$, at a rate linear in $\Vert\hat H_{ij}(t)-\hat H^\infty\Vert$. For $r_c=K$ the limit is $\KL(q_i\Vert(\Upsilon^\infty_{ij})_\#q_j)$ with $\Upsilon^\infty_{ij}=(\hat H^\infty)^{-1}H_j$. If the code models of every edge $(i,j)$ converge to limits $\hat H^\infty_{ij}$ of rank $K$, with fixed weights $\varpi_{ij}$ and fixed frames, $\mathfrak E$ converges in the same sense to $\mathfrak E^{\mathrm{cons}}(\Theta^\infty)$, with $\Theta^\infty_{ij}=U_i(\hat H^\infty_{ij})^{-1}H_jU_j^{-1}$.
+\item[(b)] The convergence is not uniform on the set of all belief parameters. For $K=r_c=1$, $H_j=1$, $m_j=0$, $P_i=P_j=1$ and every code model with $0<\lvert\hat H-1\rvert<1$,
+\[
+\mathfrak E_{ij}(\hat H)-\mathfrak E_{ij}(1)=\tfrac12(\hat H^2-1)(1+m_i^2)-\ln\hat H,
+\]
+which is unbounded in $m_i$; with $m_i=m_j=0$, $P_i=1$ and $P_j$ free the difference is $(\hat H^2-1)/(2P_j)-\ln\hat H$, which is unbounded as $P_j\to0$.
+\item[(c)] Let $r_c=K$. The limit translation $\Theta^\infty_{ij}$ is the true one, $U_iU_j^{-1}$, exactly when $\hat H^\infty=H_j$, which least-squares estimates reach almost surely under the hypotheses of \cref{prop:fw-grounded-identification}(a) when $M_2\succ0$. A receiver that regresses messages on its own noisy observation of the content, in the setting of \cref{prop:fw-grounded-identification}(c) with content second moment $M_\phi\succ0$ and grounding-noise covariance $R^g\succ0$, has the limit mistranslation $\Upsilon^\infty_{ij}=I+R^gM_\phi^{-1}$, and $\det\Upsilon^\infty_{ij}=\det(M_\phi+R^g)/\det M_\phi>1$. On a directed cycle of such receivers, each attending its predecessor and each with its own $M_\phi$ and $R^g$, the holonomy (\cref{def:coh-components}) of the limit translations around the cycle, traversed along its edges, therefore has determinant greater than one and is not the identity.
+\end{enumerate}
+\end{proposition}
+
+Under learning the energy therefore follows the code models. At full rank it tends to a consensus energy, of the true translations when the limit code models are exact; below full rank it tends to the coded divergence of \cref{lem:fw-reception-identity}(a) at the limit code models, which has no consensus form (\cref{prop:fw-consensus-form}). Part (b) shows that the restriction to compact sets of beliefs cannot be dropped. By (c), receivers that do not repair regression dilution do not satisfy the hypothesis of \cref{prop:frm-flattening}, convergence to the true translations, and on a directed cycle of them full consensus fails in the limit (\cref{thm:coh-holonomy}(c)). Proof in \cref{app:fw}; checked in \cref{chk:fw-comm-energy-learning}.
+
+Local transformations act on internal beliefs and translations at fixed frames and public codes. Unlike the redescriptions of \cref{prop:fw-frame-covariance}(b), which leave every belief in world coordinates unchanged, they change the beliefs about the world. For an agent $i$ with internal belief $q^U_i=(U_i)_\#q_i$, a local transformation $g=(g_i)_{i\in V}\in\GL(K)^V$ acts by
+\[
+q^U_i\mapsto(g_i)_\#q^U_i,\qquad\Theta_{ij}\mapsto g_i\Theta_{ij}g_j^{-1},
+\]
+and for a modality $c$ let $\GL(K)_{\ker T_c}=\{g\in\GL(K):g\ker T_c=\ker T_c\}$ be the subgroup of $\GL(K)$ that preserves the subspace $\ker T_c$.
+
+\begin{proposition}[Local transformations of the communication energy]\label{prop:fw-energy-symmetry}
+% src: coupling-regimes derivation of 2026-11-19, Proposition 7, with the corrections of its check
+Fix the frames $U_i$ and the public codes, give each edge $(i,j)\in\mathcal E$ a modality $c$, a weight $\varpi_{ij}\ge0$ and a translation $\Theta_{ij}$, and let each receiver read on a noiseless channel through the code model $\hat H_{ij}=T_c\Theta_{ij}^{-1}U_i$ that its translation induces (\cref{def:fw-translation}). The energy of an edge is then
+\[
+\mathfrak E_{ij}=\KL\bigl((T_c\Theta_{ij}^{-1})_\#q^U_i\Vert(T_c)_\#q^U_j\bigr).
+\]
+\begin{enumerate}
+\item[(a)] The consensus energy $\mathfrak E^{\mathrm{cons}}(\Theta)$ of \cref{prop:fw-full-rank-energy} is invariant under every local transformation.
+\item[(b)] If $g_j\in\GL(K)_{\ker T_c}$, the energy of the edge $(i,j)$ is invariant under $g$, whatever $g_i$, for all translations and all internal beliefs that satisfy the hypotheses of \cref{def:fw-comm-energy}. If $g_j\notin\GL(K)_{\ker T_c}$, there are internal Gaussian beliefs and a translation at which it changes. Consequently $\mathfrak E$ is invariant under $g$ for all internal Gaussian beliefs and all translations if and only if $g_j\in\GL(K)_{\ker T_c}$ for every edge $(i,j)$ with $\varpi_{ij}>0$, where $c$ is the modality of that edge.
+\item[(c)] $\GL(K)_{\ker T_c}$ has dimension $K^2-r_c(K-r_c)$. The relation $T_cg=BT_c$ defines a surjective homomorphism $g\mapsto B$ from $\GL(K)_{\ker T_c}$ onto $\GL(r_c)$, under which the noiseless message $T_c\mu_j$ of an internal mean becomes $BT_c\mu_j$, as under the change of public coordinates of \cref{prop:fw-frame-covariance}(d), here applied to the messages of sender $j$ alone. Its kernel $\{g\in\GL(K):T_cg=T_c\}=\{I+X:T_cX=0\}\cap\GL(K)$ has dimension $K(K-r_c)$, that of the set $\{X:T_cX=0\}$ of \cref{prop:fw-frame-identifiability}.
+\item[(d)] $\GL(K)_{\ker T_c}=\GL(K)$ if and only if $r_c=K$.
+\end{enumerate}
+\end{proposition}
+
+At full rank the energy of noiseless channels is therefore invariant under all local transformations, as a consensus energy is. Below full rank a sender's transformations are restricted to $\GL(K)_{\ker T_c}$, whose image $\GL(r_c)$ relabels that sender's public signals and whose kernel, the invertible elements of $I+\{X:T_cX=0\}$, changes no message. On noisy channels the energy is not invariant under local transformations even at full rank: for $K=r_c=1$, with $T_c$, the frames and $\Theta_{ij}$ equal to $1$, $R_c=\hat R=1$, $q^U_i=\Ncal(1,1)$ and $q^U_j=\Ncal(0,1)$, the transformation with $g_i=1$ and $g_j=2$ changes it from $1/8$ to $8/25$. Because local transformations change the beliefs about the world at fixed frames, they change the predictions of sensory data and of grounded rounds, so they are symmetries of the communication energy alone. Proof in \cref{app:fw}; checked in \cref{chk:fw-comm-energy-learning}.
+
 \subsection{Level-0 network}\label{sup:fw-level-0-network}
 
 The remark concerns the scalar level-0 network of \cref{def:fw-level0}.

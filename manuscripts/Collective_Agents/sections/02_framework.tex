@@ -95,6 +95,39 @@ The author's second idea can now be stated exactly. Sender $j$'s map $T$ is its 
 
 The lift uses the receiver's prior, so two receivers can read one message differently: with a common likelihood their gains agree exactly when their priors give the coded coordinates the same covariance with the whole state, and a message that both predict alike and find surprising can leave receivers with equal prior means further apart than before (Supplement, \cref{prop:fw-two-receivers,ex:fw-disagreement}).
 
+Equation \eqref{eq:fw-meaning-lost} measures from the sender's side what a code fails to carry. The divergence of the receiver's prior from the reconstruction measures, from the receiver's side, the disagreement that a message carries.
+
+\begin{definition}[Communication energy]\label{def:fw-comm-energy}
+% src: coupling-regimes note of 2026-11-19, Definition 2; receiver order adopted on 2026-11-20
+Let $q_i$ be the receiver's prior and $q_j$ the sender's belief, laws on world coordinates, let the channel be noiseless, and let the receiver read the sender with a code model $\hat H=\hat H_{ij}$ while the message transmits the sender's law $(H_j)_\#q_j$ of the coded value, as a noiseless mean message with its law header does in the Gaussian case. Let $(H_j)_\#q_j$ and $\hat H_\#q_i$ be mutually absolutely continuous. The reconstruction is
+\begin{equation}\label{eq:fw-reconstruction}
+\hat q_{ij}=\int q_i(\cdot\mid\hat H\eta=y^\circ)\bigl((H_j)_\#q_j\bigr)(\mathrm dy^\circ),
+\end{equation}
+where the conditional law, determined $\hat H_\#q_i$-almost everywhere, is therefore determined $(H_j)_\#q_j$-almost everywhere; with $\hat H=H_j$ and $T=H_j$ it is the reconstruction of \eqref{eq:fw-meaning-lost}. The communication energy of the edge is $\mathfrak E_{ij}=\KL(q_i\Vert\hat q_{ij})$. With edge weights $\varpi_{ij}\ge0$ the communication energy of the population is $\mathfrak E=\sum_{(i,j)\in\mathcal E}\varpi_{ij}\mathfrak E_{ij}\in[0,\infty]$, with $0\cdot\infty=0$; \cref{prop:coh-frustration} uses positive weights of this kind on the edges of the attention graph.
+\end{definition}
+
+\begin{lemma}[Reception identity]\label{lem:fw-reception-identity}
+% src: coupling-regimes note of 2026-11-19, Lemmas 4 and 6; f-divergence and Renyi forms added 2026-11-20
+Under the hypotheses of \cref{def:fw-comm-energy}, write $q^\circ_{ij}=\hat H_\#q_i$ for the receiver's law of $\hat H\eta$ and $q^\circ_j=(H_j)_\#q_j$ for the sender's law of $H_j\eta$.
+\begin{enumerate}
+\item[(a)] $\mathrm dq_i/\mathrm d\hat q_{ij}=(\mathrm dq^\circ_{ij}/\mathrm dq^\circ_j)\circ\hat H$. Consequently, for every $f$-divergence $D_f$ \citep{csiszar1967information}, and likewise for every R\'enyi divergence $D_\alpha$ of order $\alpha\in(0,1)\cup(1,\infty)$ \citep{renyi1961measures} in place of $D_f$,
+\[
+D_f(q_i\Vert\hat q_{ij})=D_f(q^\circ_{ij}\Vert q^\circ_j),\qquad D_f(\hat q_{ij}\Vert q_i)=D_f(q^\circ_j\Vert q^\circ_{ij}),
+\]
+with values in $[0,\infty]$. In particular $\mathfrak E_{ij}=\KL(q^\circ_{ij}\Vert q^\circ_j)$: the energy depends on the two beliefs only through the receiver's law of $\hat H\eta$ and the sender's law of $H_j\eta$.
+\item[(b)] If $q_i=\Ncal(m_i,P_i)$ and $q_j=\Ncal(m_j,P_j)$ and $\hat H$ and $H_j$ have full row rank $r_c$, the absolute-continuity hypothesis of \cref{def:fw-comm-energy} holds, and with $\hat{\mathsf V}_i=\hat HP_i\hat H^\top$ and the law header $\mathsf V_j=H_jP_jH_j^\top$,
+\[
+\mathfrak E_{ij}=\tfrac12\bigl[\tr(\mathsf V_j^{-1}\hat{\mathsf V}_i)-r_c+(\hat Hm_i-H_jm_j)^\top\mathsf V_j^{-1}(\hat Hm_i-H_jm_j)+\ln(\det\mathsf V_j/\det\hat{\mathsf V}_i)\bigr].
+\]
+\item[(c)] If $\hat H=H_j$, then, with conditional laws given $H_j\eta=y^\circ$ and both sides in $[0,\infty]$,
+\[
+\KL(q_i\Vert q_j)=\mathfrak E_{ij}+\int\KL\bigl(q_i(\cdot\mid y^\circ)\Vert q_j(\cdot\mid y^\circ)\bigr)\bigl((H_j)_\#q_i\bigr)(\mathrm dy^\circ).
+\]
+\end{enumerate}
+\end{lemma}
+
+By (a) the energy is the disagreement between the receiver's law of $\hat H\eta$ and the sender's law of $H_j\eta$, measured from the receiver's side, and in the Gaussian case (b) it uses the sender's law header and the receiver's own $\hat{\mathsf V}_i$. Part (c) is the receiver-side companion of \eqref{eq:fw-meaning-lost}: with an exact code model, the receiver's divergence from the sender splits into the part that the code carries and the conditional divergence along the uncoded directions. In the other order, \eqref{eq:fw-meaning-lost} together with (a) splits the sender's divergence as $\KL(q_j\Vert q_i)=\KL(\hat q_{ij}\Vert q_i)+\KL(q_j\Vert\hat q_{ij})$. The second of these terms is the meaning lost. The first is the divergence of the posterior from the prior of a receiver that replaces its law of the coded value by the sender's and keeps its conditional law of the rest, which is the update of \cref{prop:fw-prior-completion}(a) with $(H_j)_\#q_j$ in place of the posterior of the coded value. The energy itself has the argument order of the complexity term $\KL(q\Vert p)$ of a variational free energy, with $q_i$ in the place of the recognition density and the reconstruction, which itself depends on $q_i$, in the place of the prior; this is also the order of the pair energy of \citet{dennis2026participatory}. At full rank it is a consensus energy of the receivers' translations (\cref{prop:fw-full-rank-energy}). Proof in \cref{app:fw}; checked in \cref{chk:fw-comm-energy}.
+
 \subsection{Interpretation levels and calibration classes}\label{sec:fw-levels}
 
 A receiver must model how a message relates to the world. Hypothesis H2 says that receivers must model senders, and the structure of that model is the receiver's interpretation level. The levels differ in what they assume about the joint law of the message and the receiver's own information, which is where misreading enters (\cref{sec:mis}).
@@ -243,7 +276,7 @@ Receiver $i$ reads sender $j$'s internal coordinates through a translation $\The
 which is the identity exactly when the translation is true, and the translation induces the code model $\hat H_{ij}=T_c\Theta_{ij}^{-1}U_i=H_j\Upsilon_{ij}^{-1}$. When the public code is invertible ($r_c=K$), the receiver carries a message into world coordinates as $\tilde y_{ij}=U_i^{-1}\Theta_{ij}T_c^{-1}y_{ij}=\Upsilon_{ij}m_j+U_i^{-1}\Theta_{ij}T_c^{-1}\nu_{ij}$, and reading $\tilde y_{ij}$ as an observation of $\eta$ is reading $y_{ij}$ with the code model $\hat H_{ij}$.
 \end{definition}
 
-The identities follow by substitution: $H_j\Upsilon_{ij}^{-1}=T_cU_jU_j^{-1}\Theta_{ij}^{-1}U_i$, and $\tilde y_{ij}=\hat H_{ij}^{-1}y_{ij}$ when $r_c=K$. For planar frames and translations that are rotations the three matrices commute, and $\Upsilon_{ij}$ is the rotation by the angle of $\Theta_{ij}$ minus the angle of $U_iU_j^{-1}$, the translation error; these are the rotation errors of the two-group model of \cref{sec:frm}. True translations compose without holonomy, because intermediate encodings cancel around every cycle, as in $(U_iU_j^{-1})(U_jU_k^{-1})(U_kU_i^{-1})=I$, so a failure of consistency in the sense of \cref{sec:coh} comes from learned translations, from misspecified models or from agents of different kinds (\cref{prop:coh-flat-true}). Under noiseless reception the projectors $\mathcal P_{ij}$ of \cref{prop:fw-prior-completion}(d) compose around cycles of receivers; with heterogeneous prior covariances their product can amplify content, a calibration failure distinct from holonomy, which \cref{thm:coh-amplification} treats.
+The identities follow by substitution: $H_j\Upsilon_{ij}^{-1}=T_cU_jU_j^{-1}\Theta_{ij}^{-1}U_i$, and $\tilde y_{ij}=\hat H_{ij}^{-1}y_{ij}$ when $r_c=K$. For planar frames and translations that are rotations the three matrices commute, and $\Upsilon_{ij}$ is the rotation by the angle of $\Theta_{ij}$ minus the angle of $U_iU_j^{-1}$, the translation error; these are the rotation errors of the two-group model of \cref{sec:frm}. True translations compose without holonomy, because intermediate encodings cancel around every cycle, as in $(U_iU_j^{-1})(U_jU_k^{-1})(U_kU_i^{-1})=I$, so a failure of consistency in the sense of \cref{sec:coh} comes from learned translations, from misspecified models or from agents of different kinds (\cref{prop:coh-flat-true}). Learned translations need not converge to the true ones: receivers of full-rank codes that do not repair the regression dilution of \cref{prop:fw-grounded-identification}(c) have limit translations whose holonomy around every directed cycle of such receivers, traversed along its edges, has determinant greater than one (Supplement, \cref{prop:fw-energy-convergence}(c)). Under noiseless reception the projectors $\mathcal P_{ij}$ of \cref{prop:fw-prior-completion}(d) compose around cycles of receivers; with heterogeneous prior covariances their product can amplify content, a calibration failure distinct from holonomy, which \cref{thm:coh-amplification} treats.
 
 \begin{proposition}[Encodings enter only through effective codes]\label{prop:fw-effective-codes}
 % src: L7-P1
@@ -251,6 +284,25 @@ With linear encodings, receivers at level 0, at level 1 or with exact fusion, kn
 \end{proposition}
 
 This extends to learned code models and exact fusion a statement for known codes in \citet{dennis2026communicating}. Consequently a result that holds with one common effective code per modality holds at identity encodings, and frames matter only where sender-specific effective codes do. Proof in \cref{app:fw}.
+
+When the public code and the receivers' code models are invertible, the communication energy of \cref{def:fw-comm-energy} is a consensus energy of the receivers' translations.
+
+\begin{proposition}[Communication energy at full rank]\label{prop:fw-full-rank-energy}
+% src: coupling-regimes note of 2026-11-19, Theorem 14(a); receiver order adopted on 2026-11-20
+Let $r_c=K$ for the modality of every edge and let the channels be noiseless, and let each receiver $i$ read each sender $j$ with $(i,j)\in\mathcal E$ through an invertible code model $\hat H_{ij}$, under the hypotheses of \cref{def:fw-comm-energy} on every edge. Then $\Theta_{ij}=U_i\hat H_{ij}^{-1}H_jU_j^{-1}$ is the only translation that induces $\hat H_{ij}$, its mistranslation is $\Upsilon_{ij}=\hat H_{ij}^{-1}H_j$, and
+\[
+\hat q_{ij}=(\Upsilon_{ij})_\#q_j,\qquad\mathfrak E_{ij}=\KL\bigl(q_i\Vert(\Upsilon_{ij})_\#q_j\bigr)=\KL\bigl(q^U_i\Vert(\Theta_{ij})_\#q^U_j\bigr),
+\]
+with internal beliefs $q^U_i=(U_i)_\#q_i$; the same identities hold with $D_f$ or $D_\alpha$ in place of $\KL$. Consequently $\mathfrak E=\mathfrak E^{\mathrm{cons}}(\Theta)$, where the consensus energy of the translations, a function of the internal beliefs at given translations, is
+\[
+\mathfrak E^{\mathrm{cons}}(\Theta)=\sum_{(i,j)\in\mathcal E}\varpi_{ij}\KL\bigl(q^U_i\Vert(\Theta_{ij})_\#q^U_j\bigr).
+\]
+This holds for whatever invertible code models the receivers hold, in particular at every stage of code learning at which the learned models are invertible, and the translation of an edge is the true one, $U_iU_j^{-1}$, exactly when its code model is exact, $\hat H_{ij}=H_j$.
+\end{proposition}
+
+The internal form is the pair energy $\KL(q_i\Vert\Omega_{ij}[q_j])$ of \citet{dennis2026participatory}, in whose notation $q_i$ is a belief in agent $i$'s frame and $\Omega_{ij}[q_j]=(\Omega_{ij})_\#q_j$ is the law transported by $\Omega_{ij}$. The receiver's translation takes the role of that transport, as the flat identification $U_iU_j^{-1}$ of that manuscript's Regime~I when the translation is true and as an independent link of the kind its Regime~II supplies otherwise, and the fixed weights $\varpi_{ij}$ take the place of its attention weights. Below full rank the energy depends on the beliefs only through the receiver's law of $\hat H_{ij}\eta$ and the sender's law of $H_j\eta$ (\cref{lem:fw-reception-identity}(a)). Proof in \cref{app:fw}; checked in \cref{chk:fw-comm-energy}.
+
+The energy of an edge has the form $\KL(q_i\Vert\Omega_\#q_j)$ of a consensus energy, for a matrix $\Omega\in\GL(K)$ that does not depend on the beliefs, only on noiseless channels of full rank. On a channel of full rank read with an assigned noise $\hat R_{ij}$ that bounds the channel noise up to a constant factor, it approaches $\KL(q_i\Vert(\Upsilon_{ij})_\#q_j)$, uniformly on compact sets of beliefs and mistranslations, at rate $1/\mathrm{snr}^{\min}_{ij}$ in the least signal-to-noise ratio $\mathrm{snr}^{\min}_{ij}=\lambda_{\min}(P_i\hat H_{ij}^\top\hat R_{ij}^{-1}\hat H_{ij})$ of the edge, and below full rank no channel gives it that form (Supplement, \cref{prop:fw-consensus-form,prop:fw-noisy-energy}). On noiseless channels with Gaussian beliefs, as learned code models converge to code models of full row rank, the energy converges, uniformly on compact sets of beliefs, to its value at the limit, which at full rank is the consensus energy of the limit translations (Supplement, \cref{prop:fw-energy-convergence}). On such channels, transforming every internal belief by an invertible linear map at fixed frames, with the matching change of the translations, leaves the energy invariant for all Gaussian beliefs and translations exactly when, on every edge of positive weight, the sender's map preserves the kernel of the edge's public code, which every map does at full rank (Supplement, \cref{prop:fw-energy-symmetry}).
 
 Frames are identifiable from messages only modulo the set $\{X:T_cX=0\}$, of dimension $K(K-r_c)$, and mismatches in that set cost nothing in reception (Supplement, \cref{prop:fw-frame-identifiability}); the cost of a misidentified code outside it is in \cref{prop:fw-misidentified-code}.
 
@@ -278,6 +330,8 @@ The scalar $q_i$ is a noise variance, as are $q$ and $q_z$ in \cref{def:fw-recor
 The recursion \eqref{eq:fw-level0-error} follows from $e_i(t+1)=F(m_i^+(t)-\eta_t)-w_t$ by substituting $s_i=H^s_i(m_i-e_i)+v_i$ and $y_{ij}=H_j(\eta_t+e_j)+\nu_{ij}$. The leak is world decorrelation, which acts as forgetting, plus grounding through the sensing gain; a pure listener in a persistent world has no leak. When a receiver reads invertible codes through translations (\cref{def:fw-translation}) with isotropic gains $k_{ij}$ on the translated messages, $\Kg_{ij}=k_{ij}\hat H_{ij}^{-1}$, so $W_{ij}=Fk_{ij}\Upsilon_{ij}$ and $B^{\mathrm{mis}}_i=F\sum_jk_{ij}(\Upsilon_{ij}-I)$: a mistranslated message carries a transformed copy of the world. This is the error recursion of the two-group model of \cref{sec:frm}, applied round by round on a random schedule. Channel noise that a broadcast shares across its receivers is not local, and is treated like the world innovation below.
 
 In the scalar network a literal receiver's gains $k^s_i$ and $k_{ij}$ are nonnegative and sum to less than one, so with exact code models and $F\ge0$ the matrix $W$ is entrywise nonnegative (Supplement, \cref{rem:fw-convex-gains}).
+
+The level-0 network fixes its attention schedule and its gains, so the quantitative results built on it take attention as exogenous. Attention and other policies selected by expected free energy are inputs to the following results, each within the scope stated with it: collective agency of members that deliberate by their own expected free energies (\cref{thm:agy-agency,thm:agy-heterogeneous}); withdrawal from mistranslated edges at infinite policy precision in the static two-group model (\cref{thm:coh-withdrawal}); code choice by logit revision and the code domains it produces (\cref{prop:coh-code-potential,thm:coh-domains-1d}); influence bounds under belief-dependent routing (\cref{prop:sca-routing}); and formation, through the thresholds $\gamma_S$, $\gamma_M$ and $\gamma_T$ of the frozen-calibration mean-field map (\cref{thm:frm-formation}), with attention carried through to contrast at $\gamma=\infty$ in the two-group model with exact in-group translations (\cref{thm:frm-split-contrast}). Open are the Markov closure and the agency of a collective formed by such attention, contrast at finite $\gamma$, which is computed but not proved, the step from the full model to the mean-field map (\cref{open:frm-closure}), and the regime to which attention, together with grounding, drives the coupling $a$ and the leak $\varepsilon$ (Supplement, \cref{open:sca-endogenous}).
 
 The world innovation enters every agent's error at once. The next lemma separates this common drive from the fluctuations that communication propagates.
 
