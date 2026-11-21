@@ -642,28 +642,42 @@ scores \cref{gf:gaussian-score} at sweeps $0$ to $2$, and by a ball of
 sweep $3$. The scores, the trajectories, the limits, and the radius bound
 obtained from the quadratic expansion of the score differences are continuous
 in $(m^{(0)},o)$, so the conditions that hold at the center hold on a
-neighborhood. At the center they were evaluated in double precision: the
-smallest selector gap along the full and the label-preserving histories is
-$0.0142$ and along the renormalized one $0.0398$, against rounding errors
-below $10^{-12}$; the certificate radii in the Euclidean norm are $0.114$ for
-the full flow, whose fixed-structure contraction factor is $0.188$, and
-$0.261$ for the label-preserving null, whose factor is $b_ik_i=0.161$. The
+neighborhood. At the center the conditions are certified: trajectories,
+inverses, determinants and quadratic forms were computed in exact rational
+arithmetic, and the logarithms of determinants, the square roots and the
+exponentials were enclosed in intervals at sixty significant digits, of width
+below $10^{-55}$. The smallest certified selector gap along the full and the
+label-preserving histories is $0.0142$, at sweep $1$ against
+$(\{1,2,34\},\{12,34\})$, and along the renormalized one $0.0398$. The
+infinite tails are proved by balls of \cref{gf:persistence}, whose radii in
+the Euclidean norm are certified lower bounds: $0.114$ around
+$m^*_{\Pi_{\mathrm{join}}}$ for the full flow, and $0.261$ around $\kappa o$
+for the label-preserving null, whose map is the scalar contraction with
+factor $b_ik_i=0.161$; both trajectories lie in their balls at sweep $3$.
+The fixed-structure contraction factor of the full flow, $0.188$, was
+computed in floating point and is not used, since the bound $b_i$ of
+\cref{gf:gaussian-sweep} suffices. The radius of $U$ is not certified: its
+existence follows from the strict margins by continuity, and a quantitative
+radius would require propagating interval boxes in $(m^{(0)},o)$ through
+sweeps $0$ to $3$ and through the ball certificates. The
 first event happens at sweep $1$ for both flows, with identical states, as
 \cref{gf:first-event} requires, and the null then passes through
 $\Pi_{\mathrm{join}}$ on its way to $\kappa o$. For (iii), (D) of
-\cref{gf:inheritance} gives the reproduction, which also holds numerically
-to $10^{-15}$. The fixed point of the parent sweep under $\Pi_{\mathrm{sep}}$
+\cref{gf:inheritance} gives the reproduction, which the check also confirms
+as an exact rational equality at sweeps $3$ and $4$. The fixed point of the parent sweep under $\Pi_{\mathrm{sep}}$
 is $(2.9206,4.3810)$, where $\Pi_{\mathrm{join}}$ is preferred with gap
 $1.28$; under $\Pi_{\mathrm{join}}$ it is $(3.0756,4.3170)$, where
 $\Pi_{\mathrm{join}}$ is preferred with gap $1.53$. From a parent state
 selecting $\Pi_{\mathrm{sep}}$ the parent sweep contracts toward the first
 point with factor at most $b_i$ until the selection changes, and the
 selection changes at the latest when the state enters the neighborhood of
-that point on which $\Pi_{\mathrm{join}}$ is preferred. For (iv), the two
+that point on which $\Pi_{\mathrm{join}}$ is preferred, which at the center
+contains a certified ball of radius $0.627$. For (iv), the two
 parents have equal precision, so $K^c_{\Pi_{\mathrm{join}}}$ is symmetric and
 has $(1,1)$ as an eigenvector, and the average of the parent means obeys an
 autonomous affine contraction. The inequalities and the reproduction are
 checked by the scripts recorded with the construction.
+% src: docs/checks/gf_declared_cert/ (certify_gf.py)
 \end{proof}
 
 The report follows the recipe of \cref{inh:recursive-formation}. The
@@ -717,9 +731,22 @@ relative to both nulls, together with the different limit points
 $m^*_{\Pi_{\mathrm{join}}}=(2.9956,3.1556,4.2370,4.3970)$ and
 $\kappa o=(2.7645,2.9551,4.1944,4.3850)$: the interaction changes the agents'
 laws but not which structures the selector reads. The frozen-environment
-control was computed over $120$ sweeps at the center and gave the same
-partition sequence with the same event sweeps; this is a numerical
-observation at one point without a tail certificate. The strong grade does
+control has the same partition sequence with the same event sweeps at the
+center, where it is certified by the same arithmetic. Under (N3) the private
+copy of agent $i$ reads $m^{(0)}_{-i}$ both in its structure selection and in
+the update of $m_i$, so with the copy's selection fixed the update of $m_i$
+is an affine map of one variable with slope $b_i(K_\Pi)_{ii}<1$, where $\Pi$ is
+the copy's structure. From sweep $12$ on every $m_i$ lies in an interval
+around that map's fixed point which the map leaves invariant and on which the
+copy's selection is constant, so every coordinate's distance to the limit
+$(2.9580,3.1337,4.1944,4.4511)$ is nonincreasing, and the joint state lies in
+a ball of radius $0.143$ around that limit on which $\hat\Pi$ selects
+$\Pi_{\mathrm{join}}$; the selections at sweeps $0$ to $12$ are certified
+directly, with smallest gap $0.0142$. The copies themselves do not stay at
+$\Pi_\perp$: those of agents $1$, $2$ and $4$ settle at
+$(\{13,2,4\},\{13,2,4\})$, $(\{1,23,4\},\{1,23,4\})$ and
+$(\{1,2,34\},\{1,2,34\})$, and only that of agent $3$ remains at
+$\Pi_\perp$. The strong grade does
 not apply, and the amplifying grade fails against the label-preserving null
 at the first event, where the two states coincide and the ratio of
 \cref{inh:recursive-formation} is one.
@@ -761,7 +788,13 @@ $\Pi_\perp$, $(\{1,234\},\{1234\})$, $\Pi_{\mathrm{sep}}$, and the renormalized
 sequence $\Pi_\perp$, $\Pi_{\mathrm{sep}}$. The final partitions differ from
 both nulls, but the first stage selects a block that is later regrouped, so
 the second stage is not a union of first-stage parents and (F6a) fails along
-this path. This is a computation at one point; neither openness nor the
+this path. At that point the three sequences were checked in the same exact
+arithmetic, with smallest selector gap $0.0073$ along the full sequence. The
+tails of the full flow and of the label-preserving null are covered by balls
+of \cref{gf:persistence} of radii $0.327$ and $0.099$, which the trajectories
+enter at sweep $3$, and the renormalized null is constant from sweep $1$.
+% src: docs/checks/gf_declared_cert/ (regroup_tail.py)
+This is a computation at one point; neither openness nor the
 absence of nested paths of this kind is proved.
 
 \openproblemheading{Formation under the global free energy}{gf:open}

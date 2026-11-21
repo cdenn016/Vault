@@ -59,6 +59,44 @@ The subspace $\mathcal K=\{e:x_i=0\text{ for every }i\}$ is therefore fixed poin
 \sum_{j\in J_i}\Psi_{ij}=\frac{\bar\alpha_i\sigma_i^2}{1+\bar\alpha_i\sigma_i^2}<1,
 \]
 so $\Psi$ has nonnegative entries and unit row sums. The map $e\mapsto x$ from $\R^{NK}$ onto $\R^N$ is surjective because $T_c\neq0$, and its kernel is $\mathcal K$, so it identifies the quotient $\R^{NK}/\mathcal K$ with $\R^N$, on which $W^{\mathrm{rec}}$ induces $\Psi$. In a basis that begins with a basis of $\mathcal K$, $W^{\mathrm{rec}}$ is block upper triangular with diagonal blocks the identity on $\mathcal K$ and $\Psi$, so its eigenvalues are $1$, with multiplicity $N(K-1)$, together with the eigenvalues of $\Psi$. A row-stochastic matrix has $1$ as an eigenvalue and all eigenvalues in the closed unit disk, so $\rho(W^{\mathrm{rec}})=1$; at a covariance fixed point in the world $F=fI_K$, $\rho(W)=f\rho(W^{\mathrm{rec}})=f=\rho(F)$. For a profile of period $p$ along a periodic covariance orbit, the map over one period is $f^pW^{\mathrm{rec}}(p)\cdots W^{\mathrm{rec}}(1)$, whose factors are the reception maps of the successive rounds. Each factor fixes the same subspace $\mathcal K$ pointwise and induces a row-stochastic matrix $\Psi(t)$ on the same quotient, so in the same basis the product is block upper triangular with diagonal blocks the identity and $\Psi(p)\cdots\Psi(1)$, which is row stochastic; its spectral radius is therefore $1$, and that of the period map is $f^p$. None of these steps used symmetry of listening or equality of the scales $\vartheta_j$.
+
+% src: (d) is claim C2 of the research note on conj:sca-common-code (Derivations, Theorem 1), checked by fresh-context reconstruction and blind independent proof on 2026-11-21
+(d) Put $M_i=\Lambda_i+\Gamma_i\succ0$, so that $\Lambda^+_i=M_i+\bar\alpha_iT_c^\top T_c$, and for $e\in\mathbb{C}^{NK}$ write $x_i=T_ce_i$. Multiplying the $i$th block of $W^{\mathrm{rec}}e=\lambda e$ by $\Lambda^+_i$ and collecting terms, the eigenvalue equation reads
+\begin{equation}\label{eq:min-common-code-eig}
+(\lambda M_i-\Lambda_i)e_i=T_c^\top\Bigl(\sum_{j\in J_i}\alpha_jx_j-\lambda\bar\alpha_ix_i\Bigr),\qquad i\in V.
+\end{equation}
+
+Eigenvalues off the open disk. Let $\lvert\lambda\rvert\ge1$ and $\lambda\neq1$, and let $e$ satisfy \eqref{eq:min-common-code-eig}. The symmetric matrix $S_i=M_i^{-1/2}\Lambda_iM_i^{-1/2}$ satisfies $0\prec S_i\preceq I_K$, because $0\prec\Lambda_i\preceq M_i$, so its eigenvalues $s_{i,k}$ lie in $(0,1]$. Since $\lambda\notin(0,1]$, the matrix $\lambda M_i-\Lambda_i=M_i^{1/2}(\lambda I_K-S_i)M_i^{1/2}$ is invertible, and multiplying \eqref{eq:min-common-code-eig} by $T_c(\lambda M_i-\Lambda_i)^{-1}$ reduces it to the scalar equations
+\[
+x_i=c_i(\lambda)\Bigl(\sum_{j\in J_i}\alpha_jx_j-\lambda\bar\alpha_ix_i\Bigr),\qquad c_i(\lambda)=T_c(\lambda M_i-\Lambda_i)^{-1}T_c^\top.
+\]
+Let $u_i=M_i^{-1/2}T_c^\top$, nonzero because $T_c\neq0$, and let $w_{i,k}\ge0$ be the squares of its coordinates in an orthonormal eigenbasis of $S_i$, so that $\sum_kw_{i,k}=\Vert u_i\Vert^2>0$. Then
+\[
+\lambda c_i(\lambda)=\sum_k\frac{w_{i,k}\lambda}{\lambda-s_{i,k}},\qquad\operatorname{Re}\bigl(\lambda c_i(\lambda)\bigr)=\sum_kw_{i,k}\frac{\lvert\lambda\rvert^2-s_{i,k}\operatorname{Re}\lambda}{\lvert\lambda-s_{i,k}\rvert^2}.
+\]
+For $\lvert\lambda\rvert\ge1$ and $\lambda\neq1$ we have $\operatorname{Re}\lambda<\lvert\lambda\rvert^2$, because $\operatorname{Re}\lambda\le\lvert\lambda\rvert\le\lvert\lambda\rvert^2$ and equality in both places forces $\lambda$ real and positive with $\lvert\lambda\rvert=1$, that is $\lambda=1$. Hence each numerator is positive: it is at least $\lvert\lambda\rvert^2>0$ when $\operatorname{Re}\lambda\le0$, and at least $\lvert\lambda\rvert^2-\operatorname{Re}\lambda>0$ when $\operatorname{Re}\lambda>0$, since $s_{i,k}\le1$. So $\operatorname{Re}(\lambda c_i(\lambda))>0$, in particular $c_i(\lambda)\neq0$, and $\operatorname{Re}(1/(\lambda c_i(\lambda)))=\operatorname{Re}(\lambda c_i(\lambda))/\lvert\lambda c_i(\lambda)\rvert^2>0$ for every $i$.
+
+If $x=0$, \eqref{eq:min-common-code-eig} gives $(\lambda M_i-\Lambda_i)e_i=0$, hence $e=0$. Otherwise choose $i^\star$ with $\lvert x_{i^\star}\rvert=\max_i\lvert x_i\rvert>0$. If $J_{i^\star}$ were empty, then $\bar\alpha_{i^\star}=0$, the sum would be empty and the scalar equation would give $x_{i^\star}=0$; so $\bar\alpha_{i^\star}>0$. Dividing the scalar equation at $i^\star$ by $\lambda c_{i^\star}(\lambda)x_{i^\star}$ gives
+\[
+\Bigl\lvert\frac{1}{\lambda c_{i^\star}(\lambda)}+\bar\alpha_{i^\star}\Bigr\rvert=\frac{\bigl\lvert\sum_{j\in J_{i^\star}}\alpha_jx_j\bigr\rvert}{\lvert\lambda\rvert\lvert x_{i^\star}\rvert}\le\frac{\bar\alpha_{i^\star}}{\lvert\lambda\rvert}\le\bar\alpha_{i^\star},
+\]
+while the left side is at least $\operatorname{Re}(1/(\lambda c_{i^\star}(\lambda)))+\bar\alpha_{i^\star}>\bar\alpha_{i^\star}$, a contradiction. So $e=0$, every eigenvalue satisfies $\lvert\lambda\rvert<1$ or $\lambda=1$, and $\rho(W^{\mathrm{rec}})=1$ exactly when $1$ is an eigenvalue.
+
+The eigenvalue $1$. At $\lambda=1$, \eqref{eq:min-common-code-eig} reads
+\[
+\Gamma_ie_i+\sum_{j\in J_i}\alpha_jT_c^\top(x_i-x_j)=0,\qquad i\in V.
+\]
+Since $W^{\mathrm{rec}}$ is real, the real and imaginary parts of a fixed vector are fixed vectors, so it suffices to consider real $e$. Since $R^s_i\succ0$, $e_i^\top\Gamma_ie_i=\Vert(R^s_i)^{-1/2}H^s_ie_i\Vert^2$ vanishes exactly when $H^s_ie_i=0$, so $\ker\Gamma_i=\ker H^s_i$.
+
+Suppose first that $\ker H^s_i\cap\ker T_c=\{0\}$ for every $i$ and that every sink component contains an agent with injective sensing, and let $e$ be a real fixed vector with $m=\max_i\lvert x_i\rvert$. If $m=0$, the equation gives $\Gamma_ie_i=0$ and $T_ce_i=0$, so $e_i\in\ker H^s_i\cap\ker T_c=\{0\}$ for every $i$. If $m>0$, let $S=\{i:\lvert x_i\rvert=m\}$. For $i\in S$, multiplying the equation by $e_i^\top$ gives
+\[
+e_i^\top\Gamma_ie_i+\sum_{j\in J_i}\alpha_jx_i(x_i-x_j)=0,
+\]
+in which $e_i^\top\Gamma_ie_i\ge0$ and $x_i(x_i-x_j)=m^2-x_ix_j\ge0$, with equality exactly when $x_j=x_i$. Since every $\alpha_j>0$, all terms vanish: $H^s_ie_i=0$ with $e_i\neq0$, because $T_ce_i=x_i\neq0$, so the sensing map of $i$ is not injective; and $x_j=x_i$ for every $j\in J_i$, so $J_i\subseteq S$. Thus $S$ is nonempty and no edge leaves it. The strongly connected components form an acyclic graph, so following edges from an agent of $S$ reaches a sink component, which lies in $S$ because no edge leaves $S$, and none of whose agents has injective sensing. This contradicts the hypothesis, so $e=0$ and $\rho(W^{\mathrm{rec}})<1$.
+
+Conversely, if some agent $i_0$ has a nonzero $v\in\ker H^s_{i_0}\cap\ker T_c$, the vector with $e_{i_0}=v$ and $e_j=0$ for $j\neq i_0$ has $x=0$ and $\Gamma_{i_0}v=0$, so it is fixed. If every such intersection is trivial and some sink component $C$ contains no agent with injective sensing, then for $i\in C$ the kernel $\ker H^s_i$ is nonzero and meets $\ker T_c$ trivially, so it contains a vector $e_i$ with $T_ce_i=1$. Because no edge leaves $C$, $W^{\mathrm{rec}}_{ij}=0$ for $i\in C$ and $j\notin C$, so with the agents of $C$ ordered first $W^{\mathrm{rec}}$ is block lower triangular and its spectrum contains that of the diagonal block $W^{\mathrm{rec}}_{CC}$. The vector $e_C=(e_i)_{i\in C}$ satisfies the equation above for every $i\in C$, since $\Gamma_ie_i=0$ and $x_i=x_j=1$ for $j\in J_i\subseteq C$, so $W^{\mathrm{rec}}_{CC}e_C=e_C$ and $1$ is an eigenvalue of $W^{\mathrm{rec}}$.
+
+Finally, $W=fW^{\mathrm{rec}}$ at a covariance fixed point of a frozen profile, as shown in (b) without using symmetry, so $\rho(W)=f\rho(W^{\mathrm{rec}})\le f$. For every $f'\in(f,1)$ Gelfand's formula gives a constant $K_A\ge1$ with $\Vert W^t\Vert_2\le K_Af'^t$ for all $t\ge0$, which is \textup{(C$_\rho$)} at rate $f'$, and \cref{lem:sca-relations}(c) gives \textup{(M)} in stationary form. Under symmetric listening the sink components are the connected components, and the criterion coincides with the characterization of $\mathcal P=\{0\}$ in (b). None of these steps used symmetry of listening or equality of the scales $\vartheta_j$, and $R^s_i\succ0$ entered only through $\ker\Gamma_i=\ker H^s_i$.
 \end{proof}
 
 \begin{proof}[Proof of \cref{prop:min-grounding-moment}]

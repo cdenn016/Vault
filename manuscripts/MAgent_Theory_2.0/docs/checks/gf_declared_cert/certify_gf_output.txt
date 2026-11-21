@@ -1,0 +1,88 @@
+catalog size 60 | a,b,k,kappa = 4/5 1/5 41/51 102/107 | a/kappa = 214/255
+--- FULL flow (expected: perp, sep, join, join, join)
+  sweep 0: sel=({1,2,3,4}|{1,2,3,4}) runner-up=({1,2,3,4}|{1,2,34}) gap in [1.781626016, 1.781626016]
+  sweep 1: sel=({12,34}|{12,34}) runner-up=({1,2,34}|{12,34}) gap in [0.01417977634, 0.01417977634]
+  sweep 2: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.05509482722, 0.05509482722]
+  sweep 3: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.02891262924, 0.02891262924]
+  sweep 4: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.0249562982, 0.0249562982]
+  m*_join = ['2.995585', '3.155585', '4.236965', '4.396965']
+  certified persistence radius (Euclidean = S-norm, S=I) r >= 0.114450, binding competitor ({1234}|{1234})
+  ||m^(0) - m*||^2 = 2.226613e+02  in ball: False
+  ||m^(1) - m*||^2 = 6.898117e+00  in ball: False
+  ||m^(2) - m*||^2 = 3.930867e-01  in ball: False
+  ||m^(3) - m*||^2 = 3.299506e-03  in ball: True
+  ||m^(4) - m*||^2 = 1.052478e-04  in ball: True
+  b*lambda_max(K_join) (float) = 0.1883720930232558  (lemma uses bound b = 0.2)
+  sweep 2 contrasts exact: m1-m2 == a(o1-o2): True, m3-m4 == a(o3-o4): True
+  sweep 3 contrasts exact: m1-m2 == a(o1-o2): True, m3-m4 == a(o3-o4): True
+  sweep 4 contrasts exact: m1-m2 == a(o1-o2): True, m3-m4 == a(o3-o4): True
+  lp m^(1) == full m^(1): True
+--- LABEL-PRESERVING null (expected: perp, sep, join, ...)
+  sweep 0: sel=({1,2,3,4}|{1,2,3,4}) runner-up=({1,2,3,4}|{1,2,34}) gap in [1.781626016, 1.781626016]
+  sweep 1: sel=({12,34}|{12,34}) runner-up=({1,2,34}|{12,34}) gap in [0.01417977634, 0.01417977634]
+  sweep 2: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.05058578505, 0.05058578505]
+  sweep 3: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.04134308079, 0.04134308079]
+  sweep 4: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.04002975264, 0.04002975264]
+  kappa o = ['2.764486', '2.955140', '4.194393', '4.385047']
+  certified radius around kappa*o: r >= 0.261127, binding ({1234}|{1234})
+  ||m_lp^(0) - kappa o||^2 = 2.147923e+02  in ball: False
+  ||m_lp^(1) - kappa o||^2 = 5.552724e+00  in ball: False
+  ||m_lp^(2) - kappa o||^2 = 1.435468e-01  in ball: False
+  ||m_lp^(3) - kappa o||^2 = 3.710913e-03  in ball: True
+  ||m_lp^(4) - kappa o||^2 = 9.593303e-05  in ball: True
+  tail: m_lp^(n)-kappa o = (bk)^(n)(m0-kappa o), bk = 41/255 <1, so distance is nonincreasing
+--- RENORMALIZED null (expected: perp, join)
+  sweep 0: sel=({1,2,3,4}|{1,2,3,4}) runner-up=({1,2,3,4}|{1,2,34}) gap in [1.781626016, 1.781626016]
+  sweep 1: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.0397835965, 0.0397835965]
+--- PARENT sweep, A={12,34}
+  rho_B^2 = 1/8  o_hat = [Fraction(3, 1), Fraction(9, 2)]
+  fixed point under sep: ['2.920635', '4.380952'] -> selects join with gap [1.280586891, 1.280586891]; self-consistent: False
+  fixed point under join: ['3.075585', '4.316965'] -> selects join with gap [1.528687284, 1.528687284]; self-consistent: True
+  certified ball around sep fixed point where join strictly preferred: r >= 0.627499
+  under sep the parent map is x -> aB oh + bB K_sep x, K_sep = [[Fraction(41, 46), Fraction(0, 1)], [Fraction(0, 1), Fraction(41, 46)]]  contraction factor bB*K = 41/230
+  exact reproduction of fine block means and selection (sweeps 3,4): True
+  K^c_join symmetric: True  (1,1) eigvec: True
+--- posterior masses at the limit
+  structure factor mass of join at m*_join: [0.052175, 0.052175]
+  record-posterior mass of join: [0.049571, 0.049571]
+  MAP of records = ({12,34}|{1234}) (join? True), runner-up ({1,2,34}|{1234}), gap [0.02835192491, 0.02835192491]
+--- FROZEN-environment control
+--- frozen joint-selector history (sweeps 0..12)
+  sweep 0: sel=({1,2,3,4}|{1,2,3,4}) runner-up=({1,2,3,4}|{1,2,34}) gap in [1.781626016, 1.781626016]
+  sweep 1: sel=({12,34}|{12,34}) runner-up=({1,2,34}|{12,34}) gap in [0.01417977634, 0.01417977634]
+  sweep 2: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.04120500936, 0.04120500936]
+  sweep 3: sel=({12,34}|{1234}) runner-up=({1,2,34}|{1234}) gap in [0.03546414788, 0.03546414788]
+  sweep 4: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03312224959, 0.03312224959]
+  sweep 5: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03242100556, 0.03242100556]
+  sweep 6: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03235856407, 0.03235856407]
+  sweep 7: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03235299553, 0.03235299553]
+  sweep 8: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.0323524986, 0.0323524986]
+  sweep 9: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03235245422, 0.03235245422]
+  sweep 10: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03235245024, 0.03235245024]
+  sweep 11: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03235244989, 0.03235244989]
+  sweep 12: sel=({12,34}|{1234}) runner-up=({1234}|{1234}) gap in [0.03235244985, 0.03235244985]
+  copy selections per sweep: [['({1,2,3,4}|{1,2,3,4})', '({1,2,3,4}|{1,2,3,4})', '({1,2,3,4}|{1,2,3,4})', '({1,2,3,4}|{1,2,3,4})'], ['({1,2,3,4}|{1,2,3,4})', '({1,2,3,4}|{1,23,4})', '({1,2,3,4}|{1,2,3,4})', '({1,2,34}|{1,2,34})'], ['({1,2,3,4}|{13,2,4})', '({1,23,4}|{1,23,4})', '({1,2,3,4}|{1,2,3,4})', '({1,2,34}|{1,2,34})'], ['({13,2,4}|{13,2,4})', '({1,23,4}|{1,23,4})', '({1,2,3,4}|{1,2,3,4})', '({1,2,34}|{1,2,34})']] ... last: ['({13,2,4}|{13,2,4})', '({1,23,4}|{1,23,4})', '({1,2,3,4}|{1,2,3,4})', '({1,2,34}|{1,2,34})']
+  agent 1: copy sel ({13,2,4}|{13,2,4}), slope b*K_ii=0.08913, x*=2.957995, cert. half-width 3.2932e-01, m^(12) inside: True
+  agent 2: copy sel ({1,23,4}|{1,23,4}), slope b*K_ii=0.08913, x*=3.133652, cert. half-width 5.0498e-01, m^(12) inside: True
+  agent 3: copy sel ({1,2,3,4}|{1,2,3,4}), slope b*K_ii=0.16078, x*=4.194393, cert. half-width 6.1200e-01, m^(12) inside: True
+  agent 4: copy sel ({1,2,34}|{1,2,34}), slope b*K_ii=0.08913, x*=4.451074, cert. half-width 1.5439e+00, m^(12) inside: True
+  x* = ['2.957995', '3.133652', '4.194393', '4.451074']  x* == kappa o: False
+  joint ball around x*: r >= 0.143875; ||m_fr^(12)-x*||^2=5.004e-22 in ball: True; all agents in invariant intervals: True
+--- negative controls
+  claim 'full sweep 1 selects join' -> REFUTED
+  m=0 selection certified (unexpected)
+  m=0 selects ({1234}|{1234}) (smallest det wins)
+  3x radius certificate fails (expected True): True
+--- REGROUPING remark data (tau^2=1/20)
+  full sweep 0: ({1,2,3,4}|{1,2,3,4}) gap [0.5233180613,0.5233180613]
+  full sweep 1: ({1,234}|{1234}) gap [0.007303724054,0.007303724054]
+  full sweep 2: ({12,34}|{1234}) gap [0.04198865043,0.04198865043]
+  full sweep 3: ({12,34}|{1234}) gap [0.04213334569,0.04213334569]
+  full sweep 4: ({12,34}|{1234}) gap [0.04197938574,0.04197938574]
+  lp sweep 0: ({1,2,3,4}|{1,2,3,4}) gap [0.5233180613,0.5233180613]
+  lp sweep 1: ({1,234}|{1234}) gap [0.007303724054,0.007303724054]
+  lp sweep 2: ({12,34}|{12,34}) gap [0.02488611792,0.02488611792]
+  lp sweep 3: ({12,34}|{12,34}) gap [0.02599802645,0.02599802645]
+  lp sweep 4: ({12,34}|{12,34}) gap [0.02614226626,0.02614226626]
+  lp sweep 5: ({12,34}|{12,34}) gap [0.02616452431,0.02616452431]
+  rn sweep>=1 (kappa o): ({12,34}|{12,34}) gap [0.02616874884,0.02616874884]
