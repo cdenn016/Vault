@@ -1,0 +1,48 @@
+=================================================================
+VERIFICATION SUITE FOR open:obj-strategic(a)
+=================================================================
+
+[0] Convention lock & registered test instance (n=2 scalar rotation c=0.5, gamma=2)
+  rho(barA)=0.559017 (exact 0.559017)
+  rho(T)   =0.625000 (exact 0.625000)
+  lam1_mc  =-0.347101 vs (1/4)*ln(c^2)=-0.346574
+
+[1] C3: n=2 vector acts (generic d=(2,3) & counterexample K_{(2,2)})
+  generic d=(2,3): rho(M)=0.085214, rho(T)=0.542607, (1+rho(M))/2=0.542607, diff=6.66e-16
+  generic d=(2,3): lam1_mc=-0.617678, exact (1/4)ln rho(M)=-0.615646
+  generic d=(2,3): Channel B rel cov err=0.0031, E[(v.(u-uN))^4] emp=13.6742 vs mix=13.6308 (gauss=13.5707)
+  K_(2,2): M4 = [[1/2,0],[3/4,1/2]], rho(M4)=1/2, rho(T)=0.750000 (exact 3/4)
+  K_(2,2): det((-z)I - K4) = z**4 + 22*z**3 + 73*z**2/2 - 25*z + 25, minRe(K4)=-0.347232
+  K_(2,2): Channel B rel cov err=0.0049, E[(1.u)^4] emp=122.45 vs mix=122.07 (gauss=115.32)
+
+[2] C5: Exact symbolic & Channel B analysis of K(c)
+  charpoly(T) at lam=1: -8*(c - 1)*(c + 1)/729
+  Leading principal minors of gamma*S_infty(c):
+    M1 = -(2*c**2 + 1)/((c - 1)*(c + 1))
+    M2 = (16*c**4 - 24*c**3 + 55*c**2 - 12*c + 28)/(16*(c - 1)**2*(c + 1)**2)
+    M3 = -3*(4*c**4 + 25*c**2 + 16)/(16*(c - 1)**3*(c + 1)**3)
+  c=0.5: Channel B rel cov err=0.0197, u1 kurtosis=3.3724 (Gaussian=3.0)
+  c=2.0: rho(T)=1.375253 > 1, 5000/5000 backward schedules coalesced (mean tau=24.18, max tau=159)
+  c=2.0: Forward vs exact backward mixture quantiles: q50|u1|=4.2641 vs 4.3376; q75|u1|=22.5993 vs 22.7324; emp E[u1^2]=2970149161498.59
+  Open-set generic perturbation of K(2) (scale 1e-2): rho(T)=1.378763 > 1, lam1_mc=-0.101027 < 0
+
+[3] C6: Directed n-cycle (n=3, n=4)
+  n=3 cycle (chi=-0.2400): rho(T)=0.795399 (pred 0.795399), lam1_mc=-0.158361 (pred -0.158568)
+  n=4 cycle (chi=-0.1890): rho(T)=0.858685 (pred 0.858685), lam1_mc=-0.103768 (pred -0.104126)
+  n=3 cycle cylinder Sigma_12 = chi^(2m)*a1*s2 verified to <1e-12 for m=0..5
+  n=3 cycle Channel B: Var(u1)=1.3343 (exact 4/3=1.3333), kurt(u1)=2.9994 (~3.0), kurt(u1+u2)=3.4616 (>3)
+
+[4] C7: n=3 scalar HB-stable & Langevin-unstable K_{(3)}
+  K_(3): exact S_infty(M3) leading minors = (2125/294, 27550/3087, 228950/7203) > 0
+  K_(3): exact charpoly(K3) = (lam - 21/10)*(lam^2 + 9/100*lam + 3/2000)
+  K_(3): rho(T)=0.908764 < 1, eigs(K3)=[-0.067913 -0.022087  2.1     ] (2 negative real eigs)
+  K_(3): Channel B forward chain rel cov err=0.0207
+
+[5] Planted-error negative controls
+  Control 1 (wrong 1/2 factor in n=2 lam1): |mc - wrong| = 0.6136 > 0.1 [REJECTED AS EXPECTED]
+  Control 2 (wrong 1/n factor in 3-cycle lam1): |mc - wrong| = 0.4636 > 0.4 [REJECTED AS EXPECTED]
+  Control 3 (Gaussian 4th moment on K_(2,2)): rel err = 0.0618 > 0.05 [REJECTED AS EXPECTED]
+  Control 4 (sign flip K_13=-2 in K(2)): ||A2A3A1A2A3||=6.9282, lam1=+0.2556 > 0 [BROKEN AS EXPECTED]
+  Control 5 (D3=I in K_(3)): minRe(M3)=+0.220871 > 0 [LANGEVIN RESTORED AS EXPECTED]
+
+ALL CHECKS AND NEGATIVE CONTROLS PASSED.

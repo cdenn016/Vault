@@ -1,0 +1,44 @@
+============================================================
+PART 1: Verification of Claim 1 (ebar) and Claim 1b (e0)
+============================================================
+Directed ring (1,2)       : ebar= 0.346653 | e0_dir= +0.08843611 | e0_thm= +0.08843611 | err96=5.56e-14 | grid_diff=6.0e-15 | detK=2.4034
+   |n*ebar - Dn - e0| for n=8,16,32,64: ['1.81e-09', '5.00e-16', '2.36e-14', '3.43e-14']
+Singular A (det=0)        : ebar= 2.216633 | e0_dir= -0.08225485 | e0_thm= -0.08225485 | err96=3.95e-14 | grid_diff=2.6e-14 | detK=3.9494
+   |n*ebar - Dn - e0| for n=8,16,32,64: ['8.06e-11', '1.11e-14', '3.11e-15', '1.73e-14']
+Defective Jordan 3x3      : ebar= 7.335207 | e0_dir= +0.37284864 | e0_thm= +0.37284864 | err96=2.26e-11 | grid_diff=1.5e-12 | detK=221.6232
+   |n*ebar - Dn - e0| for n=8,16,32,64: ['1.08e-04', '5.64e-09', '1.21e-11', '1.72e-11']
+Negative-e0 #1 (d=4,m=2)  : ebar= 1.495132 | e0_dir= -0.14491988 | e0_thm= -0.14491988 | err96=1.91e-13 | grid_diff=2.4e-15 | detK=4.4234
+   |n*ebar - Dn - e0| for n=8,16,32,64: ['1.31e-09', '2.98e-14', '1.22e-13', '4.84e-14']
+Negative-e0 #2 (d=4,m=2)  : ebar= 1.349427 | e0_dir= -0.09285367 | e0_thm= -0.09285367 | err96=5.30e-13 | grid_diff=4.8e-14 | detK=6.0293
+   |n*ebar - Dn - e0| for n=8,16,32,64: ['1.05e-09', '6.46e-14', '1.68e-13', '3.17e-13']
+Generic d=6, m=3          : ebar= 2.885926 | e0_dir= +0.88500000 | e0_thm= +0.88500000 | err96=4.96e-13 | grid_diff=2.1e-14 | detK=6.4201
+   |n*ebar - Dn - e0| for n=8,16,32,64: ['1.94e-04', '5.18e-08', '1.40e-13', '2.97e-13']
+PASS Part 1: max |e0_thm - e0_direct(n=96)| = 2.263e-11
+
+--- Negative controls (planted errors MUST fail by > 0.05) ---
+  Planted error 'no_conj_in_ebar ': |delta_ebar|=0.346653, |delta_e0|=0.346653
+  Planted error 'drop_ebar_shift ': |delta_ebar|=0.000000, |delta_e0|=0.346653
+  Planted error 'flip_z_phase    ': |delta_ebar|=0.000000, |delta_e0|=0.047278
+PASS Negative controls: all 3 planted errors triggered cleanly.
+
+============================================================
+PART 2: Exact Lossless Retention Theorem: ebar(C)=ep <=> row(C) >= range(Omega)
+============================================================
+d=12 coupled network with rank(Omega)=2: ep = 10.8783423814
+  m=2 with row(C)=range(Omega): ebar = 10.8783423814, |ep - ebar| = 1.60e-14, e0 = +3.792603
+  m=2 perturbed by 0.2 rad    : ebar = 10.6514510020, retained = 0.979143 (< 1 strictly)
+  m=2 random subspace         : ebar = 0.0531752456, retained = 0.004888
+Generic odd d=3, m=2 (row(C)=range(Omega)): ep=1.63379836, ebar=1.63379836, |diff|=2.22e-16, e0=+0.215888
+Generic odd d=5, m=4 (row(C)=range(Omega)): ep=2.54593489, ebar=2.54593489, |diff|=2.22e-15, e0=+0.080323
+
+Grassmannian gradient check: max |grad_analytic - grad_FD| = 9.48e-09, max |grad @ C^T| = 1.64e-14
+
+============================================================
+PART 3: Frequency-multiplexing counterexample for m < rank(Omega)
+============================================================
+eps=1.0472, r=0.990: ep= 295.5075 | best 2D invariant=0.5000 | m=2 tilted retains 0.570743 (r->1^- pred: 0.571429)
+eps=0.5000, r=0.995: ep= 182.5011 | best 2D invariant=0.5000 | m=2 tilted retains 0.811153 (r->1^- pred: 0.813108)
+eps=0.2000, r=0.998: ep=  78.7023 | best 2D invariant=0.5000 | m=2 tilted retains 0.960691 (r->1^- pred: 0.962029)
+eps=0.1000, r=0.999: ep=  39.8071 | best 2D invariant=0.5000 | m=2 tilted retains 0.989403 (r->1^- pred: 0.990132)
+
+ALL CHECKS PASSED.

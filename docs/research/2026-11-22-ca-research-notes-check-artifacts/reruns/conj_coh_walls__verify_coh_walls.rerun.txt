@@ -1,0 +1,32 @@
+============================================================
+PART 1: Exact Counterexamples Refuting Literal conj:coh-walls
+============================================================
+CEX 1 (N=2, J=1, h=[0.6,-0.6]): unique min=[1, -1] (gap=0.20), domains=2, Psi=0, domains-Psi=2
+CEX 2 (N=5, J=1, h=[0.76, -1.13, -0.9, 0.89, -0.21]): unique min=[1, -1, -1, 1, 1] (gap=0.360), domains=3, Psi=1, domains-Psi=2
+
+============================================================
+PART 2: Brute-Force vs Viterbi vs Theorem Bounds & Exact Identity
+============================================================
+PASS Brute-force cross-check (3000 instances, N in {2,3,5,8,10}): 0 violations on open chain & ring.
+Large-N (N=400, J=4.0, 1000 trials): open (domains-Psi) = {0: 579, 1: 349, 2: 72}
+  Empirical P(sigma_flip=1) = 0.2620, P(sigma_end=1) = 0.2310, product = 0.0605
+  Negative controls (mismatches out of 1000): {'wrong_clip_J': 479, 'drop_flip': 262, 'drop_end': 231}
+
+============================================================
+PART 3: Sharp Drawdown Bound (J/h)^2 <= E[T_J] <= (J/h)^2 + ((pi+4)/sqrt(2pi))*(J/h) + 2
+============================================================
+Submartingale drift min over b in [0,10] at alpha=sqrt(pi/8): 1.000000000000000 (>= 1)
+Negative control drift at b=0, alpha=0.9*sqrt(pi/8)         : 0.950000 (< 1, violates submartingale)
+
+Linear coefficient (pi+4)/sqrt(2pi) = 2.849083
+ r=J/h |  Lower r^2 |   Exact E[T_J] |    New Upper |    Old Upper |   Quad err
+   0.5 |     0.2500 |     3.06513691 |       3.6745 |       6.5000 |   4.44e-16
+   1.0 |     1.0000 |     4.74975104 |       5.8491 |      16.2500 |   3.55e-15
+   2.0 |     4.0000 |    10.00352745 |      11.6982 |      55.2500 |   6.04e-14
+   5.0 |    25.0000 |    38.00960992 |      41.2454 |     328.2500 |   1.64e-12
+  10.0 |   100.0000 |   124.66156411 |     130.4908 |    1303.2500 |   1.92e-11
+  20.0 |   400.0000 |   447.96545043 |     458.9817 |    5203.2500 |   2.51e-10
+
+Independent MC spot check at r=2.0 (20k samples): MC = 9.9710 +/- 0.0568, Fredholm = 10.003527, z = -0.57
+
+ALL CHECKS PASSED.
