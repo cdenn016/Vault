@@ -1,0 +1,28 @@
+A1 expect: Pi formula error < 1e-10, r = 1+n*beta/alpha; control beta<0 gives positive off-diagonal
+  alpha,beta,m 1.0 0.5 4 | err 2.220446049250313e-16 | coupling 0.16666666666666666 vs 0.16666666666666666 | leak 0.33333333333333326 vs 0.3333333333333333 | r 2.9999999999999987 vs 3.0
+  alpha,beta,m 0.3 2.0 6 | err 2.220446049250313e-15 | coupling 0.5420054200542006 vs 0.5420054200542006 | leak 0.08130081300812952 vs 0.08130081300813008 | r 41.0 vs 41.0
+  control beta=-0.2: max offdiag of Pi 1.0 diffusive: False
+A2 expect: |code - (1 + n(n+2rho)/(rho(n-1+rho)))| < 1e-9
+  n,rho 4 0.1 | code 55.1935483870968 | formula 55.19354838709677
+  n,rho 5 0.3 | code 22.705426356589147 | formula 22.70542635658915
+A3 expect: capacity-analytic Sigma equals enumeration to < 1e-12 (m=6, kappa=2)
+  max diff 6.106226635438361e-16
+A4 expect: chain law = exp(-gamma g(S)) law to < 1e-12, detailed balance < 1e-14; control (heterogeneous own precision) violates both
+  |chain - formula| 1.1102230246251565e-16 | detailed balance 1.9081958235744878e-17
+  control: detailed balance 0.000305542654018217
+B  P(S=0..4): [0.0059 0.095  0.331  0.4051 0.1629]
+B  Sigma^c_A diag 0.2156506251724617 offdiag beta 0.2005400811002677 | alpha 0.015110544072194004 | beta parts: noise 0.19065127538881144 mean-variation 0.009888805711456256
+B  exchangeable spread (max-min of diag, of offdiag): 2.7755575615628914e-17 5.551115123125783e-17
+B  expect diffusive with uniform leak: diffusive True max offdiag 0.0 min rowsum 1.2235845404205818 | leaks [1.223585 1.223585 1.223585 1.223585 1.223585 1.223585 1.223585 1.223585] | in-niche coupling 16.23884234721346 | cross coupling -0.0
+B  r(A) 54.086131152430205 r(B) 54.086131152430276 | max over all other regions 2.8598608832215655 at (5, 6, 7) | max over regions meeting both niches 1.000000000000021
+B  closed form check 1+n*beta/alpha: 54.08613115243041
+A5 expect: MC estimate of E[Cov(e|eta)] within 4 s.e. of Sigma^c; control without mean-variation term fails
+  MC offdiag 0.1999420822160683 exact 0.2005400811002677 s.e. 0.0010382240077504786 | MC diag 0.2149813472042174 exact 0.2156506251724617 | control exact-without-mv offdiag 0.19065127538881144 z 8.948749747549437
+C  (c)-mechanism medium: diffusive True | sup region contrast 18.598189050504086 attained by size 8 | size-n value 0.9999999999999987
+C  (c)-mean coupling / (b) complete graph: abar 6.959503863091498 ebar 1.223584540420596 baseline 46.50239813065458
+C  (b) niche graph declared: baseline = clique contrast 54.086131152430205 -> window empty (trap)
+C  window (c)-mechanism: ( 18.598189050504086 , 54.086131152430205 ]  width 35.48794210192612 | (c)-mean: ( 46.50239813065458 , 54.086131152430205 ]
+D  expect index in (0,1]: Agency 0.9998908827608627 | fitted gamma_C 4.1921048083526875 | KL_min 2.230199815784269e-05 | KL(P||E) 0.20438565284611057 | habit-only KL 0.20438565284611057
+D  log odds ratio of members 1,2 (others closed); expect < 0 (redundancy): -0.5438674309672824
+E  alpha_I (encoded N(mbar,Pbar)) = 0.007654803890322685
+F  beta > 0 implies Omega_int(A|zeta_B) > 0; Gaussian pair MI given eta at all-open profile: 0.9722659179291565

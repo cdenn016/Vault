@@ -1,0 +1,15 @@
+B0 validation (sim_core vs lib), 30000 rounds each, batch-means SE over 20 batches
+  T-fast open rate: sim_core 0.388322 +/- 1.1e-03, lib 0.388658 +/- 1.2e-03, z = -0.21
+  T-fast mean p: sim_core 0.091848 +/- 2.9e-05, lib 0.091840 +/- 3.1e-05, z = +0.17
+  T-fast attention deviation: sim_core 0.000042 +/- 2.1e-05, lib 0.000042 +/- 2.1e-05, z = +0.00
+  T-fast: PASS  (11.6s)
+  T-real open rate: sim_core 0.392433 +/- 2.9e-03, lib 0.394866 +/- 2.6e-03, z = -0.63
+  T-real mean p: sim_core 0.091845 +/- 7.6e-05, lib 0.091774 +/- 6.8e-05, z = +0.70
+  T-real attention deviation: sim_core 0.000050 +/- 2.1e-05, lib 0.000059 +/- 1.8e-05, z = -0.30
+  T-real: PASS  (19.5s)
+B1 coupling at gamma = 400 from extreme initial states (rho_bar = 0.734554)
+  T-fast: coupled 200/200; tau median 4, 90% 6, max 11; max post-coupling ratio dp(t+1)/dp(t) = 0.442963 -> PASS (36.4s)
+  T-real: coupled 200/200; tau median 10, 90% 16, max 36; max post-coupling ratio dp(t+1)/dp(t) = 0.444074 -> PASS (46.8s)
+B2 negative control: gamma = inf, T-real, starts at p*(1) = 0.095508, slots e_0 vs e_1
+  B2  gamma=inf: coupled 0/50, slot changes 0 -> FAIL-as-expected (no coupling: invariant law not unique) (62.5s)
+  B2+ gamma=400: coupled 100/100, slot changes 19912 -> PASS (67.6s)
