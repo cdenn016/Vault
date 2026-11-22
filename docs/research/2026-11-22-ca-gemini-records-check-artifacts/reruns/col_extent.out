@@ -1,0 +1,70 @@
+==========================================================================
+SECTION 0: CONVENTION LOCK TEST VALUES
+==========================================================================
+Path n=4 (a=1, eps=0.1): Var=1.250000 (5/4), lam2=0.5857864376, Q=0.8557061686 (exact 0.8557061686)
+Negative control (ddof=1 vs ddof=0): diff = 0.416667 > 0.4 [PASS]
+
+==========================================================================
+SECTION 1: CLAIMS C1 & C2 (SUP Q = 1, EQUALITY CHARACTERIZATION, REALIZABILITY)
+==========================================================================
+[C1/C2a] Isolated pair n=2: Q = 1.000000000000 (margin over pi/sqrt(12): +0.093100)
+[C1/C2a] n=3 range-2 on Z: symbolic evals=[0, 6, 12], raw Q = 1.000000000000
+[C2a] Hypercube Q_2 (n= 4): nn axis Q=1.0000000000, nn diag Q=1.0000000000 (sd=0.7071), level-0 Pi^c axis Q=1.0000000000
+[C2a] Hypercube Q_3 (n= 8): nn axis Q=1.0000000000, nn diag Q=1.0000000000 (sd=0.8660), level-0 Pi^c axis Q=1.0000000000
+[C2a] Hypercube Q_4 (n=16): nn axis Q=1.0000000000, nn diag Q=1.0000000000 (sd=1.0000), level-0 Pi^c axis Q=1.0000000000
+[C2a] Hypercube Q_5 (n=32): nn axis Q=1.0000000000, nn diag Q=1.0000000000 (sd=1.1180), level-0 Pi^c axis Q=1.0000000000
+[C2b] Level-0 collective on 6-site box: r(C)=5.263158 > r_bar_hom=1.527115, signif=3.4465, Q(C)=1.000000000000
+[C2c] 2D isotropic nn Gaussian spindle (sigma=10.0, H0= 6, n= 138): varsigma_x^2=2.0, lam2=0.012834, Q=0.946348 > pi/sqrt(12)
+[C2c] 2D isotropic nn Gaussian spindle (sigma=20.0, H0=12, n= 570): varsigma_x^2=2.0, lam2=0.002930, Q=0.963997 > pi/sqrt(12)
+[C2c] 2D isotropic nn Gaussian spindle (sigma=30.0, H0=18, n=1304): varsigma_x^2=2.0, lam2=0.001242, Q=0.971571 > pi/sqrt(12)
+[C2c-proof] Barta lower bound (sigma=  64.0, H0= 8, M= 2, R= 108): Q_barta=0.921085 > pi/sqrt(12)
+[C2c-proof] Barta lower bound (sigma= 256.0, H0=16, M= 4, R= 430): Q_barta=0.921906 > pi/sqrt(12)
+[C2c-proof] Barta lower bound (sigma=1024.0, H0=32, M= 5, R=1981): Q_barta=0.941770 > pi/sqrt(12)
+[C2-het] Heterogeneous leak n=5 witness (E=  10.0, M=  1000.0): r=1.9165, naive_Q=1.210938 (~sqrt(2E/25)=0.8944)
+[C2-het] Heterogeneous leak n=5 witness (E= 100.0, M= 10000.0): r=1.5417, naive_Q=2.943915 (~sqrt(2E/25)=2.8284)
+[C2-het] Heterogeneous leak n=5 witness (E=1000.0, M=100000.0): r=1.5042, naive_Q=8.981462 (~sqrt(2E/25)=8.9443)
+[C1/C2] Planted-error negative control (wrong upper bound pi/sqrt(12)) properly rejected [PASS]
+
+==========================================================================
+SECTION 2: CLAIM C3 (SHARP SUPREMUM pi/sqrt(12) ON 1D NN PATHS, n >= 3)
+==========================================================================
+[C3] Symbolic dual identity y_k + y_{k+1} = sin^2(pi*k/n), sum y_i = n/4 exact for n=3..6 (and float <1e-14 up to n=25)
+[C3] 1000 random/extreme 1D nn paths (n in [3,40]): max Q/Q_bound(n) = 0.98926219 <= 1, max Q = 0.80772919 < pi/sqrt(12)
+[C3] Negative control (breaking n >= 3 with n = 2): Q = 1.000000 > pi/sqrt(12) [PASS]
+
+==========================================================================
+SECTION 3: CLAIMS C4 & C5 (EXACT HOMOGENEOUS BASELINES ON Z^D & tab:col-baselines)
+==========================================================================
+[C4-D1] Z nearest-neighbor: r(n) < r(2) verified for n=3..200 across 5 leaks
+  [C4-D2] tetromino 2x2_square: lam2=2.000000, cut/n=2.0000, r_star=1.000000
+  [C4-D2] tetromino I4        : lam2=0.585786, cut/n=2.5000, r_star=0.234315
+  [C4-D2] tetromino L4        : lam2=0.585786, cut/n=2.5000, r_star=0.234315
+  [C4-D2] tetromino T4        : lam2=1.000000, cut/n=2.5000, r_star=0.400000
+  [C4-D2] tetromino S4        : lam2=0.585786, cut/n=2.5000, r_star=0.234315
+  [C4-D>=3] D=  3: A_D=0.076967, t0=1.58740, analytic tail r_star_ub=0.885084 < 1
+  [C4-D>=3] D=  4: A_D=0.075026, t0=1.68179, analytic tail r_star_ub=0.661302 < 1
+  [C4-D>=3] D=  5: A_D=0.073516, t0=1.74110, analytic tail r_star_ub=0.531157 < 1
+  [C4-D>=3] D=  6: A_D=0.072301, t0=1.78180, analytic tail r_star_ub=0.445597 < 1
+  [C4-D>=3] D=500: A_D=0.058550, t0=1.99723, analytic tail r_star_ub=0.006639 < 1
+[C5-row2] Z pass (0.3,0.3): 62 sets (n<=6) matched across 2 channels; exact r_hom=55/43=1.2790697674, r*_hom=3/2=1.5 (tail n>=7 <= 1.312500 < 1.5)
+[C5-row3] Z pass (0.1,0.4): 254 sets (n<=8) matched across 2 channels; exact r_hom=(55-4*sqrt(13))/35=1.1593655685, r*_hom=(9-sqrt(13))/4=1.3486121811 (tail n>=9 <= 1.215000)
+[C5-row4] Z pass (0,0.45): exact r_hom=238/157=1.5159235669, r*_hom=2 at (0, 2)
+[C5-row5] Z^2 pass (0.2,0.15): 82246 4-partitions (2<=n<=35) max r*_ub=0.884537 at (6, (0, 2, 2, 2)); tail n>=36 <= 0.845939 < 1 => exact r_hom=1 (50x50 box already has r >= 0.958650 > 0.871)
+[C5] Negative control (Z^2 nn at n=4 where 2x2 attains r*=1): bound = 1.063936 > 1 [PASS]
+
+==========================================================================
+SECTION 4: CLAIM C6 (UNIVERSAL MGF DIAMETER BOUND, SHARPNESS, AND Z^D BOUND)
+==========================================================================
+[C6a] Elementary bound 1 - 1/cosh(Delta) <= Delta^2/2 verified; planted 0.49*Delta^2 rejected [PASS]
+[C6a] Series constant c1 = 1.0846449083 < 4/3 = 1.3333333333
+[C6a] 500 diverse diffusive graphs: max coord ratio=1.000000 <= 1, max metric ratio=0.799322 <= 1, max het-leak ratio=0.999225 <= 1
+[C6b] Double horn (alpha=0.20, M=  200, R= 150, ln n= 37.60): lam2=0.0094032, diam*sqrt(lam2)/ln(n)=0.773610
+[C6b] Double horn (alpha=0.10, M= 1000, R= 500, ln n= 59.90): lam2=0.0024132, diam*sqrt(lam2)/ln(n)=0.820053
+[C6b] Double horn (alpha=0.05, M= 8000, R=1500, ln n= 87.68): lam2=0.0006137, diam*sqrt(lam2)/ln(n)=0.847622
+[C6b] Double horn (alpha=0.02, M=50000, R=5000, ln n=115.42): lam2=0.0000994, diam*sqrt(lam2)/ln(n)=0.863680
+[C6c] 2D isotropic nn horn (alpha=0.10, H0= 2, R=  9, n=  24): lam2_2d=0.032362 >= Hardy_lb=0.000340, diam*sqrt(lam2_2d)=3.2381
+[C6c] 2D isotropic nn horn (alpha=0.05, H0= 5, R= 34, n= 151): lam2_2d=0.003868 >= Hardy_lb=0.000089, diam*sqrt(lam2_2d)=4.2290
+[C6c] 2D isotropic nn horn (alpha=0.03, H0= 8, R= 71, n= 436): lam2_2d=0.001091 >= Hardy_lb=0.000033, diam*sqrt(lam2_2d)=4.6912
+[C6] Negative control (1D constant bound diam <= pi*sigma broken on 2D horn: 4.6912 > 3.1416) [PASS]
+
+ALL CHECKS AND NEGATIVE CONTROLS PASSED.
