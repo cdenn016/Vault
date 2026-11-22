@@ -1,0 +1,51 @@
+=================================================================
+VERIFICATION SUITE FOR open:lrn-strategic (Claims C1 - C6)
+=================================================================
+
+[0] Convention lock test values (SymPy exact rational)
+  Registered scalar test: P=2, R=1, H=1, b=1, m_i=0, w=1 -> Sigma_mhat=4/3, J_S(D=0)=5/3
+  Nash test (w=1/2, b=0): A*=sqrt(1/2), K*A*=1/2
+  KL test (D=1, d=1, Sz=1, m_bar=0): D_KL = 2 - log(2)/2 = 1.6534264097
+
+[1] Claim C1: Stackelberg loss identity, Ky Fan infimum, gradient at D=0
+  Max identity residual across 5 (K,rc) dims: 1.990e-13
+  Max gradient residual at D=0 (FD vs closed form): 2.020e-09
+  Indefinite Gamma_tilde (n_-=2 < r=3): rank-2 A(a=1000) gap to Ky Fan inf = 3.300e-06; 500 random A all > inf
+  Monte Carlo (N=50000): J_mc=26.4353 +/- 0.1051 vs J_th=26.4133 (z=0.21)
+  [NEG-CTRL C1] Dropping W^T M_S shifts J_S by 27.4114 (> 1.0, detected!)
+
+[2] Claim C2: Multivariate water-filling exact closed form
+  Case (full-rank active, K=3, rc=2, lam=0.2): rank=2, J_wf=22.09770002, J_bfgs=22.09770002, gap=1.42e-14
+  Case (partial-rank singular, K=4, rc=3, lam=1.5): rank=2, J_wf=45.81404244, J_bfgs=45.81404244, gap=6.40e-11
+  Case (complete silencing, K=3, rc=3, lam=500.0): rank=0, J_wf=82.37014963, J_bfgs=82.37014963, gap=6.68e-13
+  Case (rc > K, K=2, rc=3, lam=0.1): rank=2, J_wf=5.15392188, J_bfgs=5.15392188, gap=9.15e-14
+  [NEG-CTRL C2] Reversing R-eigenvalue pairing worsens objective by +0.180323 (detected!)
+
+[3] Claim C3: One-shot BR & vector Nash equilibrium (including null-channel Sigma_zeta)
+  One-shot BR (K=3, rc=2): J_br_closed=36.37465290 vs BFGS=36.37465290, diff=1.78e-13
+  Rank-2 partial Nash (K=4, rc=3, b!=0, Sz*!=0): ||K*(Sz=0)-K*(Sz*)||=6.77e-16, J_nash=27.25033838 vs BR_min=27.25033838
+  Scalar Nash vs Stackelberg (w=0.25): J_Nash=0.375000 > J_Stackelberg(silence)=0.125000, diff=0.250000 == w(1-2w)P
+  [NEG-CTRL C3] Non-null Sz=0.5I strictly worsens J_fix by +6.741493 (detected!)
+
+[4] Claim C4: Scalar iterated best-response dynamics (all regimes)
+  w in (0,1): global Lyapunov convergence + telescoping d_n verified to <1e-10
+  w=-0.35: 2-cycle converged to +/-0.35594499 vs A#=0.35594499
+  w=1 (N=2000): A_N/sqrt(2RN/P)=1.000691, d_N/((2/3)b sqrt(2R/P) N^3/2)=1.001079
+  [NEG-CTRL C4] Dropping factor 2 in sqrt(2Rn/P) gives ratio 1.4152 (far from 1, detected!)
+
+[5] Claim C5: No-intercept absorption breakdown (known R vs empirical R)
+  No-intercept OLS (T=80000): ||H_ols-H_th||=0.0040, ||R_ols-R_th||=0.0049, ||mean_res-alpha0*d||=0.0017
+  No-intercept known-R Nash (w=0.4, b=1.2, P=2): receiver MSE=2.6400 > silence risk P=2.0000 (b^2=1.44 > wP=0.80)
+  Universal empirical-R cap: max ratio over 1000 random trials = 0.99989201 (< 1); sharpness at a=2000: 0.9999999897
+  [NEG-CTRL C5] Tightening cap constant 1/2 -> 1/3 is violated by sharpness witness (0.446407 > 0.297605, detected!)
+
+[6] Claim C6: Identifiability, exact KL formula, & stealthy jamming/attenuation tradeoff
+  Max KL residual (closed form vs joint Gaussian, 4 dims): 9.948e-14
+  Singular C_phi: ker(M_2) invisible KL=0.0, confounded (D,d) KL=0.0
+  Stealthy tradeoff (w=0.1, snr0=9, delta=1e-7): red_num/red_th=1.000207, rel_ratio=8.9985 (vs 9.0), kl_share=4.4968 (vs 4.5)
+  Exact KL-constrained amplification (w=0.8, delta=0.5): D_opt=0.50000000 vs exact 0.50000000, Sz_opt=6.07e-17
+  [NEG-CTRL C6] Dropping -ln det(I + R^-1 Sz) shifts KL by +1.243775 (detected!)
+
+=================================================================
+ALL CHECKS AND PLANTED-ERROR NEGATIVE CONTROLS PASSED (EXIT 0).
+=================================================================

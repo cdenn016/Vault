@@ -1,0 +1,41 @@
+=========================================================================
+CHECK 1 (C1): Similarity invariance, n=2 spectral formula, DC & nonconvex
+=========================================================================
+[PASS] Generic n=2,3,4 two-channel & scale-invariance max diff = 1.776e-15
+  n=2, tbar=2: direct=0.156403828353, spectral=0.156403828353, diff=0.00e+00
+  n=2, tbar=3: direct=0.323413717316, spectral=0.323413717316, diff=0.00e+00
+  n=2, tbar=6: direct=0.827166303566, spectral=0.827166303566, diff=7.77e-16
+  n=2, tbar=2 closed-form err=2.78e-17; PLANTED-ERROR (drop cross term) err=2.8077e-03 > 2e-3 [DETECTED]
+[PASS] n=3, tbar=2 analytic nonconvexity: f(w1)=0.765160, f(w2)=0.602193, avg=0.683677 < f(wm)=0.734222 (gap=+0.050545)
+[PASS] n=3, tbar=4 non-quasiconvexity (two-channel verified): f(wa)=0.691123, f(wb)=0.717455, f(wm)=0.729138 > max=0.717455 (gap=+0.011684)
+
+=========================================================================
+CHECK 2 (C2): White-driver exact range, Ray-Projection Collapse,
+              n=2 closed form (V1/V2/V3), n=4 chk:idn-bounds, cycles
+=========================================================================
+  n=2 V1 tbar=2: exact=[0.072321, 0.084464], k=2 spectrahedron=[0.072321, 0.084464], r*=0.8333 in [0.4545,1.3429] (interior_min=True)
+  n=2 V1 tbar=4: exact=[0.236317, 0.276140], k=2 spectrahedron=[0.236317, 0.276140], r*=0.8425 in [0.4545,1.3429] (interior_min=True)
+  n=2 V2 tbar=2: exact=[0.072321, 0.518935], k=2 spectrahedron=[0.072321, 0.518935], r*=0.8333 in [0.0344,2.1347] (interior_min=True)
+  n=2 V2 tbar=4: exact=[0.236317, 1.593544], k=2 spectrahedron=[0.236317, 1.593544], r*=0.8425 in [0.0344,2.1347] (interior_min=True)
+  n=2 V3 tbar=2: exact=[0.072321, 0.518935], k=2 spectrahedron=[0.072321, 0.518935], r*=0.8333 in [0.0344,2.1347] (interior_min=True)
+  n=2 V3 tbar=4: exact=[0.236317, 1.593544], k=2 spectrahedron=[0.236317, 1.593544], r*=0.8425 in [0.0344,2.1347] (interior_min=True)
+[PASS] PLANTED-ERROR (Eckart-Young rank-1 of Q4): ||(Q4 - M_EY1)_off||_F = 0.3791 > 0.1 [NON-DIAGONAL, INFEASIBLE]
+[PASS] PLANTED-ERROR (box corner D=diag(Q4)): min eig(Q4 - D) = -0.6491 < -0.5 [INFEASIBLE]
+  n=4 chk:idn-bounds (tbar=2): eq:idn-bound=0.004942, k=1 exact=0.025361 (singleton!), k=3,4 exact spectrahedron=[0.024508, 0.036820]
+[PASS] Unconstrained DAG (3x3): Omega_int([1e-8, 1e-4, 1], tbar=3) = 2.154e-05 -> 0
+[PASS] Unconstrained 3-cycle: analytical LB = 0.019375 <= min over 2000 random D (12 orders) = 0.073364
+[PASS] Outgoing-tail 1<->2->3 (tbar=2): exact inf = 0.03177006, D33=1e9 gives 0.03177006 (strictly decreasing, unattained!)
+
+=========================================================================
+CHECK 3 (C3): Colored drivers — f(z)=I_2 rank-2, pure-source expansion,
+              and v_crit Jensen+Weierstrass lower bound
+=========================================================================
+[PASS] f(z)=I_2 realized by interacting k=2 colored driver: tr(M)=0.3000=2*eps, min_eig(f_drv)=-1.11e-16, max||f_rec-I_2||=1.11e-16, Omega_int(2)=0.010841 > 0
+[PASS] Pure-source k=1 colored expansion: outside-(2,2) err=2.22e-16, min f_d(z)=0.1042, var_2=0.5446
+       Omega_int(tbar=3) at D=(0.5,0.1): white(A22=0.4)=0.019228 vs colored(A22=0.65)=0.021496
+       Omega_int(tbar=3) at D=(0.5,0.2): white(A22=0.4)=0.038043 vs colored(A22=0.0)=0.035367 (min_f22=0.1061)
+[PASS] v_crit_trace (symmetric     ): grid_opt=0.501859 > Jensen+Weierstrass LB=0.056689 > 0
+[PASS] v_crit_trace (asymmetric    ): grid_opt=0.506521 > Jensen+Weierstrass LB=0.049750 > 0
+[PASS] v_crit_trace (unidirectional): grid_opt=0.487563 > Jensen+Weierstrass LB=0.067561 > 0
+
+ALL PART I CHECKS PASSED.

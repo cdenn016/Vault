@@ -1,0 +1,68 @@
+=================================================================
+CHANNEL 1: SYMBOLIC IDENTITIES & PROOFS (SYMPY)
+=================================================================
+[PASS] Asymmetric scalar closed forms for sig_ij, R_ex0 (|F|<1), R_tr0 (|F|>=1) exact.
+[PASS] Strict non-inversion identities (SNR^1 - SNR* > 0) exact for both |F|<1 and |F|>=1.
+[PASS] Symmetric scalar formulas for 1-rho, signal/S, R_ex0/S, R_tr0/S exact.
+[PASS] Exact Riccati formula for rho, 1-rho = u/D_u, d(rho)/d(lam) = -(delta+lam)/D_u^3, and P0-duality exact.
+[PASS] Amplification/damping thresholds exact: lambda_cross = 1 + 1/sqrt(2), local slope at F=0 = lam*(2-lam)/(lam+1)^3.
+[PASS] Level-1 variance ratio P_act/P_cl = 1 + 2*g^2*S_ij / (g^2*(S_ii+S_jj)+R_c) exact.
+
+=================================================================
+CHANNEL 2: BRUTE-FORCE FINITE-HORIZON KALMAN FILTERING & LIMITS
+=================================================================
+
+--- A. Scalar benchmarks (including chk:mis-dynamic tuples and |F|>=1) ---
+  Static F=0                      : Sij=0.250000, rho=0.500000, V1=0.20273255, Vex=0.07707534, Vbf=0.07707534, |diff|=4.16e-17, V1/Vex=2.630317, Pact/Pcl=1.333333
+  Registered (chk:mis-dynamic #2) : Sij=0.403005, rho=0.646385, V1=0.34657359, Vex=0.14384104, Vbf=0.14384104, |diff|=2.78e-17, V1/Vex=2.409421, Pact/Pcl=1.646385
+  chk:mis-dynamic #1 (asym)       : Sij=0.114603, rho=0.454891, V1=0.35124445, Vex=0.19813724, Vbf=0.19813724, |diff|=1.67e-16, V1/Vex=1.772733, Pact/Pcl=1.381032
+  chk:mis-dynamic #3 (asym)       : Sij=0.050006, rho=0.425387, V1=0.07398199, Vex=0.00550495, Vbf=0.00550495, |diff|=7.98e-17, V1/Vex=13.439175, Pact/Pcl=1.208552
+  Random walk F=1 (sym)           : Sij=0.170820, rho=0.276393, V1=0.34657359, Vex=0.22455445, Vbf=0.22457029, |diff|=1.58e-05, V1/Vex=1.543383, Pact/Pcl=1.276393
+  Random walk F=1 (asym, Rc>0)    : Sij=0.219224, rho=0.350864, V1=0.20993446, Vex=0.08397438, Vbf=0.08398851, |diff|=1.41e-05, V1/Vex=2.499982, Pact/Pcl=1.300658
+  Unstable F=1.2 (asym)           : Sij=0.161922, rho=0.217361, V1=0.18435901, Vex=0.10622464, Vbf=0.10622464, |diff|=1.39e-17, V1/Vex=1.735558, Pact/Pcl=1.175578
+  Unstable F=2.0 (sym)            : Sij=0.042705, rho=0.052786, V1=0.24060591, Vex=0.22088729, Vbf=0.22088729, |diff|=1.11e-16, V1/Vex=1.089270, Pact/Pcl=1.040325
+[PASS] Stationary max |Vex - Vbf| = 1.67e-16; F=1 (T=4000, O(1/T)) max diff = 1.58e-05.
+
+--- B. Generic vector dynamic worlds (K=2, K=3) vs brute force ---
+  K=2, r=1, Rc_scale=0.15: V1=0.6588351670, Vex=0.5714251805, |diff|=2.22e-16, V1/Vex=1.152968
+  K=2, r=2, Rc_scale=0.00: V1=1.2319217694, Vex=1.0693833201, |diff|=2.04e-14, V1/Vex=1.151993
+  K=3, r=2, Rc_scale=0.20: V1=0.6693312963, Vex=0.6077851251, |diff|=3.11e-15, V1/Vex=1.101263
+  K=3, r=3, Rc_scale=0.00: V1=1.4512209999, Vex=1.1959637418, |diff|=6.22e-15, V1/Vex=1.213432
+[PASS] Generic vector max |Vex - Vbf| = 2.04e-14.
+
+--- C. Aligned & isotropic vector exact decompositions ---
+  Isotropic K=3, r=2: Vex_mat=0.424078577858, sum_scalar=0.424078577858, diff=1.67e-16
+                      V1_mat =0.675962314585, sum_scalar=0.675962314585, diff=2.22e-16
+  Aligned K=3, r=2:   Vex_mat=0.148046441974, sum_scalar=0.148046441974, diff=0.00e+00
+
+--- D. Asymptotic limits, non-commutativity, crossover & boundedness ---
+  Crossover c= 0.0, Q/Rs=1e-8: rho=0.499975, limit=0.500000, diff=2.50e-05
+  Crossover c= 0.5, Q/Rs=1e-8: rho=0.621245, limit=0.621268, diff=2.28e-05
+  Crossover c= 1.0, Q/Rs=1e-8: rho=0.723589, limit=0.723607, diff=1.79e-05
+  Crossover c= 2.0, Q/Rs=1e-8: rho=0.853545, limit=0.853553, diff=8.84e-06
+  Crossover c=10.0, Q/Rs=1e-8: rho=0.990290, limit=0.990290, diff=1.89e-07
+  Q=1e-04, F=0.5: Rc=0 ratio/asymp=1.00039998; Rc=0.5 ratio/asymp=1.00013345
+  Q=1e-06, F=0.5: Rc=0 ratio/asymp=1.00000400; Rc=0.5 ratio/asymp=1.00000133
+  Q=1e-08, F=0.5: Rc=0 ratio/asymp=1.00000004; Rc=0.5 ratio/asymp=1.00000001
+  F=1, Q=1e-10, Rc=0:   V1/Vex=2.40940759 < ln(2)/ln(4/3)=2.40942084
+  F=1, Q=1e-10, Rc=1.0: V1/Vex=3.99993500 < 4.00000000
+
+--- E. Vector ratio inversions (verified against brute-force KF) ---
+  K=2 rank-1 (Rs=0.0100): V0=0.34058448, V1=0.03222424, Vex=0.08806411, Vbf=0.08806411, V1/Vex=0.365918, V0/Vex=3.867461
+  K=2 rank-1 (Rs=0.0001): V0=0.00497392, V1=0.00034855, Vex=0.06187414, Vbf=0.06187414, V1/Vex=0.005633, V0/Vex=0.080388
+  K=3 full-rank sensors, Hj=I3, Rc=0: V1=3.3111831960, Vex=3.3494340776, Vbf=3.3494340776, |diff|=2.08e-13, V1/Vex=0.98857990
+  K=3 rank-1 sensors,    Hj=I3, Rc=0: V1=2.0416262326, Vex=2.2077876584, Vbf=2.2077876584, |diff|=9.33e-15, V1/Vex=0.92473849
+
+--- F. Belief-only I(eta_T; y | m_i) vs raw-history I(eta_T; y | s_i(0..T)) ---
+  F=0.0, Q=1.00, Rs=1, Rc=0 (T=25): I(eta;y|m_i)=0.2027325541, I(eta;y|s_i(0..T))=0.2027325541, gap=0.000e+00
+  F=0.8, Q=0.36, Rs=1, Rc=0 (T=25): I(eta;y|m_i)=0.1741533471, I(eta;y|s_i(0..T))=0.1873467247, gap=1.319e-02
+
+=================================================================
+PLANTED-ERROR NEGATIVE CONTROLS (EACH MUST DETECT THE ERROR)
+=================================================================
+[PASS - NEG CONTROL 1] Dropping Delta^pr at F=0.5 gives V_track=0.09728260 vs V_bf=0.14384104 (err=4.6558e-02 > 1e-2).
+[PASS - NEG CONTROL 2] Setting S_ij=0 gives V1=0.34657359 vs V_bf=0.14384104 (err=2.0273e-01 > 1e-1).
+[PASS - NEG CONTROL 3] Flipping sign of S_ij in P_act gives 0.11023512 vs P_bf=0.51324026 (err=4.0301e-01 > 1e-1).
+[PASS - NEG CONTROL 4] Naive static-style claim V1 >= Vex for invertible noiseless code fails by Vex - V1 = 0.166161 > 0.1.
+
+ALL CHECKS AND NEGATIVE CONTROLS PASSED.

@@ -1,0 +1,41 @@
+=========================================================================
+CHECK 4 (C4): Broadcaster KL-closure counterexample (k=2, |E(A)|=n>=3)
+              + Whittle rate channel + private-noise-floor negative ctrl
+=========================================================================
+Broadcaster n=3 (|E(A)|=3 > k=2), window T=15:
+  eps=1e-01: KL_T=1.353e-01, KL_T/T=9.022e-03, Whittle_rate=9.442e-03, TV<=2.601e-01, min_eig(f_d)=7.850e-02
+  eps=1e-02: KL_T=1.495e-03, KL_T/T=9.964e-05, Whittle_rate=1.047e-04, TV<=2.734e-02, min_eig(f_d)=7.987e-03
+  eps=1e-04: KL_T=1.515e-07, KL_T/T=1.010e-08, Whittle_rate=1.062e-08, TV<=2.752e-04, min_eig(f_d)=8.000e-05
+  eps=1e-06: KL_T=1.515e-11, KL_T/T=1.010e-12, Whittle_rate=1.063e-12, TV<=2.753e-06, min_eig(f_d)=8.000e-07
+Broadcaster n=5 (|E(A)|=5 > k=2), window T=15:
+  eps=1e-01: KL_T=5.230e-01, KL_T/T=3.487e-02, Whittle_rate=3.659e-02, TV<=5.114e-01, min_eig(f_d)=7.850e-02
+  eps=1e-02: KL_T=7.126e-03, KL_T/T=4.751e-04, Whittle_rate=5.018e-04, TV<=5.969e-02, min_eig(f_d)=7.987e-03
+  eps=1e-04: KL_T=7.447e-07, KL_T/T=4.964e-08, Whittle_rate=5.248e-08, TV<=6.102e-04, min_eig(f_d)=8.000e-05
+  eps=1e-06: KL_T=7.449e-11, KL_T/T=4.966e-12, Whittle_rate=5.250e-12, TV<=6.103e-06, min_eig(f_d)=8.000e-07
+[PASS] PLANTED-ERROR (private-noise floor d1=0.2 on n=3 broadcaster): det H(1) = -0.1000 = -d1*gamma^2 < 0 [INFEASIBLE, SEPARATION RESTORED]
+
+=========================================================================
+CHECK 5A (C5 Test 1): Exact finite-sample replicate Bonferroni-F test
+                      for H_0^white + thm:idn-path(b) Type-I collapse
+=========================================================================
+[PASS] H_0^white (n=3, n_rep=80, 2000 MC): row-1 exact size=0.0485 (nom 0.05), Bonferroni FWER=0.0435 (<= 0.05)
+[PASS] Driver-free interacting alternative: empirical power = 0.9430
+[PASS] NEGATIVE CONTROL (thm:idn-path(b) confounder, max spectral err=2.04e-15, c=0.1827):
+       Identical recorded path law => white-driver F-test Type-I error = 0.9430 >> 0.05 [COLLAPSE CONFIRMED]
+
+=========================================================================
+CHECK 5B (C5 Test 2): Algebraic Kolmogorov 3-cycle test of H_0(1, inf)
+=========================================================================
+[PASS] Strongly colored rank-1 H_0(1) population check: ||A*_off||_F = 0.4237 > 0.2, yet g(A*) = -4.51e-17 == 0!
+[PASS] Kolmogorov 3-cycle test (T=2000, 300 MC): colored H_0(1) size=0.0633, directed 3-cycle (g=0.04287) power=1.0000
+
+=========================================================================
+CHECK 5C (C5 Test 3): Exact pivotal Bartlett-Wishart Window-GLRT
+                      for H_0(1, inf) on n=2 symmetric A (r_off(A)=1)
+=========================================================================
+[PASS] Pivotal U_{4,200} two-channel check (20000 draws): direct(mean=10.103, q95=18.472) vs Bartlett(mean=10.105, q95=18.533), chi2_10 q95=18.307
+[PASS] Window-GLRT (n=2, W=2, N=1500, q95=18.36, Delta_2=0.02066):
+       Colored H_0(1) null: size=0/25 (0.00), mean stat=2.53 (all <= U_true)
+       Symmetric driver-free alt: power=24/25 (0.96), mean stat=38.20
+
+ALL PART II CHECKS PASSED.
