@@ -1,0 +1,33 @@
+C1 symbolic (n=4): offdiag = -beta/(alpha*(alpha + 4*beta)) ; row sum = 1/(alpha + 4*beta)
+[PASS] C1 offdiag == -beta/(alpha(alpha+4beta)): expected True, got True
+[PASS] C1 row sum == 1/(alpha+4beta): expected True, got True
+[PASS] Sherman-Morrison on 1-direction equals 1: expected True, got True
+[PASS] C1 numeric diffusive (offdiag<=0 and rowsum>=0): expected (True, True), got (True, True)
+   coupling 0.166667 (formula 0.166667); leak 0.333333 (formula 0.333333)
+[PASS] C1 contrast r = 1 + n beta/alpha = 3: expected True, got True
+   r = 3.000000000000, xin = 1.000000 (1/alpha), xout = 0.333333 (1/(alpha+n beta))
+   clause (c) mean-coupling baseline = 2.714286 (formula 2.714286), significance 1.1053
+[PASS] each block is a collective under clause (c) mean coupling (r > baseline): expected True, got True
+[PASS] NEG CONTROL beta=-0.2: offdiag<=0 fails: expected False, got False
+   max offdiag = 1.000000 (formula 1.000000)
+[PASS] Woodbury formula for Pi and for row sums (200 draws, err<1e-9): expected True, got True
+   max error 5.61e-15
+[PASS] THM F(a): G>=0, K^{-1} Z-matrix => Pi offdiag <= 0 (violations in 500 draws): expected 0, got 0
+[PASS] THM F(c): unit indicator loadings + diffusive V^{-1} => Pi diffusive (violations/500): expected 0, got 0
+[PASS] CE1 single factor g=(1,0.1), v=20: offdiag ok, row sum fails: expected (True, False), got (True, False)
+   row sums [-0.03773585  0.89622642]; criterion max g = 1.000 vs (1/v+S2)/S1 = 0.9636
+   CE2 Pi*8 =
+ [[ 5.  1. -2.]
+ [ 1.  5. -2.]
+ [-2. -2.  4.]]
+[PASS] CE2 overlap collider: Pi_12 = +1/8 > 0: expected True, got True
+[PASS] CE2 NEG CONTROL without agent 3: diffusive: expected True, got True
+[PASS] CE3 disjoint supports, V12<0: positive cross entry: expected True, got True
+   Pi_13 = 0.062500
+   CE4 V^-1_13 = 1.2857 (>0: not MTP2); min eig V = 0.1515
+   loading 0.3: Pi_13 = +0.002263
+   loading 1.0: Pi_13 = +0.054878
+   loading 3.0: Pi_13 = +0.069962
+[PASS] CE4 V>=0 entrywise, loading 3: Pi_13 > 0: expected True, got True
+[PASS] MTP2 factors + disjoint supports: offdiag<=0 at all loading strengths (violations): expected 0, got 0
+ALL CHECKS AS EXPECTED
