@@ -1,0 +1,30 @@
+Expectations written BEFORE any script was run (P1 blind recomputation).
+Rough hand estimates from the model parameters (F=0.9, Q=0.05, R=1, R_S=0.01, R_c=0.002, q_c=1e-4, gamma=40).
+
+1. Attention law. The source message (noise 0.012 about eta_t) dominates; a co-member message (noise 1.002)
+   adds ~0.005 nats, i.e. a factor ~exp(40*0.005)~1.2 per co-member set. Expect {S} ~0.21,
+   each {S,m_k} ~0.26, every set without S below ~1e-13 (gap ~0.8 nats * 40).
+2. Sigma^c: members correlated through the common lagged source noise v_S(t-2) (corr ~0.5),
+   source-member correlation small (~0.1) because e_S(t) loads mainly on v_S(t-1).
+   Expect a diffusive precision (not certain), strong member-member couplings, weak S-member couplings,
+   r(A) of order 3-10, A the largest region. Mean-coupling baseline uncertain (could be close to r(A)
+   if the source's leak is small, lower if it is large). Mechanism medium (five R=1 agents) baseline
+   close to 1 (weak couplings through noise-1 raw readings).
+3. Member channels deleted: attention {S} with prob 1-O(1e-15); r(A) close to item 2, a few percent lower
+   (member-member channels add internal coupling).
+4. Cov(e_i,e_j | eta, v_S): small positive (order 1e-5..1e-4), correlation ~0.01-0.05; exactly zero
+   when member channels are deleted (causal separation given eta and v_S).
+5. Memory: Markov defect of the member average of prior means small but nonzero (1e-3..1e-1 nats);
+   closure defect O(0.1-1) nats. q_c scale drops out of both.
+6. Inference: E KL ~ E[(y-m^U)^2]/(2 P^U), expected 1e-2..5e-2 nats; claimed-variance version slightly larger.
+7. N_hab (members read S w.p. 4/11) and N_pr (w.p. 1/2): weaker common mode, r(A) well below item 2
+   (maybe 1.2-3); diffusivity likely kept. N_pr test: if run, p = 1/1000.
+8. N_lp: precision diagonal, r(A)=1 exactly by exchangeability (MC slightly below 1).
+   N_fr under the spec convention (sensing noise of the broadcaster private): the frozen source reading
+   v_S(0) is a persistent common offset of all members, so members strongly correlated and r(A) large,
+   contrary to the table's r<=1 (which assumes broadcast noise in X_sh). With v(0) conditioned, r(A)=1.
+9. Agency: KL(P||E) ~ 4.06, inf KL(P||P_g) ~ 0.02 at large gamma_C (~200-250), index ~0.995.
+10. Box: r(A) changes by ~10-20 percent across the design; admissible r_0 exists if both baselines stay
+    well below min r(A).
+Negative control planned: replica estimator with independent world paths (should return the unconditional
+covariance, inflating all off-diagonal entries by the world common mode), plus exact zero of item 4 under deletion.

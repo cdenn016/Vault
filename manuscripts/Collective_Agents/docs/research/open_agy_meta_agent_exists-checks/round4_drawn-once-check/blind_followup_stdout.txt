@@ -1,0 +1,55 @@
+(a) Monte Carlo of the running filters, twin runs sharing the world path.
+    expectation: |MC - Sigma^c| within about 3 standard errors for every entry.
+  family-1 all-source: 1<-{S} 2<-{S} 3<-{S} 4<-{S}; chains 60000, T=60 (rho(M) <= 0.71 so transient < 1e-17)
+    Sigma^c (exact)   diag: 0.00607184, 0.0075547, 0.0075547, 0.0075547, 0.0075547
+    MC estimate       diag: 0.00613618, 0.00749475, 0.00753155, 0.00757442, 0.00757092
+    exact off-diag (S1,S2,S3,S4,12,13,14,23,24,34): 0.00065888, 0.00065888, 0.00065888, 0.00065888, 0.0040304, 0.0040304, 0.0040304, 0.0040304, 0.0040304, 0.0040304
+    MC    off-diag                                 : 0.00065343, 0.00067917, 0.00067389, 0.00067115, 0.0040022, 0.0040472, 0.0040282, 0.00405, 0.0040201, 0.0040564
+    max |z| over 15 entries = 1.84
+  family-1 chain S->1->2->3->4: 1<-{S} 2<-{1} 3<-{2} 4<-{3}; chains 60000, T=60 (rho(M) <= 0.71 so transient < 1e-17)
+    Sigma^c (exact)   diag: 0.00607184, 0.0075547, 0.0355481, 0.0355481, 0.0355481
+    MC estimate       diag: 0.00613618, 0.00749475, 0.0353694, 0.0354435, 0.0359505
+    exact off-diag (S1,S2,S3,S4,12,13,14,23,24,34): 0.00065888, 0, 0, 0, 0.0006524, 0, 0, 0.011736, 0, 0.011736
+    MC    off-diag                                 : 0.00065343, 4.4485e-05, 3.9639e-05, 3.9774e-06, 0.00046537, -1.8016e-05, 8.2612e-05, 0.011879, -9.9016e-06, 0.011709
+    max |z| over 15 entries = 2.79
+  family-2 S + mutual mate: 1<-{S,2} 2<-{S,1} 3<-{S,4} 4<-{S,3}; chains 60000, T=60 (rho(M) <= 0.71 so transient < 1e-17)
+    Sigma^c (exact)   diag: 0.00607184, 0.00750697, 0.00750697, 0.00750697, 0.00750697
+    MC estimate       diag: 0.00601326, 0.00753539, 0.00755416, 0.00749821, 0.00751996
+    exact off-diag (S1,S2,S3,S4,12,13,14,23,24,34): 0.00065225, 0.00065225, 0.00065225, 0.00065225, 0.004064, 0.0039495, 0.0039495, 0.0039495, 0.0039495, 0.004064
+    MC    off-diag                                 : 0.00060401, 0.00064819, 0.00063884, 0.00060823, 0.0040902, 0.003955, 0.0039643, 0.003966, 0.0039863, 0.0040632
+    max |z| over 15 entries = 1.74
+    MC wall 6.9s
+
+(b) exact selector ties at 1.5 (family 1 and 2): S isolated and a member-transitive automorphism group
+    expectation: every tie is S-isolated with a member-transitive automorphism group.
+  family 1: ties 6; S-isolated patterns 81; min selector over S-isolated = 1.5
+    1<-{2} 2<-{3} 3<-{4} 4<-{1}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{2} 2<-{4} 3<-{1} 4<-{3}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{3} 2<-{1} 3<-{4} 4<-{2}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{3} 2<-{4} 3<-{2} 4<-{1}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{4} 2<-{1} 3<-{2} 4<-{3}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{4} 2<-{3} 3<-{1} 4<-{2}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    smallest S-isolated selector strictly above 1.5: 2.25500251236707
+  family 2: ties 9; S-isolated patterns 81; min selector over S-isolated = 1.5
+    1<-{2,3} 2<-{1,4} 3<-{1,4} 4<-{2,3}: S isolated=True, |Aut|=8, member-transitive=True, MI-degree spread=0.0
+    1<-{2,3} 2<-{1,4} 3<-{2,4} 4<-{1,3}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{2,3} 2<-{3,4} 3<-{1,4} 4<-{1,2}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{2,4} 2<-{1,3} 3<-{1,4} 4<-{2,3}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{2,4} 2<-{1,3} 3<-{2,4} 4<-{1,3}: S isolated=True, |Aut|=8, member-transitive=True, MI-degree spread=0.0
+    1<-{2,4} 2<-{3,4} 3<-{1,2} 4<-{1,3}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{3,4} 2<-{1,3} 3<-{2,4} 4<-{1,2}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{3,4} 2<-{1,4} 3<-{1,2} 4<-{2,3}: S isolated=True, |Aut|=4, member-transitive=True, MI-degree spread=0.0
+    1<-{3,4} 2<-{3,4} 3<-{1,2} 4<-{1,2}: S isolated=True, |Aut|=8, member-transitive=True, MI-degree spread=0.0
+    smallest S-isolated selector strictly above 1.5: 2.04108483037574
+
+(c) distinct largest-regional-contrast values over diffusive patterns (value: #patterns)
+  family 1: 5 distinct values; top 8: 5.384863598: 1; 4.887015083: 9; 3.916953858: 24; 3.427664489: 12; 2.478511848: 8
+  family 2: 11 distinct values; top 8: 5.354126802: 12; 5.300662238: 12; 5.293769768: 24; 5.286763108: 6; 5.226521127: 24; 5.172919382: 12; 5.118595373: 3; 4.402523752: 9
+
+(d) family-2 patterns whose regions with r >= 4.45 are exactly {A} vs 'S + one co-member' patterns
+  |exactly {A}| = 81, |S + co-member| = 81, equal sets: True
+  over S + co-member patterns: r(A) in [5.118595373, 5.354126802], largest other region <= 2.317419961
+  family 1 (r0=4.5) exactly {A}: ['1<-{S} 2<-{S} 3<-{S} 4<-{S}']
+  family-1 all-source: r(A) = 5.38486359768, next region = 2.32595873684
+
+total wall 9.3s

@@ -1,0 +1,303 @@
+Blind recomputation, fixed-attention audience patterns. mp.dps = 50.
+F=0.9 Q=0.05 q_c=0.0001 R_S=0.01 R=1 R_c=0.002
+[validation] compound symmetric alpha=1, beta=0.5, n=4, no cut: r = 3 (expected 3)
+[validation] same block inside a 5-agent population (isolated 5th agent): r_float = 3, r_mp = 3.0
+[validation] random 5x5 precision, C={0,2}: xout 0.153360849581253 vs mean-leak+cut/n 0.153360849581253; xin 0.16298460413762 vs closed form 0.16298460413762
+
+===== steady-state filters (mp50; float64 DARE cross-check) =====
+S (own only): R_obs diag = ['0.01'], Riccati iters 26
+   P^- = [[0.056990880194972, 0.0076565335499689], [., 0.0086072594999654]]  |P^-_mp - P^-_scipy| = 2.1e-17
+   K = [['0.850725949997'], ['0.114292177199']]
+   rho(M) = 0.134346645;  world-conditional Var(eps) = [[0.0060718413931365, 0.00663537932571], [., 0.00747264369523]];  |Var_c + Var_world - P^-| = 1.52e-49
+member reads S: R_obs diag = ['1.0', '0.012'], Riccati iters 29
+   P^- = [[0.094600029076648, 0.049444476751832], [., 0.055038307502035]]  |P^-_mp - P^-_scipy| = 1.4e-17
+   K = [['0.054938307502', '0.697035510366'], ['0.00836442612439', '0.814828638496']]
+   rho(M) = 0.1535200129;  world-conditional Var(eps) = [[0.0075546951307903, 0.00828299458977], [., 0.00930332732196]];  |Var_c + Var_world - P^-| = 9.7e-50
+member reads a member: R_obs diag = ['1.0', '1.002'], Riccati iters 150
+   P^- = [[0.14797798956699, 0.1087533217411], [., 0.12093702415678]]  |P^-_mp - P^-_scipy| = 1.1e-16
+   K = [['0.120837024157', '0.0851444844349'], ['0.0853147734038', '0.0994345691285']]
+   rho(M) = 0.7061021938;  world-conditional Var(eps) = [[0.035548121335039, 0.0393868014834], [., 0.0438631127593]];  |Var_c + Var_world - P^-| = 8.07e-47
+member reads S + member: R_obs diag = ['1.0', '0.012', '1.002'], Riccati iters 29
+   P^- = [[0.094542691196003, 0.049380767995558], [., 0.054967519995065]]  |P^-_mp - P^-_scipy| = 1.4e-17
+   K = [['0.0548675199951', '0.690141311472', '0.00826516540685'], ['0.00828169573766', '0.806771269082', '0.00966193136625']]
+   rho(M) = 0.1522127551;  world-conditional Var(eps) = [[0.0075069668717984, 0.00822996319089], [., 0.00924440354543]];  |Var_c + Var_world - P^-| = 5.88e-50
+member reads two members: R_obs diag = ['1.0', '1.002', '1.002'], Riccati iters 125
+   P^- = [[0.13870954540497, 0.098455050449968], [., 0.10949450049996]]  |P^-_mp - P^-_scipy| = 4.2e-17
+   K = [['0.1093945005', '0.0718144138174', '0.0718144138174'], ['0.071958042645', '0.0838745211441', '0.0838745211441']]
+   rho(M) = 0.6579161219;  world-conditional Var(eps) = [[0.032068585262826, 0.035520650292], [., 0.0395673892134]];  |Var_c + Var_world - P^-| = 5.32e-47
+
+===== Family 1: each member reads one other agent (256 patterns) =====
+[family 1] 256 patterns, wall 0.5s; max rel. dev joint-Lyapunov(float64) vs pairwise-Stein(mp50) over 10x10 eps covariances = 1.21e-15; max Lyapunov residual = 6.94e-18
+--- family 1 all-source pattern: 1<-{S} 2<-{S} 3<-{S} 4<-{S}
+Sigma^c (rows/cols S,1,2,3,4):
+  [  0.006071841393,  0.0006588815851,  0.0006588815851,  0.0006588815851,  0.0006588815851]
+  [ 0.0006588815851,   0.007554695131,   0.004030444989,   0.004030444989,   0.004030444989]
+  [ 0.0006588815851,   0.004030444989,   0.007554695131,   0.004030444989,   0.004030444989]
+  [ 0.0006588815851,   0.004030444989,   0.004030444989,   0.007554695131,   0.004030444989]
+  [ 0.0006588815851,   0.004030444989,   0.004030444989,   0.004030444989,   0.007554695131]
+Pi^c:
+  [     167.1276033,     -5.605066247,     -5.605066247,     -5.605066247,     -5.605066247]
+  [    -5.605066247,      225.7244258,     -58.02387804,     -58.02387804,     -58.02387804]
+  [    -5.605066247,     -58.02387804,      225.7244258,     -58.02387804,     -58.02387804]
+  [    -5.605066247,     -58.02387804,     -58.02387804,      225.7244258,     -58.02387804]
+  [    -5.605066247,     -58.02387804,     -58.02387804,     -58.02387804,      225.7244258]
+diffusive = True; max off-diagonal = -5.6050662465; min row sum = 46.0477254217
+row sums (leaks eps^Pi): 144.7073383, 46.04772542, 46.04772542, 46.04772542, 46.04772542
+r(A) [mp50] = 5.3848635976818;  r(A) [float64] = 5.3848635976818
+leak heterogeneity on A eps_max/eps_mean = 1.0
+largest regional contrasts: {1,2,3,4}=5.384863598; {S,1,2,3,4}=2.325958737; {1,2,3}=2.006984349; {1,2,4}=2.006984349; {1,3,4}=2.006984349; {2,3,4}=2.006984349
+substitute selector = 1.47239383848341
+bipartition ratios: {S,1}|{2,3,4}=1.4723938; {S,2}|{1,3,4}=1.4723938; {S,3}|{1,2,4}=1.4723938; {S,4}|{1,2,3}=1.4723938; {1,2}|{S,3,4}=0.7604972; {1,3}|{S,2,4}=0.7604972; {1,4}|{S,2,3}=0.7604972; {2,3}|{S,1,4}=0.7604972; {2,4}|{S,1,3}=0.7604972; {3,4}|{S,1,2}=0.7604972
+
+===== family 1 summary =====
+number of patterns = 256; diffusive = 54
+patterns with an off-diagonal or row sum within 1e-35*scale of 0 (nonzero): 0
+smallest positive (max off-diag / max diag) among non-diffusive = 0.000967645
+largest (max off-diag / max diag) among diffusive = 0.0
+smallest (min row sum / max diag) among diffusive = 0.0643661
+non-diffusive because of a negative row sum only: 0
+orbits under member relabeling: 19; diffusive orbits: 6
+max within-orbit discrepancy (selector abs / rmax rel) = 1.13e-16
+diffusive patterns by largest regional contrast (top 12 patterns):
+   rmax=5.38486359768 at {1,2,3,4}  r(A)=5.38486359768  1<-{S} 2<-{S} 3<-{S} 4<-{S}
+   rmax=4.88701508271 at {3,4}  r(A)=0.90910716505  1<-{S} 2<-{S} 3<-{4} 4<-{3}
+   rmax=4.88701508271 at {2,3}  r(A)=0.90910716505  1<-{S} 2<-{3} 3<-{2} 4<-{S}
+   rmax=4.88701508271 at {2,4}  r(A)=0.90910716505  1<-{S} 2<-{4} 3<-{S} 4<-{2}
+   rmax=4.88701508271 at {1,2}  r(A)=0.90910716505  1<-{2} 2<-{1} 3<-{S} 4<-{S}
+   rmax=4.88701508271 at {1,2}  r(A)=1  1<-{2} 2<-{1} 3<-{4} 4<-{3}
+   rmax=4.88701508271 at {1,3}  r(A)=0.90910716505  1<-{3} 2<-{S} 3<-{1} 4<-{S}
+   rmax=4.88701508271 at {1,3}  r(A)=1  1<-{3} 2<-{4} 3<-{1} 4<-{2}
+   rmax=4.88701508271 at {1,4}  r(A)=0.90910716505  1<-{4} 2<-{S} 3<-{S} 4<-{1}
+   rmax=4.88701508271 at {1,4}  r(A)=1  1<-{4} 2<-{3} 3<-{2} 4<-{1}
+   rmax=3.91695385833 at {2,3}  r(A)=0.81690422434  1<-{S} 2<-{3} 3<-{2} 4<-{2}
+   rmax=3.91695385833 at {3,4}  r(A)=0.81690422434  1<-{S} 2<-{3} 3<-{4} 4<-{3}
+five largest distinct values of the largest regional contrast (orbit size, attaining region, representative):
+   5.38486359768 [mp50 5.3848635976818]  orbit size 1  region {1,2,3,4}  rep: 1<-{S} 2<-{S} 3<-{S} 4<-{S}
+        member of orbit: 1<-{S} 2<-{S} 3<-{S} 4<-{S}
+   4.88701508271 [mp50 4.8870150827124]  orbit size 6  region {3,4}  rep: 1<-{S} 2<-{S} 3<-{4} 4<-{3}
+        member of orbit: 1<-{S} 2<-{S} 3<-{4} 4<-{3}
+        member of orbit: 1<-{S} 2<-{3} 3<-{2} 4<-{S}
+        member of orbit: 1<-{S} 2<-{4} 3<-{S} 4<-{2}
+        member of orbit: 1<-{2} 2<-{1} 3<-{S} 4<-{S}
+        member of orbit: 1<-{3} 2<-{S} 3<-{1} 4<-{S}
+        member of orbit: 1<-{4} 2<-{S} 3<-{S} 4<-{1}
+   4.88701508271 [mp50 4.8870150827124]  orbit size 3  region {1,2}  rep: 1<-{2} 2<-{1} 3<-{4} 4<-{3}
+        member of orbit: 1<-{2} 2<-{1} 3<-{4} 4<-{3}
+        member of orbit: 1<-{3} 2<-{4} 3<-{1} 4<-{2}
+        member of orbit: 1<-{4} 2<-{3} 3<-{2} 4<-{1}
+   3.91695385833 [mp50 3.9169538583305]  orbit size 24  region {2,3}  rep: 1<-{S} 2<-{3} 3<-{2} 4<-{2}
+        member of orbit: 1<-{S} 2<-{3} 3<-{2} 4<-{2}
+        member of orbit: 1<-{S} 2<-{3} 3<-{2} 4<-{3}
+        member of orbit: 1<-{S} 2<-{3} 3<-{4} 4<-{3}
+        member of orbit: 1<-{S} 2<-{4} 3<-{2} 4<-{2}
+        member of orbit: 1<-{S} 2<-{4} 3<-{4} 4<-{2}
+        member of orbit: 1<-{S} 2<-{4} 3<-{4} 4<-{3}
+        member of orbit: 1<-{2} 2<-{1} 3<-{S} 4<-{1}
+        member of orbit: 1<-{2} 2<-{1} 3<-{S} 4<-{2}
+        member of orbit: 1<-{2} 2<-{1} 3<-{1} 4<-{S}
+        member of orbit: 1<-{2} 2<-{1} 3<-{2} 4<-{S}
+        member of orbit: 1<-{2} 2<-{3} 3<-{2} 4<-{S}
+        member of orbit: 1<-{2} 2<-{4} 3<-{S} 4<-{2}
+        member of orbit: 1<-{3} 2<-{S} 3<-{1} 4<-{1}
+        member of orbit: 1<-{3} 2<-{S} 3<-{1} 4<-{3}
+        member of orbit: 1<-{3} 2<-{S} 3<-{4} 4<-{3}
+        member of orbit: 1<-{3} 2<-{1} 3<-{1} 4<-{S}
+        member of orbit: 1<-{3} 2<-{3} 3<-{1} 4<-{S}
+        member of orbit: 1<-{3} 2<-{3} 3<-{2} 4<-{S}
+        member of orbit: 1<-{4} 2<-{S} 3<-{1} 4<-{1}
+        member of orbit: 1<-{4} 2<-{S} 3<-{4} 4<-{1}
+        member of orbit: 1<-{4} 2<-{S} 3<-{4} 4<-{3}
+        member of orbit: 1<-{4} 2<-{1} 3<-{S} 4<-{1}
+        member of orbit: 1<-{4} 2<-{4} 3<-{S} 4<-{1}
+        member of orbit: 1<-{4} 2<-{4} 3<-{S} 4<-{2}
+   3.42766448929 [mp50 3.4276644892869]  orbit size 12  region {1,2}  rep: 1<-{2} 2<-{1} 3<-{1} 4<-{1}
+        member of orbit: 1<-{2} 2<-{1} 3<-{1} 4<-{1}
+        member of orbit: 1<-{2} 2<-{1} 3<-{2} 4<-{2}
+        member of orbit: 1<-{2} 2<-{3} 3<-{2} 4<-{2}
+        member of orbit: 1<-{2} 2<-{4} 3<-{2} 4<-{2}
+        member of orbit: 1<-{3} 2<-{1} 3<-{1} 4<-{1}
+        member of orbit: 1<-{3} 2<-{3} 3<-{1} 4<-{3}
+        member of orbit: 1<-{3} 2<-{3} 3<-{2} 4<-{3}
+        member of orbit: 1<-{3} 2<-{3} 3<-{4} 4<-{3}
+        member of orbit: 1<-{4} 2<-{1} 3<-{1} 4<-{1}
+        member of orbit: 1<-{4} 2<-{4} 3<-{4} 4<-{1}
+        member of orbit: 1<-{4} 2<-{4} 3<-{4} 4<-{2}
+        member of orbit: 1<-{4} 2<-{4} 3<-{4} 4<-{3}
+patterns with largest regional contrast >= 5.3724: 1; closest value to the threshold: 5.38486359768 [mp50 5.3848635976818] (1<-{S} 2<-{S} 3<-{S} 4<-{S})
+diffusive patterns whose regions with r >= 4.5 are exactly {A}: 1
+   closest regional contrast to r0 over all diffusive patterns/regions: 4.88701508271 [mp50 4.8870150827124] region {3,4} in 1<-{S} 2<-{S} 3<-{4} 4<-{3}
+   region sets with r >= 4.5 among diffusive patterns (set: count): []: 44; ['{1,2,3,4}']: 1; ['{3,4}']: 1; ['{2,3}']: 1; ['{2,4}']: 1; ['{1,2}']: 1; ['{1,2}', '{3,4}']: 1; ['{1,3}']: 1; ['{1,3}', '{2,4}']: 1; ['{1,4}']: 1; ['{1,4}', '{2,3}']: 1
+substitute selector: min = 1.47239383848341, median = 167.373801023916 (order stats 167.373801023916, 167.373801023916), max = inf, max finite = 443.88053541346, #inf = 53, #undefined(0/0) = 0
+selector >= all-source value (1.47239383848341): 256  [strictly greater: 255; equal to 1e-30: 1]; nearest non-tied values: ['1.5', '1.5', '1.5']
+
+===== Family 2: each member reads two other agents (1296 patterns) =====
+[family 2] 1296 patterns, wall 2.5s; max rel. dev joint-Lyapunov(float64) vs pairwise-Stein(mp50) over 10x10 eps covariances = 2.81e-16; max Lyapunov residual = 1.04e-17
+--- family 2 all-S + mutual mate (1<->2, 3<->4): 1<-{S,2} 2<-{S,1} 3<-{S,4} 4<-{S,3}
+Sigma^c (rows/cols S,1,2,3,4):
+  [  0.006071841393,   0.000652247793,   0.000652247793,   0.000652247793,   0.000652247793]
+  [  0.000652247793,   0.007506966872,   0.004063970205,   0.003949494484,   0.003949494484]
+  [  0.000652247793,   0.004063970205,   0.007506966872,   0.003949494484,   0.003949494484]
+  [  0.000652247793,   0.003949494484,   0.003949494484,   0.007506966872,   0.004063970205]
+  [  0.000652247793,   0.003949494484,   0.003949494484,   0.004063970205,   0.007506966872]
+Pi^c:
+  [     167.1000271,     -5.597896143,     -5.597896143,     -5.597896143,     -5.597896143]
+  [    -5.597896143,      226.3339282,     -64.11073281,     -55.05590394,     -55.05590394]
+  [    -5.597896143,     -64.11073281,      226.3339282,     -55.05590394,     -55.05590394]
+  [    -5.597896143,     -55.05590394,     -55.05590394,      226.3339282,     -64.11073281]
+  [    -5.597896143,     -55.05590394,     -55.05590394,     -64.11073281,      226.3339282]
+diffusive = True; max off-diagonal = -5.597896143; min row sum = 46.5134914023
+row sums (leaks eps^Pi): 144.7084426, 46.5134914, 46.5134914, 46.5134914, 46.5134914
+r(A) [mp50] = 5.11859537268656;  r(A) [float64] = 5.11859537268656
+leak heterogeneity on A eps_max/eps_mean = 1.0
+largest regional contrasts: {1,2,3,4}=5.118595373; {S,1,2,3,4}=2.31372927; {1,2,3}=1.921133661; {1,2,4}=1.921133661; {1,3,4}=1.921133661; {2,3,4}=1.921133661
+substitute selector = 1.47250274638988
+bipartition ratios: {S,1}|{2,3,4}=1.4725027; {S,2}|{1,3,4}=1.4725027; {S,3}|{1,2,4}=1.4725027; {S,4}|{1,2,3}=1.4725027; {1,2}|{S,3,4}=0.81263328; {1,3}|{S,2,4}=0.73523927; {1,4}|{S,2,3}=0.73523927; {2,3}|{S,1,4}=0.73523927; {2,4}|{S,1,3}=0.73523927; {3,4}|{S,1,2}=0.81263328
+all 81 patterns in which every member reads S and one co-member:
+   orbit size 12  diffusive=True  r(A)=5.3541268018  selector=1.48968642417  rep: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+   orbit size 12  diffusive=True  r(A)=5.30066223767  selector=1.5058830874  rep: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,2}
+   orbit size 24  diffusive=True  r(A)=5.22652112678  selector=1.52243581948  rep: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,3}
+   orbit size  3  diffusive=True  r(A)=5.11859537269  selector=1.47250274639  rep: 1<-{S,2} 2<-{S,1} 3<-{S,4} 4<-{S,3}
+   orbit size 24  diffusive=True  r(A)=5.29376976824  selector=1.48914576663  rep: 1<-{S,2} 2<-{S,3} 3<-{S,1} 4<-{S,1}
+   orbit size  6  diffusive=True  r(A)=5.28676310759  selector=1.47249489183  rep: 1<-{S,2} 2<-{S,3} 3<-{S,4} 4<-{S,1}
+
+===== family 2 summary =====
+number of patterns = 1296; diffusive = 162
+patterns with an off-diagonal or row sum within 1e-35*scale of 0 (nonzero): 0
+smallest positive (max off-diag / max diag) among non-diffusive = 0.000616412
+largest (max off-diag / max diag) among diffusive = 0.0
+smallest (min row sum / max diag) among diffusive = 0.0585265
+non-diffusive because of a negative row sum only: 0
+orbits under member relabeling: 66; diffusive orbits: 12
+max within-orbit discrepancy (selector abs / rmax rel) = 1.51e-15
+diffusive patterns by largest regional contrast (top 12 patterns):
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,3} 2<-{S,3} 3<-{S,4} 4<-{S,3}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,4} 2<-{S,4} 3<-{S,4} 4<-{S,3}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,4} 2<-{S,4} 3<-{S,4} 4<-{S,2}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,2} 2<-{S,4} 3<-{S,2} 4<-{S,2}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,3} 2<-{S,3} 3<-{S,2} 4<-{S,3}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,4} 2<-{S,4} 3<-{S,4} 4<-{S,1}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,2} 2<-{S,1} 3<-{S,2} 4<-{S,2}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,2} 2<-{S,3} 3<-{S,2} 4<-{S,2}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,3} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,3} 2<-{S,3} 3<-{S,1} 4<-{S,3}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,4} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+   rmax=5.3541268018 at {1,2,3,4}  r(A)=5.3541268018  1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+five largest distinct values of the largest regional contrast (orbit size, attaining region, representative):
+   5.3541268018 [mp50 5.3541268018029]  orbit size 12  region {1,2,3,4}  rep: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,4} 4<-{S,3}
+   5.30066223767 [mp50 5.3006622376735]  orbit size 12  region {1,2,3,4}  rep: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,2} 4<-{S,2}
+   5.29376976824 [mp50 5.293769768243]  orbit size 24  region {1,2,3,4}  rep: 1<-{S,2} 2<-{S,3} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,2} 4<-{S,3}
+   5.28676310759 [mp50 5.2867631075896]  orbit size 6  region {1,2,3,4}  rep: 1<-{S,2} 2<-{S,3} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,1} 4<-{S,2}
+   5.22652112678 [mp50 5.2265211267786]  orbit size 24  region {1,2,3,4}  rep: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,1} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,2} 2<-{S,3} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,2} 2<-{S,4} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,1} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,3} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,1} 4<-{S,3}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,3} 2<-{S,4} 3<-{S,4} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,2} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,1} 3<-{S,4} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,1} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,2} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,2} 4<-{S,3}
+        member of orbit: 1<-{S,4} 2<-{S,3} 3<-{S,4} 4<-{S,1}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,1} 4<-{S,2}
+        member of orbit: 1<-{S,4} 2<-{S,4} 3<-{S,2} 4<-{S,1}
+patterns with largest regional contrast >= 5.3724: 0; closest value to the threshold: 5.3541268018 [mp50 5.3541268018029] (1<-{S,3} 2<-{S,3} 3<-{S,4} 4<-{S,3})
+diffusive patterns whose regions with r >= 4.45 are exactly {A}: 81
+   closest regional contrast to r0 over all diffusive patterns/regions: 4.40252375234 [mp50 4.4025237523363] region {1,2,3,4} in 1<-{2,3} 2<-{1,4} 3<-{2,4} 4<-{1,3}
+   region sets with r >= 4.45 among diffusive patterns (set: count): ['{1,2,3,4}']: 81; []: 69; ['{1,2,3}']: 3; ['{2,3,4}']: 3; ['{1,2,4}']: 3; ['{1,3,4}']: 3
+substitute selector: min = 1.47249489182598, median = 73.109769402692 (order stats 72.6736752710366, 73.5458635343475), max = 820.240016136602, max finite = 820.240016136602, #inf = 0, #undefined(0/0) = 0
+selector >= 1.5 (1.5): 1251  [strictly greater: 1242; equal to 1e-30: 9]; nearest non-tied values: ['1.50588308740416', '1.50588308740416', '1.50588308740416']
+
+[extra] family 1 patterns with selector >= 1.5: 255
+[family 2] patterns with selector equal to 1.5 within 1e-30: 9
+   1<-{2,3} 2<-{1,4} 3<-{1,4} 4<-{2,3}  selector-1.5 = 0.0
+   1<-{2,3} 2<-{1,4} 3<-{2,4} 4<-{1,3}  selector-1.5 = 0.0
+   1<-{2,3} 2<-{3,4} 3<-{1,4} 4<-{1,2}  selector-1.5 = 0.0
+   1<-{2,4} 2<-{1,3} 3<-{1,4} 4<-{2,3}  selector-1.5 = 0.0
+   1<-{2,4} 2<-{1,3} 3<-{2,4} 4<-{1,3}  selector-1.5 = 0.0
+   1<-{2,4} 2<-{3,4} 3<-{1,2} 4<-{1,3}  selector-1.5 = 0.0
+
+===== Negative controls on the family-1 all-source pattern =====
+(i) R_c x 100 = 0.2: expect weaker member-member correlation and r(A) far below the base value.
+Sigma^c:
+  [  0.006071841393,  0.0002505488993,  0.0002505488993,  0.0002505488993,  0.0002505488993]
+  [ 0.0002505488993,    0.02612381898,  0.0007457423334,  0.0007457423334,  0.0007457423334]
+  [ 0.0002505488993,  0.0007457423334,    0.02612381898,  0.0007457423334,  0.0007457423334]
+  [ 0.0002505488993,  0.0007457423334,  0.0007457423334,    0.02612381898,  0.0007457423334]
+  [ 0.0002505488993,  0.0007457423334,  0.0007457423334,  0.0007457423334,    0.02612381898]
+diffusive=True  r(A)=1.07464757522  selector=1.17315205186  |joint-Lyapunov - Stein| = 2.1e-17
+   largest regional contrasts: {1,2,3,4}=1.0746476; {1,2,3}=1.0162217; {1,2,4}=1.0162217; {1,3,4}=1.0162217
+(ii) v_S added to the conditioning set (S's sensing noise treated as sender-side broadcast noise): expect member errors uncorrelated, Pi diagonal on A, r(A) = 1 exactly if leaks equal.
+  [ 0.0001018380776,              0.0,              0.0,              0.0,              0.0]
+  [             0.0,   0.003524250142,              0.0,              0.0,              0.0]
+  [             0.0,              0.0,   0.003524250142,              0.0,              0.0]
+  [             0.0,              0.0,              0.0,   0.003524250142,              0.0]
+  [             0.0,              0.0,              0.0,              0.0,   0.003524250142]
+r(A) = 1.0;  |joint-Lyapunov - Stein| = 3.9e-18
+
+total wall time 3.2s
