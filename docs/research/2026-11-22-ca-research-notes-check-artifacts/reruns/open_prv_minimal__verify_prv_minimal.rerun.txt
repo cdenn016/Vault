@@ -1,0 +1,40 @@
+=== CHECK 1: Block-Cut Channel Protocol (C1) ===
+  tree_8            : n= 7, max_node_pairs=0, bridge_pairs=6, err_ChA=6.04e-14, err_ChB=2.24e-10, storage_match=True
+  unicyclic_C4_tree : n= 8, max_node_pairs=3, bridge_pairs=4, err_ChA=3.55e-14, err_ChB=1.28e-11, storage_match=True
+  barbell_K4        : n=10, max_node_pairs=3, bridge_pairs=3, err_ChA=6.22e-15, err_ChB=6.75e-14, storage_match=True
+  cactus_3tri       : n= 8, max_node_pairs=4, bridge_pairs=1, err_ChA=5.33e-15, err_ChB=9.62e-11, storage_match=True
+  multi_block       : n=11, max_node_pairs=5, bridge_pairs=1, err_ChA=2.84e-14, err_ChB=1.75e-12, storage_match=True
+  [NEG-CTRL 1] omit cut-vertex bump on barbell: err=3.89e+01 (FAILS as expected)
+  [NEG-CTRL 2] tree channel-pair rule on C3:    err=4.67e+01 (FAILS as expected)
+
+=== CHECK 2: Cycle Light-Cone & 2D-Grid Lower Bound (C2) ===
+  C_ 6 (k= 4, m=2): leak=False, grid_match=True, sym_rank=1/1, rec_err=0.00e+00, a+b>=0.500*d
+  C_ 8 (k= 6, m=3): leak=False, grid_match=True, sym_rank=4/4, rec_err=2.78e-16, a+b>=1.333*d
+  C_10 (k= 8, m=4): leak=False, grid_match=True, sym_rank=9/9, rec_err=4.44e-16, a+b>=2.250*d
+  C_12 (k=10, m=5): leak=False, grid_match=True, sym_rank=16/16, rec_err=1.78e-15, a+b>=3.200*d
+  [NEG-CTRL 1] 2k=12 rounds on C_8: leak_to_0=True, leak_to_k1=True (LEAKS as expected)
+  [NEG-CTRL 2] flipped sign in 4-pt difference: err=2.78e+00 (FAILS as expected)
+
+=== CHECK 3: Subset-Union / Local-Connectivity Lower Bound (C3) ===
+  K_{2,4}: all 64 (S,T) pairs exact=True, bijection_ok=True, a+b >= 1.7143*d (> 1.50*d)
+  K_{2,5}: all 256 (S,T) pairs exact=True, bijection_ok=True, a+b >= 2.1333*d (> 2.00*d)
+  Subset-union partition UB (k=4): max_a=3, max_b=3, sum=6 <= k+2=6
+  Subset-union partition UB (k=5): max_a=3, max_b=4, sum=7 <= k+2=7
+  Subset-union partition UB (k=6): max_a=4, max_b=4, sum=8 <= k+2=8
+  [NEG-CTRL] k=4 with a+b=2: max covered=30 < required=32 (CONTRADICTION as expected)
+
+=== CHECK 4 & 5: 2-Connected Dichotomy (C4) & Falsification of Naive Bounds (C5) ===
+  C_6       : |V|= 6, circ= 6, diam=3 <= 3, Delta=2, theta=2, 1+Delta^(circ//2)=9
+  K_5       : |V|= 5, circ= 5, diam=1 <= 2, Delta=4, theta=4, 1+Delta^(circ//2)=17
+  K_{2,5}   : |V|= 7, circ= 4, diam=2 <= 2, Delta=5, theta=5, 1+Delta^(circ//2)=26
+  Wheel_7   : |V|= 7, circ= 7, diam=2 <= 3, Delta=6, theta=3, 1+Delta^(circ//2)=217
+  Prism_5   : |V|=10, circ=10, diam=3 <= 5, Delta=3, theta=3, 1+Delta^(circ//2)=244
+  [NEG-CTRL C4] barbell(3,5) (not 2-connected): circ=3, diam=8 > 1 (VIOLATES bound as expected)
+  [C5 witness] G_4: n=14, fvs<=2 (forest=True), tw=2, circ=8, theta=5 -> LB > 2.0*d = Omega(n)
+  [C5 witness] G_6: n=20, fvs<=2 (forest=True), tw=2, circ=8, theta=7 -> LB > 3.0*d = Omega(n)
+  Bounded-block-size cactus chain (triangles in a path):
+    m= 5, n= 11: Block-Cut max_node_pairs=4 (O(1)) vs prop:prv-clock=11 (Theta(n))
+    m=25, n= 51: Block-Cut max_node_pairs=4 (O(1)) vs prop:prv-clock=51 (Theta(n))
+    m=50, n=101: Block-Cut max_node_pairs=4 (O(1)) vs prop:prv-clock=101 (Theta(n))
+
+ALL CHECKS AND NEGATIVE CONTROLS PASSED.

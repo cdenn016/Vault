@@ -1,0 +1,77 @@
+==============================================================================
+VERIFICATION SUITE: open:coh-amplification-noisy (Claims C1 to C7 + NC1 to NC3)
+==============================================================================
+
+[0] Registered Test Instance (s06_coherence.tex line 121, chk06_coherence.tex line 50)
+  M =     1.0: rho(A_c) = 1.356779 (limit alpha^2*x/(1+r)^2 = 2.677686)
+  M =    10.0: rho(A_c) = 2.358566 (limit alpha^2*x/(1+r)^2 = 2.677686)
+  M =   100.0: rho(A_c) = 2.640995 (limit alpha^2*x/(1+r)^2 = 2.677686)
+  M = 10000.0: rho(A_c) = 2.677313 (limit alpha^2*x/(1+r)^2 = 2.677686)
+
+[1] Claim C1: Exact rational counterexamples for noisy round-trip map bar_A_c = (I - A_{1N}) + A_c
+  Counterexample C1(a) [SymPy exact]:
+    spec(A_c)       = [1/2, 0], rho(A_c) = 1/2 < 1
+    spec(bar_A_c^1) = [1, 7/6], rho(bar_A_c^1) = 7/6 > 1 (amplifies at agent 1!)
+    spec(bar_A_c^2) = [1, 5/6], rho(bar_A_c^2) = 1 == 1 (stable at agent 2!)
+  Counterexample C1(a') [R_i = X_ii satisfying prop:coh-no-amplification(c) on every edge]:
+    rho(A_c)        = 75/1717 = 0.043681 < 1
+    rho(bar_A_c^1)  = 1775/1717 = 1.033780 > 1
+  Counterexample C1(b) [SymPy exact]:
+    spec(A_c)       = [-6/5, 0], rho(A_c) = 6/5 > 1 (cycle product amplifies!)
+    spec(bar_A_c^1) = [1, -7/10], rho(bar_A_c^1) = 1 == 1 (round-trip map does not grow!)
+
+[2] Claim C2 & Negative Control NC1: Return-noiseless round-trip bound across 5000 random cycles
+  Max spectral discrepancy between world bar_A_c and coded M_rt^(1) U {1}: 4.99e-13
+  Violations of C2 return-noiseless bound (5000 trials): 0
+  Violations of rho(bar_A_c) <= 1 under common prior (1000 trials): 0
+  Max ratio rho(bar_A_c) / C2_bound when C2_bound > 1: 0.997602
+  [Negative Control NC1] Planted noisy-edge-N->1 bound violated in 54/4000 heterogeneous trials (PASS: >0)
+
+[3] Claim C3: Full N-agent sequential (T_seq) and synchronous (T_sync) noisy circulation
+  Max characteristic-equation residual for T_sync and T_seq (1000 trials): 1.02e-13
+  Violations of rho(T_sync), rho(T_seq) <= 1 when |tau^circ| <= 1: 0
+  Violations of quadratic Lyapunov energy dissipation E_sync and E_seq (500 trials): 0
+  Persistent N-agent instability under Ex 6.7(i) (tau^circ = 3.24 > 1) at arbitrarily large noises:
+    R_c =   0.1: rho(A_c) = 2.677686, rho(T_sync) = 1.727273 > 1, rho(T_seq) = 2.856611 > 1
+    R_c =   1.0: rho(A_c) = 0.810000, rho(T_sync) = 1.400000 > 1, rho(T_seq) = 1.659337 > 1
+    R_c =   4.0: rho(A_c) = 0.129600, rho(T_sync) = 1.160000 > 1, rho(T_seq) = 1.193249 > 1
+    R_c =  10.0: rho(A_c) = 0.026777, rho(T_sync) = 1.072727 > 1, rho(T_seq) = 1.079074 > 1
+    R_c = 100.0: rho(A_c) = 0.000318, rho(T_sync) = 1.007921 > 1, rho(T_seq) = 1.007992 > 1
+
+[4] Claims C4, C5 & Negative Control NC2: Posterior Edge-Ratio Theorem and dynamic cycles
+  Exact rational witness for C4 [SymPy]:
+    Kalman identity K_ji == tilde_P_j^+ H_i^T R_i^-1 verified exactly: True
+    Edge 1->2 prior ratio r_12 = 440/91 = 4.8352 > 1 (violates prop:coh-no-amplification(c))
+    Edge 1->2 posterior ratio r_12^+ = 79/80 = 0.9875 < 1, r_21^+ = 8209/9100 = 0.9021 < 1
+    Exact rho(A_c) = 171/910 = 0.187912 < 1
+  5000 random cycles with posted posterior covariances:
+    Max Kalman identity error: 3.58e-09
+    Max second-bracket norm error: 3.06e-09
+    Violations of Posterior Edge-Ratio Bound: 0
+    Amplifying cycles (rho(A_c) >= 1): 0/5000
+    Trials where max_e r_e (prior edge ratio) > 1: 4544/5000
+    [Negative Control NC2] Planted over-attenuated posterior bound violated in 3978/5000 trials (PASS: >0)
+  Claim C5: Dynamic cycle with pre-prediction filtered posterior headers vs predicted reception priors:
+    With F = 0.5*I_2, P_i^+ = 0.2*I_2, R_c = 0.1 (header R_i = 0.3), predicted priors Pa, Pb: rho(A_c) = 1.917160 > 1 (exact 3.24 / 1.3^2 = 1.917160)
+
+[5] Claims C6, C7 & Negative Control NC3: Common code of rank >= 2 with sender-specific noises
+  5000 random cycles with common code (r_c >= 2) and proportional noises R_i = alpha_i R_0:
+    Amplifying A_c count: 0/5000 (max rho(A_c) = 0.999983 < 1)
+    Amplifying bar_A_c count (rho(bar_A_c) > 1): 0/5000
+  5000 random cycles with common code (r_c >= 2) and non-proportional noises:
+    Violations of C6(1) cyclic noise-spread bound: 0/5000
+    Violations of C6(2) Kantorovich projective-distance bound: 0/5000
+    Draws meeting C6(1) spread condition: 2465; meeting C6(2) Kantorovich condition: 3501; amplifying among them: 0
+  Claim C7(2) & Negative Control NC3: Exact supremum (sqrt(kappa)+1)^2 / (4*sqrt(kappa)) for non-proportional noises:
+    sqrt(kappa) = 11/10 (kappa =   1.21): achieved rho = 1.00227263, exact sup = 441/440 = 1.00227273
+    sqrt(kappa) = 3/2  (kappa =   2.25): achieved rho = 1.04166655, exact sup = 25/24   = 1.04166667
+    sqrt(kappa) = 2    (kappa =   4.00): achieved rho = 1.12499987, exact sup = 9/8     = 1.12500000
+    sqrt(kappa) = 3    (kappa =   9.00): achieved rho = 1.33333315, exact sup = 4/3     = 1.33333333
+    sqrt(kappa) = 5    (kappa =  25.00): achieved rho = 1.79999972, exact sup = 9/5     = 1.80000000
+    sqrt(kappa) = 10   (kappa = 100.00): achieved rho = 3.02499948, exact sup = 121/40  = 3.02500000
+  [Negative Control NC3] Equal-trace/equal-determinant non-proportional noises amplified in 6/6 cases (PASS: 6/6)
+  N=3 arc construction check (a=1, b=2, kappa_12=4, m=2): achieved rho = 1.12499974 vs 9/8 = 1.12500000
+
+==============================================================================
+ALL VERIFICATION CHECKS AND NEGATIVE CONTROLS PASSED (0 ERRORS).
+==============================================================================

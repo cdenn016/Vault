@@ -1,0 +1,39 @@
+== C4(1): limit law of the 4-checkpoint model, fixed lambda = 4*gamma*delta ==
+ lam=1 gamma=  180 delta=0.001389 sigma_max=0.001389 max|div R|=2.5e-29: P(A,B,C,D)=(0.118611,0.322417,0.322417,0.118611) limit p_lam=0.365529  TV(Pinf,P_lam)=0.1179  [0.4s]
+ lam=1 gamma= 1000 delta=0.00025 sigma_max=0.00025 max|div R|=3.2e-29: P(A,B,C,D)=(0.134466,0.365516,0.365516,0.134466) limit p_lam=0.365529  TV(Pinf,P_lam)=3.672e-5  [0.8s]
+ lam=1 gamma= 4000 delta=6.25e-5 sigma_max=6.25e-5 max|div R|=2.5e-29: P(A,B,C,D)=(0.134471,0.365529,0.365529,0.134471) limit p_lam=0.365529  TV(Pinf,P_lam)=3.437e-18  [1.2s]
+ lam=4 gamma=  180 delta=0.005556 sigma_max=0.005556 max|div R|=2.5e-29: P(A,B,C,D)=(0.00815234,0.445103,0.445103,0.00815234) limit p_lam=0.491007  TV(Pinf,P_lam)=0.09349  [1.6s]
+ lam=4 gamma= 1000 delta=0.001 sigma_max=0.001 max|div R|=3.2e-29: P(A,B,C,D)=(0.00899285,0.490993,0.490993,0.00899285) limit p_lam=0.491007  TV(Pinf,P_lam)=2.832e-5  [2.0s]
+ lam=4 gamma= 4000 delta=0.00025 sigma_max=0.00025 max|div R|=3.2e-29: P(A,B,C,D)=(0.0089931,0.491007,0.491007,0.0089931) limit p_lam=0.491007  TV(Pinf,P_lam)=2.651e-18  [2.4s]
+
+== C4(3): fixed delta=2e-5 (< b/(3*2^7)=2.6e-5), gamma -> infinity ==
+ gamma=  10000 (4*gamma*delta=0.8): P(A,B,C,D)=(0.155013,0.344987,0.344987,0.155013)  2*sqrt(min(pB,pC))-1=0.174712  [2.8s]
+ gamma= 100000 (4*gamma*delta=8.0): P(A,B,C,D)=(0.000167675,0.499832,0.499832,0.000167675)  2*sqrt(min(pB,pC))-1=0.413976  [3.2s]
+ gamma= 400000 (4*gamma*delta=32.0): P(A,B,C,D)=(6.33208e-15,0.5,0.5,6.33208e-15)  2*sqrt(min(pB,pC))-1=0.414214  [3.6s]
+
+== C4(2): cross-ratio P(A)P(D)/(P(B)P(C)) for Class-2 posteriors, generic log-det computation ==
+ 40 random independent-block beliefs (random variances, fields, gamma_C in [0,30]): max |ln cross-ratio| = 1.11e-13
+ control, correlated belief rho=0.5 on (eta_01,eta_45),(eta_23,eta_56): M(A),M(B),M(C),M(D) = 0.12178,3.55e-15,3.55e-15,0.12178 -> ln cross-ratio = -gamma_C*0.24356 (nonzero)
+
+== C4 Step 3: min TV(P_lam, Q) subject to Q(A)Q(D) >= kappa Q(B)Q(C), numerical minimisation vs R(2 sqrt p - R) ==
+ lam=  1.0 kappa=1.00 R=1.0000: claimed lower bound=0.209180  numerical min TV=0.209180  violation=False  planted wrong bound 2sqrt(p)-0.5=0.7092 violated=True
+ lam=  4.0 kappa=1.00 R=1.0000: claimed lower bound=0.401438  numerical min TV=0.401438  violation=False  planted wrong bound 2sqrt(p)-0.5=0.9014 violated=True
+ lam= 12.0 kappa=1.00 R=1.0000: claimed lower bound=0.414209  numerical min TV=0.414209  violation=False  planted wrong bound 2sqrt(p)-0.5=0.9142 violated=True
+ lam=  4.0 kappa=0.80 R=1.0574: claimed lower bound=0.363806  numerical min TV=0.386750  violation=False  planted wrong bound 2sqrt(p)-0.5=0.9014 violated=True
+ lam=  4.0 kappa=0.50 R=1.1892: claimed lower bound=0.252386  numerical min TV=0.351777  violation=False  planted wrong bound 2sqrt(p)-0.5=0.9014 violated=True
+ lam=  1.0 kappa=0.90 R=1.0267: claimed lower bound=0.187361  numerical min TV=0.199074  violation=False  planted wrong bound 2sqrt(p)-0.5=0.7092 violated=True
+
+== Scope test: same slot model, weakly CORRELATED declared belief q_C', product habits, precision gamma_C ==
+ regime ('fix', 100000): gamma=100000 delta=2.0e-5 gamma_C=1*gamma rho=0.01360 M'(A)=8.000e-05 M'(D)=8.000e-05 M'(B)=3.6e-15 M'(C)=3.6e-15
+     sigma_max(q_C')=1.6581e-04 = 8.291*delta ; gamma_C*sigma_max(q_C')=16.581 ; TV(Pinf, Q)=2.2063e-13  vs independent-block lower bound 2sqrt(min(pB,pC))-1=0.41398
+ regime ('fix', 400000): gamma=400000 delta=2.0e-5 gamma_C=1*gamma rho=0.01360 M'(A)=8.000e-05 M'(D)=8.000e-05 M'(B)=3.6e-15 M'(C)=3.6e-15
+     sigma_max(q_C')=1.6581e-04 = 8.291*delta ; gamma_C*sigma_max(q_C')=66.326 ; TV(Pinf, Q)=3.3339e-23  vs independent-block lower bound 2sqrt(min(pB,pC))-1=0.41421
+ regime (4, 1000): gamma=1000 delta=0.001 gamma_C=1*gamma rho=0.09600 M'(A)=4.000e-03 M'(D)=4.000e-03 M'(B)=3.6e-15 M'(C)=3.6e-15
+     sigma_max(q_C')=8.2919e-03 = 8.292*delta ; gamma_C*sigma_max(q_C')=8.292 ; TV(Pinf, Q)=2.71e-5  vs independent-block lower bound 2sqrt(min(pB,pC))-1=0.40142
+ regime (4, 4000): gamma=4000 delta=0.00025 gamma_C=1*gamma rho=0.04807 M'(A)=1.000e-03 M'(D)=1.000e-03 M'(B)=3.6e-15 M'(C)=3.6e-15
+     sigma_max(q_C')=2.0728e-03 = 8.291*delta ; gamma_C*sigma_max(q_C')=8.291 ; TV(Pinf, Q)=1.6466e-13  vs independent-block lower bound 2sqrt(min(pB,pC))-1=0.40144
+ regime (4, 4000): gamma=4000 delta=0.00025 gamma_C=20*gamma rho=0.01075 M'(A)=5.000e-05 M'(D)=5.000e-05 M'(B)=3.6e-15 M'(C)=3.6e-15
+     sigma_max(q_C')=3.0182e-04 = 1.207*delta ; gamma_C*sigma_max(q_C')=24.145 ; TV(Pinf, Q)=2.6747e-12  vs independent-block lower bound 2sqrt(min(pB,pC))-1=0.40144
+ regime (1, 4000): gamma=4000 delta=6.25e-5 gamma_C=20*gamma rho=0.00538 M'(A)=1.250e-05 M'(D)=1.250e-05 M'(B)=3.6e-15 M'(C)=3.6e-15
+     sigma_max(q_C')=7.5454e-05 = 1.207*delta ; gamma_C*sigma_max(q_C')=6.036 ; TV(Pinf, Q)=4.9354e-11  vs independent-block lower bound 2sqrt(min(pB,pC))-1=0.20918
+total 13.7s

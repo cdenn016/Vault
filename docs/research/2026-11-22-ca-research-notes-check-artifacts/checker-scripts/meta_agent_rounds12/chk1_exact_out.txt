@@ -1,0 +1,31 @@
+== C1: exchangeable block alpha I + beta 11^T ==
+ n=2: offdiag == -beta/(alpha(alpha+n beta)): True; row sum == 1/(alpha+n beta): True
+ n=3: offdiag == -beta/(alpha(alpha+n beta)): True; row sum == 1/(alpha+n beta): True
+ n=5: offdiag == -beta/(alpha(alpha+n beta)): True; row sum == 1/(alpha+n beta): True
+ alpha=1, beta=1/2, n=4: r=3; claim 1+n beta/alpha=3 equal=True; planted wrong claim 1+beta/alpha equal=False
+ alpha=3/10, beta=2, n=6: r=41; claim 1+n beta/alpha=41 equal=True; planted wrong claim 1+beta/alpha equal=False
+ alpha=7/5, beta=0, n=3: r=1; claim 1+n beta/alpha=1 equal=True; planted wrong claim 1+beta/alpha equal=True
+ alpha=2, beta=1/100, n=2: r=101/100; claim 1+n beta/alpha=101/100 equal=True; planted wrong claim 1+beta/alpha equal=False
+ beta=-1/5 (> -alpha/n): offdiag = 1 (>0 expected), formula 1
+ two cliques n=4,a=1,eps=1/10: clique r=41; baseline 1+N abar/eps=247/7=35.2857; conventions-row formula 247/7
+  exchangeable medium r(m) increasing in m: True ; r(N) = 247/7
+== C4: Z3 cofactor identity and exact rational draws ==
+ (S^-1)_13 det == s12 s23 - s13 s22: True ; planted (s12 s23 - s13 s11): False
+ exact rational PD Z-matrices: 94 accepted, 50 with a negative row sum; violations Z1,Z3,Z4 = [0, 0, 0]
+ negative control (PD, one positive off-diagonal): min Sigma = -2/15 -> Z1 fails: True
+== C5: CE2 and F-share ==
+ CE2 8*Pi = [[5, 1, -2], [1, 5, -2], [-2, -2, 4]] ; Sigma_12 = 0
+ mixed-sign control: Sigma = [[3, 0, 0], [0, 4, 1], [0, 1, 2]] ; max offdiag Pi = 0
+== C6: lazy ring ==
+ n=4: Pi_13 == closed form: True ; Pi_13 = sigma2*(sigma2 - 2*tau)/(4*tau*(sigma2 + tau)*(sigma2 + 4*tau))
+ n=4: Pi_12 = -sigma2/(4*tau*(sigma2 + tau)) ; row sum = 1/(sigma2 + tau)
+ n=4, sigma2=1: Pi_13 at tau=49/100, 1/2, 51/100: [625/270137, 0, -625/292638]
+ planted wrong threshold tau<sigma2: Pi_13 at tau=3/4 = -1/42 (negative, so sigma2 is not the threshold)
+ kernel of W4^T: [[-1, 1, -1, 1]]
+ n=5: (WW^T)_0d, d=0..2: [3/8, 1/4, 1/16]; max offdiag Pi at tau=1e-3: 11.66; at tau=1e3: -6.236e-08
+ n=6: (WW^T)_0d, d=0..3: [3/8, 1/4, 1/16, 0]; max offdiag Pi at tau=1e-3: 163.9; at tau=1e3: 6.239e-11
+ n=7: (WW^T)_0d, d=0..3: [3/8, 1/4, 1/16, 0]; max offdiag Pi at tau=1e-3: 49.96; at tau=1e3: 3.509e-11
+ n=8: (WW^T)_0d, d=0..4: [3/8, 1/4, 1/16, 0, 0]; max offdiag Pi at tau=1e-3: 124.1; at tau=1e3: 3.119e-11
+ complete averaging: offdiag = -sigma2/(4*tau*(sigma2 + tau)) (<=0); C1 with alpha=tau, beta=sigma2/n gives r=1+sigma2/tau
+ scope control: W=pp^T/|p|^2, p=(1,2): P_K = [[4/5, -2/5], [-2/5, 1/5]] is a Z-matrix although W is not uniform averaging;
+   W=diag(0,1,1): K=span(e_1), P_K=diag(1,0,0) is a Z-matrix. The 'exactly when' of C6 needs 1 perp K.

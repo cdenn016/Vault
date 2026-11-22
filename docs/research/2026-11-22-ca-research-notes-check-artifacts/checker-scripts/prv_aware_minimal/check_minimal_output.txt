@@ -1,0 +1,36 @@
+=== B1: block-cut channel protocol, exact integer simulation ===
+  path_5                   n= 5 exact after every event (4 schedules x 1500 events): True
+  C_6                      n= 6 exact after every event (4 schedules x 1500 events): True
+  K_5                      n= 5 exact after every event (4 schedules x 1500 events): True
+  windmill_4               n= 9 exact after every event (4 schedules x 1500 events): True
+  two_K4+bridge+C5+tail    n=14 exact after every event (4 schedules x 1500 events): True
+  theta+tail+triangle      n= 9 exact after every event (4 schedules x 1500 events): True
+  petersen                 n=10 exact after every event (4 schedules x 1500 events): True
+  K_{2,4}                  n= 6 exact after every event (4 schedules x 1500 events): True
+  planted errors detected: no_cut_bump=True, no_bridge_bump=True, no_cut_bump on windmill=True
+=== B2: C2 light-cone schedule, full-view causal independence (global clock on) ===
+  cycle length  6 (k=4, m=2): views independent=True, D formulas=True, grid=True, bound a_0+a_(k+1) >= d*1/2
+  cycle length  7 (k=5, m=2): views independent=True, D formulas=True, grid=True, bound a_0+a_(k+1) >= d*1/2
+  cycle length  8 (k=6, m=3): views independent=True, D formulas=True, grid=True, bound a_0+a_(k+1) >= d*4/3
+  cycle length  9 (k=7, m=3): views independent=True, D formulas=True, grid=True, bound a_0+a_(k+1) >= d*4/3
+  cycle length 10 (k=8, m=4): views independent=True, D formulas=True, grid=True, bound a_0+a_(k+1) >= d*9/4
+  cycle length 12 (k=10, m=5): views independent=True, D formulas=True, grid=True, bound a_0+a_(k+1) >= d*16/5
+  control (2k rounds, T1=2k): view of vertex k+1 depends on T0: True
+=== B3: C3 schedules ===
+  r != u, steps 1-4, no clock : Phi_S indep of T=True, Psi_T indep of S=True, D_v=S=True, D_r=T=True
+  r == u, steps 1-4, no clock : Phi_S indep of T=True, Psi_T indep of S=True, D_v=S=True, D_r=T=False   <-- D_u = [k], not T
+  r == u, step 2 dropped      : Phi_S indep of T=False, Psi_T indep of S=True, D_v=S=True, D_r=T=True   <-- Phi_S depends on T
+  r != u, steps 1-4, CLOCK on : Phi_S indep of T=False  (the no-clock hypothesis is needed for length-2 paths)
+  gate vertices, edge uv, CLOCK on: Phi_S indep of T=True, Psi_T indep of S=True, sets=True
+=== B4: C3 lemma dim U_L(S,i)+dim U_R(T,i) >= d on admissible families ===
+  partition family k=3, d=1, extra=0: admissible=True, lemma holds=True, a_v+a_r=5 >= 1.714: True
+  partition family k=4, d=1, extra=0: admissible=True, lemma holds=True, a_v+a_r=6 >= 2.133: True
+  partition family k=4, d=2, extra=0: admissible=True, lemma holds=True, a_v+a_r=12 >= 4.267: True
+  partition family k=4, d=2, extra=2: admissible=True, lemma holds=True, a_v+a_r=14 >= 4.267: True
+  partition family k=5, d=1, extra=1: admissible=True, lemma holds=True, a_v+a_r=8 >= 2.581: True
+  control family L_S=span(1_S), R_T=span(1_T), k=4: admissible=False, lemma holds=False, a_v+a_r=2 < 2.133
+  same family at k=2: admissible=True, lemma holds=True, a_v+a_r=2 = ceil(4/3)=2 (bound attained in the relaxation)
+=== B5: C4 inequalities on all 2-connected graphs with <= 7 vertices ===
+  2-connected graphs checked: 538, violations of (diam, Delta, |V|) inequalities: 0, diam bound tight on 178
+  control (not 2-connected) barbell(3,5): diam=8 > circ//2=1
+ALL REVIEWER CHECKS FOR prv_minimal COMPLETED.

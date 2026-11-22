@@ -1,0 +1,61 @@
+=== 0. Convention lock & registered manuscript test instance (obs:hie-record-window) ===
+  PASS: q_rev=0.0625, r(C')=12.950139 (manuscript 12.9501), closed8 delta=0.01 kappa_max=2.650000 (2.649 True, 2.651 False)
+
+=== C1. Closed collective exact closed form & diffusivity interval ===
+  Channel 1 (SymPy): ALL closed-form Lyapunov, det, Pi, row-sum, and marginal-shift identities verified = 0.
+  Channel 2 (Numerical, 200 random closed graphs): max rel err = 4.963e-12, all interval & marginal checks PASS.
+  Witness W1 (SymPy exact K2, delta=0, q_z=0): Pi_01=-19/20, row0=0, rowz=4/5 -> DIFFUSIVE.
+  [NEGATIVE CONTROL CAUGHT]: planted wrong kmax=1+delta/eps=1.5 differs from true 2.65 by 1.15.
+
+=== C2 & C3. Universal upper barrier (cut>0 or delta=0) & noiseless barrier (q_z=0) ===
+  PASS: R*Pi_t + Pi_t*R = 2*eta*u*u^T max rel err = 4.816e-13.
+  PASS: C2 upper barrier verified on 1200/1200 open instances (0 diffusive above q_rev).
+  PASS: C3 noiseless identity & obstruction verified on 300/300 open instances (0 diffusive at q_z=0).
+  [NEGATIVE CONTROL CAUGHT]: dropping factor 2 in Lyapunov identity gives residual 1.4246e-02 > 1e-3.
+
+=== C4. Below q_rev with outsiders: symmetric rigidity + K3 & non-complete K4\{(0,3),(1,3)} exact witnesses ===
+  Witness W2 (SymPy exact K3, delta=0):
+    q_z=q_rev/2: max_off=-0.026770 (<0), min_row=+0.094231 (>0) -> STRICTLY DIFFUSIVE
+    q_z=0      : row0=-0.002849 (<0) -> NOT diffusive
+    q_z=3q_rev/2: Pi_oz=+0.013694 (>0) -> NOT diffusive
+  Witness W2 (SymPy exact K3, delta=1/20):
+    q_z=q_rev/2: max_off=-0.039195 (<0), min_row=+0.078627 (>0) -> STRICTLY DIFFUSIVE
+    q_z=0      : row0=-0.204279 (<0) -> NOT diffusive
+    q_z=3q_rev/2: Pi_oz=+0.016748 (>0) -> NOT diffusive
+  Witness W3 (SymPy exact non-complete K4\{(0,3),(1,3)}, delta=8):
+    q_z=9/10*q_rev : Pi_03=Pi_13=-4.271961e-05 (<0), max_off=-4.271961e-05 (<0), min_row=+1.295555e-01 (>0) -> STRICTLY DIFFUSIVE
+    q_z=11/10*q_rev: Pi_2z=+1.583158e-01 (>0), Pi_3z=+1.630576e-02 (>0) -> NOT diffusive
+  PASS: Symmetric uncoupled pair identity on 0-2-1: exact Pi_01=+9.00577164e-03, integral=+9.00577164e-03 (diff=6.94e-18).
+  [NEGATIVE CONTROL CAUGHT]: flipping sign of eta in symmetric-pair formula gives error 1.8012e-02.
+  PASS: d = D^{-1} 1 check on K3 (beta=10, omega=0.05): (SYS d)_z = +1.444130e-02 (>0), d(r_z)/deta = -2.888259e-01 vs FD -2.888259e-01.
+  [NEGATIVE CONTROL CAUGHT]: using wrong D*1 gives (SYS D*1)_z = -5.413183e-03 (<0, wrong sign).
+
+=== C5. Marginal precision Pi_marg with outsiders & discrete-time comparison ===
+  Witness W4 (SymPy exact 0-2-1 Pi_marg, ratio=  0): diff=True , max_off=-4.120892e-02, min_row=+9.775798e-02
+  Witness W4 (SymPy exact 0-2-1 Pi_marg, ratio=1/2): diff=True , max_off=-7.119547e-02, min_row=+9.917943e-02
+  Witness W4 (SymPy exact 0-2-1 Pi_marg, ratio=  1): diff=True , max_off=-9.090909e-02, min_row=+1.000000e-01
+  Witness W4 (SymPy exact 0-2-1 Pi_marg, ratio=  2): diff=True , max_off=-1.157139e-01, min_row=+7.424621e-02
+  Witness W4 (SymPy exact 0-2-1 Pi_marg, ratio= 10): diff=False, max_off=-1.765245e-01, min_row=-7.794899e-03
+  open16 (delta=0.01) dPi_marg/deta at q_rev: missing C-O (0,9) = +7.444771e-04 (>0), missing O-O (8,10) = -4.221262e-04 (<0) -> breaks on BOTH sides.
+  Witness W6a (SymPy exact discrete K3, delta=0, ratio=      0): diff=True , Pi_oz=-2.856159e-01, min_row=+1.460939e-02
+  Witness W6a (SymPy exact discrete K3, delta=0, ratio=      1): diff=True , Pi_oz=-8.000000e-02, min_row=+2.000000e-02
+  Witness W6a (SymPy exact discrete K3, delta=0, ratio=101/100): diff=True , Pi_oz=-7.937580e-02, min_row=+1.866982e-02
+  Witness W6a (SymPy exact discrete K3, delta=0, ratio=      2): diff=False, Pi_oz=-3.802459e-02, min_row=-4.348593e-02
+  Witness W6b (SymPy exact discrete 0-1-2-3, U psd): at q_rev Pi_3z=0, at 1.01*q_rev Pi_3z=+6.733581e-05 (>0, upper barrier restored).
+  [NEGATIVE CONTROL CAUGHT]: continuous-time upper barrier q_z<=q_rev fails on discrete K3 at ratio=101/100 (diff=True).
+
+=== C6. Q^{-1}-weighted contrast r_W(C') & weighted size bound ===
+  PASS: r_W formula max rel err = 4.353e-14 over 100 random systems.
+  PASS: weighted size bound held on all 100 random systems (max ratio r_W/RHS = 0.3092).
+  PASS: uncoupled global record (n=100, R=10, delta=0): r_W=121.0000 at Var(C)=833.25; local-record path (n=30, R=20): r_W=1.3562 <= 1+lam2/eps=1.5478.
+  [NEGATIVE CONTROL CAUGHT]: dropping 1+R dilution (using Var_C=1 instead of Var_W=1/101) gives RHS=6.0 < actual r_W=11.00 (true weighted RHS=506.0).
+
+=== C7. Typed comparison medium: whole-population exclusion, fibered-lattice bound, and 9-node / 17-node baselines ===
+  PASS: C7(2) whole-population exclusion r(V') <= r_hom(V') verified (Euclidean & weighted) on 100 random typed populations.
+  PASS: C7(3) fibered lattice Z^1 x {A,Z} uniform bound B=64.00 held on 300 random subsets (max r/B = 0.0156).
+  9-node exhaustive baseline (502 regions, eps=0.05): r(C')=25.1250, r_hom_bar=36.3750, sig=0.6907, r_act(V')=3.0276
+  9-node exhaustive baseline (502 regions, eps=0.20): r(C')=10.2000, r_hom_bar=9.9375, sig=1.0264, r_act(V')=1.5093
+  9-node exhaustive baseline (502 regions, eps=0.50): r(C')=4.7727, r_hom_bar=4.1750, sig=1.1432, r_act(V')=1.1895
+  [NEGATIVE CONTROL CAUGHT]: naive single-type leak pooling alters an already-homogeneous agent+record medium by ||dPi||_F=0.0894.
+
+ALL CHECKS AND NEGATIVE CONTROLS PASSED.

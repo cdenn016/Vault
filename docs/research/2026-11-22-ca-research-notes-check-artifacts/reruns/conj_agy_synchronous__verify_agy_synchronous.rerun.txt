@@ -1,0 +1,61 @@
+========================================================================
+CHECK 1: Exact One-Step Residual Identity & Same-Precision Theorem (C1)
+========================================================================
+Gaussian mixed shapes (60 pairs across (2,2,2), (2,3,4), (2,2,2,2)):
+  max |LHS - RHS| = 1.700e-16
+  min positive gap P_next(0,0) - P_C(0,0) = 2.535007e-05
+Synergistic XOR model (unconditional I(o_i;o_j)=0, conditional I(o1;o2|o3)=ln 2):
+  LHS = 4.019918624826e-02, RHS = 4.019918624826e-02, |LHS-RHS| = 3.469e-17
+  TV(P_sync^infty, P_C) = 1.459717e-01
+Zero-redundancy product boundary: RHS = 1.821e-18, TV(P_sync^infty, P_C) = 9.021e-17
+Negative control (gamma = -1.5 < 0 on XOR): LHS = -3.790765e-02, RHS = -3.790765e-02, |LHS-RHS| = 6.939e-18
+Negative control (degenerate GHZ support): TV(P_deg, prod) = 0.7500, fixed under sync = True
+
+========================================================================
+CHECK 2: Binary-Policy Positive Association (C2) & Bipartite Cut
+========================================================================
+60 random binary 3-member models (40 Gaussian + 20 discrete):
+  min Cov_{P_sync^infty}(f, g) over all 324 monotone pairs = +1.166e-16
+  min Cov_{mu_t}(X_i, 1[X_{-i}!=0]) along iterates t=1..10 = +1.221e-15
+  max Cov_{P_C}(X_0, 1[X_{-0}!=0]) when red > 1e-6         = -3.248513e-13
+Negative control (3 policies {0,1,2}, cyclic 3D slots): Cov(1[X0!=0], 1[X_{-0}!=0]) = -1.258900e-03
+Bipartite 3-member path (U={0,2}, W={1}, |A_i|=3, I(o0;o2|o1)=0): TV(P_sync, mu_U x mu_W) = 8.804e-17, TV(P_sync, prod) = 0.000996
+Negative control (mixed collider slot, I(o0;o2)=0 but I(o0;o2|o1)>0): TV(P_sync, mu_U x mu_W) = 8.345266e-04
+
+========================================================================
+CHECK 3: Self-Reproducing 3-Member, 3-Policy Linear-Gaussian Collective (C3)
+========================================================================
+Symbolic Channel A: F(beta0, kappa0, mu0; 0) = (0, 0, 0) exactly.
+Symbolic det(J_0(eps)) = -24*eps**2*(eps - 1)**2/(eps + 1)**2 (nonzero for all eps in (0, 1)).
+Positivity threshold eps_max = 7 - 4*sqrt(3) = 0.071796769724
+
+Explicit 12D linear-Gaussian instance (eps=0.05, delta=0.1, gamma=1.0):
+  B_sol = [[0.100000000000, 0.167275611206], [0.010604706691, 0.100000000000]]
+  gamma_C = 0.010398019508  (ratio gamma_C/gamma = 0.010398019508)
+  Exact habits E = [0.0592408485, 0.4703795758, 0.4703795758]
+  Single-slot EFE g* = -0.1793631340, common noise variance R_s = 0.0535275592
+  SNRs S_mat = [[0.74142385, 1.14241108], [0.16940698, 0.74142385]]
+  TV(P_sync^infty(1), P_C(gamma_C, E, G_C)) [eig]    = 2.078e-16
+  TV(P_sync^infty(1), P_C(gamma_C, E, G_C)) [power]  = 9.590e-17
+  Stationarity residual ||P_C(gamma_C) T - P_C(gamma_C)||_1 = 1.814e-16
+  Detailed-balance residual max |P(x)T(x,y) - P(y)T(y,x)|   = 1.388e-17
+  TV(P_sync^infty(1), P_C(gamma=1, E, G_C)) [C1 gap] = 6.786574e-03
+  TV(P_sync^infty(1), prod of marginals)             = 7.172126e-05
+
+IFT branch verification at eps=0.05 (asymptotic beta0=1.642473, kappa0=0.167051, mu0=0.090476):
+  delta=0.01: b/delta=1.645487, c/delta=0.161138, gamma_C/delta=0.091756, gamma_C=0.00091756, min(B)=0.001611, max|dB|=7.49e-17
+  delta=0.05: b/delta=1.657579, c/delta=0.137070, gamma_C/delta=0.097030, gamma_C=0.00485151, min(B)=0.006854, max|dB|=3.87e-17
+  delta=0.10: b/delta=1.672756, c/delta=0.106047, gamma_C/delta=0.103980, gamma_C=0.01039802, min(B)=0.010605, max|dB|=8.39e-17
+  delta=0.15: b/delta=1.687971, c/delta=0.073988, gamma_C/delta=0.111333, gamma_C=0.01670001, min(B)=0.011098, max|dB|=6.51e-17
+  delta=0.20: b/delta=1.703189, c/delta=0.040909, gamma_C/delta=0.119093, gamma_C=0.02381859, min(B)=0.008182, max|dB|=1.37e-16
+Negative control (B_12 perturbed by +1e-3): TV(P_sync^infty, P_C(gamma_C)) = 7.123849e-05
+
+========================================================================
+CHECK 4: Elementary Closed-Form Reversed-Cycle Collective (C4)
+========================================================================
+gamma=0.2: J_ccw=(0.000365,0.001069,0.000531), TV(P_sync, P_ccw)=2.220e-16, TV(P_sync, P_cw)=0.013296
+gamma=1.0: J_ccw=(0.010588,0.026120,0.013162), TV(P_sync, P_ccw)=2.888e-16, TV(P_sync, P_cw)=0.062936
+gamma=2.0: J_ccw=(0.048688,0.084975,0.046872), TV(P_sync, P_ccw)=2.240e-16, TV(P_sync, P_cw)=0.101860
+gamma=5.0: J_ccw=(0.347732,0.170038,0.137019), TV(P_sync, P_ccw)=2.336e-16, TV(P_sync, P_cw)=0.103485
+
+ALL CHECKS PASSED.

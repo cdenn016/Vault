@@ -1,0 +1,25 @@
+============================================================
+PART 1: Theorem 1 — Frozen Rank-1 Common Code on Directed Graphs
+============================================================
+Tested 1500 arbitrary directed rank-1 common-code instances (N=2..5, K=2..4):
+  max rho(W^rec)                         = 1.000000000000051 (<= 1)
+  max |lambda| among lambda != 1         = 0.9999997798 (< 1 strictly)
+Negative control (two distinct rank-1 codes): rho(W^rec) = 1.180000 (> 1, confirms common-code hypothesis needed)
+
+============================================================
+PART 2: Counterexample 1 — Frozen Symmetric 2-Cycle, Common RANK-2 Code (1 fixed sensor/agent)
+============================================================
+  f=0.9500: rho(W^rec)=1.000193192302, rho(W)=0.950183532687 (TD=0.950183532687), res=5.3e-15 (it=86) -> violates rho(W) <= f
+  f=0.9900: rho(W^rec)=1.000222083041, rho(W)=0.990219862211 (TD=0.990219862211), res=8.9e-15 (it=95) -> violates rho(W) <= f
+  f=0.9999: rho(W^rec)=1.000228814026, rho(W)=1.000128791144 (TD=1.000128791144), res=8.0e-15 (it=103) -> VIOLATES (M): rho(W) > 1!
+  Control (parallel sensors g0=(0.5,0.15), g1=(15,4.5)): rho(W^rec)=1.000000000000 (res=8.9e-15)
+
+============================================================
+PART 3: Counterexample 2 — Period-2 Symmetric 2-Cycle, Common RANK-1 Code (2 world channels/agent)
+============================================================
+  f=0.950: rho_rec=1.017821900196, rho(W^(2))=0.918584264927 (TD=0.918584264927), per-round=0.9584280176, res=0.0e+00 (it=44) -> violates rho(W^(2)) <= f^2
+  f=0.990: rho_rec=1.017235331273, rho(W^(2))=0.996992348180 (TD=0.996992348180), per-round=0.9984950416, res=0.0e+00 (it=57) -> violates rho(W^(2)) <= f^2
+  f=0.995: rho_rec=1.017037885931, rho(W^(2))=1.006892933019 (TD=1.006892933019), per-round=1.0034405478, res=0.0e+00 (it=58) -> VIOLATES (M): rho(W^(2)) > 1!
+  Control (listening switched off, same sensors): rho_rec=0.922206683133 (< 1, confirms level-1 listening causes amplification)
+
+ALL CHECKS PASSED.

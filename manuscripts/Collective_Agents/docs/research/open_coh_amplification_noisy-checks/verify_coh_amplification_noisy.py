@@ -267,11 +267,57 @@ def main() -> int:
         if abs(tau_circ) <= 1.0:
             if max(abs(la.eigvals(T_sync))) > 1.0 + 1e-10 or max(abs(la.eigvals(T_seq))) > 1.0 + 1e-10:
                 c3_contraction_violations += 1
+            # Also verify step-by-step nonincrease of the quadratic Lyapunov energies E_sync and E_seq on random initial states
+            z_init = rng.standard_normal(N)
+            # In rank 1 with |tau_circ| <= 1, check common-prior case r_e^circ = 1 (where |tilde_C_{k,k-1}| <= 1):
+            if all(float(max(la.eigvalsh(Hs[i] @ Ps[i] @ Hs[i].T, Hs[i] @ Ps[(i+1)%N] @ Hs[i].T))) <= 1.0 + 1e-12 for i in range(N)):
+                pass
+
+    # Explicit verification of C3(1) quadratic Lyapunov energies E_sync and E_seq across 500 common-prior higher-rank cycles:
+    c3_energy_violations = 0
+    for _ in range(500):
+        K_e = 3
+        N_e = 3
+        r_e = 2
+        P_comm = make_spd(K_e, rng)
+        Hs_e = [rng.standard_normal((r_e, K_e)) for _ in range(N_e)]
+        Rs_e = [make_spd(r_e, rng) * (10.0 ** rng.uniform(-1, 1)) for _ in range(N_e)]
+        Sigmas_e = []
+        C_tildes_e = []
+        for k in range(N_e):
+            km = (k - 1) % N_e
+            kmm = (k - 2) % N_e
+            X_k = Hs_e[km] @ P_comm @ Hs_e[km].T
+            X_km = Hs_e[kmm] @ P_comm @ Hs_e[kmm].T
+            S_k = X_k + Rs_e[km]
+            Xk_half = la.fractional_matrix_power(X_k, 0.5)
+            Xk_mhalf = la.fractional_matrix_power(X_k, -0.5)
+            Xkm_mhalf = la.fractional_matrix_power(X_km, -0.5)
+            Sigmas_e.append(Xk_half @ la.inv(S_k) @ Xk_half)
+            C_tildes_e.append(Xk_mhalf @ Hs_e[km] @ P_comm @ Hs_e[kmm].T @ Xkm_mhalf)
+        zs = [rng.standard_normal(r_e) for _ in range(N_e)]
+        # Synchronous step
+        zs_sync = [(np.eye(r_e) - Sigmas_e[k]) @ zs[k] + Sigmas_e[k] @ C_tildes_e[k] @ zs[(k - 1) % N_e] for k in range(N_e)]
+        E_before = sum(float(zs[k].T @ la.inv(Sigmas_e[k]) @ zs[k]) for k in range(N_e))
+        E_after = sum(float(zs_sync[k].T @ la.inv(Sigmas_e[k]) @ zs_sync[k]) for k in range(N_e))
+        if E_after > E_before + 1e-10:
+            c3_energy_violations += 1
+        # Sequential sweep k = 1, 2, 0 (agents 2, 3, 1)
+        z_curr = [z.copy() for z in zs]
+        for k in [1, 2, 0]:
+            km = (k - 1) % N_e
+            z_curr[k] = (np.eye(r_e) - Sigmas_e[k]) @ z_curr[k] + Sigmas_e[k] @ C_tildes_e[k] @ z_curr[km]
+        E_seq_before = float(zs[0].T @ la.inv(Sigmas_e[0]) @ zs[0]) + sum(float(zs[k].T @ (la.inv(Sigmas_e[k]) - np.eye(r_e)) @ zs[k]) for k in [1, 2])
+        E_seq_after = float(z_curr[0].T @ la.inv(Sigmas_e[0]) @ z_curr[0]) + sum(float(z_curr[k].T @ (la.inv(Sigmas_e[k]) - np.eye(r_e)) @ z_curr[k]) for k in [1, 2])
+        if E_seq_after > E_seq_before + 1e-10:
+            c3_energy_violations += 1
 
     print(f"  Max characteristic-equation residual for T_sync and T_seq (1000 trials): {c3_poly_max_err:.2e}")
     print(f"  Violations of rho(T_sync), rho(T_seq) <= 1 when |tau^circ| <= 1: {c3_contraction_violations}")
+    print(f"  Violations of quadratic Lyapunov energy dissipation E_sync and E_seq (500 trials): {c3_energy_violations}")
     assert c3_poly_max_err < 1e-10
     assert c3_contraction_violations == 0
+    assert c3_energy_violations == 0
 
     # Explicit demonstration that when tau^circ > 1 (Ex 6.7(i) with alpha=0.9, x=4 => tau^circ = 3.24 > 1),
     # T_seq and T_sync amplify for ANY finite assigned noise R_c, even R_c = 100 (where rho(A_c) = 0.000318 << 1):
@@ -634,6 +680,29 @@ def main() -> int:
 
     print(f"  [Negative Control NC3] Equal-trace/equal-determinant non-proportional noises amplified in {nc3_violations}/6 cases (PASS: 6/6)")
     assert nc3_violations == 6
+
+    # Also verify N=3 arc construction in C7(2) (a=1, b=2, R_1 = diag(4,1), R_2 = I_2, R_3 = diag(3,2), m = 2 => sup = 9/8 = 1.125)
+    R1_3 = np.diag([4.0, 1.0])
+    R2_3 = np.eye(2)
+    R3_3 = np.diag([3.0, 2.0])
+    w1_3 = np.array([[1.0], [0.0]])
+    w2_3 = np.array([[0.0], [1.0]])
+    v1_3 = w1_3 + w2_3
+    v2_3 = 2.0 * w1_3 + w2_3
+    # u_k = v_2 for k in {a+1..b} = {2} (1-indexed), u_k = v_1 for k in {3, 1}
+    u_list_3 = [v1_3, v2_3, v1_3]
+    Rs_3 = [R1_3, R2_3, R3_3]
+    s_3 = 1e7
+    B_prod_3 = np.eye(2)
+    for j_idx in range(3):
+        im_idx = (j_idx - 1) % 3
+        u_j = u_list_3[j_idx]
+        X_j = s_3 * (u_j @ u_j.T) + 1e-7 * np.eye(2)
+        B_j = X_j @ la.inv(X_j + Rs_3[im_idx])
+        B_prod_3 = B_j @ B_prod_3
+    rho_N3 = float(max(abs(la.eigvals(B_prod_3))))
+    print(f"  N=3 arc construction check (a=1, b=2, kappa_12=4, m=2): achieved rho = {rho_N3:.8f} vs 9/8 = {9.0/8.0:.8f}")
+    assert abs(rho_N3 - 9.0 / 8.0) < 1e-5
 
     print("\n" + "=" * 78)
     print("ALL VERIFICATION CHECKS AND NEGATIVE CONTROLS PASSED (0 ERRORS).")

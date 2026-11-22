@@ -1,0 +1,68 @@
+=== SECTION 0: CONVENTION LOCK TEST VALUES ===
+I_red(1) = 0.143841036225890 (exact 0.5*ln(4/3) = 0.143841036225890), v_from_I(I_red(1)) = 1.000000000000000
+TV((0.8,0.2),(0.3,0.7)) = 0.500000000000000
+
+=== SECTION 1: CLAIM C1 (n=2, pure non-potential vs Hodge projection, two channels) ===
+n=2 parameters: I_C=0.5, delta=0.01, h=0.4, eps=0.015 (delta < eps < 2*delta)
+  lem:agy-decomposition verified to <1e-14; Thompson distances: Th_1=0.028271, Th_2=0.028528
+  gamma=   1: P_inf(0,1)=0.27899145, TV(Phi)=0.00152473, TV(Phi_Hodge)=0.00012418, |Ch1-Ch2|=5.55e-17 (cond=6.5e+00)
+  gamma=  10: P_inf(0,1)=0.42238574, TV(Phi)=0.03928000, TV(Phi_Hodge)=0.01842791, |Ch1-Ch2|=2.22e-16 (cond=1.4e+01)
+  gamma=  50: P_inf(0,1)=0.55945540, TV(Phi)=0.24038039, TV(Phi_Hodge)=0.12375107, |Ch1-Ch2|=4.27e-15 (cond=4.5e+02)
+  gamma= 100: P_inf(0,1)=0.62243033, TV(Phi)=0.44002105, TV(Phi_Hodge)=0.24490725, |Ch1-Ch2|=9.90e-13 (cond=4.5e+04)
+  gamma= 200: P_inf(0,1)=0.73105858, TV(Phi)=0.68363270, TV(Phi_Hodge)=0.46211716, |Ch1-Ch2|=1.67e-09 (cond=4.3e+08)
+  gamma= 500: P_inf(0,1)=0.92414182, TV(Phi)=0.92358904, TV(Phi_Hodge)=0.84828364, |Ch1-Ch2|=N/A (float64 underflow)
+  gamma=2000: P_inf(0,1)=0.99995460, TV(Phi)=0.99995460, TV(Phi_Hodge)=0.99990920, |Ch1-Ch2|=N/A (float64 underflow)
+  [NEGATIVE CONTROL eps=0.025 > 2*delta] gamma=2000: P_inf(0,1)=4.5398e-05, TV(Phi)=4.5398e-05 (blowup VANISHES as predicted)
+
+=== SECTION 2: CLAIM C2 (Gear-train topology, harmonicity, LG model, landscape) ===
+Exact Hodge harmonicity on all 16 gear-0 states (hence all 2^n profiles): max|delta^* R|=0.0e+00, max|sum R_i|=0.0e+00
+  m=2, n= 7, dim(eta)= 14: |P_m|=  7 (3*2^m-5), motor_steps= 4 (2^m), cp_steps=[0, 2, 2, 4], n_top=1
+  m=3, n=15, dim(eta)= 66: |P_m|= 19 (3*2^m-5), motor_steps= 8 (2^m), cp_steps=[0, 4, 4, 8], n_top=2
+  m=4, n=23, dim(eta)=134: |P_m|= 43 (3*2^m-5), motor_steps=16 (2^m), cp_steps=[0, 8, 8, 16], n_top=3
+  m=5, n=31, dim(eta)=202: |P_m|= 91 (3*2^m-5), motor_steps=32 (2^m), cp_steps=[0, 16, 16, 32], n_top=4
+  m=6, n=39, dim(eta)=270: |P_m|=187 (3*2^m-5), motor_steps=64 (2^m), cp_steps=[0, 32, 32, 64], n_top=5
+  [NEGATIVE CONTROL dropped 1 wall edge on m=2] is_1D_path=False, stats=(valid,endpts,min_deg,max_deg)=(8, 2, 1, 3)
+  Landscape m=2 (all 128 states): unif V1_gap=0.9000 (>=2*Delta=0.20), cp min_dPhi(P->V1)=0.9000, min_dPhi(B->V1)=0.9100 (>=Delta-b=0.09)
+  Landscape m=3 (all 32768 states): unif V1_gap=0.9000 (>=2*Delta=0.20), cp min_dPhi(P->V1)=0.9000, min_dPhi(B->V1)=0.9000 (>=Delta-b=0.09)
+
+=== SECTION 3: CLAIMS C3 & C4 (m=2, n=7, N=128 full explicit LG model, two channels) ===
+
+--- 3a. Claim C3 (Uniform-cost, fixed lambda = 4*gamma*sigma_max as gamma grows) ---
+  lambda=1.0 (limiting ln(p_end/p_start)=2.0000, limiting TV=0.237818):
+    gamma= 40, sigma_max=0.006250: mass(P_2)=0.985604, ln_ratio=2.000000, TV_Phi=0.236906, |Ch1-Ch2|=1.54e-13
+    gamma= 80, sigma_max=0.003125: mass(P_2)=0.999733, ln_ratio=2.000000, TV_Phi=0.237802, |Ch1-Ch2|=6.03e-12
+    gamma=120, sigma_max=0.002083: mass(P_2)=0.999995, ln_ratio=2.000000, TV_Phi=0.237818, |Ch1-Ch2|=3.59e-10
+  lambda=2.0 (limiting ln(p_end/p_start)=4.0000, limiting TV=0.456896):
+    gamma= 40, sigma_max=0.012500: mass(P_2)=0.988086, ln_ratio=4.000000, TV_Phi=0.455848, |Ch1-Ch2|=1.55e-13
+    gamma= 80, sigma_max=0.006250: mass(P_2)=0.999779, ln_ratio=4.000000, TV_Phi=0.456877, |Ch1-Ch2|=1.30e-11
+    gamma=120, sigma_max=0.004167: mass(P_2)=0.999996, ln_ratio=4.000000, TV_Phi=0.456896, |Ch1-Ch2|=4.00e-10
+  lambda=4.0 (limiting ln(p_end/p_start)=8.0000, limiting TV=0.695298):
+    gamma= 40, sigma_max=0.025000: mass(P_2)=0.992958, ln_ratio=8.000000, TV_Phi=0.694636, |Ch1-Ch2|=5.72e-14
+    gamma= 80, sigma_max=0.012500: mass(P_2)=0.999870, ln_ratio=8.000000, TV_Phi=0.695286, |Ch1-Ch2|=1.25e-11
+    gamma=120, sigma_max=0.008333: mass(P_2)=0.999998, ln_ratio=8.000000, TV_Phi=0.695298, |Ch1-Ch2|=9.92e-10
+
+--- 3b. Claim C4 (4-checkpoint model, b=0.01=Delta/10, Class 2 TV lower bound) ---
+  lambda=1.0 (limiting p_B=p_C=0.365529, analytic LB 2*sqrt(p)-1=0.209180):
+    gamma=100, sigma_max=0.002500: cond=4.5e+07, p(A,B,C,D)=(0.1036,0.2817,0.2817,0.1036), sum=0.7706, 2sqrt(p)-1=0.06148, num_LB=0.16120, |Ch1-Ch2|=2.54e-11
+    gamma=140, sigma_max=0.001786: cond=2.4e+09, p(A,B,C,D)=(0.1121,0.3047,0.3047,0.1121), sum=0.8337, 2sqrt(p)-1=0.10406, num_LB=0.17439, |Ch1-Ch2|=2.36e-09
+    gamma=180, sigma_max=0.001389: cond=1.3e+11, p(A,B,C,D)=(0.1186,0.3224,0.3224,0.1186), sum=0.8821, 2sqrt(p)-1=0.13563, num_LB=0.18451, |Ch1-Ch2|=1.33e-07
+  lambda=2.0 (limiting p_B=p_C=0.440399, analytic LB 2*sqrt(p)-1=0.327251):
+    gamma=100, sigma_max=0.005000: cond=9.2e+07, p(A,B,C,D)=(0.0465,0.3437,0.3437,0.0465), sum=0.7805, 2sqrt(p)-1=0.17255, num_LB=0.25541, |Ch1-Ch2|=6.87e-11
+    gamma=140, sigma_max=0.003571: cond=5.0e+09, p(A,B,C,D)=(0.0501,0.3705,0.3705,0.0501), sum=0.8414, 2sqrt(p)-1=0.21745, num_LB=0.27535, |Ch1-Ch2|=3.81e-09
+    gamma=180, sigma_max=0.002778: cond=2.7e+11, p(A,B,C,D)=(0.0529,0.3910,0.3910,0.0529), sum=0.8878, 2sqrt(p)-1=0.25059, num_LB=0.29054, |Ch1-Ch2|=2.25e-07
+  lambda=4.0 (limiting p_B=p_C=0.491007, analytic LB 2*sqrt(p)-1=0.401438):
+    gamma=100, sigma_max=0.010000: cond=5.4e+08, p(A,B,C,D)=(0.0073,0.3993,0.3993,0.0073), sum=0.8133, 2sqrt(p)-1=0.26386, num_LB=0.32649, |Ch1-Ch2|=3.97e-10
+    gamma=140, sigma_max=0.007143: cond=2.9e+10, p(A,B,C,D)=(0.0078,0.4255,0.4255,0.0078), sum=0.8667, 2sqrt(p)-1=0.30466, num_LB=0.34791, |Ch1-Ch2|=2.85e-08
+    gamma=180, sigma_max=0.005556: cond=1.6e+12, p(A,B,C,D)=(0.0082,0.4451,0.4451,0.0082), sum=0.9065, 2sqrt(p)-1=0.33432, num_LB=0.36391, |Ch1-Ch2|=2.21e-06
+
+  Correlated-q_C trade-off bound R*(2*sqrt(p_lam)-R) at q_C=q_C^* (lambda=4.0, p_lam=0.491007):
+    m=3 (n=15): gamma*sigma_max=0.50000, R=1.28403, R*(2*sqrt(p)-R)=0.15076
+    m=4 (n=23): gamma*sigma_max=0.25000, R=1.13315, R*(2*sqrt(p)-R)=0.30401
+    m=5 (n=31): gamma*sigma_max=0.12500, R=1.06449, R*(2*sqrt(p)-R)=0.35867
+    m=6 (n=39): gamma*sigma_max=0.06250, R=1.03174, R*(2*sqrt(p)-R)=0.38143
+
+--- 3c. Planted-error negative controls ---
+  [NEGATIVE CONTROL potential (+delta,+delta)] max|delta^* R|=0.0800 (!=0), DB_res=2.33e-17, ln(p_end/p_start)=3.06e-11 (0 instead of 8.0)
+  [NEGATIVE CONTROL wrong TV LB at p=0.45] actual TV(P, Q_rank1)=0.341641, true_LB=0.341641 (holds), wrong_LB=0.841641 (VIOLATED!)
+
+ALL CHECKS AND NEGATIVE CONTROLS PASSED.

@@ -1,0 +1,17 @@
+== C7: single exchangeable collective, arbitrary fixed gains (not only Kalman) ==
+ 40 draws: max rel error of (alpha, v, compound symmetry) vs closed form = 6.49e-15
+ planted error (collider term s dropped), min rel discrepancy over draws with |g|>0.1 = 1.59e-03
+ 'diffusive iff r>=1' agreed in 40/40 draws; r = r0*D_fb*D_coll identity asserted in all
+== C8: D_coll<=1 always; D_fb<1 for EFE-consistent gains (bgn = F nc/(1+nc), c>0) ==
+ violations among 20000 EFE-consistent draws: 0; control: arbitrary phi gives D_fb>1 in 9999/20000 (exactly when phi^2>F^2)
+== C3 counterexample E2 (F=.9,Q=.05,R=1,Rc=.02,b=.2,n=4+4,g=(1.5,.2), exact Kalman gains, each ignores the other) ==
+ E2 Rc=0.02: cross in [-0.95605, -0.95605], max offdiag +0.0000e+00, min row sum +10.5767, diffusive=True, r(C1)=10.8551, r(C2)=146.9612
+ E2 Rc=1 (control): cross in [-0.91344, -0.91344], max offdiag +4.3557e+01, min row sum +15.5639, diffusive=False
+ E1 Rc=1 g=(.3,.3): cross in [+0.26804, +0.26804], max offdiag +2.6804e-01, min row sum +28.0237, diffusive=False
+== C3b: sign rule sign(Pi_ij) = sign(phi1 kappa1 phi2 kappa2), no prediction noise ==
+ sign rule agrees in 120/120; cross block == (V^-1)_12/sqrt(n1 n2) to 9.5e-14 (rel. to max|Pi|); planted naive rule sign(kappa1 kappa2) wrong in 70/120
+== C3b corollary: EFE-consistent gains g = a c/(bhat(1+nc)); sign(phi kappa) = sign(b bhat) ==
+ both firms know the sign of their effect: cross entries all > 0 in 60/60; firm 1 misjudges the sign: all < 0 in 60/60
+== C3b with prediction noise: V_12 formula and the condition c0>0, phi1 phi2>0 ==
+ formula vs direct V_12: max error 1.3e-15 (rel. to max|V|); planted 'noise does not change V_12': min discrepancy 1.1e-05
+ rule holds in 73/73 draws with c0>0 and phi1 phi2>0; fails in 65/77 draws outside that condition
